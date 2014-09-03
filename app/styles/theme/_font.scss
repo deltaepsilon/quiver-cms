@@ -1,0 +1,47 @@
+$border-sizes:
+  xx-small 2px,
+  x-small  4px,
+  small    6px,
+  medium   8px,
+  x-medium 10px,
+  large    12px,
+  x-large  14px;
+
+@each $size in $border-sizes {
+  .border-radius-#{nth($size, 1)} {
+    //@include border-radius(nth($size, 2));
+  }
+}
+
+$font-primary: "aktive-grotesk-std", sans-serif;
+$font-sizes:
+  xx-small 0.625rem,
+  x-small  0.75rem,
+  small    0.875rem,
+  medium   1rem,
+  x-medium 1.125rem,
+  large    1.25rem,
+  x-large  2.1875rem;
+
+@each $size in $font-sizes {
+  .text-#{nth($size, 1)} {
+    font-size : nth($size, 2);
+  }
+}
+
+// Circle border.
+.circle {
+  //@include border-corner-radius(50%, 50%);
+}
+
+//@font-face {
+//  font-family: 'Lobster';
+//  font-style: normal;
+//  font-weight: 400;
+//  src: local('Lobster'), url(https://fonts.gstatic.com/s/lobster/v9/NIaFDq6p6eLpSvtV2DTNDQLUuEpTyoUstqEm5AMlJo4.woff) format('woff');
+//}
+
+$font-secondary: "azo-sans-uber";
+.font-secondary {
+  font-family: $font-secondary;
+}

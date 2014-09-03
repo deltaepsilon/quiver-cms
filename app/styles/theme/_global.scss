@@ -1,0 +1,28 @@
+.font-flair {
+  @extend .font-secondary;
+}
+
+// Text Transforms
+.uppercase {
+  text-transform: uppercase;
+}
+
+.lowercase {
+  text-transform: lowercase;
+}
+
+.capitalize {
+  text-transform: capitalize;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.cursor-default {
+  cursor: default;
+
+  &:hover {
+    cursor: default;
+  }
+}

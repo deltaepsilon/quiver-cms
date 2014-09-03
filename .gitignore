@@ -1,0 +1,9 @@
+node_modules
+dist
+.tmp
+.sass-cache
+.idea
+.DS_STORE
+app/lib
+app/env.js
+assets/ssl

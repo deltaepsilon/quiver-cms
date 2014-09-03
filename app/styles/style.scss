@@ -1,0 +1,86 @@
+// Make sure the charset is set appropriately
+@charset "UTF-8";
+
+// Core.
+@import "compass",
+"compass/reset",
+"compass/css3/box-shadow",
+"compass/css3/opacity",
+"compass/css3/transform",
+"compass/css3/user-interface",
+"compass/utilities/general/clearfix";
+
+
+// Theme
+@import
+"theme/color",
+"theme/font",
+"theme/spacing",
+"theme/global";
+
+// Imports
+@import "imports/mixins",
+"imports/retina-sprites",
+"imports/sprites";
+
+
+// Behold, here are all the Foundation components.
+@import "settings";
+
+@import
+//"../lib/foundation/scss/foundation/components/accordion",
+//"../lib/foundation/scss/foundation/components/alert-boxes",
+"../lib/foundation/scss/foundation/components/block-grid",
+//"../lib/foundation/scss/foundation/components/breadcrumbs",
+"../lib/foundation/scss/foundation/components/button-groups",
+"../lib/foundation/scss/foundation/components/buttons",
+"../lib/foundation/scss/foundation/components/clearing",
+//"../lib/foundation/scss/foundation/components/dropdown",
+//"../lib/foundation/scss/foundation/components/dropdown-buttons",
+//"../lib/foundation/scss/foundation/components/flex-video",
+"../lib/foundation/scss/foundation/components/forms",
+"../lib/foundation/scss/foundation/components/grid",
+"../lib/foundation/scss/foundation/components/inline-lists",
+//"../lib/foundation/scss/foundation/components/joyride",
+//"../lib/foundation/scss/foundation/components/keystrokes",
+//"../lib/foundation/scss/foundation/components/labels",
+//"../lib/foundation/scss/foundation/components/magellan",
+//"../lib/foundation/scss/foundation/components/orbit",
+//"../lib/foundation/scss/foundation/components/pagination",
+//"../lib/foundation/scss/foundation/components/panels",
+//"../lib/foundation/scss/foundation/components/pricing-tables",
+//"../lib/foundation/scss/foundation/components/progress-bars",
+//"../lib/foundation/scss/foundation/components/reveal",
+//"../lib/foundation/scss/foundation/components/side-nav",
+//"../lib/foundation/scss/foundation/components/split-buttons",
+//"../lib/foundation/scss/foundation/components/sub-nav",
+//"../lib/foundation/scss/foundation/components/switch",
+//"../lib/foundation/scss/foundation/components/tables",
+//"../lib/foundation/scss/foundation/components/tabs",
+//"../lib/foundation/scss/foundation/components/thumbs",
+//"../lib/foundation/scss/foundation/components/tooltips",
+"../lib/foundation/scss/foundation/components/type",
+"../lib/foundation/scss/foundation/components/top-bar",
+//"../lib/foundation/scss/foundation/components/offcanvas",
+"../lib/foundation/scss/foundation/components/visibility"
+;
+
+// FontAwesome Imports
+$fa-font-path: "../lib/font-awesome/fonts";
+@import "../lib/font-awesome/scss/variables",
+"../lib/font-awesome/scss/path",
+"../lib/font-awesome/scss/core",
+"../lib/font-awesome/scss/icons";
+
+// Modules
+@import
+"modules/block-form",
+"modules/buttons",
+"modules/footer",
+"modules/forms",
+"modules/inline-list",
+"modules/layout",
+"modules/notifications",
+"modules/reveal-modal",
+"modules/table-list",
+"modules/top-bar";

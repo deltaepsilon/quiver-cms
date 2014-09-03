@@ -1,0 +1,12 @@
+<footer class="footer background-gray text-primary2">
+    <section class="row">
+        <div class="column small-12 padding-vertical-small">
+            <ul class="footer-links inline-list link-secondary4 link-hover-secondary1">
+                <li><a class="footer-title font-flair font-large" ui-sref="master.nav.landing">Quiver CMS</a></li>
+                <li ng-show="currentUser && environment === 'development'"><a ui-sref="master.admin.landing">Admin</a></li>
+                <li><a ui-sref="content({slug: 'contact'})">Contact Us</a></li>
+            </ul>
+        </div>
+    </section>
+
+</footer>

@@ -1,0 +1,19 @@
+<form name="resetForm" class="column small-12 medium-6 medium-centered">
+    <h3 class="font-flair">Reset Password</h3>
+
+    <fieldset>
+        <input type="email" ng-model="email" placeholder="Email..." required/>
+
+        <ul class="inline-list">
+            <li>
+                <button ng-click="resetPassword(email)" ng-disabled="resetForm.$invalid">Send Reset Email</button>
+            </li>
+            <li>
+                <a ui-sref="master.nav.login">Log In</a>
+            </li>
+            <li>
+                <a ui-sref="master.nav.register">Register</a>
+            </li>
+        </ul>
+    </fieldset>
+</form>

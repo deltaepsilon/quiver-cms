@@ -1,0 +1,21 @@
+<form name="loginForm" class="column small-12 medium-6 medium-centered">
+    <h3 class="font-flair">Log In</h3>
+
+    <fieldset>
+        <input type="email" ng-model="email" placeholder="Email..." required/>
+        <input type="password" ng-model="password" placeholder="Password..." required/>
+
+        <ul class="inline-list">
+            <li>
+                <button ng-click="logIn(email, password)" ng-disabled="loginForm.$invalid">Login</button>
+            </li>
+            <li>
+                <a ui-sref="master.nav.register">Register</a>
+            </li>
+            <li>
+                <a ui-sref="master.nav.reset">Reset Password</a>
+            </li>
+        </ul>
+    </fieldset>
+</form>
+
