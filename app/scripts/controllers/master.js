@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('quiverCmsApp')
-  .controller('MasterCtrl', function ($scope, currentUser, env, UserService, NotificationService, $state) {
+  .controller('MasterCtrl', function ($scope, currentUser, env, UserService, NotificationService, $state, md5) {
     var loggedOutStates = ['master.nav.login', 'master.nav.register', 'master.nav.reset'],
       toLanding = function () {
         $state.go('master.nav.landing');
@@ -26,6 +26,8 @@ angular.module('quiverCmsApp')
     };
 
     $scope.setCurrentUser(currentUser);
+
+    $scope.gravatar = "https://www.gravatar.com/avatar/" + md5.createHash($scope.currentUser.email);
 
 
 

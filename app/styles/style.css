@@ -1306,7 +1306,7 @@ body {
   color: #222222;
   padding: 0;
   margin: 0;
-  font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+  font-family: "aktiv-grotesk-std" "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
   font-weight: normal;
   font-style: normal;
   line-height: 24px;
@@ -1923,7 +1923,7 @@ button, .button {
   border-style: solid;
   border-width: 0px;
   cursor: pointer;
-  font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+  font-family: "aktiv-grotesk-std" "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
   font-weight: normal;
   line-height: normal;
   margin: 0 0 1.25rem;
@@ -5305,7 +5305,7 @@ p aside {
 /* Default header styles */
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/lib\/foundation\/scss\/foundation\/components\/_type\.scss}line{font-family:\00003252}}
 h1, h2, h3, h4, h5, h6 {
-  font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+  font-family: "aktiv-grotesk-std" "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
   font-weight: normal;
   font-style: normal;
   color: #222222;
@@ -5917,7 +5917,7 @@ meta.foundation-mq-topbar {
   color: white;
   padding: 12px 0 12px 0;
   padding-left: 15px;
-  font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+  font-family: "aktiv-grotesk-std" "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
   font-size: 0.8125rem;
   font-weight: normal;
   text-transform: none;
@@ -9474,55 +9474,64 @@ button.callout:active, button.callout:focus, .button.callout:active, .button.cal
   max-width: 80rem;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/modules\/_notifications\.scss}line{font-family:\0000310}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/modules\/_notifications\.scss}line{font-family:\000031}}
+#notifications-wrapper {
+  position: fixed;
+  width: 20rem;
+  left: 50%;
+  margin-left: -10rem;
+  z-index: 99;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/modules\/_notifications\.scss}line{font-family:\0000318}}
 .notifications .notify {
   color: white;
   background-color: #076391;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/modules\/_notifications\.scss}line{font-family:\000036}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/modules\/_notifications\.scss}line{font-family:\0000314}}
 .notifications .notify h3 {
   color: white;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/modules\/_notifications\.scss}line{font-family:\0000314}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/modules\/_notifications\.scss}line{font-family:\0000322}}
 .notifications .error {
   color: white;
   background-color: #a00934;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/modules\/_notifications\.scss}line{font-family:\000036}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/modules\/_notifications\.scss}line{font-family:\0000314}}
 .notifications .error h3 {
   color: white;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/modules\/_notifications\.scss}line{font-family:\0000318}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/modules\/_notifications\.scss}line{font-family:\0000326}}
 .notifications .success {
   color: white;
   background-color: #4a910a;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/modules\/_notifications\.scss}line{font-family:\000036}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/modules\/_notifications\.scss}line{font-family:\0000314}}
 .notifications .success h3 {
   color: white;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/modules\/_notifications\.scss}line{font-family:\0000322}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/modules\/_notifications\.scss}line{font-family:\0000330}}
 .notifications .warning {
   color: white;
   background-color: #fc0272;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/modules\/_notifications\.scss}line{font-family:\000036}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/modules\/_notifications\.scss}line{font-family:\0000314}}
 .notifications .warning h3 {
   color: white;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/modules\/_notifications\.scss}line{font-family:\0000326}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/modules\/_notifications\.scss}line{font-family:\0000334}}
 .notifications .dr-notification-wrapper {
   opacity: .95;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/modules\/_notifications\.scss}line{font-family:\0000330}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/modules\/_notifications\.scss}line{font-family:\0000338}}
 .notifications .dr-notification-image {
   display: none;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/modules\/_notifications\.scss}line{font-family:\0000334}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/modules\/_notifications\.scss}line{font-family:\0000342}}
 .notifications .dr-notification-content {
   padding: 0.5rem;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/modules\/_notifications\.scss}line{font-family:\0000341}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/modules\/_notifications\.scss}line{font-family:\0000349}}
 .notifications .dr-notification-content p {
   margin: 0;
 }
@@ -9539,4 +9548,10 @@ button.callout:active, button.callout:focus, .button.callout:active, .button.cal
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/modules\/_top-bar\.scss}line{font-family:\000031}}
 .top-bar.stretchy {
   height: inherit;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/modules\/_top-bar\.scss}line{font-family:\000036}}
+.top-bar .gravatar {
+  max-height: 30px;
+  margin: -2px 1rem 0;
 }

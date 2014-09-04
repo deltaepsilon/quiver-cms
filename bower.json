@@ -11,7 +11,8 @@
     "angular-markdown-editable": "~0.0.4",
     "angular-slugify": "~1.0.0",
     "restangular": "~1.4.0",
-    "angular-ui-router": "~0.2.11"
+    "angular-ui-router": "~0.2.11",
+    "angular-md5": "~0.1.7"
   },
   "devDependencies": {
     "angular-mocks": "1.2.6",

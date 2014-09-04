@@ -1,3 +1,10 @@
 .top-bar.stretchy {
   height: inherit;
 }
+
+.top-bar {
+  .gravatar {
+    max-height: 30px;
+    margin: -2px 1rem 0;
+  }
+}

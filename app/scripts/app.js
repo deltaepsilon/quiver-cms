@@ -6,7 +6,8 @@ angular.module('quiverCmsApp', [
   'angular-markdown-editable',
   'slugifier',
   'restangular',
-  'DeltaEpsilon.quiver-angular-utilities'
+  'DeltaEpsilon.quiver-angular-utilities',
+  'angular-md5'
 ]).config(function ($stateProvider, $urlRouterProvider, quiverUtilitiesProvider, RestangularProvider) {
     /*
      * Configure Restangular
@@ -55,6 +56,9 @@ angular.module('quiverCmsApp', [
     */
 
     $stateProvider
+      /*
+       * Non-auth routes
+      */
       .state('master', {
         abstract: true,
         templateUrl: 'views/master.html',
@@ -79,6 +83,33 @@ angular.module('quiverCmsApp', [
           }
         }
       })
+      .state('master.nav.landing', {
+        url: '/',
+        templateUrl: 'views/landing.html',
+        controller: 'LandingCtrl'
+      })
+      .state('master.nav.login', {
+        url: '/login',
+        templateUrl: 'views/login.html',
+        controller: 'UserCtrl'
+      })
+      .state('master.nav.register', {
+        url: '/register',
+        templateUrl: 'views/register.html',
+        controller: 'UserCtrl'
+      })
+      .state('master.nav.reset', {
+        url: '/reset',
+        templateUrl: 'views/reset.html',
+        controller: 'UserCtrl'
+      })
+      .state('master.nav.content', {
+        url: '/content/:slug'
+      })
+
+      /*
+       * Authenticated routes
+      */
       .state('authenticated', {
         abstract: true,
         templateUrl: 'views/authenticated.html',
@@ -122,6 +153,15 @@ angular.module('quiverCmsApp', [
           }
         }
       })
+      .state('authenticated.master.nav.account', {
+        url: "/account",
+        templateUrl: 'views/account.html',
+        controller: 'AccountCtrl'
+      })
+
+      /*
+       * Admin routes
+      */
       .state('authenticated.master.admin', {
         url: '/admin',
         views: {
@@ -133,29 +173,6 @@ angular.module('quiverCmsApp', [
             controller: "AdminCtrl"
           }
         }
-      })
-      .state('master.nav.landing', {
-        url: '/',
-        templateUrl: 'views/landing.html',
-        controller: 'LandingCtrl'
-      })
-      .state('master.nav.login', {
-        url: '/login',
-        templateUrl: 'views/login.html',
-        controller: 'UserCtrl'
-      })
-      .state('master.nav.register', {
-        url: '/register',
-        templateUrl: 'views/register.html',
-        controller: 'UserCtrl'
-      })
-      .state('master.nav.reset', {
-        url: '/reset',
-        templateUrl: 'views/reset.html',
-        controller: 'UserCtrl'
-      })
-      .state('master.nav.content', {
-        url: '/content/:slug'
       })
       .state('authenticated.master.admin.landing', {
         url: '/landing',

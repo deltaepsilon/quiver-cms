@@ -1,3 +1,11 @@
+#notifications-wrapper {
+  position: fixed;
+  width: 20rem;
+  left: 50%;
+  margin-left: -10rem;
+  z-index: 99;
+}
+
 .notifications {
   @mixin notification($background) {
     color: getColor(white);

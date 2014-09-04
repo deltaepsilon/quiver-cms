@@ -9,7 +9,12 @@
         <ul class="right">
             <li ng-hide="currentUser" qv-active><a ui-sref="master.nav.login"><i class="fa fa-sign-in"></i> Login</a></li>
             <li ng-hide="currentUser" qv-active><a ui-sref="master.nav.register"><i class="fa fa-pencil"></i> Register</a></li>
-            <li ng-show="currentUser" qv-active><a ui-sref="authenticated.master.nav.account"><i class="fa fa-gears"></i> Account</a></li>
+            <li ng-show="currentUser" qv-active>
+                <a ui-sref="authenticated.master.nav.account">
+                    <i class="fa fa-gears"></i>
+                    <img class="gravatar" ng-src="{{ gravatar }}" alt="Gravatar"/>
+                </a>
+            </li>
             <li ng-show="currentUser"><a ng-click="logOut()" ui-sref="master.nav.landing"><i class="fa fa-sign-out"></i> Log Out</a></li>
         </ul>
 

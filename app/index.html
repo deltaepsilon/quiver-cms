@@ -30,6 +30,10 @@
     <![endif]-->
 
     <!-- Add your site or application content here -->
+    <aside id="notifications-wrapper">
+        <div notifications class="notifications column small-centered text-white"></div>
+    </aside>
+
     <div class="container" ui-view></div>
 
     <!--Environment Variables-->
@@ -73,6 +77,7 @@
     <script src="lib/lodash/dist/lodash.compat.js"></script>
     <script src="lib/restangular/dist/restangular.js"></script>
     <script src="lib/angular-ui-router/release/angular-ui-router.js"></script>
+    <script src="lib/angular-md5/angular-md5.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -85,6 +90,7 @@
         <script src="scripts/controllers/admin.js"></script>
         <script src="scripts/controllers/authenticated.js"></script>
         <script src="scripts/services/admin-service.js"></script>
+        <script src="scripts/controllers/account.js"></script>
         <!-- endbuild -->
 </body>
 </html>
