@@ -17,7 +17,7 @@ angular.module('quiverCmsApp')
     /*
      * Configure environment and set currentUser
     */
-    $scope.environment = env;
+    $scope.environment = env.environment;
 
     $scope.toLanding = toLanding;
 

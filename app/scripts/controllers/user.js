@@ -1,10 +1,10 @@
-'use strict';vim
+'use strict';
 
 angular.module('quiverCmsApp')
   .controller('UserCtrl', function ($scope, $state, UserService, NotificationService) {
 
     $scope.logIn = function (email, password) {
-      UserService.logIn(email, password).then(function (currentUser) {
+      UserService.logIn(email, password, true).then(function (currentUser) {
         NotificationService.success('Login Success');
         $scope.setCurrentUser(currentUser);
         $scope.toLanding();

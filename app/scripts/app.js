@@ -84,7 +84,18 @@ angular.module('quiverCmsApp', [
         templateUrl: 'views/authenticated.html',
         controller: 'AuthenticatedCtrl',
         resolve: {
-          user: getUser
+          user: function ($q, $state, UserService) {
+            var deferred = $q.defer();
+            UserService.getUser().then(function (currentUser) {
+              if (currentUser && currentUser.id) {
+                return UserService.getUser(currentUser.id);
+              } else {
+                $state.go('master.nav.landing'); // Dump users without auth to main page.
+              }
+
+            }).then(deferred.resolve, deferred.reject);
+            return deferred.promise; // The user may be logged in, but hit the page without auth, so currentUser was not resolved on the initial page load.
+          }
         }
       })
       .state('authenticated.master', {
@@ -111,6 +122,18 @@ angular.module('quiverCmsApp', [
           }
         }
       })
+      .state('authenticated.master.admin', {
+        url: '/admin',
+        views: {
+          nav: {
+            templateUrl: 'views/admin-nav.html'
+          },
+          body: {
+            templateUrl: 'views/body.html',
+            controller: "AdminCtrl"
+          }
+        }
+      })
       .state('master.nav.landing', {
         url: '/',
         templateUrl: 'views/landing.html',
@@ -133,6 +156,30 @@ angular.module('quiverCmsApp', [
       })
       .state('master.nav.content', {
         url: '/content/:slug'
+      })
+      .state('authenticated.master.admin.landing', {
+        url: '/landing',
+        templateUrl: 'views/admin-landing.html'
+      })
+      .state('authenticated.master.admin.words', {
+        url: '/words',
+        templateUrl: 'views/admin-words.html',
+        controller: 'WordsCtrl'
+      })
+      .state('authenticated.master.admin.files', {
+        url: '/files',
+        templateUrl: 'views/admin-files.html',
+        controller: 'FilesCtrl'
+      })
+      .state('authenticated.master.admin.social', {
+        url: '/social-media',
+        templateUrl: 'views/admin-social.html',
+        controller: 'SocialCtrl'
+      })
+      .state('authenticated.master.admin.hashtags', {
+        url: '/hashtags',
+        templateUrl: 'views/admin-hashtags.html',
+        controller: 'HashtagsCtrl'
       });
 
 

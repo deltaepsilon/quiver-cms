@@ -1,0 +1,34 @@
+<nav class="top-bar stretchy">
+    <ul class="title-area">
+        <li class="name">
+            <h1><a class="font-flair text-x-large" ui-sref="authenticated.master.admin.landing">ADMIN</a></h1>
+        </li>
+    </ul>
+
+    <section class="top-bar-section">
+        <ul class="left">
+            <li>
+                <a ui-sref="authenticated.master.admin.words">Words</a>
+            </li>
+            <li>
+                <a ui-sref="authenticated.master.admin.files">Files</a>
+            </li>
+            <li>
+                <a ui-sref="authenticated.master.admin.social">Social Media</a>
+            </li>
+            <li>
+                <a ui-sref="authenticated.master.admin.hashtags">Hashtags</a>
+            </li>
+
+        </ul>
+    </section>
+    <section class="top-bar-section">
+        <ul class="right">
+            <li><a ui-sref="master.nav.landing">Main Site</a></li>
+            <li ng-show="currentUser"><a ng-click="logOut()" ui-sref="master.nav.landing"><i class="fa fa-sign-out"></i> Log Out</a></li>
+        </ul>
+
+    </section>
+
+</nav>
+
