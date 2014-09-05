@@ -181,7 +181,12 @@ angular.module('quiverCmsApp', [
       .state('authenticated.master.admin.words', {
         url: '/words',
         templateUrl: 'views/admin-words.html',
-        controller: 'WordsCtrl'
+        controller: 'WordsCtrl',
+        resolve: {
+          wordsRef: function (AdminService) {
+            return AdminService.getWords();
+          }
+        }
       })
       .state('authenticated.master.admin.files', {
         url: '/files',

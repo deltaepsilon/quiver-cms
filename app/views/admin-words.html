@@ -1,0 +1,48 @@
+<div class="column small-12">
+    <h3 class="font-flair">Words</h3>
+    <form name="newWordForm">
+        <input id="new-word-title" type="text" ng-model="newWordTitle" placeholder="New Title..." required/>
+        <button ng-click="createWord(newWordTitle)" ng-disabled="newWordForm.$invalid" qv-focus="#new-word-title">Create</button>
+    </form>
+
+    <hr>
+
+    <input type="text" ng-model="authorFilter" ng-focus="authorFilter = ''" placeholder="Search..."/>
+    <table>
+        <thead>
+            <tr>
+                <th>Author</th><th>Title</th><th>Type</th><th>Created</th><th>Published</th><th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="word in words | filter:authorFilter">
+                <td><a href="mailto:{{ word.author.email }}"></a>{{ word.author.name }}</td>
+                <td>
+                    <span contenteditable="true" ng-model="word.title" ng-change="word.edited = true">{{ word.title }}</span>
+                </td>
+                <td>
+                    <select class="margin-zero" ng-model="word.type" ng-change="word.edited = true">
+                        <option value="">Select Type</option>
+                        <option value="post">Post</option>
+                        <option value="page">Page</option>
+                    </select>
+                </td>
+                <td>{{ word.created | date }}</td>
+                <td>
+                    <span ng-show="word.published">
+                        {{ word.published | date }}
+                        <a class="link-highlight0 link-hover-secondary0 margin-horizontal-xx-small" ng-click="unpublishWord(word)">X</a>
+                    </span>
+                    <span ng-hide="word.published">
+                        <a ng-click="publishWord(word)">Publish</a>
+                    </span>
+
+                </td>
+                <td>
+                    <button class="tiny" ng-show="word.edited" ng-click="saveWord(word)">Save</button>
+                    <button class="tiny alert" ng-hide="word.edited" qv-confirm="removeWord(word)" confirmations="['Really???', 'Last chance!']" qv-confirm>Delete</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

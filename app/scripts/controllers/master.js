@@ -23,11 +23,18 @@ angular.module('quiverCmsApp')
 
     $scope.setCurrentUser = function (currentUser) {
       $scope.currentUser = currentUser;
+
+      if (currentUser && currentUser.email) {
+        $scope.gravatar = "https://www.gravatar.com/avatar/" + md5.createHash(currentUser.email);
+      }
+
     };
 
     $scope.setCurrentUser(currentUser);
 
-    $scope.gravatar = "https://www.gravatar.com/avatar/" + md5.createHash($scope.currentUser.email);
+
+
+
 
 
 
