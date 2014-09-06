@@ -11,6 +11,10 @@ angular.module('quiverCmsApp')
 
       getWord: function (key) {
         return $firebase(new Firebase(firebaseEndpoint + '/content/words/' + key));
+      },
+
+      getDrafts: function (key) {
+        return $firebase(new Firebase(firebaseEndpoint + '/content/words/' + key + '/drafts'));
       }
     }
   });

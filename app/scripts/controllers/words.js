@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('quiverCmsApp')
-  .controller('WordsCtrl', function ($scope, wordsRef, moment, NotificationService) {
+  .controller('WordsCtrl', function ($scope, wordsRef, moment, NotificationService, Slug) {
     $scope.words = wordsRef.$asArray();
 
     $scope.removeWord = function (word) {
@@ -17,6 +17,7 @@ angular.module('quiverCmsApp')
     $scope.createWord = function (title) {
       $scope.words.$add({
         title: title,
+        slug: Slug.slugify(title),
         type: 'page',
         created: moment().format(),
         author: {

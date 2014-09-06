@@ -16,9 +16,12 @@
         </thead>
         <tbody>
             <tr ng-repeat="word in words | filter:authorFilter">
-                <td><a href="mailto:{{ word.author.email }}"></a>{{ word.author.name }}</td>
                 <td>
-                    <span contenteditable="true" ng-model="word.title" ng-change="word.edited = true">{{ word.title }}</span>
+                    <span class="cursor-pointer" ng-click="authorFilter = word.author.name">{{ word.author.name }}</span>
+                </td>
+                <td>
+                    <!--<span contenteditable="true" ng-model="word.title" ng-change="word.edited = true">{{ word.title }}</span>-->
+                    <a ui-sref="authenticated.master.admin.word({key: word.$id})">{{ word.title }}</a>
                 </td>
                 <td>
                     <select class="margin-zero" ng-model="word.type" ng-change="word.edited = true">
@@ -39,8 +42,8 @@
 
                 </td>
                 <td>
-                    <button class="tiny" ng-show="word.edited" ng-click="saveWord(word)">Save</button>
-                    <button class="tiny alert" ng-hide="word.edited" qv-confirm="removeWord(word)" confirmations="['Really???', 'Last chance!']" qv-confirm>Delete</button>
+                    <button class="tiny margin-zero" ng-show="word.edited" ng-click="saveWord(word)">Save</button>
+                    <button class="tiny alert margin-zero" ng-hide="word.edited" qv-confirm="removeWord(word)" confirmations="['Really???', 'Last chance!']" qv-confirm>Delete</button>
                 </td>
             </tr>
         </tbody>

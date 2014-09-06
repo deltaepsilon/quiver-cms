@@ -9474,6 +9474,11 @@ button.callout:active, button.callout:focus, .button.callout:active, .button.cal
   max-width: 80rem;
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/modules\/_layout\.scss}line{font-family:\000035}}
+.min-height-inherit {
+  min-height: inherit;
+}
+
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/modules\/_notifications\.scss}line{font-family:\000031}}
 #notifications-wrapper {
   position: fixed;
