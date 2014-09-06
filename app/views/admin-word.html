@@ -1,14 +1,21 @@
-<div class="column small-12 medium-4 large-2">
-    <button class="tiny small-12" ng-click="saveDraft(word.markdown)">Save Draft</button>
+<div class="column small-12">
+    <div class="column small-12 medium-8 large-10 medium-offset-4 large-offset-2">
+        <h3 class="font-flair" contenteditable="true" ng-model="word.title"></h3>
+
+    </div>
     <hr>
-    <ul>
+</div>
+
+<div class="column small-12 medium-4 large-2">
+    <button class="tiny small-12 margin-vertical-xx-small" ng-click="saveDraft(word.markdown)">Save Draft</button>
+    <hr>
+    <ul class="margin-horizontal-xx-small margin-vertical-small">
         <li class="text-small" ng-repeat="draft in drafts">
             <a ng-click="makeActiveDraft(draft)">{{ draft.created | date:'medium' }}</a>
         </li>
     </ul>
 </div>
 <div class="column small-12 medium-8 large-10">
-    <h3 class="font-flair" contenteditable="true" ng-model="word.title"></h3>
-    <hr>
+
     <div class="small-12 background-secondary4 padding-small" qv-full-page target="#body" delay="300" contenteditable="true" ng-model="word.markdown" markdown-editable></div>
 </div>
