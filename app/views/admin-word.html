@@ -1,21 +1,53 @@
 <div class="column small-12">
     <div class="column small-12 medium-8 large-10 medium-offset-4 large-offset-2">
         <h3 class="font-flair" contenteditable="true" ng-model="word.title"></h3>
-
     </div>
     <hr>
 </div>
 
 <div class="column small-12 medium-4 large-2">
-    <button class="tiny small-12 margin-vertical-xx-small" ng-click="saveDraft(word.markdown)">Save Draft</button>
+    <button class="text-x-small padding-small small-12 margin-vertical-xx-small" ng-click="saveDraft($storage.activeDraft)">Save As Draft</button>
+    <button class="text-x-small padding-small small-12 margin-vertical-xx-small" ng-click="setPublishedDraft($storage.activeDraft)" ng-disabled="!$storage.activeDraft">Publish</button>
     <hr>
-    <ul class="margin-horizontal-xx-small margin-vertical-small">
-        <li class="text-small" ng-repeat="draft in drafts">
-            <a ng-click="makeActiveDraft(draft)">{{ draft.created | date:'medium' }}</a>
-        </li>
-    </ul>
+    <h5>Active Draft</h5>
+    <div ng-show="$storage.activeDraft.edited" class="text-x-small">Edited: {{ $storage.activeDraft.edited | date:'MM/dd/yy HH:mm' }}</div>
+    <div ng-show="$storage.activeDraft.created" class="text-x-small">Created: {{ $storage.activeDraft.created | date:'MM/dd/yy HH:mm' }}</div>
+
+    <hr>
+
+    <div ng-if="word.published">
+        <h5>Published</h5>
+        <ul class="side-nav">
+            <li class="text-x-small-important">
+                Edited: {{ word.published.edited |  date:'MM/dd/yy HH:mm' }}
+            </li>
+            <li class="text-x-small-important">
+                Created: {{ word.published.created |  date:'MM/dd/yy HH:mm' }}
+            </li>
+            <li class="text-x-small-important" ng-class="{'active': $storage.activeDraft.edited == word.published.edited}">
+                <button class="text-x-small padding-small small-12" ng-click="makeActiveDraft(word.published)" ng-disabled="$storage.activeDraft.edited == word.published.edited">Make Active Draft</button>
+            </li>
+            <li class="text-x-small-important">
+                <button class="alert text-x-small padding-small small-12" qv-confirm="unpublish()" confirmations="['Click to Confirm']">Unpublish</button>
+            </li>
+        </ul>
+
+        <hr/>
+    </div>
+
+
+    <div ng-show="drafts.length">
+        <h5>Drafts</h5>
+        <ul class="side-nav">
+            <li class="text-x-small" ng-repeat="draft in drafts" ng-class="{'active': $storage.activeDraft.edited == draft.edited}">
+                <a ng-if="$storage.activeDraft.edited != draft.edited" ng-click="makeActiveDraft(draft)">{{ draft.created | date:'MM/dd/yy HH:mm' }}</a>
+                <a ng-if="$storage.activeDraft.edited == draft.edited" qv-confirm="removeDraft(draft)" confirmations="['Click to Delete', 'Confirm Deletion']">{{ draft.created | date:'MM/dd/yy HH:mm' }}</a>
+            </li>
+        </ul>
+    </div>
+
 </div>
 <div class="column small-12 medium-8 large-10">
 
-    <div class="small-12 background-secondary4 padding-small" qv-full-page target="#body" delay="300" contenteditable="true" ng-model="word.markdown" markdown-editable></div>
+    <div class="small-12 background-secondary4 padding-small" qv-full-page target="#body" delay="300" contenteditable="true" ng-model="$storage.activeDraft.markdown" markdown-editable ng-change="handleActiveDraftChange($storage.activeDraft)"></div>
 </div>

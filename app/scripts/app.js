@@ -7,7 +7,8 @@ angular.module('quiverCmsApp', [
   'slugifier',
   'restangular',
   'DeltaEpsilon.quiver-angular-utilities',
-  'angular-md5'
+  'angular-md5',
+  'ngStorage'
 ]).config(function ($stateProvider, $urlRouterProvider, quiverUtilitiesProvider, RestangularProvider) {
     /*
      * Configure Restangular

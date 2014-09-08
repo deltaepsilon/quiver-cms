@@ -608,9 +608,19 @@ a.link-hover-black:hover {
   font-size: 0.625rem;
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_font\.scss}line{font-family:\0000331}}
+.text-xx-small-important {
+  font-size: 0.625rem !important;
+}
+
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_font\.scss}line{font-family:\0000327}}
 .text-x-small, .notifications .dr-notification-content p {
   font-size: 0.75rem;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_font\.scss}line{font-family:\0000331}}
+.text-x-small-important {
+  font-size: 0.75rem !important;
 }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_font\.scss}line{font-family:\0000327}}
@@ -618,9 +628,19 @@ a.link-hover-black:hover {
   font-size: 0.875rem;
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_font\.scss}line{font-family:\0000331}}
+.text-small-important {
+  font-size: 0.875rem !important;
+}
+
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_font\.scss}line{font-family:\0000327}}
 .text-medium {
   font-size: 1rem;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_font\.scss}line{font-family:\0000331}}
+.text-medium-important {
+  font-size: 1rem !important;
 }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_font\.scss}line{font-family:\0000327}}
@@ -628,9 +648,19 @@ a.link-hover-black:hover {
   font-size: 1.125rem;
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_font\.scss}line{font-family:\0000331}}
+.text-x-medium-important {
+  font-size: 1.125rem !important;
+}
+
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_font\.scss}line{font-family:\0000327}}
 .text-large, .block-form .title, .block-form label, .reveal-modal a.close-reveal-modal {
   font-size: 1.25rem;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_font\.scss}line{font-family:\0000331}}
+.text-large-important {
+  font-size: 1.25rem !important;
 }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_font\.scss}line{font-family:\0000327}}
@@ -638,7 +668,12 @@ a.link-hover-black:hover {
   font-size: 2.1875rem;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_font\.scss}line{font-family:\0000345}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_font\.scss}line{font-family:\0000331}}
+.text-x-large-important {
+  font-size: 2.1875rem !important;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_font\.scss}line{font-family:\0000349}}
 .font-secondary, .font-flair {
   font-family: "azo-sans-uber";
 }

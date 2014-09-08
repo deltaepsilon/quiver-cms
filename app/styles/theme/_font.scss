@@ -27,6 +27,10 @@ $font-sizes:
   .text-#{nth($size, 1)} {
     font-size : nth($size, 2);
   }
+
+  .text-#{nth($size, 1)}-important {
+    font-size : nth($size, 2) !important;
+  }
 }
 
 // Circle border.

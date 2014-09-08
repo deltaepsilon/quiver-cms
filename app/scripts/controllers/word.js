@@ -1,7 +1,9 @@
 'use strict';
 
 angular.module('quiverCmsApp')
-  .controller('WordCtrl', function ($scope, $timeout, moment, wordRef, draftsRef, NotificationService, $filter) {
+  .controller('WordCtrl', function ($scope, $timeout, moment, wordRef, draftsRef, NotificationService, $filter, $localStorage, _) {
+
+    $scope.$storage = $localStorage;
 
     /*
      * Word
@@ -11,12 +13,14 @@ angular.module('quiverCmsApp')
     word.$bindTo($scope, 'word');
 
     word.$loaded().then(function () {
-      if (!$scope.word.markdown || !$scope.word.markdown.length) {
-        $timeout(function () {
-          $scope.word.markdown = '#Use your words! \n\n(But please make it Markdown...)';
-        })
-
+      if (!$scope.$storage.activeDraft || $scope.$storage.activeDraft.key || $scope.word.$id) {
+        $scope.$storage.activeDraft = {
+          markdown: $scope.word.published ? $scope.word.published.markdown : '#Use your words! \n\n(But please make it Markdown...)',
+          created: moment().format()
+        };
       }
+
+
     });
 
 
@@ -25,20 +29,44 @@ angular.module('quiverCmsApp')
     */
     $scope.drafts = draftsRef.$asArray();
 
-    $scope.saveDraft = function (markdown) {
-      var draft = {
-        markdown: markdown,
-        created: moment().format()
-      };
+    $scope.saveDraft = function (draft) {
+      draft.edited = moment().format();
 
       $scope.drafts.$add(draft).then(function () {
         NotificationService.success('Draft Saved', 'Saved as ' + $filter('date')(draft.created, 'medium'));
       });
     };
 
+    $scope.removeDraft = function (draft) {
+      $scope.drafts.$remove(draft).then(function () {
+        NotificationService.success('Draft Deleted');
+      });
+    };
+
     $scope.makeActiveDraft = function (draft) {
-      $scope.word.markdown = draft.markdown;
+      $scope.$storage.activeDraft = _.clone(draft);
 
       NotificationService.success('Draft Activated', $filter('date')(draft.created, 'medium'));
+    };
+
+    $scope.setPublishedDraft = function (draft) {
+      var datetime = moment().format();
+
+      draft.edited = datetime;
+      draft.published = datetime;
+      $scope.word.published = draft;
+
+    };
+
+    $scope.unpublish = function () {
+      delete $scope.word.published;
+    };
+
+    $scope.setEditedDatetime = function (draft) {
+      draft.edited = moment().format();
+    };
+
+    $scope.handleActiveDraftChange = function (draft) {
+      draft.edited = moment().format();
     };
   });
