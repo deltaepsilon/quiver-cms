@@ -10,7 +10,16 @@ angular.module('quiverCmsApp', [
   'angular-md5',
   'ngStorage',
   'flow'
-]).config(function ($stateProvider, $urlRouterProvider, quiverUtilitiesProvider, RestangularProvider) {
+]).run(function ($rootScope, $state, Restangular, NotificationService, env) {
+    $rootScope.$on('$stateChangeStart', function () {
+      $state.previous = _.clone($state);
+    });
+
+    Restangular.one('env').get().then(function (res) {}, function (error) {
+      NotificationService.error('Server Unresponsive', 'The server could not be reached at ' + env.api + '. Try reloading the page or come back later.');
+    });
+
+}).config(function ($stateProvider, $urlRouterProvider, quiverUtilitiesProvider, RestangularProvider) {
     /*
      * Configure Restangular
     */
@@ -120,7 +129,13 @@ angular.module('quiverCmsApp', [
           user: function ($q, $state, UserService) {
             var deferred = $q.defer();
             UserService.getUser().then(function (currentUser) {
+
               if (currentUser && currentUser.id) {
+                // Set up auth tokens
+                window.envVars.firebaseAuthToken = currentUser.firebaseAuthToken;
+                quiverUtilitiesProvider.setEnv(window.envVars);
+                RestangularProvider.setDefaultHeaders({authorization: currentUser.firebaseAuthToken});
+
                 return UserService.getUser(currentUser.id);
               } else {
                 $state.go('master.nav.landing'); // Dump users without auth to main page.
@@ -206,7 +221,12 @@ angular.module('quiverCmsApp', [
       .state('authenticated.master.admin.files', {
         url: '/files',
         templateUrl: 'views/admin-files.html',
-        controller: 'FilesCtrl'
+        controller: 'FilesCtrl',
+        resolve: {
+          files: function (FileService) {
+            return FileService.get();
+          }
+        }
       })
       .state('authenticated.master.admin.social', {
         url: '/social-media',

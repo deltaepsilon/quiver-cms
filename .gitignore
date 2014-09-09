@@ -5,5 +5,7 @@ dist
 .idea
 .DS_STORE
 app/lib
-app/env.js
+*env.js
 assets/ssl
+newrelic.js
+newrelic_agent.log

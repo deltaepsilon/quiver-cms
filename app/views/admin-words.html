@@ -33,11 +33,11 @@
                 <td>{{ word.created | date }}</td>
                 <td>
                     <span ng-show="word.published">
-                        {{ word.published | date }}
+                        {{ word.published.published | date }}
                         <a class="link-highlight0 link-hover-secondary0 margin-horizontal-xx-small" ng-click="unpublishWord(word)">X</a>
                     </span>
                     <span ng-hide="word.published">
-                        <a ng-click="publishWord(word)">Publish</a>
+                        <a ui-sref="authenticated.master.admin.word({key: word.$id})">Publish</a>
                     </span>
 
                 </td>

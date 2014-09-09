@@ -14,7 +14,7 @@
             <label class="button tiny small-12" for="upload-directory">Select Directory</label>
             <input id="upload-directory" class="hidden" type="file" flow-btn flow-directory/>
 
-            <div class="panel callout" flow-drop>
+            <div class="panel callout" flow-drop flow-drag-enter="style={'border-color': '#4A910A'}" flow-drag-leave="style={}">
                 File Drop
             </div>
 
@@ -23,6 +23,8 @@
                     <a qv-confirm="deleteFlowFile($flow, file)" confirmations="['Click to Delete']">{{ file.name }}</a>
                 </li>
             </ul>
+
+            <button ng-click="upload($flow)" ng-hide="!$flow.files.length">Upload Files</button>
 
         </fieldset>
 

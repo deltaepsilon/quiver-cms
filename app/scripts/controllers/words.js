@@ -31,12 +31,6 @@ angular.module('quiverCmsApp')
 
     };
 
-    $scope.publishWord = function (word) {
-      word.published = moment().format();
-      word.edited = true;
-
-    };
-
     $scope.unpublishWord = function (word) {
       delete word.published;
       word.edited = true;
