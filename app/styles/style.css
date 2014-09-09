@@ -1251,6 +1251,11 @@ a.link-hover-black:hover {
   cursor: default;
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_global\.scss}line{font-family:\0000330}}
+.hidden {
+  display: none;
+}
+
 /*
  * Retina Sprites for Compass
  * by:              Gaya Kessler

@@ -1,0 +1,62 @@
+<div class="column small-12">
+    <div class="column small-12 medium-8 large-10 medium-offset-4 large-offset-2">
+        <h3 class="font-flair">Files</h3>
+    </div>
+    <hr>
+</div>
+
+<div class="column small-12 medium-4 large-2">
+    <form name="filesForm" flow-init flow-name="flow">
+        <fieldset>
+            <label class="button tiny small-12" for="upload-file">Select Files</label>
+            <input id="upload-file" class="hidden" type="file" flow-btn/>
+
+            <label class="button tiny small-12" for="upload-directory">Select Directory</label>
+            <input id="upload-directory" class="hidden" type="file" flow-btn flow-directory/>
+
+            <div class="panel callout" flow-drop>
+                File Drop
+            </div>
+
+            <ul ng-if="$flow.files.length" class="side-nav">
+                <li ng-repeat="file in $flow.files">
+                    <a qv-confirm="deleteFlowFile($flow, file)" confirmations="['Click to Delete']">{{ file.name }}</a>
+                </li>
+            </ul>
+
+        </fieldset>
+
+
+    </form>
+
+
+
+</div>
+
+<div class="column small-12 medium-8 large-10">
+
+    <table ng-show="files.length">
+        <thead>
+            <tr>
+                <th>Date</th><th>Preview</th><th>Name</th><th>Link</th><th>Markdown</th><th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="file in files">
+                <td>{{ file.date | date }}</td>
+                <td>
+                    <img ng-src="file.url" alt="{{ file.name }}"/>
+                </td>
+                <td>{{ file.name }}</td>
+                <td>
+                    <input type="text" ng-model="file.url" qv-select-text/>
+                </td>
+                <td>
+                    <input type="text" value="![{{ file.name }}]({{ file.url }})" qv-select-text/>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+</div>
+
