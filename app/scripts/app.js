@@ -223,8 +223,8 @@ angular.module('quiverCmsApp', [
         templateUrl: 'views/admin-files.html',
         controller: 'FilesCtrl',
         resolve: {
-          files: function (FileService) {
-            return FileService.get();
+          files: function (AdminService) {
+            return AdminService.getFiles();
           }
         }
       })

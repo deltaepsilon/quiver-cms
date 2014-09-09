@@ -15,6 +15,14 @@ angular.module('quiverCmsApp')
 
       getDrafts: function (key) {
         return $firebase(new Firebase(firebaseEndpoint + '/content/words/' + key + '/drafts'));
+      },
+
+      getFiles: function () {
+        return $firebase(new Firebase(firebaseEndpoint + '/content/files'));
+      },
+
+      getFile: function (key) {
+        return $firebase(new Firebase(firebaseEndpoint + '/content/files/' + key));
       }
     }
   });
