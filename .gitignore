@@ -9,3 +9,5 @@ app/lib
 assets/ssl
 newrelic.js
 newrelic_agent.log
+logs/*
+uploads/*

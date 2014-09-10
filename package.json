@@ -15,7 +15,9 @@
     "moment": "~2.8.3",
     "connect": "~3.2.0",
     "cookie-session": "~1.0.2",
-    "body-parser": "~1.8.1"
+    "body-parser": "~1.8.1",
+    "multer": "~0.1.4",
+    "winston": "~0.7.3"
   },
   "devDependencies": {
     "grunt": "~0.4.1",
