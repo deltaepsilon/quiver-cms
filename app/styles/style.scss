@@ -10,6 +10,10 @@
 "compass/css3/user-interface",
 "compass/utilities/general/clearfix";
 
+// Imports
+@import "imports/mixins",
+"imports/retina-sprites",
+"imports/sprites";
 
 // Theme
 @import
@@ -17,12 +21,6 @@
 "theme/font",
 "theme/spacing",
 "theme/global";
-
-// Imports
-@import "imports/mixins",
-"imports/retina-sprites",
-"imports/sprites";
-
 
 // Behold, here are all the Foundation components.
 @import "settings";

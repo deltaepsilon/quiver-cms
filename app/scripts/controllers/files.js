@@ -159,11 +159,14 @@ angular.module('quiverCmsApp')
     $scope.removeFromClipboard = function (file) {
       var fileName = $filter('filename')(file.Key);
 
-      if (ClipboardService.remove(file, $scope)) {
-        return NotificationService.success('- Clipboard', fileName + ' has been removed from the clipboard.');
-      } else {
-        return NotificationService.error('Not Found', fileName + ' was not found in the clipboard');
-      }
+      $scope.$apply(function () {
+        if (ClipboardService.remove(file)) {
+          return NotificationService.success('- Clipboard', fileName + ' has been removed from the clipboard.');
+        } else {
+          return NotificationService.error('Not Found', fileName + ' was not found in the clipboard');
+        }
+      });
+
 
     };
 

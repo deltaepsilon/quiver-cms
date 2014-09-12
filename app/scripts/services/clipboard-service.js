@@ -14,19 +14,12 @@ angular.module('quiverCmsApp')
 
       },
       
-      remove: function (file, $scope) {
+      remove: function (file) {
         var i = $localStorage.clipboard.length;
 
         while (i--) {
           if ($localStorage.clipboard[i].Key === file.Key) {
-            if ($scope) {
-              $scope.$apply(function () {
-                $localStorage.clipboard.splice(i, 1);
-              });
-            } else {
-              $localStorage.clipboard.splice(i, 1);
-            }
-
+            $localStorage.clipboard.splice(i, 1);
             return true;
 
           }

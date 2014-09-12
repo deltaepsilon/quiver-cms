@@ -75,10 +75,6 @@ angular.module('quiverCmsApp')
     */
     $scope.files = filesRef.$asObject();
 
-    $scope.files.$loaded(function (files) {
-      console.log('loaded', files);
-    });
-
     $scope.removeFromClipboard = function (file) {
       var fileName = $filter('filename')(file.Key);
 

@@ -50,10 +50,13 @@
 <div class="column small-12 medium-8 large-10">
     <div class="panel" ng-show="$storage.clipboard.length">
         <h5>Clipboard</h5>
-        <ul class="small-block-grid-6 medium-block-grid-6 large-block-grid-8">
-            <li ng-repeat="file in $storage.clipboard">
-                <div qv-media="https://s3.amazonaws.com/{{ files.Name }}/{{ file.Key }}" alt="{{ file.Key | filename }}" attributes="{embed: {width: '100px', height: '100px'}, img: {'style': 'min-width: 100%;'}, video: {width: '200px'}}"></div>
-                <a qv-confirm="removeFromClipboard(file)" confirmations="['Click to Remove']">{{ file.Key | filename }}</a>
+        <ul class="small-block-grid-2 medium-block-grid-4 large-block-grid-8">
+            <li class="relative" ng-repeat="file in $storage.clipboard">
+                <div class="relative">
+                    <div qv-media="https://s3.amazonaws.com/{{ files.Name }}/{{ file.Key }}" alt="{{ file.Key | filename }}" attributes="{embed: {width: '100px', height: '100px'}, img: {'style': 'min-width: 100%;'}, video: {width: '200px'}}"></div>
+                    <a class="delete-button text-small background-secondary5 link-white link-hover-secondary0" style="opacity: .9;" ng-click="removeFromClipboard(file)">x</a>
+                </div>
+
             </li>
         </ul>
     </div>

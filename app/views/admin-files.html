@@ -23,7 +23,6 @@
                     <a class="qv-progress text-x-small success" qv-confirm="deleteFlowFile($flow, file)" confirmations="['Click to Delete']">
                         <span class="meter-text text-black">{{ file.name }}</span>
                         <span class="meter" qv-meter="file.percentComplete"></span>
-                        <!--<span ng-show="getNotifications(file.name)">({{ (getNotifications(file.name).loaded / getNotifications(file.name).total) * 100 | number:0 }} %)</span>-->
                     </a>
 
                 </li>
@@ -50,7 +49,7 @@
 </div>
 
 <div class="column small-12 medium-8 large-10">
-    
+
     <table ng-show="files.Contents.length">
         <thead>
             <tr>

@@ -34,3 +34,26 @@
 .disabled {
   opacity: .3;
 }
+
+.relative {
+  position: relative;
+}
+
+.circle {
+  border-radius: 50%;
+}
+
+.delete-button {
+  @extend .circle;
+
+  @include absolute(-.5rem, -.5rem, initial, initial);
+
+  display: block;
+  padding: 0rem .5rem;
+
+  .left {
+    left: -.5rem;
+    right: initial;
+  }
+
+}

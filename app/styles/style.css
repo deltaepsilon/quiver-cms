@@ -63,6 +63,30 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   display: block;
 }
 
+/*
+ * Retina Sprites for Compass
+ * by:              Gaya Kessler
+ * last update:     01/14/13
+ *
+ * Usage:
+ * 1. create two folders in your image directory (in this case 'icons' and 'icons-2x').
+ * 2. adjust the foldernames defined below if you use different names.
+ * 3. create sprite images for pixel ratio 1 screens and put them in the first folder.
+ * 4. create sprite images for pixel ratio 2 screens and put them in the second folder, use the same filenames.
+ * 5. use the sprite-image in your Sass/Scss using: '@include use-sprite(<sprite-name>)'
+ */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/imports\/_sprites\.scss}line{font-family:\000037}}
+.background-heart-decal {
+  overflow: hidden;
+  display: block;
+  background-repeat: no-repeat;
+  background-image: url('/app/images/sprites-s1e30132e77.png');
+  background-size: 119.3333333333px 140.6666666667px;
+  background-position: 0 -26px;
+  height: 114.6666666667px;
+  width: 100px;
+}
+
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000325}}
 .background-primary0, .block-form .title {
   background-color: #333333;
@@ -1711,28 +1735,30 @@ a.link-hover-black-important:hover {
   opacity: .3;
 }
 
-/*
- * Retina Sprites for Compass
- * by:              Gaya Kessler
- * last update:     01/14/13
- *
- * Usage:
- * 1. create two folders in your image directory (in this case 'icons' and 'icons-2x').
- * 2. adjust the foldernames defined below if you use different names.
- * 3. create sprite images for pixel ratio 1 screens and put them in the first folder.
- * 4. create sprite images for pixel ratio 2 screens and put them in the second folder, use the same filenames.
- * 5. use the sprite-image in your Sass/Scss using: '@include use-sprite(<sprite-name>)'
- */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/imports\/_sprites\.scss}line{font-family:\000037}}
-.background-heart-decal {
-  overflow: hidden;
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_global\.scss}line{font-family:\0000338}}
+.relative {
+  position: relative;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_global\.scss}line{font-family:\0000342}}
+.circle, .delete-button {
+  border-radius: 50%;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_global\.scss}line{font-family:\0000346}}
+.delete-button {
+  position: absolute;
+  top: -0.5rem;
+  right: -0.5rem;
+  bottom: initial;
+  left: initial;
   display: block;
-  background-repeat: no-repeat;
-  background-image: url('/app/images/sprites-s1e30132e77.png');
-  background-size: 119.3333333333px 140.6666666667px;
-  background-position: 0 -26px;
-  height: 114.6666666667px;
-  width: 100px;
+  padding: 0rem .5rem;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_global\.scss}line{font-family:\0000354}}
+.delete-button .left {
+  left: -.5rem;
+  right: initial;
 }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/lib\/foundation\/scss\/foundation\/components\/_global\.scss}line{font-family:\00003342}}
@@ -5983,7 +6009,7 @@ ul li ol {
   margin-bottom: 0;
 }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/lib\/foundation\/scss\/foundation\/components\/_type\.scss}line{font-family:\00003353}}
-ul.square li ul, ul.circle li ul, ul.disc li ul {
+ul.square li ul, ul.circle li ul, ul.delete-button li ul, ul.disc li ul {
   list-style: inherit;
 }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/lib\/foundation\/scss\/foundation\/components\/_type\.scss}line{font-family:\00003356}}
@@ -5992,7 +6018,7 @@ ul.square {
   margin-left: 1.1rem;
 }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/lib\/foundation\/scss\/foundation\/components\/_type\.scss}line{font-family:\00003357}}
-ul.circle {
+ul.circle, ul.delete-button {
   list-style-type: circle;
   margin-left: 1.1rem;
 }
