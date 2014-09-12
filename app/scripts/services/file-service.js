@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('quiverCmsApp')
-  .service('FileService', function FileService($q, Restangular) {
+  .service('FileService', function FileService($q, Restangular, $firebase, env) {
     var service = {
       create: function (file, fileReader, size) {
         var formData = new FormData();
@@ -45,6 +45,9 @@ angular.module('quiverCmsApp')
         }
 
         return $q.all(deferreds);
+      },
+      getNotification: function (userId, slug) {
+        return $firebase(new Firebase(env.firebase + '/users/' + userId + '/notifications/' + slug));
       }
     };
 

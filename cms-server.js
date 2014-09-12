@@ -1,4 +1,3 @@
-require('newrelic');
 var Q = require('q'),
   _ = require('underscore'),
   express = require('express'),
@@ -15,6 +14,7 @@ var Q = require('q'),
   CronJob = require('cron').CronJob,
   markdown = require('markdown').markdown,
   request = require('superagent'),
+  slug = require('slug'),
   environment = process.env.NODE_ENV || 'development',
   publicBucket = process.env.AMAZON_CMS_PUBLIC_BUCKET,
   filePrefix = 'cms',
@@ -38,7 +38,7 @@ var uploadLogger = new (winston.Logger)({
     res.status(500).send(err);
   };
 winston.add(winston.transports.File, { filename: './logs/quiver-cms.log'});
-winston.remove(winston.transports.Console);
+//winston.remove(winston.transports.Console);
 
 /*
  * Firebase root auth
@@ -54,33 +54,65 @@ AWS.config.update({accessKeyId: process.env.AMAZON_ACCESS_KEY_ID, secretAccessKe
  * Express middleware
 */
 var bodyParser = require('body-parser')
-app.use(bodyParser.urlencoded({extended: true}));
-app.use(bodyParser.json());
+//app.use(bodyParser.urlencoded({extended: true}));
+//app.use(bodyParser.json());
 app.use(multer({
   dest: './uploads/',
+  limits: {
+    fieldSize: '5MB'
+  },
+  onParseStart: function () {
+    console.log('parseStart');
+    winston.log('parseStart');
+  },
+  onParseEnd: function (req, next) {
+    console.log('parseEnd', req.body.name, req.body.size);
+    winston.log('parseEnd');
+    next();
+  },
+  onFileUploadData: function (file, data) {
+    console.log('upload data', file, data);
+    winston.log('upload data', file, data);
+  },
+  onFileUploadStart: function (file) {
+    console.log('upload started', file);
+    winston.log('upload started', file);
+  },
+  onFileUploadComplete: function (file) {
+    console.log('upload complete', file);
+    winston.log('upload complete', file);
+  },
+  onFileSizeLimit: function (file) {
+    console.log('filesize limit', file);
+    winston.log('filesize limit', file);
+  },
   onError: function (error) {
+    winston.log('upload error', error);
     uploadLogger.log('error', error);
   }
 }));
 app.use(require('cookie-session')({keys: [process.env.QUIVER_CMS_SESSION_SECRET]}));
 
+
+
 /**
  * Access Tokens
  */
-app.all('*',function (req, res, next) {
+app.use(function (req, res, next) {
 //  console.log('url', req.url);
   if (req.param('access_token')) {
     req.session.access_token = req.param('access_token');
   }
 
   res.header('Access-Control-Allow-Origin', "*");
+  res.header('Access-Control-Allow-Methods', "GET, POST, PUT, DELETE, PATCH");
   res.header('Access-Control-Allow-Headers', req.headers['access-control-request-headers']); // Allow whatever they're asking for
 
   next();
 });
 
 /*
- * REST Endpoints
+ * Env
 */
 app.get('/env', function (req, res) {
   var env = envVars;
@@ -93,6 +125,83 @@ app.get('/env', function (req, res) {
   res.json(env);
 });
 
+/*
+ * Authenticate user and hydrate req.user
+*/
+app.use(function (req, res, next) {
+  if (req.method === 'OPTIONS') {
+    return next();
+  }
+
+  var userToken = req.headers.authorization,
+    userId = req.headers['user-id'],
+    userRef = new Firebase(envVars.firebase + '/users/' + userId),
+    handleAuthError = function () {
+      return res.status(401).send({'error': 'Not authorized. userId and authorization headers must be present and valid.'});
+    };
+
+  userRef.auth(userToken, function (err, currentUser) {
+    if (err) {
+      return handleAuthError();
+    } else {
+      userRef.once('value', function (snapshot) {
+        var user = snapshot.val();
+
+        if (!user) {
+          return handleAuthError();
+        } else {
+          req.user = user;
+          req.userRef = userRef;
+
+          next();
+        }
+
+      });
+    }
+
+  }, handleAuthError);
+
+});
+
+/*
+ * REST
+ * 1. files
+*/
+
+
+/*
+ * File endpoints
+ */
+var FILENAME_REGEX = /[^\/]+\.(\w+)$/;
+var updateFilesRegister = function() { //Cache S3.listObjects result to Firebase. This is too costly to call often.
+  var deferred = Q.defer(),
+    firebaseDeferred = Q.defer(),
+    s3Deferred = Q.defer(),
+    filesRef = new Firebase(envVars.firebase + '/content/files');
+
+  filesRef.auth(firebaseSecret, firebaseDeferred.resolve, firebaseDeferred.reject);
+
+  S3.listObjects({
+    Bucket: publicBucket,
+    Prefix: filePrefix
+  }, function (err, data) {
+    return err ? s3Deferred.reject(err) : s3Deferred.resolve(data);
+  });
+
+  Q.all([s3Deferred.promise, firebaseDeferred.promise]).spread(function (s3Data) {
+    _.each(s3Data.Contents, function (file) {
+      var matches = file.Key.match(FILENAME_REGEX);
+      file.Name = (matches && matches.length) ? matches[0] : file.Key;
+      file.Suffix = (matches && matches.length > 0) ? matches[1] : '';
+    });
+    filesRef.set(s3Data, function (err) {
+      return err ? deferred.reject(err) : deferred.resolve(s3Data);
+    });
+  }, deferred.reject);
+
+  return deferred.promise;
+};
+
 app.get('/files', function (req, res) {
   res.json({files: []});
 });
@@ -101,19 +210,18 @@ app.post('/files/:fileName', function (req, res) {
   /*
    * Configure S3 payload from request
   */
-  winston.log('req.body', req.body);
 
   var fileName = req.params.fileName,
     dataUrl = req.body.file,
-    matches = dataUrl.match(/^data:.+\/(.+);base64,(.*)$/),
+    parts = dataUrl.split(';base64'),
     fileDeferred = Q.defer();
 
-  if (!matches) {
+  if (!parts) {
     return errorHandler(res, {"error": "No file sent."});
   }
 
-  var extension = matches[1],
-    file = new Buffer(matches[2], "base64"),
+  var extension = parts[0],
+    file = new Buffer(parts[1], "base64"),
     type = req.body.type,
     payload = {
       Bucket: publicBucket,
@@ -127,15 +235,22 @@ app.post('/files/:fileName', function (req, res) {
 
   /*
    * Upload file
+   * Report progress
   */
-  S3.putObject(payload, function (err, data) {
+  var notificationsRef = req.userRef.child('notifications').child(slug(fileName, {charmap: {'.': '-'}}).toLowerCase());
+
+  var s3request = S3.putObject(payload, function (err, data) {
     if (err) {
       fileDeferred.reject(err);
     } else {
-      console.log('s3 data', data);
+      notificationsRef.remove();
       fileDeferred.resolve(data);
     }
 
+  });
+
+  s3request.on('httpUploadProgress', function (progress) {
+    notificationsRef.set(progress);
   });
 
   /*
@@ -154,30 +269,23 @@ app.post('/files/:fileName', function (req, res) {
 
 });
 
-var updateFilesRegister = function() {
-  var deferred = Q.defer(),
-    firebaseDeferred = Q.defer(),
-    s3Deferred = Q.defer(),
-    filesRef = new Firebase(envVars.firebase + '/content/files');
+app.delete('/files/:fileName', function (req, res) {
+  var fileName = req.params.fileName,
+    s3Deferred = Q.defer();
 
-  filesRef.auth(firebaseSecret, firebaseDeferred.resolve, firebaseDeferred.reject);
-
-  S3.listObjects({
+  S3.deleteObject({
     Bucket: publicBucket,
-    Prefix: filePrefix
+    Key: filePrefix + '/' + fileName
   }, function (err, data) {
     return err ? s3Deferred.reject(err) : s3Deferred.resolve(data);
   });
 
-  Q.all([s3Deferred.promise, firebaseDeferred.promise]).spread(function (s3Data) {
-    console.log('filesRef s3Data', filesRef, s3Data);
-    filesRef.set(s3Data, function (err) {
-      return err ? deferred.reject(err) : deferred.resolve(s3Data);
-    });
-  }, deferred.reject);
-
-  return deferred.promise;
-};
+  s3Deferred.promise.then(updateFilesRegister).then(function (s3Data) {
+    res.json(s3Data);
+  }, function (err) {
+    errorHandler(res, err);
+  })
+});
 
 /*
  * Finish this sucka up

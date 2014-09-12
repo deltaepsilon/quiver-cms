@@ -50,6 +50,27 @@ $colors:
     color : nth($color, 2);
   }
 
+  .text-#{nth($color, 1)}-important {
+    color : nth($color, 2) !important;
+  }
+
+
+  a.link-#{nth($color, 1)}-important {
+    color : nth($color, 2) !important;
+  }
+
+  .link-#{nth($color, 1)}-important a {
+    color : nth($color, 2) !important;
+  }
+
+  a.link-hover-#{nth($color, 1)}-important:hover {
+    color : nth($color, 2) !important;
+  }
+
+  .link-hover-#{nth($color, 1)}-important a:hover {
+    color : nth($color, 2) !important;
+  }
+
 }
 
 @function getValueByKey($map, $key) {

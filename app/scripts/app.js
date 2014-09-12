@@ -134,7 +134,7 @@ angular.module('quiverCmsApp', [
                 // Set up auth tokens
                 window.envVars.firebaseAuthToken = currentUser.firebaseAuthToken;
                 quiverUtilitiesProvider.setEnv(window.envVars);
-                RestangularProvider.setDefaultHeaders({authorization: currentUser.firebaseAuthToken});
+                RestangularProvider.setDefaultHeaders({"authorization": currentUser.firebaseAuthToken, "user-id": currentUser.id});
 
                 return UserService.getUser(currentUser.id);
               } else {
@@ -215,6 +215,18 @@ angular.module('quiverCmsApp', [
           },
           draftsRef: function (AdminService, $stateParams) {
             return AdminService.getDrafts($stateParams.key);
+          },
+          filesRef: function ($q, AdminService) {
+            var deferred = $q.defer(),
+              filesRef = AdminService.getFiles();
+
+            filesRef.$asObject().$loaded(function () {
+              deferred.resolve(filesRef);
+            });
+
+
+
+            return deferred.promise;
           }
         }
       })
@@ -223,9 +235,12 @@ angular.module('quiverCmsApp', [
         templateUrl: 'views/admin-files.html',
         controller: 'FilesCtrl',
         resolve: {
-          files: function (AdminService) {
+          filesRef: function (AdminService) {
             return AdminService.getFiles();
-          }
+          },
+          notificationsRef: function (AdminService, currentUser) {
+            return AdminService.getNotifications(currentUser.id);
+          },
         }
       })
       .state('authenticated.master.admin.social', {

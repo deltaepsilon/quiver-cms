@@ -178,6 +178,31 @@ a.link-hover-primary0:hover {
   color: #333333;
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000353}}
+.text-primary0-important {
+  color: #333333 !important;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000358}}
+a.link-primary0-important {
+  color: #333333 !important;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000362}}
+.link-primary0-important a {
+  color: #333333 !important;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000366}}
+a.link-hover-primary0-important:hover {
+  color: #333333 !important;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000370}}
+.link-hover-primary0-important a:hover {
+  color: #333333 !important;
+}
+
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000332}}
 .text-primary1 {
   color: #1f0326;
@@ -201,6 +226,31 @@ a.link-hover-primary1:hover {
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000349}}
 .link-hover-primary1 a:hover {
   color: #1f0326;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000353}}
+.text-primary1-important {
+  color: #1f0326 !important;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000358}}
+a.link-primary1-important {
+  color: #1f0326 !important;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000362}}
+.link-primary1-important a {
+  color: #1f0326 !important;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000366}}
+a.link-hover-primary1-important:hover {
+  color: #1f0326 !important;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000370}}
+.link-hover-primary1-important a:hover {
+  color: #1f0326 !important;
 }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000332}}
@@ -228,6 +278,31 @@ a.link-hover-primary2:hover {
   color: #076391;
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000353}}
+.text-primary2-important {
+  color: #076391 !important;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000358}}
+a.link-primary2-important {
+  color: #076391 !important;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000362}}
+.link-primary2-important a {
+  color: #076391 !important;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000366}}
+a.link-hover-primary2-important:hover {
+  color: #076391 !important;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000370}}
+.link-hover-primary2-important a:hover {
+  color: #076391 !important;
+}
+
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000332}}
 .text-secondary0 {
   color: #a00934;
@@ -251,6 +326,31 @@ a.link-hover-secondary0:hover {
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000349}}
 .link-hover-secondary0 a:hover {
   color: #a00934;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000353}}
+.text-secondary0-important {
+  color: #a00934 !important;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000358}}
+a.link-secondary0-important {
+  color: #a00934 !important;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000362}}
+.link-secondary0-important a {
+  color: #a00934 !important;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000366}}
+a.link-hover-secondary0-important:hover {
+  color: #a00934 !important;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000370}}
+.link-hover-secondary0-important a:hover {
+  color: #a00934 !important;
 }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000332}}
@@ -278,6 +378,31 @@ a.link-hover-secondary1:hover {
   color: #fc0272;
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000353}}
+.text-secondary1-important {
+  color: #fc0272 !important;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000358}}
+a.link-secondary1-important {
+  color: #fc0272 !important;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000362}}
+.link-secondary1-important a {
+  color: #fc0272 !important;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000366}}
+a.link-hover-secondary1-important:hover {
+  color: #fc0272 !important;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000370}}
+.link-hover-secondary1-important a:hover {
+  color: #fc0272 !important;
+}
+
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000332}}
 .text-secondary2 {
   color: #4a910a;
@@ -301,6 +426,31 @@ a.link-hover-secondary2:hover {
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000349}}
 .link-hover-secondary2 a:hover {
   color: #4a910a;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000353}}
+.text-secondary2-important {
+  color: #4a910a !important;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000358}}
+a.link-secondary2-important {
+  color: #4a910a !important;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000362}}
+.link-secondary2-important a {
+  color: #4a910a !important;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000366}}
+a.link-hover-secondary2-important:hover {
+  color: #4a910a !important;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000370}}
+.link-hover-secondary2-important a:hover {
+  color: #4a910a !important;
 }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000332}}
@@ -328,6 +478,31 @@ a.link-hover-secondary3:hover {
   color: #414141;
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000353}}
+.text-secondary3-important {
+  color: #414141 !important;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000358}}
+a.link-secondary3-important {
+  color: #414141 !important;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000362}}
+.link-secondary3-important a {
+  color: #414141 !important;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000366}}
+a.link-hover-secondary3-important:hover {
+  color: #414141 !important;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000370}}
+.link-hover-secondary3-important a:hover {
+  color: #414141 !important;
+}
+
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000332}}
 .text-secondary4 {
   color: #f9f9f9;
@@ -351,6 +526,31 @@ a.link-hover-secondary4:hover {
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000349}}
 .link-hover-secondary4 a:hover {
   color: #f9f9f9;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000353}}
+.text-secondary4-important {
+  color: #f9f9f9 !important;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000358}}
+a.link-secondary4-important {
+  color: #f9f9f9 !important;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000362}}
+.link-secondary4-important a {
+  color: #f9f9f9 !important;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000366}}
+a.link-hover-secondary4-important:hover {
+  color: #f9f9f9 !important;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000370}}
+.link-hover-secondary4-important a:hover {
+  color: #f9f9f9 !important;
 }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000332}}
@@ -378,6 +578,31 @@ a.link-hover-secondary5:hover {
   color: #aaaaaa;
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000353}}
+.text-secondary5-important {
+  color: #aaaaaa !important;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000358}}
+a.link-secondary5-important {
+  color: #aaaaaa !important;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000362}}
+.link-secondary5-important a {
+  color: #aaaaaa !important;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000366}}
+a.link-hover-secondary5-important:hover {
+  color: #aaaaaa !important;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000370}}
+.link-hover-secondary5-important a:hover {
+  color: #aaaaaa !important;
+}
+
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000332}}
 .text-highlight0 {
   color: #bd3f42;
@@ -401,6 +626,31 @@ a.link-hover-highlight0:hover {
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000349}}
 .link-hover-highlight0 a:hover {
   color: #bd3f42;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000353}}
+.text-highlight0-important {
+  color: #bd3f42 !important;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000358}}
+a.link-highlight0-important {
+  color: #bd3f42 !important;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000362}}
+.link-highlight0-important a {
+  color: #bd3f42 !important;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000366}}
+a.link-hover-highlight0-important:hover {
+  color: #bd3f42 !important;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000370}}
+.link-hover-highlight0-important a:hover {
+  color: #bd3f42 !important;
 }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000332}}
@@ -428,6 +678,31 @@ a.link-hover-highlight1:hover {
   color: rgba(0, 0, 0, 0.6);
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000353}}
+.text-highlight1-important {
+  color: rgba(0, 0, 0, 0.6) !important;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000358}}
+a.link-highlight1-important {
+  color: rgba(0, 0, 0, 0.6) !important;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000362}}
+.link-highlight1-important a {
+  color: rgba(0, 0, 0, 0.6) !important;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000366}}
+a.link-hover-highlight1-important:hover {
+  color: rgba(0, 0, 0, 0.6) !important;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000370}}
+.link-hover-highlight1-important a:hover {
+  color: rgba(0, 0, 0, 0.6) !important;
+}
+
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000332}}
 .text-notify {
   color: #076391;
@@ -451,6 +726,31 @@ a.link-hover-notify:hover {
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000349}}
 .link-hover-notify a:hover {
   color: #076391;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000353}}
+.text-notify-important {
+  color: #076391 !important;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000358}}
+a.link-notify-important {
+  color: #076391 !important;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000362}}
+.link-notify-important a {
+  color: #076391 !important;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000366}}
+a.link-hover-notify-important:hover {
+  color: #076391 !important;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000370}}
+.link-hover-notify-important a:hover {
+  color: #076391 !important;
 }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000332}}
@@ -478,6 +778,31 @@ a.link-hover-error:hover {
   color: #a00934;
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000353}}
+.text-error-important {
+  color: #a00934 !important;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000358}}
+a.link-error-important {
+  color: #a00934 !important;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000362}}
+.link-error-important a {
+  color: #a00934 !important;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000366}}
+a.link-hover-error-important:hover {
+  color: #a00934 !important;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000370}}
+.link-hover-error-important a:hover {
+  color: #a00934 !important;
+}
+
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000332}}
 .text-success {
   color: #4a910a;
@@ -501,6 +826,31 @@ a.link-hover-success:hover {
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000349}}
 .link-hover-success a:hover {
   color: #4a910a;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000353}}
+.text-success-important {
+  color: #4a910a !important;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000358}}
+a.link-success-important {
+  color: #4a910a !important;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000362}}
+.link-success-important a {
+  color: #4a910a !important;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000366}}
+a.link-hover-success-important:hover {
+  color: #4a910a !important;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000370}}
+.link-hover-success-important a:hover {
+  color: #4a910a !important;
 }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000332}}
@@ -528,6 +878,31 @@ a.link-hover-warning:hover {
   color: #fc0272;
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000353}}
+.text-warning-important {
+  color: #fc0272 !important;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000358}}
+a.link-warning-important {
+  color: #fc0272 !important;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000362}}
+.link-warning-important a {
+  color: #fc0272 !important;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000366}}
+a.link-hover-warning-important:hover {
+  color: #fc0272 !important;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000370}}
+.link-hover-warning-important a:hover {
+  color: #fc0272 !important;
+}
+
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000332}}
 .text-gray {
   color: #333333;
@@ -553,8 +928,33 @@ a.link-hover-gray:hover {
   color: #333333;
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000353}}
+.text-gray-important {
+  color: #333333 !important;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000358}}
+a.link-gray-important {
+  color: #333333 !important;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000362}}
+.link-gray-important a {
+  color: #333333 !important;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000366}}
+a.link-hover-gray-important:hover {
+  color: #333333 !important;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000370}}
+.link-hover-gray-important a:hover {
+  color: #333333 !important;
+}
+
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000332}}
-.text-white, .block-form .title {
+.text-white, .block-form .title, .side-nav .qv-progress {
   color: white;
 }
 
@@ -576,6 +976,31 @@ a.link-hover-white:hover {
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000349}}
 .link-hover-white a:hover {
   color: white;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000353}}
+.text-white-important {
+  color: white !important;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000358}}
+a.link-white-important {
+  color: white !important;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000362}}
+.link-white-important a {
+  color: white !important;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000366}}
+a.link-hover-white-important:hover {
+  color: white !important;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000370}}
+.link-hover-white-important a:hover {
+  color: white !important;
 }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000332}}
@@ -601,6 +1026,31 @@ a.link-hover-black:hover {
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000349}}
 .link-hover-black a:hover {
   color: black;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000353}}
+.text-black-important {
+  color: black !important;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000358}}
+a.link-black-important {
+  color: black !important;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000362}}
+.link-black-important a {
+  color: black !important;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000366}}
+a.link-hover-black-important:hover {
+  color: black !important;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000370}}
+.link-hover-black-important a:hover {
+  color: black !important;
 }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_font\.scss}line{font-family:\0000327}}
@@ -1254,6 +1704,11 @@ a.link-hover-black:hover {
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_global\.scss}line{font-family:\0000330}}
 .hidden {
   display: none;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_global\.scss}line{font-family:\0000334}}
+.disabled {
+  opacity: .3;
 }
 
 /*
@@ -5047,6 +5502,56 @@ label.error {
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/lib\/foundation\/scss\/foundation\/components\/_inline-lists\.scss}line{font-family:\0000347}}
 .inline-list > li > * {
   display: block;
+}
+
+/* Progress Bar */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/lib\/foundation\/scss\/foundation\/components\/_progress-bars\.scss}line{font-family:\0000357}}
+.progress, .qv-progress {
+  background-color: #f6f6f6;
+  height: 1.5625rem;
+  border: 1px solid white;
+  padding: 0.125rem;
+  margin-bottom: 0.625rem;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/lib\/foundation\/scss\/foundation\/components\/_progress-bars\.scss}line{font-family:\0000361}}
+.progress .meter, .qv-progress .meter {
+  background: #008cba;
+  height: 100%;
+  display: block;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/lib\/foundation\/scss\/foundation\/components\/_progress-bars\.scss}line{font-family:\0000364}}
+.progress.secondary .meter, .secondary.qv-progress .meter {
+  background: #e7e7e7;
+  height: 100%;
+  display: block;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/lib\/foundation\/scss\/foundation\/components\/_progress-bars\.scss}line{font-family:\0000365}}
+.progress.success .meter, .success.qv-progress .meter {
+  background: #43ac6a;
+  height: 100%;
+  display: block;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/lib\/foundation\/scss\/foundation\/components\/_progress-bars\.scss}line{font-family:\0000366}}
+.progress.alert .meter, .alert.qv-progress .meter {
+  background: #f04124;
+  height: 100%;
+  display: block;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/lib\/foundation\/scss\/foundation\/components\/_progress-bars\.scss}line{font-family:\0000368}}
+.progress.radius, .radius.qv-progress {
+  border-radius: 3px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/lib\/foundation\/scss\/foundation\/components\/_progress-bars\.scss}line{font-family:\0000369}}
+.progress.radius .meter, .radius.qv-progress .meter {
+  border-radius: 2px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/lib\/foundation\/scss\/foundation\/components\/_progress-bars\.scss}line{font-family:\0000372}}
+.progress.round, .round.qv-progress {
+  border-radius: 1000px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/lib\/foundation\/scss\/foundation\/components\/_progress-bars\.scss}line{font-family:\0000373}}
+.progress.round .meter, .round.qv-progress .meter {
+  border-radius: 999px;
 }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/lib\/foundation\/scss\/foundation\/components\/_type\.scss}line{font-family:\00003155}}
@@ -9579,6 +10084,31 @@ button.callout:active, button.callout:focus, .button.callout:active, .button.cal
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/modules\/_notifications\.scss}line{font-family:\0000349}}
 .notifications .dr-notification-content p {
   margin: 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/modules\/_progress\.scss}line{font-family:\000031}}
+.qv-progress {
+  height: initial;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/modules\/_progress\.scss}line{font-family:\000038}}
+.side-nav .qv-progress {
+  height: initial;
+  position: relative;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/modules\/_progress\.scss}line{font-family:\0000314}}
+.side-nav .qv-progress .meter {
+  position: absolute;
+  top: 0;
+  right: initial;
+  bottom: initial;
+  left: 0;
+  z-index: 1;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/modules\/_progress\.scss}line{font-family:\0000320}}
+.side-nav .qv-progress .meter-text {
+  position: relative;
+  z-index: 2;
 }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/modules\/_table-list\.scss}line{font-family:\000031}}

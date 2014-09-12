@@ -20,41 +20,63 @@
 
             <ul ng-if="$flow.files.length" class="side-nav">
                 <li ng-repeat="file in $flow.files">
-                    <a qv-confirm="deleteFlowFile($flow, file)" confirmations="['Click to Delete']">{{ file.name }}</a>
+                    <a class="qv-progress text-x-small success" qv-confirm="deleteFlowFile($flow, file)" confirmations="['Click to Delete']">
+                        <span class="meter-text text-black">{{ file.name }}</span>
+                        <span class="meter" qv-meter="file.percentComplete"></span>
+                        <!--<span ng-show="getNotifications(file.name)">({{ (getNotifications(file.name).loaded / getNotifications(file.name).total) * 100 | number:0 }} %)</span>-->
+                    </a>
+
                 </li>
             </ul>
 
-            <button ng-click="upload($flow)" ng-hide="!$flow.files.length">Upload Files</button>
+            <button ng-click="upload($flow)" ng-hide="!$flow.files.length" ng-disabled="uploading">Upload Files</button>
 
         </fieldset>
 
 
     </form>
 
+    <div class="panel" ng-show="$storage.clipboard.length">
+        <h5>Clipboard</h5>
+        <ul class="side-nav">
+            <li ng-repeat="file in $storage.clipboard">
+                <a class="text-x-small" qv-confirm="removeFromClipboard(file)" confirmations="['Click to Remove']">{{ file.Key | filename }}</a>
+            </li>
+        </ul>
+    </div>
+
 
 
 </div>
 
 <div class="column small-12 medium-8 large-10">
-
-    <table ng-show="files.length">
+    
+    <table ng-show="files.Contents.length">
         <thead>
             <tr>
-                <th>Date</th><th>Preview</th><th>Name</th><th>Link</th><th>Markdown</th><th>Action</th>
+                <th>Details</th><th>Preview</th><th>Link</th><th>Markdown</th><th>Action</th>
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="file in files">
-                <td>{{ file.date | date }}</td>
+            <tr ng-repeat="file in files.Contents" ng-class="{'disabled': file.disabled}">
                 <td>
-                    <img ng-src="file.url" alt="{{ file.name }}"/>
-                </td>
-                <td>{{ file.name }}</td>
-                <td>
-                    <input type="text" ng-model="file.url" qv-select-text/>
+
+                    <span contenteditable="true" ng-model="file.Key">{{ file.Key | filename }}</span>
+                    ({{ file.Size / 1000 | number:0 }}kb)
                 </td>
                 <td>
-                    <input type="text" value="![{{ file.name }}]({{ file.url }})" qv-select-text/>
+                    <a href="https://s3.amazonaws.com/{{ files.Name }}/{{ file.Key }}" target="_blank" qv-media="https://s3.amazonaws.com/{{ files.Name }}/{{ file.Key }}" alt="{{ file.Key | filename }}" attributes="{embed: {width: '100px', height: '100px'}, img: {'style': 'min-width: 100%;'}, video: {width: '200px'}}"></a>
+                </td>
+                <td>
+                    <input type="text" qv-select-text value="https://s3.amazonaws.com/{{ files.Name }}/{{ file.Key }}"/>
+                </td>
+                <td>
+                    <input type="text" value="![{{ file.Key | filename }}](https://s3.amazonaws.com/{{ files.Name }}/{{ file.Key }})" qv-select-text/>
+                </td>
+                <td>
+                    <button class="tiny secondary" ng-click="addToClipboard(file)" ng-hide="inClipboard(file)">+ Clipboard</button>
+                    <!--<button class="tiny secondary" ng-click="removeFromClipboard(file)" ng-show="inClipboard(file)">- Clipboard</button>-->
+                    <button class="alert tiny right" qv-confirm="removeFile(file); file.disabled = true;" confirmations="['Confirm']" ng-disabled="file.disabled">Delete</button>
                 </td>
             </tr>
         </tbody>

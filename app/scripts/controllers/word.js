@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('quiverCmsApp')
-  .controller('WordCtrl', function ($scope, $timeout, moment, wordRef, draftsRef, NotificationService, $filter, $localStorage, _) {
+  .controller('WordCtrl', function ($scope, $timeout, moment, wordRef, draftsRef, filesRef, NotificationService, $filter, $localStorage, _, ClipboardService) {
 
     $scope.$storage = $localStorage;
 
@@ -68,5 +68,25 @@ angular.module('quiverCmsApp')
 
     $scope.handleActiveDraftChange = function (draft) {
       draft.edited = moment().format();
+    };
+
+    /*
+     * Files
+    */
+    $scope.files = filesRef.$asObject();
+
+    $scope.files.$loaded(function (files) {
+      console.log('loaded', files);
+    });
+
+    $scope.removeFromClipboard = function (file) {
+      var fileName = $filter('filename')(file.Key);
+
+      if (ClipboardService.remove(file, $scope)) {
+        return NotificationService.success('- Clipboard', fileName + ' has been removed from the clipboard.');
+      } else {
+        return NotificationService.error('Not Found', fileName + ' was not found in the clipboard');
+      }
+
     };
   });
