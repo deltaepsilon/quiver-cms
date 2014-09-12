@@ -73,7 +73,7 @@
                     <input type="text" value="![{{ file.Key | filename }}](https://s3.amazonaws.com/{{ files.Name }}/{{ file.Key }})" qv-select-text/>
                 </td>
                 <td>
-                    <button class="tiny secondary" ng-click="addToClipboard(file)" ng-hide="inClipboard(file)">+ Clipboard</button>
+                    <button class="tiny secondary" ng-click="addToClipboard(file)" ng-hide="inClipboard(file) || file.disabled">+ Clipboard</button>
                     <!--<button class="tiny secondary" ng-click="removeFromClipboard(file)" ng-show="inClipboard(file)">- Clipboard</button>-->
                     <button class="alert tiny right" qv-confirm="removeFile(file); file.disabled = true;" confirmations="['Confirm']" ng-disabled="file.disabled">Delete</button>
                 </td>

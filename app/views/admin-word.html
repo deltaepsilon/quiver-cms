@@ -53,7 +53,7 @@
         <ul class="small-block-grid-2 medium-block-grid-4 large-block-grid-8">
             <li class="relative" ng-repeat="file in $storage.clipboard">
                 <div class="relative">
-                    <div qv-media="https://s3.amazonaws.com/{{ files.Name }}/{{ file.Key }}" alt="{{ file.Key | filename }}" attributes="{embed: {width: '100px', height: '100px'}, img: {'style': 'min-width: 100%;'}, video: {width: '200px'}}"></div>
+                    <div class="cursor-pointer" ng-click="addFromClipboard(file)" qv-media="https://s3.amazonaws.com/{{ files.Name }}/{{ file.Key }}" alt="{{ file.Key | filename }}" attributes="{embed: {width: '100px', height: '100px'}, img: {'style': 'min-width: 100%;'}, video: {width: '200px'}}" alt="Click to Add"></div>
                     <a class="delete-button text-small background-secondary5 link-white link-hover-secondary0" style="opacity: .9;" ng-click="removeFromClipboard(file)">x</a>
                 </div>
 
@@ -61,5 +61,5 @@
         </ul>
     </div>
 
-    <div class="small-12 background-secondary4 padding-small" qv-full-page target="#body" delay="300" contenteditable="true" ng-model="$storage.activeDraft.markdown" markdown-editable ng-change="handleActiveDraftChange($storage.activeDraft)"></div>
+    <div class="small-12 background-secondary4 padding-small" qv-full-page target="#body" delay="300" contenteditable="true" ng-model="$storage.activeDraft.markdown" markdown-editable ng-change="handleActiveDraftChange($storage.activeDraft)" extensions="video"></div>
 </div>

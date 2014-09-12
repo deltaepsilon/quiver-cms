@@ -229,6 +229,7 @@ app.post('/files/:fileName', function (req, res) {
       ACL: 'public-read',
       Body: file,
       CacheControl: "max-age=34536000",
+      Expires: moment().add('1 year').unix(),
       ContentType: type,
       StorageClass: "REDUCED_REDUNDANCY"
     };

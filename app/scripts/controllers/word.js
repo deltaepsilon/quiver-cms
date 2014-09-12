@@ -13,7 +13,7 @@ angular.module('quiverCmsApp')
     word.$bindTo($scope, 'word');
 
     word.$loaded().then(function () {
-      if (!$scope.$storage.activeDraft || $scope.$storage.activeDraft.key || $scope.word.$id) {
+      if (!$scope.$storage.activeDraft) {
         $scope.$storage.activeDraft = {
           markdown: $scope.word.published ? $scope.word.published.markdown : '#Use your words! \n\n(But please make it Markdown...)',
           created: moment().format()
@@ -84,5 +84,30 @@ angular.module('quiverCmsApp')
         return NotificationService.error('Not Found', fileName + ' was not found in the clipboard');
       }
 
+    };
+
+    var SUFFIX_REGEX = /\.(\w+)$/,
+      imgList = ['jpg', 'jpeg', 'png', 'gif', 'tiff', 'ico'],
+      videoList = ['mp4', 'webm'];
+
+    $scope.addFromClipboard = function (file) {
+      var url = "https://s3.amazonaws.com/" + $scope.files.Name + "/" + file.Key,
+        matches = file.Key.match(SUFFIX_REGEX),
+        suffix = (matches && matches.length > 0) ? matches[1].toLowerCase() : null,
+        isImg = !!~imgList.indexOf(suffix),
+        isVideo = !!~videoList.indexOf(suffix),
+        markdown = "\n\n";
+
+      if (isImg) {
+        markdown += '![' + $filter('filename')(file.Key) + '](' + url + ')';
+      } else if (isVideo) {
+        markdown += '$[' + $filter('filename')(file.Key) + '](' + url + ')';
+      } else {
+        markdown += '[' + $filter('filename')(file.Key) + '](' + url + ')';
+      }
+
+      $scope.$storage.activeDraft.markdown +=  markdown;
+
+      NotificationService.success('Markdown Added');
     };
   });

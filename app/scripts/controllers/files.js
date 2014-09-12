@@ -133,7 +133,8 @@ angular.module('quiverCmsApp')
 
     $scope.removeFile = function (file) {
       var fileName = $filter('filename')(file.Key);
-      FileService.remove(fileName).then(function () {
+
+      $scope.removeFromClipboard(file).then(FileService.remove).then(function () {
         NotificationService.success('File Removed', 'Removed ' + fileName);
       }, function (err) {
         NotificationService.error('File Removal Failed', err);
@@ -150,24 +151,29 @@ angular.module('quiverCmsApp')
       var fileName = $filter('filename')(file.Key);
 
       if (ClipboardService.add(file)) {
-        return NotificationService.success('+ Clipboard', fileName + ' was added to the clipboard.')
+//        return NotificationService.success('+ Clipboard', fileName + ' was added to the clipboard.')
+        return fileName;
       } else {
-        return NotificationService.error('Already There!', fileName + ' is already in the clipboard.');
+//        return NotificationService.error('Already There!', fileName + ' is already in the clipboard.');
+        return false;
       }
     };
 
     $scope.removeFromClipboard = function (file) {
-      var fileName = $filter('filename')(file.Key);
+      var deferred = $q.defer(),
+        fileName = $filter('filename')(file.Key);
 
       $scope.$apply(function () {
         if (ClipboardService.remove(file)) {
-          return NotificationService.success('- Clipboard', fileName + ' has been removed from the clipboard.');
+//          NotificationService.success('- Clipboard', fileName + ' has been removed from the clipboard.');
+          deferred.resolve(fileName);
         } else {
-          return NotificationService.error('Not Found', fileName + ' was not found in the clipboard');
+//          NotificationService.error('Not Found', fileName + ' was not found in the clipboard');
+          deferred.reject(fileName);
         }
       });
 
-
+      return deferred.promise;
     };
 
 
