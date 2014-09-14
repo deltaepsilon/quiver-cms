@@ -95,12 +95,15 @@ angular.module('quiverCmsApp')
           fileHandler = function (j, fileDeferred) {
             return function () {
               var unwatch = file.notification.$watch(function () {
-                var percent = Flow.files[j].notification.loaded / Flow.files[j].notification.total;
+                if (Flow.files[j].notification) {
+                  var percent = Flow.files[j].notification.loaded / Flow.files[j].notification.total;
 
-                Flow.files[j].percentComplete = isNaN(percent) ? 0 : percent;
-                if (percent === 1) { // The .notification object will get erased at this point, so let's leave the percentComplete at 1 and walk away
-                  unwatch();
+                  Flow.files[j].percentComplete = isNaN(percent) ? 0 : percent;
+                  if (percent === 1) { // The .notification object will get erased at this point, so let's leave the percentComplete at 1 and walk away
+                    unwatch();
+                  }
                 }
+
               });
               fileDeferred.resolve(unwatch);
             }

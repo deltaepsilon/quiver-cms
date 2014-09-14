@@ -101,7 +101,7 @@ angular.module('quiverCmsApp')
       if (isImg) {
         markdown += '![' + $filter('filename')(file.Key) + '](' + url + ')';
       } else if (isVideo) {
-        markdown += '$[' + $filter('filename')(file.Key) + '](' + url + ')';
+        markdown += '!![' + $filter('filename')(file.Key) + '](' + url + ')';
       } else {
         markdown += '[' + $filter('filename')(file.Key) + '](' + url + ')';
       }
