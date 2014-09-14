@@ -6,7 +6,7 @@
 </div>
 
 <div class="column small-12 medium-4 large-2">
-    <form name="filesForm" flow-init flow-name="flow">
+    <form name="filesForm" flow-init="{target: uploadTarget}" flow-name="flow">
         <fieldset>
             <label class="button tiny small-12" for="upload-file">Select Files</label>
             <input id="upload-file" class="hidden" type="file" flow-btn/>
@@ -21,7 +21,7 @@
             <ul ng-if="$flow.files.length" class="side-nav">
                 <li ng-repeat="file in $flow.files">
                     <a class="qv-progress text-x-small success" qv-confirm="deleteFlowFile($flow, file)" confirmations="['Click to Delete']">
-                        <span class="meter-text text-black">{{ file.name }}</span>
+                        <span class="meter-text text-black">{{ file.name }} {{ file.size / 1000 | number:0 }}kb</span>
                         <span class="meter" qv-meter="file.percentComplete"></span>
                     </a>
 

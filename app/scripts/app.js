@@ -19,7 +19,7 @@ angular.module('quiverCmsApp', [
       NotificationService.error('Server Unresponsive', 'The server could not be reached at ' + env.api + '. Try reloading the page or come back later.');
     });
 
-}).config(function ($stateProvider, $urlRouterProvider, quiverUtilitiesProvider, RestangularProvider) {
+}).config(function ($stateProvider, $urlRouterProvider, quiverUtilitiesProvider, RestangularProvider, flowFactoryProvider) {
     /*
      * Configure Restangular
     */
@@ -134,7 +134,10 @@ angular.module('quiverCmsApp', [
                 // Set up auth tokens
                 window.envVars.firebaseAuthToken = currentUser.firebaseAuthToken;
                 quiverUtilitiesProvider.setEnv(window.envVars);
-                RestangularProvider.setDefaultHeaders({"authorization": currentUser.firebaseAuthToken, "user-id": currentUser.id});
+
+                var headers = {"authorization": currentUser.firebaseAuthToken, "user-id": currentUser.id};
+                RestangularProvider.setDefaultHeaders(headers);
+                flowFactoryProvider.defaults = {headers: headers, testChunks: false};
 
                 return UserService.getUser(currentUser.id);
               } else {

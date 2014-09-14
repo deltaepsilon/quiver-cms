@@ -3,7 +3,7 @@ var Q = require('q'),
   express = require('express'),
   app = express(),
   fs = require('fs'),
-  multer = require('multer'),
+  formidable = require('formidable'),
   winston = require('winston'),
   AWS = require('aws-sdk'),
   S3 = new AWS.S3(),
@@ -51,63 +51,172 @@ firebaseRoot.auth(firebaseSecret);
 AWS.config.update({accessKeyId: process.env.AMAZON_ACCESS_KEY_ID, secretAccessKey: process.env.AMAZON_SECRET_ACCESS_KEY});
 
 /*
- * Express middleware
+ * Generic Express middleware
 */
-var bodyParser = require('body-parser')
-//app.use(bodyParser.urlencoded({extended: true}));
-//app.use(bodyParser.json());
-app.use(multer({
-  dest: './uploads/',
-  limits: {
-    fieldSize: '5MB'
-  },
-  onParseStart: function () {
-    console.log('parseStart');
-    winston.log('parseStart');
-  },
-  onParseEnd: function (req, next) {
-    console.log('parseEnd', req.body.name, req.body.size);
-    winston.log('parseEnd');
-    next();
-  },
-  onFileUploadData: function (file, data) {
-    console.log('upload data', file, data);
-    winston.log('upload data', file, data);
-  },
-  onFileUploadStart: function (file) {
-    console.log('upload started', file);
-    winston.log('upload started', file);
-  },
-  onFileUploadComplete: function (file) {
-    console.log('upload complete', file);
-    winston.log('upload complete', file);
-  },
-  onFileSizeLimit: function (file) {
-    console.log('filesize limit', file);
-    winston.log('filesize limit', file);
-  },
-  onError: function (error) {
-    winston.log('upload error', error);
-    uploadLogger.log('error', error);
-  }
-}));
 app.use(require('cookie-session')({keys: [process.env.QUIVER_CMS_SESSION_SECRET]}));
 
+/*
+ * Body parsing middleware
+*/
+var parseBody = function (req, res, next) {
+    var form = new formidable.IncomingForm();
 
+    form.uploadDir = './uploads';
+    form.keepExtensions = true;
+    form.maxFieldSize = 100 * 1024;
+
+//    form.on('file', function (name, file) {
+//      console.log('file', name);
+//      winston.log('file');
+//    });
+//
+//    form.on('progress', function (bytesReceived, bytesExpected) {
+//      console.log('progress', bytesReceived, bytesExpected);
+//      winston.log('progress');
+//    });
+//
+//    form.on('aborted', function () {
+//      console.log('aborted');
+//      winston.log('aborted');
+//    });
+//
+//    form.on('end', function () {
+//      console.log('end');
+//      winston.log('end');
+//    });
+
+    form.on('error', function (err) {
+      console.log('error', err);
+      winston.log('err');
+    });
+
+    form.parse(req, function (err, fields, files) {
+      req.body = fields;
+      req.files = files;
+      next();
+    });
+  };
+
+/*
+ * Flow body parsing and file assembly
+*/
+var chunks = [],
+  parseFlow = function (req, res, next) {
+    var form = new formidable.IncomingForm();
+
+    form.uploadDir = './uploads';
+    form.keepExtensions = true;
+    form.maxFieldSize = 100 * 1024;
+
+    form.on('error', function (err) {
+      console.log('error', err);
+      winston.log('err');
+    });
+
+    form.parse(req, function (err, fields, files) {
+      //    console.log('parse', err, fields, files);
+      var flowFilename = fields.flowFilename,
+        flowChunkNumber = parseInt(fields.flowChunkNumber),
+        flowTotalChunks = parseInt(fields.flowTotalChunks),
+        clearChunks = function (fileName) {
+          var deferred = Q.defer(),
+            promises = [];
+
+          _.each(_.where(chunks, {flowFilename: fileName}), function (chunk) {
+            var chunkDeferred = Q.defer();
+            promises.push(chunkDeferred.promise);
+
+            fs.unlink(chunk.file.path, function (err) {
+              return err ? chunkDeferred.reject(err) : chunkDeferred.resolve();
+            });
+
+          });
+
+          Q.all(promises).then(function () {
+            var i = chunks.length;
+
+            while (i--) {
+              if (chunks[i].flowFilename === fileName) {
+                chunks.splice(i, 1);
+              }
+            }
+
+            deferred.resolve();
+
+          }, deferred.reject);
+
+          return deferred.promise;
+        },
+        concatDeferred = Q.defer(),
+        concatNextChunk = function (i) {
+          var i = i || 1,
+            chunk = _.findWhere(chunks, {flowFilename: flowFilename, flowChunkNumber: i.toString()}),
+            readDeferred = Q.defer(),
+            writeDeferred = Q.defer();
+
+//          console.log('reading', i, chunk.file.path);
+          fs.readFile(chunk.file.path, function (err, data) {
+            return err ? readDeferred.reject(err) : readDeferred.resolve(data);
+          });
+
+          readDeferred.promise.then(function (data) {
+//            console.log('appending', i, flowTotalChunks, form.uploadDir + '/' + flowFilename);
+            fs.appendFile(form.uploadDir + '/' + flowFilename, data, function (err) {
+              return err ? writeDeferred.reject(err) : writeDeferred.resolve();
+            });
+          });
+
+          Q.all([readDeferred.promise, writeDeferred.promise]).spread(function () {
+            return (i === flowTotalChunks) ? concatDeferred.resolve(chunk) : concatNextChunk(i + 1);
+
+          }, concatDeferred.reject);
+
+          return concatDeferred.promise;
+        };
+
+      fields.file = files.file;
+
+      chunks.push(fields);
+
+      if (flowChunkNumber === flowTotalChunks) {
+        concatNextChunk().then(function (chunk) {
+          req.body = chunk;
+          req.body.fileName = flowFilename;
+          clearChunks(flowFilename).then(next);
+        }, function (err) {
+          console.log('error', err)
+          winston.log('error', err);
+          clearChunks(flowFilename).then(function () {
+            res.sendStatus(500);
+          });
+        });
+      } else {
+
+        if ( flowChunkNumber % 5 === 0 ) { // Set notification on every fifth chunk
+          var notificationsRef = req.userRef.child('notifications').child(slug(flowFilename, {charmap: {'.': '-'}}).toLowerCase());
+          notificationsRef.set({
+            loaded: flowChunkNumber / 3, // This is roughly the first third of the process, so divide the completion percentage by 3
+            total: flowTotalChunks
+          });
+
+        }
+
+        res.sendStatus(200);
+      }
+
+    });
+  };
 
 /**
  * Access Tokens
  */
 app.use(function (req, res, next) {
-//  console.log('url', req.url);
   if (req.param('access_token')) {
     req.session.access_token = req.param('access_token');
   }
-
   res.header('Access-Control-Allow-Origin', "*");
   res.header('Access-Control-Allow-Methods', "GET, POST, PUT, DELETE, PATCH");
   res.header('Access-Control-Allow-Headers', req.headers['access-control-request-headers']); // Allow whatever they're asking for
-
   next();
 });
 
@@ -202,56 +311,85 @@ var updateFilesRegister = function() { //Cache S3.listObjects result to Firebase
   return deferred.promise;
 };
 
-app.get('/files', function (req, res) {
-  res.json({files: []});
+app.get('/files', function (req, res) { // Typically used merely for Flow.js testing purposes
+  /* req.query = {
+     flowChunkNumber: '1',
+     flowChunkSize: '1048576',
+     flowCurrentChunkSize: '4286',
+     flowTotalSize: '4286',
+     flowIdentifier: '4286-favicon-ceico',
+     flowFilename: 'favicon-ce.ico',
+     flowRelativePath: 'favicon-ce.ico',
+     flowTotalChunks: '1'
+   }
+  */
+  res.sendStatus(200);
 });
 
-app.post('/files/:fileName', function (req, res) {
+app.post('/files', parseFlow); // Use formidable body parser... the Flow variety
+app.post('/files', function (req, res) {
   /*
    * Configure S3 payload from request
   */
 
-  var fileName = req.params.fileName,
-    dataUrl = req.body.file,
-    parts = dataUrl.split(';base64'),
+  var fileName = req.body.fileName,
+    filePath = './uploads/' + fileName,
+    readDeferred = Q.defer(),
     fileDeferred = Q.defer();
 
-  if (!parts) {
+  if (!fileName) {
     return errorHandler(res, {"error": "No file sent."});
   }
 
-  var extension = parts[0],
-    file = new Buffer(parts[1], "base64"),
-    type = req.body.type,
-    payload = {
-      Bucket: publicBucket,
-      Key: filePrefix + '/' + fileName,
-      ACL: 'public-read',
-      Body: file,
-      CacheControl: "max-age=34536000",
-      Expires: moment().add('1 year').unix(),
-      ContentType: type,
-      StorageClass: "REDUCED_REDUNDANCY"
-    };
-
-  /*
-   * Upload file
-   * Report progress
-  */
-  var notificationsRef = req.userRef.child('notifications').child(slug(fileName, {charmap: {'.': '-'}}).toLowerCase());
-
-  var s3request = S3.putObject(payload, function (err, data) {
-    if (err) {
-      fileDeferred.reject(err);
-    } else {
-      notificationsRef.remove();
-      fileDeferred.resolve(data);
-    }
-
+  fs.readFile(filePath, {encoding: "base64"}, function (err, data) {
+    return err ? readDeferred.reject(err) : readDeferred.resolve(data);
   });
 
-  s3request.on('httpUploadProgress', function (progress) {
-    notificationsRef.set(progress);
+  readDeferred.promise.then(function () {
+    console.log('');
+    fs.unlink(filePath);
+  });
+
+  /*
+   * Handle s3 upload
+  */
+
+  readDeferred.promise.then(function (data) {
+    var file = new Buffer(data, "base64"),
+      type = req.body.type,
+      payload = {
+        Bucket: publicBucket,
+        Key: filePrefix + '/' + fileName,
+        ACL: 'public-read',
+        Body: file,
+        CacheControl: "max-age=34536000",
+        Expires: moment().add('1 year').unix(),
+        ContentType: type,
+        StorageClass: "REDUCED_REDUNDANCY"
+      };
+
+    /*
+     * Upload file
+     * Report progress
+     */
+    var notificationsRef = req.userRef.child('notifications').child(slug(fileName, {charmap: {'.': '-'}}).toLowerCase());
+
+    var s3request = S3.putObject(payload, function (err, data) {
+      if (err) {
+        fileDeferred.reject(err);
+      } else {
+        notificationsRef.remove();
+        fileDeferred.resolve(data);
+      }
+
+    });
+
+    s3request.on('httpUploadProgress', function (progress) {
+      progress.loaded = 2/3 * progress.loaded + 1/3 * progress.total; // Inflate the loaded value by 33%, because this part of the process is the second two thirds of the upload.
+      notificationsRef.set(progress);
+    });
+  }, function (err) {
+    errorHandler(res, err)
   });
 
   /*

@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('quiverCmsApp')
-  .controller('FilesCtrl', function ($scope, $q, FileService, NotificationService, filesRef, notificationsRef, $filter, $localStorage, _, ClipboardService, Slug, $interval) {
+  .controller('FilesCtrl', function ($scope, $q, FileService, NotificationService, filesRef, notificationsRef, $filter, $localStorage, _, ClipboardService, Slug, env, $interval) {
 
     /*
      * localStorage
@@ -36,6 +36,8 @@ angular.module('quiverCmsApp')
      * Files
     */
     $scope.files = filesRef.$asObject();
+
+    $scope.uploadTarget = env.api + '/files';
 
     $scope.deleteFlowFile = function (flow, file) {
       var i = flow.files.length;
@@ -94,7 +96,11 @@ angular.module('quiverCmsApp')
             return function () {
               var unwatch = file.notification.$watch(function () {
                 var percent = Flow.files[j].notification.loaded / Flow.files[j].notification.total;
+
                 Flow.files[j].percentComplete = isNaN(percent) ? 0 : percent;
+                if (percent === 1) { // The .notification object will get erased at this point, so let's leave the percentComplete at 1 and walk away
+                  unwatch();
+                }
               });
               fileDeferred.resolve(unwatch);
             }
@@ -113,7 +119,26 @@ angular.module('quiverCmsApp')
 //      return console.warn('returning early for testings');
 
       $q.all(promises).then(function () {
-        return FileService.uploadFlow(Flow);
+        var deferred = $q.defer();
+
+        Flow.upload();
+        Flow.on('catchAll', function (e) {
+          switch (e) {
+            case 'complete':
+              deferred.resolve(e);
+              Flow.files = [];
+              $scope.uploading = false;
+              NotificationService.success('Files Uploaded!');
+              clearWatches();
+              break;
+            default:
+              deferred.notify(e);
+              break;
+          }
+
+        });
+        return deferred.promise;
+
       }).then(uploadDeferred.resolve, uploadDeferred.reject);
 
       uploadDeferred.promise.then(function () {
@@ -123,7 +148,9 @@ angular.module('quiverCmsApp')
         clearWatches();
 
       }, function (error) {
+        Flow.files = [];
         $scope.uploading = false;
+        console.warn(error);
         NotificationService.error('Upload Failed', error);
         clearWatches();
       });
@@ -134,7 +161,11 @@ angular.module('quiverCmsApp')
     $scope.removeFile = function (file) {
       var fileName = $filter('filename')(file.Key);
 
-      $scope.removeFromClipboard(file).then(FileService.remove).then(function () {
+      if ($scope.inClipboard(file)) {
+        $scope.removeFromClipboard(file);
+      }
+
+      FileService.remove(file.Name || $filter('filename')(file.Key)).then(function () {
         NotificationService.success('File Removed', 'Removed ' + fileName);
       }, function (err) {
         NotificationService.error('File Removal Failed', err);
