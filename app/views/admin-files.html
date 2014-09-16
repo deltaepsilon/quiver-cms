@@ -50,27 +50,34 @@
 
 <div class="column small-12 medium-8 large-10">
 
-    <table ng-show="files.Contents.length">
+    <table ng-show="files.Originals.length">
         <thead>
             <tr>
                 <th>Details</th><th>Preview</th><th>Link</th><th>Markdown</th><th>Action</th>
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="file in files.Contents" ng-class="{'disabled': file.disabled}">
+            <tr ng-repeat="file in files.Originals" ng-class="{'disabled': file.disabled}">
                 <td>
+                    <div>
+                        <select ng-model="fileVersion" ng-change="console.log(version)">
+                            <option value="" selected>Original ({{ file.Size / 1000 | number:0 }}kb)</option>
+                            <option ng-repeat="(key, version) in file.Versions" value="{{ key }}">{{ key }} {{ version.Name }} ({{ version.Size / 1000 | number:0 }}kb)</option>
+                        </select>
+                    </div>
 
-                    <span contenteditable="true" ng-model="file.Key">{{ file.Key | filename }}</span>
-                    ({{ file.Size / 1000 | number:0 }}kb)
                 </td>
                 <td>
-                    <a href="https://s3.amazonaws.com/{{ files.Name }}/{{ file.Key }}" target="_blank" qv-media="https://s3.amazonaws.com/{{ files.Name }}/{{ file.Key }}" alt="{{ file.Key | filename }}" attributes="{embed: {width: '100px', height: '100px'}, img: {'style': 'min-width: 100%;'}, video: {width: '200px'}}"></a>
+                    <a ng-if='!fileVersion' href="{{ file.Key | s3Link:files.Name }}" target="_blank" qv-media="{{ file.Key | s3Link:files.Name }}" alt="{{ file.Key | filename }}" attributes="{embed: {width: '100px', height: '100px'}, img: {'style': 'min-width: 100%;'}, video: {width: '200px'}}"></a>
+                    <a ng-if="fileVersion" href="{{ file.Versions[fileVersion].Key | s3Link:files.Name }}" target="_blank" qv-media="{{ file.Key | s3Link:files.Name }}" alt="{{ file.Key | filename }}" attributes="{embed: {width: '100px', height: '100px'}, img: {'style': 'min-width: 100%;'}, video: {width: '200px'}}"></a>
                 </td>
                 <td>
-                    <input type="text" qv-select-text value="https://s3.amazonaws.com/{{ files.Name }}/{{ file.Key }}"/>
+                    <input ng-if="!fileVersion" type="text" qv-select-text value="{{ file.Key | s3Link:files.Name }}"/>
+                    <input ng-if="fileVersion" type="text" qv-select-text value="{{ file.Versions[fileVersion].Key | s3Link:files.Name }}"/>
                 </td>
                 <td>
-                    <input type="text" value="![{{ file.Key | filename }}](https://s3.amazonaws.com/{{ files.Name }}/{{ file.Key }})" qv-select-text/>
+                    <input ng-if="!fileVersion" type="text" value="![{{ file.Key | filename }}]({{ file.Key | s3Link:files.Name }})" qv-select-text/>
+                    <input ng-if="fileVersion" type="text" value="![{{ file.Versions[fileVersion].Key | filename }}]({{ file.Versions[fileVersion].Key | s3Link:files.Name }})" qv-select-text/>
                 </td>
                 <td>
                     <button class="tiny secondary" ng-click="addToClipboard(file)" ng-hide="inClipboard(file) || file.disabled">+ Clipboard</button>

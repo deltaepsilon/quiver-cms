@@ -15,6 +15,7 @@ var Q = require('q'),
   markdown = require('markdown').markdown,
   request = require('superagent'),
   slug = require('slug'),
+  easyimage = require('easyimage'),
   environment = process.env.NODE_ENV || 'development',
   publicBucket = process.env.AMAZON_CMS_PUBLIC_BUCKET,
   filePrefix = 'cms',
@@ -281,7 +282,6 @@ app.use(function (req, res, next) {
 /*
  * File endpoints
  */
-var FILENAME_REGEX = /[^\/]+\.(\w+)$/;
 var updateFilesRegister = function() { //Cache S3.listObjects result to Firebase. This is too costly to call often.
   var deferred = Q.defer(),
     firebaseDeferred = Q.defer(),
@@ -298,18 +298,57 @@ var updateFilesRegister = function() { //Cache S3.listObjects result to Firebase
   });
 
   Q.all([s3Deferred.promise, firebaseDeferred.promise]).spread(function (s3Data) {
+    var originals = [],
+      versions = {};
     _.each(s3Data.Contents, function (file) {
-      var matches = file.Key.match(FILENAME_REGEX);
-      file.Name = (matches && matches.length) ? matches[0] : file.Key;
-      file.Suffix = (matches && matches.length > 0) ? matches[1] : '';
+      var parts = file.Key.split('/'),
+        fileName = parts[parts.length - 1].toLowerCase(),
+        suffix = fileName.split('.')[1];
+
+      file.Name = fileName;
+      file.Suffix = suffix;
+
+      if (parts.length === 2) {
+        originals.push(file);
+      } else if (parts.length === 3) {
+        if (!versions[fileName]) {
+          versions[fileName] = {
+            small: {},
+            medium: {},
+            large: {},
+            xlarge: {}
+          }
+        }
+
+        versions[fileName][parts[1]] = file;
+      }
+
     });
+
+
+    _.each(originals, function (image) {
+      image.Versions = versions[image.Name] || false; // Firebase does not like undefined values
+    });
+
+    s3Data.Originals = originals;
+
     filesRef.set(s3Data, function (err) {
       return err ? deferred.reject(err) : deferred.resolve(s3Data);
     });
+
   }, deferred.reject);
 
   return deferred.promise;
 };
+
+app.get('/files-update', function (req, res) {
+  console.log('here!');
+  updateFilesRegister().then(function (s3Data) {
+    res.json(s3Data);
+  }, function (err) {
+    errorHandler(res, err);
+  });
+});
 
 app.get('/files', function (req, res) { // Typically used merely for Flow.js testing purposes
   /* req.query = {
@@ -332,10 +371,22 @@ app.post('/files', function (req, res) {
    * Configure S3 payload from request
   */
 
-  var fileName = req.body.fileName,
+  var fileName = req.body.fileName.toLowerCase(),
+    suffix = fileName.split('.')[1],
     filePath = './uploads/' + fileName,
     readDeferred = Q.defer(),
-    fileDeferred = Q.defer();
+    fileDeferred = Q.defer(),
+    mimeType;
+
+  // Calculate mime types
+  if (~envVars.supportedImageTypes.indexOf(suffix)) {
+    mimeType = 'image';
+  } else if (~envVars.supportedVideoTypes.indexOf(suffix)) {
+    mimeType = 'video';
+  } else {
+    mimeType = 'application';
+  }
+  mimeType += '/' + suffix;
 
   if (!fileName) {
     return errorHandler(res, {"error": "No file sent."});
@@ -347,7 +398,9 @@ app.post('/files', function (req, res) {
 
   readDeferred.promise.then(function () {
     console.log('');
-    fs.unlink(filePath);
+    fs.unlink(filePath, function (err) {
+      return err ? console.log(err) : true;
+    });
   });
 
   /*
@@ -355,16 +408,16 @@ app.post('/files', function (req, res) {
   */
 
   readDeferred.promise.then(function (data) {
+    console.log('body', req.body.type);
     var file = new Buffer(data, "base64"),
-      type = req.body.type,
       payload = {
         Bucket: publicBucket,
         Key: filePrefix + '/' + fileName,
         ACL: 'public-read',
         Body: file,
         CacheControl: "max-age=34536000",
-        Expires: moment().add('1 year').unix(),
-        ContentType: type,
+        Expires: moment().add(5, 'year').unix(),
+        ContentType: mimeType,
         StorageClass: "REDUCED_REDUNDANCY"
       };
 
@@ -410,20 +463,192 @@ app.post('/files', function (req, res) {
 
 app.delete('/files/:fileName', function (req, res) {
   var fileName = req.params.fileName,
+    deleteObject = function (folder) {
+      var deleteDeferred = Q.defer(),
+        path = [filePrefix, folder, fileName].join('/').replace(/\/\//g, '/');
+
+      S3.deleteObject({
+        Bucket: publicBucket,
+        Key: path
+      }, function (err, data) {
+        return err ? deleteDeferred.reject(err) : deleteDeferred.resolve(data);
+      });
+
+      return deleteDeferred.promise;
+    };
+
+  Q.all([
+    deleteObject(),
+    deleteObject('small'),
+    deleteObject('medium'),
+    deleteObject('large'),
+    deleteObject('xlarge')
+  ]).then(updateFilesRegister, updateFilesRegister).then(function (s3Data) { // Update files register regardless of any errors
+      res.json(s3Data);
+  }, function (err) {
+      errorHandler(res, err);
+  });
+
+});
+
+var resizeImages = function () {
+  var deferred = Q.defer(),
     s3Deferred = Q.defer();
 
-  S3.deleteObject({
+  // List all s3 objects
+  S3.listObjects({
     Bucket: publicBucket,
-    Key: filePrefix + '/' + fileName
+    Prefix: filePrefix
   }, function (err, data) {
     return err ? s3Deferred.reject(err) : s3Deferred.resolve(data);
   });
 
-  s3Deferred.promise.then(updateFilesRegister).then(function (s3Data) {
-    res.json(s3Data);
-  }, function (err) {
-    errorHandler(res, err);
-  })
+  s3Deferred.promise.then(function (s3Data) {
+    var source = [],
+      small = [],
+      medium = [],
+      large = [],
+      xlarge = [],
+      promises = [];
+
+    _.each(s3Data.Contents, function (image) {
+      var parts = image.Key.split('/');
+
+      image.fileName = parts[parts.length - 1];
+      image.suffix = image.fileName.split('.')[1];
+
+      if (!~envVars.supportedImageTypes.indexOf(image.suffix.toLowerCase())) { // Screen for supportedImageTypes
+        return;
+      }
+
+      if (parts.length === 2) {
+        source.push(image);
+      } else if (parts[2] === 'small') {
+        small.push(image);
+      } else if (parts[2] === 'medium') {
+        medium.push(image);
+      } else if (parts[2] === 'large') {
+        large.push(image);
+      } else if (parts[2] === 'xlarge') {
+        xlarge.push(image);
+      }
+
+    });
+
+    // Filter out all images which have been fully processed into all four sizes
+    source = _.filter(source, function (image) {
+      return !_.findWhere(small, {fileName: image.fileName})
+        || !_.findWhere(medium, {fileName: image.fileName})
+        || !_.findWhere(large, {fileName: image.fileName})
+        || !_.findWhere(xlarge, {fileName: image.fileName});
+    });
+
+//    console.log('source', source);
+    _.each(source, function (image) {
+      var dataDeferred = Q.defer(),
+        downloadDeferred = Q.defer(),
+        smallDeferred = Q.defer(),
+        mediumDeferred = Q.defer(),
+        largeDeferred = Q.defer,
+        xlargeDeferred = Q.defer,
+        finalDeferred = Q.defer(),
+        fileName = image.Key.split('/').pop(),
+        path = './resize/' + fileName;
+
+      promises.push(finalDeferred.promise);
+
+      S3.getObject({
+          Bucket: publicBucket,
+          Key: image.Key
+      }, function (err, data) {
+        return err ? dataDeferred.reject(err) : dataDeferred.resolve(data);
+      });
+
+      dataDeferred.promise.then(function (data) {
+        fs.writeFile(path, data.Body, function (err) {
+          return err ? downloadDeferred.reject(err) : downloadDeferred.resolve(path);
+        });
+
+      }, deferred.reject);
+
+      downloadDeferred.promise.then(function (path) {
+          easyimage.resize({src: path, dst: './resize/small/' + fileName, width: envVars.imageSizes.small}).then(smallDeferred.resolve, smallDeferred.reject);
+          easyimage.resize({src: path, dst: './resize/medium/' + fileName, width: envVars.imageSizes.medium}).then(mediumDeferred.resolve, mediumDeferred.reject);
+          easyimage.resize({src: path, dst: './resize/large/' + fileName, width: envVars.imageSizes.large}).then(largeDeferred.resolve, largeDeferred.reject);
+          easyimage.resize({src: path, dst: './resize/xlarge/' + fileName, width: envVars.imageSizes.xlarge}).then(xlargeDeferred.resolve, xlargeDeferred.reject);
+      });
+
+      finalDeferred.promise.then(function () { // Delete source image
+        fs.unlink(path, function (err) {
+          return err ? console.log(err) : true;
+        });
+      });
+
+      Q.all([smallDeferred, mediumDeferred, largeDeferred, xlargeDeferred]).then(finalDeferred.resolve, finalDeferred.reject);
+
+    });
+
+    Q.all(promises).spread(function () {
+      var promises = [],
+        uploadFile = function (image, folder) {
+          var readDeferred = Q.defer(),
+            uploadDeferred = Q.defer(),
+            path = './resize/' + folder + '/' + image.fileName;
+
+          fs.readFile(path, function (err, data) {
+            return err ? readDeferred.reject(err) : readDeferred.resolve(data);
+          });
+
+          readDeferred.promise.then(function () { // Delete source image
+            fs.unlink(path);
+          });
+
+          readDeferred.promise.then(function (data) {
+            S3.putObject({
+              Bucket: publicBucket,
+              Key: filePrefix + '/' + folder + '/' + image.fileName.toLowerCase(),
+              ACL: 'public-read',
+              Body: data,
+              CacheControl: "max-age=34536000",
+              Expires: moment().add('1 year').unix(),
+              ContentType: 'image/' + image.suffix,
+              StorageClass: "REDUCED_REDUNDANCY"
+            }, function (err, data) {
+              return err ? uploadDeferred.reject(err) : uploadDeferred.resolve(data);
+            })
+          });
+
+          return Q.all([readDeferred.promise, uploadDeferred.promise]);
+        };
+
+      _.each(source, function (image) {
+        promises.push(Q.all([
+          uploadFile(image, 'small'),
+          uploadFile(image, 'medium'),
+          uploadFile(image, 'large'),
+          uploadFile(image, 'xlarge')
+        ]));
+
+      });
+
+      return Q.all(promises);
+    }).then(deferred.resolve, deferred.reject);
+
+  });
+
+  // Delete it all
+  deferred.promise.then(function () {
+    fs.unlink()
+  });
+
+  return deferred.promise;
+};
+
+app.get('/resize', function (req, res) {
+  resizeImages().then(function (data) {
+    res.json(data);
+  });
+
 });
 
 /*

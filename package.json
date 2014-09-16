@@ -18,7 +18,8 @@
     "body-parser": "~1.8.1",
     "winston": "~0.7.3",
     "slug": "~0.5.0",
-    "formidable": "~1.0.15"
+    "formidable": "~1.0.15",
+    "easyimage": "~1.0.2"
   },
   "devDependencies": {
     "grunt": "~0.4.1",

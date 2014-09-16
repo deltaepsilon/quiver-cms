@@ -11,3 +11,4 @@ newrelic.js
 newrelic_agent.log
 logs/*
 uploads/*
+resize/*
