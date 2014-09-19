@@ -11,17 +11,19 @@
     <table>
         <thead>
             <tr>
-                <th>Author</th><th>Title</th><th>Type</th><th>Created</th><th>Published</th><th>Action</th>
+                <th>Author</th><th>Title</th><th>Slug</th><th>Type</th><th>Hashtags</th><th></th><th>Created</th><th>Published</th><th>Action</th>
             </tr>
         </thead>
         <tbody>
             <tr ng-repeat="word in words | filter:authorFilter">
                 <td>
-                    <span class="cursor-pointer" ng-click="authorFilter = word.author.name">{{ word.author.name }}</span>
+                    <span class="cursor-pointer" contenteditable="true" ng-model="word.author.name" ng-change="word.edited = true;">{{ word.author.name }}</span>
                 </td>
                 <td>
-                    <!--<span contenteditable="true" ng-model="word.title" ng-change="word.edited = true">{{ word.title }}</span>-->
                     <a ui-sref="authenticated.master.admin.word({key: word.$id})">{{ word.title }}</a>
+                </td>
+                <td>
+                    <span class="cursor-pointer" contenteditable="true" ng-model="word.slug" ng-change="word.edited = true;">{{ word.slug }}</span>
                 </td>
                 <td>
                     <select class="margin-zero" ng-model="word.type" ng-change="word.edited = true">
@@ -29,6 +31,14 @@
                         <option value="post">Post</option>
                         <option value="page">Page</option>
                     </select>
+                </td>
+                <td>
+                    <input class="margin-zero-important" type="text" placeholder="Hashtag..." ng-model="newHashtag" qv-enter="addHashtag(word, newHashtag); newHashtag = null;" qv-type-ahead include="hashtags" exclude="word.hashtags" prepopulate="true" top-offset="-1"/>
+                </td>
+                <td>
+                    <ul class="inline-list margin-zero-important text-x-small">
+                        <li class="cursor-pointer" ng-repeat="hashtag in word.hashtags" ng-click="removeHashtag(word, hashtag.key)">#{{ hashtag.value }}</li>
+                    </ul>
                 </td>
                 <td>{{ word.created | date }}</td>
                 <td>

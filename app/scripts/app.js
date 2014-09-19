@@ -205,6 +205,9 @@ angular.module('quiverCmsApp', [
         resolve: {
           wordsRef: function (AdminService) {
             return AdminService.getWords();
+          },
+          hashtagsRef: function (AdminService) {
+            return AdminService.getHashtags();
           }
         }
       })
@@ -254,7 +257,12 @@ angular.module('quiverCmsApp', [
       .state('authenticated.master.admin.hashtags', {
         url: '/hashtags',
         templateUrl: 'views/admin-hashtags.html',
-        controller: 'HashtagsCtrl'
+        controller: 'HashtagsCtrl',
+        resolve: {
+          hashtagsRef: function (AdminService) {
+            return AdminService.getHashtags();
+          }
+        }
       });
 
 

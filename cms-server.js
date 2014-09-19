@@ -397,7 +397,6 @@ app.post('/files', function (req, res) {
   });
 
   readDeferred.promise.then(function () {
-    console.log('');
     fs.unlink(filePath, function (err) {
       return err ? console.log(err) : true;
     });
@@ -408,7 +407,6 @@ app.post('/files', function (req, res) {
   */
 
   readDeferred.promise.then(function (data) {
-    console.log('body', req.body.type);
     var file = new Buffer(data, "base64"),
       payload = {
         Bucket: publicBucket,

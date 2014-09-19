@@ -27,6 +27,10 @@ angular.module('quiverCmsApp')
 
       getNotifications: function (userId) {
         return $firebase(new Firebase(firebaseEndpoint + '/users/' + userId + '/notifications'));
+      },
+
+      getHashtags: function () {
+        return $firebase(new Firebase(firebaseEndpoint + '/content/hashtags'));
       }
     }
   });

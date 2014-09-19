@@ -73,6 +73,13 @@ $colors:
 
 }
 
+// Border colors class names.
+@each $color in $colors {
+  .border-#{nth($color, 1)} {
+    border: 1px solid nth($color, 2);
+  }
+}
+
 @function getValueByKey($map, $key) {
   @each $index in $map {
     @if nth($index, 1) == $key {
