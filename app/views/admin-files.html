@@ -30,6 +30,9 @@
 
             <button ng-click="upload($flow)" ng-hide="!$flow.files.length" ng-disabled="uploading">Upload Files</button>
 
+            <hr>
+            <button ng-show="files.Originals.length" ng-click="resize()" ng-disabled="resizing">Resize and Update</button>
+
         </fieldset>
 
 

@@ -77,6 +77,7 @@ angular.module('quiverCmsApp')
 
       var promises = [],
         uploadDeferred = $q.defer(),
+        resizeDeferred = $q.defer(),
         clearWatches = function () {
           $q.all(promises).then(function (unwatches) {
             _.each(unwatches, function (unwatch) {
@@ -144,20 +145,17 @@ angular.module('quiverCmsApp')
 
       }).then(uploadDeferred.resolve, uploadDeferred.reject);
 
-      uploadDeferred.promise.then(function () {
-        Flow.files = [];
-        $scope.uploading = false;
-        NotificationService.success('Files Uploaded!');
-        clearWatches();
-
-      }, function (error) {
+      uploadDeferred.promise.then(FileService.resize, function () {
         Flow.files = [];
         $scope.uploading = false;
         console.warn(error);
         NotificationService.error('Upload Failed', error);
         clearWatches();
-      });
+      }).then(resizeDeferred.resolve, resizeDeferred.reject);
 
+      resizeDeferred.promise.then(function () {
+        NotificationService.success('Images Processed', 'Your images have successfully been resized.');
+      });
 
     };
 
@@ -172,6 +170,19 @@ angular.module('quiverCmsApp')
         NotificationService.success('File Removed', 'Removed ' + fileName);
       }, function (err) {
         NotificationService.error('File Removal Failed', err);
+      });
+
+    };
+
+    $scope.resize = function () {
+      $scope.resizing = true;
+
+      FileService.resize().then(function () {
+        NotificationService.success('Images Processed', 'Your images have successfully been resized and the file registry has been updated.');
+        delete $scope.resizing;
+      }, function (err) {
+        NotificationService.error('Resize Failed', err);
+        delete $scope.resizing;
       });
 
     };

@@ -46,9 +46,15 @@ angular.module('quiverCmsApp')
 
         return $q.all(deferreds);
       },
+
       getNotification: function (userId, slug) {
         return $firebase(new Firebase(env.firebase + '/users/' + userId + '/notifications/' + slug));
+      },
+
+      resize: function () {
+        return Restangular.one('resize').get();
       }
+
     };
 
     return service;

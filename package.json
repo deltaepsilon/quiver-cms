@@ -19,7 +19,8 @@
     "winston": "~0.7.3",
     "slug": "~0.5.0",
     "formidable": "~1.0.15",
-    "easyimage": "~1.0.2"
+    "easyimage": "~1.0.2",
+    "fs-extra": "~0.11.1"
   },
   "devDependencies": {
     "grunt": "~0.4.1",

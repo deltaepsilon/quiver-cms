@@ -2,7 +2,7 @@ var Q = require('q'),
   _ = require('underscore'),
   express = require('express'),
   app = express(),
-  fs = require('fs'),
+  fs = require('fs-extra'),
   formidable = require('formidable'),
   winston = require('winston'),
   AWS = require('aws-sdk'),
@@ -493,6 +493,16 @@ var resizeImages = function () {
   var deferred = Q.defer(),
     s3Deferred = Q.defer();
 
+  /*
+   * Clear out directories
+  */
+  fs.removeSync('./resize');
+  fs.mkdirSync('./resize');
+  fs.mkdirSync('./resize/small');
+  fs.mkdirSync('./resize/medium');
+  fs.mkdirSync('./resize/large');
+  fs.mkdirSync('./resize/xlarge');
+
   // List all s3 objects
   S3.listObjects({
     Bucket: publicBucket,
@@ -521,13 +531,13 @@ var resizeImages = function () {
 
       if (parts.length === 2) {
         source.push(image);
-      } else if (parts[2] === 'small') {
+      } else if (parts[1] === 'small') {
         small.push(image);
-      } else if (parts[2] === 'medium') {
+      } else if (parts[1] === 'medium') {
         medium.push(image);
-      } else if (parts[2] === 'large') {
+      } else if (parts[1] === 'large') {
         large.push(image);
-      } else if (parts[2] === 'xlarge') {
+      } else if (parts[1] === 'xlarge') {
         xlarge.push(image);
       }
 
@@ -541,7 +551,6 @@ var resizeImages = function () {
         || !_.findWhere(xlarge, {fileName: image.fileName});
     });
 
-//    console.log('source', source);
     _.each(source, function (image) {
       var dataDeferred = Q.defer(),
         downloadDeferred = Q.defer(),
@@ -578,11 +587,11 @@ var resizeImages = function () {
 
       finalDeferred.promise.then(function () { // Delete source image
         fs.unlink(path, function (err) {
-          return err ? console.log(err) : true;
+          return err ? winston.error('Deleting source image', err) : true;
         });
       });
 
-      Q.all([smallDeferred, mediumDeferred, largeDeferred, xlargeDeferred]).then(finalDeferred.resolve, finalDeferred.reject);
+      Q.all([smallDeferred.promise, mediumDeferred.promise, largeDeferred.promise, xlargeDeferred.promise]).then(finalDeferred.resolve, finalDeferred.reject);
 
     });
 
@@ -595,10 +604,6 @@ var resizeImages = function () {
 
           fs.readFile(path, function (err, data) {
             return err ? readDeferred.reject(err) : readDeferred.resolve(data);
-          });
-
-          readDeferred.promise.then(function () { // Delete source image
-            fs.unlink(path);
           });
 
           readDeferred.promise.then(function (data) {
@@ -614,6 +619,12 @@ var resizeImages = function () {
             }, function (err, data) {
               return err ? uploadDeferred.reject(err) : uploadDeferred.resolve(data);
             })
+          });
+
+          uploadDeferred.promise.then(function () {
+            fs.unlink(path, function (err) {
+              return err ? winston.error('unlink error', err) : true;
+            });
           });
 
           return Q.all([readDeferred.promise, uploadDeferred.promise]);
@@ -636,14 +647,14 @@ var resizeImages = function () {
 
   // Delete it all
   deferred.promise.then(function () {
-    fs.unlink()
+    fs.remove('./resize');
   });
 
   return deferred.promise;
 };
 
 app.get('/resize', function (req, res) {
-  resizeImages().then(function (data) {
+  resizeImages().then(updateFilesRegister, updateFilesRegister).then(function (data) {
     res.json(data);
   });
 
