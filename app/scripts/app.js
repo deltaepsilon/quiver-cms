@@ -230,8 +230,6 @@ angular.module('quiverCmsApp', [
               deferred.resolve(filesRef);
             });
 
-
-
             return deferred.promise;
           }
         }
@@ -252,7 +250,15 @@ angular.module('quiverCmsApp', [
       .state('authenticated.master.admin.social', {
         url: '/social-media',
         templateUrl: 'views/admin-social.html',
-        controller: 'SocialCtrl'
+        controller: 'SocialCtrl',
+        resolve: {
+          socialRef: function (AdminService) {
+            return AdminService.getSocial();
+          },
+          instagramTermsRef: function (AdminService) {
+            return AdminService.getInstagramTerms();
+          }
+        }
       })
       .state('authenticated.master.admin.hashtags', {
         url: '/hashtags',

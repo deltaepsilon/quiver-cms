@@ -75,16 +75,28 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
  * 4. create sprite images for pixel ratio 2 screens and put them in the second folder, use the same filenames.
  * 5. use the sprite-image in your Sass/Scss using: '@include use-sprite(<sprite-name>)'
  */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/imports\/_sprites\.scss}line{font-family:\000037}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/imports\/_sprites\.scss}line{font-family:\000038}}
 .background-heart-decal {
   overflow: hidden;
   display: block;
   background-repeat: no-repeat;
-  background-image: url('/app/images/sprites-s1e30132e77.png');
-  background-size: 119.3333333333px 140.6666666667px;
-  background-position: 0 -26px;
+  background-image: url('/images/sprites-se8f4efacd1.png');
+  background-size: 119.3333333333px 207.3333333333px;
+  background-position: 0 -93px;
   height: 114.6666666667px;
   width: 100px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/imports\/_sprites\.scss}line{font-family:\000038}}
+.background-instagram-icon {
+  overflow: hidden;
+  display: block;
+  background-repeat: no-repeat;
+  background-image: url('/images/sprites-se8f4efacd1.png');
+  background-size: 119.3333333333px 207.3333333333px;
+  background-position: 0 -26px;
+  height: 66.6666666667px;
+  width: 66.6666666667px;
 }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000325}}

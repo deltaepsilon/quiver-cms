@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('quiverCmsApp')
-  .service('AdminService', function AdminService($firebase, env) {
+  .service('AdminService', function AdminService($firebase, env, Restangular) {
     var firebaseEndpoint = env.firebase;
 
     return {
@@ -31,6 +31,18 @@ angular.module('quiverCmsApp')
 
       getHashtags: function () {
         return $firebase(new Firebase(firebaseEndpoint + '/content/hashtags'));
+      },
+
+      getSocial: function () {
+        return $firebase(new Firebase(firebaseEndpoint + '/content/social'));
+      },
+
+      getInstagramTerms: function () {
+        return $firebase(new Firebase(firebaseEndpoint + '/content/social/instagram/terms'));
+      },
+
+      updateInstagram: function () {
+        return Restangular.one('instagram').get();
       }
     }
   });

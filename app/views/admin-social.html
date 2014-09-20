@@ -1,0 +1,35 @@
+<div class="column small-12">
+    <h3 class="font-flair">Social Media</h3>
+    <hr>
+
+    <form name="socialForm">
+        <fieldset>
+            <div class="column small-12 medium-3" ng-class="{disabled: !social.instagram.clientId}">
+                <h4 class="font-flair">Instagram</h4>
+                <span class="background-instagram-icon" ng-click="instagramToggleActive()"></span>
+            </div>
+            <div class="column small-12 medium-9">
+                <label class="left" for="instagram-client-id">Instagram Client ID (required)</label>
+                <a class="right text-small" href="http://instagram.com/developer/" target="_blank">Get Instagram API keys</a>
+                <input id="instagram-client-id" type="text" ng-model="social.instagram.clientId" placeholder="Instagram client id..."/>
+
+                <div ng-class="{disabled: !social.instagram.clientId}">
+                    <label for="instagram-search-term">Add Instagram Search Terms</label>
+                    <input id="instagram-search-term" type="text" ng-model="instagramNewTerm" placeholder="Instagram search term..." qv-enter="instagramAddTerm(instagramNewTerm)" ng-disabled="!social.instagram.clientId"/>
+
+                    <div ng-show="social.instagram.terms">
+                        <h5 class="left">Search Terms</h5>
+                        <button class="tiny right" ng-click="updateInstagram()">Update Instagram Feed</button>
+                        <ul class="inline-list small-12">
+                            <li class="cursor-pointer" ng-repeat="term in social.instagram.terms" ng-click="instagramRemoveTerm($index)" ng-disabled="!social.instagram.clientId">#{{ term }}</li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+
+        </fieldset>
+
+    </form>
+
+</div>
