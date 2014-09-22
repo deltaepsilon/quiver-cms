@@ -209,7 +209,7 @@ var chunks = [],
     });
   };
 
-/**
+/*
  * Access Tokens
  */
 app.use(function (req, res, next) {
@@ -220,6 +220,42 @@ app.use(function (req, res, next) {
   res.header('Access-Control-Allow-Methods', "GET, POST, PUT, DELETE, PATCH");
   res.header('Access-Control-Allow-Headers', req.headers['access-control-request-headers']); // Allow whatever they're asking for
   next();
+});
+
+/*
+ * Themes
+*/
+var setThemes = function () {
+  var readDeferred = Q.defer(),
+    finalDeferred = Q.defer();
+  fs.readdir('./themes', function (err, files) {
+    return err ? readDeferred.reject(err) : readDeferred.resolve(files);
+  });
+
+  readDeferred.promise.then(function (files) {
+    var i = files.length,
+      obj = {};
+
+    while (i--) {
+      obj[slug(files[i]).toLowerCase()] = files[i];
+    };
+
+    console.log('obj', obj);
+
+    firebaseRoot.child('theme').child('options').set(obj, function (err) {
+      return err ? finalDeferred.reject(err) : finalDeferred.resolve(files);
+    });
+  });
+
+  return finalDeferred.promise;
+};
+setThemes();
+app.get('/themes', function (req, res) {
+  setThemes().then(function (result) {
+    res.json(result);
+  }, function () {
+    res.sendStatus(500);
+  });
 });
 
 /*

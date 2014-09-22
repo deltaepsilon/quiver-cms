@@ -1,1 +1,17 @@
-<p>This is the landing view.</p>
+<div class="column small-12">
+    <h3 class="font-flair">Admin</h3>
+
+    <p>
+        Welcome to the <a href="https://github.com/deltaepsilon/quiver-cms">Quiver CMS</a> admin.
+    </p>
+
+    <p ng-hide="currentUser">
+        You'll want to <a ui-sref="master.nav.login">Log In</a>. You can't do much with this page otherwise.
+    </p>
+
+    <div ng-show="currentUser">
+        <p>Congratulations! It looks like you've logged in!</p>
+    </div>
+
+
+</div>

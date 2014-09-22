@@ -1,0 +1,32 @@
+{
+  "name": "Quiver CMS",
+  "version": "0.0.1",
+  "homepage": "https://github.com/deltaepsilon/quiver-cms",
+  "authors": [
+    "Chris Esplin <chris!@quiver.is>"
+  ],
+  "description": "A front end to the Quiver CMS.",
+  "main": "index.html",
+  "keywords": [
+    "quiver",
+    "node",
+    "express",
+    "cms"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "static/lib",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.2.25",
+    "json3": "~3.3.2",
+    "es5-shim": "~4.0.3",
+    "foundation": "~5.4.4",
+    "font-awesome": "~4.2.0"
+  }
+}

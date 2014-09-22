@@ -190,7 +190,12 @@ angular.module('quiverCmsApp', [
           },
           body: {
             templateUrl: 'views/body.html',
-            controller: "AdminCtrl"
+            controller: "AdminCtrl",
+            resolve: {
+              themeRef: function (AdminService) {
+                return AdminService.getTheme();
+              }
+            }
           }
         }
       })

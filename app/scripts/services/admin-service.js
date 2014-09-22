@@ -43,6 +43,10 @@ angular.module('quiverCmsApp')
 
       updateInstagram: function () {
         return Restangular.one('instagram').get();
+      },
+
+      getTheme: function () {
+        return $firebase(new Firebase(firebaseEndpoint + '/theme'));
       }
     }
   });

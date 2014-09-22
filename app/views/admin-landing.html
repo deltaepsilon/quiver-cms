@@ -9,6 +9,17 @@
     <p>
         The landing page should let users arrange their front page and make decisions about how their content will appear.
     </p>
+
+    <form name="themeForm">
+        <fieldset>
+            <label for="theme">Pick a Theme</label>
+            <select name="" id="theme">
+                <option ng-model="theme.active" ng-repeat="option in theme.options">{{ option }}</option>
+            </select>
+
+            {{ theme }}
+        </fieldset>
+    </form>
 </div>
 
 
