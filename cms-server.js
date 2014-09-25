@@ -240,8 +240,6 @@ var setThemes = function () {
       obj[slug(files[i]).toLowerCase()] = files[i];
     };
 
-    console.log('obj', obj);
-
     firebaseRoot.child('theme').child('options').set(obj, function (err) {
       return err ? finalDeferred.reject(err) : finalDeferred.resolve(files);
     });

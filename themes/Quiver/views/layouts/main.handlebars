@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <link rel="icon" type="image/x-icon" href="/static/favicon.ico"/>
+    <link rel="stylesheet" href="/static/styles/style.css">
+    <script src="/static/env.js"></script>
+</head>
+<body>
+  <div id="body-container" class="row">
+    {{{body}}}
+  </div>
+
+  {{#if development }}
+    {{> livereload}}
+  {{/if  }}
+</body>
+</html>

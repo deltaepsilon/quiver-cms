@@ -13,12 +13,15 @@ angular.module('quiverCmsApp')
     word.$bindTo($scope, 'word');
 
     word.$loaded().then(function () {
-      if (!$scope.$storage.activeDraft) {
+      if (!$scope.$storage.activeDraft || $scope.$storage.activeDraft.wordId !== $scope.word.$id) {
         $scope.$storage.activeDraft = {
           markdown: $scope.word.published ? $scope.word.published.markdown : '#Use your words! \n\n(But please make it Markdown...)',
-          created: moment().format()
+          created: moment().format(),
+          wordId: $scope.word.$id
         };
       }
+
+      $scope.showDraft = true;
 
 
     });
@@ -45,6 +48,7 @@ angular.module('quiverCmsApp')
 
     $scope.makeActiveDraft = function (draft) {
       $scope.$storage.activeDraft = _.clone(draft);
+      $scope.$storage.activeDraft.wordId = $scope.word.$id;
 
       NotificationService.success('Draft Activated', $filter('date')(draft.created, 'medium'));
     };

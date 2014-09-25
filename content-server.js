@@ -6,15 +6,19 @@ var express = require('express'),
   firebaseRoot = new Firebase(envVars.firebase),
   firebaseSecret = process.env.QUIVER_CMS_FIREBASE_SECRET,
   winston = require('winston'),
-  engines = require('consolidate'),
-  handlebars = require('handlebars'),
-  theme;
+  mime= require('mime'),
+  _ = require('underscore'),
+  expressHandlebars = require('express-handlebars'),
+  handlebarsHelpers = require('handlebars-helpers'),
+  handlebars,
+  theme,
+  words,
+  settings;
 
 /*
  * Templating
 */
 app.set('view engine', 'handlebars');
-app.engine('html', engines.handlebars);
 
 /*
  * Static
@@ -27,6 +31,8 @@ app.use('/static', function (req, res) {
   parts.shift(); // Drop the blank part of the route
 
   path = route.concat(parts).join('/');
+  path = path.split('?')[0]; // Drop query strings
+  res.setHeader('Content-Type', mime.lookup(path));
 
 //  console.log('path', path);
   fs.readFile(path, 'utf8', function (err, data) {
@@ -44,9 +50,19 @@ winston.add(winston.transports.File, { filename: './logs/quiver-cms-content.log'
 
 
 app.get('/', function (req, res) {
-  console.log('theme', theme);
-  app.render('index.html', function (err, html) {
-    console.log('render html', err, html);
+  var posts = [];
+
+  _.each(words, function (word) {
+    if (word.published) {
+      posts.push(word);
+    }
+  });
+
+  app.render('posts', {
+    development: envVars.environment === 'development',
+    posts: posts,
+    settings: settings
+  }, function (err, html) {
     if (err) {
       res.status(500).send(err);
     } else {
@@ -67,15 +83,42 @@ app.get('/:slug', function (req, res) {
 
 console.log('Starting auth.');
 firebaseRoot.auth(firebaseSecret, function () {
-  var themeRef = firebaseRoot.child('theme');
+  var themeRef = firebaseRoot.child('theme'),
+    wordsRef = firebaseRoot.child('content').child('words'),
+    settingsRef = firebaseRoot.child('content').child('settings');
 
   themeRef.on('value', function (snapshot) {
+    var viewsDir;
+
     theme = snapshot.val();
 
     theme.active = theme.options[theme.active || Object.keys(theme.options)[0]];
 
-    app.set('views', './themes/' + theme.active);
+    viewsDir = './themes/' + theme.active + '/views';
 
+    console.log('handlebarsHelpers', handlebarsHelpers);
+
+    handlebars = expressHandlebars.create({
+      defaultLayout: 'main',
+      layoutsDir: viewsDir + '/layouts',
+      partialsDir: viewsDir + '/partials'
+    });
+
+    handlebarsHelpers.register(handlebars.handlebars, {marked: {});
+
+    app.engine('html', handlebars.engine);
+    app.engine('handlebars', handlebars.engine);
+
+    app.set('views', viewsDir);
+
+  });
+
+  wordsRef.on('value', function (snapshot) {
+    words = snapshot.val();
+  });
+
+  settingsRef.on('value', function (snapshot) {
+    settings = snapshot.val();
   });
 
   console.log('Auth successful. Starting app.');

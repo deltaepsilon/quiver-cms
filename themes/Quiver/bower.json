@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "homepage": "https://github.com/deltaepsilon/quiver-cms",
   "authors": [
-    "Chris Esplin <chris!@quiver.is>"
+    "Chris Esplin <chris@quiver.is>"
   ],
   "description": "A front end to the Quiver CMS.",
   "main": "index.html",
@@ -28,5 +28,8 @@
     "es5-shim": "~4.0.3",
     "foundation": "~5.4.4",
     "font-awesome": "~4.2.0"
+  },
+  "devDependencies": {
+    "livereload": "~2.0.8"
   }
 }

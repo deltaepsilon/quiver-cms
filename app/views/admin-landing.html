@@ -1,14 +1,6 @@
 <div class="column small-12">
-    <h3>Admin Landing Page</h3>
+    <h3 class="font-flair">Settings</h3>
     <hr>
-
-    <p>
-        This page should have some dashboard functionality.
-    </p>
-
-    <p>
-        The landing page should let users arrange their front page and make decisions about how their content will appear.
-    </p>
 
     <form name="themeForm">
         <fieldset>
@@ -16,10 +8,67 @@
             <select name="" id="theme">
                 <option ng-model="theme.active" ng-repeat="option in theme.options">{{ option }}</option>
             </select>
-
-            {{ theme }}
         </fieldset>
     </form>
+
+        <fieldset class="clearfix" style="clear: both;">
+            <div class="column small-12 medium-4">
+                <label for="front-post-count">Front Post Count</label>
+                <input id="front-post-count" type="number" ng-model="settings.frontPostCount"/>
+            </div>
+            <div class="column small-12 medium-4">
+                <label for="secondary-post-count">Secondary Post Count</label>
+                <input id="secondary-post-count" type="number" ng-model="settings.secondaryPostCount"/>
+            </div>
+            <hr>
+            <div class="column small-12 medium-4">
+                <form>
+                    <label for="nav1-link-text">Nav #1 Links</label>
+                    <input id="nav1-link-text" type="text" ng-model="nav1New.text" placeholder="New link text..."/>
+                    <input id="nav1-link-href" type="text" ng-model="nav1New.href" placeholder="New link href..."/>
+                    <button class="right" ng-click="addNavLink('nav1', nav1New); nav1New = {};" qv-focus="#nav1-link-text">Add</button>
+
+                </form>
+
+                <ul>
+                    <li ng-repeat="link in settings.nav1">
+                        <span class="cursor-pointer text-x-small" href="{{ link.href }}" qv-confirm="removeNavLink('nav1', $index)" confirmations="['Click to Delete']">{{ link.text }}: {{ link.href }}</span>
+                    </li>
+                </ul>
+
+            </div>
+
+            <div class="column small-12 medium-4">
+                <form>
+                    <label for="nav2-link-text">Nav #2 Links</label>
+                    <input id="nav2-link-text" type="text" ng-model="nav2New.text" placeholder="New link text..."/>
+                    <input id="nav2-link-href" type="text" ng-model="nav2New.href" placeholder="New link href..."/>
+                    <button class="right" ng-click="addNavLink('nav2', nav1New); nav2New = {};" qv-focus="#nav2-link-text">Add</button>
+                </form>
+                <ul>
+                    <li ng-repeat="link in settings.nav2">
+                        <span class="cursor-pointer text-x-small" href="{{ link.href }}" qv-confirm="removeNavLink('nav2', $index)" confirmations="['Click to Delete']">{{ link.text }}: {{ link.href }}</span>
+                    </li>
+                </ul>
+
+            </div>
+
+            <div class="column small-12 medium-4">
+                <form>
+                    <label for="nav3-link-text">Nav #3 Links</label>
+                    <input id="nav3-link-text" type="text" ng-model="nav3New.text" placeholder="New link text..."/>
+                    <input id="nav3-link-href" type="text" ng-model="nav3New.href" placeholder="New link href..."/>
+                    <button class="right" ng-click="addNavLink('nav3', nav1New); nav3New = {};" qv-focus="#nav3-link-text">Add</button>
+                </form>
+                <ul>
+                    <li ng-repeat="link in settings.nav3">
+                        <span class="cursor-pointer text-x-small" href="{{ link.href }}" qv-confirm="removeNavLink('nav3', $index)" confirmations="['Click to Delete']">{{ link.text }}: {{ link.href }}</span>
+                    </li>
+                </ul>
+
+            </div>
+
+        </fieldset>
 </div>
 
 

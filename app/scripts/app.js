@@ -194,6 +194,9 @@ angular.module('quiverCmsApp', [
             resolve: {
               themeRef: function (AdminService) {
                 return AdminService.getTheme();
+              },
+              settingsRef: function (AdminService) {
+                return AdminService.getSettings();
               }
             }
           }

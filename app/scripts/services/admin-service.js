@@ -47,6 +47,10 @@ angular.module('quiverCmsApp')
 
       getTheme: function () {
         return $firebase(new Firebase(firebaseEndpoint + '/theme'));
+      },
+
+      getSettings: function () {
+        return $firebase(new Firebase(firebaseEndpoint + '/settings'));
       }
     }
   });

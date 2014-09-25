@@ -1,0 +1,10 @@
+<div id="posts">
+      {{#each posts }}
+        <div class="post">
+          {{#markdown}}{{ this.published.markdown }}{{/markdown}}
+        </div>
+      <hr>
+
+      {{/each }}
+
+</div>
