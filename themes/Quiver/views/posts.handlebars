@@ -1,9 +1,15 @@
-<div id="posts">
+<div id="posts" class="posts">
       {{#each posts }}
-        <div class="post">
-          {{#markdown}}{{ this.published.markdown }}{{/markdown}}
+        <div class="post column small-12">
+            <h3 class="post-title font-flair">
+                <a class="link-primary0" href="/{{ slug }}">{{ title }}</a>
+            </h3>
+            <div class="post-body">
+              {{#markdown}}{{ published.markdown }}{{/markdown}}
+            </div>
+
         </div>
-      <hr>
+        <hr>
 
       {{/each }}
 

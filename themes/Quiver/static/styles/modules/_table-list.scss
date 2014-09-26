@@ -1,0 +1,14 @@
+.table-list {
+  margin-left: 0;
+
+  &.striped {
+    > li {
+      overflow: hidden;
+
+      &:nth-of-type(even) {
+        @extend .background-secondary4;
+      }
+
+    }
+  }
+}

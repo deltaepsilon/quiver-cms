@@ -24,9 +24,13 @@
             <div class="column small-12 medium-4">
                 <form>
                     <label for="nav1-link-text">Nav #1 Links</label>
+
+                    <input ng-hide="settings.nav1Title" id="nav1-title" type="text" ng-model="nav1Title" placeholder="Nav 1 title..." ng-blur="settings.nav1Title = nav1Title; nav1Title = null;"/>
+                    <h3 ng-show="settings.nav1Title" ng-model="settings.nav1Title" contenteditable="true">{{ settings.nav1Title }}</h3>
+
                     <input id="nav1-link-text" type="text" ng-model="nav1New.text" placeholder="New link text..."/>
                     <input id="nav1-link-href" type="text" ng-model="nav1New.href" placeholder="New link href..."/>
-                    <button class="right" ng-click="addNavLink('nav1', nav1New); nav1New = {};" qv-focus="#nav1-link-text">Add</button>
+                    <button class="right" ng-click="addNavLink('nav1', nav1New); nav1New = {};" qv-focus="#nav1-link-text" ng-disabled="!nav1New.text || !nav1New.href">Add</button>
 
                 </form>
 
@@ -41,9 +45,13 @@
             <div class="column small-12 medium-4">
                 <form>
                     <label for="nav2-link-text">Nav #2 Links</label>
+
+                    <input ng-hide="settings.nav2Title" id="nav2-title" type="text" ng-model="nav2Title" placeholder="Nav 2 title..." ng-blur="settings.nav2Title = nav2Title; nav2Title = null;"/>
+                    <h3 ng-show="settings.nav2Title" ng-model="settings.nav2Title" contenteditable="true">{{ settings.nav2Title }}</h3>
+
                     <input id="nav2-link-text" type="text" ng-model="nav2New.text" placeholder="New link text..."/>
                     <input id="nav2-link-href" type="text" ng-model="nav2New.href" placeholder="New link href..."/>
-                    <button class="right" ng-click="addNavLink('nav2', nav1New); nav2New = {};" qv-focus="#nav2-link-text">Add</button>
+                    <button class="right" ng-click="addNavLink('nav2', nav2New); nav2New = {};" qv-focus="#nav2-link-text" ng-disabled="!nav2New.text || !nav2New.href">Add</button>
                 </form>
                 <ul>
                     <li ng-repeat="link in settings.nav2">
@@ -56,9 +64,13 @@
             <div class="column small-12 medium-4">
                 <form>
                     <label for="nav3-link-text">Nav #3 Links</label>
+
+                    <input ng-hide="settings.nav3Title" id="nav3-title" type="text" ng-model="nav3Title" placeholder="Nav 3 title..." ng-blur="settings.nav3Title = nav3Title; nav3Title = null;"/>
+                    <h3 ng-show="settings.nav3Title" ng-model="settings.nav3Title" contenteditable="true">{{ settings.nav3Title }}</h3>
+
                     <input id="nav3-link-text" type="text" ng-model="nav3New.text" placeholder="New link text..."/>
                     <input id="nav3-link-href" type="text" ng-model="nav3New.href" placeholder="New link href..."/>
-                    <button class="right" ng-click="addNavLink('nav3', nav1New); nav3New = {};" qv-focus="#nav3-link-text">Add</button>
+                    <button class="right" ng-click="addNavLink('nav3', nav3New); nav3New = {};" qv-focus="#nav3-link-text" ng-disabled="!nav3New.text || !nav3New.href">Add</button>
                 </form>
                 <ul>
                     <li ng-repeat="link in settings.nav3">

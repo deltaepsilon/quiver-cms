@@ -6,13 +6,19 @@
     <title></title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
-    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <script type="text/javascript" src="//use.typekit.net/bmk8cii.js"></script>
+    <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
     <link rel="icon" type="image/x-icon" href="/static/favicon.ico"/>
     <link rel="stylesheet" href="/static/styles/style.css">
     <script src="/static/env.js"></script>
 </head>
 <body>
+
+  <section class="clearfix">
+    {{> nav }}
+  </section>
   <div id="body-container" class="row">
+
     {{{body}}}
   </div>
 
