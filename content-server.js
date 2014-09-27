@@ -13,6 +13,7 @@ var express = require('express'),
   expressHandlebars = require('express-handlebars'),
   handlebarsHelpers = require('handlebars-helpers'),
   helpers = require('./lib/helpers.js'),
+  redisTTL = process.env.QUIVER_CMS_REDIS_TTL || 3600,
   handlebars,
   theme,
   words,
@@ -23,6 +24,56 @@ var express = require('express'),
  * Templating
 */
 app.set('view engine', 'handlebars');
+
+/*
+ * Redis
+*/
+var Redis = require('redis'),
+  redis = Redis.createClient(),
+  redisOn = false,
+  setCache = function (url, data) {
+    redis.set(url, data);
+    redis.expire(url, redisTTL);
+  };
+
+redis.select(process.env.QUIVER_CMS_REDIS_DB_INDEX || 0);
+redis.flushdb();
+
+
+redis.on('ready', function (e) {
+  redisOn = true;
+  winston.info('redis ready');
+});
+
+redis.on('error', function (err) {
+  winston.error('redis error', err);
+});
+
+app.use(function (req, res, next) {
+  if (!redisOn) {
+    winston.info('redis off');
+    next();
+
+  } else {
+
+    var url = req.url,
+      parts = url.split('/');
+
+    parts.shift(); // Drop the blank part of the route
+
+    if (parts[0] === 'static') { // set Content-Type for static files.
+      res.setHeader('Content-Type', mime.lookup(url.split('?')[0]));
+    }
+
+    redis.get(url, function (err, cache) {
+      return cache ? res.send(cache) : next();
+    });
+
+  }
+
+
+
+});
 
 /*
  * Static
@@ -40,7 +91,11 @@ app.use('/static', function (req, res) {
 
 //  console.log('path', path);
   fs.readFile(path, 'utf8', function (err, data) {
+    var url = '/static' + req.url;
     res.status(200).send(data);
+
+    setCache(url, data);
+
   });
 
 });
@@ -89,8 +144,9 @@ app.get('/', function (req, res) {
       res.status(500).send(err);
     } else {
       res.status(200).send(html);
-
+      setCache(req.url, html);
     }
+
   });
 
 });
@@ -114,6 +170,7 @@ app.get('/:slug', function (req, res) {
       res.status(500).send(err);
     } else {
       res.status(200).send(html);
+      setCache(req.url, html);
 
     }
   });
@@ -147,7 +204,11 @@ firebaseRoot.auth(firebaseSecret, function () {
   var themeRef = firebaseRoot.child('theme'),
     wordsRef = firebaseRoot.child('content').child('words'),
     settingsRef = firebaseRoot.child('settings'),
-    wordsIndexRef = firebaseRoot.child('wordsIndex');
+    wordsIndexRef = firebaseRoot.child('wordsIndex'),
+    themeDeferred = Q.defer(),
+    wordsDeferred = Q.defer(),
+    settingsDeferred = Q.defer(),
+    wordsIndexDeferred = Q.defer();
 
   themeRef.on('value', function (snapshot) {
     var viewsDir;
@@ -157,8 +218,6 @@ firebaseRoot.auth(firebaseSecret, function () {
     theme.active = theme.options[theme.active || Object.keys(theme.options)[0]];
 
     viewsDir = './themes/' + theme.active + '/views';
-
-    console.log('handlebarsHelpers', handlebarsHelpers);
 
     handlebars = expressHandlebars.create({
       defaultLayout: 'main',
@@ -174,6 +233,8 @@ firebaseRoot.auth(firebaseSecret, function () {
 
     app.set('views', viewsDir);
 
+    themeDeferred.resolve(theme);
+
   });
 
   wordsRef.on('value', function (snapshot) {
@@ -182,18 +243,33 @@ firebaseRoot.auth(firebaseSecret, function () {
     });
 
     createWordsIndex(words);
+
+    wordsDeferred.resolve(words);
   });
 
   settingsRef.on('value', function (snapshot) {
     settings = snapshot.val();
+    settingsDeferred.resolve(settings);
   });
 
   wordsIndexRef.on('value', function (snapshot) {
     wordsIndex = snapshot.val();
+    wordsIndexDeferred.resolve(wordsIndex);
   });
 
-  console.log('Auth successful. Starting app.');
-  app.listen(9900);
+  Q.all([
+    themeDeferred.promise,
+    wordsDeferred.promise,
+    settingsDeferred.promise,
+    wordsIndexDeferred.promise
+  ]).then(function () {
+    winston.info('app listening on 9900');
+    app.listen(9900);
+  }, function (err) {
+    winston.error('App not listening', err);
+  });
+
+
 
 
 });

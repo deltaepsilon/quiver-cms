@@ -26,7 +26,9 @@
     "handlebars": "~2.0.0",
     "mime": "~1.2.11",
     "express-handlebars": "~1.1.0",
-    "handlebars-helpers": "~0.5.8"
+    "handlebars-helpers": "~0.5.8",
+    "redis": "~0.12.1",
+    "hiredis": "~0.1.17"
   },
   "devDependencies": {
     "grunt": "~0.4.5",

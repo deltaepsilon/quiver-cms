@@ -71,8 +71,8 @@
 
                 </td>
                 <td>
-                    <a ng-if='!fileVersion' href="{{ file.Key | s3Link:files.Name }}" target="_blank" qv-media="{{ file.Key | s3Link:files.Name }}" alt="{{ file.Key | filename }}" attributes="{embed: {width: '100px', height: '100px'}, img: {'style': 'min-width: 100%;'}, video: {width: '200px'}}"></a>
-                    <a ng-if="fileVersion" href="{{ file.Versions[fileVersion].Key | s3Link:files.Name }}" target="_blank" qv-media="{{ file.Key | s3Link:files.Name }}" alt="{{ file.Key | filename }}" attributes="{embed: {width: '100px', height: '100px'}, img: {'style': 'min-width: 100%;'}, video: {width: '200px'}}"></a>
+                    <a ng-if='!fileVersion' href="{{ file.Key | s3Link:files.Name }}" target="_blank" qv-media="{{ file.Key | s3Link:files.Name }}" alt="{{ file.Key | filename }}" attributes="{embed: {width: '100px', height: '100px'}, img: {'style': 'width: 200px; max-width: 100%;'}, video: {width: '200px'}}"></a>
+                    <a ng-if="fileVersion" href="{{ file.Versions[fileVersion].Key | s3Link:files.Name }}" target="_blank" qv-media="{{ file.Key | s3Link:files.Name }}" alt="{{ file.Key | filename }}" attributes="{embed: {width: '100px', height: '100px'}, img: {'style': 'width: 200px; max-width: 100%;'}, video: {width: '200px'}}"></a>
                 </td>
                 <td>
                     <input ng-if="!fileVersion" type="text" qv-select-text value="{{ file.Key | s3Link:files.Name }}"/>
@@ -83,9 +83,9 @@
                     <input ng-if="fileVersion" type="text" value="![{{ file.Versions[fileVersion].Key | filename }}]({{ file.Versions[fileVersion].Key | s3Link:files.Name }})" qv-select-text/>
                 </td>
                 <td>
-                    <button class="tiny secondary" ng-click="addToClipboard(file)" ng-hide="inClipboard(file) || file.disabled">+ Clipboard</button>
                     <!--<button class="tiny secondary" ng-click="removeFromClipboard(file)" ng-show="inClipboard(file)">- Clipboard</button>-->
                     <button class="alert tiny right" qv-confirm="removeFile(file); file.disabled = true;" confirmations="['Confirm']" ng-disabled="file.disabled">Delete</button>
+                    <button class="tiny secondary right" ng-click="addToClipboard(file)" ng-hide="inClipboard(file) || file.disabled">+ Clipboard</button>
                 </td>
             </tr>
         </tbody>
