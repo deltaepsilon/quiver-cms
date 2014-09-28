@@ -9,7 +9,9 @@ angular.module('quiverCmsApp', [
   'DeltaEpsilon.quiver-angular-utilities',
   'angular-md5',
   'ngStorage',
-  'flow'
+  'flow',
+  'mm.foundation',
+  'xeditable'
 ]).run(function ($rootScope, $state, Restangular, NotificationService, env) {
     $rootScope.$on('$stateChangeStart', function () {
       $state.previous = _.clone($state);
@@ -216,9 +218,25 @@ angular.module('quiverCmsApp', [
           },
           hashtagsRef: function (AdminService) {
             return AdminService.getHashtags();
+          },
+          locationsRef: function (AdminService) {
+            return AdminService.getLocations();
           }
         }
       })
+      // .state('authenticated.master.admin.googlemap', {
+      //           url: '/googlemap',
+      //           templateUrl: 'views/admin-googlemap.html',
+      //           controller: 'MapsCtrl'
+      //           resolve: {
+      //               deps: ['uiLoad',
+      //                 function( uiLoad ){
+      //                   return uiLoad.load( ['scripts/load-google-maps.js',
+      //                                           'lib/angular-ui-map/ui-map.js',
+      //                                           'scripts/controllers/map.js'] ).then(function(){ return loadGoogleMaps(); });
+      //               }]
+      //           }
+      //       })
       .state('authenticated.master.admin.word', {
         url: '/words/:key',
         templateUrl: 'views/admin-word.html',

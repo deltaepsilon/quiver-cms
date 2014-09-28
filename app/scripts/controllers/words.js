@@ -1,11 +1,12 @@
 'use strict';
 
 angular.module('quiverCmsApp')
-  .controller('WordsCtrl', function ($scope, wordsRef, moment, NotificationService, Slug, $timeout, hashtagsRef) {
+  .controller('WordsCtrl', function ($scope, $http, wordsRef, moment, NotificationService, Slug, $timeout, hashtagsRef, locationsRef) {
     /*
      * Words
     */
     $scope.words = wordsRef.$asArray();
+
 
     $scope.removeWord = function (word) {
       var title = word.title;
@@ -102,6 +103,68 @@ angular.module('quiverCmsApp')
       }
 
     };
+
+    /*
+     * Location Tagging
+    */
+
+    $scope.getLocation = function(val) {
+      return $http.get('http://maps.googleapis.com/maps/api/geocode/json', {
+        params: {
+          address: val,
+          sensor: false
+        }
+      }).then(function(response){
+        return response.data.results.map(function(item){
+          return {
+            location: item.geometry.location,
+            formatted_address: item.formatted_address
+          }
+        });
+      });
+    };
+
+    $scope.location = locationsRef.$asArray();
+
+
+    $scope.addLocation = function (word, asyncSelected) {
+      $timeout(function () {
+        var location;
+
+        if (!word.locations) {
+          word.locations = [];
+        }
+
+        location = asyncSelected;
+        word.locations.push({
+          key: Slug.slugify(location.formatted_address),
+          value: location
+        })
+        $scope.words.$save(word);
+
+      });
+    };
+
+    
+    
+
+    // $scope.$watch('word.locations[0].value', editLocation);
+
+    // function editLocation(v){
+    //      $scope.word.locations[0].$update("value", dan)
+    // };
+
+    $scope.removeLocation = function (word, slug) {
+        var i = word.locations.length
+
+        while (i--) {
+          if (word.locations[i].key === slug) {
+            word.locations.splice(i, 1);
+            return $scope.words.$save(word);
+          }
+        }
+    };
+
 
 
   });

@@ -1,3 +1,13 @@
+<head>
+    <style >
+            #map-canvas{
+                height: 70px;
+                width: 70px;
+                border: 2px solid red;
+            }
+    </style>
+</head>
+
 <div class="column small-12">
     <h3 class="font-flair">Words</h3>
     <form name="newWordForm">
@@ -11,7 +21,19 @@
     <table>
         <thead>
             <tr>
-                <th>Author</th><th>Title</th><th>Slug</th><th>Type</th><th>Hashtags</th><th></th><th>Created</th><th>Published</th><th>Action</th>
+                <th>Author</th>
+                <th>Title</th>
+                <th>Slug</th>
+                <th>Type</th>
+                <th>Hashtags</th>
+                <th></th>
+                <th>Add a Location</th>
+                <th></th>
+                <th>Post Location</th>
+                <th>Map</th>
+                <th>Created</th>
+                <th>Published</th>
+                <th>Action</th>
             </tr>
         </thead>
         <tbody>
@@ -33,13 +55,31 @@
                     </select>
                 </td>
                 <td>
-                    <input class="margin-zero-important" type="text" placeholder="Hashtag..." ng-model="newHashtag" qv-enter="addHashtag(word, newHashtag); newHashtag = null;" qv-type-ahead include="hashtags" exclude="word.hashtags" prepopulate="true" top-offset="-1"/>
+                    <input class="margin-zero-important" type="text" placeholder="Hashtag..." ng-model="newHashtag" qv-enter="addHashtag(word, newHashtag); newHashtag = null;" qv-type-ahead include="word.hashtags" prepopulate="true" top-offset="-1"/>
                 </td>
                 <td>
                     <ul class="inline-list margin-zero-important text-x-small">
                         <li class="cursor-pointer" ng-repeat="hashtag in word.hashtags" ng-click="removeHashtag(word, hashtag.key)">#{{ hashtag.value }}</li>
                     </ul>
                 </td>
+                <td>
+<!--                     {{word.locations[0].value.location}}
+                    <pre>Model: {{asyncSelected | json}}</pre> -->
+                    <input type="text" ng-model="asyncSelected" 
+                         typeahead="address as address.formatted_address for address in getLocation($viewValue)" typeahead-loading="loadingLocations" class="margin-zero-important form-control">
+                    <!-- <input type="text" ng-model="asyncSelected" placeholder="Enter location..." typeahead="address for address in getLocation($viewValue) | filter:$viewValue" class="margin-zero-important"> -->
+                    
+                </td>
+                <td>
+                    <button class="tiny margin-zero" ng-click="addLocation(word, asyncSelected); asyncSelected = null;" ng-disabled="word.locations[0].value">Add</button>
+                </td>
+                <td>
+                    <span class="inline-list margin-zero-important text-x-small cursor-pointer" ng-repeat="location in word.locations" ng-click="removeLocation(word, location.key)">{{ location.value.formatted_address }}</span>
+                    <!-- <a href="" class="text-x-small cursor-pointer" ng-click="showme=true"> See Map</a> -->
+                    <!-- <a ng-show="word.locations[0].value" class="link-highlight0 link-hover-secondary0 margin-horizontal-xx-small" ng-click="removeLocation(word, location.key)">X</a> -->
+                    <!-- <a editable-text="dan">{{word.locations[0].value || 'empty'}}</a> -->
+                </td>
+                <td><my-maps id="map-canvas"></my-maps></td>
                 <td>{{ word.created | date }}</td>
                 <td>
                     <span ng-show="word.published">

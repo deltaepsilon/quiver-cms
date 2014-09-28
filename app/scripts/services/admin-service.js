@@ -33,6 +33,10 @@ angular.module('quiverCmsApp')
         return $firebase(new Firebase(firebaseEndpoint + '/content/hashtags'));
       },
 
+      getLocations: function () {
+        return $firebase(new Firebase(firebaseEndpoint + '/content/locations'));
+      },
+
       getSocial: function () {
         return $firebase(new Firebase(firebaseEndpoint + '/content/social'));
       },
