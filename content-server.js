@@ -149,26 +149,31 @@ var getPaginatedWords = function () {
 /*
  * Routes
 */
-var renderPosts = function (page, url) {
+var renderPosts = function (page, url, options) {
   var deferred = Q.defer(),
     page = parseInt(page),
     paginated = getPaginatedWords(),
     posts = paginated[page],
     nextPage = paginated[page + 1] ? page + 1 : null,
-    prevPage = page > 0 ? page - 1 : null;
+    prevPage = page > 0 ? page - 1 : null,
+    title = (settings.siteTitle || url)  + ': Posts: ' + page,
+    context;
 
   if (prevPage === 0) {
     prevPage = '0';
   }
 
-  app.render('posts', {
+  context = {
     development: envVars.environment === 'development',
     posts: posts,
     settings: settings,
     url: url,
     nextPage: nextPage,
-    prevPage: prevPage
-  }, function (err, html) {
+    prevPage: prevPage,
+    title: title
+  };
+
+  app.render('posts', _.defaults(options || {}, context), function (err, html) {
     return err ? deferred.reject(err) : deferred.resolve(html);
   });
 
@@ -179,7 +184,7 @@ var renderPosts = function (page, url) {
   return deferred.promise;
 }
 app.get('/', function (req, res) {
-  renderPosts(0, req.url).then(function (html) {
+  renderPosts(0, req.url, {title: settings.siteTitle}).then(function (html) {
     res.status(200).send(html);
   }, function (err) {
     res.status(500).send(err);

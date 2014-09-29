@@ -11,8 +11,13 @@
             </select>
         </fieldset>
     </form>
+    <form name="settingsForm">
 
         <fieldset class="clearfix" style="clear: both;">
+            <div class="column small-12 medium-4">
+                <label for="site-title">Site Title</label>
+                <input id="site-title" type="text" ng-model="settings.siteTitle" placeholder="Site title..."/>
+            </div>
             <div class="column small-12 medium-4">
                 <label for="front-post-count">Front Post Count</label>
                 <input id="front-post-count" type="number" ng-model="settings.frontPostCount"/>
@@ -82,6 +87,8 @@
             </div>
 
         </fieldset>
+
+    </form>
 </div>
 
 
