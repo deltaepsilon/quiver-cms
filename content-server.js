@@ -71,8 +71,6 @@ app.use(function (req, res, next) {
 
   }
 
-
-
 });
 
 /*
@@ -113,16 +111,36 @@ winston.add(winston.transports.File, { filename: './logs/quiver-cms-content.log'
 var getPaginatedWords = function () {
   var frontPostCount = settings.frontPostCount || 5,
     secondaryPostCount = settings.secondaryPostCount || 5,
-    count = 0,
-    posts = [
-      []
-    ];
+    posts = [],
+    getPostsLength = function () {
+      var length = 0,
+        i = posts.length;
+      while (i--) {
+        length += posts[i].length;
+      }
+      return length;
+    };
 
-  winston.info('Warning! getPaginatedWords is only paginating the front page. The rest of the pages need work.');
+  words = _.sortBy(words, function (word) {
+    return -1 * word.order;
+  });
+
   _.each(words, function (word) {
-    if (word.published && (posts[0].length < frontPostCount)) {
-      posts[0].push(word);
+    if (word.published && word.type === 'post') {
+      var length = getPostsLength(),
+        nextPage = 0;
+
+      if (length + 1 > frontPostCount) {
+        nextPage = Math.ceil((length + 1 - frontPostCount) / secondaryPostCount);
+      }
+
+      if (!posts[nextPage]) {
+        posts[nextPage] = [];
+      }
+
+      posts[nextPage].push(word);
     }
+
   });
 
   return posts;
@@ -131,28 +149,51 @@ var getPaginatedWords = function () {
 /*
  * Routes
 */
-app.get('/', function (req, res) {
-  var posts = getPaginatedWords()[0];
+var renderPosts = function (page, url) {
+  var deferred = Q.defer(),
+    page = parseInt(page),
+    paginated = getPaginatedWords(),
+    posts = paginated[page],
+    nextPage = paginated[page + 1] ? page + 1 : null,
+    prevPage = page > 0 ? page - 1 : null;
+
+  if (prevPage === 0) {
+    prevPage = '0';
+  }
 
   app.render('posts', {
     development: envVars.environment === 'development',
     posts: posts,
     settings: settings,
-    url: req.url
+    url: url,
+    nextPage: nextPage,
+    prevPage: prevPage
   }, function (err, html) {
-    if (err) {
-      res.status(500).send(err);
-    } else {
-      res.status(200).send(html);
-      setCache(req.url, html);
-    }
+    return err ? deferred.reject(err) : deferred.resolve(html);
+  });
 
+  deferred.promise.then(function (html) { // Set cache
+    setCache(url, html);
+  });
+
+  return deferred.promise;
+}
+app.get('/', function (req, res) {
+  renderPosts(0, req.url).then(function (html) {
+    res.status(200).send(html);
+  }, function (err) {
+    res.status(500).send(err);
   });
 
 });
 
 app.get('/posts/:page', function (req, res) {
-  res.status(200).send(req.params.page);
+  renderPosts(req.params.page, req.url).then(function (html) {
+    res.status(200).send(html);
+  }, function (err) {
+    res.status(500).send(err);
+  });
+
 });
 
 app.get('/:slug', function (req, res) {

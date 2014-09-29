@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('quiverCmsApp')
-  .controller('AdminCtrl', function ($scope, themeRef, settingsRef) {
+  .controller('AdminCtrl', function ($scope, themeRef, settingsRef, AdminService, NotificationService) {
     var theme = themeRef.$asObject(),
       settings = settingsRef.$asObject();
 
@@ -38,6 +38,15 @@ angular.module('quiverCmsApp')
 
     $scope.removeNavLink = function (type, i) {
       $scope.settings[type].splice(i, 1);
+    };
+
+    /*
+     * Cache
+    */
+    $scope.bustCache = function () {
+      AdminService.bustCache().then(function () {
+        NotificationService.success('Cached Busted!');
+      });
     };
 
   });

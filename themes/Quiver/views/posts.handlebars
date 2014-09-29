@@ -4,13 +4,21 @@
             <h3 class="post-title font-flair">
                 <a class="link-primary0" href="/{{ slug }}">{{ title }}</a>
             </h3>
-            <div class="post-body">
-              {{#markdown}}{{ published.markdown }}{{/markdown}}
-            </div>
+            {{!--<div class="post-body">--}}
+              {{!--{{#markdown}}{{ published.markdown }}{{/markdown}}--}}
+            {{!--</div>--}}
 
         </div>
         <hr>
 
       {{/each }}
+
+    {{#if prevPage }}
+        <a href="/posts/{{ prevPage }}">Previous</a>
+    {{/if }}
+
+    {{#if nextPage }}
+        <a href="/posts/{{ nextPage }}">Next</a>
+    {{/if }}
 
 </div>

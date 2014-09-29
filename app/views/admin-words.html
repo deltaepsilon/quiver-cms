@@ -11,11 +11,11 @@
     <table>
         <thead>
             <tr>
-                <th>Author</th><th>Title</th><th>Slug</th><th>Type</th><th>Hashtags</th><th></th><th>Created</th><th>Published</th><th>Action</th>
+                <th>Author</th><th>Title</th><th>Slug</th><th>Type</th><th>Order</th><th>Hashtags</th><th></th><th>Created</th><th>Published</th><th>Action</th>
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="word in words | filter:authorFilter">
+            <tr ng-repeat="word in words | filter:authorFilter | orderBy:'order':'desc'">
                 <td>
                     <span class="cursor-pointer" contenteditable="true" ng-model="word.author.name" ng-change="word.edited = true;">{{ word.author.name }}</span>
                 </td>
@@ -31,6 +31,9 @@
                         <option value="post">Post</option>
                         <option value="page">Page</option>
                     </select>
+                </td>
+                <td>
+                    <input class="margin-zero-important" ng-show="word.type == 'post'" type="number" ng-model="word.order" ng-change="word.edited = true;"/>
                 </td>
                 <td>
                     <input class="margin-zero-important" type="text" placeholder="Hashtag..." ng-model="newHashtag" qv-enter="addHashtag(word, newHashtag); newHashtag = null;" qv-type-ahead include="hashtags" exclude="word.hashtags" prepopulate="true" top-offset="-1"/>

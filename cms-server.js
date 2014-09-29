@@ -88,8 +88,7 @@ var parseBody = function (req, res, next) {
 //    });
 
     form.on('error', function (err) {
-      console.log('error', err);
-      winston.log('err');
+      winston.error(err);
     });
 
     form.parse(req, function (err, fields, files) {
@@ -111,8 +110,7 @@ var chunks = [],
     form.maxFieldSize = 100 * 1024;
 
     form.on('error', function (err) {
-      console.log('error', err);
-      winston.log('err');
+      winston.error(err);
     });
 
     form.parse(req, function (err, fields, files) {
@@ -186,8 +184,7 @@ var chunks = [],
           req.body.fileName = flowFilename;
           clearChunks(flowFilename).then(next);
         }, function (err) {
-          console.log('error', err)
-          winston.log('error', err);
+          winston.error(err);
           clearChunks(flowFilename).then(function () {
             res.sendStatus(500);
           });
@@ -310,7 +307,9 @@ app.use(function (req, res, next) {
 
 /*
  * REST
- * 1. files
+ * 1. Files
+ * 2. Social
+ * 3. Redis
 */
 
 
@@ -751,6 +750,21 @@ app.get('/instagram', function (req, res) {
   });
 
 });
+
+/*
+ * Redis
+*/
+var Redis = require('redis'),
+  redis = Redis.createClient();
+
+redis.select(process.env.QUIVER_CMS_REDIS_DB_INDEX || 0);
+
+app.get('/bust-cache', function (req, res) {
+  winston.info('flushing redis db');
+  redis.flushdb();
+  res.sendStatus(200);
+});
+
 
 /*
  * Finish this sucka up

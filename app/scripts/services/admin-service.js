@@ -51,6 +51,10 @@ angular.module('quiverCmsApp')
 
       getSettings: function () {
         return $firebase(new Firebase(firebaseEndpoint + '/settings'));
+      },
+
+      bustCache: function () {
+        return Restangular.one('bust-cache').get();
       }
     }
   });
