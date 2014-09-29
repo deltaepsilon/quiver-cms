@@ -88,7 +88,6 @@
     <script src="lib/ng-flow/dist/ng-flow.js"></script>
     <script src="lib/angular-foundation/mm-foundation-tpls.js"></script>
     <script src="lib/angular-xeditable/dist/js/xeditable.js"></script>
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD3qteW8_I8HPkaErqY4GpOMljGuULkQGU&sensor=false"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -113,6 +112,14 @@
         <script src="scripts/controllers/hashtags.js"></script>
         <script src="scripts/controllers/social.js"></script>
         <script src="scripts/directives/map.js"></script>
+        <script src="scripts/services/location-service.js"></script>
         <!-- endbuild -->
+
+    <script type="text/javascript">
+        if (window.envVars && window.envVars.maps && window.envVars.maps.apiKey) {
+            console.log('here');
+            document.write('<script type=\"text/javascript\" src=\"https://maps.googleapis.com/maps/api/js?key=' + window.envVars.maps.apiKey + '&sensor=false\"><\/script>');
+        }
+    </script>
 </body>
 </html>

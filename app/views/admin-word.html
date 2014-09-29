@@ -44,6 +44,31 @@
                 <a ng-if="$storage.activeDraft.edited == draft.edited" qv-confirm="removeDraft(draft)" confirmations="['Click to Delete', 'Confirm Deletion']">{{ draft.created | date:'MM/dd/yy HH:mm' }}</a>
             </li>
         </ul>
+
+        <hr/>
+    </div>
+
+    <div>
+        <h5>Location</h5>
+
+        <div ng-show="word.location">
+            <div class="text-small">
+                <a href="https://www.google.com/maps/preview?q=loc:{{ word.location.key.lat }},{{ word.location.key.lng }}" target="_blank">{{ word.location.value }}</a>
+            </div>
+
+
+            <button class="tiny alert margin-vertical-small" ng-click="removeLocation()">Remove</button>
+        </div>
+
+        <div ng-hide="word.location">
+            <input type="text" ng-model="locationSearch" ng-change="getLocations(locationSearch)" placeholder="Search addresses..."/>
+            <ul class="side-nav">
+                <li ng-repeat="location in locations" >
+                    <a ng-click="addLocation(location)">{{ location.value }}</a>
+                </li>
+            </ul>
+        </div>
+
     </div>
 
 </div>
