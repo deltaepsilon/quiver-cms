@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('quiverCmsApp')
-  .controller('WordCtrl', function ($scope, $timeout, moment, wordRef, draftsRef, filesRef, NotificationService, $filter, $localStorage, _, ClipboardService) {
+  .controller('WordCtrl', function ($scope, $timeout, moment, wordRef, draftsRef, filesRef, NotificationService, $filter, $localStorage, _, ClipboardService, LocationService) {
 
     $scope.$storage = $localStorage;
 
@@ -114,4 +114,27 @@ angular.module('quiverCmsApp')
 
       NotificationService.success('Markdown Added');
     };
+
+    /*
+     * Location
+    */
+    $scope.getLocations = _.debounce(function (location) {
+      var promise = LocationService.getLocations(location);
+
+      promise.then(function (locations) {
+        $scope.locations = locations;
+      });
+      return promise;
+    }, 500);
+
+    $scope.addLocation = function (location) {
+      $scope.word.location = location;
+    };
+
+    $scope.removeLocation = function () {
+      delete $scope.locationSearch;
+      delete $scope.locations;
+      delete $scope.word.location;
+    };
+
   });
