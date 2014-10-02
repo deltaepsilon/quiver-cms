@@ -7,4 +7,26 @@
     max-height: 30px;
     margin: -2px 1rem 0;
   }
+
+  .row {
+    @extend .row;
+  }
+}
+
+.top-bar-section {
+  li {
+    a {
+      @extend .text-x-medium-important;
+      line-height: rem-calc(51) !important;
+      letter-spacing: 1px;
+    }
+  }
+
+  .has-dropdown {
+    &> a {
+      &:after {
+        margin-top: -.5px;
+      }
+    }
+  }
 }

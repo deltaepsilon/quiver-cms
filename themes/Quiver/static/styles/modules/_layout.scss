@@ -1,7 +1,53 @@
 .row {
-  max-width: 80rem;
+  max-width: 64rem;
 }
 
 .min-height-inherit {
   min-height: inherit;
+}
+
+.site-title {
+  @extend .text-x-large;
+  @extend .font-secondary;
+  @extend .text-secondary3;
+  @extend .link-hover-secondary3;
+
+  display: block;
+  font-size: rem-calc(57);
+  margin: rem-calc(35) 0 rem-calc(31);
+
+  letter-spacing: 1px;
+}
+
+.full-bleed {
+  &.short {
+    overflow: hidden;
+    max-height: 20rem;
+  }
+  
+  &.medium {
+    overflow: hidden;
+    max-height: 40rem;
+  }
+
+  &.tall {
+    overflow: hidden;
+    max-height: 60rem;
+  }
+  
+  &.underlay {
+    position: fixed;
+    left: 0;
+    right: 0;
+  }
+
+  img {
+    width: 100%;
+  }
+}
+
+.posts {
+  background-color: rgba(255, 255, 255, .5);
+  position: relative;
+
 }

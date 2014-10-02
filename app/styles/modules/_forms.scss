@@ -2,3 +2,9 @@
   position: relative;
   top: rem-calc(-2px);
 }
+
+.title-contenteditable {
+  @extend .text-medium;
+  margin: rem-calc(7) 0 rem-calc(22);
+  display: block;
+}

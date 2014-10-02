@@ -13,7 +13,11 @@ $border-sizes:
   }
 }
 
-$font-primary: "aktiv-grotesk-std";
+$font-primary: "futura-pt";
+.font-primary {
+  font-family: $font-primary;
+}
+
 $font-sizes:
   xx-small 0.625rem,
   x-small  0.75rem,

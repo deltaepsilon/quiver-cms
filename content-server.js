@@ -49,29 +49,29 @@ redis.on('error', function (err) {
   winston.error('redis error', err);
 });
 
-app.use(function (req, res, next) {
-  if (!redisOn) {
-    winston.info('redis off');
-    next();
-
-  } else {
-
-    var url = req.url,
-      parts = url.split('/');
-
-    parts.shift(); // Drop the blank part of the route
-
-    if (parts[0] === 'static') { // set Content-Type for static files.
-      res.setHeader('Content-Type', mime.lookup(url.split('?')[0]));
-    }
-
-    redis.get(url, function (err, cache) {
-      return cache ? res.send(cache) : next();
-    });
-
-  }
-
-});
+//app.use(function (req, res, next) {
+//  if (!redisOn) {
+//    winston.info('redis off');
+//    next();
+//
+//  } else {
+//
+//    var url = req.url,
+//      parts = url.split('/');
+//
+//    parts.shift(); // Drop the blank part of the route
+//
+//    if (parts[0] === 'static') { // set Content-Type for static files.
+//      res.setHeader('Content-Type', mime.lookup(url.split('?')[0]));
+//    }
+//
+//    redis.get(url, function (err, cache) {
+//      return cache ? res.send(cache) : next();
+//    });
+//
+//  }
+//
+//});
 
 /*
  * Static

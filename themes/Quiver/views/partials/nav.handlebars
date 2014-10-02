@@ -1,56 +1,58 @@
+<nav class="row">
+    <a class="site-title column" href="/">{{ settings.siteTitle }}</a>
+</nav>
 <nav class="top-bar stretchy">
-  <ul class="title-area">
-      <li class="name">
-          <h1>
-              <a class="font-flair text-x-large" href="/">{{ settings.siteTitle }}</a>
-          </h1>
-
-      </li>
-  </ul>
-  <section class="top-bar-section">
-      <ul class="right">
-          {{#if settings.nav1Title }}
-            <li class="has-dropdown not-click">
-                <a href="#">{{ settings.nav1Title }}</a>
-                <ul class="dropdown">
+    <div class="row">
+        <div class="column">
+            <section class="top-bar-section">
+                <ul>
+                  {{#if settings.nav1Title }}
+                      <li class="has-dropdown not-click">
+                          <a href="#">{{ settings.nav1Title }}</a>
+                          <ul class="dropdown">
+                            {{#each settings.nav1 }}
+                                <li class="{{active href ../url }}"><a href="{{ href }}">{{ text }}</a></li>
+                            {{/each }}
+                          </ul>
+                      </li>
+                  {{ else }}
                     {{#each settings.nav1 }}
-                      <li class="{{active href ../url }}"><a href="{{ href }}">{{ text }}</a></li>
+                        <li class="{{active this.href ../url }}">
+                            <a href="{{ href }}">{{ text }}</a>
+                        </li>
+
                     {{/each }}
+                  {{/if }}
+
                 </ul>
-            </li>
-          {{ else }}
-            {{#each settings.nav1 }}
-                <li class="{{active this.href ../url }}">
-                    <a href="{{ href }}">{{ text }}</a>
-                </li>
+            </section>
 
-            {{/each }}
-          {{/if }}
+            <section class="top-bar-section">
+                <ul>
+                  {{#if settings.nav2Title }}
+                      <li class="has-dropdown not-click">
+                          <a href="#">{{ settings.nav2Title }}</a>
+                          <ul class="dropdown">
+                            {{#each settings.nav2 }}
+                                <li class="{{active this.href ../url }}"><a href="{{ href }}">{{ text }}</a></li>
+                            {{/each }}
+                          </ul>
+                      </li>
+                  {{ else }}
+                    {{#each settings.nav2 }}
+                        <li class="{{active this.href ../url }}">
+                            <a href="{{ href }}">{{ text }}</a>
+                        </li>
 
-      </ul>
-  </section>
+                    {{/each }}
+                  {{/if }}
 
-  <section class="top-bar-section">
-      <ul class="right">
-        {{#if settings.nav2Title }}
-            <li class="has-dropdown not-click">
-                <a href="#">{{ settings.nav2Title }}</a>
-                <ul class="dropdown">
-                  {{#each settings.nav2 }}
-                      <li class="{{active this.href ../url }}"><a href="{{ href }}">{{ text }}</a></li>
-                  {{/each }}
                 </ul>
-            </li>
-        {{ else }}
-          {{#each settings.nav2 }}
-              <li class="{{active this.href ../url }}">
-                  <a href="{{ href }}">{{ text }}</a>
-              </li>
+            </section>
 
-          {{/each }}
-        {{/if }}
+        </div>
 
-      </ul>
-  </section>
+    </div>
+
 
 </nav>
