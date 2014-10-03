@@ -4,16 +4,39 @@
 
 <div id="posts" class="posts row">
       {{#each posts }}
-        <div class="post column small-12">
-            <h3 class="post-title font-flair">
-                <a class="link-primary0" href="/{{ slug }}">{{ title }}</a>
-            </h3>
-            {{!--<div class="post-body">--}}
-              {{!--{{#markdown}}{{ published.markdown }}{{/markdown}}--}}
-            {{!--</div>--}}
+        <div class="post column small-12 post-{{ @index }}">
+            <div class="column small-12 medium-6 margin-vertical-large">
+                <img src="{{s3 keyImage.Versions.small.Key }}" alt="{{deSlug keyImage.Name }}"/>
+            </div>
+            <div class="column small-12 medium-6">
+                <h3 class="post-title font-flair">
+                    <a class="link-primary0" href="/{{ slug }}">{{ title }}</a>
+                </h3>
+
+                <hr>
+
+                <div class="post-details">
+                    <span class="author-name">{{ author.name }}</span>
+                    <a href="https://twitter.com/{{ author.twitter }}" target="_blank">
+                        <i class="fa fa-twitter"></i>
+                    </a>
+                    <a href="https://instagram.com/{{ author.instagram }}" target="_blank">
+                        <i class="fa fa-instagram"></i>
+                    </a>
+                    <a href="mailto:{{ author.email }}">
+                        <i class="fa fa-envelope"></i>
+                    </a>
+                    <span class="publish-date">{{formatDate published.published "%m/%d/%Y"}}</span>
+                </div>
+
+
+
+                <div class="excerpt">
+                  {{#markdown}}{{ excerpt }}{{/markdown}}
+                </div>
+            </div>
 
         </div>
-        <hr>
 
       {{/each }}
 

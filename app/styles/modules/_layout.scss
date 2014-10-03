@@ -5,3 +5,10 @@
 .min-height-inherit {
   min-height: inherit;
 }
+
+.overlay {
+
+  &.bottom {
+    @include absolute(inherit, 0, -1px, 0);
+  }
+}

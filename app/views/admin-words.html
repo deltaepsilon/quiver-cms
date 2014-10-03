@@ -17,7 +17,8 @@
         <tbody>
             <tr ng-repeat="word in words | filter:authorFilter | orderBy:'order':'desc'">
                 <td>
-                    <span class="cursor-pointer" contenteditable="true" ng-model="word.author.name" ng-change="word.edited = true;">{{ word.author.name }}</span>
+                    <span ng-show="word.author.id == user.$id">{{ word.author.name }}</span>
+                    <span class="cursor-pointer" ng-hide="word.author.id == user.$id" qv-confirm="makeAuthor(word, user)" confirmations="['Claim Authorship']">{{ word.author.name }}</span>
                 </td>
                 <td>
                     <a ui-sref="authenticated.master.admin.word({key: word.$id})">{{ word.title }}</a>

@@ -26,6 +26,22 @@ angular.module('quiverCmsApp')
 
     });
 
+    $scope.clearExcerpt = function () {
+      if ($scope.word.excerpt) {
+        $scope.word.excerpt = "";
+
+      }
+
+    };
+
+    $scope.clearKeyImage = function () {
+      if ($scope.word.keyImage) {
+        delete $scope.word.keyImage;
+
+      }
+
+    };
+
 
     /*
      * Drafts

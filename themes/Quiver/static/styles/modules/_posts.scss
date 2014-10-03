@@ -1,0 +1,32 @@
+#posts {
+  padding: 1rem;
+
+  .post {
+
+  }
+
+  .post-0 {
+
+    //img {
+    //  float: left;
+    //  max-width: 50%;
+    //}
+    //
+    //hr, .post-title, .post-details, .excerpt {
+    //  float: right;
+    //  max-width: 50%;
+    //}
+    //
+    //.post-title {
+    //  color: red;
+    //}
+
+    hr {
+      @extend .margin-vertical-small;
+    }
+
+    .excerpt {
+      @extend .margin-vertical-small;
+    }
+  }
+}

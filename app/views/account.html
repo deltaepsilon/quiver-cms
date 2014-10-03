@@ -3,19 +3,32 @@
 
     <fieldset>
         <label for="current-user-email">Login Email (cannot be changed)</label>
-        <a href="mailto:{{ currentUser.email }}">{{ currentUser.email }}</a>
+        <a id="current-user-email" href="mailto:{{ currentUser.email }}">{{ currentUser.email }}</a>
 
         <hr>
 
         <input type="text" ng-model="user.name" placeholder="Name..." required/>
+
         <input type="email" ng-model="user.email" placeholder="Preferred email..." required/>
+
         <select name="gender" id="gender" ng-model="user.gender" placeholder="Gender">
             <option value="">Gender...</option>
             <option value="m">Male</option>
             <option value="f">Female</option>
         </select>
+
         <label for="birthday">Birthday</label>
         <input id="birthday" type="date" ng-model="user.birthdate" placeholder="birthday"/>
+
+        <label for="website">Personal Website</label>
+        <input id="website" type="text" ng-model="user.website" placeholder="https://..."/>
+
+        <label for="twitter">Twitter Name</label>
+        <input id="twitter" type="text" ng-model="user.twitter" placeholder="BryanCranston..."/>
+
+        <label for="instagram">Instagram Name</label>
+        <input id="instagram" type="text" ng-model="user.instagram" placeholder="glassofwhiskey..."/>
+
 
     </fieldset>
 

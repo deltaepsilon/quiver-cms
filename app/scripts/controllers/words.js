@@ -18,15 +18,20 @@ angular.module('quiverCmsApp')
     };
 
     $scope.createWord = function (title) {
+      var author = $scope.user;
+
+      _.defaults(author, {
+        id: user.$id,
+        name: $scope.currentUser.id,
+        email: $scope.currentUser.email
+      });
+
       $scope.words.$add({
         title: title,
         slug: Slug.slugify(title),
         type: 'page',
         created: moment().format(),
-        author: {
-          name: $scope.user.name || $scope.currentUser.id,
-          email: $scope.user.email || $scope.currentUser.email
-        }
+        author: author
       }).then(function () {
         delete $scope.newWordTitle;
         NotificationService.success('Created', 'Hi there ' + title + '.');
@@ -51,6 +56,12 @@ angular.module('quiverCmsApp')
         NotificationService.error('Save Error', error);
       });
 
+    };
+
+    $scope.makeAuthor = function (word, user) {
+      word.edited = true;
+      word.author = user;
+      word.author.id = parseInt(user.$id);
     };
 
     /*

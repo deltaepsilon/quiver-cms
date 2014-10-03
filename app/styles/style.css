@@ -10239,6 +10239,15 @@ button.callout:active, button.callout:focus, .button.callout:active, .button.cal
   min-height: inherit;
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/modules\/_layout\.scss}line{font-family:\0000311}}
+.overlay.bottom {
+  position: absolute;
+  top: inherit;
+  right: 0;
+  bottom: -1px;
+  left: 0;
+}
+
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/modules\/_notifications\.scss}line{font-family:\000031}}
 #notifications-wrapper {
   position: fixed;

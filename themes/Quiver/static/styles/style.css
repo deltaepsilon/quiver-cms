@@ -1446,7 +1446,7 @@ a.link-hover-black-important:hover {
 }
 
 /* line 30, theme/_spacing.scss */
-.margin-vertical-small {
+.margin-vertical-small, #posts .post-0 hr, #posts .post-0 .excerpt {
   margin-top: 0.75rem;
   margin-bottom: 0.75rem;
 }
@@ -10292,6 +10292,11 @@ button.callout:active, button.callout:focus, .button.callout:active, .button.cal
 /* line 49, modules/_notifications.scss */
 .notifications .dr-notification-content p {
   margin: 0;
+}
+
+/* line 1, modules/_posts.scss */
+#posts {
+  padding: 1rem;
 }
 
 /* line 1, modules/_progress.scss */
