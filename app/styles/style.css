@@ -1090,92 +1090,398 @@ a.link-hover-black-important:hover {
   color: #000 !important;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000378}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000379}}
+.fade-primary0:after {
+  background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCIgeDE9IjAuNSIgeTE9IjAuMCIgeDI9IjAuNSIgeTI9IjEuMCI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2ZmZmZmZiIgc3RvcC1vcGFjaXR5PSIwLjAiLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMzMzMzMzMiLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyYWQpIiAvPjwvc3ZnPiA=');
+  background-size: 100%;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, rgba(255, 255, 255, 0)), color-stop(100%, #333333));
+  background-image: -moz-linear-gradient(rgba(255, 255, 255, 0), #333333);
+  background-image: -webkit-linear-gradient(rgba(255, 255, 255, 0), #333333);
+  background-image: linear-gradient(rgba(255, 255, 255, 0), #333333);
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000379}}
+.fade-primary1:after {
+  background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCIgeDE9IjAuNSIgeTE9IjAuMCIgeDI9IjAuNSIgeTI9IjEuMCI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2ZmZmZmZiIgc3RvcC1vcGFjaXR5PSIwLjAiLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMxZjAzMjYiLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyYWQpIiAvPjwvc3ZnPiA=');
+  background-size: 100%;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, rgba(255, 255, 255, 0)), color-stop(100%, #1f0326));
+  background-image: -moz-linear-gradient(rgba(255, 255, 255, 0), #1f0326);
+  background-image: -webkit-linear-gradient(rgba(255, 255, 255, 0), #1f0326);
+  background-image: linear-gradient(rgba(255, 255, 255, 0), #1f0326);
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000379}}
+.fade-primary2:after {
+  background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCIgeDE9IjAuNSIgeTE9IjAuMCIgeDI9IjAuNSIgeTI9IjEuMCI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2ZmZmZmZiIgc3RvcC1vcGFjaXR5PSIwLjAiLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMwNzYzOTEiLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyYWQpIiAvPjwvc3ZnPiA=');
+  background-size: 100%;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, rgba(255, 255, 255, 0)), color-stop(100%, #076391));
+  background-image: -moz-linear-gradient(rgba(255, 255, 255, 0), #076391);
+  background-image: -webkit-linear-gradient(rgba(255, 255, 255, 0), #076391);
+  background-image: linear-gradient(rgba(255, 255, 255, 0), #076391);
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000379}}
+.fade-secondary0:after {
+  background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCIgeDE9IjAuNSIgeTE9IjAuMCIgeDI9IjAuNSIgeTI9IjEuMCI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2ZmZmZmZiIgc3RvcC1vcGFjaXR5PSIwLjAiLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNhMDA5MzQiLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyYWQpIiAvPjwvc3ZnPiA=');
+  background-size: 100%;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, rgba(255, 255, 255, 0)), color-stop(100%, #a00934));
+  background-image: -moz-linear-gradient(rgba(255, 255, 255, 0), #a00934);
+  background-image: -webkit-linear-gradient(rgba(255, 255, 255, 0), #a00934);
+  background-image: linear-gradient(rgba(255, 255, 255, 0), #a00934);
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000379}}
+.fade-secondary1:after {
+  background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCIgeDE9IjAuNSIgeTE9IjAuMCIgeDI9IjAuNSIgeTI9IjEuMCI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2ZmZmZmZiIgc3RvcC1vcGFjaXR5PSIwLjAiLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNmYzAyNzIiLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyYWQpIiAvPjwvc3ZnPiA=');
+  background-size: 100%;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, rgba(255, 255, 255, 0)), color-stop(100%, #fc0272));
+  background-image: -moz-linear-gradient(rgba(255, 255, 255, 0), #fc0272);
+  background-image: -webkit-linear-gradient(rgba(255, 255, 255, 0), #fc0272);
+  background-image: linear-gradient(rgba(255, 255, 255, 0), #fc0272);
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000379}}
+.fade-secondary2:after {
+  background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCIgeDE9IjAuNSIgeTE9IjAuMCIgeDI9IjAuNSIgeTI9IjEuMCI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2ZmZmZmZiIgc3RvcC1vcGFjaXR5PSIwLjAiLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiM0YTkxMGEiLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyYWQpIiAvPjwvc3ZnPiA=');
+  background-size: 100%;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, rgba(255, 255, 255, 0)), color-stop(100%, #4a910a));
+  background-image: -moz-linear-gradient(rgba(255, 255, 255, 0), #4a910a);
+  background-image: -webkit-linear-gradient(rgba(255, 255, 255, 0), #4a910a);
+  background-image: linear-gradient(rgba(255, 255, 255, 0), #4a910a);
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000379}}
+.fade-secondary3:after {
+  background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCIgeDE9IjAuNSIgeTE9IjAuMCIgeDI9IjAuNSIgeTI9IjEuMCI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2ZmZmZmZiIgc3RvcC1vcGFjaXR5PSIwLjAiLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiM0MTQxNDEiLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyYWQpIiAvPjwvc3ZnPiA=');
+  background-size: 100%;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, rgba(255, 255, 255, 0)), color-stop(100%, #414141));
+  background-image: -moz-linear-gradient(rgba(255, 255, 255, 0), #414141);
+  background-image: -webkit-linear-gradient(rgba(255, 255, 255, 0), #414141);
+  background-image: linear-gradient(rgba(255, 255, 255, 0), #414141);
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000379}}
+.fade-secondary4:after {
+  background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCIgeDE9IjAuNSIgeTE9IjAuMCIgeDI9IjAuNSIgeTI9IjEuMCI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2ZmZmZmZiIgc3RvcC1vcGFjaXR5PSIwLjAiLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNmOWY5ZjkiLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyYWQpIiAvPjwvc3ZnPiA=');
+  background-size: 100%;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, rgba(255, 255, 255, 0)), color-stop(100%, #f9f9f9));
+  background-image: -moz-linear-gradient(rgba(255, 255, 255, 0), #f9f9f9);
+  background-image: -webkit-linear-gradient(rgba(255, 255, 255, 0), #f9f9f9);
+  background-image: linear-gradient(rgba(255, 255, 255, 0), #f9f9f9);
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000379}}
+.fade-secondary5:after {
+  background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCIgeDE9IjAuNSIgeTE9IjAuMCIgeDI9IjAuNSIgeTI9IjEuMCI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2ZmZmZmZiIgc3RvcC1vcGFjaXR5PSIwLjAiLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNhYWFhYWEiLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyYWQpIiAvPjwvc3ZnPiA=');
+  background-size: 100%;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, rgba(255, 255, 255, 0)), color-stop(100%, #aaaaaa));
+  background-image: -moz-linear-gradient(rgba(255, 255, 255, 0), #aaaaaa);
+  background-image: -webkit-linear-gradient(rgba(255, 255, 255, 0), #aaaaaa);
+  background-image: linear-gradient(rgba(255, 255, 255, 0), #aaaaaa);
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000379}}
+.fade-highlight0:after {
+  background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCIgeDE9IjAuNSIgeTE9IjAuMCIgeDI9IjAuNSIgeTI9IjEuMCI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2ZmZmZmZiIgc3RvcC1vcGFjaXR5PSIwLjAiLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNiZDNmNDIiLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyYWQpIiAvPjwvc3ZnPiA=');
+  background-size: 100%;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, rgba(255, 255, 255, 0)), color-stop(100%, #bd3f42));
+  background-image: -moz-linear-gradient(rgba(255, 255, 255, 0), #bd3f42);
+  background-image: -webkit-linear-gradient(rgba(255, 255, 255, 0), #bd3f42);
+  background-image: linear-gradient(rgba(255, 255, 255, 0), #bd3f42);
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000379}}
+.fade-highlight1:after {
+  background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCIgeDE9IjAuNSIgeTE9IjAuMCIgeDI9IjAuNSIgeTI9IjEuMCI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2ZmZmZmZiIgc3RvcC1vcGFjaXR5PSIwLjAiLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMwMDAwMDAiIHN0b3Atb3BhY2l0eT0iMC42Ii8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+PHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNncmFkKSIgLz48L3N2Zz4g');
+  background-size: 100%;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, rgba(255, 255, 255, 0)), color-stop(100%, rgba(0, 0, 0, 0.6)));
+  background-image: -moz-linear-gradient(rgba(255, 255, 255, 0), rgba(0, 0, 0, 0.6));
+  background-image: -webkit-linear-gradient(rgba(255, 255, 255, 0), rgba(0, 0, 0, 0.6));
+  background-image: linear-gradient(rgba(255, 255, 255, 0), rgba(0, 0, 0, 0.6));
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000379}}
+.fade-notify:after {
+  background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCIgeDE9IjAuNSIgeTE9IjAuMCIgeDI9IjAuNSIgeTI9IjEuMCI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2ZmZmZmZiIgc3RvcC1vcGFjaXR5PSIwLjAiLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMwNzYzOTEiLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyYWQpIiAvPjwvc3ZnPiA=');
+  background-size: 100%;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, rgba(255, 255, 255, 0)), color-stop(100%, #076391));
+  background-image: -moz-linear-gradient(rgba(255, 255, 255, 0), #076391);
+  background-image: -webkit-linear-gradient(rgba(255, 255, 255, 0), #076391);
+  background-image: linear-gradient(rgba(255, 255, 255, 0), #076391);
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000379}}
+.fade-error:after {
+  background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCIgeDE9IjAuNSIgeTE9IjAuMCIgeDI9IjAuNSIgeTI9IjEuMCI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2ZmZmZmZiIgc3RvcC1vcGFjaXR5PSIwLjAiLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNhMDA5MzQiLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyYWQpIiAvPjwvc3ZnPiA=');
+  background-size: 100%;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, rgba(255, 255, 255, 0)), color-stop(100%, #a00934));
+  background-image: -moz-linear-gradient(rgba(255, 255, 255, 0), #a00934);
+  background-image: -webkit-linear-gradient(rgba(255, 255, 255, 0), #a00934);
+  background-image: linear-gradient(rgba(255, 255, 255, 0), #a00934);
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000379}}
+.fade-success:after {
+  background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCIgeDE9IjAuNSIgeTE9IjAuMCIgeDI9IjAuNSIgeTI9IjEuMCI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2ZmZmZmZiIgc3RvcC1vcGFjaXR5PSIwLjAiLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiM0YTkxMGEiLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyYWQpIiAvPjwvc3ZnPiA=');
+  background-size: 100%;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, rgba(255, 255, 255, 0)), color-stop(100%, #4a910a));
+  background-image: -moz-linear-gradient(rgba(255, 255, 255, 0), #4a910a);
+  background-image: -webkit-linear-gradient(rgba(255, 255, 255, 0), #4a910a);
+  background-image: linear-gradient(rgba(255, 255, 255, 0), #4a910a);
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000379}}
+.fade-warning:after {
+  background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCIgeDE9IjAuNSIgeTE9IjAuMCIgeDI9IjAuNSIgeTI9IjEuMCI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2ZmZmZmZiIgc3RvcC1vcGFjaXR5PSIwLjAiLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNmYzAyNzIiLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyYWQpIiAvPjwvc3ZnPiA=');
+  background-size: 100%;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, rgba(255, 255, 255, 0)), color-stop(100%, #fc0272));
+  background-image: -moz-linear-gradient(rgba(255, 255, 255, 0), #fc0272);
+  background-image: -webkit-linear-gradient(rgba(255, 255, 255, 0), #fc0272);
+  background-image: linear-gradient(rgba(255, 255, 255, 0), #fc0272);
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000379}}
+.fade-gray:after {
+  background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCIgeDE9IjAuNSIgeTE9IjAuMCIgeDI9IjAuNSIgeTI9IjEuMCI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2ZmZmZmZiIgc3RvcC1vcGFjaXR5PSIwLjAiLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMzMzMzMzMiLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyYWQpIiAvPjwvc3ZnPiA=');
+  background-size: 100%;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, rgba(255, 255, 255, 0)), color-stop(100%, #333333));
+  background-image: -moz-linear-gradient(rgba(255, 255, 255, 0), #333333);
+  background-image: -webkit-linear-gradient(rgba(255, 255, 255, 0), #333333);
+  background-image: linear-gradient(rgba(255, 255, 255, 0), #333333);
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000379}}
+.fade-white:after {
+  background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCIgeDE9IjAuNSIgeTE9IjAuMCIgeDI9IjAuNSIgeTI9IjEuMCI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2ZmZmZmZiIgc3RvcC1vcGFjaXR5PSIwLjAiLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNmZmZmZmYiLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyYWQpIiAvPjwvc3ZnPiA=');
+  background-size: 100%;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, rgba(255, 255, 255, 0)), color-stop(100%, #ffffff));
+  background-image: -moz-linear-gradient(rgba(255, 255, 255, 0), #ffffff);
+  background-image: -webkit-linear-gradient(rgba(255, 255, 255, 0), #ffffff);
+  background-image: linear-gradient(rgba(255, 255, 255, 0), #ffffff);
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000379}}
+.fade-black:after {
+  background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCIgeDE9IjAuNSIgeTE9IjAuMCIgeDI9IjAuNSIgeTI9IjEuMCI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2ZmZmZmZiIgc3RvcC1vcGFjaXR5PSIwLjAiLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMwMDAwMDAiLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyYWQpIiAvPjwvc3ZnPiA=');
+  background-size: 100%;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, rgba(255, 255, 255, 0)), color-stop(100%, #000000));
+  background-image: -moz-linear-gradient(rgba(255, 255, 255, 0), #000000);
+  background-image: -webkit-linear-gradient(rgba(255, 255, 255, 0), #000000);
+  background-image: linear-gradient(rgba(255, 255, 255, 0), #000000);
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000396}}
 .border-primary0 {
   border: 1px solid #333;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000378}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000396}}
 .border-primary1 {
   border: 1px solid #1F0326;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000378}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000396}}
 .border-primary2 {
   border: 1px solid #076391;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000378}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000396}}
 .border-secondary0 {
   border: 1px solid #A00934;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000378}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000396}}
 .border-secondary1 {
   border: 1px solid #FC0272;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000378}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000396}}
 .border-secondary2 {
   border: 1px solid #4A910A;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000378}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000396}}
 .border-secondary3 {
   border: 1px solid #414141;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000378}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000396}}
 .border-secondary4 {
   border: 1px solid #f9f9f9;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000378}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000396}}
 .border-secondary5 {
   border: 1px solid #aaa;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000378}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000396}}
 .border-highlight0 {
   border: 1px solid #bd3f42;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000378}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000396}}
 .border-highlight1 {
   border: 1px solid rgba(0, 0, 0, 0.6);
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000378}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000396}}
 .border-notify {
   border: 1px solid #076391;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000378}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000396}}
 .border-error {
   border: 1px solid #A00934;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000378}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000396}}
 .border-success {
   border: 1px solid #4A910A;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000378}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000396}}
 .border-warning {
   border: 1px solid #FC0272;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000378}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000396}}
 .border-gray, .type-ahead {
   border: 1px solid #333;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000378}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000396}}
 .border-white {
   border: 1px solid #fff;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000378}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_color\.scss}line{font-family:\0000396}}
 .border-black {
   border: 1px solid #000;
 }

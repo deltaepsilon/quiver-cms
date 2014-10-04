@@ -1,32 +1,73 @@
 #posts {
   padding: 1rem;
 
+  hr {
+    border-style: dotted;
+    border-color: rgba(0, 0, 0, .1);
+    margin: .5rem 0;
+  }
+
   .post {
+    &.post-block-primary {
+      .post-title {
+        @extend .text-x-large;
+        line-height: 2rem;
 
-  }
+      }
 
-  .post-0 {
-
-    //img {
-    //  float: left;
-    //  max-width: 50%;
-    //}
-    //
-    //hr, .post-title, .post-details, .excerpt {
-    //  float: right;
-    //  max-width: 50%;
-    //}
-    //
-    //.post-title {
-    //  color: red;
-    //}
-
-    hr {
-      @extend .margin-vertical-small;
     }
 
-    .excerpt {
-      @extend .margin-vertical-small;
+    &.post-block-secondary {
+      @extend .medium-block-grid-4;
+      @extend .small-block-grid-1;
+
+      .post-title {
+        @extend .text-small;
+      }
+    }
+
+    &.post-block-tertiary {
+      .post-title {
+        @extend .text-medium;
+      }
+    }
+
+    .post-title {
+      @extend .text-medium;
+      @extend .font-flair;
+
+      line-height: 2rem;
     }
   }
+
+  .post-details {
+    margin-bottom: 1rem;
+
+    .author-name {
+      @extend .text-secondary0;
+
+      font-weight: bold;
+      margin-right: 1rem;
+      text-transform: uppercase;
+
+    }
+
+    .publish-date {
+      @extend .text-secondary5;
+
+    }
+    
+    .social {
+      float: right;
+
+      li {
+        margin-left: .5rem;
+      }
+    }
+  }
+
+
+
+
 }
+

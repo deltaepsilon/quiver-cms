@@ -157,15 +157,44 @@ var renderPosts = function (page, url, options) {
     nextPage = paginated[page + 1] ? page + 1 : null,
     prevPage = page > 0 ? page - 1 : null,
     title = (settings.siteTitle || url)  + ': Posts: ' + page,
+    primaryMax = settings.primaryPostCount || 1,
+    secondaryMax = (settings.secondaryPostCount || 4) + primaryMax,
+    tertiaryMax = (settings.tertiaryPostCount || 10) | secondaryMax,
+    postBlocks = {
+      primary: [],
+      secondary: [],
+      tertiary: [],
+      extras: []
+    },
+    counter = 0,
     context;
 
   if (prevPage === 0) {
     prevPage = '0';
   }
 
+  // Create post blocks
+  _.each(posts, function (post) {
+    counter += 1;
+    if (counter <= primaryMax) {
+      post.postBlock = 'primary';
+      postBlocks.primary.push(post);
+    } else if (counter <= secondaryMax) {
+      post.postBlock = 'secondary';
+      postBlocks.secondary.push(post);
+    } else if (counter <= tertiaryMax) {
+      post.postBlock = 'tertiary';
+      postBlocks.tertiary.push(post);
+    } else {
+      post.postBlock = 'extras';
+      postBlocks.extras.push(post);
+    }
+  });
+
   context = {
     development: envVars.environment === 'development',
     posts: posts,
+    postBlocks: postBlocks,
     settings: settings,
     url: url,
     nextPage: nextPage,

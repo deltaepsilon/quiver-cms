@@ -73,6 +73,25 @@ $colors:
 
 }
 
+// Fade
+@each $color in $colors {
+  .fade-#{nth($color, 1)} {
+    &:after {
+      @include background-image(linear-gradient(rgba(255, 255, 255, 0), nth($color, 2)));
+
+      content: "";
+      display: block;
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+
+    }
+  }
+}
+
+
 // Border colors class names.
 @each $color in $colors {
   .border-#{nth($color, 1)} {

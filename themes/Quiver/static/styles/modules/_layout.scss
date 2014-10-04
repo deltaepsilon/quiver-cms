@@ -41,6 +41,17 @@
     right: 0;
   }
 
+  //&.fade-white {
+  //  &:after {
+  //    @include absolute();
+  //    @include background-image(linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 1)));
+  //
+  //    content: "";
+  //    display: block;
+  //
+  //  }
+  //}
+
   img {
     width: 100%;
   }
