@@ -8,29 +8,7 @@
   }
 
   .post {
-    &.post-block-primary {
-      .post-title {
-        @extend .text-x-large;
-        line-height: 2rem;
 
-      }
-
-    }
-
-    &.post-block-secondary {
-      @extend .medium-block-grid-4;
-      @extend .small-block-grid-1;
-
-      .post-title {
-        @extend .text-small;
-      }
-    }
-
-    &.post-block-tertiary {
-      .post-title {
-        @extend .text-medium;
-      }
-    }
 
     .post-title {
       @extend .text-medium;
@@ -40,8 +18,29 @@
     }
   }
 
+  .post-block-tertiary {
+    @extend .margin-zero;
+
+    >li {
+      border-color: getColor(secondary5);
+      border-style: dotted;
+      border-width: 0 0 1px 0;
+      clear: both;
+      overflow: hidden;
+
+    }
+
+  }
+
+  .post-left, .post-right {
+    @extend .column;
+    @extend .small-12;
+    @extend .medium-6;
+    @extend .margin-vertical-large;
+  }
+
   .post-details {
-    margin-bottom: 1rem;
+    overflow: hidden;
 
     .author-name {
       @extend .text-secondary0;
@@ -59,6 +58,7 @@
     
     .social {
       float: right;
+      margin-bottom: 0;
 
       li {
         margin-left: .5rem;
@@ -69,5 +69,40 @@
 
 
 
+}
+
+@media #{$screen} and (max-width: #{upper-bound($small-range)}) {
+  .post-block-secondary {
+    margin: 0;
+
+    > li {
+      border-color: getColor(secondary5);
+      border-style: dotted;
+      border-width: 0 0 1px 0;
+      clear: both;
+      padding: 0;
+
+    }
+  }
+}
+
+@media #{$screen} and (min-width:#{lower-bound($medium-range)}) {
+  #posts {
+    .post-block-secondary {
+
+      .post-left, .post-right {
+        width: initial;
+      }
+      .post-title {
+        font-size: .75rem;
+        min-height: 2rem;
+        line-height: 1rem;
+
+      }
+      .publish-date {
+        float: right;
+      }
+    }
+  }
 }
 

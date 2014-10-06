@@ -14,13 +14,28 @@
 </head>
 <body>
 
-  <section class="clearfix">
-    {{> nav }}
-  </section>
-  <div id="body-container">
+  <input id="off-canvas-checkbox" class="off-canvas-checkbox" type="checkbox"/>
+  <div class="off-canvas-wrap checkbox-move-left">
+      <div class="inner-wrap">
+          <section class="clearfix hidden-for-small">
+            {{> nav-medium }}
+          </section>
+          <section class="clearfix show-for-small-down">
+            {{> nav-small }}
+          </section>
+          <section id="body-container">
+            {{{body}}}
+          </section>
 
-    {{{body}}}
+      </div>
+
+
+
   </div>
+
+
+
+
 
   {{#if development }}
     {{> livereload}}

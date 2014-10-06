@@ -1,0 +1,42 @@
+<div class="post-left">
+    <img src="{{s3 keyImage.Versions.small.Key }}" alt="{{deSlug keyImage.Name }}"/>
+</div>
+<div class="post-right">
+    <div class="post-title font-flair">
+        <a class="link-primary0" href="/{{ slug }}">{{ title }}</a>
+    </div>
+
+    <hr>
+
+    <div class="post-details">
+        <span class="author-name">{{ author.name }}</span>
+
+
+        <ul class="social inline-list right">
+            <li>
+                <a href="https://twitter.com/{{ author.twitter }}" target="_blank">
+                    <i class="fa fa-twitter"></i>
+                </a>
+            </li>
+            <li>
+                <a href="https://instagram.com/{{ author.instagram }}" target="_blank">
+                    <i class="fa fa-instagram"></i>
+                </a>
+            </li>
+            <li>
+                <a href="mailto:{{ author.email }}">
+                    <i class="fa fa-envelope"></i>
+                </a>
+            </li>
+        </ul>
+
+        <span class="publish-date">{{calendar published.published}}</span>
+
+    </div>
+
+
+
+    <div class="excerpt">
+      {{#markdown}}{{ excerpt }}{{/markdown}}
+    </div>
+</div>

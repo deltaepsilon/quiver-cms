@@ -3,59 +3,52 @@
 {{!--</div>--}}
 
 <div id="posts" class="posts row">
-    {{#each posts }}
-      <div class="post column small-12 post-{{ @index }} post-type-{{ type }} post-block-{{ postBlock }}">
-          <div class="column small-12 medium-6 margin-vertical-large">
-              <img src="{{s3 keyImage.Versions.small.Key }}" alt="{{deSlug keyImage.Name }}"/>
-          </div>
-          <div class="column small-12 medium-6 margin-vertical-large">
-              <div class="post-title font-flair">
-                  <a class="link-primary0" href="/{{ slug }}">{{ title }}</a>
-              </div>
+    {{#each postBlocks.primary }}
+      <div class="post column small-12 post-{{ @index }}">
+          {{> inline-post }}
+      </div>
+    {{/each }}
 
-              <hr>
+  <ul class="column medium-block-grid-{{ settings.secondaryPostCount }} post-block-secondary">
+    {{#each postBlocks.secondary }}
+        <li class="post post-{{ @index }}">
+          {{> inline-post }}
+        </li>
+    {{/each }}
 
-              <div class="post-details">
-                  <span class="author-name">{{ author.name }}</span>
-                  <span class="publish-date">{{calendar published.published}}</span>
+  </ul>
 
-                  <ul class="social inline-list right">
-                      <li>
-                          <a href="https://twitter.com/{{ author.twitter }}" target="_blank">
-                              <i class="fa fa-twitter"></i>
-                          </a>
-                      </li>
-                      <li>
-                          <a href="https://instagram.com/{{ author.instagram }}" target="_blank">
-                              <i class="fa fa-instagram"></i>
-                          </a>
-                      </li>
-                      <li>
-                          <a href="mailto:{{ author.email }}">
-                              <i class="fa fa-envelope"></i>
-                          </a>
-                      </li>
-                  </ul>
-
-              </div>
-
-
-
-              <div class="excerpt">
-                {{#markdown}}{{ excerpt }}{{/markdown}}
-              </div>
+  <div class="column medium-4">
+      <div class="hidden-for-small">
+          <div class="panel">
+              This is a giant block of text
+              This is a giant block of text
+              This is a giant block of text
+              This is a giant block of text
+              This is a giant block of text
+              This is a giant block of text
+              This is a giant block of text
+              This is a giant block of text
+              This is a giant block of text
           </div>
 
       </div>
 
+  </div>
+  <ul class="post-block-tertiary column small-12 medium-8">
+    {{#each postBlocks.tertiary }}
+        <li class="post post-{{ @index }}">
+          {{> inline-post }}
+        </li>
     {{/each }}
+  </ul>
 
     {{#if prevPage }}
-        <a href="/posts/{{ prevPage }}">Previous</a>
+        <a class="left" href="/posts/{{ prevPage }}">Previous</a>
     {{/if }}
 
     {{#if nextPage }}
-        <a href="/posts/{{ nextPage }}">Next</a>
+        <a class="right" href="/posts/{{ nextPage }}">Next</a>
     {{/if }}
 
 </div>

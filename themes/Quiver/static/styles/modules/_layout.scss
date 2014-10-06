@@ -7,16 +7,23 @@
 }
 
 .site-title {
-  @extend .text-x-large;
   @extend .font-secondary;
   @extend .text-secondary3;
   @extend .link-hover-secondary3;
 
   display: block;
   font-size: rem-calc(57);
-  margin: rem-calc(35) 0 rem-calc(31);
+  margin: 1rem 0;
 
   letter-spacing: 1px;
+  line-height:rem-calc(57);
+  width: initial !important;
+  word-break: break-all;
+}
+
+.fa-bars {
+  font-size: rem-calc(57);
+  margin: 1rem;
 }
 
 .full-bleed {

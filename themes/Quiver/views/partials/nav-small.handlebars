@@ -1,0 +1,31 @@
+<a class="site-title column" href="/">{{ settings.siteTitle }}</a>
+<label for="off-canvas-checkbox" class="right-off-canvas-toggle right link-secondary3" href="#"><i class="fa fa-bars"></i></label>
+
+<aside class="right-off-canvas-menu">
+    <ul class="off-canvas-list">
+      {{#if settings.nav1Title }}
+        <li>
+            <label>{{ settings.nav1Title }}</label>
+        </li>
+      {{/if }}
+      {{#each settings.nav1 }}
+          <li class="{{active href ../url }}"><a href="{{ href }}">{{ text }}</a></li>
+      {{/each }}
+
+      {{#if settings.nav2Title }}
+          <li>
+              <label>{{ settings.nav2Title }}</label>
+          </li>
+      {{/if }}
+      {{#each settings.nav2 }}
+          <li class="{{active href ../url }}"><a href="{{ href }}">{{ text }}</a></li>
+      {{/each }}
+
+        <li>
+            <label for="off-canvas-checkbox" href="#">>> close</label>
+        </li>
+
+    </ul>
+</aside>
+
+<hr>
