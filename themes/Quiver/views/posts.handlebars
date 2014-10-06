@@ -3,52 +3,14 @@
 {{!--</div>--}}
 
 <div id="posts" class="posts row">
-    {{#each postBlocks.primary }}
-      <div class="post column small-12 post-{{ @index }}">
-          {{> inline-post }}
-      </div>
-    {{/each }}
-
-  <ul class="column medium-block-grid-{{ settings.secondaryPostCount }} post-block-secondary">
-    {{#each postBlocks.secondary }}
-        <li class="post post-{{ @index }}">
-          {{> inline-post }}
-        </li>
-    {{/each }}
-
-  </ul>
-
-  <div class="column medium-4">
-      <div class="hidden-for-small">
-          <div class="panel">
-              This is a giant block of text
-              This is a giant block of text
-              This is a giant block of text
-              This is a giant block of text
-              This is a giant block of text
-              This is a giant block of text
-              This is a giant block of text
-              This is a giant block of text
-              This is a giant block of text
-          </div>
-
-      </div>
-
-  </div>
-  <ul class="post-block-tertiary column small-12 medium-8">
-    {{#each postBlocks.tertiary }}
+  <ul class="post-block-tertiary column small-12">
+    {{#each posts }}
         <li class="post post-{{ @index }}">
           {{> inline-post }}
         </li>
     {{/each }}
   </ul>
 
-    {{#if prevPage }}
-        <a class="left" href="/posts/{{ prevPage }}">Previous</a>
-    {{/if }}
-
-    {{#if nextPage }}
-        <a class="right" href="/posts/{{ nextPage }}">Next</a>
-    {{/if }}
+  {{> prev-next }}
 
 </div>

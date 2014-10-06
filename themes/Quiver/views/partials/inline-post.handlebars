@@ -39,4 +39,15 @@
     <div class="excerpt">
       {{#markdown}}{{ excerpt }}{{/markdown}}
     </div>
+
+    <ul class="hashtags inline-list">
+      {{#each hashtags }}
+          <li>
+              <a href="/search/{{ this.key }}">#{{ this.value }}</a>
+          </li>
+      {{/each }}
+    </ul>
+
+
+
 </div>

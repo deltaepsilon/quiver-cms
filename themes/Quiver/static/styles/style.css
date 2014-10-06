@@ -11244,7 +11244,11 @@ button.callout:active, button.callout:focus, .button.callout:active, .button.cal
 #posts .post .post-title {
   line-height: 2rem;
 }
-/* line 24, modules/_posts.scss */
+/* line 20, modules/_posts.scss */
+#posts .post .excerpt {
+  margin-bottom: -1rem;
+}
+/* line 28, modules/_posts.scss */
 #posts .post-block-tertiary > li {
   border-color: #aaa;
   border-style: dotted;
@@ -11252,32 +11256,32 @@ button.callout:active, button.callout:focus, .button.callout:active, .button.cal
   clear: both;
   overflow: hidden;
 }
-/* line 42, modules/_posts.scss */
+/* line 46, modules/_posts.scss */
 #posts .post-details {
   overflow: hidden;
 }
-/* line 45, modules/_posts.scss */
+/* line 49, modules/_posts.scss */
 #posts .post-details .author-name {
   font-weight: bold;
   margin-right: 1rem;
   text-transform: uppercase;
 }
-/* line 59, modules/_posts.scss */
+/* line 63, modules/_posts.scss */
 #posts .post-details .social {
   float: right;
   margin-bottom: 0;
 }
-/* line 63, modules/_posts.scss */
+/* line 67, modules/_posts.scss */
 #posts .post-details .social li {
   margin-left: .5rem;
 }
 
 @media only screen and (max-width: 40em) {
-  /* line 75, modules/_posts.scss */
+  /* line 79, modules/_posts.scss */
   .post-block-secondary {
     margin: 0;
   }
-  /* line 78, modules/_posts.scss */
+  /* line 82, modules/_posts.scss */
   .post-block-secondary > li {
     border-color: #aaa;
     border-style: dotted;
@@ -11287,17 +11291,17 @@ button.callout:active, button.callout:focus, .button.callout:active, .button.cal
   }
 }
 @media only screen and (min-width: 40.063em) {
-  /* line 93, modules/_posts.scss */
+  /* line 97, modules/_posts.scss */
   #posts .post-block-secondary .post-left, #posts .post-block-secondary .post-right {
     width: initial;
   }
-  /* line 96, modules/_posts.scss */
+  /* line 100, modules/_posts.scss */
   #posts .post-block-secondary .post-title {
     font-size: .75rem;
     min-height: 2rem;
     line-height: 1rem;
   }
-  /* line 102, modules/_posts.scss */
+  /* line 106, modules/_posts.scss */
   #posts .post-block-secondary .publish-date {
     float: right;
   }

@@ -14,10 +14,13 @@ var express = require('express'),
   handlebarsHelpers = require('handlebars-helpers'),
   helpers = require('./lib/helpers.js')({bucket: process.env.AMAZON_CMS_PUBLIC_BUCKET}),
   redisTTL = process.env.QUIVER_CMS_REDIS_TTL || 3600,
+  ElasticSearchClient = require('elasticsearchclient'),
+  elasticSearchClient = new ElasticSearchClient({host: '127.0.0.1', port: 9200}),
   handlebars,
   theme,
   words,
   settings,
+  hashtags,
   wordsIndex;
 
 /*
@@ -149,7 +152,7 @@ var getPaginatedWords = function () {
 /*
  * Routes
 */
-var renderPosts = function (page, url, options) {
+var renderPosts = function (template, page, url, options) {
   var deferred = Q.defer(),
     page = parseInt(page),
     paginated = getPaginatedWords(),
@@ -196,13 +199,14 @@ var renderPosts = function (page, url, options) {
     posts: posts,
     postBlocks: postBlocks,
     settings: settings,
+    hashtags: hashtags,
     url: url,
     nextPage: nextPage,
     prevPage: prevPage,
     title: title
   };
 
-  app.render('posts', _.defaults(options || {}, context), function (err, html) {
+  app.render(template, _.defaults(options || {}, context), function (err, html) {
     return err ? deferred.reject(err) : deferred.resolve(html);
   });
 
@@ -213,7 +217,7 @@ var renderPosts = function (page, url, options) {
   return deferred.promise;
 }
 app.get('/', function (req, res) {
-  renderPosts(0, req.url, {title: settings.siteTitle}).then(function (html) {
+  renderPosts('front-page', 0, req.url, {title: settings.siteTitle}).then(function (html) {
     res.status(200).send(html);
   }, function (err) {
     res.status(500).send(err);
@@ -222,7 +226,7 @@ app.get('/', function (req, res) {
 });
 
 app.get('/posts/:page', function (req, res) {
-  renderPosts(req.params.page, req.url).then(function (html) {
+  renderPosts('posts', req.params.page, req.url).then(function (html) {
     res.status(200).send(html);
   }, function (err) {
     res.status(500).send(err);
@@ -252,24 +256,63 @@ app.get('/:slug', function (req, res) {
 
 });
 
+app.get('/search/:searchTerm', function (req, res) {
+
+});
+
 /*
- * Index Words
+ * Index Words and Search
 */
 var createWordsIndex = function (words) {
-  var deferred = Q.defer(),
-    wordsIndexRef = firebaseRoot.child('wordsIndex'),
-    index = {};
+    var deferred = Q.defer(),
+      wordsIndexRef = firebaseRoot.child('wordsIndex'),
+      index = {};
 
-  _.each(words, function (word, key) {
-    index[word.slug] = key;
-  });
+    _.each(words, function (word, key) {
+      index[word.slug] = key;
+    });
 
-  wordsIndexRef.set(index, function (err) {
-    return err ? deferred.reject(err) : deferred.resolve();
-  });
+    wordsIndexRef.set(index, function (err) {
+      return err ? deferred.reject(err) : deferred.resolve();
+    });
 
-  return deferred.promise;
-};
+    return deferred.promise;
+  },
+  createSearchIndex = function (words) {
+    console.log('creatingSearchIndex');
+    var deferred = Q.defer(),
+      deleteDeferred = Q.defer(),
+      commands = [];
+
+    elasticSearchClient.deleteByQuery("cms", "word", {"query": {"match_all": {}}}, function (err, data) {
+      return err ? deleteDeferred.reject(err) : deleteDeferred.resolve(data);
+      deleteDeferred.resolve();
+    });
+
+    deleteDeferred.promise.then(function () {
+      _.each(words, function (word, key) {
+        commands.push({"index": {"_index": "cms", "_type": "word", "_id": key}});
+        commands.push(word);
+      });
+
+      console.log("command count:", commands.length);
+      elasticSearchClient.bulk(commands, {})
+        .on('data', function (data) {
+//        console.log(data);
+        })
+        .on('done', deferred.resolve)
+        .on('error', deferred.reject)
+        .exec();
+    });
+
+
+
+    return deferred.promise;
+  };
+
+app.get('/delete', function (req, res) {
+
+});
 
 /*
  * Auth & App Listen
@@ -279,11 +322,14 @@ firebaseRoot.auth(firebaseSecret, function () {
   var themeRef = firebaseRoot.child('theme'),
     wordsRef = firebaseRoot.child('content').child('words'),
     settingsRef = firebaseRoot.child('settings'),
+    hashtagsRef = firebaseRoot.child('content').child('hashtags'),
     wordsIndexRef = firebaseRoot.child('wordsIndex'),
     themeDeferred = Q.defer(),
     wordsDeferred = Q.defer(),
     settingsDeferred = Q.defer(),
-    wordsIndexDeferred = Q.defer();
+    hashtagsDeferred = Q.defer(),
+    wordsIndexDeferred = Q.defer(),
+    searchIndexDeferred = Q.defer();
 
   themeRef.on('value', function (snapshot) {
     var viewsDir;
@@ -312,7 +358,7 @@ firebaseRoot.auth(firebaseSecret, function () {
 
   });
 
-  wordsRef.on('value', function (snapshot) {
+  var handleWords = function (snapshot) {
     words = _.sortBy(snapshot.val(), function (word) { // Sort by reverse word.created
       return -1 * moment(word.created).unix();
     });
@@ -320,11 +366,18 @@ firebaseRoot.auth(firebaseSecret, function () {
     createWordsIndex(words);
 
     wordsDeferred.resolve(words);
-  });
+  }
+
+  wordsRef.on('value', handleWords);
 
   settingsRef.on('value', function (snapshot) {
     settings = snapshot.val();
     settingsDeferred.resolve(settings);
+  });
+
+  hashtagsRef.on('value', function (snapshot) {
+    hashtags = snapshot.val();
+    hashtagsDeferred.resolve(settings);
   });
 
   wordsIndexRef.on('value', function (snapshot) {
@@ -332,11 +385,21 @@ firebaseRoot.auth(firebaseSecret, function () {
     wordsIndexDeferred.resolve(wordsIndex);
   });
 
+  wordsDeferred.promise.then(createSearchIndex).then(searchIndexDeferred.resolve, searchIndexDeferred.reject);
+
+  searchIndexDeferred.promise.then(function () {
+    wordsRef.on('value', function (snapshot) { // Re-index the ElasticSearch index on all changes.
+      createSearchIndex(snapshot.val());
+    });
+  });
+
   Q.all([
     themeDeferred.promise,
     wordsDeferred.promise,
     settingsDeferred.promise,
-    wordsIndexDeferred.promise
+    hashtagsDeferred.promise,
+    wordsIndexDeferred.promise,
+    searchIndexDeferred.promise
   ]).then(function () {
     winston.info('app listening on 9900');
     app.listen(9900);

@@ -28,7 +28,8 @@
     "express-handlebars": "~1.1.0",
     "handlebars-helpers": "~0.5.8",
     "redis": "~0.12.1",
-    "hiredis": "~0.1.17"
+    "hiredis": "~0.1.17",
+    "elasticsearchclient": "~0.5.3"
   },
   "devDependencies": {
     "grunt": "~0.4.5",
