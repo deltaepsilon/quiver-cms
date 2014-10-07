@@ -1,14 +1,59 @@
-{{#if keyImage }}
-  <div class="full-bleed tall underlay fade-white">
-    <img src="{{s3 keyImage.Key }}"/>
+{{#if post.keyImage }}
+  <div class="full-bleed">
+    <img src="{{s3 post.keyImage.Key }}"/>
   </div>
 {{/if}}
 <div id="page" class="row">
   <div class="post column small-12">
-      <h3 class="post-title font-flair margin-vertical-large">
+      <h3 class="post-title font-flair">
           <a class="link-primary0" href="/{{ post.slug }}">{{ post.title }}</a>
       </h3>
-      <div class="post-body">
+
+      <div class="post-details margin-vertical-medium">
+          <span class="author-name left">By {{ post.author.name }}</span>
+
+
+          <ul class="social inline-list left margin-horizontal-medium-important">
+              <li>
+                  <a href="https://twitter.com/{{ post.author.twitter }}" target="_blank">
+                      <i class="fa fa-twitter"></i>
+                  </a>
+              </li>
+              <li>
+                  <a href="https://instagram.com/{{ post.author.instagram }}" target="_blank">
+                      <i class="fa fa-instagram"></i>
+                  </a>
+              </li>
+              <li>
+                  <a href="mailto:{{ post.author.email }}">
+                      <i class="fa fa-envelope"></i>
+                  </a>
+              </li>
+          </ul>
+
+          <span class="publish-date right">{{calendar post.published.published}}</span>
+
+      </div>
+
+      <div class="full-bleed underlay">
+          <hr class="margin-zero">
+      </div>
+
+      <div class="share margin-vertical-large">
+          <table>
+              <tbody>
+              <tr>
+                  <td><h6 class="margin-vertical-xx-small">SHARE</h6></td>
+                  <td class="padding-horizontal-xx-small"><a class="share-button background-twitter" href="twitter.com"><i class="fa fa-twitter"></i></a></td>
+                  <td class="padding-horizontal-xx-small"><a class="share-button background-facebook" href="facebook.com"><i class="fa fa-facebook"></i></a></td>
+                  <td class="padding-horizontal-xx-small"><a class="share-button background-google-plus" href="google.com/+"><i class="fa fa-google-plus"></i></a></td>
+
+              </tr>
+              </tbody>
+          </table>
+      </div>
+
+      <div class="post-body background-highlight2 margin-vertical-large">
         {{#markdown}}{{ post.published.markdown }}{{/markdown}}
       </div>
 

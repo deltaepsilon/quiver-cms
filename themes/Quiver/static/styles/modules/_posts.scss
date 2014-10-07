@@ -43,37 +43,57 @@
     @extend .margin-vertical-large;
   }
 
-  .post-details {
-    overflow: hidden;
+}
 
-    .author-name {
-      @extend .text-secondary0;
+#page {
+  .post-title {
+    margin: 2rem 0 0rem;
+  }
 
-      font-weight: bold;
-      margin-right: 1rem;
-      text-transform: uppercase;
+}
 
+.post-details {
+  overflow: hidden;
+
+  .author-name {
+    @extend .text-secondary0;
+
+    font-weight: bold;
+    margin-right: 1rem;
+    text-transform: uppercase;
+
+  }
+
+  .publish-date {
+    @extend .text-secondary5;
+
+  }
+
+  .social {
+    margin-bottom: 0;
+
+    li {
+      margin-left: .5rem;
     }
+  }
+}
 
-    .publish-date {
-      @extend .text-secondary5;
 
-    }
-    
-    .social {
-      float: right;
-      margin-bottom: 0;
+.over-image {
+  @extend .background-highlight3;
+  @extend .text-secondary0;
 
-      li {
-        margin-left: .5rem;
-      }
-    }
+  a, a:hover, a:visited {
+    @extend .text-primary0;
   }
 
 
-
-
+  margin: rem-calc(235) -2rem 1rem;
+  padding: 2rem 2rem 1rem;
 }
+
+
+
 
 @media #{$screen} and (max-width: #{upper-bound($small-range)}) {
   .post-block-secondary {

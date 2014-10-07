@@ -29,38 +29,31 @@
 .full-bleed {
   &.short {
     overflow: hidden;
-    max-height: 20rem;
+    max-height: 10rem;
   }
   
   &.medium {
     overflow: hidden;
-    max-height: 40rem;
+    max-height: 20rem;
   }
 
   &.tall {
     overflow: hidden;
-    max-height: 60rem;
+    max-height: 40rem;
   }
   
   &.underlay {
-    position: fixed;
+    position: absolute;
     left: 0;
     right: 0;
   }
 
-  //&.fade-white {
-  //  &:after {
-  //    @include absolute();
-  //    @include background-image(linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 1)));
-  //
-  //    content: "";
-  //    display: block;
-  //
-  //  }
-  //}
-
   img {
     width: 100%;
+  }
+
+  hr {
+    @include absolute(inherit, -5000px, inherit, -5000px);
   }
 }
 
