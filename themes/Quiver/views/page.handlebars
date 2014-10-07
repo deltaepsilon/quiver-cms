@@ -1,6 +1,11 @@
-<div id="page" class="">
+{{#if keyImage }}
+  <div class="full-bleed tall underlay fade-white">
+    <img src="{{s3 keyImage.Key }}"/>
+  </div>
+{{/if}}
+<div id="page" class="row">
   <div class="post column small-12">
-      <h3 class="post-title font-flair">
+      <h3 class="post-title font-flair margin-vertical-large">
           <a class="link-primary0" href="/{{ post.slug }}">{{ post.title }}</a>
       </h3>
       <div class="post-body">

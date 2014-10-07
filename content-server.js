@@ -153,69 +153,82 @@ var getPaginatedWords = function () {
  * Routes
 */
 var renderPosts = function (template, page, url, options) {
-  var deferred = Q.defer(),
-    page = parseInt(page),
-    paginated = getPaginatedWords(),
-    posts = paginated[page],
-    nextPage = paginated[page + 1] ? page + 1 : null,
-    prevPage = page > 0 ? page - 1 : null,
-    title = (settings.siteTitle || url)  + ': Posts: ' + page,
-    primaryMax = settings.primaryPostCount || 1,
-    secondaryMax = (settings.secondaryPostCount || 4) + primaryMax,
-    tertiaryMax = (settings.tertiaryPostCount || 10) | secondaryMax,
-    postBlocks = {
-      primary: [],
-      secondary: [],
-      tertiary: [],
-      extras: []
-    },
-    counter = 0,
-    context;
+    var deferred = Q.defer(),
+      page = parseInt(page),
+      paginated = getPaginatedWords(),
+      posts = paginated[page],
+      nextPage = paginated[page + 1] ? page + 1 : null,
+      prevPage = page > 0 ? page - 1 : null,
+      title = (settings.siteTitle || url)  + ': Posts: ' + page,
+      primaryMax = settings.primaryPostCount || 1,
+      secondaryMax = (settings.secondaryPostCount || 4) + primaryMax,
+      tertiaryMax = (settings.tertiaryPostCount || 10) | secondaryMax,
+      postBlocks = {
+        primary: [],
+        secondary: [],
+        tertiary: [],
+        extras: []
+      },
+      counter = 0,
+      context;
 
-  if (prevPage === 0) {
-    prevPage = '0';
-  }
-
-  // Create post blocks
-  _.each(posts, function (post) {
-    counter += 1;
-    if (counter <= primaryMax) {
-      post.postBlock = 'primary';
-      postBlocks.primary.push(post);
-    } else if (counter <= secondaryMax) {
-      post.postBlock = 'secondary';
-      postBlocks.secondary.push(post);
-    } else if (counter <= tertiaryMax) {
-      post.postBlock = 'tertiary';
-      postBlocks.tertiary.push(post);
-    } else {
-      post.postBlock = 'extras';
-      postBlocks.extras.push(post);
+    if (prevPage === 0) {
+      prevPage = '0';
     }
-  });
 
-  context = {
-    development: envVars.environment === 'development',
-    posts: posts,
-    postBlocks: postBlocks,
-    settings: settings,
-    hashtags: hashtags,
-    url: url,
-    nextPage: nextPage,
-    prevPage: prevPage,
-    title: title
+    // Create post blocks
+    _.each(posts, function (post) {
+      counter += 1;
+      if (counter <= primaryMax) {
+        post.postBlock = 'primary';
+        postBlocks.primary.push(post);
+      } else if (counter <= secondaryMax) {
+        post.postBlock = 'secondary';
+        postBlocks.secondary.push(post);
+      } else if (counter <= tertiaryMax) {
+        post.postBlock = 'tertiary';
+        postBlocks.tertiary.push(post);
+      } else {
+        post.postBlock = 'extras';
+        postBlocks.extras.push(post);
+      }
+    });
+
+    context = {
+      development: envVars.environment === 'development',
+      posts: posts,
+      postBlocks: postBlocks,
+      settings: settings,
+      hashtags: hashtags,
+      url: url,
+      nextPage: nextPage,
+      prevPage: prevPage,
+      title: title
+    };
+
+    app.render(template, _.defaults(options || {}, context), function (err, html) {
+      return err ? deferred.reject(err) : deferred.resolve(html);
+    });
+
+    deferred.promise.then(function (html) { // Set cache
+      setCache(url, html);
+    });
+
+    return deferred.promise;
+  },
+  render404 = function (res, err) {
+    app.render('404', {
+      development: envVars.environment === 'development',
+      settings: settings,
+      error: err
+    }, function (err, html) {
+      if (err) {
+        res.status(500).send(err);
+      } else {
+        res.status(404).send(html);
+      }
+    });
   };
-
-  app.render(template, _.defaults(options || {}, context), function (err, html) {
-    return err ? deferred.reject(err) : deferred.resolve(html);
-  });
-
-  deferred.promise.then(function (html) { // Set cache
-    setCache(url, html);
-  });
-
-  return deferred.promise;
-}
 app.get('/', function (req, res) {
   renderPosts('front-page', 0, req.url, {title: settings.siteTitle}).then(function (html) {
     res.status(200).send(html);
@@ -237,27 +250,85 @@ app.get('/posts/:page', function (req, res) {
 app.get('/:slug', function (req, res) {
   var slug = req.params.slug,
     key = wordsIndex[slug],
-    post = words[key];
+    searchDeferred = Q.defer();
 
-  app.render('page', {
-    development: envVars.environment === 'development',
-    post: post,
-    settings: settings,
-    url: req.url
-  }, function (err, html) {
-    if (err) {
-      res.status(500).send(err);
-    } else {
-      res.status(200).send(html);
-      setCache(req.url, html);
-
+  elasticSearchClient.search("cms", "word",{
+    "query": {
+      "match": {
+        "key": key
+      }
     }
+  }, function (err, data) {
+    var data = JSON.parse(data),
+      post;
+
+    if (data && data.hits && data.hits.hits && data.hits.hits[0] && data.hits.hits[0]._source) {
+      console.log('results', data.hits.hits.length);
+      post = data.hits.hits[0]._source;
+    } else {
+      err = " Not Found: " + slug;
+    }
+    return err ? searchDeferred.reject(err || data.error) : searchDeferred.resolve(post);
   });
+
+  searchDeferred.promise.then(function (post) {
+    app.render('page', {
+      development: envVars.environment === 'development',
+      post: post,
+      settings: settings,
+      url: req.url
+    }, function (err, html) {
+      if (err) {
+        res.status(500).send(err);
+      } else {
+        res.status(200).send(html);
+        setCache(req.url, html);
+
+      }
+    });
+  }, function (err) {
+    winston.error(404, err);
+    render404(res, err);
+  });
+
+
 
 });
 
 app.get('/search/:searchTerm', function (req, res) {
+  var deferred = Q.defer(),
+    searchTerm = req.params.searchTerm;
 
+  elasticSearchClient.search("cms", "word", {"query": {"query_string": {"query": searchTerm}}}, function (err, data) {
+    return err ? deferred.reject(err) : deferred.resolve(JSON.parse(data));
+  });
+
+  deferred.promise.then(function (data) {
+    var hits = data.hits.hits,
+      posts = [];
+
+    _.each(hits, function (hit) {
+      posts.push(hit._source);
+    });
+
+    app.render('posts', {
+      development: envVars.environment === 'development',
+      title: "Search: " + searchTerm,
+      posts: posts,
+      settings: settings,
+      url: req.url
+    }, function (err, html) {
+      if (err) {
+        res.status(500).send(err);
+      } else {
+        res.status(200).send(html);
+        setCache(req.url, html);
+
+      }
+    });
+
+
+  });
 });
 
 /*
@@ -268,8 +339,8 @@ var createWordsIndex = function (words) {
       wordsIndexRef = firebaseRoot.child('wordsIndex'),
       index = {};
 
-    _.each(words, function (word, key) {
-      index[word.slug] = key;
+    _.each(words, function (word) {
+      index[word.slug] = word.key;
     });
 
     wordsIndexRef.set(index, function (err) {
@@ -284,18 +355,17 @@ var createWordsIndex = function (words) {
       deleteDeferred = Q.defer(),
       commands = [];
 
-    elasticSearchClient.deleteByQuery("cms", "word", {"query": {"match_all": {}}}, function (err, data) {
+    elasticSearchClient.deleteByQuery("cms", "word", {"match_all": {}}, function (err, data) {
       return err ? deleteDeferred.reject(err) : deleteDeferred.resolve(data);
-      deleteDeferred.resolve();
     });
 
     deleteDeferred.promise.then(function () {
       _.each(words, function (word, key) {
-        commands.push({"index": {"_index": "cms", "_type": "word", "_id": key}});
+        commands.push({"index": {"_index": "cms", "_type": "word"}});
         commands.push(word);
       });
 
-      console.log("command count:", commands.length);
+      console.log("command count:", Object.keys(words).length, commands.length);
       elasticSearchClient.bulk(commands, {})
         .on('data', function (data) {
 //        console.log(data);
@@ -328,8 +398,7 @@ firebaseRoot.auth(firebaseSecret, function () {
     wordsDeferred = Q.defer(),
     settingsDeferred = Q.defer(),
     hashtagsDeferred = Q.defer(),
-    wordsIndexDeferred = Q.defer(),
-    searchIndexDeferred = Q.defer();
+    wordsIndexDeferred = Q.defer();
 
   themeRef.on('value', function (snapshot) {
     var viewsDir;
@@ -359,14 +428,21 @@ firebaseRoot.auth(firebaseSecret, function () {
   });
 
   var handleWords = function (snapshot) {
-    words = _.sortBy(snapshot.val(), function (word) { // Sort by reverse word.created
-      return -1 * moment(word.created).unix();
+    var result = [];
+
+    snapshot.forEach(function (wordSnapshot) {
+      var word = wordSnapshot.val();
+      word.key = wordSnapshot.name();
+      result.push(word);
     });
 
-    createWordsIndex(words);
+    words = _.sortBy(result, function (word) { // Sort by reverse word.created
+      return 1 * moment(word.created).unix();
+    });
 
-    wordsDeferred.resolve(words);
-  }
+    Q.all([createWordsIndex(words), createSearchIndex(words)]).then(wordsDeferred.resolve, wordsDeferred.reject);
+
+  };
 
   wordsRef.on('value', handleWords);
 
@@ -385,21 +461,13 @@ firebaseRoot.auth(firebaseSecret, function () {
     wordsIndexDeferred.resolve(wordsIndex);
   });
 
-  wordsDeferred.promise.then(createSearchIndex).then(searchIndexDeferred.resolve, searchIndexDeferred.reject);
-
-  searchIndexDeferred.promise.then(function () {
-    wordsRef.on('value', function (snapshot) { // Re-index the ElasticSearch index on all changes.
-      createSearchIndex(snapshot.val());
-    });
-  });
 
   Q.all([
     themeDeferred.promise,
     wordsDeferred.promise,
     settingsDeferred.promise,
     hashtagsDeferred.promise,
-    wordsIndexDeferred.promise,
-    searchIndexDeferred.promise
+    wordsIndexDeferred.promise
   ]).then(function () {
     winston.info('app listening on 9900');
     app.listen(9900);
