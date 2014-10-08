@@ -51,7 +51,7 @@
     <div ng-show="word.keyImage">
         <h5 class="left">Featured Image</h5>
         <a class="right" ng-click="clearKeyImage()">x</a>
-        <img src="{{ word.keyImage.Versions.small.Key | s3Link:files.Name}}" alt="word.keyImage.Name"/>
+        <img ng-if="word.keyImage" ng-src="{{ word.keyImage.Versions.small.Key | s3Link:files.Name}}" alt="word.keyImage.Name"/>
 
         <hr>
     </div>

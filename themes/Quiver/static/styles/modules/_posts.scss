@@ -17,6 +17,10 @@
       line-height: 2rem;
     }
 
+    .publish-date {
+      clear: both;
+    }
+
     .excerpt {
       margin-bottom: -1rem;
     }
@@ -70,8 +74,6 @@
 
   .publish-date {
     @extend .text-secondary5;
-
-    clear: both;
   }
 
   .social {

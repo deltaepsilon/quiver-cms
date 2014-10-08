@@ -1,8 +1,9 @@
 <div class="post-left">
-    <a href="/{{ slug }}">
-        <img src="{{s3 keyImage.Versions.small.Key }}" alt="{{deSlug keyImage.Name }}"/>
-    </a>
-
+    {{#if keyImage }}
+      <a href="/{{ slug }}">
+          <img src="{{s3 keyImage.Versions.small.Key }}" alt="{{deSlug keyImage.Name }}"/>
+      </a>
+    {{/if }}
 </div>
 <div class="post-right">
     <div class="post-title font-flair">
@@ -14,14 +15,14 @@
     <div class="post-details">
         <span class="author-name">{{ author.name }}</span>
 
-
         <ul class="social inline-list">
             <li class="comment-count">
-                <a class="link-secondary0 link-hover-secondary0" href="/{{ slug }}" data-disqus-identifier="{{ slug }}">0</a>
+                <a class="link-secondary0 link-hover-secondary0" href="/{{ slug }}" data-disqus-identifier="{{ slug }}"></a>
                 <a class="link-secondary0 link-hover-secondary0" href="/{{ slug }}">
-                  <i class="fa fa-comment"></i>
+                    <i class="fa fa-comment"></i>
                 </a>
             </li>
+
             <li>
                 <a class="link-secondary3 link-hover-secondary3" href="https://twitter.com/{{ author.twitter }}" target="_blank">
                     <i class="fa fa-twitter"></i>

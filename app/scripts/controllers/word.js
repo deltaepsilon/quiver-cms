@@ -34,6 +34,10 @@ angular.module('quiverCmsApp')
 
     };
 
+    $scope.makeKeyImage = function (file) {
+      $scope.word.keyImage = file;
+    };
+
     $scope.clearKeyImage = function () {
       if ($scope.word.keyImage) {
         delete $scope.word.keyImage;
