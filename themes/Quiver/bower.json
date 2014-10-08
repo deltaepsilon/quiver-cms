@@ -27,7 +27,8 @@
     "json3": "~3.3.2",
     "es5-shim": "~4.0.3",
     "foundation": "~5.4.4",
-    "font-awesome": "~4.2.0"
+    "font-awesome": "~4.2.0",
+    "rainbow": "~1.1.9"
   },
   "devDependencies": {
     "livereload": "~2.0.8"

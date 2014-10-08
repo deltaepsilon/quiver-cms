@@ -15,25 +15,31 @@
         <span class="author-name">{{ author.name }}</span>
 
 
-        <ul class="social inline-list right">
+        <ul class="social inline-list">
+            <li class="comment-count">
+                <a class="link-secondary0 link-hover-secondary0" href="/{{ slug }}" data-disqus-identifier="{{ slug }}">0</a>
+                <a class="link-secondary0 link-hover-secondary0" href="/{{ slug }}">
+                  <i class="fa fa-comment"></i>
+                </a>
+            </li>
             <li>
-                <a href="https://twitter.com/{{ author.twitter }}" target="_blank">
+                <a class="link-secondary3 link-hover-secondary3" href="https://twitter.com/{{ author.twitter }}" target="_blank">
                     <i class="fa fa-twitter"></i>
                 </a>
             </li>
             <li>
-                <a href="https://instagram.com/{{ author.instagram }}" target="_blank">
+                <a class="link-secondary3 link-hover-secondary3" href="https://instagram.com/{{ author.instagram }}" target="_blank">
                     <i class="fa fa-instagram"></i>
                 </a>
             </li>
             <li>
-                <a href="mailto:{{ author.email }}">
+                <a class="link-secondary3 link-hover-secondary3" href="mailto:{{ author.email }}">
                     <i class="fa fa-envelope"></i>
                 </a>
             </li>
         </ul>
 
-        <span class="publish-date">{{calendar published.published}}</span>
+        <div class="publish-date">{{calendar published.published}}</div>
 
     </div>
 

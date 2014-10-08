@@ -11560,12 +11560,6 @@ button.callout:active, button.callout:focus, .button.callout:active, .button.cal
   left: -5000px;
 }
 
-/* line 60, modules/_layout.scss */
-.posts {
-  background-color: rgba(255, 255, 255, 0.5);
-  position: relative;
-}
-
 /* line 1, modules/_notifications.scss */
 #notifications-wrapper {
   position: fixed;
@@ -11651,7 +11645,11 @@ button.callout:active, button.callout:focus, .button.callout:active, .button.cal
 #posts .post .excerpt {
   margin-bottom: -1rem;
 }
-/* line 28, modules/_posts.scss */
+/* line 24, modules/_posts.scss */
+#posts .post .social {
+  float: right;
+}
+/* line 32, modules/_posts.scss */
 #posts .post-block-tertiary > li {
   border-color: #aaa;
   border-style: dotted;
@@ -11660,47 +11658,61 @@ button.callout:active, button.callout:focus, .button.callout:active, .button.cal
   overflow: hidden;
 }
 
-/* line 49, modules/_posts.scss */
+/* line 53, modules/_posts.scss */
 #page .post-title {
   margin: 2rem 0 0rem;
 }
 
-/* line 55, modules/_posts.scss */
+/* line 59, modules/_posts.scss */
 .post-details {
   overflow: hidden;
 }
-/* line 58, modules/_posts.scss */
+/* line 62, modules/_posts.scss */
 .post-details .author-name {
   font-weight: bold;
   margin-right: 1rem;
   text-transform: uppercase;
 }
-/* line 72, modules/_posts.scss */
+/* line 71, modules/_posts.scss */
+.post-details .publish-date {
+  clear: both;
+}
+/* line 77, modules/_posts.scss */
 .post-details .social {
   margin-bottom: 0;
 }
-/* line 75, modules/_posts.scss */
+/* line 80, modules/_posts.scss */
 .post-details .social li {
   margin-left: .5rem;
 }
 
-/* line 82, modules/_posts.scss */
+/* line 87, modules/_posts.scss */
 .post-body img {
   width: 100%;
 }
 
-/* line 88, modules/_posts.scss */
+/* line 93, modules/_posts.scss */
 .over-image {
   margin: 14.6875rem -2rem 1rem;
   padding: 2rem 2rem 1rem;
 }
 
+/* line 106, modules/_posts.scss */
+.comments {
+  background-color: #fff !important;
+}
+
+/* line 111, modules/_posts.scss */
+.comment-count a {
+  display: inline;
+}
+
 @media only screen and (max-width: 40em) {
-  /* line 105, modules/_posts.scss */
+  /* line 120, modules/_posts.scss */
   .post-block-secondary {
     margin: 0;
   }
-  /* line 108, modules/_posts.scss */
+  /* line 123, modules/_posts.scss */
   .post-block-secondary > li {
     border-color: #aaa;
     border-style: dotted;
@@ -11709,30 +11721,37 @@ button.callout:active, button.callout:focus, .button.callout:active, .button.cal
     padding: 0;
   }
 
-  /* line 118, modules/_posts.scss */
+  /* line 133, modules/_posts.scss */
   .share {
     width: 100%;
   }
 }
 @media only screen and (min-width: 40.063em) {
-  /* line 127, modules/_posts.scss */
+  /* line 142, modules/_posts.scss */
   #posts .post-block-secondary .post-left, #posts .post-block-secondary .post-right {
     width: initial;
   }
-  /* line 130, modules/_posts.scss */
+  /* line 145, modules/_posts.scss */
   #posts .post-block-secondary .post-title {
     font-size: .75rem;
     min-height: 2rem;
     line-height: 1rem;
   }
-  /* line 136, modules/_posts.scss */
-  #posts .post-block-secondary .publish-date {
-    float: right;
-  }
 
-  /* line 142, modules/_posts.scss */
+  /* line 155, modules/_posts.scss */
   .share {
     margin-left: 5rem;
+  }
+}
+@media (min-width: 40.063em) and (max-width: 64em) {
+  /* line 162, modules/_posts.scss */
+  .post-block-secondary .social {
+    float: left !important;
+    margin-left: -0.5rem;
+  }
+  /* line 166, modules/_posts.scss */
+  .post-block-secondary .publish-date {
+    text-align: left;
   }
 }
 /* line 1, modules/_progress.scss */

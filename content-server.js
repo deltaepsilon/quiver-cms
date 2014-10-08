@@ -77,10 +77,18 @@ redis.on('error', function (err) {
 //});
 
 /*
+ * Env.js
+*/
+app.get('/env.js', function (req, res) {
+  res.status(200).send("window.envVars = " + JSON.stringify(envVars) + ";");
+});
+
+/*
  * Static
 */
 app.use('/static', function (req, res) {
-  var route = ['.', 'themes', theme.active, 'static'],
+  var deferred = Q.defer(),
+    route = ['.', 'themes', theme.active, 'static'],
     parts = req.url.split('/'),
     path;
 
@@ -92,11 +100,14 @@ app.use('/static', function (req, res) {
 
 //  console.log('path', path);
   fs.readFile(path, 'utf8', function (err, data) {
-    var url = '/static' + req.url;
+    return err ? deferred.reject(err) : deferred.resolve(data);
+  });
+
+  deferred.promise.then(function (data) {
     res.status(200).send(data);
-
-    setCache(url, data);
-
+    setCache('/static' + req.url, data);
+  }, function (err) {
+    res.sendStatus(404);
   });
 
 });
@@ -196,6 +207,7 @@ var renderPosts = function (template, page, url, options) {
 
     context = {
       development: envVars.environment === 'development',
+      env: envVars,
       posts: posts,
       postBlocks: postBlocks,
       settings: settings,
@@ -278,7 +290,9 @@ app.get('/:slug', function (req, res) {
       development: envVars.environment === 'development',
       post: post,
       settings: settings,
-      url: req.url
+      url: req.url,
+      slug: slug,
+      env: envVars
     }, function (err, html) {
       if (err) {
         res.status(500).send(err);

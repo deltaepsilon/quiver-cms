@@ -10,7 +10,9 @@
     <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
     <link rel="icon" type="image/x-icon" href="/static/favicon.ico"/>
     <link rel="stylesheet" href="/static/styles/style.css">
-    <script src="/static/env.js"></script>
+    <link rel="stylesheet" href="/static/lib/rainbow/themes/github.css">
+    <script src="/env.js"></script>
+
 </head>
 <body>
 
@@ -40,5 +42,9 @@
   {{#if development }}
     {{> livereload}}
   {{/if  }}
+
+  {{> disqus-comment-count }}
+
+  <script src="/static/lib/rainbow/js/rainbow.js"></script>
 </body>
 </html>
