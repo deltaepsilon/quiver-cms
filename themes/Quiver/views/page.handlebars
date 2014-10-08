@@ -70,10 +70,13 @@
 
 </div>
 
-<div class="background-secondary4 padding-vertical-large">
-    <div class="row">
-        <div class="comments disqus panel column small-12 margin-vertical-large">
-          {{> disqus }}
+{{#if env.disqus.shortname }}
+    <div class="background-secondary4 padding-vertical-large">
+        <div class="row">
+            <div class="comments disqus panel column small-12 margin-vertical-large">
+              {{> disqus }}
+            </div>
         </div>
     </div>
-</div>
+
+{{/if }}
