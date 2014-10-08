@@ -29,7 +29,8 @@
     "handlebars-helpers": "~0.5.8",
     "redis": "~0.12.1",
     "hiredis": "~0.1.17",
-    "elasticsearchclient": "~0.5.3"
+    "elasticsearchclient": "~0.5.3",
+    "showdown": "~0.3.1"
   },
   "devDependencies": {
     "grunt": "~0.4.5",

@@ -250,7 +250,8 @@ app.get('/posts/:page', function (req, res) {
 app.get('/:slug', function (req, res) {
   var slug = req.params.slug,
     key = wordsIndex[slug],
-    searchDeferred = Q.defer();
+    searchDeferred = Q.defer(),
+    url = req.protocol + '://' + req.hostname + req.url;
 
   elasticSearchClient.search("cms", "word",{
     "query": {
@@ -263,8 +264,9 @@ app.get('/:slug', function (req, res) {
       post;
 
     if (data && data.hits && data.hits.hits && data.hits.hits[0] && data.hits.hits[0]._source) {
-      console.log('results', data.hits.hits.length);
+
       post = data.hits.hits[0]._source;
+      post.url = url;
     } else {
       err = " Not Found: " + slug;
     }
@@ -416,7 +418,7 @@ firebaseRoot.auth(firebaseSecret, function () {
       helpers: helpers
     });
 
-    handlebarsHelpers.register(handlebars.handlebars, {marked: {}});
+//    handlebarsHelpers.register(handlebars.handlebars, {marked: {}});
 
     app.engine('html', handlebars.engine);
     app.engine('handlebars', handlebars.engine);

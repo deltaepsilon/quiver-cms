@@ -39,22 +39,29 @@
           <hr class="margin-zero">
       </div>
 
-      <div class="share margin-vertical-large">
-          <table>
-              <tbody>
-              <tr>
-                  <td><h6 class="margin-vertical-xx-small">SHARE</h6></td>
-                  <td class="padding-horizontal-xx-small"><a class="share-button background-twitter" href="twitter.com"><i class="fa fa-twitter"></i></a></td>
-                  <td class="padding-horizontal-xx-small"><a class="share-button background-facebook" href="facebook.com"><i class="fa fa-facebook"></i></a></td>
-                  <td class="padding-horizontal-xx-small"><a class="share-button background-google-plus" href="google.com/+"><i class="fa fa-google-plus"></i></a></td>
+      <div class="share margin-vertical-large padding-medium right background-secondary4">
+          <ul class="inline-list margin-zero-important">
+              <li class="margin-zero-important">
+                  <h6 class="margin-vertical-xx-small">SHARE</h6>
+              </li>
+              <li>
+                  <a class="social-button background-twitter" href="http://twitter.com/share?text={{ post.title }}&url={{ post.url }}"><i class="fa fa-twitter text-white"></i></a>
+              </li>
+              <li>
+                  <a class="social-button background-facebook" href="https://www.facebook.com/sharer/sharer.php?u={{ post.url }}"><i class="fa fa-facebook text-white"></i></a>
+              </li>
+              <li>
+                  <a class="social-button background-google-plus" href="https://plus.google.com/share?url={{ post.url }}"><i class="fa fa-google-plus text-white"></i></a>
+              </li>
+              <li>
+                  <a class="social-button background-secondary0" href="mailto:?subject={{ post.title }}&body={{ post.url }}"><i class="fa fa-envelope text-white"></i></a>
+              </li>
+          </ul>
 
-              </tr>
-              </tbody>
-          </table>
       </div>
 
       <div class="post-body background-highlight2 margin-vertical-large">
-        {{#markdown}}{{ post.published.markdown }}{{/markdown}}
+        {{markdown post.published.markdown }}
       </div>
 
   </div>

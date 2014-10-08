@@ -61,3 +61,13 @@
 video, img {
   max-width: 100%;
 }
+
+.social-button {
+  @extend .circle;
+  padding: .25rem .6rem;
+
+  i {
+    min-width: 1rem;
+    text-align: center;
+  }
+}
