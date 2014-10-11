@@ -13,10 +13,11 @@ var config = require('config'),
   _ = require('underscore'),
   expressHandlebars = require('express-handlebars'),
   helpers = require('./lib/helpers.js')({bucket: config.get('public.amazon.publicBucket')}),
-
+  Showdown = require('showdown'),
+  mdConverter = new Showdown.converter(),
   ElasticSearchClient = require('elasticsearchclient'),
   elasticSearchClient = new ElasticSearchClient(config.get('private.elasticSearch')),
-  RSS = require('rss'),
+  Feed = require('feed'),
   handlebars,
   theme,
   words,
@@ -174,10 +175,11 @@ var getPaginatedWords = function () {
  * Routes
 */
 /*
- * RSS
+ * RSS 2.0 and Atom 1.0
  */
-app.get('/rss', function (req, res) {
+var getFeed = function () {
   var deferred = Q.defer(),
+    searchDeferred = Q.defer(),
     xml;
 
   elasticSearchClient.search("cms", "word",{
@@ -195,12 +197,12 @@ app.get('/rss', function (req, res) {
     } else {
       err = "Search failed.";
     }
-    return err ? deferred.reject(err || data.error) : deferred.resolve(words);
+    return err ? searchDeferred.reject(err || data.error) : searchDeferred.resolve(words);
   });
 
-  deferred.promise.then(function (words) {
+  searchDeferred.promise.then(function (words) {
     var feedOptions = _.defaults(config.get('public.rss'), {pubDate: new Date()}),
-      feed = new RSS(feedOptions),
+      feed = new Feed(feedOptions),
       root = config.get('public.root');
 
     _.each(words, function (word) {
@@ -213,12 +215,18 @@ app.get('/rss', function (req, res) {
 
         item = {
           "title": word.title || "no title",
+          "link": root + '/' + word.slug,
           "description": word.excerpt || "no description",
-          "url": root + '/' + word.slug,
+          "date": new Date(word.published.published),
           "guid": word.slug,
           "categories": categories,
-          "author": word.author.name,
-          "date": word.published.published
+          "author": [{
+            name: word.author.name,
+            email: word.author.email,
+            link: word.author.website
+          }],
+          "content": mdConverter.makeHtml(word.published.markdown)
+
         };
 
         if (word.location && word.location.key) {
@@ -226,17 +234,33 @@ app.get('/rss', function (req, res) {
           item.long = word.location.key.lng;
         }
 
-        feed.item(item);
+        feed.addItem(item);
 
       }
 
     });
 
-    xml = feed.xml();
+    deferred.resolve(feed);
 
+  }, deferred.reject);
+
+  return deferred.promise;
+
+}
+app.get('/atom', function (req, res) {
+  getFeed().then(function (feed) {
+    var xml = feed.render('atom-1.0');
     res.status(200).send(xml);
-    setCache(req.url, xml);
-
+    setCache(req.url, xml)
+  }, function (err) {
+    res.status(500).send(err);
+  });
+});
+app.get('/rss', function (req, res) {
+  getFeed().then(function (feed) {
+    var xml = feed.render('rss-2.0');
+    res.status(200).send(xml);
+    setCache(req.url, xml)
   }, function (err) {
     res.status(500).send(err);
   });
