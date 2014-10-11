@@ -2,7 +2,7 @@
 
 angular.module('quiverCmsApp')
   .service('AdminService', function AdminService($firebase, env, Restangular) {
-    var firebaseEndpoint = env.firebase;
+    var firebaseEndpoint = env.firebase.endpoint;
 
     return {
       getWords: function () {

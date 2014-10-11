@@ -48,7 +48,7 @@ angular.module('quiverCmsApp')
       },
 
       getNotification: function (userId, slug) {
-        return $firebase(new Firebase(env.firebase + '/users/' + userId + '/notifications/' + slug));
+        return $firebase(new Firebase(env.firebase.endpoint + '/users/' + userId + '/notifications/' + slug));
       },
 
       resize: function () {

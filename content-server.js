@@ -1,27 +1,29 @@
-var express = require('express'),
+var config = require('config'),
+  express = require('express'),
   app = express(),
   Q = require('q'),
   fs = require('fs-extra'),
-  envVars = require('./env.js'),
   Firebase = require('firebase'),
-  firebaseRoot = new Firebase(envVars.firebase),
-  firebaseSecret = process.env.QUIVER_CMS_FIREBASE_SECRET,
+  firebaseEndpoint = config.get('public.firebase.endpoint'),
+  firebaseRoot = new Firebase(firebaseEndpoint),
+  firebaseSecret = config.get('private.firebase.secret'),
   winston = require('winston'),
   mime= require('mime'),
   moment = require('moment'),
   _ = require('underscore'),
   expressHandlebars = require('express-handlebars'),
-  handlebarsHelpers = require('handlebars-helpers'),
-  helpers = require('./lib/helpers.js')({bucket: process.env.AMAZON_CMS_PUBLIC_BUCKET}),
-  redisTTL = process.env.QUIVER_CMS_REDIS_TTL || 3600,
+  helpers = require('./lib/helpers.js')({bucket: config.get('public.amazon.publicBucket')}),
+
   ElasticSearchClient = require('elasticsearchclient'),
-  elasticSearchClient = new ElasticSearchClient({host: '127.0.0.1', port: 9200}),
+  elasticSearchClient = new ElasticSearchClient(config.get('private.elasticSearch')),
   handlebars,
   theme,
   words,
   settings,
   hashtags,
-  wordsIndex;
+  wordsIndex,
+  noop = function () {},
+  setCache = noop;
 
 /*
  * Templating
@@ -31,56 +33,63 @@ app.set('view engine', 'handlebars');
 /*
  * Redis
 */
-var Redis = require('redis'),
-  redis = Redis.createClient(),
-  redisOn = false,
+winston.info('Redis enabled: ' + config.get('private.content.redisEnabled'));
+if (config.get('private.content.redisEnabled')) {
+  var Redis = require('redis'),
+    redisTTL = config.get('private.redis.ttl'),
+    redis = Redis.createClient(),
+    redisOn = false;
+
   setCache = function (url, data) {
     redis.set(url, data);
     redis.expire(url, redisTTL);
   };
 
-redis.select(process.env.QUIVER_CMS_REDIS_DB_INDEX || 0);
-redis.flushdb();
+
+  redis.select(config.get('private.redis.dbIndex'));
+  redis.flushdb();
 
 
-redis.on('ready', function (e) {
-  redisOn = true;
-  winston.info('redis ready');
-});
+  redis.on('ready', function (e) {
+    redisOn = true;
+    winston.info('redis ready');
+  });
 
-redis.on('error', function (err) {
-  winston.error('redis error', err);
-});
+  redis.on('error', function (err) {
+    winston.error('redis error', err);
+  });
 
-//app.use(function (req, res, next) {
-//  if (!redisOn) {
-//    winston.info('redis off');
-//    next();
-//
-//  } else {
-//
-//    var url = req.url,
-//      parts = url.split('/');
-//
-//    parts.shift(); // Drop the blank part of the route
-//
-//    if (parts[0] === 'static') { // set Content-Type for static files.
-//      res.setHeader('Content-Type', mime.lookup(url.split('?')[0]));
-//    }
-//
-//    redis.get(url, function (err, cache) {
-//      return cache ? res.send(cache) : next();
-//    });
-//
-//  }
-//
-//});
+  app.use(function (req, res, next) {
+    if (!redisOn) {
+      winston.info('redis off');
+      next();
+
+    } else {
+
+      var url = req.url,
+        parts = url.split('/');
+
+      parts.shift(); // Drop the blank part of the route
+
+      if (parts[0] === 'static') { // set Content-Type for static files.
+        res.setHeader('Content-Type', mime.lookup(url.split('?')[0]));
+      }
+
+      redis.get(url, function (err, cache) {
+        return cache ? res.send(cache) : next();
+      });
+
+    }
+
+  });
+
+}
 
 /*
  * Env.js
 */
 app.get('/env.js', function (req, res) {
-  res.status(200).send("window.envVars = " + JSON.stringify(envVars) + ";");
+  res.status(200).send("window.envVars = " + JSON.stringify(config.get('public')) + ";");
 });
 
 /*
@@ -206,8 +215,8 @@ var renderPosts = function (template, page, url, options) {
     });
 
     context = {
-      development: envVars.environment === 'development',
-      env: envVars,
+      development: config.get('public.environment') === 'development',
+      env: config.get('public'),
       posts: posts,
       postBlocks: postBlocks,
       settings: settings,
@@ -230,7 +239,7 @@ var renderPosts = function (template, page, url, options) {
   },
   render404 = function (res, err) {
     app.render('404', {
-      development: envVars.environment === 'development',
+      development: config.get('public.environment') === 'development',
       settings: settings,
       error: err
     }, function (err, html) {
@@ -287,12 +296,12 @@ app.get('/:slug', function (req, res) {
 
   searchDeferred.promise.then(function (post) {
     app.render('page', {
-      development: envVars.environment === 'development',
+      development: config.get('public.environment') === 'development',
       post: post,
       settings: settings,
       url: req.url,
       slug: slug,
-      env: envVars
+      env: config.get('public')
     }, function (err, html) {
       if (err) {
         res.status(500).send(err);
@@ -328,7 +337,7 @@ app.get('/search/:searchTerm', function (req, res) {
     });
 
     app.render('posts', {
-      development: envVars.environment === 'development',
+      development: config.get('public.environment') === 'development',
       title: "Search: " + searchTerm,
       posts: posts,
       settings: settings,
@@ -366,7 +375,6 @@ var createWordsIndex = function (words) {
     return deferred.promise;
   },
   createSearchIndex = function (words) {
-    console.log('creatingSearchIndex');
     var deferred = Q.defer(),
       deleteDeferred = Q.defer(),
       commands = [];
@@ -381,7 +389,6 @@ var createWordsIndex = function (words) {
         commands.push(word);
       });
 
-      console.log("command count:", Object.keys(words).length, commands.length);
       elasticSearchClient.bulk(commands, {})
         .on('data', function (data) {
 //        console.log(data);
@@ -403,7 +410,7 @@ app.get('/delete', function (req, res) {
 /*
  * Auth & App Listen
 */
-console.log('Starting auth.');
+console.log('...Starting auth...');
 firebaseRoot.auth(firebaseSecret, function () {
   var themeRef = firebaseRoot.child('theme'),
     wordsRef = firebaseRoot.child('content').child('words'),
@@ -431,8 +438,6 @@ firebaseRoot.auth(firebaseSecret, function () {
       partialsDir: viewsDir + '/partials',
       helpers: helpers
     });
-
-//    handlebarsHelpers.register(handlebars.handlebars, {marked: {}});
 
     app.engine('html', handlebars.engine);
     app.engine('handlebars', handlebars.engine);
@@ -485,8 +490,8 @@ firebaseRoot.auth(firebaseSecret, function () {
     hashtagsDeferred.promise,
     wordsIndexDeferred.promise
   ]).then(function () {
-    winston.info('app listening on 9900');
-    app.listen(9900);
+    winston.info('Serving on port ' + config.get('private.content.port'));
+    app.listen(config.get('private.content.port'));
   }, function (err) {
     winston.error('App not listening', err);
   });

@@ -4,7 +4,7 @@ quiver-cms
 A CMS built on Angular, Firebase, Express and Node.
 
 ### Installation
-Quiver-CMS relies on Node.js, NPM, Yeoman, Grunt, Bower, Firebase, Mandrill, TypeKit and Amazon Web Services S3.
+Quiver-CMS relies on Node.js, NPM, Yeoman, Grunt, Bower, Firebase, Mandrill, Redis, elasticsearch, ImageMagick, TypeKit and Amazon Web Services S3.
 
 1. [Install Node.js](http://howtonode.org/how-to-install-nodejs) if necessary. You'll get NPM as part of the new Node.js install.
 2. Install Yeoman, Grunt and Bower. ```npm install -g yo bower grunt-cli```
@@ -12,33 +12,87 @@ Quiver-CMS relies on Node.js, NPM, Yeoman, Grunt, Bower, Firebase, Mandrill, Typ
 4. Create an [AWS account, activate S3 and create an S3 bucket](http://docs.aws.amazon.com/AmazonS3/latest/gsg/SigningUpforS3.html).
 5. Clone the repo. ```clone git@github.com:deltaepsilon/quiver-cms.git```
 6. Navigate to the repo and install NPM and Bower dependencies. ```cd quiver-cms && npm install && bower install```
-7. Add system enviroment variables for the Node server:
+7. Install [redis](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-redis), [elasticsearch](https://www.digitalocean.com/community/tutorials/how-to-install-elasticsearch-on-an-ubuntu-vps) and [ImageMagick](https://help.ubuntu.com/community/ImageMagick).
+8. Copy ```/config/default.json``` to ```/config/development.json``` and again to ```/config/production.json```.
+9. ```default.json``` contains the default config which will be overridden by ```development.json``` or ```production.json``` depending on your [node environment](http://stackoverflow.com/questions/16978256/what-is-node-env-in-express). See more documentation at [node-config](https://github.com/lorenwest/node-config).
+
+- Sign up for a [GoogleMaps API](https://developers.google.com/maps/) account if you'd like to use ```public.maps.apiKey```.
+- Sign up for a [Disqus](https://disqus.com/) account to use ```public.disqus.shortname``` take advantage of Disqus comments.
+- Sign up for [Amazon S3](http://aws.amazon.com/s3/) and create your first bucket to use ```public.amazon.publicBucket```. Also make sure to get [Amazon keys](http://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSGettingStartedGuide/AWSCredentials.html) and fill in the details at ```private.amazon```.
+- Get your [Firebase secret](https://www.firebase.com/docs/web/guide/login/custom.html) for ```private.firebase.secret```.
+- Generate some gibberish for ```private.sessionSecret```. The project does not currently use sessions... but it might.
+- You'll need [Mandrill](https://www.mandrill.com/signup/) and [Instagram](http://instagram.com/developer) api keys to use those services.
+- Add your VPS login details and deploy commands to ```private.server``` if you'd like to take advantage of ```grunt deploy``` for quick deploys. More on this later.
 
 ```
-export NODE_ENV="development"
+{
+  "public": {
+    "environment": "development",
+    "firebase": {
+      "endpoint": "https://my-firebase.firebaseio.com/quiver-cms"
+    },
+    "api": "https://my-site.com/api",
+    "root": "https://my-site.com",
+    "email": {
+      "from": "TyrionLannister@westeros.com",
+      "name": "Tyrion Lannister"
+    },
+    "imageSizes": {
+      "small": 640,
+      "medium": 1024,
+      "large": 1440,
+      "xlarge": 1920
+    },
+    "supportedImageTypes": ["jpg", "jpeg", "png", "gif", "tiff"],
+    "supportedVideoTypes": ["mp4", "webm", "mpeg", "ogg"],
+    "maps": {
+      "apiKey": "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    },
+    "disqus": {
+      "shortname": "my-disqus-shortname"
+    },
+    "amazon": {
+      "publicBucket": "assets.westeros.com"
+    }
+  },
+  "private": {
+    "firebase": {
+      "secret": "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    },
+    "sessionSecret": "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+    "mandrill": {
+      "apiKey": "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    },
+    "instagram": {
+      "clientId": "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+      "clientSecret": "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    },
+    "amazon": {
+      "accessKeyId": "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+      "secretAccessKey": "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    },
+    "redis": {
+      "dbIndex": 0,
+      "ttl": 3600
+    },
+    "elasticSearch": {
+      "host": "127.0.0.1",
+      "port": 9200
+    },
+    "server": {
+      "HostName": "server.my-remote-server.com",
+      "Port": 22,
+      "User": "admin",
+      "IdentityFile": "~/.ssh/id_rsa",
+      "destination": "/var/www/my-site-folder",
+      "remoteCommand": "sh /var/www/my-site-folder/install"
+    }
+  }
 
-export MANDRILL_API_KEY="ASDFADSFADSFADSFADSFADSADSF"
-
-export AMAZON_ACCESS_KEY_ID="ASDFADSFDFADFADSFDDA"
-export AMAZON_SECRET_ACCESS_KEY="ASDFADFADADFADSFADSFADSFADSFADAD"
-export AMAZON_CMS_PUBLIC_BUCKET="assets.saltlakecycles.com"
-
-export QUIVER_CMS_FIREBASE="https://asdf.firebaseIO.com"
-export QUIVER_CMS_FIREBASE_SECRET="ASDFADSFADSFADSFADSFAD"
-export QUIVER_CMS_ROOT="/app"
-export QUIVER_CMS_SESSION_SECRET="ASDFASDFADSFADSFADSFADSFADS"
+}
 ```
 
-- NODE_ENV: Should be "development", "test" or "production". You probably want "development".
-- MANDRILL_API_KEY: [Sign up for Mandrill](https://www.mandrill.com/) and get an API key. We'll need this for sending email.
-- AMAZON_ACCESS_KEY_ID/AMAZON_SECRET_ACCESS_KEY: You'll need to [get these keys from AWS](http://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSGettingStartedGuide/AWSCredentials.html).
-- AMAZON_CMS_PUBLIC_BUCKET: Remember that bucket that you created in step 4? Well, this is location of your bucket.
-- QUIVER_CMS_FIREBASE: This is the location of your Firebase app.
-- QUIVER_CMS_FIREBASE_SECRET: Log into Firebase, navigate to your app and click the ***Secrets*** link on the bottom-left side of the screen. If you don't have a Firebase secret, generate one. This enables server access to your Firebase app.
-- QUIVER_CMS_ROOT: For dev environments, this is "/app". It will likely be "/dist" for a deployed environment.
-- QUIVER_CMS_SESSION_SECRET: This is gibberish. It may not even get used for the final version of the app, but for now, include some gibberish.
-
-8. Set up your Firebase app's security rules. These are a work in progress, and you'll want to make sure that you understand Firebase security rules well before attempting to deploy this app into the wild. These are the rules that I'm currently using. You'll probably want to swap out my email address for your own.
+10. Set up your Firebase app's security rules. These are a work in progress, and you'll want to make sure that you understand Firebase security rules well before attempting to deploy this app into the wild. These are the rules that I'm currently using. You'll probably want to swap out my email address for your own.
 
 ```
 {
@@ -68,8 +122,73 @@ export QUIVER_CMS_SESSION_SECRET="ASDFASDFADSFADSFADSFADSFADS"
 }
 ```
 
-9. Make a copy of ```app/env.js.dist``` and rename it to ```app/env.js```. Fill it out with your own details. The API server, ```cms-server.js``` is set up to listen on port 9800, and ```grunt serve``` launches your app on ```http://127.0.0.1:9000```. You'll probably only need to change the path to your Firebase app as well as your email details.
-10. Run ```grunt serve``` from the ```quiver-cms``` directory and the app should be up and running.
+11. Start ```cms-server.js``` and ```content-server.js``` using either ```node``` or ```nodemon```. You'll need two terminal windows. You'll run ```nodemon cms-server.js``` in the first and ```nodemon content-server.js``` in the second.
+12. Run ```grunt serve``` from the ```quiver-cms``` directory and the app should be up and running. You'll be able to access the front end at ```http://localhost:9900```.
+
+### Deploy
+Quiver-CMS is built for deploying to a VPS running linux. I recommend [DigitalOcean](https://www.digitalocean.com/?refcode=d5bfb6736f8e), particularly their "MEAN on Ubuntu" image.
+
+Once you have a VPS up and running, you'll need to [install NGINX](https://www.digitalocean.com/community/tutorials/how-to-install-nginx-on-ubuntu-14-04-lts)
+and [install Node](https://www.digitalocean.com/community/tutorials/how-to-install-node-js-on-an-ubuntu-14-04-server)
+as well if you don't have it pre-installed with the "MEAN on Ubuntu" image.
+
+Next install [forever](https://www.npmjs.org/package/forever) to daemonize ```content-server.js``` and ```cms-server.js```.
+
+You'll also need to [configure NGINX to support multiple node processes](https://www.digitalocean.com/community/tutorials/how-to-host-multiple-node-js-applications-on-a-single-vps-with-nginx-forever-and-crontab).
+
+
+Here's a sample config complete with a redirect to SSL. The SSL is not necessary, but it makes the entire operation much more secure.
+
+```
+server {
+	listen 	80;
+	server_name  cms.quiver.is;
+	return 301   https://cms.quiver.is$request_uri;
+}
+server {
+	listen 443 ssl;
+	server_name cms.quiver.is;
+
+	keepalive_timeout   70;
+
+  ssl_certificate      /etc/ssl/certs/quiver.crt;
+  ssl_certificate_key  /etc/ssl/quiver.key;
+  ssl_protocols  SSLv2 SSLv3 TLSv1;
+  ssl_ciphers  HIGH:!aNULL:!MD5;
+  ssl_prefer_server_ciphers   on;
+  ssl_session_cache   shared:SSL:10m;
+  ssl_session_timeout 10m;
+
+	#rewrite_log on;
+
+	location /admin {
+		rewrite ^/admin(/?)(.*) /app/$2 last;
+	}
+
+	location /dist {
+		root /var/www/quiver.is/deploys/;
+	}
+
+	location ~ ^/api(/?)(.*) {
+		proxy_set_header X-Real-IP  $remote_addr;
+        	proxy_set_header X-Forwarded-For $remote_addr;
+        	proxy_set_header Host $host;
+        	proxy_pass http://127.0.0.1:9800/$2;
+	}
+
+	location / {
+		proxy_set_header X-Real-IP  $remote_addr;
+        	proxy_set_header X-Forwarded-For $remote_addr;
+        	proxy_set_header Host $host;
+        	proxy_pass http://127.0.0.1:9900;
+	}
+
+
+}
+
+```
+
+- [Adjust your nginx max body size](http://www.cyberciti.biz/faq/linux-unix-bsd-nginx-413-request-entity-too-large/) up to accommodate file uploads
 
 ### Known Issues
 

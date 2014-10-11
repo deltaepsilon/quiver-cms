@@ -120,41 +120,50 @@ angular.module('quiverCmsApp')
 
       }
 
-//      return console.warn('returning early for testings');
-
       $q.all(promises).then(function () {
-        var deferred = $q.defer();
+        var deferred = $q.defer(),
+          catchAllHandler = function (e) {
+            switch (e) {
+              case 'complete':
+                $scope.uploading = false; // I know I do this twice, but I wouldn't want it to fail for some reason.
+                deferred.resolve(e);
+                break;
+              case 'error':
+                deferred.reject(e);
+                break;
+              default:
+                deferred.notify(e);
+                break;
+            }
+          };
 
         Flow.upload();
-        Flow.on('catchAll', function (e) {
-          switch (e) {
-            case 'complete':
-              deferred.resolve(e);
-              Flow.files = [];
-              $scope.uploading = false;
-              NotificationService.success('Files Uploaded!');
-              clearWatches();
-              break;
-            default:
-              deferred.notify(e);
-              break;
-          }
+        Flow.on('catchAll', catchAllHandler);
 
-        });
         return deferred.promise;
 
       }).then(uploadDeferred.resolve, uploadDeferred.reject);
 
-      uploadDeferred.promise.then(FileService.resize, function () {
-        Flow.files = [];
-        $scope.uploading = false;
-        console.warn(error);
-        NotificationService.error('Upload Failed', error);
-        clearWatches();
+      uploadDeferred.promise.then(function () {
+        $scope.resizing = true;
+        return FileService.resize();
       }).then(resizeDeferred.resolve, resizeDeferred.reject);
 
       resizeDeferred.promise.then(function () {
+        Flow.files = [];
+        $scope.uploading = false; // Just in case the earlier pass at reactivating this button failed.
+        $scope.resizing = false;
+        clearWatches();
         NotificationService.success('Images Processed', 'Your images have successfully been resized.');
+
+      }, function (err) {
+        Flow.files = [];
+        $scope.uploading = false;
+        $scope.resizing = false;
+        clearWatches();
+        NotificationService.error('Resize Error', 'Your images have resize failed. ' + err);
+        console.warn(err);
+
       });
 
     };
@@ -175,15 +184,21 @@ angular.module('quiverCmsApp')
     };
 
     $scope.resize = function () {
+      var deferred = $q.defer();
+
       $scope.resizing = true;
 
       FileService.resize().then(function () {
         NotificationService.success('Images Processed', 'Your images have successfully been resized and the file registry has been updated.');
         delete $scope.resizing;
+        deferred.resolve();
       }, function (err) {
         NotificationService.error('Resize Failed', err);
         delete $scope.resizing;
+        deferred.reject(err);
       });
+
+      return deferred.promise;
 
     };
 

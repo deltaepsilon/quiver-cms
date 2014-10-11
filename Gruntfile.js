@@ -9,6 +9,9 @@
 
 module.exports = function (grunt) {
 
+  var config = require('config'),
+    serverConfig = config.get('private.server');
+
   // Load grunt tasks automatically
   require('load-grunt-tasks')(grunt);
 
@@ -45,6 +48,9 @@ module.exports = function (grunt) {
       gruntfile: {
         files: ['Gruntfile.js']
       },
+      env: {
+        files: ['env.js']
+      },
       livereload: {
         options: {
           livereload: '<%= connect.options.livereload %>'
@@ -63,7 +69,32 @@ module.exports = function (grunt) {
         port: 9000,
         // Change this to '0.0.0.0' to access the server from outside.
         hostname: 'localhost',
-        livereload: 35729
+        livereload: 35729,
+        middleware: function (connect, options) {
+          var middlewares = [];
+          var directory = options.directory || options.base[options.base.length - 1];
+          if (!Array.isArray(options.base)) {
+            options.base = [options.base];
+          }
+          options.base.forEach(function(base) {
+            // Serve static files.
+            middlewares.push(connect.static(base));
+          });
+          // Make directory browse-able.
+          middlewares.push(connect.directory(directory));
+          middlewares.unshift(function (req, res, next) {
+            if (req.url === '/api/env.js') {
+              res.setHeader('Access-Control-Allow-Origin', "*");
+              res.setHeader('Access-Control-Allow-Methods', "GET, POST, PUT, DELETE, PATCH");
+              res.setHeader('Access-Control-Allow-Headers', req.headers['access-control-request-headers']); // Allow whatever they're asking for
+              res.setHeader('Content-Type', 'application/javascript');
+              res.end("window.envVars = " + JSON.stringify(config.get('public')) + ';');
+            } else {
+              next();
+            }
+          });
+          return middlewares;
+        }
       },
       livereload: {
         options: {
@@ -295,10 +326,20 @@ module.exports = function (grunt) {
         }]
       },
       styles: {
-        expand: true,
         cwd: '<%= yeoman.app %>/styles',
         dest: '.tmp/styles/',
         src: '{,*/}*.css'
+      },
+      scripts: {
+        expand: true,
+        cwd: '.tmp/concat/scripts',
+        src: '*',
+        dest: '<%= yeoman.dist %>/scripts/'
+      },
+      deploy: {
+        expand: true,
+        src: ['!dist/lib/angular-markdown-editable/node_modules/*', 'dist/**/*', 'themes/Quiver/static/**/*', 'themes/Quiver/views/**/*', 'config/*', 'lib/**/*', 'cms-server.js', 'content-server.js', 'package.json'],
+        dest: '.tmp/deploy'
       }
     },
 
@@ -315,6 +356,32 @@ module.exports = function (grunt) {
         'imagemin',
         'svgmin'
       ]
+    },
+
+    shell: {
+      compress: {
+        command: "tar -zcf .tmp/deploy.tar.gz .tmp/deploy"
+      },
+
+      copy: {
+        command: "scp -i "
+          + serverConfig.IdentityFile
+          + " -P " + serverConfig.Port
+          + " .tmp/deploy.tar.gz "
+          + serverConfig.User + "@" + serverConfig.HostName + ":" + serverConfig.destination + "/deploy.tar.gz"
+      },
+
+      remote: {
+        command: "ssh -i "
+          + serverConfig.IdentityFile
+          + " -p " + serverConfig.Port + " "
+          + serverConfig.User + "@" + serverConfig.HostName + " "
+          + serverConfig.remoteCommand
+      },
+
+      remove: {
+        command: "rm -rf .tmp/deploy && rm .tmp/deploy.tar.gz"
+      }
     },
 
     // By default, your `index.html`'s <!-- Usemin block --> will take care of
@@ -392,10 +459,18 @@ module.exports = function (grunt) {
     'copy:dist',
     'cdnify',
     'cssmin',
-    'uglify',
+//    'uglify',
+    'copy:scripts',
     'rev',
     'usemin',
     'htmlmin'
+  ]);
+
+  grunt.registerTask('deploy', [
+    'copy:deploy',
+    'shell:compress',
+    'shell:copy',
+    'shell:remote'
   ]);
 
   grunt.registerTask('default', [

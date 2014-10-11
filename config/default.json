@@ -1,0 +1,74 @@
+{
+  "public": {
+    "environment": "development",
+    "firebase": {
+      "endpoint": "https://my-firebase.firebaseio.com/quiver-cms"
+    },
+    "api": "https://my-site.com/api",
+    "root": "https://my-site.com",
+    "email": {
+      "from": "TyrionLannister@westeros.com",
+      "name": "Tyrion Lannister"
+    },
+    "imageSizes": {
+      "small": 640,
+      "medium": 1024,
+      "large": 1440,
+      "xlarge": 1920
+    },
+    "supportedImageTypes": ["jpg", "jpeg", "png", "gif", "tiff"],
+    "supportedVideoTypes": ["mp4", "webm", "mpeg", "ogg"],
+    "maps": {
+      "apiKey": "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    },
+    "disqus": {
+      "shortname": "my-disqus-shortname"
+    },
+    "amazon": {
+      "publicBucket": "assets.westeros.com"
+    }
+  },
+  "private": {
+    "content": {
+      "port": 9800,
+      "redisEnabled": false
+    },
+    "cms": {
+      "folder": "app",
+      "staticEnabled": false,
+      "port": 9801
+    },
+    "firebase": {
+      "secret": "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    },
+    "sessionSecret": "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+    "mandrill": {
+      "apiKey": "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    },
+    "instagram": {
+      "clientId": "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+      "clientSecret": "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    },
+    "amazon": {
+      "accessKeyId": "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+      "secretAccessKey": "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    },
+    "redis": {
+      "dbIndex": 0,
+      "ttl": 3600
+    },
+    "elasticSearch": {
+      "host": "127.0.0.1",
+      "port": 9200
+    },
+    "server": {
+      "HostName": "server.my-remote-server.com",
+      "Port": 22,
+      "User": "admin",
+      "IdentityFile": "~/.ssh/id_rsa",
+      "destination": "/var/www/my-site-folder",
+      "remoteCommand": "sh /var/www/my-site-folder/install"
+    }
+  }
+
+}

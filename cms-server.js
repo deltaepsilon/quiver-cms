@@ -1,4 +1,5 @@
-var Q = require('q'),
+var config = require('config'),
+  Q = require('q'),
   _ = require('underscore'),
   express = require('express'),
   app = express(),
@@ -10,20 +11,20 @@ var Q = require('q'),
   moment = require('moment'),
   Firebase = require('firebase'),
   Mandrill = require('mandrill-api/mandrill').Mandrill,
-  mandrill = new Mandrill(process.env.MANDRILL_API_KEY),
+  mandrill = new Mandrill(config.get('private.mandrill.apiKey')),
   CronJob = require('cron').CronJob,
   markdown = require('markdown').markdown,
   request = require('superagent'),
   axios = require('axios'),
   slug = require('slug'),
+  mime = require('mime'),
   easyimage = require('easyimage'),
-  environment = process.env.NODE_ENV || 'development',
-  publicBucket = process.env.AMAZON_CMS_PUBLIC_BUCKET,
+  environment = config.get('public.environment'),
+  publicBucket = config.get('public.amazon.publicBucket'),
   filePrefix = 'cms',
-  envVars = require('./env.js'),
-  fileRoot = __dirname + process.env.QUIVER_CMS_ROOT,
-  firebaseRoot = new Firebase(envVars.firebase),
-  firebaseSecret = process.env.QUIVER_CMS_FIREBASE_SECRET;
+  firebaseEndpoint = config.get('public.firebase.endpoint'),
+  firebaseRoot = new Firebase(firebaseEndpoint),
+  firebaseSecret = config.get('private.firebase.secret');
 
 /*
  * Winston logging config
@@ -35,7 +36,6 @@ var uploadLogger = new (winston.Logger)({
   }),
   errorHandler = function (res, err) {
     var error = new Error(err)
-    console.log('error', error.stack);
     winston.log('error', err);
     res.status(500).send(err);
   };
@@ -50,12 +50,54 @@ firebaseRoot.auth(firebaseSecret);
 /*
  * AWS config
 */
-AWS.config.update({accessKeyId: process.env.AMAZON_ACCESS_KEY_ID, secretAccessKey: process.env.AMAZON_SECRET_ACCESS_KEY});
+AWS.config.update(config.get('private.amazon'));
 
 /*
  * Generic Express middleware
 */
-app.use(require('cookie-session')({keys: [process.env.QUIVER_CMS_SESSION_SECRET]}));
+app.use(require('cookie-session')({keys: [config.get('private.sessionSecret')]}));
+
+/*
+ * Static
+ */
+var staticFolderService = function (name) {
+  return function (req, res) {
+    var deferred = Q.defer(),
+      route = ['.', config.get('private.cms.folder'), name],
+      parts = req.url.split('/'),
+      path;
+
+    parts.shift(); // Drop the blank part of the route
+
+    path = route.concat(parts).join('/');
+    path = path.split('?')[0]; // Drop query strings
+    res.setHeader('Content-Type', mime.lookup(path));
+
+    fs.readFile(path, 'utf8', function (err, data) {
+      return err ? deferred.reject(err) : deferred.resolve(data);
+    });
+
+    deferred.promise.then(function (data) {
+      res.status(200).send(data);
+      setCache('/static' + req.url, data);
+    }, function (err) {
+      res.sendStatus(404);
+    });
+  };
+};
+
+if (config.get('private.cms.staticEnabled')) {
+  winston.info('serving static files from /' + config.get('private.cms.folder'));
+  app.use('/images', staticFolderService('images'));
+  app.use('/lib', staticFolderService('lib'));
+  app.use('/scripts', staticFolderService('scripts'));
+  app.use('/styles', staticFolderService('styles'));
+  app.use('/views', staticFolderService('views'));
+
+} else {
+  winston.info('Not service static files from ' + config.get('private.cms.folder') + ". Make sure you're serving them with nginx or some other static file server.");
+}
+
 
 /*
  * Body parsing middleware
@@ -257,14 +299,13 @@ app.get('/themes', function (req, res) {
  * Env
 */
 app.get('/env', function (req, res) {
-  var env = envVars;
+  res.setHeader('Content-Type', 'application/json');
+  res.json(config.get('public'));
+});
 
-  if (req.session.access_token) {
-    env.access_token = req.session.access_token;
-    env.authorizations = 'Bearer' + req.session.access_token;
-  }
-
-  res.json(env);
+app.get('/env.js', function (req, res) {
+  res.setHeader('Content-Type', 'application/javascript');
+  res.status(200).send("window.envVars = " + JSON.stringify(config.get('public')) + ';');
 });
 
 /*
@@ -277,10 +318,14 @@ app.use(function (req, res, next) {
 
   var userToken = req.headers.authorization,
     userId = req.headers['user-id'],
-    userRef = new Firebase(envVars.firebase + '/users/' + userId),
+    userRef = new Firebase(firebaseEndpoint + '/users/' + userId),
     handleAuthError = function () {
       return res.status(401).send({'error': 'Not authorized. userId and authorization headers must be present and valid.'});
     };
+
+  if (!userToken) {
+    return res.sendStatus(403);
+  }
 
   userRef.auth(userToken, function (err, currentUser) {
     if (err) {
@@ -320,7 +365,7 @@ var updateFilesRegister = function() { //Cache S3.listObjects result to Firebase
   var deferred = Q.defer(),
     firebaseDeferred = Q.defer(),
     s3Deferred = Q.defer(),
-    filesRef = new Firebase(envVars.firebase + '/content/files');
+    filesRef = new Firebase(firebaseEndpoint + '/content/files');
 
   filesRef.auth(firebaseSecret, firebaseDeferred.resolve, firebaseDeferred.reject);
 
@@ -413,9 +458,9 @@ app.post('/files', function (req, res) {
     mimeType;
 
   // Calculate mime types
-  if (~envVars.supportedImageTypes.indexOf(suffix)) {
+  if (~config.get('public.supportedImageTypes').indexOf(suffix)) {
     mimeType = 'image';
-  } else if (~envVars.supportedVideoTypes.indexOf(suffix)) {
+  } else if (~config.get('public.supportedVideoTypes').indexOf(suffix)) {
     mimeType = 'video';
   } else {
     mimeType = 'application';
@@ -480,7 +525,7 @@ app.post('/files', function (req, res) {
   /*
    * Handle file upload results
   */
-  var filesRef = new Firebase(envVars.firebase + '/content/files'),
+  var filesRef = new Firebase(firebaseEndpoint + '/content/files'),
     firebaseDeferred = Q.defer();
 
   filesRef.auth(firebaseSecret, firebaseDeferred.resolve, firebaseDeferred.reject);
@@ -525,7 +570,8 @@ app.delete('/files/:fileName', function (req, res) {
 
 var resizeImages = function () {
   var deferred = Q.defer(),
-    s3Deferred = Q.defer();
+    s3Deferred = Q.defer(),
+    responseDeferred = Q.defer();
 
   /*
    * Clear out directories
@@ -559,7 +605,7 @@ var resizeImages = function () {
       image.fileName = parts[parts.length - 1];
       image.suffix = image.fileName.split('.')[1];
 
-      if (!~envVars.supportedImageTypes.indexOf(image.suffix.toLowerCase())) { // Screen for supportedImageTypes
+      if (!~config.get('public.supportedImageTypes').indexOf(image.suffix.toLowerCase())) { // Screen for supportedImageTypes
         return;
       }
 
@@ -588,15 +634,10 @@ var resizeImages = function () {
     _.each(source, function (image) {
       var dataDeferred = Q.defer(),
         downloadDeferred = Q.defer(),
-        smallDeferred = Q.defer(),
-        mediumDeferred = Q.defer(),
-        largeDeferred = Q.defer,
-        xlargeDeferred = Q.defer,
-        finalDeferred = Q.defer(),
         fileName = image.Key.split('/').pop(),
         path = './resize/' + fileName;
 
-      promises.push(finalDeferred.promise);
+      promises.push(downloadDeferred.promise);
 
       S3.getObject({
           Bucket: publicBucket,
@@ -612,85 +653,116 @@ var resizeImages = function () {
 
       }, deferred.reject);
 
-      downloadDeferred.promise.then(function (path) {
-          easyimage.resize({src: path, dst: './resize/small/' + fileName, width: envVars.imageSizes.small}).then(smallDeferred.resolve, smallDeferred.reject);
-          easyimage.resize({src: path, dst: './resize/medium/' + fileName, width: envVars.imageSizes.medium}).then(mediumDeferred.resolve, mediumDeferred.reject);
-          easyimage.resize({src: path, dst: './resize/large/' + fileName, width: envVars.imageSizes.large}).then(largeDeferred.resolve, largeDeferred.reject);
-          easyimage.resize({src: path, dst: './resize/xlarge/' + fileName, width: envVars.imageSizes.xlarge}).then(xlargeDeferred.resolve, xlargeDeferred.reject);
-      });
-
-      finalDeferred.promise.then(function () { // Delete source image
-        fs.unlink(path, function (err) {
-          return err ? winston.error('Deleting source image', err) : true;
-        });
-      });
-
-      Q.all([smallDeferred.promise, mediumDeferred.promise, largeDeferred.promise, xlargeDeferred.promise]).then(finalDeferred.resolve, finalDeferred.reject);
-
     });
 
-    Q.all(promises).spread(function () {
+    var recursiveDeferred = Q.defer(),
+      imageSizes = config.get('public.imageSizes'),
+      recursiveResize = function (i) {
+        var promise = promises[i];
+        if (!promise) {
+          recursiveDeferred.resolve();
+        } else {
+          promise.then(function (path) {
+            var parts = path.split('/'),
+              fileName = parts[parts.length - 1];
+
+            easyimage.resize({src: path, dst: './resize/small/' + fileName, width: imageSizes.small})
+              .then(easyimage.resize({src: path, dst: './resize/medium/' + fileName, width: imageSizes.medium}))
+              .then(easyimage.resize({src: path, dst: './resize/large/' + fileName, width: imageSizes.large}))
+              .then(easyimage.resize({src: path, dst: './resize/xlarge/' + fileName, width: imageSizes.xlarge}))
+              .then(function () {
+                recursiveResize(i + 1);
+              }, recursiveDeferred.reject);
+          });
+
+        }
+      };
+
+    recursiveResize(0);
+
+    recursiveDeferred.promise.then(function () {
       var promises = [],
+        deferred = Q.defer(),
         uploadFile = function (image, folder) {
-          var readDeferred = Q.defer(),
-            uploadDeferred = Q.defer(),
-            path = './resize/' + folder + '/' + image.fileName;
+          return function () {
+            var readDeferred = Q.defer(),
+              uploadDeferred = Q.defer(),
+              path = './resize/' + folder + '/' + image.fileName;
 
-          fs.readFile(path, function (err, data) {
-            return err ? readDeferred.reject(err) : readDeferred.resolve(data);
-          });
+//            console.log('reading...', path);
+            fs.readFile(path, function (err, data) {
+              _.delay(function () {
+//                console.log('done reading.', path);
+                return err ? readDeferred.reject(err) : readDeferred.resolve(data);
+              }, 1000);
 
-          readDeferred.promise.then(function (data) {
-            S3.putObject({
-              Bucket: publicBucket,
-              Key: filePrefix + '/' + folder + '/' + image.fileName.toLowerCase(),
-              ACL: 'public-read',
-              Body: data,
-              CacheControl: "max-age=34536000",
-              Expires: moment().add('1 year').unix(),
-              ContentType: 'image/' + image.suffix,
-              StorageClass: "REDUCED_REDUNDANCY"
-            }, function (err, data) {
-              return err ? uploadDeferred.reject(err) : uploadDeferred.resolve(data);
-            })
-          });
-
-          uploadDeferred.promise.then(function () {
-            fs.unlink(path, function (err) {
-              return err ? winston.error('unlink error', err) : true;
             });
-          });
 
-          return Q.all([readDeferred.promise, uploadDeferred.promise]);
+            readDeferred.promise.then(function (data) {
+//              console.log('uploading...', path);
+              S3.putObject({
+                Bucket: publicBucket,
+                Key: filePrefix + '/' + folder + '/' + image.fileName.toLowerCase(),
+                ACL: 'public-read',
+                Body: data,
+                CacheControl: "max-age=34536000",
+                Expires: moment().add('1 year').unix(),
+                ContentType: 'image/' + image.suffix,
+                StorageClass: "REDUCED_REDUNDANCY"
+              }, function (err, data) {
+//                console.log('uploaded: err, data', err, data, "\n");
+                return err ? uploadDeferred.reject(err) : uploadDeferred.resolve(data);
+              })
+            }, function (err) {
+              console.log('fs.readFile error:', err);
+            });
+
+            return uploadDeferred.promise;
+
+          }
         };
 
-      _.each(source, function (image) {
-        promises.push(Q.all([
-          uploadFile(image, 'small'),
-          uploadFile(image, 'medium'),
-          uploadFile(image, 'large'),
-          uploadFile(image, 'xlarge')
-        ]));
+      var recursiveUploads = function (i) {
+        var image = source[i];
+        if (!image) {
+          deferred.resolve();
+        } else {
 
-      });
+          uploadFile(image, 'small')()
+            .then(uploadFile(image, 'medium'))
+            .then(uploadFile(image, 'large'))
+            .then(uploadFile(image, 'xlarge'))
+            .then(function () {
+              recursiveUploads(i + 1)
+            }, deferred.reject);
+        }
+      }
 
-      return Q.all(promises);
-    }).then(deferred.resolve, deferred.reject);
+      recursiveUploads(0);
+
+
+      return deferred.promise;
+    }).then(responseDeferred.resolve, responseDeferred.reject);
 
   });
 
   // Delete it all
-  deferred.promise.then(function () {
+  responseDeferred.promise.then(function () {
     fs.remove('./resize');
+  }, function (err) {
+    winston.error('Resize upload error:', err);
   });
 
-  return deferred.promise;
+  return responseDeferred.promise;
 };
 
 app.get('/resize', function (req, res) {
-  resizeImages().then(updateFilesRegister, updateFilesRegister).then(function (data) {
-    res.json(data);
-  });
+  _.delay(function () {
+    resizeImages().then(updateFilesRegister, updateFilesRegister).then(function (data) {
+      res.json(data);
+    });
+  }, 1000);
+
 
 });
 
@@ -757,7 +829,7 @@ app.get('/instagram', function (req, res) {
 var Redis = require('redis'),
   redis = Redis.createClient();
 
-redis.select(process.env.QUIVER_CMS_REDIS_DB_INDEX || 0);
+redis.select(config.get('private.redis.dbIndex'));
 
 app.get('/bust-cache', function (req, res) {
   winston.info('flushing redis db');
@@ -769,4 +841,5 @@ app.get('/bust-cache', function (req, res) {
 /*
  * Finish this sucka up
 */
-app.listen(9800);
+winston.info("Serving on port " + config.get('private.cms.port'));
+app.listen(config.get('private.cms.port'));

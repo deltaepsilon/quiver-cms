@@ -1,0 +1,3 @@
+{
+  "ignore": [".sass-cache/*", ".tmp/*", "logs/*", "resize/*", "uploads/*", "dist/*", "assets/*"]
+}

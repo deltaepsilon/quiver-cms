@@ -2,6 +2,15 @@
 
 angular.module('quiverCmsApp')
   .controller('UserCtrl', function ($scope, $state, UserService, NotificationService) {
+    var parseError = function (err) {
+      var parts = err.message.split(':');
+
+      if (parts.length > 1) {
+        return parts[1].trim();
+      }
+      return err;
+
+    }
 
     $scope.logIn = function (email, password) {
       UserService.logIn(email, password, true).then(function (currentUser) {
@@ -10,8 +19,7 @@ angular.module('quiverCmsApp')
         $scope.toLanding();
 
       }, function (error) {
-        console.warn(error);
-        NotificationService.error('Error', error);
+        NotificationService.error('Login Error', parseError(error));
 
       });
     };
@@ -22,7 +30,7 @@ angular.module('quiverCmsApp')
         $scope.forward();
 
       }, function (error) {
-        NotificationService.error('Error', error);
+        NotificationService.error('Error', parseError(error));
 
       });
     };
@@ -33,8 +41,7 @@ angular.module('quiverCmsApp')
         $state.go('master.nav.login');
 
       }, function (error) {
-        console.warn(error);
-        NotificationService.error('Error', error);
+        NotificationService.error('Error', parseError(error));
 
       });
     };
@@ -46,7 +53,7 @@ angular.module('quiverCmsApp')
       UserService.changePassword(email, oldPassword, newPassword).then(function () {
         NotificationService.success('Password Changed');
       }, function (error) {
-        NotificationService.error('Error', error);
+        NotificationService.error('Error', parseError(error));
       });
     };
 

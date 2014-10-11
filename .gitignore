@@ -14,3 +14,5 @@ uploads/*
 resize/*
 themes/Quiver/static/env.js
 themes/Quiver/static/lib/*
+config/development.json
+config/production.json
