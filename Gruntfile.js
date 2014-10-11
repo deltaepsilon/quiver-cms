@@ -467,10 +467,12 @@ module.exports = function (grunt) {
   ]);
 
   grunt.registerTask('deploy', [
+    'build',
     'copy:deploy',
     'shell:compress',
     'shell:copy',
-    'shell:remote'
+    'shell:remote',
+    'shell:remove'
   ]);
 
   grunt.registerTask('default', [

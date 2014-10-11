@@ -44,7 +44,7 @@ angular.module('quiverCmsApp', [
     /*
      * Configure Default Route
     */
-    $urlRouterProvider.otherwise('/');
+    $urlRouterProvider.otherwise('/app/');
 
     /*
      * Convenience methods
