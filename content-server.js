@@ -16,6 +16,7 @@ var config = require('config'),
 
   ElasticSearchClient = require('elasticsearchclient'),
   elasticSearchClient = new ElasticSearchClient(config.get('private.elasticSearch')),
+  RSS = require('rss'),
   handlebars,
   theme,
   words,
@@ -172,6 +173,75 @@ var getPaginatedWords = function () {
 /*
  * Routes
 */
+/*
+ * RSS
+ */
+app.get('/rss', function (req, res) {
+  var deferred = Q.defer(),
+    xml;
+
+  elasticSearchClient.search("cms", "word",{
+    "query": {
+      "match_all": {}
+    }
+  }, function (err, data) {
+    var data = JSON.parse(data),
+      words = [];
+
+    if (data && data.hits && data.hits.hits) {
+      _.each(data.hits.hits, function (hit) {
+        words.push(hit._source);
+      });
+    } else {
+      err = "Search failed.";
+    }
+    return err ? deferred.reject(err || data.error) : deferred.resolve(words);
+  });
+
+  deferred.promise.then(function (words) {
+    var feedOptions = _.defaults(config.get('public.rss'), {pubDate: new Date()}),
+      feed = new RSS(feedOptions),
+      root = config.get('public.root');
+
+    _.each(words, function (word) {
+      if (word.published) {
+        var categories = [],
+          item;
+        _.each(word.hashtags, function (hashtag) {
+          categories.push(hashtag.key);
+        });
+
+        item = {
+          "title": word.title || "no title",
+          "description": word.excerpt || "no description",
+          "url": root + '/' + word.slug,
+          "guid": word.slug,
+          "categories": categories,
+          "author": word.author.name,
+          "date": word.published.published
+        };
+
+        if (word.location && word.location.key) {
+          item.lat = word.location.key.lat;
+          item.long = word.location.key.lng;
+        }
+
+        feed.item(item);
+
+      }
+
+    });
+
+    xml = feed.xml();
+
+    res.status(200).send(xml);
+    setCache(req.url, xml);
+
+  }, function (err) {
+    res.status(500).send(err);
+  });
+});
+
 var renderPosts = function (template, page, url, options) {
     var deferred = Q.defer(),
       page = parseInt(page),
@@ -495,8 +565,6 @@ firebaseRoot.auth(firebaseSecret, function () {
   }, function (err) {
     winston.error('App not listening', err);
   });
-
-
 
 
 });

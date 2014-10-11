@@ -30,7 +30,8 @@
     "hiredis": "~0.1.17",
     "elasticsearchclient": "~0.5.3",
     "showdown": "~0.3.1",
-    "config": "~1.2.3"
+    "config": "~1.2.3",
+    "rss": "~1.0.0"
   },
   "devDependencies": {
     "grunt": "~0.4.5",
