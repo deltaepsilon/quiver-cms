@@ -140,49 +140,48 @@ You'll also need to [configure NGINX to support multiple node processes](https:/
 Here's a sample config complete with a redirect to SSL. The SSL is not necessary, but it makes the entire operation much more secure.
 
 ```
-  server {
-    listen 80;
-    server_name cms.quiver.is;
-    return 302 https://cms.quiver.is$request_uri;
+server {
+	listen 	80;
+	server_name  quiver.is  *.quiver.is;
+	return 301   https://quiver.is$request_uri;
+}
+server {
+	listen 443 ssl;
+	server_name quiver.is;
+
+	keepalive_timeout   70;
+
+  ssl_certificate      /etc/ssl/certs/quiver.crt;
+  ssl_certificate_key  /etc/ssl/quiver.key;
+  ssl_protocols  SSLv2 SSLv3 TLSv1;
+  ssl_ciphers  HIGH:!aNULL:!MD5;
+  ssl_prefer_server_ciphers   on;
+  ssl_session_cache   shared:SSL:10m;
+  ssl_session_timeout 10m;
+	
+	#rewrite_log on;
+
+	client_max_body_size 2M;
+
+	location ~ ^/(app|images|lib|scripts|styles|views) {
+    proxy_pass http://127.0.0.1:9801;
   }
 
+  location ~ ^/api(/?)(.*) {
+    proxy_set_header X-Real-IP  $remote_addr;
+    proxy_set_header X-Forwarded-For $remote_addr;
+    proxy_set_header Host $host;
+    proxy_pass http://127.0.0.1:9801/$2;
+   }
 
-  server {
-    listen	443;
-    server_name cms.quiver.is;
-
-    ssl on;
-    ssl_certificate      /Users/christopheresplin/ssl/quiver_is_2014.crt;
-    ssl_certificate_key  /Users/christopheresplin/ssl/quiver_is.key;
-
-    ssl_session_timeout 5m;
-
-    ssl_protocols  SSLv2 SSLv3 TLSv1;
-    ssl_ciphers  HIGH:!aNULL:!MD5;
-    ssl_prefer_server_ciphers   on;
-
-    #rewrite_log on;
-
-    location ~ ^/(app|images|lib|scripts|styles|views) {
-      proxy_pass http://127.0.0.1:9801;
-    }
-
-    location ~ ^/api(/?)(.*) {
-      proxy_set_header X-Real-IP  $remote_addr;
-            proxy_set_header X-Forwarded-For $remote_addr;
-            proxy_set_header Host $host;
-            proxy_pass http://127.0.0.1:9801/$2;
-    }
-
-    location / {
-      proxy_set_header X-Real-IP  $remote_addr;
-            proxy_set_header X-Forwarded-For $remote_addr;
-            proxy_set_header Host $host;
-            proxy_pass http://127.0.0.1:9800;
-    }
-
-
+  location / {
+    proxy_set_header X-Real-IP  $remote_addr;
+    proxy_set_header X-Forwarded-For $remote_addr;
+    proxy_set_header Host $host;
+    proxy_pass http://127.0.0.1:9800;
   }
+
+}
 
 
 ```
