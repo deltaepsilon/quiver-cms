@@ -60,39 +60,61 @@ app.use(require('cookie-session')({keys: [config.get('private.sessionSecret')]})
 /*
  * Static
  */
-var staticFolderService = function (name) {
+var staticFolderService = function (name, isFile) {
   return function (req, res) {
     var deferred = Q.defer(),
       route = ['.', config.get('private.cms.folder'), name],
       parts = req.url.split('/'),
-      path;
+      path,
+      i = parts.length;
 
-    parts.shift(); // Drop the blank part of the route
+    if (isFile) { // Serve individual file regardless of path
+      path = route.join('/');
+    } else { // Clean up folder paths
+      while (i--) {
+        if (parts[i] === '') {
+          parts.splice(i, 1);
+        }
+      }
 
-    path = route.concat(parts).join('/');
+      path = route.concat(parts).join('/');
+    }
+
     path = path.split('?')[0]; // Drop query strings
     res.setHeader('Content-Type', mime.lookup(path));
 
-    fs.readFile(path, 'utf8', function (err, data) {
+    fs.readFile(path, function (err, data) {
       return err ? deferred.reject(err) : deferred.resolve(data);
     });
 
     deferred.promise.then(function (data) {
       res.status(200).send(data);
-      setCache('/static' + req.url, data);
+      setCache(req.originalUrl, data);
     }, function (err) {
+      winston.error(404, path, err);
       res.sendStatus(404);
     });
   };
 };
 
+app.use(function (req, res, next) {
+  console.log(req.url);
+  next();
+});
+
 if (config.get('private.cms.staticEnabled')) {
   winston.info('serving static files from /' + config.get('private.cms.folder'));
-  app.use('/images', staticFolderService('images'));
-  app.use('/lib', staticFolderService('lib'));
-  app.use('/scripts', staticFolderService('scripts'));
-  app.use('/styles', staticFolderService('styles'));
-  app.use('/views', staticFolderService('views'));
+
+  _.each(['images', 'lib', 'scripts', 'styles', 'views'], function (folder) {
+    app.use('/' + folder, staticFolderService(folder));
+    app.use('/app/' + folder, staticFolderService(folder));
+    app.use('/app/admin/' + folder, staticFolderService(folder));
+
+  });
+
+
+
+  app.use('/app', staticFolderService('index.html', true));
 
 } else {
   winston.info('Not service static files from ' + config.get('private.cms.folder') + ". Make sure you're serving them with nginx or some other static file server.");

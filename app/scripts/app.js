@@ -19,7 +19,13 @@ angular.module('quiverCmsApp', [
       NotificationService.error('Server Unresponsive', 'The server could not be reached at ' + env.api + '. Try reloading the page or come back later.');
     });
 
-}).config(function ($stateProvider, $urlRouterProvider, quiverUtilitiesProvider, RestangularProvider, flowFactoryProvider) {
+}).config(function ($locationProvider, $stateProvider, $urlRouterProvider, quiverUtilitiesProvider, RestangularProvider, flowFactoryProvider) {
+    /*
+     *
+    */
+    $locationProvider.html5Mode(true).hashPrefix('!');
+
+
     /*
      * Configure Restangular
     */
@@ -71,6 +77,7 @@ angular.module('quiverCmsApp', [
        * Non-auth routes
       */
       .state('master', {
+        url: '/app',
         abstract: true,
         templateUrl: 'views/master.html',
         controller: 'MasterCtrl',
@@ -150,6 +157,7 @@ angular.module('quiverCmsApp', [
         }
       })
       .state('authenticated.master', {
+        url: '/app',
         abstract: true,
         templateUrl: 'views/master.html',
         controller: 'MasterCtrl',

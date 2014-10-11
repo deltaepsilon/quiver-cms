@@ -21,7 +21,7 @@
     "angular-scenario": "1.2.6"
   },
   "resolutions": {
-    "angular": ">=1.0.8",
+    "angular": ">=1.2.26",
     "angular-mocks": "~1.2.14"
   }
 }

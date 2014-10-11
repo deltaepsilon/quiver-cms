@@ -18,6 +18,7 @@ angular.module('quiverCmsApp')
      * Configure environment and set currentUser
     */
     $scope.environment = env.environment;
+    $scope.env = env;
 
     $scope.toLanding = toLanding;
 
@@ -71,6 +72,14 @@ angular.module('quiverCmsApp')
         NotificationService.success('Logout Success');
       });
     };
+
+    /*
+     * Redirect to static site
+    */
+    $scope.toStatic = function () {
+      location.replace('/');
+    }
+
 
 
   });

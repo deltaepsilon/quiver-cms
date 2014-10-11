@@ -24,7 +24,7 @@
     </section>
     <section class="top-bar-section">
         <ul class="right">
-            <li><a href="/">Main Site</a></li>
+            <li><a href="{{ env.root }}" ng-click="toStatic()">Main Site</a></li>
             <li ng-show="currentUser"><a ng-click="logOut()" ui-sref="master.nav.landing"><i class="fa fa-sign-out"></i> Log Out</a></li>
         </ul>
 
