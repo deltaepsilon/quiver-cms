@@ -26,12 +26,14 @@
     },
     "amazon": {
       "publicBucket": "assets.westeros.com"
+    },
+    "content": {
+      "redisEnabled": false
     }
   },
   "private": {
     "content": {
-      "port": 9800,
-      "redisEnabled": false
+      "port": 9800
     },
     "cms": {
       "folder": "app",

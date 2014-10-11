@@ -43,9 +43,9 @@ angular.module('quiverCmsApp')
     /*
      * Cache
     */
-    $scope.bustCache = function () {
-      AdminService.bustCache().then(function () {
-        NotificationService.success('Cached Busted!');
+    $scope.clearCache = function () {
+      AdminService.clearCache().then(function () {
+        NotificationService.success('Cached Cleared!');
       });
     };
 

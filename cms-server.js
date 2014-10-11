@@ -831,7 +831,7 @@ var Redis = require('redis'),
 
 redis.select(config.get('private.redis.dbIndex'));
 
-app.get('/bust-cache', function (req, res) {
+app.get('/clear-cache', function (req, res) {
   winston.info('flushing redis db');
   redis.flushdb();
   res.sendStatus(200);

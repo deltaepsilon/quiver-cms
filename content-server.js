@@ -33,8 +33,8 @@ app.set('view engine', 'handlebars');
 /*
  * Redis
 */
-winston.info('Redis enabled: ' + config.get('private.content.redisEnabled'));
-if (config.get('private.content.redisEnabled')) {
+winston.info('Redis enabled: ' + config.get('public.content.redisEnabled'));
+if (config.get('public.content.redisEnabled')) {
   var Redis = require('redis'),
     redisTTL = config.get('private.redis.ttl'),
     redis = Redis.createClient(),
