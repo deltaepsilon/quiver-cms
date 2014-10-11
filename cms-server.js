@@ -89,18 +89,12 @@ var staticFolderService = function (name, isFile) {
 
     deferred.promise.then(function (data) {
       res.status(200).send(data);
-      setCache(req.originalUrl, data);
     }, function (err) {
       winston.error(404, path, err);
       res.sendStatus(404);
     });
   };
 };
-
-app.use(function (req, res, next) {
-  console.log(req.url);
-  next();
-});
 
 if (config.get('private.cms.staticEnabled')) {
   winston.info('serving static files from /' + config.get('private.cms.folder'));

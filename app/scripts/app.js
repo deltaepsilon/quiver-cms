@@ -21,7 +21,7 @@ angular.module('quiverCmsApp', [
 
 }).config(function ($locationProvider, $stateProvider, $urlRouterProvider, quiverUtilitiesProvider, RestangularProvider, flowFactoryProvider) {
     /*
-     *
+     * HTML5 Mode
     */
     $locationProvider.html5Mode(true).hashPrefix('!');
 
