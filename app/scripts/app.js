@@ -24,7 +24,7 @@ angular.module('quiverCmsApp', [
     /*
      * HTML5 Mode
     */
-    if (window.envVars === 'production') {
+    if (window.envVars.environment === 'production') {
       $locationProvider.html5Mode(true).hashPrefix('!');
     }
 
