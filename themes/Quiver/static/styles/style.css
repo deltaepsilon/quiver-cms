@@ -11521,7 +11521,7 @@ button.callout:active, button.callout:focus, .button.callout:active, .button.cal
   font-size: 5rem;
   margin: 1rem 0;
   font-weight: 700;
-  letter-spacing: -2px;
+  letter-spacing: -6px;
   line-height: 3.5625rem;
   width: initial !important;
   word-break: break-all;
