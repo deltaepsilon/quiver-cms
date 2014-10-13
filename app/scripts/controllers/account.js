@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('quiverCmsApp')
-  .controller('AccountCtrl', function ($scope, UserService, NotificationService, md5) {
+  .controller('AccountCtrl', function ($scope, UserService, NotificationService) {
     $scope.user.$bindTo($scope, 'user'); // $scope.user is defined up the scope chain by AuthenticatedCtrl
 
     $scope.changePassword = function (email, oldPassword, newPassword) {

@@ -1,52 +1,61 @@
-<form name="accountForm" class="column small-12">
-    <h3 class="font-flair">Account</h3>
+<div class="column small-12">
+    <form name="accountForm">
+        <h3 class="font-flair">Account</h3>
 
-    <fieldset>
-        <label for="current-user-email">Login Email (cannot be changed)</label>
-        <a id="current-user-email" href="mailto:{{ currentUser.email }}">{{ currentUser.email }}</a>
+        <fieldset>
+            <label for="current-user-email">Login Email (cannot be changed)</label>
+            <a id="current-user-email" href="mailto:{{ currentUser.email }}">{{ currentUser.email }}</a>
 
-        <hr>
+            <hr>
 
-        <input type="text" ng-model="user.name" placeholder="Name..." required/>
+            <input type="text" ng-model="user.name" placeholder="Name..." required/>
 
-        <input type="email" ng-model="user.email" placeholder="Preferred email..." required/>
+            <input type="email" ng-model="user.email" placeholder="Preferred email..." required/>
 
-        <select name="gender" id="gender" ng-model="user.gender" placeholder="Gender">
-            <option value="">Gender...</option>
-            <option value="m">Male</option>
-            <option value="f">Female</option>
-        </select>
+            <select name="gender" id="gender" ng-model="user.gender" placeholder="Gender">
+                <option value="">Gender...</option>
+                <option value="m">Male</option>
+                <option value="f">Female</option>
+            </select>
 
-        <label for="birthday">Birthday</label>
-        <input id="birthday" type="date" ng-model="user.birthdate" placeholder="birthday"/>
+            <label for="birthday">Birthday</label>
+            <input id="birthday" type="date" ng-model="user.birthdate" placeholder="birthday"/>
 
-        <label for="website">Personal Website</label>
-        <input id="website" type="text" ng-model="user.website" placeholder="https://..."/>
+            <label for="website">Personal Website</label>
+            <input id="website" type="text" ng-model="user.website" placeholder="https://..."/>
 
-        <label for="twitter">Twitter Name</label>
-        <input id="twitter" type="text" ng-model="user.twitter" placeholder="BryanCranston..."/>
+            <label for="twitter">Twitter Name</label>
+            <input id="twitter" type="text" ng-model="user.twitter" placeholder="BryanCranston..."/>
 
-        <label for="instagram">Instagram Name</label>
-        <input id="instagram" type="text" ng-model="user.instagram" placeholder="glassofwhiskey..."/>
+            <label for="instagram">Instagram Name</label>
+            <input id="instagram" type="text" ng-model="user.instagram" placeholder="glassofwhiskey..."/>
 
 
-    </fieldset>
+        </fieldset>
 
-</form>
+    </form>
 
-<hr>
+    <form name="passwordForm">
+        <h3 class="font-flair">Change Password</h3>
+        <fieldset>
+            <input type="password" ng-model="oldPassword" placeholder="Old password..." required/>
+            <input type="password" ng-model="newPassword" placeholder="New password..." required/>
 
-<form name="passwordForm" class="column small-12">
-    <h3 class="font-flair">Change Password</h3>
-    <fieldset>
-        <input type="password" ng-model="oldPassword" placeholder="Old password..." required/>
-        <input type="password" ng-model="newPassword" placeholder="New password..." required/>
+            <ul class="inline-list">
+                <li>
+                    <button ng-click="changePassword(currentUser.email, oldPassword, newPassword)" ng-disabled="passwordForm.$invalid">Change Password</button>
+                </li>
+            </ul>
+        </fieldset>
+    </form>
 
-        <ul class="inline-list">
-            <li>
-                <button ng-click="changePassword(currentUser.email, oldPassword, newPassword)" ng-disabled="passwordForm.$invalid">Change Password</button>
-            </li>
-        </ul>
-    </fieldset>
-</form>
+    <form class="margin-vertical-x-large" name="emailForm">
+        <h3 class="font-flair">Preferences</h3>
 
+        <label class="left" for="marketing-email">Receive marketing email:</label>
+        <input id="marketing-email" class="margin-horizontal-large-important" type="checkbox" ng-model="user.preferences.marketing"/>
+
+    </form>
+
+
+</div>
