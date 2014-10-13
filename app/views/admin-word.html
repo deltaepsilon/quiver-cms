@@ -22,7 +22,14 @@
                 Edited: {{ word.published.edited |  date:'MM/dd/yy HH:mm' }}
             </li>
             <li class="text-x-small-important">
-                Created: {{ word.published.created |  date:'MM/dd/yy HH:mm' }}
+                <div class="cursor-pointer" style="margin-bottom: 44px;" ng-hide="editWord" ng-click="editWord = true">
+                    <label class="text-x-small" for="created-date">Created: {{ word.published.created |  date:'MM/dd/yy' }}</label>
+                </div>
+                <div ng-show="editWord">
+                    <label class="text-x-small" for="created-date">Created:</label>
+                    <input id="created-date" class="margin-zero-important" type="date" ng-model="word.published.created" ng-blur="editWord = false"/>
+                </div>
+
             </li>
             <li class="text-x-small-important" ng-class="{'active': $storage.activeDraft.edited == word.published.edited}">
                 <button class="text-x-small padding-small small-12" ng-click="makeActiveDraft(word.published)" ng-disabled="$storage.activeDraft.edited == word.published.edited">Make Active Draft</button>

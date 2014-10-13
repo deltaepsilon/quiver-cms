@@ -250,7 +250,7 @@ var chunks = [],
       } else {
 
         if ( flowChunkNumber % 5 === 0 ) { // Set notification on every fifth chunk
-          var notificationsRef = req.userRef.child('notifications').child(slug(flowFilename, {charmap: {'.': '-'}}).toLowerCase());
+          var notificationsRef = req.userRef.child('notifications').child(slug(flowFilename, {charmap: {'.': '-', '&': 'and'}}).toLowerCase());
           notificationsRef.set({
             loaded: flowChunkNumber / 3, // This is roughly the first third of the process, so divide the completion percentage by 3
             total: flowTotalChunks
