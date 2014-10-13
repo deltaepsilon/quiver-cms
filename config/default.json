@@ -75,9 +75,10 @@
       "dbIndex": 0,
       "ttl": 3600
     },
-    "elasticSearch": {
+    "elasticsearch": {
       "host": "127.0.0.1",
-      "port": 9200
+      "port": 9200,
+      "index": "cms"
     },
     "server": {
       "HostName": "server.my-remote-server.com",

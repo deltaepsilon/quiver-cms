@@ -16,7 +16,8 @@ var config = require('config'),
   Showdown = require('showdown'),
   mdConverter = new Showdown.converter(),
   ElasticSearchClient = require('elasticsearchclient'),
-  elasticSearchClient = new ElasticSearchClient(config.get('private.elasticSearch')),
+  elasticSearchClient = new ElasticSearchClient(config.get('private.elasticsearch')),
+  elasticSearchIndex = config.get('private.elasticsearch.index'),
   Feed = require('feed'),
   handlebars,
   theme,
@@ -182,7 +183,7 @@ var getFeed = function () {
     searchDeferred = Q.defer(),
     xml;
 
-  elasticSearchClient.search("cms", "word",{
+  elasticSearchClient.search(elasticSearchIndex, "word",{
     "query": {
       "match_all": {}
     }
@@ -368,7 +369,7 @@ app.get('/:slug', function (req, res) {
     searchDeferred = Q.defer(),
     url = req.protocol + '://' + req.hostname + req.url;
 
-  elasticSearchClient.search("cms", "word",{
+  elasticSearchClient.search(elasticSearchIndex, "word",{
     "query": {
       "match": {
         "key": key
@@ -418,7 +419,7 @@ app.get('/search/:searchTerm', function (req, res) {
   var deferred = Q.defer(),
     searchTerm = req.params.searchTerm;
 
-  elasticSearchClient.search("cms", "word", {"query": {"query_string": {"query": searchTerm}}}, function (err, data) {
+  elasticSearchClient.search(elasticSearchIndex, "word", {"query": {"query_string": {"query": searchTerm}}}, function (err, data) {
     return err ? deferred.reject(err) : deferred.resolve(JSON.parse(data));
   });
 
@@ -473,13 +474,13 @@ var createWordsIndex = function (words) {
       deleteDeferred = Q.defer(),
       commands = [];
 
-    elasticSearchClient.deleteByQuery("cms", "word", {"match_all": {}}, function (err, data) {
+    elasticSearchClient.deleteByQuery(elasticSearchIndex, "word", {"match_all": {}}, function (err, data) {
       return err ? deleteDeferred.reject(err) : deleteDeferred.resolve(data);
     });
 
     deleteDeferred.promise.then(function () {
       _.each(words, function (word, key) {
-        commands.push({"index": {"_index": "cms", "_type": "word"}});
+        commands.push({"index": {"_index": elasticSearchIndex, "_type": "word"}});
         commands.push(word);
       });
 

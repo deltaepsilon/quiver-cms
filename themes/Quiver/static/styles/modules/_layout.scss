@@ -8,14 +8,15 @@
 
 .site-title {
   @extend .font-secondary;
-  @extend .text-secondary3;
-  @extend .link-hover-secondary3;
+  @extend .text-secondary0;
+  @extend .link-hover-secondary0;
 
   display: block;
-  font-size: rem-calc(57);
+  font-size: 5rem;
   margin: 1rem 0;
 
-  letter-spacing: 1px;
+  font-weight: 700;
+  letter-spacing: -2px;
   line-height:rem-calc(57);
   width: initial !important;
   word-break: break-all;

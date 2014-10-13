@@ -11,7 +11,7 @@
 
 
     .post-title {
-      @extend .text-medium;
+      @extend .text-large;
       @extend .font-flair;
 
       line-height: 2rem;
@@ -145,7 +145,7 @@
         width: initial;
       }
       .post-title {
-        font-size: .75rem;
+        font-size: 1rem;
         min-height: 2rem;
         line-height: 1rem;
 
