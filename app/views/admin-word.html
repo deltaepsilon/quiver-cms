@@ -23,11 +23,11 @@
             </li>
             <li class="text-x-small-important">
                 <div class="cursor-pointer" style="margin-bottom: 44px;" ng-hide="editWord" ng-click="editWord = true">
-                    <label class="text-x-small" for="created-date">Created: {{ word.published.created |  date:'MM/dd/yy' }}</label>
+                    <label class="text-x-small" for="created-date">Published: {{ word.published.published |  date:'MM/dd/yy' }}</label>
                 </div>
                 <div ng-show="editWord">
-                    <label class="text-x-small" for="created-date">Created:</label>
-                    <input id="created-date" class="margin-zero-important" type="date" ng-model="word.published.created" ng-blur="editWord = false"/>
+                    <label class="text-x-small" for="created-date">Published:</label>
+                    <input id="created-date" class="margin-zero-important" type="date" ng-model="word.published.published" ng-blur="editWord = false"/>
                 </div>
 
             </li>

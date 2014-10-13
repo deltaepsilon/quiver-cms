@@ -27,7 +27,7 @@
                     <span class="cursor-pointer" contenteditable="true" ng-model="word.slug" ng-change="word.edited = true;">{{ word.slug }}</span>
                 </td>
                 <td>
-                    <select class="margin-zero" ng-model="word.type" ng-change="word.edited = true">
+                    <select class="margin-zero" style="min-width: 5rem;" ng-model="word.type" ng-change="word.edited = true">
                         <option value="">Select Type</option>
                         <option value="post">Post</option>
                         <option value="page">Page</option>
@@ -44,10 +44,12 @@
                         <li class="cursor-pointer" ng-repeat="hashtag in word.hashtags" ng-click="removeHashtag(word, hashtag.key)">#{{ hashtag.value }}</li>
                     </ul>
                 </td>
-                <td>{{ word.created | date }}</td>
                 <td>
-                    <span ng-show="word.published">
-                        {{ word.published.published | date }}
+                    <span class="text-x-small">{{ word.created | date:"MM/dd/yy" }}</span>
+                </td>
+                <td>
+                    <span class="text-x-small" ng-show="word.published">
+                        {{ word.published.published | date:"MM/dd/yy" }}
                         <a class="link-highlight0 link-hover-secondary0 margin-horizontal-xx-small" ng-click="unpublishWord(word)">X</a>
                     </span>
                     <span ng-hide="word.published">
