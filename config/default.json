@@ -42,6 +42,9 @@
       "language": "english",
       "categories": ["cats", "dogs"],
       "ttl": 3600
+    },
+    "google": {
+      "analyticsId": "UA-6859198-XX"
     }
   },
   "private": {

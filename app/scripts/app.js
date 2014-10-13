@@ -9,8 +9,9 @@ angular.module('quiverCmsApp', [
   'DeltaEpsilon.quiver-angular-utilities',
   'angular-md5',
   'ngStorage',
-  'flow'
-]).run(function ($rootScope, $state, Restangular, NotificationService, env) {
+  'flow',
+  'angular-google-analytics'
+]).run(function ($rootScope, $state, Restangular, NotificationService, env, Analytics) {
     $rootScope.$on('$stateChangeStart', function () {
       $state.previous = _.clone($state);
     });
@@ -19,12 +20,13 @@ angular.module('quiverCmsApp', [
       NotificationService.error('Server Unresponsive', 'The server could not be reached at ' + env.api + '. Try reloading the page or come back later.');
     });
 
-}).config(function ($locationProvider, $stateProvider, $urlRouterProvider, quiverUtilitiesProvider, RestangularProvider, flowFactoryProvider) {
+}).config(function ($locationProvider, $stateProvider, $urlRouterProvider, quiverUtilitiesProvider, RestangularProvider, flowFactoryProvider, AnalyticsProvider) {
     /*
      * HTML5 Mode
     */
-    $locationProvider.html5Mode(true).hashPrefix('!');
-
+    if (window.envVars === 'production') {
+      $locationProvider.html5Mode(true).hashPrefix('!');
+    }
 
     /*
      * Configure Restangular
@@ -45,6 +47,19 @@ angular.module('quiverCmsApp', [
      * Configure Default Route
     */
     $urlRouterProvider.otherwise('/app/');
+
+    /*
+     * Analytics
+    */
+    if (window.envVars.google && window.envVars.google.analyticsId) {
+      AnalyticsProvider.setAccount(window.envVars.google.analyticsId);
+      AnalyticsProvider.trackPages(true);
+      AnalyticsProvider.useAnalytics(true);
+      AnalyticsProvider.ignoreFirstPageLoad(true);
+      AnalyticsProvider.useECommerce(true);
+      AnalyticsProvider.setPageEvent('$stateChangeSuccess');
+    }
+
 
     /*
      * Convenience methods
@@ -84,6 +99,9 @@ angular.module('quiverCmsApp', [
         resolve: {
           currentUser: function (UserService) {
             return UserService.getUser();
+          },
+          settingsRef: function (AdminService) {
+            return AdminService.getSettings();
           }
         }
       })
@@ -164,6 +182,9 @@ angular.module('quiverCmsApp', [
         resolve: {
           currentUser: function (UserService) {
             return UserService.getUser();
+          },
+          settingsRef: function (AdminService) {
+            return AdminService.getSettings();
           }
         }
       })

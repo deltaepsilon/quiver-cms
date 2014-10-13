@@ -49,7 +49,10 @@ $font-sizes:
 //  src: local('Lobster'), url(https://fonts.gstatic.com/s/lobster/v9/NIaFDq6p6eLpSvtV2DTNDQLUuEpTyoUstqEm5AMlJo4.woff) format('woff');
 //}
 
-$font-secondary: "azo-sans-uber";
+//$font-secondary: "azo-sans-uber" helvetica arial sans-serif;
+$font-secondary: helvetica, arial, sans-serif;
+
 .font-secondary {
   font-family: $font-secondary;
+  letter-spacing: -1px;
 }

@@ -1,5 +1,7 @@
 .font-flair {
   @extend .font-secondary;
+
+  font-weight: 700;
 }
 
 // Text Transforms
@@ -13,6 +15,10 @@
 
 .capitalize {
   text-transform: capitalize;
+}
+
+.bold-important {
+  font-weight: 700 !important;
 }
 
 .cursor-pointer {

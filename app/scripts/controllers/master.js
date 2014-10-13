@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('quiverCmsApp')
-  .controller('MasterCtrl', function ($scope, currentUser, env, UserService, NotificationService, $state, md5) {
+  .controller('MasterCtrl', function ($scope, currentUser, env, UserService, NotificationService, $state, md5, settingsRef) {
     var loggedOutStates = ['master.nav.login', 'master.nav.register', 'master.nav.reset'],
       toLanding = function () {
         $state.go('master.nav.landing');
@@ -11,8 +11,6 @@ angular.module('quiverCmsApp')
           toLanding();
         }
       };
-
-
 
     /*
      * Configure environment and set currentUser
@@ -34,7 +32,10 @@ angular.module('quiverCmsApp')
     $scope.setCurrentUser(currentUser);
 
 
-
+    /*
+     * Settings
+    */
+    $scope.settings = settingsRef.$asObject();
 
 
 

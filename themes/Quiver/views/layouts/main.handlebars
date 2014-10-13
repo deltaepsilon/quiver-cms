@@ -43,6 +43,10 @@
     {{> livereload}}
   {{/if  }}
 
+  {{#if env.google.analyticsId }}
+    {{> analytics }}
+  {{/if }}
+
   {{> disqus-comment-count }}
 
   <script src="/static/lib/rainbow/js/rainbow.js"></script>
