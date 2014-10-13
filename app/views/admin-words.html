@@ -5,10 +5,10 @@
         <button ng-click="createWord(newWordTitle)" ng-disabled="newWordForm.$invalid" qv-focus="#new-word-title">Create</button>
     </form>
 
-    <hr>
+    <hr ng-show="words.length">
 
-    <input type="text" ng-model="authorFilter" ng-focus="authorFilter = ''" placeholder="Search..."/>
-    <table>
+    <input type="text" ng-show="words.length" ng-model="authorFilter" ng-focus="authorFilter = ''" placeholder="Search..."/>
+    <table ng-show="words.length">
         <thead>
             <tr>
                 <th>Author</th><th>Title</th><th>Slug</th><th>Type</th><th>Order</th><th>Hashtags</th><th></th><th>Created</th><th>Published</th><th>Action</th>

@@ -13,9 +13,10 @@ $border-sizes:
   }
 }
 
-$font-primary: "futura-pt";
+//$font-primary: "futura-pt";
+$font-primary: "Helvetica";
 .font-primary {
-  font-family: $font-primary;
+  font-family: $font-primary, "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
 }
 
 $font-sizes:
@@ -49,10 +50,10 @@ $font-sizes:
 //  src: local('Lobster'), url(https://fonts.gstatic.com/s/lobster/v9/NIaFDq6p6eLpSvtV2DTNDQLUuEpTyoUstqEm5AMlJo4.woff) format('woff');
 //}
 
-//$font-secondary: "azo-sans-uber" helvetica arial sans-serif;
-$font-secondary: helvetica, arial, sans-serif;
+//$font-secondary: "azo-sans-uber";
+$font-secondary: Helvetica;
 
 .font-secondary {
-  font-family: $font-secondary;
+  font-family: $font-secondary, Helvetica, Arial, sans-serif;
   letter-spacing: -1px;
 }

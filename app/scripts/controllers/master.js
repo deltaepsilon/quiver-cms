@@ -35,7 +35,9 @@ angular.module('quiverCmsApp')
     /*
      * Settings
     */
-    $scope.settings = settingsRef.$asObject();
+    settingsRef.$asObject().$loaded().then(function (settings) {
+       $scope.settings = settings;
+    });
 
 
 

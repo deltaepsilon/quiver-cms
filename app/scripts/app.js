@@ -231,9 +231,9 @@ angular.module('quiverCmsApp', [
           }
         }
       })
-      .state('authenticated.master.admin.landing', {
-        url: '/landing',
-        templateUrl: 'views/admin-landing.html'
+      .state('authenticated.master.admin.settings', {
+        url: '/settings',
+        templateUrl: 'views/admin-settings.html'
       })
       .state('authenticated.master.admin.words', {
         url: '/words',

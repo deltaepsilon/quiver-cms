@@ -1486,84 +1486,84 @@ a.link-hover-black-important:hover {
   border: 1px solid #000;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_font\.scss}line{font-family:\0000317}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_font\.scss}line{font-family:\0000318}}
 .font-primary {
-  font-family: "futura-pt";
+  font-family: "Helvetica", "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_font\.scss}line{font-family:\0000331}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_font\.scss}line{font-family:\0000332}}
 .text-xx-small {
   font-size: 0.625rem;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_font\.scss}line{font-family:\0000335}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_font\.scss}line{font-family:\0000336}}
 .text-xx-small-important {
   font-size: 0.625rem !important;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_font\.scss}line{font-family:\0000331}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_font\.scss}line{font-family:\0000332}}
 .text-x-small, .notifications .dr-notification-content p {
   font-size: 0.75rem;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_font\.scss}line{font-family:\0000335}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_font\.scss}line{font-family:\0000336}}
 .text-x-small-important {
   font-size: 0.75rem !important;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_font\.scss}line{font-family:\0000331}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_font\.scss}line{font-family:\0000332}}
 .text-small, .notifications .dr-notification-content h3, .type-ahead {
   font-size: 0.875rem;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_font\.scss}line{font-family:\0000335}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_font\.scss}line{font-family:\0000336}}
 .text-small-important {
   font-size: 0.875rem !important;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_font\.scss}line{font-family:\0000331}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_font\.scss}line{font-family:\0000332}}
 .text-medium, .title-contenteditable {
   font-size: 1rem;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_font\.scss}line{font-family:\0000335}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_font\.scss}line{font-family:\0000336}}
 .text-medium-important {
   font-size: 1rem !important;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_font\.scss}line{font-family:\0000331}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_font\.scss}line{font-family:\0000332}}
 .text-x-medium {
   font-size: 1.125rem;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_font\.scss}line{font-family:\0000335}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_font\.scss}line{font-family:\0000336}}
 .text-x-medium-important {
   font-size: 1.125rem !important;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_font\.scss}line{font-family:\0000331}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_font\.scss}line{font-family:\0000332}}
 .text-large, .block-form .title, .block-form label, .reveal-modal a.close-reveal-modal {
   font-size: 1.25rem;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_font\.scss}line{font-family:\0000335}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_font\.scss}line{font-family:\0000336}}
 .text-large-important {
   font-size: 1.25rem !important;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_font\.scss}line{font-family:\0000331}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_font\.scss}line{font-family:\0000332}}
 .text-x-large {
   font-size: 2.1875rem;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_font\.scss}line{font-family:\0000335}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_font\.scss}line{font-family:\0000336}}
 .text-x-large-important {
   font-size: 2.1875rem !important;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_font\.scss}line{font-family:\0000355}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/styles\/theme\/_font\.scss}line{font-family:\0000356}}
 .font-secondary, .font-flair {
-  font-family: helvetica, arial, sans-serif;
+  font-family: Helvetica, Helvetica, Arial, sans-serif;
   letter-spacing: -1px;
 }
 
@@ -2257,7 +2257,7 @@ body {
   color: #222;
   padding: 0;
   margin: 0;
-  font-family: "futura-pt" "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+  font-family: "Helvetica", "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
   font-weight: normal;
   font-style: normal;
   line-height: 24px;
@@ -2874,7 +2874,7 @@ button, .button {
   border-style: solid;
   border-width: 0px;
   cursor: pointer;
-  font-family: "futura-pt" "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+  font-family: "Helvetica", "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
   font-weight: normal;
   line-height: normal;
   margin: 0 0 1.25rem;
@@ -6377,7 +6377,7 @@ p aside {
 /* Default header styles */
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Development\/quiver-cms\/app\/lib\/foundation\/scss\/foundation\/components\/_type\.scss}line{font-family:\00003252}}
 h1, h2, h3, h4, h5, h6 {
-  font-family: "futura-pt" "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+  font-family: "Helvetica", "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
   font-weight: normal;
   font-style: normal;
   color: #222222;
@@ -6988,7 +6988,7 @@ meta.foundation-mq-topbar {
   color: #FFFFFF;
   padding: 12px 0 12px 0;
   padding-left: 15px;
-  font-family: "futura-pt" "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+  font-family: "Helvetica", "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
   font-size: 0.8125rem;
   font-weight: normal;
   text-transform: none;
