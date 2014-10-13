@@ -7,7 +7,6 @@ var config = require('config'),
   formidable = require('formidable'),
   winston = require('winston'),
   AWS = require('aws-sdk'),
-  S3 = new AWS.S3(),
   moment = require('moment'),
   Firebase = require('firebase'),
   Mandrill = require('mandrill-api/mandrill').Mandrill,
@@ -51,6 +50,7 @@ firebaseRoot.auth(firebaseSecret);
  * AWS config
 */
 AWS.config.update(config.get('private.amazon'));
+var S3 = new AWS.S3();
 
 /*
  * Generic Express middleware

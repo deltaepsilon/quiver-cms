@@ -92,6 +92,7 @@ if (config.get('public.content.redisEnabled')) {
  * Env.js
 */
 app.get('/env.js', function (req, res) {
+  res.setHeader('Content-Type', 'application/javascript');
   res.status(200).send("window.envVars = " + JSON.stringify(config.get('public')) + ";");
 });
 
@@ -111,7 +112,7 @@ app.use('/static', function (req, res) {
   res.setHeader('Content-Type', mime.lookup(path));
 
 //  console.log('path', path);
-  fs.readFile(path, 'utf8', function (err, data) {
+  fs.readFile(path, function (err, data) {
     return err ? deferred.reject(err) : deferred.resolve(data);
   });
 
@@ -364,6 +365,10 @@ app.get('/posts/:page', function (req, res) {
 });
 
 app.get('/:slug', function (req, res) {
+  if (!wordsIndex || !wordsIndex.length) {
+    return res.sendStatus(404);
+  }
+
   var slug = req.params.slug,
     key = wordsIndex[slug],
     searchDeferred = Q.defer(),
