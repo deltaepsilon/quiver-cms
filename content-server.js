@@ -365,7 +365,7 @@ app.get('/posts/:page', function (req, res) {
 });
 
 app.get('/:slug', function (req, res) {
-  if (!wordsIndex || !wordsIndex.length) {
+  if (!wordsIndex || !Object.keys(wordsIndex).length) {
     return res.sendStatus(404);
   }
 
