@@ -154,8 +154,6 @@ var getPaginatedWords = function () {
     return -1 * word.order;
   });
 
-  console.log('words', words.length);
-
   _.each(words, function (word) {
     if (word.published && word.type === 'post') {
       var length = getPostsLength(),
@@ -173,8 +171,6 @@ var getPaginatedWords = function () {
     }
 
   });
-
-  console.log('posts', posts);
 
   return posts;
 };

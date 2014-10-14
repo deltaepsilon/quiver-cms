@@ -1,7 +1,11 @@
 <div class="post-left">
     {{#if keyImage }}
       <a href="/{{ slug }}">
-          <img src="{{s3 keyImage.Versions.small.Key }}" alt="{{deSlug keyImage.Name }}"/>
+          {{#if keyImage.Versions.small.Key }}
+            <img src="{{s3 keyImage.Versions.small.Key }}" alt="{{deSlug keyImage.Name }}"/>
+          {{ else }}
+              <img src="{{s3 keyImage.Key }}" alt="{{deSlug keyImage.Name }}"/>
+          {{/if }}
       </a>
     {{/if }}
 </div>
