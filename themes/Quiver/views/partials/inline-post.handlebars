@@ -47,7 +47,9 @@
 
 
     <div class="excerpt">
-      {{markdown excerpt }}
+        {{#if excerpt }}
+          {{markdown excerpt }}
+        {{/if }}
     </div>
 
     <ul class="hashtags inline-list">

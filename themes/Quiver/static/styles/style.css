@@ -11655,12 +11655,13 @@ button.callout:active, button.callout:focus, .button.callout:active, .button.cal
 /* line 24, modules/_posts.scss */
 #posts .post .excerpt {
   margin-bottom: -1rem;
+  min-height: 2rem;
 }
-/* line 28, modules/_posts.scss */
+/* line 29, modules/_posts.scss */
 #posts .post .social {
   float: right;
 }
-/* line 36, modules/_posts.scss */
+/* line 37, modules/_posts.scss */
 #posts .post-block-tertiary > li {
   border-color: #aaa;
   border-style: dotted;
@@ -11669,57 +11670,57 @@ button.callout:active, button.callout:focus, .button.callout:active, .button.cal
   overflow: hidden;
 }
 
-/* line 57, modules/_posts.scss */
+/* line 58, modules/_posts.scss */
 #page .post-title {
   margin: 2rem 0 0rem;
 }
 
-/* line 63, modules/_posts.scss */
+/* line 64, modules/_posts.scss */
 .post-details {
   overflow: hidden;
 }
-/* line 66, modules/_posts.scss */
+/* line 67, modules/_posts.scss */
 .post-details .author-name {
   font-weight: bold;
   margin-right: 1rem;
   text-transform: uppercase;
 }
-/* line 79, modules/_posts.scss */
+/* line 80, modules/_posts.scss */
 .post-details .social {
   margin-bottom: 0;
 }
-/* line 82, modules/_posts.scss */
+/* line 83, modules/_posts.scss */
 .post-details .social li {
   margin-left: .5rem;
 }
 
-/* line 89, modules/_posts.scss */
+/* line 90, modules/_posts.scss */
 .post-body img {
   width: 100%;
 }
 
-/* line 95, modules/_posts.scss */
+/* line 96, modules/_posts.scss */
 .over-image {
   margin: 14.6875rem -2rem 1rem;
   padding: 2rem 2rem 1rem;
 }
 
-/* line 108, modules/_posts.scss */
+/* line 109, modules/_posts.scss */
 .comments {
   background-color: #fff !important;
 }
 
-/* line 113, modules/_posts.scss */
+/* line 114, modules/_posts.scss */
 .comment-count a {
   display: inline;
 }
 
 @media only screen and (max-width: 40em) {
-  /* line 122, modules/_posts.scss */
+  /* line 123, modules/_posts.scss */
   .post-block-secondary {
     margin: 0;
   }
-  /* line 125, modules/_posts.scss */
+  /* line 126, modules/_posts.scss */
   .post-block-secondary > li {
     border-color: #aaa;
     border-style: dotted;
@@ -11728,35 +11729,35 @@ button.callout:active, button.callout:focus, .button.callout:active, .button.cal
     padding: 0;
   }
 
-  /* line 135, modules/_posts.scss */
+  /* line 136, modules/_posts.scss */
   .share {
     width: 100%;
   }
 }
 @media only screen and (min-width: 40.063em) {
-  /* line 144, modules/_posts.scss */
+  /* line 145, modules/_posts.scss */
   #posts .post-block-secondary .post-left, #posts .post-block-secondary .post-right {
     width: initial;
   }
-  /* line 147, modules/_posts.scss */
+  /* line 148, modules/_posts.scss */
   #posts .post-block-secondary .post-title {
     font-size: 1rem;
     min-height: 2rem;
     line-height: 1rem;
   }
 
-  /* line 157, modules/_posts.scss */
+  /* line 158, modules/_posts.scss */
   .share {
     margin-left: 5rem;
   }
 }
 @media (min-width: 40.063em) and (max-width: 64em) {
-  /* line 164, modules/_posts.scss */
+  /* line 165, modules/_posts.scss */
   .post-block-secondary .social {
     float: left !important;
     margin-left: -0.5rem;
   }
-  /* line 168, modules/_posts.scss */
+  /* line 169, modules/_posts.scss */
   .post-block-secondary .publish-date {
     text-align: left;
   }
