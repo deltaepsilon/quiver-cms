@@ -52,8 +52,7 @@
 </div>
 
 <div class="column small-12 medium-8 large-10">
-
-    <table ng-show="files.Originals.length">
+    <table class="margin-vertical-x-medium" ng-show="files.Originals.length">
         <thead>
             <tr>
                 <th>Details</th><th>Preview</th><th>Link</th><th>Markdown</th><th>Action</th>
@@ -64,9 +63,10 @@
                 <td>
                     <div>
                         <select ng-model="fileVersion" ng-change="console.log(version)">
-                            <option value="" selected>Original ({{ file.Size / 1000 | number:0 }}kb)</option>
-                            <option ng-repeat="(key, version) in file.Versions" value="{{ key }}">{{ key }} {{ version.Name }} ({{ version.Size / 1000 | number:0 }}kb)</option>
+                            <option value="" selected>Original: ({{ file.Size / 1000 | number:0 }}kb)</option>
+                            <option ng-repeat="(key, version) in file.Versions" value="{{ key }}">{{ key }}: ({{ version.Size / 1000 | number:0 }}kb)</option>
                         </select>
+                        <span class="text-x-small">{{ file.Name }}</span>
                     </div>
 
                 </td>
