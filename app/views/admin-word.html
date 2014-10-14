@@ -6,6 +6,10 @@
 </div>
 
 <div class="column small-12 medium-4 large-2">
+    <button class="text-x-small padding-small small-12 margin-vertical-xx-small" ng-click="useTextarea = !useTextarea">
+        <span ng-show="useTextarea">Preview Mode</span>
+        <span ng-hide="useTextarea">Text Mode</span>
+    </button>
     <button class="text-x-small padding-small small-12 margin-vertical-xx-small" ng-click="saveDraft($storage.activeDraft)">Save As Draft</button>
     <button class="text-x-small padding-small small-12 margin-vertical-xx-small" ng-click="setPublishedDraft($storage.activeDraft)" ng-disabled="!$storage.activeDraft">Publish</button>
     <hr>
@@ -112,5 +116,12 @@
         <textarea class="small-12" ng-model="word.excerpt" placeholder="Once upon a time..."></textarea>
     </div>
 
-    <div ng-if="showDraft" class="small-12 background-secondary4 padding-small" qv-full-page target="#body" delay="300" contenteditable="true" ng-model="$storage.activeDraft.markdown" markdown-editable ng-change="handleActiveDraftChange($storage.activeDraft)" extensions="video"></div>
+    <div ng-hide="useTextarea">
+        <div ng-if="showDraft" class="small-12 background-secondary4 padding-small" qv-full-page target="#body" delay="300" contenteditable="true" ng-model="$storage.activeDraft.markdown" markdown-editable ng-change="handleActiveDraftChange($storage.activeDraft)" extensions="video"></div>
+    </div>
+
+    <div ng-show="useTextarea">
+        <textarea class="small-12" qv-full-page target="#body" ng-model="$storage.activeDraft.markdown">{{ $storage.activeDraft.markdown }}</textarea>
+    </div>
+
 </div>

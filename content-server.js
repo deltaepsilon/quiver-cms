@@ -136,8 +136,10 @@ winston.add(winston.transports.File, { filename: './logs/quiver-cms-content.log'
  * Words
 */
 var getPaginatedWords = function () {
-  var frontPostCount = settings.frontPostCount || 5,
-    secondaryPostCount = settings.secondaryPostCount || 5,
+  var primaryPostCount = settings.primaryPostCount || 1,
+    secondaryPostCount = settings.secondaryPostCount || 4,
+    tertiaryPostCount = settings.tertiaryPostCount || 10,
+    firstPageCount = primaryPostCount + secondaryPostCount + tertiaryPostCount,
     posts = [],
     getPostsLength = function () {
       var length = 0,
@@ -152,13 +154,15 @@ var getPaginatedWords = function () {
     return -1 * word.order;
   });
 
+  console.log('words', words.length);
+
   _.each(words, function (word) {
     if (word.published && word.type === 'post') {
       var length = getPostsLength(),
         nextPage = 0;
 
-      if (length + 1 > frontPostCount) {
-        nextPage = Math.ceil((length + 1 - frontPostCount) / secondaryPostCount);
+      if (length + 1 > firstPageCount) {
+        nextPage = Math.ceil((length + 1 - firstPageCount) / tertiaryPostCount);
       }
 
       if (!posts[nextPage]) {
@@ -169,6 +173,8 @@ var getPaginatedWords = function () {
     }
 
   });
+
+  console.log('posts', posts);
 
   return posts;
 };
