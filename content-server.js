@@ -26,7 +26,8 @@ var config = require('config'),
   hashtags,
   wordsIndex,
   noop = function () {},
-  setCache = noop;
+  setCache = noop,
+  htmlDateFormat = "ddd, DD MMM YYYY HH:mm:ss";
 
 /*
  * Templating
@@ -110,6 +111,8 @@ app.use('/static', function (req, res) {
   path = route.concat(parts).join('/');
   path = path.split('?')[0]; // Drop query strings
   res.setHeader('Content-Type', mime.lookup(path));
+  res.setHeader('Cache-Control', 'max-age=34536000');
+  res.setHeader('Expires', moment().add(5, 'year').format(htmlDateFormat)) + ' GMT';
 
 //  console.log('path', path);
   fs.readFile(path, function (err, data) {

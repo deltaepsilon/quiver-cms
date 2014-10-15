@@ -23,7 +23,8 @@ var config = require('config'),
   filePrefix = 'cms',
   firebaseEndpoint = config.get('public.firebase.endpoint'),
   firebaseRoot = new Firebase(firebaseEndpoint),
-  firebaseSecret = config.get('private.firebase.secret');
+  firebaseSecret = config.get('private.firebase.secret'),
+  htmlDateFormat = "ddd, DD MMM YYYY HH:mm:ss";
 
 /*
  * Winston logging config
@@ -82,6 +83,8 @@ var staticFolderService = function (name, isFile) {
 
     path = path.split('?')[0]; // Drop query strings
     res.setHeader('Content-Type', mime.lookup(path));
+    res.setHeader('Cache-Control', 'max-age=34536000');
+    res.setHeader('Expires', moment().add(5, 'year').format(htmlDateFormat)) + ' GMT';
 
     fs.readFile(path, function (err, data) {
       return err ? deferred.reject(err) : deferred.resolve(data);

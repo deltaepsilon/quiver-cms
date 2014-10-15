@@ -8,9 +8,9 @@
 
             <hr>
 
-            <input type="text" ng-model="user.name" placeholder="Name..." required/>
+            <input type="text" ng-model="user.name" placeholder="Name..." ng-model-options="{debounce: {'default': 500, 'blur': 0}}" required/>
 
-            <input type="email" ng-model="user.email" placeholder="Preferred email..." required/>
+            <input type="email" ng-model="user.email" placeholder="Preferred email..." ng-model-options="{debounce: {'default': 500, 'blur': 0}}" required/>
 
             <select name="gender" id="gender" ng-model="user.gender" placeholder="Gender">
                 <option value="">Gender...</option>
@@ -19,16 +19,16 @@
             </select>
 
             <label for="birthday">Birthday</label>
-            <input id="birthday" type="date" ng-model="user.birthdate" placeholder="birthday"/>
+            <input id="birthday" type="date" ng-model="birthdate" ng-blur="setBirthdate(birthdate)" placeholder="birthday"/>
 
             <label for="website">Personal Website</label>
-            <input id="website" type="text" ng-model="user.website" placeholder="https://..."/>
+            <input id="website" type="text" ng-model="user.website" ng-model-options="{debounce: {'default': 500, 'blur': 0}}" placeholder="https://..."/>
 
             <label for="twitter">Twitter Name</label>
-            <input id="twitter" type="text" ng-model="user.twitter" placeholder="BryanCranston..."/>
+            <input id="twitter" type="text" ng-model="user.twitter" ng-model-options="{debounce: {'default': 500, 'blur': 0}}" placeholder="BryanCranston..."/>
 
             <label for="instagram">Instagram Name</label>
-            <input id="instagram" type="text" ng-model="user.instagram" placeholder="glassofwhiskey..."/>
+            <input id="instagram" type="text" ng-model="user.instagram" ng-model-options="{debounce: {'default': 500, 'blur': 0}}" placeholder="glassofwhiskey..."/>
 
 
         </fieldset>

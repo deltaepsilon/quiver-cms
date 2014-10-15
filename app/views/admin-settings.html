@@ -16,15 +16,15 @@
         <fieldset class="clearfix" style="clear: both;">
             <div class="column small-12 medium-4">
                 <label for="site-title">Site Title</label>
-                <input id="site-title" type="text" ng-model="settings.siteTitle" placeholder="Site title..."/>
+                <input id="site-title" type="text" ng-model="settings.siteTitle" ng-model-options="{debounce: {'default': 500, 'blur': 0}}" placeholder="Site title..."/>
             </div>
             <div class="column small-12 medium-4">
                 <label for="front-page-image">Front Page Image</label>
-                <input id="front-page-image" type="text" ng-model="settings.frontPageImage" placeholder="https://..."/>
+                <input id="front-page-image" type="text" ng-model="settings.frontPageImage" ng-model-options="{debounce: {'default': 500, 'blur': 0}}" placeholder="https://..."/>
             </div>
             <div class="column small-12 medium-4">
                 <label for="secondary-page-image">Secondary Page Image</label>
-                <input id="secondary-page-image" type="text" ng-model="settings.secondaryPageImage" placeholder="https://..."/>
+                <input id="secondary-page-image" type="text" ng-model="settings.secondaryPageImage" ng-model-options="{debounce: {'default': 500, 'blur': 0}}" placeholder="https://..."/>
             </div>
 
             <div class="column small-12 medium-4">

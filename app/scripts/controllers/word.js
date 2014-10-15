@@ -16,7 +16,7 @@ angular.module('quiverCmsApp')
       if (!$scope.$storage.activeDraft || $scope.$storage.activeDraft.wordId !== $scope.word.$id) {
         $scope.$storage.activeDraft = {
           markdown: $scope.word.published ? $scope.word.published.markdown : '#Use your words! \n\n(But please make it Markdown...)',
-          created: moment().format(),
+          created: moment().toDate(),
           wordId: $scope.word.$id
         };
       }
@@ -53,10 +53,10 @@ angular.module('quiverCmsApp')
     $scope.drafts = draftsRef.$asArray();
 
     $scope.saveDraft = function (draft) {
-      draft.edited = moment().format();
+      draft.edited = moment().toDate();
 
       $scope.drafts.$add(draft).then(function () {
-        NotificationService.success('Draft Saved', 'Saved as ' + $filter('date')(draft.created, 'medium'));
+        NotificationService.success('Draft Saved', 'Saved as ' + $filter('date')(new Date(draft.created), 'medium'));
       });
     };
 
@@ -70,11 +70,11 @@ angular.module('quiverCmsApp')
       $scope.$storage.activeDraft = _.clone(draft);
       $scope.$storage.activeDraft.wordId = $scope.word.$id;
 
-      NotificationService.success('Draft Activated', $filter('date')(draft.created, 'medium'));
+      NotificationService.success('Draft Activated', $filter('date')(new Date(draft.created), 'medium'));
     };
 
     $scope.setPublishedDraft = function (draft) {
-      var datetime = moment().format();
+      var datetime = moment().toDate();
 
       draft.edited = datetime;
       draft.published = datetime;
@@ -87,11 +87,11 @@ angular.module('quiverCmsApp')
     };
 
     $scope.setEditedDatetime = function (draft) {
-      draft.edited = moment().format();
+      draft.edited = moment().toDate();
     };
 
     $scope.handleActiveDraftChange = function (draft) {
-      draft.edited = moment().format();
+      draft.edited = moment().toDate();
     };
 
     /*
@@ -155,6 +155,14 @@ angular.module('quiverCmsApp')
       delete $scope.locationSearch;
       delete $scope.locations;
       delete $scope.word.location;
+    };
+
+    $scope.setPublishedDate = function (word, publishedDate) {
+      word.published.published = moment(publishedDate).format();
+    };
+
+    $scope.resetPublishedDate = function (word) {
+      $scope.publishedDate = moment(word.published.published).toDate();
     };
 
   });

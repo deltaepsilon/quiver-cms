@@ -14,8 +14,8 @@
     <button class="text-x-small padding-small small-12 margin-vertical-xx-small" ng-click="setPublishedDraft($storage.activeDraft)" ng-disabled="!$storage.activeDraft">Publish</button>
     <hr>
     <h5>Active Draft</h5>
-    <div ng-show="$storage.activeDraft.edited" class="text-x-small">Edited: {{ $storage.activeDraft.edited | date:'MM/dd/yy HH:mm' }}</div>
-    <div ng-show="$storage.activeDraft.created" class="text-x-small">Created: {{ $storage.activeDraft.created | date:'MM/dd/yy HH:mm' }}</div>
+    <div ng-show="$storage.activeDraft.edited" class="text-x-small">Edited: {{ $storage.activeDraft.edited | moment:'MM/DD/YY HH:mm' }}</div>
+    <div ng-show="$storage.activeDraft.created" class="text-x-small">Created: {{ $storage.activeDraft.created | moment:'MM/DD/YY HH:mm' }}</div>
 
     <hr>
 
@@ -23,15 +23,15 @@
         <h5>Published</h5>
         <ul class="side-nav">
             <li class="text-x-small-important">
-                Edited: {{ word.published.edited |  date:'MM/dd/yy HH:mm' }}
+                Edited: {{ word.published.edited | moment:'MM/DD/YY HH:mm' }}
             </li>
             <li class="text-x-small-important">
                 <div class="cursor-pointer" style="margin-bottom: 44px;" ng-hide="editWord" ng-click="editWord = true">
-                    <label class="text-x-small" for="created-date">Published: {{ word.published.published |  date:'MM/dd/yy' }}</label>
+                    <label class="text-x-small" for="published-date">Published: {{ word.published.published |  moment:'MM/DD/YY' }}</label>
                 </div>
                 <div ng-show="editWord">
-                    <label class="text-x-small" for="created-date">Published:</label>
-                    <input id="created-date" class="margin-zero-important" type="date" ng-model="word.published.published" ng-blur="editWord = false"/>
+                    <label class="text-x-small" for="published-date">Published:</label>
+                    <input id="published-date" class="margin-zero-important" type="date" ng-model="publishedDate" ng-blur="editWord = false; resetPublishedDate(word)" ng-change="setPublishedDate(word, publishedDate)"/>
                 </div>
 
             </li>
@@ -51,8 +51,8 @@
         <h5>Drafts</h5>
         <ul class="side-nav">
             <li class="text-x-small" ng-repeat="draft in drafts" ng-class="{'active': $storage.activeDraft.edited == draft.edited}">
-                <a ng-if="$storage.activeDraft.edited != draft.edited" ng-click="makeActiveDraft(draft)">{{ draft.created | date:'MM/dd/yy HH:mm' }}</a>
-                <a ng-if="$storage.activeDraft.edited == draft.edited" qv-confirm="removeDraft(draft)" confirmations="['Click to Delete', 'Confirm Deletion']">{{ draft.created | date:'MM/dd/yy HH:mm' }}</a>
+                <a ng-if="$storage.activeDraft.edited != draft.edited" ng-click="makeActiveDraft(draft)">{{ draft.created | moment:'MM/DD/YY HH:mm' }}</a>
+                <a ng-if="$storage.activeDraft.edited == draft.edited" qv-confirm="removeDraft(draft)" confirmations="['Click to Delete', 'Confirm Deletion']">{{ draft.created | moment:'MM/DD/YY HH:mm' }}</a>
             </li>
         </ul>
 
@@ -109,11 +109,11 @@
         </ul>
     </div>
 
-    <div class="exerpt panel">
+    <div class="excerpt panel">
         <h5 class="left">Excerpt</h5>
         <a class="right" ng-click="clearExcerpt()" ng-show="word.excerpt">Clear</a>
         <hr>
-        <textarea class="small-12" ng-model="word.excerpt" placeholder="Once upon a time..."></textarea>
+        <textarea class="small-12" ng-model="word.excerpt" ng-model-options="{debounce: {'default': 500, 'blur': 0}}" placeholder="Once upon a time..."></textarea>
     </div>
 
     <div ng-hide="useTextarea">
