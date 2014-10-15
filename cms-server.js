@@ -107,7 +107,9 @@ if (config.get('private.cms.staticEnabled')) {
   });
 
 
-
+  app.use('/app/admin/words/*', function (req, res) {
+    res.redirect('/app/admin/words');
+  });
   app.use('/app', staticFolderService('index.html', true));
 
 } else {

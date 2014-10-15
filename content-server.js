@@ -487,20 +487,22 @@ var createWordsIndex = function (words) {
 
     deleteDeferred.promise.then(function () {
       _.each(words, function (word, key) {
+        if (!word.keyImage.Versions) {
+          word.keyImage.Versions = []; // This prevents a mapping error in elasticsearch. It doesn't like "keyImage.Versions: false"
+        }
         commands.push({"index": {"_index": elasticSearchIndex, "_type": "word"}});
         commands.push(word);
       });
 
       elasticSearchClient.bulk(commands, {})
         .on('data', function (data) {
-//        console.log(data);
+//          var commands = JSON.parse(data);
+//          _.each(commands, console.log);
         })
         .on('done', deferred.resolve)
         .on('error', deferred.reject)
         .exec();
     });
-
-
 
     return deferred.promise;
   };
