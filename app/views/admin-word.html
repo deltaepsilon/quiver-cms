@@ -116,11 +116,11 @@
         <textarea class="small-12" ng-model="word.excerpt" ng-model-options="{debounce: {'default': 500, 'blur': 0}}" placeholder="Once upon a time..."></textarea>
     </div>
 
-    <div ng-hide="useTextarea">
+    <div ng-if="!useTextarea">
         <div ng-if="showDraft" class="small-12 background-secondary4 padding-small" qv-full-page target="#body" delay="300" contenteditable="true" ng-model="$storage.activeDraft.markdown" markdown-editable ng-change="handleActiveDraftChange($storage.activeDraft)" extensions="video"></div>
     </div>
 
-    <div ng-show="useTextarea">
+    <div ng-if="useTextarea">
         <textarea class="small-12" qv-full-page target="#body" ng-model="$storage.activeDraft.markdown">{{ $storage.activeDraft.markdown }}</textarea>
     </div>
 

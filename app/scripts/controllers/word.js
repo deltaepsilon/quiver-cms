@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('quiverCmsApp')
-  .controller('WordCtrl', function ($scope, $timeout, moment, wordRef, draftsRef, filesRef, NotificationService, $filter, $localStorage, _, ClipboardService, LocationService) {
+  .controller('WordCtrl', function ($scope, $timeout, moment, wordRef, draftsRef, filesRef, NotificationService, $filter, $localStorage, _, ClipboardService, LocationService, env) {
 
     $scope.$storage = $localStorage;
 
@@ -16,7 +16,7 @@ angular.module('quiverCmsApp')
       if (!$scope.$storage.activeDraft || $scope.$storage.activeDraft.wordId !== $scope.word.$id) {
         $scope.$storage.activeDraft = {
           markdown: $scope.word.published ? $scope.word.published.markdown : '#Use your words! \n\n(But please make it Markdown...)',
-          created: moment().toDate(),
+          created: moment().format(),
           wordId: $scope.word.$id
         };
       }
@@ -53,7 +53,7 @@ angular.module('quiverCmsApp')
     $scope.drafts = draftsRef.$asArray();
 
     $scope.saveDraft = function (draft) {
-      draft.edited = moment().toDate();
+      draft.edited = moment().format();
 
       $scope.drafts.$add(draft).then(function () {
         NotificationService.success('Draft Saved', 'Saved as ' + $filter('date')(new Date(draft.created), 'medium'));
@@ -74,10 +74,15 @@ angular.module('quiverCmsApp')
     };
 
     $scope.setPublishedDraft = function (draft) {
-      var datetime = moment().toDate();
+      var datetime = moment().format();
 
       draft.edited = datetime;
-      draft.published = datetime;
+      if ($scope.word.published && $scope.word.published.published) {
+        draft.published = $scope.word.published.published;
+      } else {
+        draft.published = datetime;
+      }
+
       $scope.word.published = draft;
 
     };
@@ -87,11 +92,11 @@ angular.module('quiverCmsApp')
     };
 
     $scope.setEditedDatetime = function (draft) {
-      draft.edited = moment().toDate();
+      draft.edited = moment().format();
     };
 
     $scope.handleActiveDraftChange = function (draft) {
-      draft.edited = moment().toDate();
+      draft.edited = moment().format();
     };
 
     /*
@@ -111,11 +116,12 @@ angular.module('quiverCmsApp')
     };
 
     var SUFFIX_REGEX = /\.(\w+)$/,
-      imgList = ['jpg', 'jpeg', 'png', 'gif', 'tiff', 'ico'],
-      videoList = ['mp4', 'webm'];
+      imgList = env.supportedImageTypes,
+      videoList = env.supportedVideoTypes;
 
     $scope.addFromClipboard = function (file) {
-      var url = "https://s3.amazonaws.com/" + $scope.files.Name + "/" + file.Key,
+      var key = env.imageSizes.postSize && file.Versions[env.imageSizes.postSize] ? file.Versions[env.imageSizes.postSize].Key : file.Key,
+        url = "https://s3.amazonaws.com/" + $scope.files.Name + "/" + key,
         matches = file.Key.match(SUFFIX_REGEX),
         suffix = (matches && matches.length > 0) ? matches[1].toLowerCase() : null,
         isImg = !!~imgList.indexOf(suffix),
@@ -123,11 +129,11 @@ angular.module('quiverCmsApp')
         markdown = "\n\n";
 
       if (isImg) {
-        markdown += '![' + $filter('filename')(file.Key) + '](' + url + ')';
+        markdown += '![' + $filter('filename')(key) + '](' + url + ')';
       } else if (isVideo) {
-        markdown += '!![' + $filter('filename')(file.Key) + '](' + url + ')';
+        markdown += '!![' + $filter('filename')(key) + '](' + url + ')';
       } else {
-        markdown += '[' + $filter('filename')(file.Key) + '](' + url + ')';
+        markdown += '[' + $filter('filename')(key) + '](' + url + ')';
       }
 
       $scope.$storage.activeDraft.markdown +=  markdown;

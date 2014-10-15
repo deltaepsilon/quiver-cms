@@ -34,7 +34,7 @@
                     </select>
                 </td>
                 <td>
-                    <input class="margin-zero-important" ng-show="word.type == 'post'" type="number" ng-model="word.order" ng-change="word.edited = true;"/>
+                    <input class="margin-zero-important" ng-show="word.type == 'post'" type="number" ng-model="word.order" ng-model-options="{debounce: {'default': 500}}" ng-change="word.edited = true;"/>
                 </td>
                 <td>
                     <input class="margin-zero-important" type="text" placeholder="Hashtag..." ng-model="newHashtag" qv-enter="addHashtag(word, newHashtag); newHashtag = null;" qv-type-ahead include="hashtags" exclude="word.hashtags" prepopulate="true" top-offset="-1"/>

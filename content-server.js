@@ -162,8 +162,8 @@ var getPaginatedWords = function () {
       var length = getPostsLength(),
         nextPage = 0;
 
-      if (length + 1 > firstPageCount) {
-        nextPage = Math.ceil((length + 1 - firstPageCount) / tertiaryPostCount);
+      if (length +1 >= firstPageCount) {
+        nextPage = Math.ceil((length + 2 - firstPageCount) / tertiaryPostCount);
       }
 
       if (!posts[nextPage]) {

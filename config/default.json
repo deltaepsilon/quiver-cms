@@ -14,7 +14,8 @@
       "small": 640,
       "medium": 1024,
       "large": 1440,
-      "xlarge": 1920
+      "xlarge": 1920,
+      "postSize": "medium"
     },
     "supportedImageTypes": ["jpg", "jpeg", "png", "gif", "tiff"],
     "supportedVideoTypes": ["mp4", "webm", "mpeg", "ogg"],
