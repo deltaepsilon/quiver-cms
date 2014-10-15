@@ -2607,7 +2607,7 @@ body {
   padding: 0;
   margin: 0;
   font-family: "museo-sans-condensed" "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
-  font-weight: normal;
+  font-weight: 300;
   font-style: normal;
   line-height: 24px;
   position: relative;
@@ -3224,7 +3224,7 @@ button, .button {
   border-width: 0px;
   cursor: pointer;
   font-family: "museo-sans-condensed" "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
-  font-weight: normal;
+  font-weight: 300;
   line-height: normal;
   margin: 0 0 1.25rem;
   position: relative;
@@ -4396,7 +4396,7 @@ label {
   color: #4d4d4d;
   cursor: pointer;
   display: block;
-  font-weight: normal;
+  font-weight: 300;
   line-height: 1.5;
   margin-bottom: 0;
   /* Styles for required inputs */
@@ -4843,7 +4843,7 @@ fieldset legend {
   margin-top: -1px;
   margin-bottom: 1rem;
   font-size: 0.75rem;
-  font-weight: normal;
+  font-weight: 300;
   font-style: italic;
   background: #f04124;
   color: #FFFFFF;
@@ -4860,7 +4860,7 @@ span.error, small.error {
   margin-top: -1px;
   margin-bottom: 1rem;
   font-size: 0.75rem;
-  font-weight: normal;
+  font-weight: 300;
   font-style: italic;
   background: #f04124;
   color: #FFFFFF;
@@ -4889,7 +4889,7 @@ span.error, small.error {
   margin-top: -1px;
   margin-bottom: 1rem;
   font-size: 0.75rem;
-  font-weight: normal;
+  font-weight: 300;
   font-style: italic;
   background: #f04124;
   color: #FFFFFF;
@@ -6781,7 +6781,7 @@ a img {
 /* line 234, ../lib/foundation/scss/foundation/components/_type.scss */
 p {
   font-family: inherit;
-  font-weight: normal;
+  font-weight: 300;
   font-size: 1rem;
   line-height: 1.6;
   margin-bottom: 1.25rem;
@@ -6803,8 +6803,8 @@ p aside {
 /* line 252, ../lib/foundation/scss/foundation/components/_type.scss */
 h1, h2, h3, h4, h5, h6 {
   font-family: "museo-sans-condensed" "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
-  font-weight: normal;
-  font-style: normal;
+  font-weight: 300;
+  font-style: 300;
   color: #222222;
   text-rendering: optimizeLegibility;
   margin-top: 0.2rem;
@@ -6852,7 +6852,7 @@ h6 {
 .subheader {
   line-height: 1.4;
   color: #6f6f6f;
-  font-weight: normal;
+  font-weight: 300;
   margin-top: 0.2rem;
   margin-bottom: 0.5rem;
 }
@@ -6890,7 +6890,7 @@ small {
 /* line 304, ../lib/foundation/scss/foundation/components/_type.scss */
 code {
   font-family: Consolas, "Liberation Mono", Courier, monospace;
-  font-weight: normal;
+  font-weight: 300;
   color: #333333;
   background-color: #f8f8f8;
   border-width: 1px;
@@ -7307,7 +7307,7 @@ meta.foundation-mq-topbar {
 }
 /* line 196, ../lib/foundation/scss/foundation/components/_top-bar.scss */
 .top-bar .name h1 a {
-  font-weight: normal;
+  font-weight: 300;
   color: #FFFFFF;
   width: 75%;
   display: block;
@@ -7415,7 +7415,7 @@ meta.foundation-mq-topbar {
   padding-left: 15px;
   font-family: "museo-sans-condensed" "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
   font-size: 0.8125rem;
-  font-weight: normal;
+  font-weight: 300;
   text-transform: none;
 }
 /* line 315, ../lib/foundation/scss/foundation/components/_top-bar.scss */
@@ -7615,12 +7615,12 @@ meta.foundation-mq-topbar {
 }
 /* line 402, ../lib/foundation/scss/foundation/components/_top-bar.scss */
 .top-bar-section .dropdown li a {
-  font-weight: normal;
+  font-weight: 300;
   padding: 8px 15px;
 }
 /* line 405, ../lib/foundation/scss/foundation/components/_top-bar.scss */
 .top-bar-section .dropdown li a.parent-link {
-  font-weight: normal;
+  font-weight: 300;
 }
 /* line 410, ../lib/foundation/scss/foundation/components/_top-bar.scss */
 .top-bar-section .dropdown li.title h5, .top-bar-section .dropdown li.parent-link {
