@@ -46,7 +46,7 @@
                 <form>
                     <label for="nav1-link-text">Nav #1 Links</label>
 
-                    <input ng-hide="settings.nav1Title" id="nav1-title" type="text" ng-model="nav1Title" placeholder="Nav 1 title..." ng-blur="settings.nav1Title = nav1Title; nav1Title = null;"/>
+                    <input ng-hide="settings.nav1Title" id="nav1-title" type="text" ng-model="nav1Title" placeholder="Nav 1 title..." ng-blur="settings.nav1Title = nav1Title || null; nav1Title = null;"/>
                     <span class="title-contenteditable" ng-show="settings.nav1Title" ng-model="settings.nav1Title" contenteditable="true">{{ settings.nav1Title }}</span>
 
                     <input id="nav1-link-text" type="text" ng-model="nav1New.text" placeholder="New link text..."/>
