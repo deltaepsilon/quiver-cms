@@ -189,23 +189,36 @@ var getFeed = function () {
     searchDeferred = Q.defer(),
     xml;
 
-  elasticSearchClient.search(elasticSearchIndex, "word",{
-    "query": {
-      "match_all": {}
-    }
-  }, function (err, data) {
-    var data = JSON.parse(data),
-      words = [];
+//  elasticSearchClient.search(elasticSearchIndex, "word",{
+//    "query": {
+//      "match_all": {}
+//    }
+//  }, function (err, data) {
+//    var data = JSON.parse(data),
+//      words = [];
+//
+//    if (data && data.hits && data.hits.hits) {
+//      _.each(data.hits.hits, function (hit) {
+//        words.push(hit._source);
+//      });
+//    } else {
+//      err = "Search failed.";
+//    }
+//
+//    words = _.sortBy(words, function (word) {
+//      return -1 * word.order;
+//    });
+//
+//    _.each(words, function (word) {
+//      console.log(word.order);
+//    });
+//
+//    return err ? searchDeferred.reject(err || data.error) : searchDeferred.resolve(words);
+//  });
 
-    if (data && data.hits && data.hits.hits) {
-      _.each(data.hits.hits, function (hit) {
-        words.push(hit._source);
-      });
-    } else {
-      err = "Search failed.";
-    }
-    return err ? searchDeferred.reject(err || data.error) : searchDeferred.resolve(words);
-  });
+  searchDeferred.resolve(_.sortBy(words, function (word) {
+    return -1 * word.order;
+  }));
 
   searchDeferred.promise.then(function (words) {
     var feedOptions = _.defaults(config.get('public.rss'), {pubDate: new Date()}),
