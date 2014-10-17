@@ -228,10 +228,21 @@ var getFeed = function () {
     _.each(words, function (word) {
       if (word.published) {
         var categories = [],
-          item;
+          item,
+          keyImage = word.keyImage,
+          markdown = word.published.markdown;
+
         _.each(word.hashtags, function (hashtag) {
           categories.push(hashtag.key);
         });
+
+        if (keyImage) {
+          if (keyImage.Versions && keyImage.Versions.small) {
+            keyImage = keyImage.Versions.small;
+          }
+
+          markdown = '!['+ (word.keyImage.Name || keyImage.Key) + '](' + helpers.s3(keyImage.Key) + ')\n\n' + markdown;
+        }
 
         item = {
           "title": word.title || "no title",
@@ -245,7 +256,7 @@ var getFeed = function () {
             email: word.author.email,
             link: word.author.website
           }],
-          "content": mdConverter.makeHtml(word.published.markdown)
+          "content": mdConverter.makeHtml(markdown)
 
         };
 
@@ -503,8 +514,8 @@ var createWordsIndex = function (words) {
 
     deleteDeferred.promise.then(function () {
       _.each(words, function (word, key) {
-        if (!word.keyImage.Versions) {
-          word.keyImage.Versions = []; // This prevents a mapping error in elasticsearch. It doesn't like "keyImage.Versions: false"
+        if (word.keyImage && !word.keyImage.Versions) {
+          word.keyImage.Versions = {}; // This prevents a mapping error in elasticsearch. It doesn't like "keyImage.Versions: false"
         }
         commands.push({"index": {"_index": elasticSearchIndex, "_type": "word"}});
         commands.push(word);
@@ -518,6 +529,8 @@ var createWordsIndex = function (words) {
         .on('done', deferred.resolve)
         .on('error', deferred.reject)
         .exec();
+    }, function (err) {
+      winston.error('elasticsearch delete', err);
     });
 
     return deferred.promise;
