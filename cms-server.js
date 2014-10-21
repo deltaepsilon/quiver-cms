@@ -340,7 +340,8 @@ app.use(function (req, res, next) {
   var userToken = req.headers.authorization,
     userId = req.headers['user-id'],
     userRef = new Firebase(firebaseEndpoint + '/users/' + userId),
-    handleAuthError = function () {
+    handleAuthError = function (err) {
+      winston.log('userRef auth', err);
       return res.status(401).send({'error': 'Not authorized. userId and authorization headers must be present and valid.'});
     };
 
@@ -350,17 +351,36 @@ app.use(function (req, res, next) {
 
   userRef.auth(userToken, function (err, currentUser) {
     if (err) {
-      return handleAuthError();
+      return handleAuthError(err);
     } else {
+      req.userRef = userRef;
       userRef.once('value', function (snapshot) {
         var user = snapshot.val();
 
-        if (!user) {
-          return handleAuthError();
-        } else {
-          req.user = user;
-          req.userRef = userRef;
+        req.user = user;
 
+        if (!user) { // Create a user if necessary
+          userRef.set({
+            'public': {
+              email: currentUser.auth.email,
+              id: currentUser.auth.id
+            },
+            'private': {
+              isAdmin: false
+            }
+          }, function (err) {
+            if (err) {
+              return handleAuthError(err);
+            } else {
+              userRef.once('value', function (snapshot) {
+                req.user = snapshot.val();
+                next();
+              });
+
+            }
+          });
+
+        } else {
           next();
         }
 
@@ -371,11 +391,21 @@ app.use(function (req, res, next) {
 
 });
 
+app.use('/admin', function (req, res, next) {
+  if (!req.user || !req.user.private || !req.user.private.isAdmin) {
+    res.sendStatus(401);
+  } else {
+    next();
+  }
+
+});
+
 /*
  * REST
  * 1. Files
  * 2. Social
  * 3. Redis
+ * 4. User
 */
 
 
@@ -441,7 +471,7 @@ var updateFilesRegister = function() { //Cache S3.listObjects result to Firebase
   return deferred.promise;
 };
 
-app.get('/files-update', function (req, res) {
+app.get('/admin/files-update', function (req, res) {
   console.log('here!');
   updateFilesRegister().then(function (s3Data) {
     res.json(s3Data);
@@ -450,7 +480,7 @@ app.get('/files-update', function (req, res) {
   });
 });
 
-app.get('/files', function (req, res) { // Typically used merely for Flow.js testing purposes
+app.get('/admin/files', function (req, res) { // Typically used merely for Flow.js testing purposes
   /* req.query = {
      flowChunkNumber: '1',
      flowChunkSize: '1048576',
@@ -465,8 +495,8 @@ app.get('/files', function (req, res) { // Typically used merely for Flow.js tes
   res.sendStatus(200);
 });
 
-app.post('/files', parseFlow); // Use formidable body parser... the Flow variety
-app.post('/files', function (req, res) {
+app.post('/admin/files', parseFlow); // Use formidable body parser... the Flow variety
+app.post('/admin/files', function (req, res) {
   /*
    * Configure S3 payload from request
   */
@@ -559,7 +589,7 @@ app.post('/files', function (req, res) {
 
 });
 
-app.delete('/files/:fileName', function (req, res) {
+app.delete('/admin/files/:fileName', function (req, res) {
   var fileName = req.params.fileName,
     deleteObject = function (folder) {
       var deleteDeferred = Q.defer(),
@@ -777,7 +807,7 @@ var resizeImages = function () {
   return responseDeferred.promise;
 };
 
-app.get('/resize', function (req, res) {
+app.get('/admin/resize', function (req, res) {
   _.delay(function () {
     resizeImages().then(updateFilesRegister, updateFilesRegister).then(function (data) {
       res.json(data);
@@ -835,7 +865,7 @@ var searchInstagram = function () {
   return finalDeferred.promise;
 };
 
-app.get('/instagram', function (req, res) {
+app.get('/admin/instagram', function (req, res) {
   searchInstagram().then(function () {
     res.sendStatus(200);
   }, function (err) {
@@ -852,10 +882,17 @@ var Redis = require('redis'),
 
 redis.select(config.get('private.redis.dbIndex'));
 
-app.get('/clear-cache', function (req, res) {
+app.get('/admin/clear-cache', function (req, res) {
   winston.info('flushing redis db');
   redis.flushdb();
   res.sendStatus(200);
+});
+
+/*
+ * User
+*/
+app.get('/user/:userId', function (req, res) {
+  res.json(req.user);
 });
 
 

@@ -512,6 +512,7 @@ var createWordsIndex = function (words) {
       return err ? deleteDeferred.reject(err) : deleteDeferred.resolve(data);
     });
 
+
     deleteDeferred.promise.then(function () {
       _.each(words, function (word, key) {
         if (word.keyImage && !word.keyImage.Versions) {
@@ -631,4 +632,3 @@ firebaseRoot.auth(firebaseSecret, function () {
 
 
 });
-

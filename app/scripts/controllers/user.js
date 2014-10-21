@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('quiverCmsApp')
-  .controller('UserCtrl', function ($scope, $state, UserService, NotificationService) {
+  .controller('UserCtrl', function ($scope, $state, UserService, NotificationService, AdminService) {
     var parseError = function (err) {
       var parts = err.message.split(':');
 
@@ -13,9 +13,15 @@ angular.module('quiverCmsApp')
     }
 
     $scope.logIn = function (email, password) {
-      UserService.logIn(email, password, true).then(function (currentUser) {
+      UserService.logIn(email, password).then(function (currentUser) {
+        var headers = {"authorization": currentUser.firebaseAuthToken, "user-id": currentUser.id};
+
         NotificationService.success('Login Success');
         $scope.setCurrentUser(currentUser);
+
+        AdminService.getUser(currentUser.id, headers).then(function (user) {}, function (err) {
+          NotificationService.error('Login Error', err);
+        });
         $scope.toLanding();
 
       }, function (error) {

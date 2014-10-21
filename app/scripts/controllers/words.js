@@ -60,8 +60,20 @@ angular.module('quiverCmsApp')
 
     $scope.makeAuthor = function (word, user) {
       word.edited = true;
-      word.author = user;
+      word.author = user.public;
       word.author.id = parseInt(user.$id);
+    };
+
+    var authorAttributes = ['birthdate', 'email', 'gender', 'instagram', 'name', 'twitter', 'instagram', 'website'];
+    $scope.isAuthor = function (author, user) {
+      var i = authorAttributes.length;
+
+      while (i--) {
+        if (author[authorAttributes[i]] !== user[authorAttributes[i]]) {
+          return false;
+        }
+      }
+      return true;
     };
 
     /*

@@ -15,11 +15,15 @@ angular.module('quiverCmsApp')
       });
     };
 
-    $scope.$watch('user.birthdate', function () {
-      $scope.birthdate = moment($scope.user.birthdate).toDate();
+    $scope.$watch('user.public.birthdate', function () {
+      if ($scope.user && $scope.user.public && $scope.user.public.birthdate) {
+        $scope.birthdate = moment($scope.user.public.birthdate).toDate();
+      }
+
     });
+
     $scope.setBirthdate = function (birthdate) {
-      $scope.user.birthdate = moment(birthdate).format();
+      $scope.user.public.birthdate = moment(birthdate).format();
     };
 
   });

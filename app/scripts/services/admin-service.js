@@ -42,7 +42,7 @@ angular.module('quiverCmsApp')
       },
 
       updateInstagram: function () {
-        return Restangular.one('instagram').get();
+        return Restangular.one('admin').one('instagram').get();
       },
 
       getTheme: function () {
@@ -54,7 +54,11 @@ angular.module('quiverCmsApp')
       },
 
       clearCache: function () {
-        return Restangular.one('clear-cache').get();
+        return Restangular.one('admin').one('clear-cache').get();
+      },
+
+      getUser: function (id, headers) {
+        return Restangular.one('user').one(id).get({}, headers);
       }
     }
   });

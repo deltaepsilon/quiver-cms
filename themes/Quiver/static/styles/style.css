@@ -11567,6 +11567,22 @@ button.callout:active, button.callout:focus, .button.callout:active, .button.cal
   left: -5000px;
 }
 
+/* line 61, modules/_layout.scss */
+.blurred {
+  position: relative;
+}
+/* line 64, modules/_layout.scss */
+.blurred:after {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: block;
+  background: gold;
+  z-index: 1;
+}
+
 /* line 1, modules/_notifications.scss */
 #notifications-wrapper {
   position: fixed;

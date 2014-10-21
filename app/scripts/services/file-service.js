@@ -12,15 +12,15 @@ angular.module('quiverCmsApp')
         formData.append('size', size);
 
 
-        return Restangular.all('files').withHttpConfig({transformRequest: angular.identity}).customPOST(formData, file.name, undefined, {'Content-Type': undefined});
+        return Restangular.one('admin').all('files').withHttpConfig({transformRequest: angular.identity}).customPOST(formData, file.name, undefined, {'Content-Type': undefined});
       },
 
       remove: function (key) {
-        return Restangular.one('files', key).remove();
+        return Restangular.one('admin').one('files', key).remove();
       },
 
       setMetadata: function (key, metadata) {
-        return Restangular.one('files', key).post('metadata', metadata);
+        return Restangular.one('admin').one('files', key).post('metadata', metadata);
       },
 
       uploadFlow: function (Flow) {
@@ -52,7 +52,7 @@ angular.module('quiverCmsApp')
       },
 
       resize: function () {
-        return Restangular.one('resize').get();
+        return Restangular.one('admin').one('resize').get();
       }
 
     };

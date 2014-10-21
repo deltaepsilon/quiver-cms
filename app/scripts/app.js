@@ -92,7 +92,7 @@ angular.module('quiverCmsApp', [
        * Non-auth routes
       */
       .state('master', {
-        url: '/app',
+      url: '/app',
         abstract: true,
         templateUrl: 'views/master.html',
         controller: 'MasterCtrl',
@@ -151,7 +151,7 @@ angular.module('quiverCmsApp', [
         templateUrl: 'views/authenticated.html',
         controller: 'AuthenticatedCtrl',
         resolve: {
-          user: function ($q, $state, UserService) {
+          user: function ($q, $state, UserService, AdminService) {
             var deferred = $q.defer();
             UserService.getUser().then(function (currentUser) {
 

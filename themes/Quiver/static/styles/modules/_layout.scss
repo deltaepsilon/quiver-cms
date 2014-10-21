@@ -58,3 +58,16 @@
   }
 }
 
+.blurred {
+  position: relative;
+  
+  &:after {
+    @include absolute();
+    
+    display: block;
+    background: gold;
+    z-index: 1;
+    
+  }
+}
+
