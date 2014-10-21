@@ -892,7 +892,12 @@ app.get('/admin/clear-cache', function (req, res) {
  * User
 */
 app.get('/user/:userId', function (req, res) {
-  res.json(req.user);
+  if (parseInt(req.user.public.id) === parseInt(req.params.userId)) {
+    res.json(req.user);
+  } else {
+    res.sendStatus(403);
+  }
+
 });
 
 
