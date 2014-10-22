@@ -314,6 +314,9 @@ angular.module('quiverCmsApp', [
         resolve: {
           productsRef: function (AdminService) {
             return AdminService.getProducts();
+          },
+          filesRef: function (AdminService) {
+            return AdminService.getFiles();
           }
         }
       })

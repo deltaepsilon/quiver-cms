@@ -76,8 +76,12 @@ angular.module('quiverCmsApp')
     product.$bindTo($scope, 'product');
 
     product.$loaded().then(function () {
-      if (!$scope.product.markdown) {
-        $scope.product.markdown = "### Let's add some [CommonMark](http://commonmark.org)";
+      if (!$scope.product.description) {
+        $scope.product.description = {};
+      }
+
+      if (!$scope.product.description.markdown) {
+        $scope.product.description.markdown = "### Let's add a [CommonMark](http://commonmark.org) product description!";
       }
 
       $scope.$watch('product', checkValidity);

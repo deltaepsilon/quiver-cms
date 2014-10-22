@@ -23,9 +23,11 @@
             <option value="gift">Gift</option>
         </select>
 
-        <input type="text" name="product-slug" ng-model='product.slug' placeholder="Slug..." ng-change="slugify(); checkValidity()">
+        <label for="product-slug">Slug</label>
+        <input id="product-slug" type="text" name="product-slug" ng-model='product.slug' placeholder="Slug..." ng-change="slugify(); checkValidity()">
 
-        <input type="number" name="product-price" ng-model="product.price" placeholder="Price in USD..." ng-change="checkValidity()">
+        <label for="product-price">Price</label>
+        <input id="product-price" type="number" name="product-price" ng-model="product.price" placeholder="Price in USD..." ng-change="checkValidity()">
 
         <div>
           <div class="clearfix">
@@ -34,31 +36,34 @@
           </div>
 
           <div class="clearfix margin-vertical-small" ng-show="product.shipped">
-            <label>Shipping Price</label>
+            <label>Domestic Shipping Price</label>
             <input type="number" name="product-shipping-domestic" placeholder="Domestic USD..." ng-model="product.shipping.domesticPrice" ng-change="checkValidity()">
+            <label>International Shipping Price</label>
             <input type="number" name="product-shipping-international" placeholder="International USD..." ng-model="product.shipping.internationalPrice" ng-change="checkValidity()">
+            <div>
+              <label class="left" for="product-allow-international">Ship Internationally?</label>
+              <input class="left margin-xx-small-important" type="checkbox" name="product-allow-international" ng-model="product.shipping.internationalAllowed">
+            </div>
+
           </div>
 
         </div>
 
-        <hr ng-show="product.type">
-
-        <div ng-show="product.type === 'physical'">
-          <label class="left" for="product-allow-international">Ship Internationally?</label>
-          <input class="left margin-xx-small-important" type="checkbox" name="product-allow-international" ng-model="product.shipping.internationalAllowed">
-          <br>
-        </div>
+        <hr ng-show="product.type && product.type !== 'physical'">
 
         <div ng-show="product.type === 'digital'">
-            <input type="text" name="product-uri" ng-model="product.downloadUri" placeholder="Download link..." ng-change="checkValidity()">
+          <label for="product-uri">Download URI</label>
+          <input id="product-uri" type="text" name="product-uri" ng-model="product.downloadUri" placeholder="Download link..." ng-change="checkValidity()">
         </div>
 
         <div ng-show="product.type === 'subscription'">
-            <input type="number" name="product-subscription-days" ng-model="product.subscriptionDays" placeholder="Subscription days..." ng-change="checkValidity()">
+          <label for="product-subscription-days">Subscription Days</label>
+          <input id="product-subscription-days" type="number" name="product-subscription-days" ng-model="product.subscriptionDays" placeholder="Subscription days..." ng-change="checkValidity()">
         </div>
 
         <div ng-show="product.type === 'gift'">
-            <input type="number" name="product-discount" ng-model="product.discount" placeholder="Discount in USD..." ng-change="checkValidity()">
+          <label for="product-discount">Gift Value</label>
+          <input id="product-discount" type="number" name="product-discount" ng-model="product.discount" placeholder="Discount in USD..." ng-change="checkValidity()">
         </div>
 
         <hr>
@@ -116,8 +121,9 @@
 
       </div>
       <div class="column small-12">
-        <div ng-if="!textMode" class="small-12 background-secondary4 padding-small" style="min-height: 40rem;" delay="300" contenteditable="true" ng-model="product.markdown" markdown-editable extensions="video"></div>
-        <textarea ng-if="textMode" class="small-12 background-secondary4 padding-small" style="min-height: 40rem;" delay="300" ng-model="product.markdown"></textarea>
+        <textarea class="margin-vertical-large" style="min-height: 5rem;" ng-model="product.description.excerpt" placeholder="Product excerpt..."></textarea>
+        <div ng-if="!textMode" class="small-12 background-secondary4 padding-small" style="min-height: 40rem;" delay="300" contenteditable="true" ng-model="product.description.markdown" markdown-editable extensions="video"></div>
+        <textarea ng-if="textMode" class="small-12 background-secondary4 padding-small" style="min-height: 40rem;" delay="300" ng-model="product.description.markdown"></textarea>
       </div>
 
 

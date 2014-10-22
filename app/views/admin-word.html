@@ -118,11 +118,11 @@
     </div>
 
     <div ng-if="!useTextarea">
-        <div ng-if="showDraft" class="small-12 background-secondary4 padding-small" qv-full-page target="#body" delay="300" contenteditable="true" ng-model="$storage.activeDraft.markdown" markdown-editable ng-change="handleActiveDraftChange($storage.activeDraft)" extensions="video"></div>
+        <div ng-if="showDraft" class="small-12 background-secondary4 padding-small" style="min-height: 40rem;" delay="300" contenteditable="true" ng-model="$storage.activeDraft.markdown" markdown-editable ng-change="handleActiveDraftChange($storage.activeDraft)" extensions="video"></div>
     </div>
 
     <div ng-if="useTextarea">
-        <textarea class="small-12" qv-full-page target="#body" ng-model="$storage.activeDraft.markdown">{{ $storage.activeDraft.markdown }}</textarea>
+        <textarea class="small-12 background-secondary4 padding-small" style="min-height: 40rem;" ng-model="$storage.activeDraft.markdown">{{ $storage.activeDraft.markdown }}</textarea>
     </div>
 
 </div>

@@ -12,9 +12,61 @@
 
   <ul class="column small-12 table-list striped">
     <li ng-repeat="product in products">
-      <h3>
-        <a ui-sref="authenticated.master.admin.product({key: product.$id})">{{ product.title }}</a>
-      </h3>
+      <div class="overflow-hidden background-secondary3 text-white link-white link-hover-secondary4">
+        <a class="left padding-small" ui-sref="authenticated.master.admin.product({key: product.$id})">{{ product.title }}</a>
+        <div class="right padding-small background-success" ng-show="product.active && product.isValid">Active</div>
+        <div class="right padding-small background-warning" ng-show="!product.active || !product.isValid">Inactive</div>
+      </div>
+
+      <div>
+        <div class="column small-12 medium-3 padding-zero-important">
+          <img ng-if="product.featuredImage.Versions.small.Key" ng-src="{{ product.featuredImage.Versions.small.Key | s3Link:files.Name }}" />
+        </div>
+        <div class="column small-12 medium-3">
+          <table>
+            <tbody>
+              <tr>
+                <td>Price:</td>
+                <td>{{ product.price | currency }}</td>
+              </tr>
+              <tr>
+                <td>Type:</td>
+                <td>{{ product.type }}</td>
+              </tr>
+              <tr>
+                <td>Slug:</td>
+                <td>{{ product.slug }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="column small-12 medium-3" ng-show="product.shipped">
+          <table>
+            <tbody>
+              <tr>
+                <td>Domestic:</td>
+                <td>{{ product.shipping.domesticPrice }}</td>
+              </tr>
+              <tr>
+                <td>International:</td>
+                <td>{{ product.shipping.internationalPrice }}</td>
+              </tr>
+              <tr>
+                <td>International Allowed:</td>
+                <td>{{ product.shipping.internationalAllowed }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class='column small-12 medium-3'>
+          <button class="right tiny alert" ng-click="removeProduct(product)">Delete</button>
+          <p>{{ product.description.excerpt }}</p>
+        </div>
+
+
+
+
+      </div>
     </li>
   </ul>
 
