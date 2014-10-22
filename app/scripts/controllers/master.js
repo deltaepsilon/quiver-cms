@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('quiverCmsApp')
-  .controller('MasterCtrl', function ($scope, currentUser, env, UserService, NotificationService, $state, md5, settingsRef) {
+  .controller('MasterCtrl', function ($scope, currentUser, env, UserService, NotificationService, $state, md5, settingsRef, AdminService) {
     var loggedOutStates = ['master.nav.login', 'master.nav.register', 'master.nav.reset'],
       toLanding = function () {
         $state.go('master.nav.landing');
@@ -82,6 +82,15 @@ angular.module('quiverCmsApp')
     $scope.toStatic = function () {
       location.replace('/');
     }
+
+    /*
+     * Cache
+    */
+    $scope.clearCache = function () {
+      AdminService.clearCache().then(function () {
+        NotificationService.success('Cached Cleared!');
+      });
+    };
 
 
 

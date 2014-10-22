@@ -1,0 +1,21 @@
+<div class="column small-12">
+  <h3 class="font-flair">Products</h3>
+
+  <form name="productForm">
+      <fieldset>
+        <div class="column small-12">
+          <input id="new-product-title" type="text" name="product-title" ng-model="newProduct.title" placeholder="Product title..." required>
+          <button name="button" ng-disabled="productForm.$invalid" ng-click="addProduct(newProduct)" qv-focus="#new-product-title">Create</button>
+        </div>
+      </fieldset>
+  </form>
+
+  <ul class="column small-12 table-list striped">
+    <li ng-repeat="product in products">
+      <h3>
+        <a ui-sref="authenticated.master.admin.product({key: product.$id})">{{ product.title }}</a>
+      </h3>
+    </li>
+  </ul>
+
+</div>

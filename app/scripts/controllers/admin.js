@@ -40,13 +40,4 @@ angular.module('quiverCmsApp')
       $scope.settings[type].splice(i, 1);
     };
 
-    /*
-     * Cache
-    */
-    $scope.clearCache = function () {
-      AdminService.clearCache().then(function () {
-        NotificationService.success('Cached Cleared!');
-      });
-    };
-
   });

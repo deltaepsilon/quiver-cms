@@ -14,6 +14,9 @@
                 <a ui-sref="authenticated.master.admin.files">Files</a>
             </li>
             <li qv-active>
+                <a ui-sref="authenticated.master.admin.products">Products</a>
+            </li>
+            <li qv-active>
                 <a ui-sref="authenticated.master.admin.social">Social Media</a>
             </li>
             <li qv-active>
@@ -27,6 +30,9 @@
     </section>
     <section class="top-bar-section">
         <ul class="right">
+            <li>
+                <a ng-click="clearCache()">Clear Cache</a>
+            </li>
             <li><a href="{{ env.root }}" ng-click="toStatic()">Front Page</a></li>
             <li ng-show="currentUser" qv-active>
                 <a ui-sref="authenticated.master.nav.account">
@@ -40,4 +46,3 @@
     </section>
 
 </nav>
-

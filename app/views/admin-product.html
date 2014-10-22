@@ -1,0 +1,101 @@
+<div class="column small-12">
+  <div class="column small-12 medium-6 large-8 medium-offset-6 large-offset-4">
+    <h3 class="font-flair" ng-model="product.title" contenteditable="true">{{ product.title }}</h3>
+  </div>
+  <hr>
+</div>
+
+
+<div class="column small-12 medium-6 large-4">
+  <fieldset>
+      <select id="product-type" name="product-type" ng-model="product.type">
+          <option value="">Product Type...</option>
+          <option value="physical">Good</option>
+          <option value="digital">Digital Download</option>
+          <option value="subscription">Subscription</option>
+          <option value="gift">Gift</option>
+      </select>
+
+      <input type="text" name="product-slug" ng-model='product.slug' placeholder="Slug...">
+
+      <input type="number" name="product-price" ng-model="product.price" placeholder="Price in USD...">
+
+      <div class="clearfix">
+          <label class="left" for="product-shipped">Shipped?</label>
+          <input id="product-shipped" class="left margin-xx-small-important" type="checkbox" name="product-shipped" ng-model="product.shipped">
+      </div>
+
+      <hr ng-show="product.type">
+
+      <div ng-show="product.type === 'physical'">
+          <input type="number" name="product-shipping-weight" placeholder="Ship weight (lbs)...">
+      </div>
+
+      <div ng-show="product.type === 'digital'">
+          <input type="text" name="product-uri" placeholder="Download link...">
+      </div>
+
+      <div ng-show="product.type === 'subscription'">
+          <input type="number" name="product-subscription-days" placeholder="Subscription days...">
+      </div>
+
+      <div ng-show="product.type === 'gift'">
+          <input type="number" name="product-discount" placeholder="Discount in USD...">
+      </div>
+
+      <hr>
+
+      <div>
+          <label for="product-featured-image">
+              <span ng-hide="product.featuredImage">No Featured Image</span>
+              <span ng-show="product.featuredImage">Featured Image</span>
+          </label>
+          <img class="margin-vertical-small" ng-src="{{ product.featuredImage.Versions.small.Key | s3Link:files.Name }}" alt="{{ product.title }}" />
+      </div>
+
+      <ul class="margin-zero-important" ng-show="productImages.length">
+        <li>
+          <hr>
+          <label>Gallery Images</label>
+        </li>
+        <li class="margin-vertical-small" ng-repeat="image in productImages">
+          <img class="cursor-pointer" ng-click="removeImage(image)" ng-src="{{ image.Versions.small.Key | s3Link:files.Name }}" alt="{{ image.Name | deSlug }}" />
+        </li>
+      </ul>
+
+
+
+  </fieldset>
+</div>
+
+
+<div class="column small-12 medium-6 large-8">
+  <div class="panel" ng-show="$storage.clipboard.length">
+    <h5>Clipboard</h5>
+    <hr>
+    <ul ng-if="files.Name" class="small-block-grid-2 medium-block-grid-4 large-block-grid-8">
+        <li class="relative" ng-repeat="file in $storage.clipboard">
+            <div class="relative">
+                <div class="cursor-pointer" ng-click="addImage(file)" qv-media="https://s3.amazonaws.com/{{ files.Name }}/{{ file.Versions.small.Key || file.Key }}" alt="{{ file.Key | filename }}" attributes="{embed: {width: '100px', height: '100px'}, img: {'style': 'min-width: 100%;'}, video: {'style': 'max-width: 100%;'}}" alt="Click to Add"></div>
+                <a class="delete-button text-small background-highlight1 link-white link-hover-secondary0" ng-click="removeFromClipboard(file)">x</a>
+                <div class="overlay bottom padding-xx-small text-center background-highlight1 text-xx-small link-white link-hover-secondary2" ng-hide="word.keyImage.Key == file.Key">
+                    <a ng-click="makeFeaturedImage(file)">+ Featured</a>
+                </div>
+            </div>
+
+        </li>
+    </ul>
+  </div>
+
+  <fieldset>
+    <div class="column small-12">
+      <label for="product-description">Description - <a href="http://commonmark.org/" target="_blank">CommonMark compatible</a></label>
+      <button name="button"></button>
+      <div ng-if="showDraft" class="small-12 background-secondary4 padding-small" qv-full-page target="#body" delay="300" contenteditable="true" ng-model="$storage.activeDraft.markdown" markdown-editable ng-change="handleActiveDraftChange($storage.activeDraft)" extensions="video"></div>
+    </div>
+  </fieldset>
+
+  <div class="column small=">
+
+  </div>
+</div>

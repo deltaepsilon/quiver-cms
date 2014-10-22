@@ -59,6 +59,19 @@ angular.module('quiverCmsApp')
 
       getUser: function (id, headers) {
         return Restangular.one('user').one(id).get({}, headers);
+      },
+
+      getProducts: function () {
+        return $firebase(new Firebase(firebaseEndpoint + '/content/products'));
+      },
+
+      getProduct: function (key) {
+        return $firebase(new Firebase(firebaseEndpoint + '/content/products/' + key));
+      },
+
+      getProductImages: function (key) {
+        return $firebase(new Firebase(firebaseEndpoint + '/content/products/' + key + '/images'));
       }
+
     }
   });

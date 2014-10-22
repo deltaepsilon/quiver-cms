@@ -15,7 +15,7 @@ angular.module('quiverCmsApp')
     word.$loaded().then(function () {
       if (!$scope.$storage.activeDraft || $scope.$storage.activeDraft.wordId !== $scope.word.$id) {
         $scope.$storage.activeDraft = {
-          markdown: $scope.word.published ? $scope.word.published.markdown : '#Use your words! \n\n(But please make it Markdown...)',
+          markdown: $scope.word.published ? $scope.word.published.markdown : '#Use your words! \n\n(But please make it [CommonMark](http://commonmark.org)...)',
           created: moment().format(),
           wordId: $scope.word.$id
         };

@@ -306,6 +306,33 @@ angular.module('quiverCmsApp', [
             return AdminService.getHashtags();
           }
         }
+      })
+      .state('authenticated.master.admin.products', {
+        url: '/products',
+        templateUrl: 'views/admin-products.html',
+        controller: 'ProductsCtrl',
+        resolve: {
+          productsRef: function (AdminService) {
+            return AdminService.getProducts();
+          }
+        }
+      })
+      .state('authenticated.master.admin.product', {
+        url: '/product/:key',
+        templateUrl: 'views/admin-product.html',
+        controller: 'ProductCtrl',
+        resolve: {
+          productRef: function (AdminService, $stateParams) {
+            return AdminService.getProduct($stateParams.key);
+          },
+          productImagesRef: function (AdminService, $stateParams) {
+            return AdminService.getProductImages($stateParams.key);
+          },
+          filesRef: function (AdminService) {
+            return AdminService.getFiles();
+          }
+
+        }
       });
 
 
