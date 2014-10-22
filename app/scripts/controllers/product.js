@@ -8,12 +8,84 @@
  * Controller of the quiverCmsApp
  */
 angular.module('quiverCmsApp')
-  .controller('ProductCtrl', function ($scope, productRef, productImagesRef, filesRef, $localStorage, env, $filter) {
+  .controller('ProductCtrl', function ($scope, productRef, productImagesRef, filesRef, $localStorage, env, $filter, $timeout, Slug, _) {
 
     /*
      * Product
     */
-    productRef.$asObject().$bindTo($scope, 'product');
+    var product = productRef.$asObject(),
+      checkValidity = function () {
+        $timeout(function () {
+          var product = $scope.product,
+            invalidate = function () {
+              $scope.product.isValid = false;
+            },
+            validate = function () {
+              $scope.product.isValid = true;
+            },
+            valid = true;
+
+          if (typeof product.slug !== 'string' || !product.slug.length || typeof product.price !== 'number') {
+            valid = false;
+          }
+
+          if (valid && product.shipped) {
+            if (!product.shipping || typeof product.shipping.domesticPrice !== 'number' || typeof product.shipping.internationalPrice !== 'number' ) {
+              valid = false;
+            }
+          }
+
+          if (valid) {
+            switch ($scope.product.type) {
+              case 'physical':
+
+                break;
+
+              case 'digital':
+                if (typeof product.downloadUri !== 'string' || !product.downloadUri.length) {
+                  valid = false;
+                }
+                break;
+
+              case 'subscription':
+                if (typeof product.subscriptionDays !== 'number') {
+                  valid = false;
+                }
+                break;
+
+              case 'gift':
+                if (typeof product.discount !== 'number') {
+                  valid = false;
+                }
+                break;
+              default:
+                valid = false;
+                break;
+            }
+
+          }
+
+          return valid ? validate() : invalidate();
+
+        });
+
+      };
+
+    $scope.checkValidity = _.debounce(checkValidity, 500);
+
+    product.$bindTo($scope, 'product');
+
+    product.$loaded().then(function () {
+      if (!$scope.product.markdown) {
+        $scope.product.markdown = "### Let's add some [CommonMark](http://commonmark.org)";
+      }
+
+      $scope.$watch('product', checkValidity);
+    });
+
+    $scope.slugify = _.debounce(function () {
+      $scope.product.slug = Slug.slugify($scope.product.slug);
+    }, 500);
 
     /*
      * Product Images
@@ -46,6 +118,5 @@ angular.module('quiverCmsApp')
     $scope.removeImage = function (file) {
       $scope.productImages.$remove(file);
     };
-
 
   });

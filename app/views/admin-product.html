@@ -1,101 +1,131 @@
-<div class="column small-12">
-  <div class="column small-12 medium-6 large-8 medium-offset-6 large-offset-4">
-    <h3 class="font-flair" ng-model="product.title" contenteditable="true">{{ product.title }}</h3>
-  </div>
-  <hr>
-</div>
-
-
-<div class="column small-12 medium-6 large-4">
-  <fieldset>
-      <select id="product-type" name="product-type" ng-model="product.type">
-          <option value="">Product Type...</option>
-          <option value="physical">Good</option>
-          <option value="digital">Digital Download</option>
-          <option value="subscription">Subscription</option>
-          <option value="gift">Gift</option>
-      </select>
-
-      <input type="text" name="product-slug" ng-model='product.slug' placeholder="Slug...">
-
-      <input type="number" name="product-price" ng-model="product.price" placeholder="Price in USD...">
-
-      <div class="clearfix">
-          <label class="left" for="product-shipped">Shipped?</label>
-          <input id="product-shipped" class="left margin-xx-small-important" type="checkbox" name="product-shipped" ng-model="product.shipped">
+<div id="product-wrapper" class="overflow-hidden">
+  <div class="column small-12">
+    <div class="column small-12 medium-6 large-8 medium-offset-6 large-offset-4">
+      <h3 class="font-flair left" ng-model="product.title" contenteditable="true">{{ product.title }}</h3>
+      <div class="right text-white">
+        <button class="tiny secondary" ng-show="product.active && product.isValid" ng-click="product.active = false">Active</button>
+        <button class="tiny alert" ng-show="product.active && !product.isValid" ng-click="product.active = false">Product Invalid!</button>
+        <button class="tiny warning" ng-show="!product.active && product.isValid" ng-click="product.active = true">Activate?</button>
+        <button class="tiny alert" ng-show="!product.active && !product.isValid">Inactive</button>
       </div>
-
-      <hr ng-show="product.type">
-
-      <div ng-show="product.type === 'physical'">
-          <input type="number" name="product-shipping-weight" placeholder="Ship weight (lbs)...">
-      </div>
-
-      <div ng-show="product.type === 'digital'">
-          <input type="text" name="product-uri" placeholder="Download link...">
-      </div>
-
-      <div ng-show="product.type === 'subscription'">
-          <input type="number" name="product-subscription-days" placeholder="Subscription days...">
-      </div>
-
-      <div ng-show="product.type === 'gift'">
-          <input type="number" name="product-discount" placeholder="Discount in USD...">
-      </div>
-
-      <hr>
-
-      <div>
-          <label for="product-featured-image">
-              <span ng-hide="product.featuredImage">No Featured Image</span>
-              <span ng-show="product.featuredImage">Featured Image</span>
-          </label>
-          <img class="margin-vertical-small" ng-src="{{ product.featuredImage.Versions.small.Key | s3Link:files.Name }}" alt="{{ product.title }}" />
-      </div>
-
-      <ul class="margin-zero-important" ng-show="productImages.length">
-        <li>
-          <hr>
-          <label>Gallery Images</label>
-        </li>
-        <li class="margin-vertical-small" ng-repeat="image in productImages">
-          <img class="cursor-pointer" ng-click="removeImage(image)" ng-src="{{ image.Versions.small.Key | s3Link:files.Name }}" alt="{{ image.Name | deSlug }}" />
-        </li>
-      </ul>
-
-
-
-  </fieldset>
-</div>
-
-
-<div class="column small-12 medium-6 large-8">
-  <div class="panel" ng-show="$storage.clipboard.length">
-    <h5>Clipboard</h5>
-    <hr>
-    <ul ng-if="files.Name" class="small-block-grid-2 medium-block-grid-4 large-block-grid-8">
-        <li class="relative" ng-repeat="file in $storage.clipboard">
-            <div class="relative">
-                <div class="cursor-pointer" ng-click="addImage(file)" qv-media="https://s3.amazonaws.com/{{ files.Name }}/{{ file.Versions.small.Key || file.Key }}" alt="{{ file.Key | filename }}" attributes="{embed: {width: '100px', height: '100px'}, img: {'style': 'min-width: 100%;'}, video: {'style': 'max-width: 100%;'}}" alt="Click to Add"></div>
-                <a class="delete-button text-small background-highlight1 link-white link-hover-secondary0" ng-click="removeFromClipboard(file)">x</a>
-                <div class="overlay bottom padding-xx-small text-center background-highlight1 text-xx-small link-white link-hover-secondary2" ng-hide="word.keyImage.Key == file.Key">
-                    <a ng-click="makeFeaturedImage(file)">+ Featured</a>
-                </div>
-            </div>
-
-        </li>
-    </ul>
-  </div>
-
-  <fieldset>
-    <div class="column small-12">
-      <label for="product-description">Description - <a href="http://commonmark.org/" target="_blank">CommonMark compatible</a></label>
-      <button name="button"></button>
-      <div ng-if="showDraft" class="small-12 background-secondary4 padding-small" qv-full-page target="#body" delay="300" contenteditable="true" ng-model="$storage.activeDraft.markdown" markdown-editable ng-change="handleActiveDraftChange($storage.activeDraft)" extensions="video"></div>
     </div>
-  </fieldset>
-
-  <div class="column small=">
-
+    <hr>
   </div>
+
+
+  <div id="product-left" class="column small-12 medium-6 large-4">
+    <fieldset class="margin-zero-important">
+        <select id="product-type" name="product-type" ng-model="product.type" ng-change="checkValidity()">
+            <option value="">Product Type...</option>
+            <option value="physical">Good</option>
+            <option value="digital">Digital Download</option>
+            <option value="subscription">Subscription</option>
+            <option value="gift">Gift</option>
+        </select>
+
+        <input type="text" name="product-slug" ng-model='product.slug' placeholder="Slug..." ng-change="slugify(); checkValidity()">
+
+        <input type="number" name="product-price" ng-model="product.price" placeholder="Price in USD..." ng-change="checkValidity()">
+
+        <div>
+          <div class="clearfix">
+            <label class="left" for="product-shipped">Shipped?</label>
+            <input id="product-shipped" class="left margin-xx-small-important" type="checkbox" name="product-shipped" ng-model="product.shipped" ng-change="checkValidity()">
+          </div>
+
+          <div class="clearfix margin-vertical-small" ng-show="product.shipped">
+            <label>Shipping Price</label>
+            <input type="number" name="product-shipping-domestic" placeholder="Domestic USD..." ng-model="product.shipping.domesticPrice" ng-change="checkValidity()">
+            <input type="number" name="product-shipping-international" placeholder="International USD..." ng-model="product.shipping.internationalPrice" ng-change="checkValidity()">
+          </div>
+
+        </div>
+
+        <hr ng-show="product.type">
+
+        <div ng-show="product.type === 'physical'">
+          <label class="left" for="product-allow-international">Ship Internationally?</label>
+          <input class="left margin-xx-small-important" type="checkbox" name="product-allow-international" ng-model="product.shipping.internationalAllowed">
+          <br>
+        </div>
+
+        <div ng-show="product.type === 'digital'">
+            <input type="text" name="product-uri" ng-model="product.downloadUri" placeholder="Download link..." ng-change="checkValidity()">
+        </div>
+
+        <div ng-show="product.type === 'subscription'">
+            <input type="number" name="product-subscription-days" ng-model="product.subscriptionDays" placeholder="Subscription days..." ng-change="checkValidity()">
+        </div>
+
+        <div ng-show="product.type === 'gift'">
+            <input type="number" name="product-discount" ng-model="product.discount" placeholder="Discount in USD..." ng-change="checkValidity()">
+        </div>
+
+        <hr>
+
+        <div ng-if="files.Name">
+            <label for="product-featured-image">
+                <span ng-hide="product.featuredImage">No Featured Image</span>
+                <span ng-show="product.featuredImage">Featured Image</span>
+            </label>
+            <img class="margin-vertical-small" ng-src="{{ product.featuredImage.Versions.small.Key | s3Link:files.Name }}" alt="{{ product.title }}" />
+        </div>
+
+        <ul class="margin-zero-important" ng-show="productImages.length">
+          <li>
+            <hr>
+            <label>Gallery Images</label>
+          </li>
+          <li class="margin-vertical-small" ng-repeat="image in productImages">
+            <img class="cursor-pointer" ng-click="removeImage(image)" ng-src="{{ image.Versions.small.Key | s3Link:files.Name }}" alt="{{ image.Name | deSlug }}" />
+          </li>
+        </ul>
+
+
+
+    </fieldset>
+  </div>
+
+
+  <div id="product-right" class="column small-12 medium-6 large-8">
+    <div class="panel" ng-show="$storage.clipboard.length">
+      <h5>Clipboard</h5>
+      <hr>
+      <ul ng-if="files.Name" class="small-block-grid-2 medium-block-grid-4 large-block-grid-8">
+          <li class="relative" ng-repeat="file in $storage.clipboard">
+              <div class="relative">
+                  <div class="cursor-pointer" ng-click="addImage(file)" qv-media="https://s3.amazonaws.com/{{ files.Name }}/{{ file.Versions.small.Key || file.Key }}" alt="{{ file.Key | filename }}" attributes="{embed: {width: '100px', height: '100px'}, img: {'style': 'min-width: 100%;'}, video: {'style': 'max-width: 100%;'}}" alt="Click to Add"></div>
+                  <a class="delete-button text-small background-highlight1 link-white link-hover-secondary0" ng-click="removeFromClipboard(file)">x</a>
+                  <div class="overlay bottom padding-xx-small text-center background-highlight1 text-xx-small link-white link-hover-secondary2" ng-hide="word.keyImage.Key == file.Key">
+                      <a ng-click="makeFeaturedImage(file)">+ Featured</a>
+                  </div>
+              </div>
+
+          </li>
+      </ul>
+    </div>
+    <fieldset>
+
+      <div class="column small-12">
+        <label class="left" for="product-description">Description - <a href="http://commonmark.org/" target="_blank">CommonMark compatible</a></label>
+        <button class="right tiny" ng-click="textMode = !textMode">
+          <span ng-show="textMode">Preview Mode</span>
+          <span ng-hide="textMode">Text Mode</span>
+        </button>
+
+
+      </div>
+      <div class="column small-12">
+        <div ng-if="!textMode" class="small-12 background-secondary4 padding-small" style="min-height: 40rem;" delay="300" contenteditable="true" ng-model="product.markdown" markdown-editable extensions="video"></div>
+        <textarea ng-if="textMode" class="small-12 background-secondary4 padding-small" style="min-height: 40rem;" delay="300" ng-model="product.markdown"></textarea>
+      </div>
+
+
+    </fieldset>
+
+    <div class="column small=">
+
+    </div>
+  </div>
+
 </div>
