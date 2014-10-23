@@ -336,6 +336,9 @@ angular.module('quiverCmsApp', [
           },
           filesRef: function (AdminService) {
             return AdminService.getFiles();
+          },
+          hashtagsRef: function (AdminService) {
+            return AdminService.getHashtags();
           }
 
         }

@@ -8,7 +8,7 @@
  * Controller of the quiverCmsApp
  */
 angular.module('quiverCmsApp')
-  .controller('ProductCtrl', function ($scope, productRef, productImagesRef, productOptionGroupsRef, filesRef, $localStorage, env, $filter, $timeout, Slug, _) {
+  .controller('ProductCtrl', function ($scope, productRef, productImagesRef, productOptionGroupsRef, filesRef, hashtagsRef, $localStorage, env, $filter, $timeout, Slug, _) {
 
     /*
      * Product
@@ -179,6 +179,44 @@ angular.module('quiverCmsApp')
 
     $scope.removeImage = function (file) {
       $scope.productImages.$remove(file);
+    };
+
+    /*
+     * Hashtags
+    */
+    $scope.hashtags = hashtagsRef.$asArray();
+
+    $scope.addHashtag = function (product, newHashtag) {
+      $timeout(function () {
+        var hashtag;
+
+        if (!product.hashtags) {
+          product.hashtags = [];
+        }
+
+        if (typeof newHashtag === 'string') {
+          hashtag = newHashtag.replace(/(#|\s)/g, '');
+          product.hashtags.push({
+            key: Slug.slugify(hashtag),
+            value: hashtag
+          });
+        } else if (newHashtag && newHashtag.key) {
+          product.hashtags.push(word.newHashtag);
+        }
+
+      });
+
+    };
+
+    $scope.removeHashtag = function (product, slug) {
+      var i = product.hashtags.length
+
+      while (i--) {
+        if (product.hashtags[i].key === slug) {
+          product.hashtags.splice(i, 1);
+        }
+      }
+
     };
 
   });

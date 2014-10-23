@@ -5,7 +5,7 @@
     > li {
       overflow: hidden;
 
-      &:nth-of-type(even) {
+      &:nth-of-type(odd) {
         @extend .background-secondary4;
       }
 
