@@ -31,6 +31,11 @@
 
         <hr>
 
+        <div>
+          <label>Total Inventory <span class="text-xx-small">(disables detailed inventory)</span></label>
+          <input type="number" placeholder="Total inventory..." ng-model="product.inventory">
+        </div>
+
         <div class="margin-vertical-small">
           <label>Options</label>
           <a class="text-small margin-horizontal-small" ng-click="addOptionGroup()">+ option group</a>
@@ -40,14 +45,16 @@
             <li><a class="right text-small" ng-click="removeOptionGroup(group)">- remove group</a></li>
 
             <li class="clearfix" ng-repeat="option in group.options">
-              <input class="left" style="max-width: 4rem;" type="number" placeholder="#..." ng-model="option.inventory" ng-model-options="{'debounce': {'default': 300}}" title="Inventory">
+              <input class="left" style="max-width: 4rem;" type="number" placeholder="#..." ng-show="product.inventory !== 0 && !product.inventory" ng-model="option.inventory" ng-model-options="{'debounce': {'default': 300}}" title="Inventory">
               <div class="left margin-vertical-x-small margin-horizontal-x-small text-small">
-                <span ng-hide="option.inventory === 0">({{ ::option.inventory || '∞' }})</span>
-                <span ng-show="option.inventory === 0">(0)</span>
+                <span ng-show="product.inventory !== 0 && !product.inventory">
+                  <span ng-hide="option.inventory === 0">({{ ::option.inventory || '∞' }})</span>
+                  <span ng-show="option.inventory === 0">(0)</span>
+                </span>
                 <span class="cursor-pointer" qv-confirm="removeOption(group, option)" confirmations="['Click to Delete']">{{ option.name }}</span>
               </div>
             </li>
-            <li ng-show="group.options.length"><button class="tiny" ng-click="saveOption(group, option)">save inventory</button></li>
+            <li ng-show="group.options.length && (product.inventory !== 0 && !product.inventory)"><button class="tiny" ng-click="saveOption(group, option)">save inventory</button></li>
 
           </ul>
         </div>
