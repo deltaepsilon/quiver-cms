@@ -1,12 +1,12 @@
 <div id="product-wrapper" class="overflow-hidden">
   <div class="column small-12">
-    <div class="column small-12 medium-6 large-8 medium-offset-6 large-offset-4">
+    <div class="column small-12">
       <h3 class="font-flair left" ng-model="product.title" contenteditable="true">{{ product.title }}</h3>
       <div class="right text-white">
-        <button class="tiny secondary" ng-show="product.active && product.isValid" ng-click="product.active = false">Active</button>
-        <button class="tiny alert" ng-show="product.active && !product.isValid" ng-click="product.active = false">Product Invalid!</button>
-        <button class="tiny warning" ng-show="!product.active && product.isValid" ng-click="product.active = true">Activate?</button>
-        <button class="tiny alert" ng-show="!product.active && !product.isValid">Inactive</button>
+        <button class="tiny margin-vertical-xx-small secondary" ng-show="product.active && product.isValid" ng-click="product.active = false">Active</button>
+        <button class="tiny margin-vertical-xx-small alert" ng-show="product.active && !product.isValid" ng-click="product.active = false">Product Invalid!</button>
+        <button class="tiny margin-vertical-xx-small warning" ng-show="!product.active && product.isValid" ng-click="product.active = true">Activate?</button>
+        <button class="tiny margin-vertical-xx-small alert" ng-show="!product.active && !product.isValid">Inactive</button>
       </div>
     </div>
     <hr>
@@ -108,7 +108,7 @@
             <img class="margin-vertical-small" ng-src="{{ product.featuredImage.Versions.small.Key | s3Link:files.Name }}" alt="{{ product.title }}" />
         </div>
 
-        <ul class="margin-zero-important" ng-show="productImages.length">
+        <ul class="margin-zero-important" ng-if="files.Name && productImages.length">
           <li>
             <hr>
             <label>Gallery Images</label>
@@ -144,16 +144,16 @@
     <fieldset>
 
       <div class="column small-12">
-        <label class="left" for="product-description">Description - <a href="http://commonmark.org/" target="_blank">CommonMark compatible</a></label>
-        <button class="right tiny" ng-click="textMode = !textMode">
+        <h5 class="left">Description <span class="text-xx-small">(<a href="http://commonmark.org/" target="_blank">CommonMark compatible</a>)</span></h5>
+        <button class="right tiny margin-vertical-zero-important" ng-click="textMode = !textMode">
           <span ng-show="textMode">Preview Mode</span>
           <span ng-hide="textMode">Text Mode</span>
         </button>
 
-
       </div>
+
       <div class="column small-12">
-        <textarea class="margin-vertical-large" style="min-height: 5rem;" ng-model="product.description.excerpt" placeholder="Product excerpt..."></textarea>
+        <textarea class="margin-vertical-medium" style="min-height: 5rem;" ng-model="product.description.excerpt" placeholder="Product excerpt..."></textarea>
         <div ng-if="!textMode" class="small-12 background-secondary4 padding-small" style="min-height: 40rem;" delay="300" contenteditable="true" ng-model="product.description.markdown" markdown-editable extensions="video"></div>
         <textarea ng-if="textMode" class="small-12 background-secondary4 padding-small" style="min-height: 40rem;" delay="300" ng-model="product.description.markdown"></textarea>
       </div>
