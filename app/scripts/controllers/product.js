@@ -136,7 +136,7 @@ angular.module('quiverCmsApp')
       i = group.options.length;
 
       while (i--) {
-        if (group.options[i].name === option.name) {
+        if (group.options[i].slug === option.slug) {
           group.options.splice(i, 1);
         }
       }
@@ -145,6 +145,14 @@ angular.module('quiverCmsApp')
       $scope.productOptionGroups.$save(index);
 
     };
+
+    $scope.saveOption = function (group) {
+      var key = $scope.productOptionGroups.$keyAt(group),
+      index = $scope.productOptionGroups.$indexFor(key);
+
+      $scope.productOptionGroups[index] = group;
+      $scope.productOptionGroups.$save(index);
+    }
 
     /*
      * localStorage

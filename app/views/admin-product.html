@@ -38,7 +38,16 @@
             <li><input type="text" placeholder="Option #{{ $index }} name..." ng-model="group.name"></li>
             <li><input type="text" placeholder="New option..." ng-model="newOptionName" qv-enter="addOption(group, newOptionName); newOptionName = undefined;"></li>
             <li><a class="right text-small" ng-click="removeOptionGroup(group)">- remove group</a></li>
-            <li class="cursor-pointer" ng-repeat="option in group.options" ng-click="removeOption(group, option)">{{ option.name }}</li>
+
+            <li class="clearfix" ng-repeat="option in group.options">
+              <input class="left" style="max-width: 4rem;" type="number" placeholder="#..." ng-model="option.inventory" ng-model-options="{'debounce': {'default': 300}}" title="Inventory">
+              <div class="left margin-vertical-x-small margin-horizontal-x-small text-small">
+                <span ng-hide="option.inventory === 0">({{ ::option.inventory || '∞' }})</span>
+                <span ng-show="option.inventory === 0">(0)</span>
+                <span class="cursor-pointer" qv-confirm="removeOption(group, option)" confirmations="['Click to Delete']">{{ option.name }}</span>
+              </div>
+            </li>
+            <li ng-show="group.options.length"><button class="tiny" ng-click="saveOption(group, option)">save inventory</button></li>
 
           </ul>
         </div>
