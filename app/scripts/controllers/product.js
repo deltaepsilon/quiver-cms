@@ -8,7 +8,7 @@
  * Controller of the quiverCmsApp
  */
 angular.module('quiverCmsApp')
-  .controller('ProductCtrl', function ($scope, productRef, productImagesRef, filesRef, $localStorage, env, $filter, $timeout, Slug, _) {
+  .controller('ProductCtrl', function ($scope, productRef, productImagesRef, productOptionGroupsRef, filesRef, $localStorage, env, $filter, $timeout, Slug, _) {
 
     /*
      * Product
@@ -95,6 +95,56 @@ angular.module('quiverCmsApp')
      * Product Images
     */
     $scope.productImages = productImagesRef.$asArray();
+
+    /*
+     * Product Option Groups
+    */
+    $scope.productOptionGroups = productOptionGroupsRef.$asArray();
+
+    $scope.addOptionGroup = function () {
+      $scope.productOptionGroups.$add({
+        name: ""
+      });
+    };
+
+    $scope.removeOptionGroup = function (group) {
+      $scope.productOptionGroups.$remove(group);
+    };
+
+    $scope.addOption = function (group, optionName) {
+      var option = {
+        name: optionName,
+        slug: Slug.slugify(optionName)
+      },
+      key = $scope.productOptionGroups.$keyAt(group),
+      index = $scope.productOptionGroups.$indexFor(key);
+
+      if (!group.options) {
+        group.options = [];
+      }
+
+      group.options.push(option);
+
+      $scope.productOptionGroups[index] = group;
+      $scope.productOptionGroups.$save(index);
+
+    }
+
+    $scope.removeOption = function (group, option) {
+      var key = $scope.productOptionGroups.$keyAt(group),
+      index = $scope.productOptionGroups.$indexFor(key),
+      i = group.options.length;
+
+      while (i--) {
+        if (group.options[i].name === option.name) {
+          group.options.splice(i, 1);
+        }
+      }
+
+      $scope.productOptionGroups[index] = group;
+      $scope.productOptionGroups.$save(index);
+
+    };
 
     /*
      * localStorage

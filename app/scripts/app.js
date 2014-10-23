@@ -331,6 +331,9 @@ angular.module('quiverCmsApp', [
           productImagesRef: function (AdminService, $stateParams) {
             return AdminService.getProductImages($stateParams.key);
           },
+          productOptionGroupsRef: function (AdminService, $stateParams) {
+            return AdminService.getProductOptionGroups($stateParams.key);
+          },
           filesRef: function (AdminService) {
             return AdminService.getFiles();
           }

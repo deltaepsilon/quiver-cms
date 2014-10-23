@@ -29,6 +29,22 @@
         <label for="product-price">Price</label>
         <input id="product-price" type="number" name="product-price" ng-model="product.price" placeholder="Price in USD..." ng-change="checkValidity()">
 
+        <hr>
+
+        <div class="margin-vertical-small">
+          <label>Options</label>
+          <a class="text-small margin-horizontal-small" ng-click="addOptionGroup()">+ option group</a>
+          <ul ng-repeat="group in productOptionGroups">
+            <li><input type="text" placeholder="Option #{{ $index }} name..." ng-model="group.name"></li>
+            <li><input type="text" placeholder="New option..." ng-model="newOptionName" qv-enter="addOption(group, newOptionName); newOptionName = undefined;"></li>
+            <li><a class="right text-small" ng-click="removeOptionGroup(group)">- remove group</a></li>
+            <li class="cursor-pointer" ng-repeat="option in group.options" ng-click="removeOption(group, option)">{{ option.name }}</li>
+
+          </ul>
+        </div>
+
+        <hr>
+
         <div>
           <div class="clearfix">
             <label class="left" for="product-shipped">Shipped?</label>
