@@ -56,8 +56,8 @@
                 <form>
                     <label for="nav1-link-text">Nav #1 Links</label>
 
-                    <input ng-hide="settings.nav1Title" id="nav1-title" type="text" ng-model="nav1Title" placeholder="Nav 1 title..." ng-blur="settings.nav1Title = nav1Title || null; nav1Title = null;"/>
-                    <span class="title-contenteditable" ng-show="settings.nav1Title" ng-model="settings.nav1Title" contenteditable="true">{{ settings.nav1Title }}</span>
+                    <input ng-hide="settings.nav1Title" id="nav1-title" type="text" ng-model="nav1Title" placeholder="Nav 1 title..." ng-blur="setNavTitle('nav1Title', nav1Title); nav1Title = null;"/>
+                    <span class="title-contenteditable" ng-show="settings.nav1Title" ng-model="settings.nav1Title" contenteditable="true" ng-blur="setNavTitle('nav1Title', settings.nav1Title); nav1Title = null;">{{ settings.nav1Title }}</span>
 
                     <input id="nav1-link-text" type="text" ng-model="nav1New.text" placeholder="New link text..."/>
                     <input id="nav1-link-href" type="text" ng-model="nav1New.href" placeholder="New link href..."/>
@@ -77,7 +77,7 @@
                 <form>
                     <label for="nav2-link-text">Nav #2 Links</label>
 
-                    <input ng-hide="settings.nav2Title" id="nav2-title" type="text" ng-model="nav2Title" placeholder="Nav 2 title..." ng-blur="settings.nav2Title = nav2Title; nav2Title = null;"/>
+                    <input ng-hide="settings.nav2Title" id="nav2-title" type="text" ng-model="nav2Title" placeholder="Nav 2 title..." ng-blur="setNavTitle('nav2Title', nav2Title); nav2Title = null;"/>
                     <span class="title-contenteditable" ng-show="settings.nav2Title" ng-model="settings.nav2Title" contenteditable="true">{{ settings.nav2Title }}</span>
 
                     <input id="nav2-link-text" type="text" ng-model="nav2New.text" placeholder="New link text..."/>
@@ -96,7 +96,7 @@
                 <form>
                     <label for="nav3-link-text">Nav #3 Links</label>
 
-                    <input ng-hide="settings.nav3Title" id="nav3-title" type="text" ng-model="nav3Title" placeholder="Nav 3 title..." ng-blur="settings.nav3Title = nav3Title; nav3Title = null;"/>
+                    <input ng-hide="settings.nav3Title" id="nav3-title" type="text" ng-model="nav3Title" placeholder="Nav 3 title..." ng-blur="setNavTitle('nav3Title', nav3Title); nav3Title = null;"/>
                     <span class="title-contenteditable" ng-show="settings.nav3Title" ng-model="settings.nav3Title" contenteditable="true">{{ settings.nav3Title }}</span>
 
                     <input id="nav3-link-text" type="text" ng-model="nav3New.text" placeholder="New link text..."/>

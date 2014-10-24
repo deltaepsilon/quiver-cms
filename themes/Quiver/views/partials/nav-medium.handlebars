@@ -11,14 +11,14 @@
                           <a href="#">{{ settings.nav1Title }}</a>
                           <ul class="dropdown">
                             {{#each settings.nav1 }}
-                                <li class="{{active href ../url }}"><a href="{{ href }}">{{ text }}</a></li>
+                                <li class="{{active href ../url }}"><a href="{{ this.href }}">{{ this.text }}</a></li>
                             {{/each }}
                           </ul>
                       </li>
                   {{ else }}
                     {{#each settings.nav1 }}
                         <li class="{{active this.href ../url }}">
-                            <a href="{{ href }}">{{ text }}</a>
+                            <a href="{{ this.href }}">{{ this.text }}</a>
                         </li>
 
                     {{/each }}
@@ -34,14 +34,14 @@
                           <a href="#">{{ settings.nav2Title }}</a>
                           <ul class="dropdown">
                             {{#each settings.nav2 }}
-                                <li class="{{active this.href ../url }}"><a href="{{ href }}">{{ text }}</a></li>
+                                <li class="{{active this.href ../url }}"><a href="{{ this.href }}">{{ this.text }}</a></li>
                             {{/each }}
                           </ul>
                       </li>
                   {{ else }}
                     {{#each settings.nav2 }}
                         <li class="{{active this.href ../url }}">
-                            <a href="{{ href }}">{{ text }}</a>
+                            <a href="{{ this.href }}">{{ text }}</a>
                         </li>
 
                     {{/each }}

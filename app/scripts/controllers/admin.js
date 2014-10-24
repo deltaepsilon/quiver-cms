@@ -23,6 +23,10 @@ angular.module('quiverCmsApp')
     */
     settings.$bindTo($scope, 'settings');
 
+    $scope.setNavTitle = function (name, value) {
+      $scope.settings[name] = value && value.length ? value : null;
+    };
+
     $scope.addNavLink = function (type, link) {
       var list = $scope.settings[type];
       if (!list || !list.length) {
@@ -37,7 +41,12 @@ angular.module('quiverCmsApp')
     };
 
     $scope.removeNavLink = function (type, i) {
-      $scope.settings[type].splice(i, 1);
+      var list = $scope.settings[type];
+      list.splice(i, 1);
+
+      settings[type] = list;
+      settings.$save();
+      
     };
 
   });

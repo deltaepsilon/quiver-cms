@@ -611,7 +611,16 @@ firebaseRoot.auth(firebaseSecret, function () {
   });
 
   settingsRef.on('value', function (snapshot) {
+    var stringChecks =  ['nav1Title', 'nav2Title', 'nav3Title'];
     settings = snapshot.val();
+
+    _.each(stringChecks, function (check) {
+      var value = settings[check];
+      if (typeof value === 'string' && !value.length) {
+        settings[check] = false;
+      }
+    });
+
     settingsDeferred.resolve(settings);
   });
 
