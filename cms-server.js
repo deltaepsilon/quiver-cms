@@ -317,6 +317,48 @@ app.get('/themes', function (req, res) {
 });
 
 /*
+ * Alternates
+*/
+var setAlternates = function () {
+  var readDeferred = Q.defer(),
+    finalDeferred = Q.defer();
+  fs.readdir('./themes/Quiver/views', function (err, files) {
+    var REGEX = '\.alt\.'
+    files = _.filter(files, function (file) {
+      return file.match(REGEX);
+    });
+    return err ? readDeferred.reject(err) : readDeferred.resolve(files);
+  });
+
+  readDeferred.promise.then(function (files) {
+    var alternates = [];
+
+    _.each(files, function (file) {
+      var parts = file.split('.');
+      alternates.push({
+        filename: file,
+        slug: slug(parts[0]).toLowerCase(),
+        name: parts[0]
+      });
+    });
+
+    firebaseRoot.child('theme').child('alternates').set(alternates, function (err) {
+      return err ? finalDeferred.reject(err) : finalDeferred.resolve(alternates);
+    });
+  });
+
+  return finalDeferred.promise;
+};
+setAlternates();
+app.get('alternates', function (req, res) {
+  setAlternates().then(function (result) {
+    res.json(result);
+  }, function () {
+    res.sentStatus(500);
+  });
+});
+
+/*
  * Env
 */
 app.get('/env', function (req, res) {

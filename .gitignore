@@ -17,3 +17,4 @@ themes/Quiver/static/lib/*
 config/development.json
 config/production.json
 config/*-ignore.json
+themes/Quiver/views/*.alt.handlebars

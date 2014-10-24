@@ -1,6 +1,8 @@
-{{!--<div class="full-bleed tall underlay fade-white">--}}
-    {{!--<img src="{{ settings.frontPageImage }}"/>--}}
-{{!--</div>--}}
+{{#if settings.frontPageImage }}
+  <div class="full-bleed tall underlay fade-white">
+      <img src="{{ settings.frontPageImage }}"/>
+  </div>
+{{/if }}
 
 <div id="posts" class="posts row">
     {{#each postBlocks.primary }}

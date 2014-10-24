@@ -4,10 +4,21 @@
 
     <form name="themeForm">
         <fieldset>
+          <div class="column small-12 medium-6">
             <label for="theme">Pick a Theme</label>
-            <select name="" id="theme">
-                <option ng-model="theme.active" ng-repeat="option in theme.options">{{ option }}</option>
+            <select ng-model="theme.active" ng-options="key as value for (key, value) in theme.options">
+              <option value="">Default Theme</option>
             </select>
+          </div>
+          <div class="column small-12 medium-6">
+            <label for="front-page">Front Page Template</label>
+            <select ng-model="theme.frontPage" ng-options="alternate.filename as alternate.name for alternate in theme.alternates">
+              <option value="">Default Template</option>
+            </select>
+          </div>
+
+
+
         </fieldset>
     </form>
     <form name="settingsForm">

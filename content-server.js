@@ -22,6 +22,7 @@ var config = require('config'),
   handlebars,
   theme,
   words,
+  products,
   settings,
   hashtags,
   wordsIndex,
@@ -376,7 +377,7 @@ var renderPosts = function (template, page, url, options) {
     });
   };
 app.get('/', function (req, res) {
-  renderPosts('front-page', 0, req.url, {title: settings.siteTitle}).then(function (html) {
+  renderPosts(theme.frontPage || 'front-page', 0, req.url, {title: settings.siteTitle}).then(function (html) {
     res.status(200).send(html);
   }, function (err) {
     res.status(500).send(err);
@@ -548,11 +549,13 @@ console.log('...Starting auth...');
 firebaseRoot.auth(firebaseSecret, function () {
   var themeRef = firebaseRoot.child('theme'),
     wordsRef = firebaseRoot.child('content').child('words'),
+    productsRef = firebaseRoot.child('content').child('products'),
     settingsRef = firebaseRoot.child('settings'),
     hashtagsRef = firebaseRoot.child('content').child('hashtags'),
     wordsIndexRef = firebaseRoot.child('wordsIndex'),
     themeDeferred = Q.defer(),
     wordsDeferred = Q.defer(),
+    productsDeferred = Q.defer(),
     settingsDeferred = Q.defer(),
     hashtagsDeferred = Q.defer(),
     wordsIndexDeferred = Q.defer();
@@ -601,6 +604,12 @@ firebaseRoot.auth(firebaseSecret, function () {
 
   wordsRef.on('value', handleWords);
 
+
+  productsRef.on('value', function (snapshot) {
+    products = snapshot.val();
+    productsDeferred.resolve(products);
+  });
+
   settingsRef.on('value', function (snapshot) {
     settings = snapshot.val();
     settingsDeferred.resolve(settings);
@@ -620,6 +629,7 @@ firebaseRoot.auth(firebaseSecret, function () {
   Q.all([
     themeDeferred.promise,
     wordsDeferred.promise,
+    productsDeferred.promise,
     settingsDeferred.promise,
     hashtagsDeferred.promise,
     wordsIndexDeferred.promise
