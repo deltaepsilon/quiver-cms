@@ -8,7 +8,7 @@
  * Controller of the quiverCmsApp
  */
 angular.module('quiverCmsApp')
-  .controller('ProductCtrl', function ($scope, productRef, productImagesRef, productOptionGroupsRef, filesRef, hashtagsRef, $localStorage, env, $filter, $timeout, Slug, _) {
+  .controller('ProductCtrl', function ($scope, productRef, productImagesRef, productOptionGroupsRef, productOptionsMatrixRef, filesRef, hashtagsRef, $localStorage, env, $filter, $timeout, Slug, _) {
 
     /*
      * Product
@@ -97,6 +97,93 @@ angular.module('quiverCmsApp')
     $scope.productImages = productImagesRef.$asArray();
 
     /*
+     * Product Options Matrix
+    */
+    var productOptionsMatrix = productOptionsMatrixRef.$asObject();
+
+    productOptionsMatrix.$bindTo($scope, 'productOptionsMatrix');
+
+    var updateMatrix = function (optionGroups) {
+      var slugs = [],
+        i = 0,
+        length = optionGroups.length,
+        matrix = {},
+        group;
+
+      for (i; i < length; i++) {
+        group = optionGroups[i];
+
+        if (i === 0) {
+          _.each(group.options, function (option) {
+            var slug = option.slug;
+
+            if (length === 1) { // Add the final slug if this is the only loop
+              slugs.push(slug);
+            }
+
+            if (!matrix[slug]) {
+              matrix[slug] = {};
+            }
+            matrix[slug].name = option.name;
+            matrix[slug].slug = option.slug;
+            matrix[slug].priceDifference = option.priceDifference || 0;
+          });
+
+
+        } else {
+          _.each(matrix, function (matrixItem, key) {
+            if (key.charAt(0) !== '$') {
+              _.each(group.options, function (option, index) {
+                var slug = key + '|' + option.slug;
+
+                if (i === length - 1) {
+                  slugs.push(slug); // Add to final list
+                } else {
+                  delete matrix[key]; // Clean up mess
+                }
+
+                if (!matrix[slug]) {
+                  matrix[slug] = {};
+                }
+                matrix[slug].name = matrixItem.name + ' + ' + option.name;
+                matrix[slug].slug = key + '|' + option.slug;
+                matrix[slug].priceDifference = matrixItem.priceDifference + (option.priceDifference || 0);
+
+              });
+            }
+
+          });
+
+        }
+
+      }
+
+
+      // Pruning... and updating in place
+      var keys = _.uniq(Object.keys(matrix).concat(Object.keys($scope.productOptionsMatrix))),
+        j = keys.length;
+
+      while (j--) {
+        if (!~slugs.indexOf(keys[j])) {
+          delete matrix[keys[j]];
+          delete $scope.productOptionsMatrix[keys[j]];
+        } else {
+          if (!$scope.productOptionsMatrix[keys[j]]) {
+            $scope.productOptionsMatrix[keys[j]] = {};
+          }
+          $scope.productOptionsMatrix[keys[j]].name = matrix[keys[j]].name;
+          $scope.productOptionsMatrix[keys[j]].slug = matrix[keys[j]].slug;
+          $scope.productOptionsMatrix[keys[j]].priceDifference = matrix[keys[j]].priceDifference;
+        }
+
+      }
+
+    };
+
+    $scope.updateMatrix = updateMatrix;
+
+
+    /*
      * Product Option Groups
     */
     $scope.productOptionGroups = productOptionGroupsRef.$asArray();
@@ -108,7 +195,10 @@ angular.module('quiverCmsApp')
     };
 
     $scope.removeOptionGroup = function (group) {
-      $scope.productOptionGroups.$remove(group);
+      $scope.productOptionGroups.$remove(group).then(function () {
+        updateMatrix($scope.productOptionGroups);
+      });
+
     };
 
     $scope.addOption = function (group, optionName) {
@@ -126,7 +216,11 @@ angular.module('quiverCmsApp')
       group.options.push(option);
 
       $scope.productOptionGroups[index] = group;
-      $scope.productOptionGroups.$save(index);
+      $scope.productOptionGroups.$save(index).then(function () {
+        updateMatrix($scope.productOptionGroups);
+      });
+
+
 
     }
 
@@ -142,7 +236,10 @@ angular.module('quiverCmsApp')
       }
 
       $scope.productOptionGroups[index] = group;
-      $scope.productOptionGroups.$save(index);
+      $scope.productOptionGroups.$save(index).then(function () {
+        updateMatrix($scope.productOptionGroups);
+      });
+
 
     };
 
@@ -151,7 +248,9 @@ angular.module('quiverCmsApp')
       index = $scope.productOptionGroups.$indexFor(key);
 
       $scope.productOptionGroups[index] = group;
-      $scope.productOptionGroups.$save(index);
+      $scope.productOptionGroups.$save(index).then(function () {
+        updateMatrix($scope.productOptionGroups);
+      });
     }
 
     /*

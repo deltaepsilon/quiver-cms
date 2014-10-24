@@ -75,6 +75,10 @@ angular.module('quiverCmsApp')
 
       getProductOptionGroups: function (key) {
         return $firebase(new Firebase(firebaseEndpoint + '/content/products/' + key + '/optionGroups'));
+      },
+
+      getProductOptionsMatrix: function (key) {
+        return $firebase(new Firebase(firebaseEndpoint + '/content/products/' + key + '/optionsMatrix'));
       }
 
     }

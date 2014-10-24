@@ -26,28 +26,59 @@
             <img ng-if="product.featuredImage.Versions.small.Key" ng-src="{{ product.featuredImage.Versions.small.Key | s3Link:files.Name }}" />
           </a>
         </div>
-        <div class="column small-12 medium-3">
-          <ul class="margin-vertical-small">
-            <li><h5>Details</h5></li>
-            <li>Price: <strong class="right">{{ product.price | currency }}</strong></li>
-            <li>Type: <strong class="right">{{ product.type }}</strong></li>
-            <li>Slug: <strong class="right">{{ product.slug }}</strong></li>
-          </ul>
+        <div class="column small-12 medium-9 padding-zero-important">
+          <div class="column small-12 medium-4">
+            <ul class="margin-vertical-small">
+              <li><h5>Details</h5></li>
+              <li>Price: <strong class="right">{{ product.price | currency }}</strong></li>
+              <li>Type: <strong class="right">{{ product.type }}</strong></li>
+              <li>Slug: <strong class="right">{{ product.slug }}</strong></li>
+            </ul>
+          </div>
+          <div class="column small-12 medium-4" ng-show="product.shipped">
+            <ul class="margin-vertical-small">
+              <li><h5>Shipping</h5></li>
+              <li style="text-align: justify;">Domestic: <strong class="right">{{ product.shipping.domesticPrice | currency}}</strong></li>
+              <li>International: <strong class="right">{{ product.shipping.internationalPrice | currency }}</strong></li>
+              <li>Int. Enabled: <strong class="right">{{ product.shipping.internationalAllowed }}</strong></li>
+            </ul>
+          </div>
+          <div class='column small-12 medium-4'>
+            <ul class="margin-vertical-small">
+              <li><h5>Excerpt</h5></li>
+              <li>{{ product.description.excerpt }}</li>
+            </ul>
+          </div>
+          <hr>
+          <div class="column small-12 medium-3">
+            <ul class="margin-vertical-zero-important">
+              <!-- <li><h5>Hashtags</h5></li> -->
+              <li>
+                <ul class="inline-list clearfix text-small">
+                  <li ng-repeat="hashtag in product.hashtags">#{{ hashtag.key }}</li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+          <div class="column small-12 medium-9">
+            <ul class="inline-list margin-vertical-zero-important">
+              <!-- <li><h5 class="margin-zero">Options</h5></li> -->
+              <li ng-repeat="group in product.optionGroups">
+                <ul class="inline-list clearfix margin-vertical-zero-important">
+                  <li><strong>{{ group.name }}:</strong></li>
+                  <li class="text-small" ng-repeat="option in group.options">
+                    <span>{{ option.name }}</span>
+                    <span class="text-xx-small" ng-hide="option.inventory === 0">{{ ::option.inventory || '∞' }}</span>
+                    <span class="text-xx-small" ng-show="option.inventory === 0">0</span>
+                    <span class="text-xx-small"> ± {{ ::option.priceDifference || 0 | currency }}</span>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
         </div>
-        <div class="column small-12 medium-3" ng-show="product.shipped">
-          <ul class="margin-vertical-small">
-            <li><h5>Shipping</h5></li>
-            <li style="text-align: justify;">Domestic: <strong class="right">{{ product.shipping.domesticPrice | currency}}</strong></li>
-            <li>International: <strong class="right">{{ product.shipping.internationalPrice | currency }}</strong></li>
-            <li>Int. Enabled: <strong class="right">{{ product.shipping.internationalAllowed }}</strong></li>
-          </ul>
-        </div>
-        <div class='column small-12 medium-3'>
-          <ul class="margin-vertical-small">
-            <li><h5>Excerpt</h5></li>
-            <li>{{ product.description.excerpt }}</li>
-          </ul>
-        </div>
+
+
 
       </div>
     </li>
