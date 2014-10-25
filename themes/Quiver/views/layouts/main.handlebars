@@ -14,7 +14,7 @@
     <script src="/env.js"></script>
 
 </head>
-<body>
+<body ng-app="QuiverCMS" ng-controller="MasterCtrl">
 
   <input id="off-canvas-checkbox" class="off-canvas-checkbox" type="checkbox"/>
   <div class="off-canvas-wrap checkbox-move-left">
@@ -46,5 +46,12 @@
   {{> disqus-comment-count }}
 
   <script src="/static/lib/rainbow/js/rainbow.js"></script>
+  <script src="/static/lib/jquery/dist/jquery.min.js"></script>
+  <script src="/static/lib/angular/angular.js"></script>
+  <script src="/static/lib/ngstorage/ngStorage.js"></script>
+  <script src="/static/lib/moment/min/moment.min.js"></script>
+  <script src="/static/lib/underscore/underscore-min.js"></script>
+  <script src="/static/scripts/app.js"></script>
+
 </body>
 </html>

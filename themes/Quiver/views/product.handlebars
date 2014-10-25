@@ -1,14 +1,12 @@
-<div class="row padding-large">
-  <div class="column small-12 medium-8">
+<div class="row padding-large" itemscope itemtype="http://schema.org/Product">
+  <div class="column small-12">
     {{#if product.featuredImage }}
       <div class="margin-vertical-medium">
-        <a href="/product/{{ product.slug }}">
-            {{#if product.featuredImage.Versions.small.Key }}
-              <img src="{{s3 product.featuredImage.Versions.medium.Key }}" alt="{{deSlug product.featuredImage.Name }}"/>
-            {{ else }}
-                <img src="{{s3 product.featuredImage.Key }}" alt="{{deSlug product.featuredImage.Name }}"/>
-            {{/if }}
-        </a>
+        {{#if product.featuredImage.Versions.small.Key }}
+          <img src="{{s3 product.featuredImage.Versions.medium.Key }}" alt="{{deSlug product.featuredImage.Name }}"/>
+        {{ else }}
+            <img src="{{s3 product.featuredImage.Key }}" alt="{{deSlug product.featuredImage.Name }}"/>
+        {{/if }}
       </div>
     {{/if }}
 
@@ -23,16 +21,43 @@
     {{/if }}
   </div>
 
-  <div class="column small-12 medium-4">
+  <div class="column small-12">
     <div class="margin-vertical-medium">
-      <h5 class="font-flair clearfix margin-vertical-zero-important">
+      <h3 class="font-flair clearfix margin-vertical-zero-important">
         <div class="left link-secondary0">
-          <a href="/product/{{ product.slug }}">{{ product.title }}</a>
+          <a href="/product/{{ product.slug }}" itemprop="name">{{ product.title }}</a>
         </div>
         <div class="right">${{ product.price }}</div>
-      </h5>
+      </h3>
 
       <hr class="margin-vertical-x-small">
+
+      <div class="panel right small-12 medium-4 background-white-important" style="margin-left: 1rem;">
+        {{#if useInventoryMatrix }}
+          Inventory Matrix
+        {{ else }}
+          {{#if product.inventory }}
+            <button class="small-12" ng-hide="inCart('{{ product.slug }}')" ng-click="addToCart('{{ product.slug }}')">Add to Cart</button>
+            <button class="small-12 alert" ng-show="inCart('{{ product.slug }}')" ng-click="removeFromCart('{{ product.slug }}')">Remove from Cart</button>
+
+            <span class="text-secondary0">
+              <strong>In Stock:</strong>
+              <strong>{{ product.inventory }}</strong>
+            </span>
+
+
+          {{ else }}
+            <button class="small-12" disabled="true">Out of Stock</button>
+          {{/if }}
+        {{/if }}
+
+        <div class="right link-secondary0" ng-show="$storage.cart.productCount">
+          <a href="/app/cart">
+            <span ng-bind="$storage.cart.productCount"></span>
+            <i class="fa fa-shopping-cart"></i>
+          </a>
+        </div>
+      </div>
 
       <ul class="inline-list clearfix">
         {{#each product.hashtags }}
@@ -44,7 +69,7 @@
 
       <div class="markdown">
         {{markdown product.description.markdown }}
-      </div>
+      </div
 
     </div>
 
@@ -52,3 +77,13 @@
   </div>
 
 </div>
+
+<script>
+  (function () {
+    var product = {{{json product}}},
+      name = 'quiver-cms-product-{{ product.slug }}';
+
+    localStorage.setItem(name, JSON.stringify(product));
+  })();
+
+</script>

@@ -182,6 +182,21 @@ angular.module('quiverCmsApp')
 
     $scope.updateMatrix = updateMatrix;
 
+    $scope.usingMatrix = function () {
+      if ($scope.productOptionsMatrix) {
+        var keys = Object.keys($scope.productOptionsMatrix),
+          i = keys.length;
+
+        while (i--) {
+          if (keys[i].charAt(0) !== '$') {
+            return true;
+          }
+        }
+      }
+
+      return false;
+    };
+
 
     /*
      * Product Option Groups

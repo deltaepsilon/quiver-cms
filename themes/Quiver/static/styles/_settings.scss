@@ -30,9 +30,9 @@ $rem-base: 16px;
 // $include-print-styles: true;
 // $include-html-global-classes: $include-html-classes;
 
-// Grid 
+// Grid
 
-// $include-html-block-grid-classes: $include-html-classes; 
+// $include-html-block-grid-classes: $include-html-classes;
 // $include-xl-html-grid-classes: false;
 
 // $row-width: rem-calc(1000);
@@ -66,6 +66,12 @@ $body-font-family: $font-primary "Helvetica Neue", "Helvetica", Helvetica, Arial
 // $success-color: #43AC6A;
 // $warning-color: #f08a24;
 // $info-color: #a0d3e8;
+$primary-color: getColor(primary2);
+$secondary-color: getColor(secondary4);
+$alert-color: getColor(error);
+$success-color: getColor(secondary2);
+$warning-color: getColor(warning);
+$info-color: getColor(notify);
 
 // We use these to make sure border radius matches unless we want it different.
 // $global-radius: 3px;

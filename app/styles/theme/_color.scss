@@ -25,6 +25,10 @@ $colors:
   .background-#{nth($color, 1)} {
     background-color : nth($color, 2);
   }
+
+  .background-#{nth($color, 1)}-important {
+    background-color : nth($color, 2) !important;
+  }
 }
 
 // Text colors.

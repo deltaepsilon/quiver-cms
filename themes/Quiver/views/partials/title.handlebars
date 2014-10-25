@@ -1,1 +1,9 @@
-{{ title }}
+{{#if title }}
+  {{ title }}
+{{ else }}
+  {{#if settings.siteTitle }}
+    {{ settings.siteTitle }}
+  {{ else }}
+    Quiver CMS
+  {{/if }}
+{{/if }}

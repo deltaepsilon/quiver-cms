@@ -391,7 +391,7 @@ app.get('/', function (req, res) {
 app.get('/products', function (req, res) {
   app.render('products', {
     development: config.get('public.environment') === 'development',
-    title: 'Products',
+    title: 'Products: ' + settings.siteTitle,
     products: products,
     settings: settings,
     url: req.url
@@ -414,7 +414,9 @@ app.get('/product/:slug', function (req, res) {
   app.render('product', {
     development: config.get('public.environment') === 'development',
     product: product,
+    useInventoryMatrix: typeof product.inventory === 'undefined',
     settings: settings,
+    title: product.title + ': ' +settings.siteTitle,
     url: req.url
   }, function (err, html) {
     if (err) {
