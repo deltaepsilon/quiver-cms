@@ -1,0 +1,54 @@
+<div class="row padding-large">
+  <div class="column small-12 medium-8">
+    {{#if product.featuredImage }}
+      <div class="margin-vertical-medium">
+        <a href="/product/{{ product.slug }}">
+            {{#if product.featuredImage.Versions.small.Key }}
+              <img src="{{s3 product.featuredImage.Versions.medium.Key }}" alt="{{deSlug product.featuredImage.Name }}"/>
+            {{ else }}
+                <img src="{{s3 product.featuredImage.Key }}" alt="{{deSlug product.featuredImage.Name }}"/>
+            {{/if }}
+        </a>
+      </div>
+    {{/if }}
+
+    {{#if product.images }}
+      <ul class="small-block-grid-1 small-block-grid-3">
+        {{#each product.images }}
+          <li>
+            <img src="{{s3 this.Versions.small.Key }}" alt="{{deSlug this.Name  }}" />
+          </li>
+        {{/each }}
+      </ul>
+    {{/if }}
+  </div>
+
+  <div class="column small-12 medium-4">
+    <div class="margin-vertical-medium">
+      <h5 class="font-flair clearfix margin-vertical-zero-important">
+        <div class="left link-secondary0">
+          <a href="/product/{{ product.slug }}">{{ product.title }}</a>
+        </div>
+        <div class="right">${{ product.price }}</div>
+      </h5>
+
+      <hr class="margin-vertical-x-small">
+
+      <ul class="inline-list clearfix">
+        {{#each product.hashtags }}
+            <li>
+                <a href="/products/{{ this.key }}">#{{ this.value }}</a>
+            </li>
+        {{/each }}
+      </ul>
+
+      <div class="markdown">
+        {{markdown product.description.markdown }}
+      </div>
+
+    </div>
+
+
+  </div>
+
+</div>

@@ -50,6 +50,29 @@
                 </ul>
             </section>
 
+            <section class="top-bar-section">
+                <ul>
+                  {{#if settings.nav3Title }}
+                      <li class="has-dropdown not-click">
+                          <a href="#">{{ settings.nav3Title }}</a>
+                          <ul class="dropdown">
+                            {{#each settings.nav3 }}
+                                <li class="{{active this.href ../url }}"><a href="{{ this.href }}">{{ this.text }}</a></li>
+                            {{/each }}
+                          </ul>
+                      </li>
+                  {{ else }}
+                    {{#each settings.nav3 }}
+                        <li class="{{active this.href ../url }}">
+                            <a href="{{ href }}">{{ text }}</a>
+                        </li>
+
+                    {{/each }}
+                  {{/if }}
+
+                </ul>
+            </section>
+
         </div>
 
     </div>

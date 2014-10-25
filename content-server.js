@@ -385,6 +385,50 @@ app.get('/', function (req, res) {
 
 });
 
+/*
+ * Product
+*/
+app.get('/products', function (req, res) {
+  app.render('products', {
+    development: config.get('public.environment') === 'development',
+    title: 'Products',
+    products: products,
+    settings: settings,
+    url: req.url
+  }, function (err, html) {
+    if (err) {
+      res.status(500).send(err);
+    } else {
+      res.status(200).send(html);
+    }
+  });
+
+});
+
+app.get('/product/:slug', function (req, res) {
+  var slug = req.params.slug,
+    product = _.find(products, function (product) {
+      return product.slug === slug;
+    });
+
+  app.render('product', {
+    development: config.get('public.environment') === 'development',
+    product: product,
+    settings: settings,
+    url: req.url
+  }, function (err, html) {
+    if (err) {
+      res.status(500).send(err);
+    } else {
+      res.status(200).send(html);
+    }
+  });
+});
+
+/*
+ * Posts
+*/
+
 app.get('/posts/:page', function (req, res) {
   renderPosts('posts', req.params.page, req.url).then(function (html) {
     res.status(200).send(html);
@@ -485,6 +529,7 @@ app.get('/search/:searchTerm', function (req, res) {
 
   });
 });
+
 
 /*
  * Index Words and Search

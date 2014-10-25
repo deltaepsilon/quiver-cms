@@ -1,0 +1,20 @@
+{{#if title }}
+  <div class="row">
+    <div class="column small-12">
+      <h3 class="font-flair margin-vertical-medium">{{ title }}</h3>
+    </div>
+  </div>
+{{/if }}
+
+<div id="products" class="posts row">
+  <ul class="column small-12 table-list striped margin-horizontal-zero-important padding-horizontal-zero-important">
+    {{#each products }}
+      {{#if active }}
+        <li class="product product-{{ @index }}">
+          {{> inline-product }}
+        </li>
+      {{/if }}
+    {{/each }}
+  </ul>
+
+</div>

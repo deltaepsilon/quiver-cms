@@ -19,6 +19,7 @@ angular.module('quiverCmsApp')
         newProduct.slug = Slug.slugify(newProduct.title);
         newProduct.type = 'physical';
         $scope.products.$add(newProduct);
+        delete $scope.newProduct;
     };
 
     $scope.removeProduct = function (product) {
