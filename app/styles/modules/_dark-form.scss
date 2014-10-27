@@ -1,0 +1,26 @@
+.dark-form {
+
+  .dark-wrapper {
+    @extend .clearfix;
+    @extend .background-highlight3;
+  }
+
+  .title {
+    @extend .text-white;
+    @extend .padding-medium;
+    @extend .background-highlight1;
+    @extend .margin-zero;
+  }
+
+  fieldset {
+    @extend .margin-horizontal-medium;
+    @extend .margin-vertical-large;
+    @extend .padding-zero;
+
+    border: none;
+  }
+
+  a, a:hover {
+    @extend .text-white;
+  }
+}

@@ -8,3 +8,9 @@
   margin: rem-calc(7) 0 rem-calc(22);
   display: block;
 }
+
+form {
+  &.top-offset {
+    margin-top: 5rem;
+  }
+}

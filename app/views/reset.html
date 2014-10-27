@@ -1,5 +1,6 @@
-<form name="resetForm" class="column small-12 medium-6 medium-centered">
-    <h3 class="font-flair">Reset Password</h3>
+<form name="resetForm" class="column small-12 medium-6 medium-centered top-offset" ng-class="{'dark-form': settings.loginImage}">
+  <div class="dark-wrapper">
+    <h3 class="title">Reset Password</h3>
 
     <fieldset>
         <input type="email" ng-model="email" placeholder="Email..." required/>
@@ -16,4 +17,5 @@
             </li>
         </ul>
     </fieldset>
+  </div>
 </form>

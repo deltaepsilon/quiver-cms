@@ -100,8 +100,14 @@ angular.module('quiverCmsApp', [
           currentUser: function (UserService) {
             return UserService.getUser();
           },
-          settingsRef: function (AdminService) {
-            return AdminService.getSettings();
+          settingsRef: function ($q, AdminService) {
+            var deferred = $q.defer(),
+             settingsRef = AdminService.getSettings();
+             settingsRef.$asObject().$loaded(function () {
+               deferred.resolve(settingsRef);
+             });
+
+            return deferred.promise
           }
         }
       })
