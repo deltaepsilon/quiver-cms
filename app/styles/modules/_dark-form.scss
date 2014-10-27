@@ -14,10 +14,12 @@
 
   fieldset {
     @extend .margin-horizontal-medium;
-    @extend .margin-vertical-large;
     @extend .padding-zero;
 
-    border: none;
+    border: none;    
+    margin-left: 2rem;
+    margin-right: 2rem;
+
   }
 
   a, a:hover {

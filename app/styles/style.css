@@ -2416,7 +2416,7 @@ a.link-hover-black-important:hover {
 }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Library\/Mobile\%20Documents\/com\~apple\~CloudDocs\/Development\/quiver-cms\/app\/styles\/theme\/_spacing\.scss}line{font-family:\0000330}}
-.margin-vertical-large, .dark-form fieldset {
+.margin-vertical-large {
   margin-top: 1.5rem;
   margin-bottom: 1.5rem;
 }
@@ -10955,6 +10955,8 @@ button.callout:active, button.callout:focus, .button.callout:active, .button.cal
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Library\/Mobile\%20Documents\/com\~apple\~CloudDocs\/Development\/quiver-cms\/app\/styles\/modules\/_dark-form\.scss}line{font-family:\0000315}}
 .dark-form fieldset {
   border: none;
+  margin-left: 2rem;
+  margin-right: 2rem;
 }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/christopheresplin\/Library\/Mobile\%20Documents\/com\~apple\~CloudDocs\/Development\/quiver-cms\/app\/styles\/modules\/_forms\.scss}line{font-family:\000031}}
