@@ -10,8 +10,8 @@ angular.module('QuiverCMS', ['ngStorage'])
   })
   .service('ProductService', function () {
     return {
-      setProduct: function (product) {
-        return localStorage.setItem('quiver-cms-product-' + slug, product);
+      setProduct: function (slug, product) {
+        return localStorage.setItem('quiver-cms-product-' + slug, JSON.stringify(product));
       },
 
       getProduct: function (slug) {
@@ -80,15 +80,7 @@ angular.module('QuiverCMS', ['ngStorage'])
         };
       }
 
-      i = cart.items.length;
-
-      while (i--) {
-        if (cart.items[i].slug === slug) {
-          exists = true;
-        }
-      }
-
-      if (exists) {
+      if ($scope.inCart(slug)) {
         console.warn('product already in cart');
       } else {
         cart.items.push(product);
@@ -102,19 +94,56 @@ angular.module('QuiverCMS', ['ngStorage'])
     $scope.removeFromCart = function (slug) {
       if (!$scope.$storage.cart || !$scope.$storage.cart.items || !$scope.$storage.cart.items.length) return;
 
+      var product = ProductService.getProduct(slug);
+
       $scope.$storage.cart.items = _.filter($scope.$storage.cart.items, function (item) {
-        return item.slug !== slug;
+        return !_.isEqual(item, product);
       });
 
       updateCart();
     };
 
     $scope.inCart = function (slug) {
-      var items = $scope.$storage.cart && $scope.$storage.cart.items ? $scope.$storage.cart.items : [];
+      var product = ProductService.getProduct(slug),
+        items = $scope.$storage.cart && $scope.$storage.cart.items ? $scope.$storage.cart.items : [];
 
       return !!_.find(items, function (item) {
-        return item.slug === slug;
+        return _.isEqual(item, product);
       });
+
+    };
+
+    $scope.updateOptions = function (slug, options) {
+      var product = ProductService.getProduct(slug);
+
+      product.options = _.map(options, function (optionIndex, key) {
+        return product.optionGroups[key].options[optionIndex];
+      });
+
+      product.optionsMatrixSelected = _.find(product.optionsMatrix, function (matrixItem, key) { //Attempt to set optionsMatrixSelected to the appropriate object.
+        var selections = key.split('|'),
+          keys = _.map(product.options, function (option) {
+            return option.slug;
+          }),
+          i = keys.length;
+
+        if (selections.length !== i) {
+          return false;
+        }
+
+        while (i--) {
+          if (!~selections.indexOf(keys[i])) {
+            return false;
+          }
+        }
+
+        return true;
+
+      });
+
+      ProductService.setProduct(slug, product);
+
+      return product;
 
     };
 

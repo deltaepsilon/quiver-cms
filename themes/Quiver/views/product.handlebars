@@ -34,7 +34,27 @@
 
       <div class="panel right small-12 medium-4 background-white-important" style="margin-left: 1rem;">
         {{#if useInventoryMatrix }}
-          Inventory Matrix
+          {{#if product.optionsMatrix }}
+            <form name="optionsForm">
+              <ul class="margin-zero-important">
+                {{#each product.optionGroups }}
+                  <li>
+                    <select ng-model="options['{{ @key }}']" ng-change="updateOptions('{{ ../product.slug }}', options)" required>
+                      <option value="">{{ this.name }}</option>
+                      {{#each this.options}}
+                        <option value="{{ @index }}">{{ this.name }}</option>
+                      {{/each }}
+
+                    </select>
+                  </li>
+                {{/each }}
+              </ul>
+              <button class="small-12" ng-hide="inCart('{{ product.slug }}')" ng-click="addToCart('{{ product.slug }}')" ng-disabled="optionsForm.$invalid">Add to Cart</button>
+              <button class="small-12 alert" ng-show="inCart('{{ product.slug }}')" ng-click="removeFromCart('{{ product.slug }}')">Remove from Cart</button>
+            </form>
+          {{ else }}
+            default
+          {{/if }}
         {{ else }}
           {{#if product.inventory }}
             <button class="small-12" ng-hide="inCart('{{ product.slug }}')" ng-click="addToCart('{{ product.slug }}')">Add to Cart</button>

@@ -20,6 +20,13 @@
       {{#each settings.nav2 }}
           <li class="{{active href ../url }}"><a href="{{ href }}">{{ text }}</a></li>
       {{/each }}
+      
+        <li ng-show="$storage.cart.productCount">
+          <a href="/app/cart">
+            <span ng-bind="$storage.cart.productCount"></span>
+            <i class="fa fa-shopping-cart"></i>
+          </a>
+        </li>
 
         <li>
             <label for="off-canvas-checkbox" href="#">>> close</label>

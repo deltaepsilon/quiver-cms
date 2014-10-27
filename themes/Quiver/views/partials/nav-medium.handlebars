@@ -73,6 +73,18 @@
                 </ul>
             </section>
 
+            <section class="top-bar-section">
+              <ul>
+                <li ng-show="$storage.cart.productCount">
+                  <a href="/app/cart">
+                    <span ng-bind="$storage.cart.productCount"></span>
+                    <i class="fa fa-shopping-cart"></i>
+                  </a>
+                </li>
+              </ul>
+
+            </section>
+
         </div>
 
     </div>
