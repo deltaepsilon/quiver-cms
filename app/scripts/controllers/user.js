@@ -19,9 +19,11 @@ angular.module('quiverCmsApp')
         NotificationService.success('Login Success');
         $scope.setCurrentUser(currentUser);
 
-        AdminService.getUser(currentUser.id, headers).then(function (user) {}, function (err) {
+        AdminService.getUser(currentUser.id, headers).then(function () {}, function (err) {
           NotificationService.error('Login Error', err);
         });
+
+        $scope.setUser(UserService.getUser(currentUser.id));
         $scope.toLanding();
 
       }, function (error) {

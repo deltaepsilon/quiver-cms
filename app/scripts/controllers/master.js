@@ -46,7 +46,11 @@ angular.module('quiverCmsApp')
     /*
      * User
     */
-    $scope.user = user;
+    $scope.setUser = function (user) {
+      $scope.user = user;
+    };
+
+    $scope.setUser(user);
 
     /*
      * Storage
@@ -82,6 +86,8 @@ angular.module('quiverCmsApp')
      * Log out user and forward to landing page
      */
     $scope.logOut = function () {
+      $scope.user.$destroy();
+      
       UserService.logOut().then(function () {
         delete $scope.currentUser;
         delete $scope.user;

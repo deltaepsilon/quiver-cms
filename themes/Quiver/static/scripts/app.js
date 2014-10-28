@@ -1,4 +1,4 @@
-angular.module('QuiverCMS', ['ngStorage'])
+angular.module('QuiverCMS', ['ngStorage', 'DeltaEpsilon.quiver-angular-utilities'])
 
   // .config()
   // .run()
@@ -20,7 +20,30 @@ angular.module('QuiverCMS', ['ngStorage'])
       }
     };
   })
-  .controller('MasterCtrl', function ($scope, $timeout, $localStorage, ProductService, moment, _) {
+  .controller('MasterCtrl', function ($scope, $timeout, $localStorage, ProductService, moment, _, UserService) {
+
+    /*
+     * User
+    */
+    UserService.getUser().then(function (currentUser) {
+      $scope.currentUser = currentUser;
+
+      if (currentUser && currentUser.email) {
+        $scope.gravatar = "https://www.gravatar.com/avatar/" + md5.createHash(currentUser.email);
+      }
+
+      if (currentUser && currentUser.id) {
+        UserService.getUser(currentUser.id).then(function (user) {
+          $scope.user = user;
+        });
+      }
+
+
+    });
+
+    /*
+     * Storage
+    */
     $scope.$storage = $localStorage;
 
     /*

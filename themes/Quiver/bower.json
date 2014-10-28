@@ -31,7 +31,10 @@
     "rainbow": "~1.1.9",
     "ngstorage": "~0.3.0",
     "moment": "~2.8.3",
-    "underscore": "~1.7.0"
+    "underscore": "~1.7.0",
+    "quiver-angular-utilities": "git@github.com:deltaepsilon/quiver-angular-utilities.git#master",
+    "angularfire": "~0.8.2",
+    "angular-ui-router": "~0.2.11"
   },
   "devDependencies": {
     "livereload": "~2.0.8"

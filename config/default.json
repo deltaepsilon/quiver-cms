@@ -1,6 +1,7 @@
 {
   "public": {
     "environment": "development",
+    "html5Mode": true,
     "firebase": {
       "endpoint": "https://my-firebase.firebaseio.com/quiver-cms"
     },

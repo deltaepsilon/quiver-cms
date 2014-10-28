@@ -85,6 +85,33 @@
 
             </section>
 
+            <section class="top-bar-section">
+                <ul class="right">
+                    <li ng-hide="currentUser" qv-active><a href="/app/login"><i class="fa fa-sign-in"></i> Login</a></li>
+                    <li ng-hide="currentUser" qv-active><a href="/app/register"><i class="fa fa-pencil"></i> Register</a></li>
+                    <li ng-show="$storage.cart.productCount" qv-active>
+                      <a href="/app/cart">
+                        <span ng-bind="$storage.cart.productCount"></span>
+                        <i class="fa fa-shopping-cart"></i>
+                      </a>
+                    </li>
+                    <li class="has-dropdown not-click" ng-show="currentUser" qv-active>
+                        <a href='/app/account'>
+                            <i class="fa fa-gears"></i>
+                            <img class="gravatar" ng-src="{{ gravatar }}" alt="Gravatar"/>
+                        </a>
+                        <ul class="dropdown">
+                          <li ng-show="currentUser"><a ng-click="logOut()" ui-sref="master.nav.landing"><i class="fa fa-sign-out"></i> Log Out</a></li>
+                          <li ng-show="user.private.isAdmin">
+                            <a ui-sref="authenticated.master.admin">Admin</a>
+                          </li>
+                        </ul>
+                    </li>
+
+                </ul>
+
+            </section>
+
         </div>
 
     </div>
