@@ -1,32 +1,80 @@
 <div class="column small-12">
   <form name="cartForm">
-    <fieldset>
-      <ul class="table-list striped">
-        <li ng-repeat="product in $storage.cart.items">
-          <div class="overflow-hidden background-secondary5 text-white link-white link-hover-white">
-            <a class="left padding-small" href="/product/{{ product.slug }}">{{ product.title }}</a>
-            <div class="right padding-small">{{ product.price | currency }}</div>
-            <div class="right padding-x-small">
-              <input class="margin-zero-important text-xx-small-important" style="height: 2rem; width: 6rem;" type="number" ng-model="product.quantity" placeholder="Quantity...">
+    <fieldset class="border-zero">
+      <ul class="table-list">
+        <li ng-hide="$storage.cart.items.length">
+          <h3 class="font-flair left">Your cart is empty. <span class="text-medium">Add some <a href="/products">products</a> to check out.</span></h3>
+
+        </li>
+        <li class="clearfix" ng-repeat="product in $storage.cart.items">
+
+          <!-- <div class="column small-12 padding-zero-important" ng-hide="$index === 0">
+            <hr class="margin-zero">
+          </div> -->
+
+
+
+
+
+          <div class="column small-12 medium-9 medium-offset-3">
+
+            <div class="column small-12 medium-6">
+              <h5 class="font-flair">
+                <a class="left padding-vertical-small link-secondary0" href="/product/{{ product.slug }}">{{ product.title }}</a>
+              </h5>
+
             </div>
+            <div class="column small-12 medium-6">
+              <div class="left padding-vertical-small">{{ product.price | currency }}</div>
+              <input id="product-{{$index}}" class="left margin-vertical-zero-important margin-horizontal-small-important text-small-important" style="height: 2.1rem; width: 3rem; position: relative; top: 7px;" type="number" ng-model="product.quantity" min="1" max="{{ product.maxQuantity }}" ng-blur="updateCart()" qv-select-text="#product-{{$index}}" placeholder="#">
+              <div class="right padding-vertical-small"><strong>{{ product.price * product.quantity | currency }}</strong></div>
+            </div>
+
+
+
+
           </div>
 
-          <div>
+          <div class="column small-12 padding-zero-important">
+            <hr class="margin-zero">
+          </div>
 
-            <div class="column small-12 medium-3 padding-zero-important">
-              <a href="/product/{{ product.slug }}">
-                <img ng-if="product.featuredImage.Versions.small.Key" ng-src="{{ product.featuredImage.Versions.small.Key | s3Link:files.Name }}" />
-              </a>
+          <div class="column small-12 medium-3 padding-vertical-medium">
+            <a href="/product/{{ product.slug }}">
+              <img ng-if="product.featuredImage.Versions.small.Key" ng-src="{{ product.featuredImage.Versions.small.Key | s3Link:files.Name }}" />
+            </a>
+          </div>
+
+          <div class="column small-12 medium-9 padding-vertical-small">
+
+            <div class="column small-12 text-small left"  ng-show="product.optionsMatrixSelected">
+
+                <ul class="text-small inline-list dots left strong">
+                  <li>{{ product.optionsMatrixSelected.name }}</li>
+                  <!-- <li ng-show="product.optionsMatrixSelected.priceDifference">
+                    Price Difference: {{ product.optionsMatrixSelected.priceDifference | currency }}
+                  </li> -->
+                  <li ng-show="product.optionsMatrixSelected.inventory">{{ product.optionsMatrixSelected.inventory }} Available</li>
+                </ul>
+
+                <a class="text-small right" ng-click="removeFromCart(product)">Remove</a>
+
             </div>
 
-            <div class="column small-12 medium-9 margin-zero-important padding-medium">
-              <ul>
-
-                <li class="markdown text-small" markdown-editable ng-model="product.description.excerpt">{{ product.description.excerpt }}</li>
-              </ul>
+            <div class="column small-12 medium-8 padding-vertical-small">
+              <div class="markdown text-small" markdown-editable ng-model="product.description.excerpt">{{ product.description.excerpt }}</div>
             </div>
+
+            <div class="column small-12 medium-4 padding-vertical-small" ng-hide="product.optionsMatrixSelected">
+              <a class="text-small right" ng-click="removeFromCart(product)">Remove</a>
+            </div>
+
+
 
           </div>
+
+
+
         </li>
       </ul>
     </fieldset>

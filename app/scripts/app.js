@@ -154,7 +154,18 @@ angular.module('quiverCmsApp', [
       .state('master.nav.cart', {
         url: '/cart',
         templateUrl: 'views/cart.html',
-        controller: 'CartCtrl'
+        controller: 'CartCtrl',
+        resolve: {
+          products: function (AdminService, $q) {
+            var deferred = $q.defer();
+
+            AdminService.getProducts().$asArray().$loaded(function (products) {
+              deferred.resolve(products);
+            });
+
+            return deferred.promise;
+          }
+        }
       })
 
       /*
@@ -199,6 +210,9 @@ angular.module('quiverCmsApp', [
           },
           settingsRef: function (AdminService) {
             return AdminService.getSettings();
+          },
+          filesRef: function (AdminService) {
+            return AdminService.getFiles();
           }
         }
       })

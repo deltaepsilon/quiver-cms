@@ -27,7 +27,9 @@
         <div class="left link-secondary0">
           <a href="/product/{{ product.slug }}" itemprop="name">{{ product.title }}</a>
         </div>
-        <div class="right">${{ product.price }}</div>
+        <div class="right">
+          $<span ng-show="getPriceAdjusted('{{ product.slug }}')" ng-bind="getPriceAdjusted('{{ product.slug }}')"></span><span ng-hide="getPriceAdjusted('{{ product.slug }}')">{{ product.price }}</span>
+        </div>
       </h3>
 
       <hr class="margin-vertical-x-small">
@@ -53,7 +55,13 @@
               <button class="small-12 alert" ng-show="inCart('{{ product.slug }}')" ng-click="removeFromCart('{{ product.slug }}')">Remove from Cart</button>
             </form>
           {{ else }}
-            default
+            <button class="small-12" ng-hide="inCart('{{ product.slug }}')" ng-click="addToCart('{{ product.slug }}')">Add to Cart</button>
+            <button class="small-12 alert" ng-show="inCart('{{ product.slug }}')" ng-click="removeFromCart('{{ product.slug }}')">Remove from Cart</button>
+
+            <span class="text-secondary0">
+              <strong>In Stock:</strong>
+              <strong>{{ product.inventory }}</strong>
+            </span>
           {{/if }}
         {{ else }}
           {{#if product.inventory }}

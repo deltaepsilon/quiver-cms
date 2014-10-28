@@ -53,6 +53,8 @@ angular.module('QuiverCMS', ['ngStorage'])
       while (i--) {
         item = cart.items[i];
 
+        item.quantity = 1;
+
         if (!item) {
           cart.splice(i, 1);
         } else {
@@ -91,13 +93,18 @@ angular.module('QuiverCMS', ['ngStorage'])
 
     };
 
+    var testEquality = function (a, b) {
+      var whitelist = ['slug', 'optionsMatrixSelected', 'price', 'discount'];
+      return _.isEqual(_.pick(a, whitelist), _.pick(b, whitelist));
+    };
+
     $scope.removeFromCart = function (slug) {
       if (!$scope.$storage.cart || !$scope.$storage.cart.items || !$scope.$storage.cart.items.length) return;
 
       var product = ProductService.getProduct(slug);
 
       $scope.$storage.cart.items = _.filter($scope.$storage.cart.items, function (item) {
-        return !_.isEqual(item, product);
+        return !testEquality(item, product);
       });
 
       updateCart();
@@ -108,7 +115,7 @@ angular.module('QuiverCMS', ['ngStorage'])
         items = $scope.$storage.cart && $scope.$storage.cart.items ? $scope.$storage.cart.items : [];
 
       return !!_.find(items, function (item) {
-        return _.isEqual(item, product);
+        return testEquality(item, product);
       });
 
     };
@@ -123,7 +130,7 @@ angular.module('QuiverCMS', ['ngStorage'])
       product.optionsMatrixSelected = _.find(product.optionsMatrix, function (matrixItem, key) { //Attempt to set optionsMatrixSelected to the appropriate object.
         var selections = key.split('|'),
           keys = _.map(product.options, function (option) {
-            return option.slug;
+            return option ? option.slug : false;
           }),
           i = keys.length;
 
@@ -141,10 +148,21 @@ angular.module('QuiverCMS', ['ngStorage'])
 
       });
 
+      if (product.optionsMatrixSelected && product.optionsMatrixSelected.priceDifference) {
+        product.priceAdjusted = product.price + product.optionsMatrixSelected.priceDifference;
+      } else {
+        delete product.priceAdjusted;
+      }
+
       ProductService.setProduct(slug, product);
 
       return product;
 
+    };
+
+    $scope.getPriceAdjusted = function (slug) {
+      var product = ProductService.getProduct(slug);
+      return product ? product.priceAdjusted : false;
     };
 
   });

@@ -4,4 +4,30 @@
       margin-top: 4px;
     }
   }
+
+  &.slashes {
+    li {
+      &:last-of-type:after {
+        content: "";
+      }
+      &:after {
+        content: "/";
+        margin-left: 1rem;
+      }
+
+    }
+  }
+
+  &.dots {
+    li {
+      &:last-of-type:after {
+        content: "";
+      }
+      &:after {
+        content: "•";
+        margin-left: 1rem;
+      }
+
+    }
+  }
 }

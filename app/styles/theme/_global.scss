@@ -71,3 +71,11 @@ video, img {
 .overflow-hidden {
   overflow: hidden !important;
 }
+
+.border-zero {
+  border-width: 0;
+}
+
+.strong {
+  @extend strong;
+}
