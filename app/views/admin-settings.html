@@ -114,4 +114,71 @@
         </fieldset>
 
     </form>
+
+    <h3 class="font-flair">Commerce</h3>
+    <hr>
+
+    <form name="commerceForm">
+        <fieldset>
+
+          <div class="column small-12 medium-6">
+            <div class="clearfix">
+              <h5 class="left">Enable States</h5>
+              <div class="right text-small" style="margin-top: 5px;">
+                <a ng-click="checkAllStates()">Check</a>
+                /
+                <a ng-click="uncheckAllStates()">Uncheck</a>
+                All
+              </div>
+            </div></label>
+
+            <table class="small-12">
+              <thead>
+                <tr>
+                  <th>Enabled</th><th>Incremental Tax Rate</th><th>State</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="state in states" ng-class="{disabled: !commerce.states[state.abbreviation].enabled}">
+                  <td><input id="checkbox-{{ state.abbreviation }}" class="margin-zero-important" type="checkbox" ng-model="commerce.states[state.abbreviation].enabled"></td>
+                  <td><input id="tax-{{ state.abbreviation }}" class="margin-zero-important" type="number" ng-model="commerce.states[state.abbreviation].tax" ng-disabled="!commerce.states[state.abbreviation].enabled"></td>
+                  <td>{{ state.name }}</td>
+                </tr>
+              </tbody>
+            </table>
+
+
+          </div>
+
+          <div class="column small-12 medium-6">
+            <div class="clearfix">
+              <h5 class="left">Enable Countries</h5>
+              <div class="right text-small" style="margin-top: 5px;">
+                <a ng-click="checkAllCountries()">Check</a>
+                /
+                <a ng-click="uncheckAllCountries()">Uncheck</a>
+                All
+              </div>
+            </div>
+
+
+            <table class="small-12">
+              <thead>
+                <tr>
+                  <th>Enabled</th><th>Base Tax Rate</th><th>Country</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="country in countries" ng-class="{disabled: !commerce.countries[country['alpha-2']].enabled}">
+                  <td><input id="checkbox-{{ country['alpha-2'] }}" class="margin-zero-important" type="checkbox" ng-model="commerce.countries[country['alpha-2']].enabled"></td>
+                  <td><input id="tax-{{ country['alpha-2'] }}" class="margin-zero-important" type="number" ng-model="commerce.countries[country['alpha-2']].tax" ng-disabled="!commerce.countries[country['alpha-2']].enabled"></td>
+                  <td>{{ country.name }}</td>
+                </tr>
+              </tbody>
+            </table>
+
+          </div>
+
+        </fieldset>
+    </form>
 </div>

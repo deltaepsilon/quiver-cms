@@ -282,7 +282,19 @@ angular.module('quiverCmsApp', [
       })
       .state('authenticated.master.admin.settings', {
         url: '/settings',
-        templateUrl: 'views/admin-settings.html'
+        templateUrl: 'views/admin-settings.html',
+        controller: 'SettingsCtrl',
+        resolve: {
+          commerceRef: function (AdminService) {
+            return AdminService.getCommerce();
+          },
+          countries: function (CommerceService) {
+            return CommerceService.getCountries();
+          },
+          states: function (CommerceService) {
+            return CommerceService.getStates();
+          }
+        }
       })
       .state('authenticated.master.admin.words', {
         url: '/words',

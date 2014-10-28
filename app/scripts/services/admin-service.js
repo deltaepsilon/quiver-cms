@@ -83,6 +83,10 @@ angular.module('quiverCmsApp')
 
       getDiscounts: function () {
         return $firebase(new Firebase(firebaseEndpoint + '/discounts'));
+      },
+
+      getCommerce: function () {
+        return $firebase(new Firebase(firebaseEndpoint + '/commerce'));
       }
 
     }
