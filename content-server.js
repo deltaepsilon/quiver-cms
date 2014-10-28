@@ -542,7 +542,10 @@ var createWordsIndex = function (words) {
       index = {};
 
     _.each(words, function (word) {
-      index[word.slug] = word.key;
+      if (word.type !== 'subscription') {
+        index[word.slug] = word.key;
+      }
+
     });
 
     wordsIndexRef.set(index, function (err) {
@@ -563,11 +566,14 @@ var createWordsIndex = function (words) {
 
     deleteDeferred.promise.then(function () {
       _.each(words, function (word, key) {
-        if (word.keyImage && !word.keyImage.Versions) {
-          word.keyImage.Versions = {}; // This prevents a mapping error in elasticsearch. It doesn't like "keyImage.Versions: false"
+        if (word.type !== 'subscription') {
+          if (word.keyImage && !word.keyImage.Versions) {
+            word.keyImage.Versions = {}; // This prevents a mapping error in elasticsearch. It doesn't like "keyImage.Versions: false"
+          }
+          commands.push({"index": {"_index": elasticSearchIndex, "_type": "word"}});
+          commands.push(word);
         }
-        commands.push({"index": {"_index": elasticSearchIndex, "_type": "word"}});
-        commands.push(word);
+
       });
 
       elasticSearchClient.bulk(commands, {})

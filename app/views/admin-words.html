@@ -11,7 +11,7 @@
     <table ng-show="words.length">
         <thead>
             <tr>
-                <th>Author</th><th>Title</th><th>Slug</th><th>Type</th><th>Order</th><th>Hashtags</th><th></th><th>Created</th><th>Published</th><th>Action</th>
+                <th>Author</th><th>Title</th><th>Slug</th><th>Type</th><th>Order</th><th>Hashtags</th><th></th><th>Created</th><th>Published</th><th class="text-center">Action</th>
             </tr>
         </thead>
         <tbody>
@@ -31,6 +31,7 @@
                         <option value="">Select Type</option>
                         <option value="post">Post</option>
                         <option value="page">Page</option>
+                        <option value="subscription">Subscription</option>
                     </select>
                 </td>
                 <td>
@@ -58,8 +59,8 @@
 
                 </td>
                 <td>
-                    <button class="tiny margin-zero" ng-show="word.edited" ng-click="saveWord(word)">Save</button>
-                    <button class="tiny alert margin-zero" ng-hide="word.edited" qv-confirm="removeWord(word)" confirmations="['Really???', 'Last chance!']" qv-confirm>Delete</button>
+                    <button class="tiny margin-zero centered-block" style="min-width: 7rem;" ng-show="word.edited" ng-click="saveWord(word)">Save</button>
+                    <button class="tiny alert margin-zero centered-block" style="min-width: 7rem;" ng-hide="word.edited" qv-confirm="removeWord(word)" confirmations="['Really???', 'Last chance!']" qv-confirm>Delete</button>
                 </td>
             </tr>
         </tbody>

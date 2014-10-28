@@ -18,7 +18,7 @@ angular.module('quiverCmsApp')
     };
 
     $scope.createWord = function (title) {
-      var author = $scope.user;
+      var author = $scope.user.public;
 
       _.defaults(author, {
         id: $scope.user.$id,
