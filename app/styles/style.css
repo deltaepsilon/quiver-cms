@@ -11023,6 +11023,13 @@ form.top-offset {
   left: 0;
 }
 
+/* line 16, modules/_layout.scss */
+.centered-block {
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
+
 /* line 2, modules/_markdown.scss */
 .markdown ul, .markdown li {
   list-style-type: initial;

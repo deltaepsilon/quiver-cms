@@ -1,1 +1,91 @@
-<p>This is the admin-discounts view.</p>
+<div class="column small-12">
+    <h3 class="font-flair">Discounts</h3>
+    <form name="newDiscountForm">
+      <fieldset>
+
+        <div class="column small-12 medium-4">
+          <label for="discount-type">Type</label>
+          <select id="discount-type" ng-model="newDiscount.type" ng-blur="validateNewDiscount()">
+            <option value="percentage">Percentage</option>
+            <option value="value">Value</option>
+          </select>
+        </div>
+
+        <div class="column small-12 medium-4">
+          <div ng-show="newDiscount.type === 'percentage'">
+            <label for="discount-percentage">Percentage</label>
+            <input id="discount-percentage" type="number" min="0" max="100" ng-model="newDiscount.percentage" ng-blur="validateNewDiscount()" placeholder="0-100...">
+          </div>
+          <div ng-show="newDiscount.type === 'value'">
+            <label for="discount-value">Value</label>
+            <input id="discount-value" type="number" ng-model="newDiscount.value" ng-blur="validateNewDiscount()" placeholder="USD...">
+          </div>
+        </div>
+
+        <div class="column small-12 medium-4">
+          <label for="discount-code">Code</label>
+          <input id="discount-code" type="text" ng-model="newDiscount.code" placeholder="Code...">
+        </div>
+
+        <div class="column small-12 medium-4">
+          <label for="discount-expiration">Expiration</label>
+          <input id="discount-expiration" type="date" ng-model="newDiscount.expiration" ng-blur="validateNewDiscount()">
+        </div>
+
+        <div class="column small-12 medium-4">
+          <label for="discount-uses">Uses</label>
+          <input id="discount-uses" type="number" min="1" ng-model="newDiscount.uses" ng-blur="validateNewDiscount()">
+        </div>
+
+        <div class="column small-12">
+          <button ng-click="createDiscount(newDiscount)" ng-disabled="newDiscountForm.$invalid" qv-focus="#discount-type">Create</button>
+        </div>
+
+
+      </fieldset>
+
+    </form>
+
+    <hr ng-show="discounts.length">
+
+    <input type="text" ng-show="discounts.length" ng-model="discountFilter" ng-focus="discountFilter = ''" placeholder="Search..."/>
+    <table class="small-12" ng-show="discounts.length">
+        <thead>
+            <tr>
+                <th>Active</th><th>Type</th><th>Value</th><th>Code</th><th>Expiration</th><th>Uses</th><th>Used</th><th>Created</th><th class="text-center">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="discount in discounts | filter:discountFilter | orderBy:'created':'desc'">
+                <td>
+                  <input class="margin-zero-important" type="checkbox" ng-model="discount.active"/>
+                </td>
+                <td>
+                  {{ ::discount.type }}
+                </td>
+                <td>
+                  <span ng-show="discount.type === 'percentage'">{{ ::discount.percentage }}%</span>
+                  <span ng-show="discount.type === 'value'">{{ ::discount.value | currency }}</span>
+                </td>
+                <td>
+                  {{ ::discount.code }}
+                </td>
+                <td>
+                  {{ ::discount.expiration | moment:"MM/DD/YY" }}
+                </td>
+                <td>
+                  {{ ::discount.uses }}
+                </td>
+                <td>
+                  {{ ::discount.useCount || 0 }}
+                </td>
+                <td>
+                  {{ ::discount.created | moment:"MM/DD/YY" }}
+                </td>
+                <td>
+                  <button class="alert tiny margin-vertical-zero centered-block" style="min-width: 8rem;" qv-confirm="removeDiscount(discount)">Delete</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
