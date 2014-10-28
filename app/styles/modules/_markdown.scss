@@ -1,0 +1,13 @@
+.markdown {
+  ul, li {
+    list-style-type: initial;
+  }
+
+  &.text-small {
+    p, li {
+      @extend .text-small;
+    }
+  }
+
+
+}

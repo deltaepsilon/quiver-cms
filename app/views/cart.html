@@ -1,0 +1,36 @@
+<div class="column small-12">
+  <form name="cartForm">
+    <fieldset>
+      <ul class="table-list striped">
+        <li ng-repeat="product in $storage.cart.items">
+          <div class="overflow-hidden background-secondary5 text-white link-white link-hover-white">
+            <a class="left padding-small" href="/product/{{ product.slug }}">{{ product.title }}</a>
+            <div class="right padding-small">{{ product.price | currency }}</div>
+            <div class="right padding-x-small">
+              <input class="margin-zero-important text-xx-small-important" style="height: 2rem; width: 6rem;" type="number" ng-model="product.quantity" placeholder="Quantity...">
+            </div>
+          </div>
+
+          <div>
+
+            <div class="column small-12 medium-3 padding-zero-important">
+              <a href="/product/{{ product.slug }}">
+                <img ng-if="product.featuredImage.Versions.small.Key" ng-src="{{ product.featuredImage.Versions.small.Key | s3Link:files.Name }}" />
+              </a>
+            </div>
+
+            <div class="column small-12 medium-9 margin-zero-important padding-medium">
+              <ul>
+
+                <li class="markdown text-small" markdown-editable ng-model="product.description.excerpt">{{ product.description.excerpt }}</li>
+              </ul>
+            </div>
+
+          </div>
+        </li>
+      </ul>
+    </fieldset>
+
+  </form>
+
+</div>
