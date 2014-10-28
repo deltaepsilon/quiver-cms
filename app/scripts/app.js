@@ -111,6 +111,27 @@ angular.module('quiverCmsApp', [
           },
           filesRef: function (AdminService) {
             return AdminService.getFiles();
+          },
+          user: function ($q, $state, UserService) {
+            var deferred = $q.defer();
+            UserService.getUser().then(function (currentUser) {
+
+              if (currentUser && currentUser.id) {
+                // Set up auth tokens
+                window.envVars.firebaseAuthToken = currentUser.firebaseAuthToken;
+                quiverUtilitiesProvider.setEnv(window.envVars);
+
+                var headers = {"authorization": currentUser.firebaseAuthToken, "user-id": currentUser.id};
+                RestangularProvider.setDefaultHeaders(headers);
+                flowFactoryProvider.defaults = {headers: headers, testChunks: false};
+
+                return UserService.getUser(currentUser.id);
+              } else {
+                deferred.resolve();
+              }
+
+            }).then(deferred.resolve, deferred.reject);
+            return deferred.promise; // The user may be logged in, but hit the page without auth, so currentUser was not resolved on the initial page load.
           }
         }
       })
@@ -176,7 +197,7 @@ angular.module('quiverCmsApp', [
         templateUrl: 'views/authenticated.html',
         controller: 'AuthenticatedCtrl',
         resolve: {
-          user: function ($q, $state, UserService, AdminService) {
+          user: function ($q, $state, UserService) {
             var deferred = $q.defer();
             UserService.getUser().then(function (currentUser) {
 
@@ -372,6 +393,16 @@ angular.module('quiverCmsApp', [
             return AdminService.getHashtags();
           }
 
+        }
+      })
+      .state('authenticated.master.admin.discounts', {
+        url: '/discounts',
+        templateUrl: 'views/admin-discounts.html',
+        controller: 'DiscountsCtrl',
+        resolve: {
+          discountsRef: function (AdminService) {
+            return AdminService.getDiscounts();
+          }
         }
       });
 

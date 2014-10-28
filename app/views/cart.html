@@ -6,7 +6,7 @@
           <h3 class="font-flair left">Your cart is empty. <span class="text-medium">Add some <a href="/products">products</a> to check out.</span></h3>
 
         </li>
-        <li class="clearfix" ng-repeat="product in $storage.cart.items">
+        <li class="clearfix" ng-repeat="product in $storage.cart.items | orderBy:'title'">
 
           <!-- <div class="column small-12 padding-zero-important" ng-hide="$index === 0">
             <hr class="margin-zero">

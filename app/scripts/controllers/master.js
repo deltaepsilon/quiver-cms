@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('quiverCmsApp')
-  .controller('MasterCtrl', function ($scope, currentUser, env, UserService, NotificationService, $state, md5, settingsRef, filesRef, AdminService, _) {
+  .controller('MasterCtrl', function ($scope, currentUser, env, UserService, NotificationService, $state, md5, settingsRef, filesRef, user, AdminService, _, $localStorage) {
     var loggedOutStates = ['master.nav.login', 'master.nav.register', 'master.nav.reset'],
       toLanding = function () {
         $state.go('master.nav.landing');
@@ -42,6 +42,16 @@ angular.module('quiverCmsApp')
      * Files
     */
     $scope.files = filesRef.$asObject();
+
+    /*
+     * User
+    */
+    $scope.user = user;
+
+    /*
+     * Storage
+    */
+    $scope.$storage = $localStorage;
 
     /*
      * State Body Classes

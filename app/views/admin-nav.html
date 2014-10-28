@@ -23,6 +23,9 @@
                 <a ui-sref="authenticated.master.admin.hashtags">Hashtags</a>
             </li>
             <li qv-active>
+              <a ui-sref="authenticated.master.admin.discounts">Discounts</a>
+            </li>
+            <li qv-active>
                 <a ui-sref="authenticated.master.admin.settings">Settings</a>
             </li>
 
@@ -30,17 +33,20 @@
     </section>
     <section class="top-bar-section">
         <ul class="right">
-            <li>
+          <li class="has-dropdown not-click" ng-show="currentUser" qv-active>
+            <a ui-sref="authenticated.master.nav.account">
+              <i class="fa fa-gears"></i>
+              <img class="gravatar" ng-src="{{ gravatar }}" alt="Gravatar"/>
+            </a>
+            <ul class="dropdown">
+              <li ng-show="currentUser"><a ng-click="logOut()" ui-sref="master.nav.landing"><i class="fa fa-sign-out"></i> Log Out</a></li>
+              <li>
                 <a ng-click="clearCache()">Clear Cache</a>
-            </li>
-            <li><a href="{{ env.root }}" ng-click="toStatic()">Front Page</a></li>
-            <li ng-show="currentUser" qv-active>
-                <a ui-sref="authenticated.master.nav.account">
-                    <i class="fa fa-gears"></i>
-                    <img class="gravatar" ng-src="{{ gravatar }}" alt="Gravatar"/>
-                </a>
-            </li>
-            <li ng-show="currentUser"><a ng-click="logOut()" ui-sref="master.nav.landing"><i class="fa fa-sign-out"></i> Log Out</a></li>
+              </li>
+              <li><a href="{{ env.root }}" ng-click="toStatic()">{{ settings.siteTitle || 'Front Page' }}</a></li>
+
+            </ul>
+          </li>
         </ul>
 
     </section>
