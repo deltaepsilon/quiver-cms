@@ -3,7 +3,30 @@
         <div class="column small-12 padding-vertical-small">
             <ul class="footer-links inline-list link-secondary4 link-hover-secondary1">
                 <li><a class="footer-title font-flair font-large" ui-sref="master.nav.landing">{{ settings.siteTitle || 'Quiver CMS' }}</a></li>
-                <li><a ui-sref="content({slug: 'contact'})">Contact Us</a></li>
+                <li class="text-white">
+                  <ul class="text-x-small">
+                    <li ng-repeat="item in settings.nav1">
+                      <a href="{{ item.href }}">{{ item.text }}</a>
+                    </li>
+                  </ul>
+                </li>
+
+                <li class="text-white">
+                  <ul class="text-x-small">
+                    <li ng-repeat="item in settings.nav2">
+                      <a href="{{ item.href }}">{{ item.text }}</a>
+                    </li>
+                  </ul>
+                </li>
+
+                <li class="text-white">
+                  <ul class="text-x-small">
+                    <li ng-repeat="item in settings.nav3">
+                      <a href="{{ item.href }}">{{ item.text }}</a>
+                    </li>
+                  </ul>
+                </li>
+
             </ul>
         </div>
     </section>

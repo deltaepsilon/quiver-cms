@@ -56,8 +56,10 @@
           <div class="clearfix margin-vertical-small" ng-show="product.shipped">
             <label>Domestic Shipping Price</label>
             <input type="number" name="product-shipping-domestic" placeholder="Domestic USD..." ng-model="product.shipping.domesticPrice" ng-change="checkValidity()">
+
             <label>International Shipping Price</label>
             <input type="number" name="product-shipping-international" placeholder="International USD..." ng-model="product.shipping.internationalPrice" ng-change="checkValidity()">
+
             <div>
               <label class="left" for="product-allow-international">Ship Internationally?</label>
               <input class="left margin-xx-small-important" type="checkbox" name="product-allow-international" ng-model="product.shipping.internationalAllowed">
@@ -75,8 +77,15 @@
         </div>
 
         <div ng-show="product.type === 'subscription'">
-          <label for="product-subscription-days">Subscription Days</label>
+          <label for="product-subscription-days">Subscription Days (0 = no time limit)</label>
           <input id="product-subscription-days" type="number" name="product-subscription-days" ng-model="product.subscriptionDays" placeholder="Subscription days..." ng-change="checkValidity()">
+
+          <label for="product-subscription-type">Subscription Type</label>
+          <select id="product-subscription-type" required>
+            <option value="">Subscription type...</option>
+            <option value="content">Content Limited</option>
+            <option value="interaction">Interaction Limited</option>
+          </select>
         </div>
 
         <div ng-show="product.type === 'gift'">

@@ -13,6 +13,19 @@
   }
 }
 
+.top-bar {
+  .top-bar-section {
+    ul {
+      li {
+        a {
+          font-size: rem-calc(13) !important;
+          font-family: Helvetica, Arial, sans-serif;
+        }
+      }
+    }
+  }
+
+}
 .top-bar-section {
   li {
     a {

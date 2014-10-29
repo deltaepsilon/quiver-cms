@@ -51,6 +51,9 @@ angular.module('quiverCmsApp')
                 if (typeof product.subscriptionDays !== 'number') {
                   valid = false;
                 }
+                if (!product.subscriptionType || !~['content', 'gallery'].indexOf(product.subscriptionType)) {
+                  product.subscriptionType = 'content';
+                }
                 break;
 
               case 'gift':
