@@ -4,24 +4,24 @@
             <ul class="footer-links inline-list link-secondary4 link-hover-secondary1">
                 <li><a class="footer-title font-flair font-large" ui-sref="master.nav.landing">{{ settings.siteTitle || 'Quiver CMS' }}</a></li>
                 <li class="text-white">
-                  <ul class="text-x-small">
-                    <li ng-repeat="item in settings.nav1">
+                  <ul class="text-x-small margin-vertical-xx-small">
+                    <li ng-repeat="item in settings.footer1">
                       <a href="{{ item.href }}">{{ item.text }}</a>
                     </li>
                   </ul>
                 </li>
 
                 <li class="text-white">
-                  <ul class="text-x-small">
-                    <li ng-repeat="item in settings.nav2">
+                  <ul class="text-x-small margin-vertical-xx-small">
+                    <li ng-repeat="item in settings.footer2">
                       <a href="{{ item.href }}">{{ item.text }}</a>
                     </li>
                   </ul>
                 </li>
 
                 <li class="text-white">
-                  <ul class="text-x-small">
-                    <li ng-repeat="item in settings.nav3">
+                  <ul class="text-x-small margin-vertical-xx-small">
+                    <li ng-repeat="item in settings.footer3">
                       <a href="{{ item.href }}">{{ item.text }}</a>
                     </li>
                   </ul>

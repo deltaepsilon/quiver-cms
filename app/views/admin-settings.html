@@ -52,64 +52,33 @@
 
             <hr>
 
-            <div class="column small-12 medium-4">
-                <form>
-                    <label for="nav1-link-text">Nav #1 Links</label>
+            <!-- Nav Links -->
 
-                    <input ng-hide="settings.nav1Title" id="nav1-title" type="text" ng-model="nav1Title" placeholder="Nav 1 title..." ng-blur="setNavTitle('nav1Title', nav1Title); nav1Title = null;"/>
-                    <span class="title-contenteditable" ng-show="settings.nav1Title" ng-model="settings.nav1Title" contenteditable="true" ng-blur="setNavTitle('nav1Title', settings.nav1Title); nav1Title = null;">{{ settings.nav1Title }}</span>
+            <div ng-repeat="nav in navList">
 
-                    <input id="nav1-link-text" type="text" ng-model="nav1New.text" placeholder="New link text..."/>
-                    <input id="nav1-link-href" type="text" ng-model="nav1New.href" placeholder="New link href..."/>
-                    <button class="right" ng-click="addNavLink('nav1', nav1New); nav1New = {};" qv-focus="#nav1-link-text" ng-disabled="!nav1New.text || !nav1New.href">Add</button>
+              <hr ng-if="$index%3 === 0">
 
-                </form>
+              <div class="column small-12 medium-4">
+                  <form>
+                      <label for="{{ nav.slug }}-link-text">{{ nav.name }} Links</label>
 
-                <ul>
-                    <li ng-repeat="link in settings.nav1">
-                        <span class="cursor-pointer text-x-small" href="{{ link.href }}" qv-confirm="removeNavLink('nav1', $index)" confirmations="['Click to Delete']">{{ link.text }}: {{ link.href }}</span>
-                    </li>
-                </ul>
+                      <input ng-hide="settings[nav.slug + 'Title']" id="{{ nav.slug }}-title" type="text" ng-model="navTitle" placeholder="{{ nav.name }} title..." ng-blur="setNavTitle(nav.slug, navTitle); navTitle = null;"/>
+                      <span class="title-contenteditable" ng-show="settings[nav.slug + 'Title']" ng-model="settings[nav.slug + 'Title']" contenteditable="true">{{ settings[nav.slug + 'Title'] }}</span>
 
-            </div>
+                      <input id="footer1-link-text" type="text" ng-model="navNew.text" placeholder="New link text..."/>
+                      <input id="footer1-link-href" type="text" ng-model="navNew.href" placeholder="New link href..."/>
+                      <button class="right" ng-click="addNavLink(nav.slug, navNew); navNew = {};" qv-focus="#{{ nav.slug }}-link-text" ng-disabled="!navNew.text || !navNew.href">Add</button>
+                  </form>
+                  <ul>
+                      <li ng-repeat="link in settings[nav.slug]">
+                          <span class="cursor-pointer text-x-small" href="{{ link.href }}" qv-confirm="removeNavLink(nav.slug, $index)" confirmations="['Click to Delete']">{{ link.text }}: {{ link.href }}</span>
+                      </li>
+                  </ul>
 
-            <div class="column small-12 medium-4">
-                <form>
-                    <label for="nav2-link-text">Nav #2 Links</label>
-
-                    <input ng-hide="settings.nav2Title" id="nav2-title" type="text" ng-model="nav2Title" placeholder="Nav 2 title..." ng-blur="setNavTitle('nav2Title', nav2Title); nav2Title = null;"/>
-                    <span class="title-contenteditable" ng-show="settings.nav2Title" ng-model="settings.nav2Title" contenteditable="true">{{ settings.nav2Title }}</span>
-
-                    <input id="nav2-link-text" type="text" ng-model="nav2New.text" placeholder="New link text..."/>
-                    <input id="nav2-link-href" type="text" ng-model="nav2New.href" placeholder="New link href..."/>
-                    <button class="right" ng-click="addNavLink('nav2', nav2New); nav2New = {};" qv-focus="#nav2-link-text" ng-disabled="!nav2New.text || !nav2New.href">Add</button>
-                </form>
-                <ul>
-                    <li ng-repeat="link in settings.nav2">
-                        <span class="cursor-pointer text-x-small" href="{{ link.href }}" qv-confirm="removeNavLink('nav2', $index)" confirmations="['Click to Delete']">{{ link.text }}: {{ link.href }}</span>
-                    </li>
-                </ul>
+              </div>
 
             </div>
 
-            <div class="column small-12 medium-4">
-                <form>
-                    <label for="nav3-link-text">Nav #3 Links</label>
-
-                    <input ng-hide="settings.nav3Title" id="nav3-title" type="text" ng-model="nav3Title" placeholder="Nav 3 title..." ng-blur="setNavTitle('nav3Title', nav3Title); nav3Title = null;"/>
-                    <span class="title-contenteditable" ng-show="settings.nav3Title" ng-model="settings.nav3Title" contenteditable="true">{{ settings.nav3Title }}</span>
-
-                    <input id="nav3-link-text" type="text" ng-model="nav3New.text" placeholder="New link text..."/>
-                    <input id="nav3-link-href" type="text" ng-model="nav3New.href" placeholder="New link href..."/>
-                    <button class="right" ng-click="addNavLink('nav3', nav3New); nav3New = {};" qv-focus="#nav3-link-text" ng-disabled="!nav3New.text || !nav3New.href">Add</button>
-                </form>
-                <ul>
-                    <li ng-repeat="link in settings.nav3">
-                        <span class="cursor-pointer text-x-small" href="{{ link.href }}" qv-confirm="removeNavLink('nav3', $index)" confirmations="['Click to Delete']">{{ link.text }}: {{ link.href }}</span>
-                    </li>
-                </ul>
-
-            </div>
 
         </fieldset>
 
