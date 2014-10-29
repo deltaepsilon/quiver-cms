@@ -172,17 +172,17 @@ angular.module('quiverCmsApp', [
       .state('master.nav.login', {
         url: '/login',
         templateUrl: 'views/login.html',
-        controller: 'UserCtrl'
+        controller: 'AuthCtrl'
       })
       .state('master.nav.register', {
         url: '/register',
         templateUrl: 'views/register.html',
-        controller: 'UserCtrl'
+        controller: 'AuthCtrl'
       })
       .state('master.nav.reset', {
         url: '/reset',
         templateUrl: 'views/reset.html',
-        controller: 'UserCtrl'
+        controller: 'AuthCtrl'
       })
       .state('master.nav.content', {
         url: '/content/:slug'
@@ -398,6 +398,16 @@ angular.module('quiverCmsApp', [
         resolve: {
           usersRef: function (AdminService) {
             return AdminService.getUsers();
+          }
+        }
+      })
+      .state('authenticated.master.admin.user', {
+        url: '/user/:key',
+        templateUrl: 'views/admin-user.html',
+        controller: 'UserCtrl',
+        resolve: {
+          userRef: function (AdminService, $stateParams) {
+            return AdminService.getUser($stateParams.key);
           }
         }
       })

@@ -5,5 +5,15 @@
 </div>
 
 <div class="column small-12">
-  
+  <input type="text" ng-model="userFilter" placeholder"Search...">
+  <ul class="table-list striped">
+    <li ng-repeat="user in users | filter:userFilter">
+      <div class="overflow-hidden">
+        <span class="left padding-small">
+          {{ user.public.id }}: <a ui-sref="authenticated.master.admin.user({key: user.$id})">{{ user.public.email || user.email }}</a>
+        </span>
+        <div class="right padding-small text-white background-success" ng-if="user.private.isAdmin">Admin</div>
+      </div>
+    </li>
+  </ul>
 </div>

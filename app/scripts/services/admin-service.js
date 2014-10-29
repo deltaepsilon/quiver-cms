@@ -57,7 +57,7 @@ angular.module('quiverCmsApp')
         return Restangular.one('admin').one('clear-cache').get();
       },
 
-      getUser: function (id, headers) {
+      getApiUser: function (id, headers) {
         return Restangular.one('user').one(id).get({}, headers);
       },
 
@@ -91,6 +91,10 @@ angular.module('quiverCmsApp')
 
       getUsers: function () {
         return $firebase(new Firebase(firebaseEndpoint + '/users'));
+      },
+
+      getUser: function (key) {
+        return $firebase(new Firebase(firebaseEndpoint + '/users/' + key));
       }
 
     }
