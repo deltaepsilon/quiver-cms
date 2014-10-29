@@ -66,7 +66,8 @@ angular.module('quiverCmsApp', [
      */
     var getUser = function ($q, $state, UserService, currentUser) {
       if (currentUser && currentUser.id) {
-        return UserService.getUser(currentUser.id); // The easy case... currentUser was resolved earlier.
+        // The easy case... currentUser was resolved earlier.
+        return UserService.getUser(currentUser.id);
 
       } else {
         var deferred = $q.defer();
@@ -74,11 +75,17 @@ angular.module('quiverCmsApp', [
           if (currentUser && currentUser.id) {
             return UserService.getUser(currentUser.id);
           } else {
-            $state.go('master.nav.landing'); // Dump users without auth to main page.
+            // Dump users without auth to main page.
+            $state.go('master.nav.landing');
           }
 
         }).then(deferred.resolve, deferred.reject);
-        return deferred.promise; // The user may be logged in, but hit the page without auth, so currentUser was not resolved on the initial page load.
+
+        /*
+         * The user may be logged in, but hit the page without auth,
+         * so currentUser was not resolved on the initial page load.
+        */
+        return deferred.promise;
 
       }
     };
@@ -121,7 +128,10 @@ angular.module('quiverCmsApp', [
                 window.envVars.firebaseAuthToken = currentUser.firebaseAuthToken;
                 quiverUtilitiesProvider.setEnv(window.envVars);
 
-                var headers = {"authorization": currentUser.firebaseAuthToken, "user-id": currentUser.id};
+                var headers = {
+                    "authorization": currentUser.firebaseAuthToken,
+                    "user-id": currentUser.id
+                  };
                 RestangularProvider.setDefaultHeaders(headers);
                 flowFactoryProvider.defaults = {headers: headers, testChunks: false};
 
@@ -131,7 +141,12 @@ angular.module('quiverCmsApp', [
               }
 
             }).then(deferred.resolve, deferred.reject);
-            return deferred.promise; // The user may be logged in, but hit the page without auth, so currentUser was not resolved on the initial page load.
+
+            /*
+             * The user may be logged in, but hit the page without auth,
+             * so currentUser was not resolved on the initial page load.
+            */
+            return deferred.promise; //
           }
         }
       })
@@ -192,7 +207,7 @@ angular.module('quiverCmsApp', [
       /*
        * Authenticated routes
       */
-      .state('authenticated', {
+      .state('authenticated', { // *************************************************  Authentication  ******************
         abstract: true,
         templateUrl: 'views/authenticated.html',
         controller: 'AuthenticatedCtrl',
@@ -206,17 +221,25 @@ angular.module('quiverCmsApp', [
                 window.envVars.firebaseAuthToken = currentUser.firebaseAuthToken;
                 quiverUtilitiesProvider.setEnv(window.envVars);
 
-                var headers = {"authorization": currentUser.firebaseAuthToken, "user-id": currentUser.id};
+                var headers = {
+                    "authorization": currentUser.firebaseAuthToken,
+                    "user-id": currentUser.id
+                  };
                 RestangularProvider.setDefaultHeaders(headers);
                 flowFactoryProvider.defaults = {headers: headers, testChunks: false};
 
                 return UserService.getUser(currentUser.id);
               } else {
-                $state.go('master.nav.landing'); // Dump users without auth to main page.
+                // Dump users without auth to main page.
+                $state.go('master.nav.landing');
               }
 
             }).then(deferred.resolve, deferred.reject);
-            return deferred.promise; // The user may be logged in, but hit the page without auth, so currentUser was not resolved on the initial page load.
+            /*
+             * The user may be logged in, but hit the page without auth,
+             *  so currentUser was not resolved on the initial page load.
+            */
+            return deferred.promise;
           }
         }
       })
@@ -251,7 +274,7 @@ angular.module('quiverCmsApp', [
           }
         }
       })
-      .state('authenticated.master.nav.account', {
+      .state('authenticated.master.nav.account', { // ******************************  Account **************************
         url: "/account",
         templateUrl: 'views/account.html',
         controller: 'AccountCtrl'
@@ -260,7 +283,7 @@ angular.module('quiverCmsApp', [
       /*
        * Admin routes
       */
-      .state('authenticated.master.admin', {
+      .state('authenticated.master.admin', { // ************************************  Admin ****************************
         url: '/admin',
         views: {
           nav: {
@@ -280,23 +303,7 @@ angular.module('quiverCmsApp', [
           }
         }
       })
-      .state('authenticated.master.admin.settings', {
-        url: '/settings',
-        templateUrl: 'views/admin-settings.html',
-        controller: 'SettingsCtrl',
-        resolve: {
-          commerceRef: function (AdminService) {
-            return AdminService.getCommerce();
-          },
-          countries: function (CommerceService) {
-            return CommerceService.getCountries();
-          },
-          states: function (CommerceService) {
-            return CommerceService.getStates();
-          }
-        }
-      })
-      .state('authenticated.master.admin.words', {
+      .state('authenticated.master.admin.words', { // ******************************  Words ****************************
         url: '/words',
         templateUrl: 'views/admin-words.html',
         controller: 'WordsCtrl',
@@ -332,7 +339,7 @@ angular.module('quiverCmsApp', [
           }
         }
       })
-      .state('authenticated.master.admin.files', {
+      .state('authenticated.master.admin.files', { // ******************************  Files ****************************
         url: '/files',
         templateUrl: 'views/admin-files.html',
         controller: 'FilesCtrl',
@@ -345,30 +352,7 @@ angular.module('quiverCmsApp', [
           },
         }
       })
-      .state('authenticated.master.admin.social', {
-        url: '/social-media',
-        templateUrl: 'views/admin-social.html',
-        controller: 'SocialCtrl',
-        resolve: {
-          socialRef: function (AdminService) {
-            return AdminService.getSocial();
-          },
-          instagramTermsRef: function (AdminService) {
-            return AdminService.getInstagramTerms();
-          }
-        }
-      })
-      .state('authenticated.master.admin.hashtags', {
-        url: '/hashtags',
-        templateUrl: 'views/admin-hashtags.html',
-        controller: 'HashtagsCtrl',
-        resolve: {
-          hashtagsRef: function (AdminService) {
-            return AdminService.getHashtags();
-          }
-        }
-      })
-      .state('authenticated.master.admin.products', {
+      .state('authenticated.master.admin.products', { // ***************************  Products *************************
         url: '/products',
         templateUrl: 'views/admin-products.html',
         controller: 'ProductsCtrl',
@@ -407,13 +391,67 @@ angular.module('quiverCmsApp', [
 
         }
       })
-      .state('authenticated.master.admin.discounts', {
+      .state('authenticated.master.admin.users', { // ******************************  Users ****************************
+        url: '/users',
+        templateUrl: 'views/admin-users.html',
+        controller: 'UsersCtrl',
+        resolve: {
+          usersRef: function (AdminService) {
+            return AdminService.getUsers();
+          }
+        }
+      })
+      .state('authenticated.master.admin.settings', { // ***************************  Settings *************************
+        url: '/settings',
+        templateUrl: 'views/admin-settings.html',
+        controller: 'SettingsCtrl'
+      })
+      .state('authenticated.master.admin.commerce', {
+        url: '/commerce',
+        templateUrl: 'views/admin-commerce.html',
+        controller: 'CommerceCtrl',
+        resolve: {
+          commerceRef: function (AdminService) {
+            return AdminService.getCommerce();
+          },
+          countries: function (CommerceService) {
+            return CommerceService.getCountries();
+          },
+          states: function (CommerceService) {
+            return CommerceService.getStates();
+          }
+        }
+      })
+      .state('authenticated.master.admin.discounts', { // **************************  Discounts ************************
         url: '/discounts',
         templateUrl: 'views/admin-discounts.html',
         controller: 'DiscountsCtrl',
         resolve: {
           discountsRef: function (AdminService) {
             return AdminService.getDiscounts();
+          }
+        }
+      })
+      .state('authenticated.master.admin.social', { // *****************************  Social ***************************
+        url: '/social-media',
+        templateUrl: 'views/admin-social.html',
+        controller: 'SocialCtrl',
+        resolve: {
+          socialRef: function (AdminService) {
+            return AdminService.getSocial();
+          },
+          instagramTermsRef: function (AdminService) {
+            return AdminService.getInstagramTerms();
+          }
+        }
+      })
+      .state('authenticated.master.admin.hashtags', { // ***************************  Hashtags *************************
+        url: '/hashtags',
+        templateUrl: 'views/admin-hashtags.html',
+        controller: 'HashtagsCtrl',
+        resolve: {
+          hashtagsRef: function (AdminService) {
+            return AdminService.getHashtags();
           }
         }
       });

@@ -7,14 +7,18 @@
 
     <section class="top-bar-section">
         <ul class="right">
-            <li ng-hide="currentUser" qv-active><a ui-sref="master.nav.login"><i class="fa fa-sign-in"></i> Login</a></li>
-            <li ng-hide="currentUser" qv-active><a ui-sref="master.nav.register"><i class="fa fa-pencil"></i> Register</a></li>
+
             <li ng-show="$storage.cart.productCount" qv-active>
               <a ui-sref="master.nav.cart">
                 <span ng-bind="$storage.cart.productCount"></span>
                 <i class="fa fa-shopping-cart"></i>
               </a>
             </li>
+
+            <li ng-hide="currentUser" qv-active><a ui-sref="master.nav.login"><i class="fa fa-sign-in"></i> Login</a></li>
+
+            <li ng-hide="currentUser" qv-active><a ui-sref="master.nav.register"><i class="fa fa-pencil"></i> Register</a></li>
+
             <li class="has-dropdown not-click" ng-show="currentUser" qv-active>
                 <a ui-sref="authenticated.master.nav.account">
                     <i class="fa fa-gears"></i>
