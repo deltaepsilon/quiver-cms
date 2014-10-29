@@ -1,6 +1,18 @@
-angular.module('QuiverCMS', ['ngStorage', 'DeltaEpsilon.quiver-angular-utilities'])
+angular.module('QuiverCMS', ['ngStorage', 'DeltaEpsilon.quiver-angular-utilities', 'angular-md5'])
 
-  // .config()
+  .config(function (quiverUtilitiesProvider) {
+
+    /*
+     * Configure Notifications
+    */
+    quiverUtilitiesProvider.setNotificationConfig({duration: 4000, enabled: true});
+
+    /*
+     * Configure Environment
+    */
+    quiverUtilitiesProvider.setEnv(window.envVars);
+
+  })
   // .run()
   .factory('moment', function ($window) {
     return $window.moment;
@@ -20,7 +32,7 @@ angular.module('QuiverCMS', ['ngStorage', 'DeltaEpsilon.quiver-angular-utilities
       }
     };
   })
-  .controller('MasterCtrl', function ($scope, $timeout, $localStorage, ProductService, moment, _, UserService) {
+  .controller('MasterCtrl', function ($scope, $timeout, $localStorage, ProductService, moment, _, UserService, md5) {
 
     /*
      * User
@@ -33,9 +45,7 @@ angular.module('QuiverCMS', ['ngStorage', 'DeltaEpsilon.quiver-angular-utilities
       }
 
       if (currentUser && currentUser.id) {
-        UserService.getUser(currentUser.id).then(function (user) {
-          $scope.user = user;
-        });
+        $scope.user = UserService.getUser(currentUser.id);
       }
 
 

@@ -34,7 +34,8 @@
     "underscore": "~1.7.0",
     "quiver-angular-utilities": "git@github.com:deltaepsilon/quiver-angular-utilities.git#master",
     "angularfire": "~0.8.2",
-    "angular-ui-router": "~0.2.11"
+    "angular-ui-router": "~0.2.11",
+    "angular-md5": "~0.1.7"
   },
   "devDependencies": {
     "livereload": "~2.0.8"
