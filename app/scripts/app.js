@@ -308,7 +308,43 @@ angular.module('quiverCmsApp', [
         templateUrl: 'views/account.html',
         controller: 'AccountCtrl'
       })
+      .state('authenticated.master.nav.checkout', { // *****************************  Checkout *************************
+        url: "/checkout",
+        templateUrl: 'views/checkout.html',
+        controller: 'CartCtrl',
+        resolve: {
+          products: function (AdminService, $q) {
+            var deferred = $q.defer();
 
+            AdminService.getProducts().$asArray().$loaded(function (products) {
+              deferred.resolve(products);
+            });
+
+            return deferred.promise;
+          },
+          countriesStatus: function (AdminService, $q) {
+            var deferred = $q.defer();
+
+            AdminService.getCountries().$asObject().$loaded().then(function (countriesStatus) {
+              deferred.resolve(countriesStatus);
+            }, deferred.reject);
+
+            return deferred.promise;
+          },
+          statesStatus: function (AdminService, $q) {
+            var deferred = $q.defer();
+
+            AdminService.getStates().$asObject().$loaded().then(function (statesStatus) {
+              deferred.resolve(statesStatus);
+            }, deferred.reject);
+
+            return deferred.promise;
+          },
+          shippingRef: function (AdminService) {
+            return AdminService.getShipping();
+          }
+        }
+      })
       /*
        * Admin routes
       */

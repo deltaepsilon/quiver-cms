@@ -87,7 +87,7 @@
 
       <div class="column small-12 medium-4 medium-offset-4">
         <div class="column small-12">
-          <h5 class="font-flair text-secondary0">Calculate Shipping and Tax</h5>
+          <h5 class="font-flair text-secondary0">Shipping Address</h5>
         </div>
 
         <div>
@@ -153,9 +153,7 @@
             <a ui-sref="master.nav.login">Log In</a> or <a ui-sref="master.nav.register">Register</a> to check out.
           </p>
 
-          <div class="margin-vertical-medium">
-            <a class="button small success small-12" ui-sref="authenticated.master.nav.checkout">Check Out</a>
-          </div>
+          <button class="small success small-12 margin-vertical-medium" ng-show="user" ng-click='checkout(user, $storage.cart, $storage.address, $storage.card)' ng-disabled="!user">Check Out</button>
 
         </div>
 

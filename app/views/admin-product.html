@@ -38,6 +38,11 @@
         <label for="product-price">Price</label>
         <input id="product-price" type="number" name="product-price" ng-model="product.price" placeholder="Price in USD..." ng-change="checkValidity()">
 
+        <div class="clearfix">
+          <label class="left" for="product-taxable">Taxable?</label>
+          <input id="product-taxable" class="left margin-xx-small-important" type="checkbox" name="product-taxable" ng-model="product.taxable">
+        </div>
+
         <hr>
 
         <div>

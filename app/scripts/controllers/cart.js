@@ -129,8 +129,24 @@ angular.module('quiverCmsApp')
           cart.items.splice(i, 1, product); // Update item in place
           cart.productCount += 1;
           cart.subTotal += (product.priceAdjusted || product.price);
+
+          if ($scope.$storage.address) {
+            if (product.taxable && $scope.$storage.address.tax) {
+              cart.tax += (product.priceAdjusted || product.price) * $scope.$storage.address.tax;
+            }
+
+          }
+
         }
 
+      }
+
+      if ($scope.$storage.address) {
+        if ($scope.$storage.address.domestic) {
+          cart.shipping = cart.domesticShipping;
+        } else if ($scope.$storage.address.international) {
+          cart.shipping = cart.internationalShipping;
+        }
       }
 
       cart.total = cart.subTotal + cart.tax + cart.shipping;
@@ -165,6 +181,7 @@ angular.module('quiverCmsApp')
       $scope.$storage.address = address;
       updateCart();
     };
+    $scope.updateAddress();
 
     $scope.removeFromCart = function (product) {
       var items = $scope.$storage.cart.items,
