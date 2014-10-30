@@ -16,7 +16,7 @@
 
 
 
-          <div class="column small-12 medium-9 medium-offset-3">
+          <div class="column small-12 medium-10 medium-offset-2">
 
             <div class="column small-12 medium-6">
               <h5 class="font-flair">
@@ -39,13 +39,13 @@
             <hr class="margin-zero">
           </div>
 
-          <div class="column small-12 medium-3 padding-vertical-medium">
+          <div class="column small-12 medium-2 padding-vertical-medium">
             <a href="/product/{{ product.slug }}">
               <img ng-if="product.featuredImage.Versions.small.Key" ng-src="{{ product.featuredImage.Versions.small.Key | s3Link:files.Name }}" />
             </a>
           </div>
 
-          <div class="column small-12 medium-9 padding-vertical-small">
+          <div class="column small-12 medium-10 padding-vertical-small">
 
             <div class="column small-12 text-small left"  ng-show="product.optionsMatrixSelected">
 
@@ -62,7 +62,7 @@
             </div>
 
             <div class="column small-12 medium-8 padding-vertical-small">
-              <div class="markdown text-small" markdown-editable ng-model="product.description.excerpt">{{ product.description.excerpt }}</div>
+              <div class="markdown text-x-small" markdown-editable ng-model="product.description.excerpt">{{ product.description.excerpt }}</div>
             </div>
 
             <div class="column small-12 medium-4 padding-vertical-small" ng-hide="product.optionsMatrixSelected">
@@ -77,8 +77,107 @@
 
         </li>
       </ul>
+
     </fieldset>
 
   </form>
+
+  <form name="checkoutForm">
+    <fieldset>
+
+      <div class="column small-12 medium-4 medium-offset-4">
+        <div class="column small-12">
+          <h5 class="font-flair text-secondary0">Calculate Shipping and Tax</h5>
+        </div>
+
+        <div>
+          <div class="column small-12">
+            <label for="address-country">Country</label>
+            <select id="address-country" ng-model="$storage.address.country" ng-options="country['alpha-2'] as country.name for country in countries" ng-change="updateAddress()">
+              <option value="">Select Country</option>
+            </select>
+
+            <label for="address-state">State</label>
+            <select id="address-state" ng-model="$storage.address.state" ng-options="state.abbreviation as state.name for state in states" ng-change="updateAddress()">
+              <option value="">Select Country</option>
+            </select>
+
+          </div>
+
+          <button ng-click="editAddress = false;">Save Address</button>
+        </div>
+
+        <div>
+          <ul>
+            <li>{{ $storage.address.name }}</li>
+          </ul>
+
+          <button ng-click="editAddress = true;">Edit Address</button>
+        </div>
+
+      </div>
+
+      <div class="column small-12 medium-4">
+        <div class="panel right background-secondary4" style="border: 0;">
+          <table class="no-stripe padding-vertical-zero" style='background: none;'>
+            <tbody>
+              <tr>
+                <td class="text-right">Subtotal</td>
+                <td class="text-right">
+                  {{ $storage.cart.subTotal | currency }}
+                </td>
+              </tr>
+              <tr ng-show="$storage.cart.shipped">
+                <td class="text-right">Shipping</td>
+                <td class="text-right">
+                  <span ng-show="$storage.address.domestic">{{ $storage.cart.domesticShipping | currency }}</span>
+                  <span ng-show="$storage.address.international">{{ $storage.cart.internationalShipping | currency }}</span>
+                  <a class="text-x-small" qv-focus="#address-name" ng-hide="$storage.address.domestic || $storage.address.international">+ Address</a>
+                </td>
+              </tr>
+              <tr>
+                <td class="text-right">Tax</td>
+                <td class="text-right">
+                  <span ng-show="$storage.address.tax !== false">{{ $storage.cart.tax }}</span>
+                  <a class="text-x-small" qv-focus="#address-name" ng-show="$storage.address.tax === false">+ Address</a>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="2">
+                  <hr class="margin-vertical-small">
+                </td>
+              </tr>
+              <tr>
+                <td class="text-right text-large"><strong>Total</strong></td>
+                <td class="text-right text-large">
+                  <strong>{{ $storage.cart.total | currency }}</strong>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <p class="text-x-small" ng-hide="user" style="margin: 1.5rem 0 -.5rem;">
+            <a ui-sref="master.nav.login">Log In</a> or <a ui-sref="master.nav.register">Register</a> to check out.
+          </p>
+
+          <button class="small success small-12 margin-vertical-medium" ng-click='checkout(user, $storage.cart, $storage.address, $storage.card)' ng-disabled="!user">Check Out</button>
+
+        </div>
+
+      </div>
+
+
+
+
+
+    </fieldset>
+
+  </form>
+
+
+
+</div>
+
+<div class="column small-12">
 
 </div>

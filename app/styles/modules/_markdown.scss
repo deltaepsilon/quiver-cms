@@ -9,5 +9,11 @@
     }
   }
 
+  &.text-x-small {
+    p, li {
+      @extend .text-x-small;
+    }
+  }
+
 
 }

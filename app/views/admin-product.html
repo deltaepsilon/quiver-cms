@@ -54,11 +54,17 @@
           </div>
 
           <div class="clearfix margin-vertical-small" ng-show="product.shipped">
-            <label>Domestic Shipping Price</label>
-            <input type="number" name="product-shipping-domestic" placeholder="Domestic USD..." ng-model="product.shipping.domesticPrice" ng-change="checkValidity()">
+            <label>Domestic Base Shipping</label>
+            <input type="number" name="product-shipping-domestic-base" placeholder="Domestic base USD..." ng-model="product.shipping.domesticBase" ng-change="checkValidity()">
 
-            <label>International Shipping Price</label>
-            <input type="number" name="product-shipping-international" placeholder="International USD..." ng-model="product.shipping.internationalPrice" ng-change="checkValidity()">
+            <label>Domestic Incremental Shipping per Unit</label>
+            <input type="number" name="product-shipping-domestic-incremental" placeholder="Domestic incremental USD..." ng-model="product.shipping.domesticIncremental" ng-change="checkValidity()">
+
+            <label>International Base Shipping</label>
+            <input type="number" name="product-shipping-international" placeholder="International USD..." ng-model="product.shipping.internationalBase" ng-change="checkValidity()">
+
+            <label>International Incremental Shipping per Unit</label>
+            <input type="number" name="product-shipping-international-incremental" placeholder="Intrnational incremental USD..." ng-model="product.shipping.internationalIncremental" ng-change="checkValidity()">
 
             <div>
               <label class="left" for="product-allow-international">Ship Internationally?</label>

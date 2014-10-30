@@ -12,8 +12,12 @@ angular.module('quiverCmsApp', [
   'flow',
   'angular-google-analytics'
 ]).run(function ($rootScope, $state, Restangular, NotificationService, env, Analytics) {
-    $rootScope.$on('$stateChangeStart', function () {
+    $rootScope.$on('$stateChangeStart', function (e, toState, toParams, fromState, fromParams) {
       $state.previous = _.clone($state);
+      $state.toState = toState;
+      $state.toParams = toParams;
+      $state.fromState = fromState;
+      $state.fromParams = fromParams;
     });
 
     Restangular.one('env').get().then(function (res) {}, function (error) {
@@ -200,6 +204,27 @@ angular.module('quiverCmsApp', [
             });
 
             return deferred.promise;
+          },
+          countriesStatus: function (AdminService, $q) {
+            var deferred = $q.defer();
+
+            AdminService.getCountries().$asObject().$loaded().then(function (countriesStatus) {
+              deferred.resolve(countriesStatus);
+            }, deferred.reject);
+
+            return deferred.promise;
+          },
+          statesStatus: function (AdminService, $q) {
+            var deferred = $q.defer();
+
+            AdminService.getStates().$asObject().$loaded().then(function (statesStatus) {
+              deferred.resolve(statesStatus);
+            }, deferred.reject);
+
+            return deferred.promise;
+          },
+          shippingRef: function (AdminService) {
+            return AdminService.getShipping();
           }
         }
       })
@@ -212,7 +237,7 @@ angular.module('quiverCmsApp', [
         templateUrl: 'views/authenticated.html',
         controller: 'AuthenticatedCtrl',
         resolve: {
-          user: function ($q, $state, UserService) {
+          user: function ($q, $state, UserService, $localStorage) {
             var deferred = $q.defer();
             UserService.getUser().then(function (currentUser) {
 
@@ -230,8 +255,12 @@ angular.module('quiverCmsApp', [
 
                 return UserService.getUser(currentUser.id);
               } else {
-                // Dump users without auth to main page.
-                $state.go('master.nav.landing');
+                // Dump users without auth to login.
+                $localStorage.redirect = {
+                  toState: $state.toState,
+                  toParams: $state.toParams
+                };
+                $state.go('master.nav.login');
               }
 
             }).then(deferred.resolve, deferred.reject);

@@ -8,7 +8,7 @@
  * Controller of the quiverCmsApp
  */
 angular.module('quiverCmsApp')
-  .controller('CartCtrl', function ($scope, $localStorage, _, moment, products) {
+  .controller('CartCtrl', function ($scope, $localStorage, _, moment, products, countriesStatus, statesStatus, shippingRef, CommerceService) {
     /*
      * Storage
     */
@@ -19,6 +19,31 @@ angular.module('quiverCmsApp')
     */
     // Injecting loaded array
 
+    /*
+     * Commerce
+    */
+
+    $scope.countries = _.filter(CommerceService.getCountries(), function (country) {
+      return countriesStatus[country['alpha-2']] ? countriesStatus[country['alpha-2']].enabled : false;
+    });
+
+    $scope.states = _.filter(CommerceService.getStates(), function (state) {
+      return statesStatus[state.abbreviation] ? statesStatus[state.abbreviation].enabled : false;
+    });
+
+    $scope.shipping = shippingRef.$asObject();
+
+    if (!$scope.$storage.address) {
+      $scope.$storage.address = {};
+    }
+
+    if (!$scope.$storage.address.country) {
+      $scope.$storage.address.country = 'US';
+    }
+
+    if (!$scope.$storage.address.state && $scope.$storage.address.country === 'US') {
+      $scope.$storage.address.state = 'AL';
+    }
 
     /*
      * Cart
@@ -41,8 +66,12 @@ angular.module('quiverCmsApp')
       cart.subTotal = 0;
       cart.tax = 0;
       cart.shipping = 0;
+      cart.domesticShipping = 0;
+      cart.internationalShipping = 0;
       cart.productCount = 0;
       cart.updated = now;
+      cart.shipped = false;
+      cart.internationalAllowed = true;
 
       i = cart.items.length;
 
@@ -79,6 +108,21 @@ angular.module('quiverCmsApp')
           product.quantity = Math.min(product.quantity, product.maxQuantity);
         }
 
+        if (product.shipped) {
+          cart.shipped = true;
+
+          if (product.shipping) {
+            if (!product.shipping.internationalAllowed) {
+              cart.internationalAllowed = false;
+            }
+
+            cart.domesticShipping += (product.shipping.domesticBase || 0) + (product.shipping.domesticIncremental || 0) * product.quantity;
+            cart.internationalShipping += (product.shipping.internationalBase || 0) + (product.shipping.internationalIncremental || 0) * product.quantity;
+
+          }
+
+        }
+
         if (!product) {
           cart.items.splice(i, 1);
         } else {
@@ -95,6 +139,32 @@ angular.module('quiverCmsApp')
     };
     updateCart();
     $scope.updateCart = updateCart;
+
+    $scope.updateAddress = function () {
+      var address = $scope.$storage.address || {},
+        country = address.country ? countriesStatus[address.country] : null,
+        state = address.country === 'US' && address.state ? statesStatus[address.state] : null;
+
+      if (country.enabled && address.country === 'US' && state) {
+        address.tax = (country.tax || 0) + (state.tax || 0);
+        address.domestic = country.domestic;
+        address.international = !country.domestic;
+
+      } else if (country.enabled && address.country !== 'US') {
+        address.tax = (country.tax || 0);
+        address.domestic = country.domestic;
+        address.international = !country.domestic;
+
+      } else {
+        address.tax = false;
+        address.domestic = false;
+        address.international = false;
+
+      }
+
+      $scope.$storage.address = address;
+      updateCart();
+    };
 
     $scope.removeFromCart = function (product) {
       var items = $scope.$storage.cart.items,

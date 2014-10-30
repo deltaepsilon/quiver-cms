@@ -1,6 +1,21 @@
 <div class="column small-12">
     <h3 class="font-flair">Commerce</h3>
-    <hr>
+
+    <form name="shippingForm">
+      <fieldset>
+        <div class="column small-12 medium-6">
+          <label for="shipping-base-rate">Shipping Base Rate</label>
+          <input type="number" min="0" ng-model="commerce.shipping.baseRate" placeholder="Base rate USD...">
+        </div>
+
+        <div class="column small-12 medium-6">
+          <label for="shipping-subtotal-free">Free Shipping Minimum Order</label>
+          <input type="number" min="0" ng-model="commerce.shipping.minOrder" placeholder="Minimum order USD...">
+        </div>
+      </fieldset>
+
+
+    </form>
 
     <form name="commerceForm">
         <fieldset>
@@ -49,12 +64,13 @@
             <table class="small-12">
               <thead>
                 <tr>
-                  <th>Enabled</th><th>Base Tax Rate</th><th>Country</th>
+                  <th>Enabled</th><th>Domestic</th><th>Base Tax Rate</th><th>Country</th>
                 </tr>
               </thead>
               <tbody>
                 <tr ng-repeat="country in countries" ng-class="{disabled: !commerce.countries[country['alpha-2']].enabled}">
-                  <td><input id="checkbox-{{ country['alpha-2'] }}" class="margin-zero-important" type="checkbox" ng-model="commerce.countries[country['alpha-2']].enabled"></td>
+                  <td><input id="enabled-{{ country['alpha-2'] }}" class="margin-zero-important" type="checkbox" ng-model="commerce.countries[country['alpha-2']].enabled"></td>
+                  <td><input id="domestic-{{ country['alpha-2'] }}" class="margin-zero-important" type="checkbox" ng-model="commerce.countries[country['alpha-2']].domestic"></td>
                   <td><input id="tax-{{ country['alpha-2'] }}" class="margin-zero-important" type="number" ng-model="commerce.countries[country['alpha-2']].tax" ng-disabled="!commerce.countries[country['alpha-2']].enabled"></td>
                   <td>{{ country.name }}</td>
                 </tr>

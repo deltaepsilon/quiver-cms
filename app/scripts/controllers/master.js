@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('quiverCmsApp')
-  .controller('MasterCtrl', function ($scope, currentUser, env, UserService, NotificationService, $state, md5, settingsRef, filesRef, user, AdminService, _, $localStorage) {
+  .controller('MasterCtrl', function ($scope, currentUser, env, UserService, ObjectService, NotificationService, $state, md5, settingsRef, filesRef, user, AdminService, _, $localStorage) {
     var loggedOutStates = ['master.nav.login', 'master.nav.register', 'master.nav.reset'],
       toLanding = function () {
         $state.go('master.nav.landing');
@@ -46,8 +46,10 @@ angular.module('quiverCmsApp')
     /*
      * User
     */
+
     $scope.setUser = function (user) {
       $scope.user = user;
+
     };
 
     $scope.setUser(user);
@@ -66,13 +68,13 @@ angular.module('quiverCmsApp')
 
     /*
      * Handle state changes
-     */
+    */
     handleStateChange(null, $state.$current);
     $scope.$on('$stateChangeSuccess', handleStateChange);
 
     /*
      * Forward user to previous state or to landing page if necessary
-     */
+    */
     $scope.forward = function () {
       if ($state.previous && $state.previous.current.name.length > 0) {
         $state.go($state.previous.current.name, $state.previous.params);
@@ -84,10 +86,8 @@ angular.module('quiverCmsApp')
 
     /*
      * Log out user and forward to landing page
-     */
+    */
     $scope.logOut = function () {
-      $scope.user.$destroy();
-      
       UserService.logOut().then(function () {
         delete $scope.currentUser;
         delete $scope.user;

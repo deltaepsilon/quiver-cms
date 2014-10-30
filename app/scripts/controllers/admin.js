@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('quiverCmsApp')
-  .controller('AdminCtrl', function ($scope, themeRef, settingsRef, AdminService, NotificationService) {
+  .controller('AdminCtrl', function ($scope, themeRef, settingsRef, AdminService, ObjectService, NotificationService) {
     var theme = themeRef.$asObject(),
       settings = settingsRef.$asObject();
 
@@ -9,6 +9,7 @@ angular.module('quiverCmsApp')
      * Theme
     */
     theme.$bindTo($scope, 'theme');
+    ObjectService.toDestroy(theme);
 
     theme.$loaded().then(function () {
       var keys = Object.keys($scope.theme.options);
@@ -16,6 +17,7 @@ angular.module('quiverCmsApp')
       if (!$scope.theme.active && keys.length) {
         $scope.theme.active = keys[0];
       }
+
     });
 
     /*

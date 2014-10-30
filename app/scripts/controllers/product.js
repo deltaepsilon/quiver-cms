@@ -30,7 +30,11 @@ angular.module('quiverCmsApp')
           }
 
           if (valid && product.shipped) {
-            if (!product.shipping || typeof product.shipping.domesticPrice !== 'number' || typeof product.shipping.internationalPrice !== 'number' ) {
+            if (!product.shipping || typeof product.shipping.domesticBase !== 'number' || typeof product.shipping.internationalBase !== 'number' ) {
+              valid = false;
+            }
+
+            if (!product.shipping || typeof product.shipping.domesticIncremental !== 'number' || typeof product.shipping.internationalIncremental !== 'number' ) {
               valid = false;
             }
           }

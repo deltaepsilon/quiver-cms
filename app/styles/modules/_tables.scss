@@ -1,0 +1,18 @@
+table {
+  &.no-stripe {
+    tr {
+      &:nth-of-type(even) {
+        background: initial;
+      }
+    }
+  }
+
+  &.padding-vertical-zero {
+    tr {
+      td {
+        padding-top: 0;
+        padding-bottom: 0;
+      }
+    }
+  }
+}

@@ -89,6 +89,18 @@ angular.module('quiverCmsApp')
         return $firebase(new Firebase(firebaseEndpoint + '/commerce'));
       },
 
+      getCountries: function () {
+        return $firebase(new Firebase(firebaseEndpoint + '/commerce/countries'));
+      },
+
+      getStates: function () {
+        return $firebase(new Firebase(firebaseEndpoint + '/commerce/states'));
+      },
+
+      getShipping: function () {
+        return $firebase(new Firebase(firebaseEndpoint + '/commerce/shipping'));
+      },
+
       getUsers: function () {
         return $firebase(new Firebase(firebaseEndpoint + '/users'));
       },
