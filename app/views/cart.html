@@ -54,7 +54,7 @@
                   <!-- <li ng-show="product.optionsMatrixSelected.priceDifference">
                     Price Difference: {{ product.optionsMatrixSelected.priceDifference | currency }}
                   </li> -->
-                  <li ng-show="product.optionsMatrixSelected.inventory">{{ product.optionsMatrixSelected.inventory }} Available</li>
+                  <li ng-if="product.optionsMatrixSelected.inventory">{{ product.optionsMatrixSelected.inventory }} Available</li>
                 </ul>
 
                 <a class="text-small right" ng-click="removeFromCart(product)">Remove</a>
@@ -85,7 +85,7 @@
   <form name="checkoutForm">
     <fieldset>
 
-      <div class="column small-12 medium-4 medium-offset-4">
+      <div class="column small-12 medium-4 medium-offset-2">
         <div class="column small-12">
           <h5 class="font-flair text-secondary0">Calculate Shipping and Tax</h5>
         </div>
@@ -111,52 +111,45 @@
       </div>
 
       <div class="column small-12 medium-4">
-        <div class="panel right background-secondary4" style="border: 0;">
-          <table class="no-stripe padding-vertical-zero" style='background: none;'>
-            <tbody>
-              <tr>
-                <td class="text-right">Subtotal</td>
-                <td class="text-right">
-                  {{ $storage.cart.subtotal | currency }}
-                </td>
-              </tr>
-              <tr ng-show="$storage.cart.shipped">
-                <td class="text-right">
-                  <span ng-show="$storage.cart.shipping">Shipping</span>
-                  <span class="text-secondary0" ng-hide="$storage.cart.shipping">Free Shipping</span>
-                </td>
-                <td class="text-right">
-                  <span ng-show="$storage.address.domestic || $storage.address.international">{{ $storage.cart.shipping | currency }}</span>
-                  <a class="text-x-small" qv-focus="#address-country" ng-hide="$storage.address.domestic || $storage.address.international">+ Address</a>
-                </td>
-              </tr>
-              <tr>
-                <td class="text-right">Tax</td>
-                <td class="text-right">
-                  <span ng-show="$storage.address.tax !== false">{{ $storage.cart.tax | currency }}</span>
-                  <a class="text-x-small" qv-focus="#address-country" ng-show="$storage.address.tax === false">+ Address</a>
-                </td>
-              </tr>
-              <tr>
-                <td colspan="2">
-                  <hr class="margin-vertical-small">
-                </td>
-              </tr>
-              <tr>
-                <td class="text-right text-large"><strong>Total</strong></td>
-                <td class="text-right text-large">
-                  <strong>{{ $storage.cart.total | currency }}</strong>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+        <div class="panel small-12 right background-secondary4" style="border: 0;">
+          <ul class="table-list text-small text-right clearfix">
+            <li>
+              <div class="column small-6">Subtotal</div>
+              <div class="column small-6">{{ $storage.cart.subtotal | currency }}</div>
+            </li>
+            <li>
+              <div class="column small-6">
+                <span ng-show="$storage.cart.shipping">Shipping</span>
+                <span class="text-secondary0" ng-hide="$storage.cart.shipping">Free Shipping</span>
+              </div>
+              <div class="column small-6">
+                <span ng-show="$storage.address.domestic || $storage.address.international">{{ $storage.cart.shipping | currency }}</span>
+                <a class="text-x-small" qv-focus="#address-country" ng-hide="$storage.address.domestic || $storage.address.international">+ Address</a>
+              </div>
+            </li>
+            <li>
+              <div class="column small-6">Tax</div>
+              <div class="column small-6">
+                <span ng-show="$storage.address.tax !== false">{{ $storage.cart.tax | currency }}</span>
+                <a class="text-x-small" qv-focus="#address-country" ng-show="$storage.address.tax === false">+ Address</a>
+              </div>
+            </li>
+            <li>
+              <hr class="margin-vertical-small">
+            </li>
+            <li class="text-x-medium">
+              <div class="column small-6"><strong>Total</strong></div>
+              <div class="column small-6"><strong>{{ $storage.cart.total | currency }}</strong></div>
+            </li>
+
+          </ul>
 
           <p class="text-x-small" ng-hide="user" style="margin: 1.5rem 0 0;">
             <a ui-sref="master.nav.login">Log In</a> or <a ui-sref="master.nav.register">Register</a> to check out.
           </p>
 
-          <div class="margin-vertical-medium">
-            <a class="button small success small-12" ui-sref="authenticated.master.nav.checkout">Check Out</a>
+          <div class="margin-vertical-x-medium">
+            <a class="button small success small-12 text-x-medium-important margin-zero-important" ui-sref="authenticated.master.nav.checkout">Check Out</a>
           </div>
 
         </div>
