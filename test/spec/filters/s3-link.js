@@ -12,8 +12,7 @@ describe('Filter: s3Link', function () {
   }));
 
   it('should return the input prefixed with "s3Link filter:"', function () {
-    var text = 'angularjs';
-    expect(s3Link(text)).toBe('s3Link filter: ' + text);
+    expect(s3Link('file.jpeg', 'bucketName')).toBe('https://s3.amazonaws.com/bucketName/file.jpeg');
   });
 
 });

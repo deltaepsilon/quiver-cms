@@ -11,9 +11,8 @@ describe('Filter: filename', function () {
     filename = $filter('filename');
   }));
 
-  it('should return the input prefixed with "filename filter:"', function () {
-    var text = 'angularjs';
-    expect(filename(text)).toBe('filename filter: ' + text);
+  it('should remove paths and leave just the filename', function () {
+    expect(filename("/cms/this-is-a-filename.jpeg")).toBe('this-is-a-filename.jpeg');
   });
 
 });

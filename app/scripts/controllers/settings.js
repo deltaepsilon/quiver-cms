@@ -36,6 +36,4 @@ angular.module('quiverCmsApp')
       }
     ];
 
-    console.log($scope.navList);
-
   });

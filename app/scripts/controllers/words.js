@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('quiverCmsApp')
-  .controller('WordsCtrl', function ($scope, wordsRef, moment, NotificationService, Slug, $timeout, hashtagsRef) {
+  .controller('WordsCtrl', function ($scope, wordsRef, hashtagsRef, moment, NotificationService, Slug, $timeout) {
     /*
      * Words
     */

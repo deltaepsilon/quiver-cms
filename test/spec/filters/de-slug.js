@@ -11,9 +11,8 @@ describe('Filter: deSlug', function () {
     deSlug = $filter('deSlug');
   }));
 
-  it('should return the input prefixed with "deSlug filter:"', function () {
-    var text = 'angularjs';
-    expect(deSlug(text)).toBe('deSlug filter: ' + text);
+  it('should remove dashes and file type suffixes', function () {
+    expect(deSlug('this-is-a-slug.js')).toBe('this is a slug');
   });
 
 });
