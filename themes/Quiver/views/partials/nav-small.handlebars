@@ -51,9 +51,9 @@
           </a>
         </li>
 
-        <li ng-show="currentUser"><a ng-click="logOut()" ui-sref="master.nav.landing"><i class="fa fa-sign-out"></i> Log Out</a></li>
+        <li ng-show="currentUser"><a ng-click="logOut()" href="#"><i class="fa fa-sign-out"></i> Log Out</a></li>
         <li ng-show="user.private.isAdmin" qv-active>
-          <a ui-sref="authenticated.master.admin">Admin</a>
+          <a href="/app/admin">Admin</a>
         </li>
 
 

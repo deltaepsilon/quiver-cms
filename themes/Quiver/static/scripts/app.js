@@ -45,11 +45,20 @@ angular.module('QuiverCMS', ['ngStorage', 'DeltaEpsilon.quiver-angular-utilities
       }
 
       if (currentUser && currentUser.id) {
-        $scope.user = UserService.getUser(currentUser.id);
+        UserService.getUser(currentUser.id).$loaded().then(function (user) {
+          $scope.user = user;
+        });
       }
 
 
     });
+
+    $scope.logOut = function () {
+      UserService.logOut().then(function () {
+        delete $scope.currentUser;
+        delete $scope.user;
+      });
+    };
 
     /*
      * Storage

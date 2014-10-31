@@ -13,7 +13,7 @@ angular.module('quiverCmsApp')
     }
 
     $scope.logIn = function (email, password) {
-      UserService.logIn(email, password).then(function (currentUser) {
+      UserService.logIn(email, password, false).then(function (currentUser) {
         var headers = {"authorization": currentUser.firebaseAuthToken, "user-id": currentUser.id},
           user = UserService.getUser(currentUser.id);
 

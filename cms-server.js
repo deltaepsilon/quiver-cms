@@ -401,7 +401,7 @@ app.use(function (req, res, next) {
 
         req.user = user;
 
-        if (!user) { // Create a user if necessary
+        if (!user || !user.public || !user.private) { // Create a user if necessary
           userRef.set({
             'public': {
               email: currentUser.auth.email,

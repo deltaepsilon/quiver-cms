@@ -37,7 +37,7 @@ angular.module('quiverCmsApp')
     */
     $scope.files = filesRef.$asObject();
 
-    $scope.uploadTarget = env.api + '/files';
+    $scope.uploadTarget = env.api + '/admin/files';
 
     $scope.deleteFlowFile = function (flow, file) {
       var i = flow.files.length;
