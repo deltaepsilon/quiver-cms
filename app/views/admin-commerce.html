@@ -3,12 +3,17 @@
 
     <form name="shippingForm">
       <fieldset>
-        <div class="column small-12 medium-6">
-          <label for="shipping-base-rate">Shipping Base Rate</label>
-          <input type="number" min="0" ng-model="commerce.shipping.baseRate" placeholder="Base rate USD...">
+        <div class="column small-12 medium-4">
+          <label for="shipping-base-rate">Domestic Base Rate</label>
+          <input type="number" min="0" ng-model="commerce.shipping.domesticBaseRate" placeholder="Domestic base rate USD...">
         </div>
 
-        <div class="column small-12 medium-6">
+        <div class="column small-12 medium-4">
+          <label for="shipping-base-rate">International Base Rate</label>
+          <input type="number" min="0" ng-model="commerce.shipping.internationalBaseRate" placeholder="International base rate USD...">
+        </div>
+
+        <div class="column small-12 medium-4">
           <label for="shipping-subtotal-free">Free Shipping Minimum Order</label>
           <input type="number" min="0" ng-model="commerce.shipping.minOrder" placeholder="Minimum order USD...">
         </div>

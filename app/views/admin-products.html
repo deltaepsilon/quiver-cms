@@ -33,6 +33,7 @@
               <ul class="margin-vertical-small text-small">
                 <li><h5>Details</h5></li>
                 <li>Price: <strong class="right">{{ product.price | currency }}</strong></li>
+                <li>Taxable: <strong class="right">{{ product.taxable }}</strong></li>
                 <li>Type: <strong class="right">{{ product.type }}</strong></li>
                 <li ng-show="product.type === 'subscription'">Subscription Type: <strong class="right">{{ product.subscriptionType }}</strong></li>
                 <li>Slug: <strong class="right">{{ product.slug }}</strong></li>

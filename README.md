@@ -158,7 +158,7 @@ server {
   ssl_prefer_server_ciphers   on;
   ssl_session_cache   shared:SSL:10m;
   ssl_session_timeout 10m;
-	
+
 	#rewrite_log on;
 
 	client_max_body_size 2M;
@@ -201,3 +201,7 @@ server {
 Then modify ```app/styles/theme/_font.scss``` so that ```$font-primary``` and ```$font-secondary``` are fonts names to which your page has access.
 
 I've set up my TypeKit bundle to allow access for localhost and 127.0.0.1, but you'll run into issues if you attempt to load TypeKit fonts on your own domain.
+
+### Testing
+
+Run ```grunt test```

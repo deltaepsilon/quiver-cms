@@ -23,6 +23,8 @@ angular.module('quiverCmsApp')
      * Commerce
     */
 
+    var shipping = shippingRef.$asObject(); // Shipping gets assigned to $scope later...
+
     $scope.countries = _.filter(CommerceService.getCountries(), function (country) {
       return countriesStatus[country['alpha-2']] ? countriesStatus[country['alpha-2']].enabled : false;
     });
@@ -30,8 +32,6 @@ angular.module('quiverCmsApp')
     $scope.states = _.filter(CommerceService.getStates(), function (state) {
       return statesStatus[state.abbreviation] ? statesStatus[state.abbreviation].enabled : false;
     });
-
-    $scope.shipping = shippingRef.$asObject();
 
     if (!$scope.$storage.address) {
       $scope.$storage.address = {};
@@ -63,7 +63,7 @@ angular.module('quiverCmsApp')
       }
 
       cart.productCount = 0;
-      cart.subTotal = 0;
+      cart.subtotal = 0;
       cart.tax = 0;
       cart.shipping = 0;
       cart.domesticShipping = 0;
@@ -74,8 +74,6 @@ angular.module('quiverCmsApp')
       cart.internationalAllowed = true;
 
       i = cart.items.length;
-
-
 
       while (i--) {
         item = cart.items[i];
@@ -92,7 +90,7 @@ angular.module('quiverCmsApp')
           product.priceAdjusted = product.price + (product.optionsMatrixSelected.priceDifference || 0);
         }
 
-        product.quantity = item.quantity;
+        product.quantity = item.quantity || 0;
 
         if (!product.quantity || product.quantity < 1) {
           product.quantity = 1;
@@ -128,11 +126,11 @@ angular.module('quiverCmsApp')
         } else {
           cart.items.splice(i, 1, product); // Update item in place
           cart.productCount += 1;
-          cart.subTotal += (product.priceAdjusted || product.price);
+          cart.subtotal += (product.priceAdjusted || product.price) * product.quantity;
 
           if ($scope.$storage.address) {
             if (product.taxable && $scope.$storage.address.tax) {
-              cart.tax += (product.priceAdjusted || product.price) * $scope.$storage.address.tax;
+              cart.tax += (product.priceAdjusted || product.price) * product.quantity * $scope.$storage.address.tax;
             }
 
           }
@@ -143,30 +141,42 @@ angular.module('quiverCmsApp')
 
       if ($scope.$storage.address) {
         if ($scope.$storage.address.domestic) {
-          cart.shipping = cart.domesticShipping;
+          cart.shipping = cart.domesticShipping + ($scope.shipping.domesticBaseRate || 0);
         } else if ($scope.$storage.address.international) {
-          cart.shipping = cart.internationalShipping;
+          cart.shipping = cart.internationalShipping + ($scope.shipping.internationalBaseRate || 0);
         }
       }
 
-      cart.total = cart.subTotal + cart.tax + cart.shipping;
+      cart.subtotal = Math.round(cart.subtotal * 100) / 100;
+      cart.tax = Math.round(cart.tax * 100) / 100;
+      cart.shipping = Math.round(cart.shipping * 100) / 100;
+
+      if (typeof $scope.shipping.minOrder === 'number' && cart.subtotal > $scope.shipping.minOrder) {
+        cart.shipping = 0;
+        cart.freeShipping = true;
+      }
+
+      cart.total = cart.subtotal + cart.tax + cart.shipping;
 
       $scope.$storage.cart = cart;
     };
-    updateCart();
+
     $scope.updateCart = updateCart;
 
+    /*
+     * Address
+    */
     $scope.updateAddress = function () {
       var address = $scope.$storage.address || {},
         country = address.country ? countriesStatus[address.country] : null,
         state = address.country === 'US' && address.state ? statesStatus[address.state] : null;
 
-      if (country.enabled && address.country === 'US' && state) {
+      if (country && country.enabled && address.country === 'US' && state) {
         address.tax = (country.tax || 0) + (state.tax || 0);
         address.domestic = country.domestic;
         address.international = !country.domestic;
 
-      } else if (country.enabled && address.country !== 'US') {
+      } else if (country && country.enabled && address.country !== 'US') {
         address.tax = (country.tax || 0);
         address.domestic = country.domestic;
         address.international = !country.domestic;
@@ -181,8 +191,18 @@ angular.module('quiverCmsApp')
       $scope.$storage.address = address;
       updateCart();
     };
-    $scope.updateAddress();
 
+    /*
+     * Shipping
+    */
+    shipping.$loaded().then(function (shipping) {
+      $scope.shipping = shipping;
+      $scope.updateAddress();
+    });
+
+    /*
+     * Cart Actions
+    */
     $scope.removeFromCart = function (product) {
       var items = $scope.$storage.cart.items,
         i = items.length;

@@ -25,9 +25,9 @@
 
             </div>
             <div class="column small-12 medium-6">
-              <div class="left padding-vertical-small">{{ product.price | currency }}</div>
+              <div class="left padding-vertical-small">{{ product.priceAdjusted || product.price | currency }}</div>
               <input id="product-{{$index}}" class="left margin-vertical-zero-important margin-horizontal-small-important text-small-important" style="height: 2.1rem; width: 3rem; position: relative; top: 7px;" type="number" ng-model="product.quantity" min="1" max="{{ product.maxQuantity }}" ng-blur="updateCart()" qv-select-text="#product-{{$index}}" placeholder="#">
-              <div class="right padding-vertical-small"><strong>{{ product.price * product.quantity | currency }}</strong></div>
+              <div class="right padding-vertical-small"><strong>{{ (product.priceAdjusted || product.price) * product.quantity | currency }}</strong></div>
             </div>
 
 
@@ -117,22 +117,24 @@
               <tr>
                 <td class="text-right">Subtotal</td>
                 <td class="text-right">
-                  {{ $storage.cart.subTotal | currency }}
+                  {{ $storage.cart.subtotal | currency }}
                 </td>
               </tr>
               <tr ng-show="$storage.cart.shipped">
-                <td class="text-right">Shipping</td>
                 <td class="text-right">
-                  <span ng-show="$storage.address.domestic">{{ $storage.cart.domesticShipping | currency }}</span>
-                  <span ng-show="$storage.address.international">{{ $storage.cart.internationalShipping | currency }}</span>
-                  <a class="text-x-small" qv-focus="#address-name" ng-hide="$storage.address.domestic || $storage.address.international">+ Address</a>
+                  <span ng-show="$storage.cart.shipping">Shipping</span>
+                  <span class="text-secondary0" ng-hide="$storage.cart.shipping">Free Shipping</span>
+                </td>
+                <td class="text-right">
+                  <span ng-show="$storage.address.domestic || $storage.address.international">{{ $storage.cart.shipping | currency }}</span>
+                  <a class="text-x-small" qv-focus="#address-country" ng-hide="$storage.address.domestic || $storage.address.international">+ Address</a>
                 </td>
               </tr>
               <tr>
                 <td class="text-right">Tax</td>
                 <td class="text-right">
                   <span ng-show="$storage.address.tax !== false">{{ $storage.cart.tax | currency }}</span>
-                  <a class="text-x-small" qv-focus="#address-name" ng-show="$storage.address.tax === false">+ Address</a>
+                  <a class="text-x-small" qv-focus="#address-country" ng-show="$storage.address.tax === false">+ Address</a>
                 </td>
               </tr>
               <tr>
