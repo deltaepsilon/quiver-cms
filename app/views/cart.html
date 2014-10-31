@@ -100,7 +100,7 @@
             <div ng-show="$storage.address.country === 'US'">
               <label for="address-state">State</label>
               <select id="address-state" ng-model="$storage.address.state" ng-options="state.abbreviation as state.name for state in states" ng-change="updateAddress()">
-                <option value="">Select Country</option>
+                <option value="">Select State</option>
               </select>
             </div>
 
