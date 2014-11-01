@@ -20,7 +20,7 @@ var config = require('config'),
   easyimage = require('easyimage'),
   environment = config.get('public.environment'),
   publicBucket = config.get('public.amazon.publicBucket'),
-  filePrefix = 'cms',
+  filePrefix = config.get('private.amazon.filePrefix') || 'cms',
   firebaseEndpoint = config.get('public.firebase.endpoint'),
   firebaseRoot = new Firebase(firebaseEndpoint),
   firebaseSecret = config.get('private.firebase.secret'),
@@ -454,6 +454,12 @@ app.use('/admin', function (req, res, next) {
 /*
  * File endpoints
  */
+var isResize = function (key) {
+  var resizeFolders = ['small', 'medium', 'large', 'xlarge'],
+    parts = key.split('/');
+
+  return !!~resizeFolders.indexOf(parts[1]);
+}
 var updateFilesRegister = function() { //Cache S3.listObjects result to Firebase. This is too costly to call often.
   var deferred = Q.defer(),
     firebaseDeferred = Q.defer(),
@@ -480,9 +486,9 @@ var updateFilesRegister = function() { //Cache S3.listObjects result to Firebase
       file.Name = fileName;
       file.Suffix = suffix;
 
-      if (parts.length === 2) {
+      if (!isResize(file.Key)) {
         originals.push(file);
-      } else if (parts.length === 3) {
+      } else {
         if (!versions[fileName]) {
           versions[fileName] = {
             small: {},
@@ -514,7 +520,6 @@ var updateFilesRegister = function() { //Cache S3.listObjects result to Firebase
 };
 
 app.get('/admin/files-update', function (req, res) {
-  console.log('here!');
   updateFilesRegister().then(function (s3Data) {
     res.json(s3Data);
   }, function (err) {
@@ -582,7 +587,7 @@ app.post('/admin/files', function (req, res) {
     var file = new Buffer(data, "base64"),
       payload = {
         Bucket: publicBucket,
-        Key: filePrefix + '/' + fileName,
+        Key: filePrefix + '/' + fileName.replace(/:/g, "/"), // Filenames with forward slashes in them get copied to the filesystem with ":" instead of the slashes.
         ACL: 'public-read',
         Body: file,
         CacheControl: "max-age=34536000",
@@ -632,7 +637,7 @@ app.post('/admin/files', function (req, res) {
 });
 
 app.delete('/admin/files/:fileName', function (req, res) {
-  var fileName = req.params.fileName,
+  var fileName = req.params.fileName.replace(/\|/g, '/'),
     deleteObject = function (folder) {
       var deleteDeferred = Q.defer(),
         path = [filePrefix, folder, fileName].join('/').replace(/\/\//g, '/');
@@ -702,7 +707,7 @@ var resizeImages = function () {
         return;
       }
 
-      if (parts.length === 2) {
+      if (!isResize(image.Key)) {
         source.push(image);
       } else if (parts[1] === 'small') {
         small.push(image);
@@ -727,8 +732,13 @@ var resizeImages = function () {
     _.each(source, function (image) {
       var dataDeferred = Q.defer(),
         downloadDeferred = Q.defer(),
-        fileName = image.Key.split('/').pop(),
-        path = './resize/' + fileName;
+        parts = image.Key.split('/'),
+        fileName,
+        path;
+
+      parts.shift();
+      fileName = parts.join('|');
+      path = './resize/' + fileName;
 
       promises.push(downloadDeferred.promise);
 
@@ -780,9 +790,15 @@ var resizeImages = function () {
           return function () {
             var readDeferred = Q.defer(),
               uploadDeferred = Q.defer(),
-              path = './resize/' + folder + '/' + image.fileName;
+              parts = image.Key.split('/'),
+              path,
+              key;
 
-//            console.log('reading...', path);
+            parts.shift();
+            path = './resize/' + folder + '/' + parts.join("|");
+            key = [filePrefix, folder].concat(parts).join("/");
+
+            // console.log('reading...', path);
             fs.readFile(path, function (err, data) {
               _.delay(function () {
 //                console.log('done reading.', path);
@@ -795,7 +811,7 @@ var resizeImages = function () {
 //              console.log('uploading...', path);
               S3.putObject({
                 Bucket: publicBucket,
-                Key: filePrefix + '/' + folder + '/' + image.fileName.toLowerCase(),
+                Key: key,
                 ACL: 'public-read',
                 Body: data,
                 CacheControl: "max-age=34536000",
