@@ -71,7 +71,8 @@
     },
     "amazon": {
       "accessKeyId": "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
-      "secretAccessKey": "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+      "secretAccessKey": "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+      "filePrefix": "cms"
     },
     "redis": {
       "dbIndex": 0,
