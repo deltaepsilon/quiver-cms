@@ -166,6 +166,11 @@ angular.module('quiverCmsApp')
     /*
      * Address
     */
+    $scope.editAddress = function () {
+      $scope.validateAddress($scope.$storage.address);
+      $scope.editingAddress = true;
+    };
+
     $scope.updateAddress = function () {
       var address = $scope.$storage.address || {},
         country = address.country ? countriesStatus[address.country] : null,
@@ -190,6 +195,75 @@ angular.module('quiverCmsApp')
 
       $scope.$storage.address = address;
       updateCart();
+    };
+
+    $scope.validateAddress = function (address) {
+      var address = address || {},
+        country = address.country ? _.findWhere(CommerceService.getCountries(), {'alpha-2': address.country}) : null,
+        state = address.country === 'US' ? _.findWhere(CommerceService.getStates(), {'abbreviation': address.state}) : null,
+        territory = address.territory,
+        formattedAddress = {
+          street1: address.street1 && address.street1.length ? address.street1 : null,
+          street2: address.street2 && address.street2.length ? address.street2 : null,
+          street3: address.street3 && address.street3.length ? address.street3 : null,
+          city: address.city,
+          territory: state ? state.abbreviation : address.territory,
+          territoryName: state ? state.name : address.territory,
+          country: country ? country['alpha-2'] : null,
+          countryName: country ? country.name : null,
+          postalCode: address.postalCode,
+          isUS: address.country === 'US',
+          instructions: address.instructions
+        },
+        errorMessages = {};
+
+      if (!formattedAddress.street1) {
+        errorMessages.street = 'Missing street line 1.';
+      }
+
+      if (!formattedAddress.city) {
+        errorMessages.city = 'Missing city.';
+      }
+
+      if (!formattedAddress.territory) {
+        if (address.country === 'US') {
+          errorMessages.territory = 'Missing state.';
+        } else {
+          errorMessages.territory = 'Missing territory.';
+        }
+
+      }
+
+      if (!formattedAddress.country) {
+        errorMessages.country = 'Missing country.';
+      }
+
+      if (!formattedAddress.postalCode) {
+        errorMessages.postalCode = 'Missing postal code.';
+      }
+
+      $scope.errorMessages = errorMessages;
+
+      return !Object.keys(errorMessages).length ? formattedAddress : false;
+
+    };
+
+    if (!$scope.$storage.cart || !$scope.$storage.cart.address || !$scope.validateAddress($scope.$storage.cart.address)) {
+      $scope.editingAddress = true;
+    } else {
+      $scope.editingAddress = false;
+    }
+
+    $scope.saveAddress = function (address) {
+      var address = $scope.validateAddress(address);
+
+      if (address) {
+        $scope.$storage.cart.address = address;
+        $scope.editingAddress = false;
+      } else {
+        $scope.editingAddress = true;
+      }
+
     };
 
     /*

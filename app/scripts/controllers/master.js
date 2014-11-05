@@ -63,7 +63,7 @@ angular.module('quiverCmsApp')
           console.log('disconnected!', arguments);
         }
       });
-      
+
     };
 
     $scope.setUser(user);
@@ -113,8 +113,8 @@ angular.module('quiverCmsApp')
     /*
      * Redirect to static site
     */
-    $scope.toStatic = function () {
-      location.replace('/');
+    $scope.toStatic = function (target) {
+      location.replace(target || '/');
     }
 
     /*

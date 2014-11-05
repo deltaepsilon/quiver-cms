@@ -7,72 +7,39 @@
 
         </li>
         <li class="clearfix" ng-repeat="product in $storage.cart.items | orderBy:'title'">
+          <div class="column small-12">
 
-          <!-- <div class="column small-12 padding-zero-important" ng-hide="$index === 0">
-            <hr class="margin-zero">
-          </div> -->
-
-
-
-
-
-          <div class="column small-12 medium-10 medium-offset-2">
-
-            <div class="column small-12 medium-6">
-              <h5 class="font-flair">
-                <a class="left padding-vertical-small link-secondary0" href="/product/{{ product.slug }}">{{ product.title }}</a>
+            <div class="column small-12 medium-8">
+              <h5 class="font-flair margin-zero clearfix">
+                <a class="left padding-vertical-small link-secondary0" style="padding-bottom: 0;" href="/product/{{ product.slug }}">{{ product.title }}</a>
               </h5>
-
+              <ul ng-if="product.optionsMatrixSelected" class="text-small inline-list dots left strong margin-vertical-xx-small-important">
+                <li>{{ product.optionsMatrixSelected.name }}</li>
+                <!-- <li ng-show="product.optionsMatrixSelected.priceDifference">
+                  Price Difference: {{ product.optionsMatrixSelected.priceDifference | currency }}
+                </li> -->
+                <li ng-if="product.optionsMatrixSelected.inventory">{{ product.optionsMatrixSelected.inventory }} Available</li>
+              </ul>
             </div>
-            <div class="column small-12 medium-6">
-              <div class="left padding-vertical-small">{{ product.priceAdjusted || product.price | currency }}</div>
+
+            <div class="column small-12 medium-4">
+              <div class="left padding-vertical-small" style="min-width: 4rem;">{{ product.priceAdjusted || product.price | currency }}</div>
+
               <input id="product-{{$index}}" class="left margin-vertical-zero-important margin-horizontal-small-important text-small-important" style="height: 2.1rem; width: 3rem; position: relative; top: 7px;" type="number" ng-model="product.quantity" min="1" max="{{ product.maxQuantity }}" ng-blur="updateCart()" qv-select-text="#product-{{$index}}" placeholder="#">
-              <div class="right padding-vertical-small"><strong>{{ (product.priceAdjusted || product.price) * product.quantity | currency }}</strong></div>
+
+              <div class="padding-vertical-small right">
+                <a class="text-small" ng-click="removeFromCart(product)">Remove</a>
+              </div>
+
+              <div class="right padding-small"><strong>{{ (product.priceAdjusted || product.price) * product.quantity | currency }}</strong></div>
+
             </div>
-
-
-
 
           </div>
 
           <div class="column small-12 padding-zero-important">
             <hr class="margin-zero">
           </div>
-
-          <div class="column small-12 medium-2 padding-vertical-medium">
-            <a href="/product/{{ product.slug }}">
-              <img ng-if="product.featuredImage.Versions.small.Key" ng-src="{{ product.featuredImage.Versions.small.Key | s3Link:files.Name }}" />
-            </a>
-          </div>
-
-          <div class="column small-12 medium-10 padding-vertical-small">
-
-            <div class="column small-12 text-small left"  ng-show="product.optionsMatrixSelected">
-
-                <ul class="text-small inline-list dots left strong">
-                  <li>{{ product.optionsMatrixSelected.name }}</li>
-                  <!-- <li ng-show="product.optionsMatrixSelected.priceDifference">
-                    Price Difference: {{ product.optionsMatrixSelected.priceDifference | currency }}
-                  </li> -->
-                  <li ng-if="product.optionsMatrixSelected.inventory">{{ product.optionsMatrixSelected.inventory }} Available</li>
-                </ul>
-
-                <a class="text-small right" ng-click="removeFromCart(product)">Remove</a>
-
-            </div>
-
-            <div class="column small-12 medium-8 padding-vertical-small">
-              <div class="markdown text-x-small" markdown-editable ng-model="product.description.excerpt">{{ product.description.excerpt }}</div>
-            </div>
-
-            <div class="column small-12 medium-4 padding-vertical-small" ng-hide="product.optionsMatrixSelected">
-              <a class="text-small right" ng-click="removeFromCart(product)">Remove</a>
-            </div>
-
-
-
-          </div>
-
 
 
         </li>
@@ -85,32 +52,113 @@
   <form name="checkoutForm">
     <fieldset>
 
-      <div class="column small-12 medium-4 medium-offset-2">
-        <div class="column small-12">
-          <h5 class="font-flair text-secondary0">Calculate Shipping and Tax</h5>
+      <div class="column small-12 medium-8" ng-if="!$storage.cart.address || editingAddress">
+        <div class="column small-12 medium-8 medium-offset-4">
+          <h5 class="font-flair text-secondary0">Shipping Address</h5>
         </div>
 
-        <div>
-          <div class="column small-12">
-            <label for="address-country">Country</label>
-            <select id="address-country" ng-model="$storage.address.country" ng-options="country['alpha-2'] as country.name for country in countries" ng-change="updateAddress()">
-              <option value="">Select Country</option>
+        <div class="column small-12 medium-8 medium-offset-4">
+          <label for="address-line-one">
+            <span>Street</span>
+            <strong class="text-small text-error margin-horizontal-small">{{ errorMessages.street }}</strong>
+          </label>
+          <input type="text" ng-model="$storage.address.street1" ng-blur="validateAddress($storage.address)" placeholder="Line 1 (required)..." required>
+          <input type="text" ng-model="$storage.address.street2" placeholder="Line 2...">
+          <input type="text" ng-model="$storage.address.street3" placeholder="Line 3...">
+
+          <label for="address-city">
+            <span>City</span>
+            <strong class="text-small text-error margin-horizontal-small">{{ errorMessages.city }}</strong>
+          </label>
+          <input id="address-city" type="text" ng-model="$storage.address.city" ng-blur="validateAddress($storage.address)" placeholder="City (required)..." required>
+
+          <div ng-show="$storage.address.country === 'US'">
+            <label for="address-state">
+              <span>State</span>
+              <strong class="text-small text-error margin-horizontal-small">{{ errorMessages.territory }}</strong>
+            </label>
+            <select id="address-state" ng-model="$storage.address.state" ng-blur="validateAddress($storage.address)" ng-options="state.abbreviation as state.name for state in states" ng-change="updateAddress()">
+              <option value="">Select State</option>
             </select>
-
-            <div ng-show="$storage.address.country === 'US'">
-              <label for="address-state">State</label>
-              <select id="address-state" ng-model="$storage.address.state" ng-options="state.abbreviation as state.name for state in states" ng-change="updateAddress()">
-                <option value="">Select State</option>
-              </select>
-            </div>
-
           </div>
+
+          <div ng-hide="$storage.address.country === 'US'">
+            <label for="address-state">
+              <span>Territory</span>
+              <strong class="text-small text-error margin-horizontal-small">{{ errorMessages.territory }}</strong>
+            </label>
+            <input type="text" ng-model="$storage.address.territory" ng-blur="validateAddress($storage.address)" placeholder="Territory...">
+          </div>
+
+          <label for="address-postal-code">
+            <span>Postal Code</span>
+            <strong class="text-small text-error margin-horizontal-small">{{ errorMessages.postalCode }}</strong>
+          </label>
+          <input type="text" ng-model="$storage.address.postalCode" ng-blur="validateAddress($storage.address)" placeholder="Postal code (required)..." required>
+
+          <label for="address-country">
+            <span>Country</span>
+            <strong class="text-small text-error margin-horizontal-small">{{ errorMessages.country }}</strong>
+          </label>
+          <select id="address-country" ng-model="$storage.address.country"  ng-blur="validateAddress($storage.address)" ng-options="country['alpha-2'] as country.name for country in countries" required>
+            <option value="">Select Country</option>
+          </select>
+
+          <label for="address-instructions">Shipping Instructions</label>
+          <textarea ng-model="$storage.address.instructions" placeholder="Shipping instructions..."></textarea>
+
+          <button class="small-12 small" ng-click="saveAddress($storage.address)">Save Address</button>
 
         </div>
 
       </div>
 
+      <div class="column small-12 medium-8" ng-if="$storage.cart.address && !editingAddress">
+        <div class="column small-12 medium-offset-6">
+          <h5 class="font-flair text-secondary0 left">
+            <span>Shipping Address</span>
+          </h5>
+          <div class="left text-small padding-xx-small" style="margin-top: 1px;">
+            <a ng-click="editAddress()">Edit Address</a>
+          </div>
+
+        </div>
+
+        <div class="column small-12 medium-6">
+          <ul>
+            <li ng-repeat="message in errorMessages">{{ message }}</li>
+          </ul>
+        </div>
+
+        <div class="column small-12 medium-6">
+          <ul class="text-small">
+            <li>{{ $storage.cart.address.street1 }}</li>
+            <li>{{ $storage.cart.address.street2 }}</li>
+            <li>{{ $storage.cart.address.street3 }}</li>
+            <li>{{ $storage.cart.address.city }}, {{ $storage.cart.address.territory }} {{ $storage.cart.address.postalCode }}</li>
+            <li>{{ $storage.cart.address.country }}</li>
+            <li ng-show="$storage.cart.address.instructions" class="margin-vertical-small">
+              <strong>Shipping Instructions:</strong>
+              <p class="text-small padding-horizontal-x-small">
+                {{ $storage.cart.address.instructions }}
+              </p>
+
+            </li>
+          </ul>
+
+        </div>
+
+
+      </div>
+
       <div class="column small-12 medium-4">
+        <div class="column small-12">
+          <h5 class="font-flair text-secondary0 left">
+            <span>Checkout</span>
+          </h5>
+
+        </div>
+
         <div class="panel small-12 right background-secondary4" style="border: 0;">
           <ul class="table-list text-small text-right clearfix">
             <li>

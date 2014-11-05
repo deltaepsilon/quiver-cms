@@ -3,7 +3,7 @@
     <fieldset class="border-zero">
       <ul class="table-list">
         <li ng-hide="$storage.cart.items.length">
-          <h3 class="font-flair left">Your cart is empty. <span class="text-medium">Add some <a href="/products">products</a> to check out.</span></h3>
+          <h3 class="font-flair left">Your cart is empty. <span class="text-medium">Add some <a ng-click="toStatic('/products')">products</a> to check out.</span></h3>
 
         </li>
         <li class="clearfix" ng-repeat="product in $storage.cart.items | orderBy:'title'">
