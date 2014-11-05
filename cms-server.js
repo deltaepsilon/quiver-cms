@@ -224,7 +224,7 @@ var chunks = [],
 
           readDeferred.promise.then(function (data) {
 //            console.log('appending', i, flowTotalChunks, form.uploadDir + '/' + flowFilename);
-            fs.appendFile(form.uploadDir + '/' + flowFilename, data, function (err) {
+            fs.appendFile(form.uploadDir + '/' + flowFilename.toLowerCase(), data, function (err) {
               return err ? writeDeferred.reject(err) : writeDeferred.resolve();
             });
           });
