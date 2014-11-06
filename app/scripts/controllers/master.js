@@ -50,19 +50,22 @@ angular.module('quiverCmsApp')
     $scope.setUser = function (user) {
       $scope.user = user;
       console.log('user', user);
-      user.$inst().$ref().on('value', function (snap) {
-        if (!snap) {
-          location.replace('/');
-        }
-      });
+      if (user) {
+        user.$inst().$ref().on('value', function (snap) {
+          if (!snap) {
+            location.replace('/');
+          }
+        });
 
-      user.$inst().$ref().onDisconnect().remove(function (err) {
-        if (err) {
-          console.log('Could not establish onDisconnect event');
-        } else {
-          console.log('disconnected!', arguments);
-        }
-      });
+        user.$inst().$ref().onDisconnect().remove(function (err) {
+          if (err) {
+            console.log('Could not establish onDisconnect event');
+          } else {
+            console.log('disconnected!', arguments);
+          }
+        });  
+      }
+      
 
     };
 

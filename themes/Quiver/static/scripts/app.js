@@ -39,6 +39,7 @@ angular.module('QuiverCMS', ['ngStorage', 'DeltaEpsilon.quiver-angular-utilities
     */
     UserService.getUser().then(function (currentUser) {
       $scope.currentUser = currentUser;
+      $scope.showNav = true;
 
       if (currentUser && currentUser.email) {
         $scope.gravatar = "https://www.gravatar.com/avatar/" + md5.createHash(currentUser.email);
