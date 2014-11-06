@@ -1,17 +1,26 @@
+<div class="column small-12" ng-show="$storage.cart.items.length">
+  <h3 class="font-flair padding-large" style="padding-bottom: 0;">Items For Checkout</h3>
+</div>
+
 <div class="column small-12">
   <form name="checkoutForm">
-    <fieldset class="border-zero">
+    <fieldset class="border-zero margin-vertical-zero padding-vertical-zero">
       <ul class="table-list">
         <li ng-hide="$storage.cart.items.length">
-          <h3 class="font-flair left">Your cart is empty. <span class="text-medium">Add some <a href="/products">products</a> to check out.</span></h3>
+          <h3 class="font-flair left">Your cart is empty. <span class="text-medium">Add some <a href="/products" qv-to-static>products</a> to check out.</span></h3>
 
         </li>
         <li class="clearfix" ng-repeat="product in $storage.cart.items | orderBy:'title'">
+
+          <div class="column small-12 padding-zero-important">
+            <hr class="margin-zero">
+          </div>
+
           <div class="column small-12">
 
             <div class="column small-12 medium-8">
               <h5 class="font-flair margin-zero clearfix">
-                <a class="left padding-vertical-small link-secondary0" style="padding-bottom: 0;" href="/product/{{ product.slug }}">{{ product.title }}</a>
+                <a class="left padding-vertical-small link-secondary0" style="padding-bottom: 0;" href="/product/{{ product.slug }}" j>{{ product.title }}</a>
               </h5>
               <ul ng-if="product.optionsMatrixSelected" class="text-small inline-list dots left strong margin-vertical-xx-small-important">
                 <li>{{ product.optionsMatrixSelected.name }}</li>
@@ -37,11 +46,6 @@
 
           </div>
 
-          <div class="column small-12 padding-zero-important">
-            <hr class="margin-zero">
-          </div>
-
-
         </li>
       </ul>
 
@@ -49,7 +53,7 @@
 
   </form>
 
-  <form name="checkoutForm">
+  <form name="checkoutForm" ng-show="$storage.cart.items.length">
     <fieldset>
 
       <div class="column small-12 medium-8" ng-if="!$storage.cart.address || editingAddress">
@@ -136,7 +140,7 @@
             <li>{{ $storage.cart.address.street2 }}</li>
             <li>{{ $storage.cart.address.street3 }}</li>
             <li>{{ $storage.cart.address.city }}, {{ $storage.cart.address.territory }} {{ $storage.cart.address.postalCode }}</li>
-            <li>{{ $storage.cart.address.country }}</li>
+            <li>{{ $storage.cart.address.countryName }}</li>
             <li ng-show="$storage.cart.address.instructions" class="margin-vertical-small">
               <strong>Shipping Instructions:</strong>
               <p class="text-small padding-horizontal-x-small">

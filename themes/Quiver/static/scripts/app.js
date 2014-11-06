@@ -51,6 +51,10 @@ angular.module('QuiverCMS', ['ngStorage', 'DeltaEpsilon.quiver-angular-utilities
         });
       }
 
+      if (!currentUser) {
+        $localStorage.redirect = '/';
+      }
+
 
     });
 

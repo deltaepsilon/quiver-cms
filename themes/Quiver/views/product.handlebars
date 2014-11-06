@@ -79,6 +79,54 @@
           {{/if }}
         {{/if }}
 
+        {{#if product.shipped }}
+          <strong>Shipping Details</strong>
+          <ul>
+            <li>
+              Domestic: 
+              {{#if product.shipping.domesticBase }}
+                {{#if product.shipping.domesticIncremental}}
+                  ${{ product.shipping.domesticBase }} + ${{ product.shipping.domesticIncremental }} per unit
+                {{ else }}
+                  ${{ product.shipping.domesticBase }}
+                {{/if }}
+
+              {{ else }}
+                {{#if product.shipping.domesticIncremental}}
+                  ${{ product.shipping.domesticIncremental }} per unit
+                {{ else }}
+                free
+                {{/if }}
+              {{/if }}
+            </li>
+            <li>
+              International: 
+              {{#if product.shipping.internationalAllowed}}
+                {{#if product.shipping.internationalBase }}
+                  {{#if product.shipping.internationalIncremental}}
+                    ${{ product.shipping.internationalBase }} + ${{ product.shipping.internationalIncremental }} per unit
+                  {{ else }}
+                    ${{ product.shipping.internationalBase }}
+                  {{/if }}
+
+                {{ else }}
+                  {{#if product.shipping.internationalIncremental}}
+                    ${{ product.shipping.internationalIncremental }} per unit
+                  {{ else }}
+                    free
+                  {{/if }}
+                {{/if }}
+
+              {{ else }}
+                No international shipping
+              {{/if }}
+              
+            </li>
+
+          </ul>
+          
+        {{/if }}
+
         <div class="right link-secondary0" ng-show="$storage.cart.productCount">
           <a href="/app/cart">
             <span ng-bind="$storage.cart.productCount"></span>

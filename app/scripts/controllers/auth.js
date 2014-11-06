@@ -26,8 +26,15 @@ angular.module('quiverCmsApp')
         });
 
         if ($localStorage.redirect) {
-          $state.go($localStorage.redirect.toState.name, $localStorage.redirect.toParams);
-          delete $localStorage.redirect;
+          if (typeof $localStorage.redirect === 'object') {
+            $state.go($localStorage.redirect.toState.name, $localStorage.redirect.toParams);  
+          } else if (typeof $localStorage.redirect === 'string') {
+            var redirect = $localStorage.redirect;
+            delete $localStorage.redirect;  
+            location.replace(redirect);
+          }
+          
+          
         } else {
           $scope.toLanding();
         }

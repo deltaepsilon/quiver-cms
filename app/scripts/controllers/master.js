@@ -114,13 +114,6 @@ angular.module('quiverCmsApp')
     };
 
     /*
-     * Redirect to static site
-    */
-    $scope.toStatic = function (target) {
-      location.replace(target || '/');
-    }
-
-    /*
      * Cache
     */
     $scope.clearCache = function () {
