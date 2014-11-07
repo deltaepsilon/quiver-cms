@@ -434,7 +434,7 @@ app.use(function (req, res, next) {
 });
 
 app.use('/admin', function (req, res, next) {
-  if (!req.user || !req.user.private || !req.user.private.isAdmin) {
+  if (req.method !== 'OPTIONS' && (!req.user || !req.user.private || !req.user.private.isAdmin)) {
     res.sendStatus(401);
   } else {
     next();
