@@ -100,5 +100,20 @@ describe('Controller: CartCtrl', function () {
     expect(scope.$storage.cart.shipping).toBe(0);
   }));
 
+  it('should mark the cart as taxable if there at least is one taxable item.', inject(function ($window) {
+    
+  }));
+
+  it('should not mark the cart as taxable if there are no taxable items.', inject(function ($window) {
+    
+  }));
+
+  it('should mark the cart as shipped if there at least is one shipped item.', inject(function ($window) {
+    
+  }));
+
+  it('should not mark the cart as shipped if there are no shipped items.', inject(function ($window) {
+    
+  }));
 
 });

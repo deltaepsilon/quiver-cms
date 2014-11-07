@@ -50,7 +50,7 @@ angular.module('quiverCmsApp')
     $scope.setUser = function (user) {
       $scope.user = user;
       console.log('user', user);
-      if (user) {
+      if (user && user.$inst) {
         user.$inst().$ref().on('value', function (snap) {
           if (!snap) {
             location.replace('/');

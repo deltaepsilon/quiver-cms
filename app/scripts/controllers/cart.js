@@ -71,6 +71,7 @@ angular.module('quiverCmsApp')
       cart.productCount = 0;
       cart.updated = now;
       cart.shipped = false;
+      cart.taxable = false;
       cart.internationalAllowed = true;
 
       i = cart.items.length;
@@ -121,6 +122,10 @@ angular.module('quiverCmsApp')
 
         }
 
+        if (product.taxable) {
+          cart.taxable = true;
+        }
+
         if (!product) {
           cart.items.splice(i, 1);
         } else {
@@ -151,7 +156,7 @@ angular.module('quiverCmsApp')
       cart.tax = Math.round(cart.tax * 100) / 100;
       cart.shipping = Math.round(cart.shipping * 100) / 100;
 
-      if (typeof $scope.shipping.minOrder === 'number' && cart.subtotal > $scope.shipping.minOrder) {
+      if (!cart.shipped || (typeof $scope.shipping.minOrder === 'number' && cart.subtotal > $scope.shipping.minOrder)) {
         cart.shipping = 0;
         cart.freeShipping = true;
       }
