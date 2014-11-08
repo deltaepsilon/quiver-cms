@@ -18,7 +18,7 @@
 
           <div class="column small-12">
 
-            <div class="column small-12 medium-8">
+            <div class="column small-12 medium-4">
               <h5 class="font-flair margin-zero clearfix">
                 <a class="left padding-vertical-small link-secondary0" style="padding-bottom: 0;" href="/product/{{ product.slug }}" j>{{ product.title }}</a>
               </h5>
@@ -31,16 +31,25 @@
               </ul>
             </div>
 
-            <div class="column small-12 medium-4">
-              <div class="left padding-vertical-small" style="min-width: 4rem;">{{ product.priceAdjusted || product.price | currency }}</div>
+            <div class="column small-12 medium-8">
+              <ul class="right inline-list">
+                <li>
+                  <div class="padding-vertical-small right" style="min-width: 4rem;">{{ product.priceAdjusted || product.price | currency }}</div>
+                </li>
+                <li>
+                  <input id="product-{{$index}}" class="margin-vertical-zero-important text-small-important" style="height: 2.1rem; width: 3rem; position: relative; top: 7px;" type="number" ng-model="product.quantity" min="1" max="{{ product.maxQuantity }}" ng-blur="updateCart()" qv-select-text="#product-{{$index}}" placeholder="#">
+                </li>
+                <li>
+                  <div class="right padding-vertical-small"><strong>{{ (product.priceAdjusted || product.price) * product.quantity | currency }}</strong></div>
+                </li>
+                <li>
+                  <div class="padding-vertical-small">
+                    <a class="text-small" ng-click="removeFromCart(product)">Remove</a>
+                  </div>
+                </li>
 
-              <input id="product-{{$index}}" class="left margin-vertical-zero-important margin-horizontal-small-important text-small-important" style="height: 2.1rem; width: 3rem; position: relative; top: 7px;" type="number" ng-model="product.quantity" min="1" max="{{ product.maxQuantity }}" ng-blur="updateCart()" qv-select-text="#product-{{$index}}" placeholder="#">
-
-              <div class="padding-vertical-small right">
-                <a class="text-small" ng-click="removeFromCart(product)">Remove</a>
-              </div>
-
-              <div class="right padding-small"><strong>{{ (product.priceAdjusted || product.price) * product.quantity | currency }}</strong></div>
+              </ul>
+              
 
             </div>
 
@@ -56,12 +65,12 @@
   <form name="checkoutForm" ng-show="$storage.cart.items.length">
     <fieldset>
 
-      <div class="column small-12 medium-8" ng-if="!$storage.cart.address || editingAddress">
-        <div class="column small-12 medium-8 medium-offset-4">
+      <div class="column small-12 medium-4" ng-if="!$storage.cart.address || editingAddress">
+        <div>
           <h5 class="font-flair text-secondary0">Shipping Address</h5>
         </div>
 
-        <div class="column small-12 medium-8 medium-offset-4">
+        <div>
           <label for="address-line-one">
             <span>Street</span>
             <strong class="text-small text-error margin-horizontal-small">{{ errorMessages.street }}</strong>
@@ -117,24 +126,12 @@
 
       </div>
 
-      <div class="column small-12 medium-8" ng-if="$storage.cart.address && !editingAddress">
-        <div class="column small-12 medium-offset-6">
-          <h5 class="font-flair text-secondary0 left">
-            <span>Shipping Address</span>
-          </h5>
-          <div class="left text-small padding-xx-small" style="margin-top: 1px;">
-            <a ng-click="editAddress()">Edit Address</a>
-          </div>
+      <div class="column small-12 medium-4" ng-if="$storage.cart.address && !editingAddress">
+        <h5 class="font-flair text-secondary0">
+          <span>Shipping Address</span>
+        </h5>
 
-        </div>
-
-        <div class="column small-12 medium-6">
-          <ul>
-            <li ng-repeat="message in errorMessages">{{ message }}</li>
-          </ul>
-        </div>
-
-        <div class="column small-12 medium-6">
+        <div>
           <ul class="text-small">
             <li>{{ $storage.cart.address.street1 }}</li>
             <li>{{ $storage.cart.address.street2 }}</li>
@@ -148,6 +145,9 @@
               </p>
 
             </li>
+            <li>
+              <a ng-click="editAddress()">Edit Address</a>
+            </li>
           </ul>
 
         </div>
@@ -156,12 +156,18 @@
       </div>
 
       <div class="column small-12 medium-4">
-        <div class="column small-12">
-          <h5 class="font-flair text-secondary0 left">
-            <span>Checkout</span>
-          </h5>
+        <h5 class="font-flair text-secondary0">Card Details</h5>
+
+        <div>
 
         </div>
+
+      </div>
+
+      <div class="column small-12 medium-4">
+        <h5 class="font-flair text-secondary0 left">
+          <span>Checkout</span>
+        </h5>
 
         <div class="panel small-12 right background-secondary4" style="border: 0;">
           <ul class="table-list text-small text-right clearfix">

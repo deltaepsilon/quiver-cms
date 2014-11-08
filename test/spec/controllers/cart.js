@@ -101,19 +101,35 @@ describe('Controller: CartCtrl', function () {
   }));
 
   it('should mark the cart as taxable if there at least is one taxable item.', inject(function ($window) {
-    
+    scope.$storage.cart.items = [];
+    scope.$storage.cart.items.push({slug: 'calligraphy-class', optionsMatrixSelected: {slug: 'green|small|street|narrow'}});
+    scope.updateCart();
+
+    expect(scope.$storage.cart.taxable).toBe(true);
   }));
 
   it('should not mark the cart as taxable if there are no taxable items.', inject(function ($window) {
-    
+    scope.$storage.cart.items = [];
+    scope.$storage.cart.items.push({slug: 'brush-lettering-class'});
+    scope.updateCart();
+
+    expect(scope.$storage.cart.taxable).toBe(false);
   }));
 
   it('should mark the cart as shipped if there at least is one shipped item.', inject(function ($window) {
-    
+    scope.$storage.cart.items = [];
+    scope.$storage.cart.items.push({slug: 'calligraphy-class', optionsMatrixSelected: {slug: 'green|small|street|narrow'}});
+    scope.updateCart();
+
+    expect(scope.$storage.cart.shipped).toBe(true);
   }));
 
   it('should not mark the cart as shipped if there are no shipped items.', inject(function ($window) {
-    
+    scope.$storage.cart.items = [];
+    scope.$storage.cart.items.push({slug: 'brush-lettering-class'});
+    scope.updateCart();
+
+    expect(scope.$storage.cart.shipped).toBe(false);
   }));
 
 });
