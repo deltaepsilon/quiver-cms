@@ -174,7 +174,7 @@
       <div class="column small-12 medium-4">
         <h5 class="font-flair text-secondary0">Add Payment Method</h5>
 
-        <div>
+        <div braintree-drop-in token="clientToken">
           <form id="checkout" name="cardForm">
             <div id="dropin"></div>
             <button class="small small-12 text-x-medium-important margin-zero-important" ng-disabled="!user">Add Payment Method</button>
@@ -227,11 +227,11 @@
 
           <div>          
             <ul class="text-x-small">
-              <li ng-repeat="card in user.private.customer.creditCards">
+              <li ng-repeat="card in user.private.customer.creditCards" ng-class="{disabled: card.disabled}">
                 <input type="radio" ng-model="$storage.cart.paymentToken" ng-value="card.token">
                 <img class="margin-horizontal-xx-small" style="max-width: 2rem;" ng-src="{{ card.imageUrl }}" alt="{{ card.cardType }}" /> 
                 <span>****{{ card.last4 }}</span>
-                <a class="right" ng-click="removePaymentMethod(card.token)">delete</a>
+                <a class="right" ng-click="card.disabled = true; removePaymentMethod(card.token);">delete</a>
                 
               </li>
               <li ng-repeat="account in user.private.customer.paypalAccounts">

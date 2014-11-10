@@ -308,28 +308,8 @@ angular.module('quiverCmsApp')
     /*
      * Checkout
      */
-    var braintreeSetup = function () {
-      braintree.setup(clientToken, 'dropin', {
-        container: 'dropin',
-        paymentMethodNonceReceived: function (e, nonce) {
-          CommerceService.createPaymentMethod(nonce).then(function (response) {
-            if (response.error) {
-              NotificationService.error('Card Error', response.error);
-            } else {
-              NotificationService.success('Card Added');
-              braintreeSetup();
-            }
-          }, function (err) {
-            NotificationService.error('Card Error', err);    
-          });
-          
-        }
-      });  
-    };
-    if (clientToken) {
-      braintreeSetup();
-    }
-
+    $scope.clientToken = clientToken;
+    
     $scope.removePaymentMethod = function (token) {
       if (token === $scope.$storage.cart.paymentToken) {
         $scope.$storage.cart.paymentToken = false;
