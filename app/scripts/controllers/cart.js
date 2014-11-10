@@ -157,12 +157,37 @@ angular.module('quiverCmsApp')
       cart.tax = Math.round(cart.tax * 100) / 100;
       cart.shipping = Math.round(cart.shipping * 100) / 100;
 
-      if (cart.code) {
-        if (cart.code.type === 'value') {
-          cart.discount = cart.code.value;
-        } else if (cart.code.type === 'percentage') {
-          cart.discount = cart.subtotal * cart.code.percentage;
-        }
+      if (cart.codes && cart.codes.length) {
+        var applied = [];
+        // Reduce codes to a unique list and then refresh them from the Firebase Discounts array. Will likely require a new server route for security purposes...
+
+        _.each(cart.codes, function (code) {
+          if (code.productSlug && !_.findWhere(cart.items, {slug: code.productSlug})) { // Screen off product-specific codes
+            return NotificationService.notify(code.code, 'Code is product-specific. Product not found in cart.');
+          }
+
+          if (~applied.indexOf(code.code)) {
+            return NotificationService.notify(code.code, 'Duplicate code must be ignored!'); 
+          }
+
+          if (code.useCount >= code.uses) {
+            return NotificationService.notify(code.code, 'Code has been used too many times!');  
+          }
+
+          if (!code.active) {
+            return NotificationService.notify(code.code, 'Code inactive!');  
+          }          
+
+          if (cart.code.type === 'value') {
+            cart.discount = cart.code.value;
+          } else if (cart.code.type === 'percentage') {
+            cart.discount = cart.subtotal * cart.code.percentage;
+          }
+
+          applied.push(code.code);
+
+        });
+        
       }
 
       if (!cart.shipped || (typeof $scope.shipping.minOrder === 'number' && cart.subtotal > $scope.shipping.minOrder)) {
@@ -316,15 +341,26 @@ angular.module('quiverCmsApp')
 
     $scope.addCode = function (code) {
       CommerceService.getCode(code).then(function (codeObject) {
-        $scope.$storage.cart.code = ObjectService.cleanRestangular(codeObject);
-        $scope.addingCode = false;
-        updateCart();
+        var existing = ;
+
+        if (!$scope.$storage.cart.codes) {
+          $scope.$storage.cart.codes = [];
+        }
+
+        if (_.findWhere($scope.$storage.codes, {code: codeObject.code})) {
+          NotificationService.notify(codeObject.code, 'Code already present in cart.');
+        } else {
+          $scope.$storage.cart.codes.push(ObjectService.cleanRestangular(codeObject));
+          $scope.addingCode = false;
+          updateCart();
+        }
+        
       }, function (err) {
         NotificationService.error(code, err || 'Code not found.');
       });
     };
 
-    $scope.removeCode = function () {
+    $scope.removeCodes = function () {
       $scope.$storage.cart.code = false;
       updateCart();
     };
