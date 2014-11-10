@@ -14,7 +14,6 @@ var config = require('config'),
   CronJob = require('cron').CronJob,
   markdown = require('markdown').markdown,
   request = require('superagent'),
-  axios = require('axios'),
   slug = require('slug'),
   mime = require('mime'),
   easyimage = require('easyimage'),
@@ -24,7 +23,9 @@ var config = require('config'),
   firebaseEndpoint = config.get('public.firebase.endpoint'),
   firebaseRoot = new Firebase(firebaseEndpoint),
   firebaseSecret = config.get('private.firebase.secret'),
-  htmlDateFormat = "ddd, DD MMM YYYY HH:mm:ss";
+  htmlDateFormat = "ddd, DD MMM YYYY HH:mm:ss",
+  payments = require('./lib/payments.js')(firebaseRoot),
+  userMethods = require('./lib/user-methods.js');
 
 /*
  * Winston logging config
@@ -113,6 +114,7 @@ if (config.get('private.cms.staticEnabled')) {
   app.use('/app/admin/words/*', function (req, res) {
     res.redirect('/app/admin/words');
   });
+
   app.use('/app', staticFolderService('index.html', true));
 
 } else {
@@ -374,64 +376,7 @@ app.get('/env.js', function (req, res) {
 /*
  * Authenticate user and hydrate req.user
 */
-app.use(function (req, res, next) {
-  if (req.method === 'OPTIONS') {
-    return next();
-  }
-
-  var userToken = req.headers.authorization,
-    userId = req.headers['user-id'],
-    userRef = new Firebase(firebaseEndpoint + '/users/' + userId),
-    handleAuthError = function (err) {
-      winston.log('userRef auth', err);
-      return res.status(401).send({'error': 'Not authorized. userId and authorization headers must be present and valid.'});
-    };
-
-  if (!userToken) {
-    return res.sendStatus(403);
-  }
-
-  userRef.auth(userToken, function (err, currentUser) {
-    if (err) {
-      return handleAuthError(err);
-    } else {
-      req.userRef = userRef;
-      userRef.once('value', function (snapshot) {
-        var user = snapshot.val();
-
-        req.user = user;
-
-        if (!user || !user.public || !user.private) { // Create a user if necessary
-          userRef.set({
-            'public': {
-              email: currentUser.auth.email,
-              id: currentUser.auth.id
-            },
-            'private': {
-              isAdmin: false
-            }
-          }, function (err) {
-            if (err) {
-              return handleAuthError(err);
-            } else {
-              userRef.once('value', function (snapshot) {
-                req.user = snapshot.val();
-                next();
-              });
-
-            }
-          });
-
-        } else {
-          next();
-        }
-
-      });
-    }
-
-  }, handleAuthError);
-
-});
+app.use(userMethods.hydrateUser);
 
 app.use('/admin', function (req, res, next) {
   if (req.method !== 'OPTIONS' && (!req.user || !req.user.private || !req.user.private.isAdmin)) {
@@ -448,6 +393,7 @@ app.use('/admin', function (req, res, next) {
  * 2. Social
  * 3. Redis
  * 4. User
+ * 5. Payment
 */
 
 
@@ -958,6 +904,35 @@ app.get('/user/:userId', function (req, res) {
 
 });
 
+/*
+ * Payment
+ */
+
+ app.get('/user/payment/token', payments.getClientToken);
+ app.post('/user/payment/:nonce/nonce', payments.createPaymentMethod);
+ app.delete('/user/payment/:token/token', payments.removePaymentMethod);
+
+
+ app.post('/user/purchase', function (req, res) {
+  var form = new formidable.IncomingForm(),
+    user = req.user,
+    parseDeferred = Q.defer(),
+    transactionDeferred = Q.defer();
+
+    form.parse(req, function (err, fields) {
+      return err ? parseDeferred.reject(err) : parseDeferred.resolve(fields);      
+    }, res.status(500).send);
+
+    parseDeferred.promise.then(function (cart) {
+      console.log(user);
+      console.log(cart);
+      // gateway.transaction.sale({
+      //   amount: cart.total,
+      //   paymentMethodNonce: cart.nonce
+      // });
+    });
+  
+ });
 
 /*
  * Finish this sucka up

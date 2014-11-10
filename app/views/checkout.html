@@ -3,7 +3,7 @@
 </div>
 
 <div class="column small-12">
-  <form name="checkoutForm">
+  <form name="cartForm">
     <fieldset class="border-zero margin-vertical-zero padding-vertical-zero">
       <ul class="table-list">
         <li ng-hide="$storage.cart.items.length">
@@ -62,15 +62,24 @@
 
   </form>
 
-  <form name="checkoutForm" ng-show="$storage.cart.items.length">
+  <div ng-show="$storage.cart.items.length">
+
     <fieldset>
 
-      <div class="column small-12 medium-4" ng-if="!$storage.cart.address || editingAddress">
+
+      <!-- Shipping Address -->
+      <form name="addressForm" class="column small-12 medium-4" ng-if="!$storage.cart.address || editingAddress">
         <div>
           <h5 class="font-flair text-secondary0">Shipping Address</h5>
         </div>
 
         <div>
+          <label for="address-recipient">
+            <span>Recipient Name</span>
+            <strong class="text-small text-error margin-horizontal-small">{{ errorMessages.recipient }}</strong>
+          </label>
+          <input type="text" ng-model="$storage.address.recipient" ng-blur="validateAddress($storage.address)" placeholder="First and last name..." required>
+
           <label for="address-line-one">
             <span>Street</span>
             <strong class="text-small text-error margin-horizontal-small">{{ errorMessages.street }}</strong>
@@ -120,11 +129,12 @@
           <label for="address-instructions">Shipping Instructions</label>
           <textarea ng-model="$storage.address.instructions" placeholder="Shipping instructions..."></textarea>
 
-          <button class="small-12 small" ng-click="saveAddress($storage.address)">Save Address</button>
+          <button class="small-12 text-x-medium-important" ng-click="saveAddress($storage.address)">Save Address</button>
 
         </div>
 
-      </div>
+      </form>
+
 
       <div class="column small-12 medium-4" ng-if="$storage.cart.address && !editingAddress">
         <h5 class="font-flair text-secondary0">
@@ -133,6 +143,7 @@
 
         <div>
           <ul class="text-small">
+            <li>{{ $storage.cart.address.recipient }}</li>
             <li>{{ $storage.cart.address.street1 }}</li>
             <li>{{ $storage.cart.address.street2 }}</li>
             <li>{{ $storage.cart.address.street3 }}</li>
@@ -146,7 +157,9 @@
 
             </li>
             <li>
-              <a ng-click="editAddress()">Edit Address</a>
+              <a ng-click="editAddress()">Edit </a>
+              /
+              <a ng-click="removeAddress()">Delete</a>
             </li>
           </ul>
 
@@ -154,16 +167,26 @@
 
 
       </div>
+      <!-- END Shipping Address -->
 
+
+      <!-- Braintree Drop-In Form -->
       <div class="column small-12 medium-4">
-        <h5 class="font-flair text-secondary0">Card Details</h5>
+        <h5 class="font-flair text-secondary0">Add Payment Method</h5>
 
         <div>
+          <form id="checkout" name="cardForm">
+            <div id="dropin"></div>
+            <button class="small small-12 text-x-medium-important margin-zero-important" ng-disabled="!user">Add Payment Method</button>
+          </form>
 
         </div>
 
       </div>
+      <!-- END Braintree Drop-In Form -->
 
+
+      <!-- Cart Totals Box -->
       <div class="column small-12 medium-4">
         <h5 class="font-flair text-secondary0 left">
           <span>Checkout</span>
@@ -202,21 +225,48 @@
 
           </ul>
 
+          <div>          
+            <ul class="text-x-small">
+              <li ng-repeat="card in user.private.customer.creditCards">
+                <input type="radio" ng-model="$storage.cart.paymentToken" ng-value="card.token">
+                <img class="margin-horizontal-xx-small" style="max-width: 2rem;" ng-src="{{ card.imageUrl }}" alt="{{ card.cardType }}" /> 
+                <span>****{{ card.last4 }}</span>
+                <a class="right" ng-click="removePaymentMethod(card.token)">delete</a>
+                
+              </li>
+              <li ng-repeat="account in user.private.customer.paypalAccounts">
+                <input type="radio" ng-model="$storage.cart.paymentToken" ng-value="account.token">
+                <img class="margin-horizontal-xx-small" style="max-width: 2rem;" ng-src="{{ account.imageUrl }}" alt="PayPal" /> 
+                <span>{{ account.email }}</span>
+                <a class="right" ng-click="removePaymentMethod(account.token)">delete</a>
+                
+              </li>
+              <li ng-show="!$storage.cart.paymentToken">
+                <span class="text-small text-secondary0" ng-show="!user.private.customer.paypalAccounts.length && !user.private.customer.creditCards.length">Add a payment method to check out</span>
+                <span class="text-small text-secondary0" ng-show="user.private.customer.paypalAccounts.length || user.private.customer.creditCards.length">Select a payment method</span>
+              </li>
+              <li ng-show="$storage.cart.shipped && !$storage.cart.address">
+                <span class="text-small text-secondary0">Add an address to check out</span>
+              </li>
+            
+            </ul>
+          </div>
+
           <div class="margin-vertical-x-medium">
-            <button class="small success small-12 text-x-medium-important margin-zero-important" ng-click="checkout(user, $storage.cart, $storage.address)" ng-disabled="!user">Complete Purchase</button>
+            <button class="small success small-12 text-x-medium-important margin-zero-important" ng-click="checkout(user, $storage.cart, $storage.address)" ng-disabled="!user || !$storage.cart.paymentToken || ($storage.cart.shipped && !$storage.cart.address)">Complete Purchase</button>
           </div>
 
         </div>
 
       </div>
-
+      <!-- END Cart Totals Box -->
 
 
 
 
     </fieldset>
 
-  </form>
+  </div>
 
 
 

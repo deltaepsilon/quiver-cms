@@ -87,7 +87,7 @@ angular.module('QuiverCMS', ['ngStorage', 'DeltaEpsilon.quiver-angular-utilities
       }
 
       cart.productCount = 0;
-      cart.subTotal = 0;
+      cart.subtotal = 0;
       cart.tax = 0;
       cart.shipping = 0;
       cart.productCount = 0;
@@ -106,12 +106,12 @@ angular.module('QuiverCMS', ['ngStorage', 'DeltaEpsilon.quiver-angular-utilities
           cart.splice(i, 1);
         } else {
           cart.productCount += 1;
-          cart.subTotal += item.price + (item.priceAdjustment || 0);
+          cart.subtotal += item.price + (item.priceAdjustment || 0);
         }
 
       }
 
-      cart.total = cart.subTotal + cart.tax + cart.shipping;
+      cart.total = cart.subtotal + cart.tax + cart.shipping;
 
       $scope.$storage.cart = cart;
 

@@ -6,7 +6,7 @@
   <form name="cartForm">
     <fieldset class="border-zero margin-vertical-zero padding-vertical-zero">
       <ul class="table-list">
-        <li   >
+        <li ng-show="!$storage.cart.items.length">
           <h3 class="font-flair left">Your cart is empty. <span class="text-medium">Add some <a href="/products" qv-to-static>products</a> to check out.</span></h3>
 
         </li>

@@ -91,6 +91,12 @@
       "IdentityFile": "~/.ssh/id_rsa",
       "destination": "/var/www/my-site-folder",
       "remoteCommand": "sh /var/www/my-site-folder/install"
+    },
+    "braintree": {
+      "environment": "Sandbox",
+      "merchantId": "ASDFASDFASDF",
+      "publicKey": "ASDFADSFASDF",
+      "privateKey": "ASDFASDFADFS"
     }
   }
 

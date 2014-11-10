@@ -8,7 +8,7 @@
  * Controller of the quiverCmsApp
  */
 angular.module('quiverCmsApp')
-  .controller('CartCtrl', function ($scope, $localStorage, _, moment, products, countriesStatus, statesStatus, shippingRef, CommerceService) {
+  .controller('CartCtrl', function ($scope, $localStorage, _, moment, products, countriesStatus, statesStatus, shippingRef, clientToken, CommerceService, NotificationService, braintree) {
     /*
      * Storage
     */
@@ -176,6 +176,11 @@ angular.module('quiverCmsApp')
       $scope.editingAddress = true;
     };
 
+    $scope.removeAddress = function () {
+      $scope.$storage.address = false;
+      $scope.$storage.cart.address = false;
+    };
+
     $scope.updateAddress = function () {
       var address = $scope.$storage.address || {},
         country = address.country ? countriesStatus[address.country] : null,
@@ -208,6 +213,7 @@ angular.module('quiverCmsApp')
         state = address.country === 'US' ? _.findWhere(CommerceService.getStates(), {'abbreviation': address.state}) : null,
         territory = address.territory,
         formattedAddress = {
+          recipient: address.recipient,
           street1: address.street1 && address.street1.length ? address.street1 : null,
           street2: address.street2 && address.street2.length ? address.street2 : null,
           street3: address.street3 && address.street3.length ? address.street3 : null,
@@ -221,6 +227,10 @@ angular.module('quiverCmsApp')
           instructions: address.instructions
         },
         errorMessages = {};
+
+      if (!formattedAddress.recipient) {
+        errorMessages.recipient = 'Missing recipient name.';
+      }        
 
       if (!formattedAddress.street1) {
         errorMessages.street = 'Missing street line 1.';
@@ -293,6 +303,53 @@ angular.module('quiverCmsApp')
       }
 
       updateCart();
+    };
+
+    /*
+     * Checkout
+     */
+    var braintreeSetup = function () {
+      braintree.setup(clientToken, 'dropin', {
+        container: 'dropin',
+        paymentMethodNonceReceived: function (e, nonce) {
+          CommerceService.createPaymentMethod(nonce).then(function (response) {
+            if (response.error) {
+              NotificationService.error('Card Error', response.error);
+            } else {
+              NotificationService.success('Card Added');
+              braintreeSetup();
+            }
+          }, function (err) {
+            NotificationService.error('Card Error', err);    
+          });
+          
+        }
+      });  
+    };
+    if (clientToken) {
+      braintreeSetup();
+    }
+
+    $scope.removePaymentMethod = function (token) {
+      if (token === $scope.$storage.cart.paymentToken) {
+        $scope.$storage.cart.paymentToken = false;
+      }
+
+      CommerceService.removePaymentMethod(token).then(function (response) {
+        if (response.error) {
+          NotificationService.error('Card Error', response.error);
+        } else {
+          NotificationService.success('Card Removed');
+        }
+      }, function (err) {
+        NotificationService.error('Card Error', err);
+      });
+    };
+
+    
+    $scope.submitCheckout = function (e) {
+      debugger;
+      console.log('submitCheckout', e, arguments);
     };
 
   });

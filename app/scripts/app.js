@@ -225,6 +225,9 @@ angular.module('quiverCmsApp', [
           },
           shippingRef: function (AdminService) {
             return AdminService.getShipping();
+          },
+          clientToken: function () {
+            return false;
           }
         }
       })
@@ -342,6 +345,27 @@ angular.module('quiverCmsApp', [
           },
           shippingRef: function (AdminService) {
             return AdminService.getShipping();
+          },
+          clientToken: function (CommerceService, user) {
+            return CommerceService.getClientToken();
+          }
+
+        }
+      })
+      .state('authenticated.master.nav.purchased', {
+        url: "/purchased/:nonce",
+        templateUrl: 'views/purchased.html',
+        controller: 'PurchasedCtrl',
+        resolve: {
+          transaction: function (user, CommerceService, $stateParams, $state, $localStorage) {
+            if (!$localStorage.cart) {
+              $state.go('authenticated.master.nav.cart');
+            } else {
+              $localStorage.cart.nonce = $stateParams.nonce;
+              return CommerceService.purchase($localStorage.cart);
+            }
+            
+            
           }
         }
       })
