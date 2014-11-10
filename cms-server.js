@@ -911,6 +911,7 @@ app.get('/user/:userId', function (req, res) {
  app.get('/user/payment/token', payments.getClientToken);
  app.post('/user/payment/:nonce/nonce', payments.createPaymentMethod);
  app.delete('/user/payment/:token/token', payments.removePaymentMethod);
+ app.get('/code/:code', payments.getCode);
 
 
  app.post('/user/purchase', function (req, res) {

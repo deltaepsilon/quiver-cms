@@ -37,6 +37,26 @@
           <input id="discount-uses" type="number" min="1" ng-model="newDiscount.uses" ng-blur="validateNewDiscount()">
         </div>
 
+        <div class="column small-12 medium-4">
+          <label for="discount-product-slug">Product Slug</label>
+          <input id="discount-product-slug" type="text" ng-model="newDiscount.productSlug" ng-blur="validateNewDiscount()" placeholder="Product slug...">
+        </div>
+
+        <div class="column small-12 medium-4">
+          <label for="discount-min-subtotal">Min Subtotal</label>
+          <input id="discount-min-subtotal" type="number" min="0" ng-model="newDiscount.minSubtotal" ng-blur="validateNewDiscount()" placeholder="Min subtotal...">
+        </div>
+
+        <div class="column small-12 medium-4">
+          <label for="discount-max-subtotal">Max Subtotal</label>
+          <input id="discount-max-subtotal" type="number" min="0" ng-model="newDiscount.maxSubtotal" ng-blur="validateNewDiscount()" placeholder="Max subtotal...">
+        </div>
+
+        <div class="column small-12 medium-4 padding-vertical-x-medium">
+          <label class="left" for="discount-free-shipping">Free Shipping</label>
+          <input id="discount-free-shipping" class="margin-horizontal-small-important" type="checkbox" ng-model="newDiscount.freeShipping" ng-blur="validateNewDiscount()">
+        </div>
+
         <div class="column small-12">
           <button ng-click="createDiscount(newDiscount)" ng-disabled="newDiscountForm.$invalid" qv-focus="#discount-type">Create</button>
         </div>
@@ -52,7 +72,7 @@
     <table class="small-12" ng-show="discounts.length">
         <thead>
             <tr>
-                <th>Active</th><th>Type</th><th>Value</th><th>Code</th><th>Expiration</th><th>Uses</th><th>Used</th><th>Created</th><th class="text-center">Action</th>
+                <th>Active</th><th>Type</th><th>Value</th><th>Code</th><th>Expiration</th><th>Uses</th><th>Used</th><th>Product Slug</th><th>Min</th><th>Max</th><th>Free Shipping</th><th>Created</th><th class="text-center">Action</th>
             </tr>
         </thead>
         <tbody>
@@ -78,6 +98,18 @@
                 </td>
                 <td>
                   {{ ::discount.useCount || 0 }}
+                </td>
+                <td>
+                  {{ ::discount.productSlug  }}
+                </td>
+                <td>
+                  {{ ::discount.minSubtotal }}
+                </td>
+                <td>
+                  {{ ::discount.maxSubtotal }}
+                </td>
+                <td>
+                  {{ ::discount.freeShipping }}
                 </td>
                 <td>
                   {{ ::discount.created | moment:"MM/DD/YY" }}

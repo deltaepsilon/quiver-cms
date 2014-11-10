@@ -115,6 +115,10 @@
       <div class="column small-12 medium-4">
         <div class="panel small-12 right background-secondary4" style="border: 0;">
           <ul class="table-list text-small text-right clearfix">
+            <li class="clearfix" ng-show="$storage.cart.code">
+              <div class="column small-6">Code</div>
+              <div class="column small-6">{{ $storage.cart.discount | currency }}</div>
+            </li>
             <li>
               <div class="column small-6">Subtotal</div>
               <div class="column small-6">{{ $storage.cart.subtotal | currency }}</div>
@@ -143,6 +147,17 @@
               <div class="column small-6"><strong>Total</strong></div>
               <div class="column small-6"><strong>{{ $storage.cart.total | currency }}</strong></div>
             </li>
+            <li class="clearfix">
+              <a class="text-x-small" ng-click="addingCode = true" ng-hide="addingCode">Add Code</a>
+              <div ng-show="addingCode" style="margin-top: 1rem;">
+                <input class="" type="text" ng-model="discountCode" placeholder="Discount/Gift code...">
+                <button class="tiny right" ng-click="addCode(discountCode)">Add</button>
+                
+              </div>
+              
+              
+              
+            </li>
 
           </ul>
 
@@ -153,6 +168,8 @@
           <div class="margin-vertical-x-medium">
             <a class="button small success small-12 text-x-medium-important margin-zero-important" ui-sref="authenticated.master.nav.checkout">Check Out</a>
           </div>
+
+          
 
         </div>
 

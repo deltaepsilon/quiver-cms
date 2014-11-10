@@ -37,6 +37,7 @@ angular.module('quiverCmsApp')
           code: generateCode(),
           expiration: moment().add(1, 'year')._d,
           uses: 1,
+          minSubtotal: 0,
           active: true
         };
       };
@@ -57,6 +58,14 @@ angular.module('quiverCmsApp')
 
       if (!discount.code) {
         discount.code = generateCode();
+      }
+
+      if (discount.minSubtotal) {
+        discount.minSubtotal = Math.max(discount.minSubtotal, 0);
+      }
+
+      if (discount.maxSubtotal) {
+        discount.maxSubtotal = Math.max(discount.maxSubtotal, 0);
       }
 
       if (getDiscount(discount.code)) {
@@ -80,6 +89,7 @@ angular.module('quiverCmsApp')
     };
 
     $scope.createDiscount = function (discount) {
+      discount = validateDiscount(discount);
 
       discount.created = moment().format();
       discount.active = true;

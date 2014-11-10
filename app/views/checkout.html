@@ -1,8 +1,10 @@
 <div class="column small-12" ng-show="$storage.cart.items.length">
   <h3 class="font-flair padding-large" style="padding-bottom: 0;">Items For Checkout</h3>
+
 </div>
 
 <div class="column small-12">
+
   <form name="cartForm">
     <fieldset class="border-zero margin-vertical-zero padding-vertical-zero">
       <ul class="table-list">
@@ -254,6 +256,7 @@
 
           <div class="margin-vertical-x-medium">
             <button class="small success small-12 text-x-medium-important margin-zero-important" ng-click="checkout(user, $storage.cart, $storage.address)" ng-disabled="!user || !$storage.cart.paymentToken || ($storage.cart.shipped && !$storage.cart.address)">Complete Purchase</button>
+            <a class="text-small" ui-sref="master.nav.cart">Back to Cart</a>
           </div>
 
         </div>

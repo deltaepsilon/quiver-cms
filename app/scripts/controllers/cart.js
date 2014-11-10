@@ -8,7 +8,7 @@
  * Controller of the quiverCmsApp
  */
 angular.module('quiverCmsApp')
-  .controller('CartCtrl', function ($scope, $localStorage, _, moment, products, countriesStatus, statesStatus, shippingRef, clientToken, CommerceService, NotificationService, braintree) {
+  .controller('CartCtrl', function ($scope, $localStorage, _, moment, products, countriesStatus, statesStatus, shippingRef, clientToken, CommerceService, NotificationService, braintree, ObjectService) {
     /*
      * Storage
     */
@@ -66,6 +66,7 @@ angular.module('quiverCmsApp')
       cart.subtotal = 0;
       cart.tax = 0;
       cart.shipping = 0;
+      cart.discount = 0;
       cart.domesticShipping = 0;
       cart.internationalShipping = 0;
       cart.productCount = 0;
@@ -156,12 +157,20 @@ angular.module('quiverCmsApp')
       cart.tax = Math.round(cart.tax * 100) / 100;
       cart.shipping = Math.round(cart.shipping * 100) / 100;
 
+      if (cart.code) {
+        if (cart.code.type === 'value') {
+          cart.discount = cart.code.value;
+        } else if (cart.code.type === 'percentage') {
+          cart.discount = cart.subtotal * cart.code.percentage;
+        }
+      }
+
       if (!cart.shipped || (typeof $scope.shipping.minOrder === 'number' && cart.subtotal > $scope.shipping.minOrder)) {
         cart.shipping = 0;
         cart.freeShipping = true;
       }
 
-      cart.total = cart.subtotal + cart.tax + cart.shipping;
+      cart.total = cart.subtotal + cart.tax + cart.shipping - cart.discount;
 
       $scope.$storage.cart = cart;
     };
@@ -302,6 +311,21 @@ angular.module('quiverCmsApp')
         }
       }
 
+      updateCart();
+    };
+
+    $scope.addCode = function (code) {
+      CommerceService.getCode(code).then(function (codeObject) {
+        $scope.$storage.cart.code = ObjectService.cleanRestangular(codeObject);
+        $scope.addingCode = false;
+        updateCart();
+      }, function (err) {
+        NotificationService.error(code, err || 'Code not found.');
+      });
+    };
+
+    $scope.removeCode = function () {
+      $scope.$storage.cart.code = false;
       updateCart();
     };
 

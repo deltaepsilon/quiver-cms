@@ -39,6 +39,10 @@ angular.module('quiverCmsApp')
 				return Restangular.one('user').one('payment').one(token).one('token').remove();
 			},
 
+			getCode: function (code) {
+				return Restangular.one('code').one(code).get();
+			},
+
 			purchase: function (cart) {
 				return Restangular.one('user').post('purchase', cart)
 			}
