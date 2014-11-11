@@ -120,8 +120,8 @@
                 <li ng-repeat="code in $storage.cart.codes">
                   <div class="column small-6">{{ code.code }}</div>
                   <div class="column small-6">
-                    <a ng-show-"code.type === 'value'" qv-confirm="removeCode(code)">{{ code.value | currency }}</a>
-                    <span ng-show-"code.type === 'percentage'">%{{ code.percentage }}</span>
+                    <a ng-show-"code.type === 'value'" qv-confirm="removeCode(code.code)">{{ code.value | currency }}</a>
+                    <a ng-show-"code.type === 'percentage'" qv-confirm="removeCode(code.code)">{{ code.percentage }}%</a>
                   </div>
                 </li>
 

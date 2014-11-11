@@ -43,6 +43,10 @@ angular.module('quiverCmsApp')
 				return Restangular.one('code').one(code).get();
 			},
 
+			refreshCodes: function(codes) {
+				return Restangular.one('codes').post('refresh', codes);
+			},
+
 			purchase: function (cart) {
 				return Restangular.one('user').post('purchase', cart)
 			}
