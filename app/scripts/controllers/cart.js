@@ -437,9 +437,15 @@ angular.module('quiverCmsApp')
     };
 
     
-    $scope.submitCheckout = function (e) {
-      debugger;
-      console.log('submitCheckout', e, arguments);
+    $scope.checkout = function (cart) {
+      $scope.checkingOut = true;
+      CommerceService.checkout(cart).then(function () {
+        NotificationService.success('Checkout Successful');
+        delete $scope.checkingOut;
+      }, function (err) {
+        NotificationService.error('Checkout Error', err);
+        delete $scope.checkingOut;
+      });
     };
 
   });

@@ -958,27 +958,41 @@ app.get('/user/:userId', function (req, res) {
  app.post('/user/payment/:nonce/nonce', payments.createPaymentMethod);
  app.delete('/user/payment/:token/token', payments.removePaymentMethod);
 
+/*
+ * Checkout
+ */
+var checkoutMethods = require('./lib/checkout')(firebaseRoot);
 
- app.post('/user/purchase', function (req, res) {
+app.post('/user/checkout', function (req, res) {
   var form = new formidable.IncomingForm(),
     user = req.user,
     parseDeferred = Q.defer(),
-    transactionDeferred = Q.defer();
+    checkoutError = function (err) {
+        winston.error('Checkout', err);
+        res.sendStatus(500);
+    };
 
-    form.parse(req, function (err, fields) {
-      return err ? parseDeferred.reject(err) : parseDeferred.resolve(fields);      
-    }, res.status(500).send);
+  form.parse(req, function (err, fields) {
+    return err ? parseDeferred.reject(err) : parseDeferred.resolve(fields);      
+  }, checkoutError);
 
-    parseDeferred.promise.then(function (cart) {
-      console.log(user);
-      console.log(cart);
-      // gateway.transaction.sale({
-      //   amount: cart.total,
-      //   paymentMethodNonce: cart.nonce
-      // });
-    });
-  
- });
+  parseDeferred.promise
+    .then(function (fields) {
+      return checkoutMethods.createTransaction(user, fields.cart);
+    })
+    .then(checkoutMethods.createSubscriptions)
+    .then(checkoutMethods.createDiscounts)
+    .then(checkoutMethods.createShippingInstructions)
+    .then(checkoutMethods.createDownloads)
+    .then(checkoutMethods.saveTransaction)
+    .then(checkoutMethods.sendTransactionEmail)
+    .then(function (transaction) {
+      res.json(transaction);
+    }, checkoutError);
+
+
+});
+
 
 /*
  * Finish this sucka up
