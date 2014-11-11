@@ -9,10 +9,30 @@ describe('Controller: CartCtrl', function () {
     scope;
 
   // Initialize the controller and a mock scope
-  beforeEach(inject(function ($controller, $rootScope, $window, $firebase, env) {
+  beforeEach(inject(function ($controller, $rootScope, $window, $firebase, env, CommerceService, $q) {
     scope = $rootScope.$new();
 
     scope.shipping = $window.quiverMocks.shipping;
+
+    CommerceService.refreshCodes = function (codes) {
+      var codes = _.pluck(codes, 'code'),
+        trustedCodes = _.toArray($window.quiverMocks.discounts),
+        unique = _.filter(trustedCodes, function(trustedCode) {
+          if (!~codes.indexOf(trustedCode.code)) {
+            return false;
+          } 
+          return true;
+        }),
+        sorted = _.sortBy(unique, function (code) {
+          return code.type === 'value' ? 0 : 1;
+        });
+
+      return {
+        then: function (incomingFunction) {
+          incomingFunction({codes: sorted});
+        }
+      };
+    };
 
 
     CartCtrl = $controller('CartCtrl', {
@@ -21,7 +41,8 @@ describe('Controller: CartCtrl', function () {
       countriesStatus: $window.quiverMocks.countriesStatus,
       statesStatus: $window.quiverMocks.statesStatus,
       shippingRef: $firebase(new MockFirebase(env.firebase.endpoint, $window.quiverMocks.shipping)),
-      clientToken: 5
+      clientToken: 5,
+      CommerceService: CommerceService
     });
 
     scope.$storage = {
@@ -134,17 +155,65 @@ describe('Controller: CartCtrl', function () {
   }));
 
   it('should respect code.maxSubtotal', inject(function ($window) {
+    var code = _.findWhere($window.quiverMocks.discounts, {code: 'ONEHUNDREDMAX1000'});
+    scope.$storage.cart.codes = [code];
+
+    scope.$storage.address = {
+      country: 'US',
+      state: 'UT'
+    };
     
+    scope.updateAddress();
+
+    expect(scope.$storage.cart.discount).toBe(1000);
+    expect(scope.$storage.cart.subtotal).toBe(1735);
+    expect(Math.round(scope.$storage.cart.total * 100)/100).toBe(1212.95); // 735 + 477.95 in tax
+
+    scope.$storage.cart.items = [];
+    scope.$storage.cart.items.push({slug: 'sign-painting-workshop'});
+    scope.updateCart();
+
+    
+
+    expect(scope.$storage.cart.discount).toBe(150);
+    expect(scope.$storage.cart.subtotal).toBe(150);
+    expect(scope.$storage.cart.total).toBe(0);
 
   }));  
   
   it('should respect code.minSubtotal', inject(function ($window) {
-    
+    var code = _.findWhere($window.quiverMocks.discounts, {code: '100MIN1000'});
+    scope.$storage.cart.codes = [code];
+
+    scope.updateCart();
+
+    expect(scope.$storage.cart.discount).toBe(100);
+    expect(scope.$storage.cart.total).toBe(1635);
+
+    scope.$storage.cart.items = [];
+    scope.$storage.cart.items.push({slug: 'sign-painting-workshop'});
+    scope.updateCart();
+
+    expect(scope.$storage.cart.discount).toBe(0);
+    expect(scope.$storage.cart.subtotal).toBe(150);  
 
   }));
 
   it('should respect code.productSlug', inject(function ($window) {
-    
+    var code = _.findWhere($window.quiverMocks.discounts, {code: 'CALLIGRAPHYONLY'});
+    scope.$storage.cart.codes = [code];
+
+    scope.updateCart();
+
+    expect(scope.$storage.cart.discount).toBe(95);
+    expect(scope.$storage.cart.total).toBe(1640);
+
+    scope.$storage.cart.items = [];
+    scope.$storage.cart.items.push({slug: 'sign-painting-workshop'});
+    scope.updateCart();
+
+    expect(scope.$storage.cart.discount).toBe(0);
+    expect(scope.$storage.cart.subtotal).toBe(150);    
 
   }));
 

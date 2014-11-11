@@ -172,13 +172,13 @@ angular.module('quiverCmsApp')
 
       if (cart.codes && cart.codes.length) {
         var applied = [];
+
         CommerceService.refreshCodes(cart.codes).then(function(res) {
           var codes = _.sortBy(res.codes, function (code) {
             return code.type === 'value' ? 0 : 1; // We want value codes to get evaluated before percentage codes
           });
 
           cart.codes = codes;
-
           _.each(codes, function (code) {
             if (code.productSlug && !_.findWhere(cart.items, {slug: code.productSlug})) { // Screen off product-specific codes
               return NotificationService.notify(code.code, 'Code is product-specific. Product not found in cart.');
@@ -203,6 +203,8 @@ angular.module('quiverCmsApp')
             if (code.freeShipping) {
               cart.freeShipping = true;
             } 
+
+            applied.push(code.code);
 
             if (code.type === 'value') {
               cart.discount += code.value;
@@ -404,7 +406,7 @@ angular.module('quiverCmsApp')
       $scope.$apply(function() {
         $scope.$storage.cart = cart;
         updateCart();
-      })
+      });
       
     };
 
