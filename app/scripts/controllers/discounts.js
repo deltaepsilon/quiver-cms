@@ -68,6 +68,10 @@ angular.module('quiverCmsApp')
         discount.maxSubtotal = Math.max(discount.maxSubtotal, 0);
       }
 
+      if (discount.minSubtotal && discount.maxSubtotal && discount.maxSubtotal < discount.minSubtotal) {
+        discount.maxSubtotal = discount.minSubtotal;
+      }
+
       if (getDiscount(discount.code)) {
         NotificationService.error(discount.code + ' already exists.');
         discount.code = generateCode();

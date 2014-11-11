@@ -154,24 +154,30 @@ angular.module('quiverCmsApp')
       }
 
       cart.subtotal = Math.round(cart.subtotal * 100) / 100;
-      cart.tax = Math.round(cart.tax * 100) / 100;
-      cart.shipping = Math.round(cart.shipping * 100) / 100;
-
-      if (!cart.shipped || (typeof $scope.shipping.minOrder === 'number' && cart.subtotal > $scope.shipping.minOrder)) {
-        cart.shipping = 0;
-        cart.freeShipping = true;
-      }
+      cart.taxPercentage = cart.tax / cart.subtotal; // Use cart.taxPercentage to re-apply taxes after calculating discounts.
 
       var finishIt = function() {
-       cart.total = cart.subtotal + cart.tax + cart.shipping - cart.discount;
+        cart.tax = cart.taxPercentage * Math.max(cart.subtotal - cart.discount, 0);
+        cart.tax = Math.round(cart.tax * 100) / 100;
+        cart.shipping = Math.round(cart.shipping * 100) / 100;
 
+        if (!cart.shipped || (typeof $scope.shipping.minOrder === 'number' && cart.subtotal > $scope.shipping.minOrder) || cart.freeShipping) {
+          cart.shipping = 0;
+          cart.freeShipping = true;
+        }
+
+        cart.total = cart.subtotal + cart.tax + cart.shipping - cart.discount;
         $scope.$storage.cart = cart; 
       }
 
       if (cart.codes && cart.codes.length) {
         var applied = [];
         CommerceService.refreshCodes(cart.codes).then(function(res) {
-          var codes = res.codes;
+          var codes = _.sortBy(res.codes, function (code) {
+            return code.type === 'value' ? 0 : 1; // We want value codes to get evaluated before percentage codes
+          });
+
+          cart.codes = codes;
 
           _.each(codes, function (code) {
             if (code.productSlug && !_.findWhere(cart.items, {slug: code.productSlug})) { // Screen off product-specific codes
@@ -179,21 +185,34 @@ angular.module('quiverCmsApp')
             }
 
             if (~applied.indexOf(code.code)) {
-              return NotificationService.notify(code.code, 'Duplicate code must be ignored!'); 
+              return NotificationService.notify(code.code, 'Duplicate code must be ignored!');
             }
 
             if (code.useCount >= code.uses) {
-              return NotificationService.notify(code.code, 'Code has been used too many times!');  
+              return NotificationService.notify(code.code, 'Code has been used too many times!');
             }
 
             if (!code.active) {
-              return NotificationService.notify(code.code, 'Code inactive!');  
-            }          
+              return NotificationService.notify(code.code, 'Code inactive!');
+            }
+
+            if (code.minSubtotal && cart.subtotal < code.minSubtotal) {
+              return NotificationService.notify(code.code, 'Cart is below minimum subtotal. Code cannot be applied.');
+            }
+
+            if (code.freeShipping) {
+              cart.freeShipping = true;
+            } 
 
             if (code.type === 'value') {
               cart.discount += code.value;
             } else if (code.type === 'percentage') {
-              cart.discount += cart.subtotal * code.percentage * .01;
+              if (code.maxSubtotal) {
+                cart.discount += Math.min(cart.subtotal, code.maxSubtotal) * code.percentage * .01;
+              } else {
+                cart.discount += cart.subtotal * code.percentage * .01;
+              }
+              
             }
 
           });
@@ -363,6 +382,7 @@ angular.module('quiverCmsApp')
         } else {
           $scope.$storage.cart.codes.push(ObjectService.cleanRestangular(codeObject));
           $scope.addingCode = false;
+          delete $scope.discountCode;
           updateCart();
         }
         
@@ -382,10 +402,10 @@ angular.module('quiverCmsApp')
         };
       }
       $scope.$apply(function() {
-        $scope.$storage.cart = cart;  
+        $scope.$storage.cart = cart;
+        updateCart();
       })
       
-      updateCart();
     };
 
     /*

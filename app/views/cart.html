@@ -115,20 +115,23 @@
       <div class="column small-12 medium-4">
         <div class="panel small-12 right background-secondary4" style="border: 0;">
           <ul class="table-list text-small text-right clearfix">
-            <li class="clearfix" ng-show="$storage.cart.codes">
+            <li class="clearfix" ng-show="$storage.cart.codes.length">
               <ul class="margin-zero-important">
-                <li ng-repeat="code in $storage.cart.codes">
+                <li class="text-x-small" ng-repeat="code in $storage.cart.codes">
                   <div class="column small-6">{{ code.code }}</div>
                   <div class="column small-6">
-                    <a ng-show-"code.type === 'value'" qv-confirm="removeCode(code.code)">{{ code.value | currency }}</a>
-                    <a ng-show-"code.type === 'percentage'" qv-confirm="removeCode(code.code)">{{ code.percentage }}%</a>
+                    <a ng-show="code.type === 'value'" qv-confirm="removeCode(code.code)" confirmations="['Click to Remove']">{{ code.value | currency }}</a>
+                    <a ng-show="code.type === 'percentage'" qv-confirm="removeCode(code.code)" confirmations="['Click to Remove']">{{ code.percentage }}%</a>
                   </div>
                 </li>
 
               </ul>
 
+              
+            </li>
+            <li class="clearfix" ng-show="$storage.cart.codes.length">
               <div class="column small-6">Discount</div>
-              <div class="column small-6">{{ $storage.cart.discount | currency }}</div>
+              <div class="column small-6">{{ -1 * $storage.cart.discount | currency }}</div>
             </li>
             <li>
               <div class="column small-6">Subtotal</div>
@@ -159,20 +162,20 @@
               <div class="column small-6"><strong>{{ $storage.cart.total | currency }}</strong></div>
             </li>
             <li class="clearfix">
-              <a class="text-x-small" ng-click="addingCode = true" ng-hide="addingCode">Add Code</a>
-              <div ng-show="addingCode" style="margin-top: 1rem;">
-                <input class="" type="text" ng-model="discountCode" placeholder="Discount/Gift code...">
-                <button class="tiny right" ng-click="addCode(discountCode)">Add</button>
-                
+              <div class="column small-12">
+                <a class="text-x-small" ng-click="addingCode = true" ng-hide="addingCode">Add Code</a>
+                <div ng-show="addingCode" style="margin-top: 1rem;">
+                  <input class="" type="text" ng-model="discountCode" placeholder="Discount/Gift code...">
+                  <button class="tiny right" ng-click="addCode(discountCode)">Add</button>
+                  
+                </div>
               </div>
-              
-              
               
             </li>
 
           </ul>
 
-          <p class="text-x-small" ng-hide="user" style="margin: 1.5rem 0 0;">
+          <p class="text-x-small text-center" ng-hide="user" style="margin: 1.5rem 0 0;">
             <a ui-sref="master.nav.login">Log In</a> or <a ui-sref="master.nav.register">Register</a> to check out.
           </p>
 

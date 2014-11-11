@@ -374,6 +374,52 @@ app.get('/env.js', function (req, res) {
 });
 
 /*
+ * Discounts
+ */
+app.get('/code/:code', payments.getCode);
+
+app.post('/codes/refresh', function(req, res) {
+  var discountsRef = firebaseRoot.child('discounts'),
+    form = new formidable.IncomingForm(),
+    parseDeferred = Q.defer(),
+    discountsDeferred = Q.defer();
+
+  form.parse(req, function(err, fields) {
+    return err ? parseDeferred.reject(err) : parseDeferred.resolve(fields);
+  });
+
+  discountsRef.once('value', function(snapshot) {
+    discountsDeferred.resolve(snapshot.val());
+  });
+
+  Q.all([parseDeferred.promise, discountsDeferred.promise]).spread(function(untrustedCodes, trustedCodes) {
+    var untrustedCodesArray = _.pluck(untrustedCodes, 'code'),
+      trustedCodes = _.toArray(trustedCodes),
+      now = moment().unix();
+    
+    var unique = _.filter(trustedCodes, function(trustedCode) {
+        if (!~untrustedCodesArray.indexOf(trustedCode.code)) {
+          return false;
+        } else if (!trustedCode.active) {
+          return false;
+        } else if (trustedCode.useCount >= trustedCode.uses) {
+          return false;
+        } else if (moment(trustedCode.expiration).unix() <= now) {
+          return false;
+        }
+        return true;
+      }),
+      sorted = _.sortBy(unique, function (code) {
+        return code.type === 'value' ? 0 : 1;
+      });
+
+    res.json({codes: sorted});
+  });
+
+});
+
+
+/*
  * Authenticate user and hydrate req.user
 */
 app.use(userMethods.hydrateUser);
@@ -911,7 +957,6 @@ app.get('/user/:userId', function (req, res) {
  app.get('/user/payment/token', payments.getClientToken);
  app.post('/user/payment/:nonce/nonce', payments.createPaymentMethod);
  app.delete('/user/payment/:token/token', payments.removePaymentMethod);
- app.get('/code/:code', payments.getCode);
 
 
  app.post('/user/purchase', function (req, res) {
@@ -934,46 +979,6 @@ app.get('/user/:userId', function (req, res) {
     });
   
  });
-
-/*
- * Discounts
- */
-app.post('/codes/refresh', function(req, res) {
-  var discountsRef = firebaseRoot.child('discounts'),
-    form = new formidable.IncomingForm(),
-    parseDeferred = Q.defer(),
-    discountsDeferred = Q.defer();
-
-  form.parse(req, function(err, fields) {
-    return err ? parseDeferred.reject(err) : parseDeferred.resolve(fields);
-  });
-
-  discountsRef.once('value', function(snapshot) {
-    discountsDeferred.resolve(snapshot.val());
-  });
-
-  Q.all([parseDeferred.promise, discountsDeferred.promise]).spread(function(untrustedCodes, trustedCodes) {
-    var untrustedCodesArray = _.pluck(untrustedCodes, 'code'),
-      trustedCodes = _.toArray(trustedCodes),
-      now = moment().unix();
-    
-    var unique = _.filter(trustedCodes, function(trustedCode) {
-      if (!~untrustedCodesArray.indexOf(trustedCode.code)) {
-        return false;
-      } else if (!trustedCode.active) {
-        return false;
-      } else if (trustedCode.useCount >= trustedCode.uses) {
-        return false;
-      } else if (moment(trustedCode.expiration).unix() <= now) {
-        return false;
-      }
-      return true;
-    });
-    res.json({codes: unique});
-  });
-
-});
-
 
 /*
  * Finish this sucka up

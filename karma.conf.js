@@ -31,6 +31,7 @@ module.exports = function(config) {
       'app/lib/firebase-simple-login/firebase-simple-login.js',
       'app/lib/mockfirebase/dist/mockfirebase.js',
       'app/lib/angularfire/dist/angularfire.min.js',
+      'test/resources/braintree.js',
       'app/scripts/*.js',
       'app/scripts/**/*.js',
       'test/mock/**/*.js',

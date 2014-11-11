@@ -20,7 +20,8 @@ describe('Controller: CartCtrl', function () {
       products: $window.quiverMocks.products,
       countriesStatus: $window.quiverMocks.countriesStatus,
       statesStatus: $window.quiverMocks.statesStatus,
-      shippingRef: $firebase(new MockFirebase(env.firebase.endpoint, $window.quiverMocks.shipping))
+      shippingRef: $firebase(new MockFirebase(env.firebase.endpoint, $window.quiverMocks.shipping)),
+      clientToken: 5
     });
 
     scope.$storage = {
@@ -130,6 +131,51 @@ describe('Controller: CartCtrl', function () {
     scope.updateCart();
 
     expect(scope.$storage.cart.shipped).toBe(false);
+  }));
+
+  it('should respect code.maxSubtotal', inject(function ($window) {
+    
+
+  }));  
+  
+  it('should respect code.minSubtotal', inject(function ($window) {
+    
+
+  }));
+
+  it('should respect code.productSlug', inject(function ($window) {
+    
+
+  }));
+
+  it('should respect code.uses', inject(function ($window) {
+    
+
+  }));
+
+  it('should respect code.freeShipping', inject(function ($window) {
+    
+
+  }));
+
+  it('should respect code.expiration', inject(function ($window) {
+    
+
+  }));
+
+  it('should respect code.minSubtotal and code.maxSubtotal when used together', inject(function ($window) {
+    
+
+  }));
+
+  it('should respect a 100% off subtotal with free shipping', inject(function ($window) {
+    
+
+  }));
+
+  it('should respect a code with productSlug, freeShipping, a uses limit and min- and max-subtotals of equal value.', inject(function ($window) {
+    
+
   }));
 
 });
