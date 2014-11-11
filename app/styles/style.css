@@ -11009,12 +11009,17 @@ form.top-offset {
   max-width: 80rem;
 }
 
-/* line 5, modules/_layout.scss */
+/* line 6, modules/_layout.scss */
+.top-bar .row {
+  max-width: 80rem;
+}
+
+/* line 11, modules/_layout.scss */
 .min-height-inherit {
   min-height: inherit;
 }
 
-/* line 11, modules/_layout.scss */
+/* line 17, modules/_layout.scss */
 .overlay.bottom {
   position: absolute;
   top: inherit;
@@ -11023,7 +11028,7 @@ form.top-offset {
   left: 0;
 }
 
-/* line 16, modules/_layout.scss */
+/* line 22, modules/_layout.scss */
 .centered-block {
   margin-left: auto;
   margin-right: auto;

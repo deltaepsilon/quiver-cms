@@ -70,7 +70,7 @@
 
 
       <!-- Shipping Address -->
-      <form name="addressForm" class="column small-12 medium-4" ng-if="!$storage.cart.address || editingAddress">
+      <form name="addressForm" class="column small-12 medium-4" ng-if="!$storage.cart.address || editingAddress" ng-class="{'medium-offset-4': !$storage.cart.total}">
         <div>
           <h5 class="font-flair text-secondary0">Shipping Address</h5>
         </div>
@@ -138,7 +138,7 @@
       </form>
 
 
-      <div class="column small-12 medium-4" ng-if="$storage.cart.address && !editingAddress">
+      <div class="column small-12 medium-4" ng-if="$storage.cart.address && !editingAddress" ng-class="{'medium-offset-4': !$storage.cart.total}">
         <h5 class="font-flair text-secondary0">
           <span>Shipping Address</span>
         </h5>
@@ -173,7 +173,7 @@
 
 
       <!-- Braintree Drop-In Form -->
-      <div class="column small-12 medium-4">
+      <div ng-if="$storage.cart.total" class="column small-12 medium-4">
         <h5 class="font-flair text-secondary0">Add Payment Method</h5>
 
         <div braintree-drop-in token="clientToken">
@@ -192,10 +192,28 @@
       <div class="column small-12 medium-4">
         <h5 class="font-flair text-secondary0 left">
           <span>Checkout</span>
-        </h5>
+        </h5>       
 
         <div class="panel small-12 right background-secondary4" style="border: 0;">
           <ul class="table-list text-small text-right clearfix">
+            <li class="clearfix" ng-show="$storage.cart.codes.length">
+              <ul class="margin-zero-important">
+                <li class="text-x-small" ng-repeat="code in $storage.cart.codes">
+                  <div class="column small-6">{{ code.code }}</div>
+                  <div class="column small-6">
+                    <span ng-show="code.type === 'value'">{{ code.value | currency }}</span>
+                    <span ng-show="code.type === 'percentage'">{{ code.percentage }}%</span>
+                  </div>
+                </li>
+
+              </ul>
+
+              
+            </li>
+            <li class="clearfix" ng-show="$storage.cart.codes.length">
+              <div class="column small-6">Discount</div>
+              <div class="column small-6">{{ -1 * $storage.cart.discount | currency }}</div>
+            </li>
             <li>
               <div class="column small-6">Subtotal</div>
               <div class="column small-6">{{ $storage.cart.subtotal | currency }}</div>
@@ -224,6 +242,12 @@
               <div class="column small-6"><strong>Total</strong></div>
               <div class="column small-6"><strong>{{ $storage.cart.total | currency }}</strong></div>
             </li>
+            <li class="clearfix">
+              <div class="column small-12">
+                <a class="text-x-small" ui-sref="master.nav.cart">Back to Cart</a>
+              </div>
+              
+            </li>
 
           </ul>
 
@@ -243,7 +267,7 @@
                 <a class="right" ng-click="removePaymentMethod(account.token)">delete</a>
                 
               </li>
-              <li ng-show="!$storage.cart.paymentToken">
+              <li ng-show="$storage.cart.total && !$storage.cart.paymentToken">
                 <span class="text-small text-secondary0" ng-show="!user.private.customer.paypalAccounts.length && !user.private.customer.creditCards.length">Add a payment method to check out</span>
                 <span class="text-small text-secondary0" ng-show="user.private.customer.paypalAccounts.length || user.private.customer.creditCards.length">Select a payment method</span>
               </li>
@@ -255,8 +279,8 @@
           </div>
 
           <div class="margin-vertical-x-medium">
-            <button class="small success small-12 text-x-medium-important margin-zero-important" ng-click="checkout(user, $storage.cart, $storage.address)" ng-disabled="!user || !$storage.cart.paymentToken || ($storage.cart.shipped && !$storage.cart.address)">Complete Purchase</button>
-            <a class="text-small" ui-sref="master.nav.cart">Back to Cart</a>
+            <button class="small success small-12 text-x-medium-important margin-zero-important" ng-show="$storage.cart.total" ng-click="checkout(user, $storage.cart)" ng-disabled="!user || !$storage.cart.paymentToken || ($storage.cart.shipped && !$storage.cart.address)">Complete Purchase</button>
+            <button class="small success small-12 text-x-medium-important margin-zero-important" ng-hide="$storage.cart.total" ng-click="checkout(user, $storage.cart)" ng-disabled="!user || ($storage.cart.shipped && !$storage.cart.address)">Free Checkout</button>
           </div>
 
         </div>
