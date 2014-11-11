@@ -213,37 +213,109 @@ describe('Controller: CartCtrl', function () {
     scope.updateCart();
 
     expect(scope.$storage.cart.discount).toBe(0);
-    expect(scope.$storage.cart.subtotal).toBe(150);    
+    expect(scope.$storage.cart.subtotal).toBe(150);
 
   }));
 
   it('should respect code.uses', inject(function ($window) {
-    
+    var code = _.findWhere($window.quiverMocks.discounts, {code: '10ONEUSE'});
+    scope.$storage.cart.codes = [code];
+
+    scope.updateCart();
+
+    expect(scope.$storage.cart.discount).toBe(10);
+    expect(scope.$storage.cart.total).toBe(1725);
+
+    scope.$storage.cart.codes[0].useCount = 1;
+    scope.updateCart();
+
+    expect(scope.$storage.cart.discount).toBe(0);
+    expect(scope.$storage.cart.subtotal).toBe(1735);
 
   }));
 
   it('should respect code.freeShipping', inject(function ($window) {
-    
+    var code = _.findWhere($window.quiverMocks.discounts, {code: 'ONLYFREESHIPPING'});
+    scope.$storage.cart.codes = [code];
+
+    scope.$storage.address = {
+      country: 'US',
+      state: 'UT'
+    };
+
+    scope.updateAddress();
+
+    expect(scope.$storage.cart.discount).toBe(0);
+    expect(scope.$storage.cart.shipping).toBe(0);
+    expect(scope.$storage.cart.total).toBe(2863.23);
 
   }));
 
   it('should respect code.expiration', inject(function ($window) {
-    
+    var code = _.findWhere($window.quiverMocks.discounts, {code: '10EXPIRED'});
+    scope.$storage.cart.codes = [code];
+
+    scope.updateCart();
+
+    expect(scope.$storage.cart.discount).toBe(0);
+    expect(scope.$storage.cart.total).toBe(1735);
 
   }));
 
   it('should respect code.minSubtotal and code.maxSubtotal when used together', inject(function ($window) {
-    
+    var code = _.findWhere($window.quiverMocks.discounts, {code: '5PERCENTMINANDMAX'});
+    scope.$storage.cart.codes = [code];
+
+    scope.updateCart();
+
+    expect(scope.$storage.cart.discount).toBe(200 * .05);
+    expect(scope.$storage.cart.total).toBe(1735 - 200 * .05);
+
+    scope.$storage.cart.items = [];
+    scope.$storage.cart.items.push({slug: 'calligraphy-class'});
+    scope.updateCart();
+
+    expect(scope.$storage.cart.discount).toBe(0);
+    expect(scope.$storage.cart.subtotal).toBe(12);
 
   }));
 
   it('should respect a 100% off subtotal with free shipping', inject(function ($window) {
-    
+    var code = _.findWhere($window.quiverMocks.discounts, {code: 'NEVERPAY'});
+    scope.$storage.cart.codes = [code];
+
+    scope.$storage.address = {
+      country: 'US',
+      state: 'UT'
+    };
+
+    scope.updateAddress();
+
+    expect(scope.$storage.cart.discount).toBe(1735);
+    expect(scope.$storage.cart.total).toBe(0);
 
   }));
 
   it('should respect a code with productSlug, freeShipping, a uses limit and min- and max-subtotals of equal value.', inject(function ($window) {
-    
+    var code = _.findWhere($window.quiverMocks.discounts, {code: 'FREECALLIGRAPHY'});
+    scope.$storage.cart.codes = [code];
+
+    scope.$storage.address = {
+      country: 'US',
+      state: 'UT'
+    };
+
+    scope.updateAddress();
+
+    expect(scope.$storage.cart.discount).toBe(95);
+    expect(scope.$storage.cart.total).toBe(2706.45);
+
+    scope.$storage.cart.items = [];
+    scope.$storage.cart.items.push({slug: 'calligraphy-class'});
+    scope.updateCart();
+
+    expect(scope.$storage.cart.discount).toBe(0);
+    expect(scope.$storage.cart.subtotal).toBe(12);
 
   }));
 

@@ -175,8 +175,9 @@ angular.module('quiverCmsApp')
 
         CommerceService.refreshCodes(cart.codes).then(function(res) {
           var codes = _.sortBy(res.codes, function (code) {
-            return code.type === 'value' ? 0 : 1; // We want value codes to get evaluated before percentage codes
-          });
+              return code.type === 'value' ? 0 : 1; // We want value codes to get evaluated before percentage codes
+            }),
+            now = moment().unix();
 
           cart.codes = codes;
           _.each(codes, function (code) {
@@ -198,6 +199,10 @@ angular.module('quiverCmsApp')
 
             if (code.minSubtotal && cart.subtotal < code.minSubtotal) {
               return NotificationService.notify(code.code, 'Cart is below minimum subtotal. Code cannot be applied.');
+            }
+
+            if (moment(code.expiration).unix() < now) {
+              return NotificationService.notify(code.code, 'Code has expired.'); 
             }
 
             if (code.freeShipping) {
