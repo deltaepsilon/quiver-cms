@@ -394,7 +394,10 @@ app.post('/codes/refresh', function(req, res) {
 
   Q.all([parseDeferred.promise, discountsDeferred.promise]).spread(function(untrustedCodes, trustedCodes) {
     var untrustedCodesArray = _.pluck(untrustedCodes, 'code'),
-      trustedCodes = _.toArray(trustedCodes),
+      trustedCodes = _.map(trustedCodes, function (code, key) {
+        code.key = key;
+        return code;
+      }),
       now = moment().unix();
     
     var unique = _.filter(trustedCodes, function(trustedCode) {
@@ -982,7 +985,7 @@ app.post('/user/checkout', function (req, res) {
     })
     .then(checkoutMethods.createSubscriptions)
     .then(checkoutMethods.createDiscounts)
-    .then(checkoutMethods.createShippingInstructions)
+    .then(checkoutMethods.createShipments)
     .then(checkoutMethods.createDownloads)
     .then(checkoutMethods.saveTransaction)
     .then(checkoutMethods.sendTransactionEmail)

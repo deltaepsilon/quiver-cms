@@ -180,6 +180,7 @@ angular.module('quiverCmsApp')
             now = moment().unix();
 
           cart.codes = codes;
+
           _.each(codes, function (code) {
             if (code.productSlug && !_.findWhere(cart.items, {slug: code.productSlug})) { // Screen off product-specific codes
               return NotificationService.notify(code.code, 'Code is product-specific. Product not found in cart.');
@@ -394,7 +395,7 @@ angular.module('quiverCmsApp')
         }
         
       }, function (err) {
-        NotificationService.error(code, err || 'Code not found.');
+        NotificationService.error(code, err && err.data ? err.data : 'Code not found.');
       });
     };
 

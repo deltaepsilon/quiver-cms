@@ -22,7 +22,7 @@
 
             <div class="column small-12 medium-4">
               <h5 class="font-flair margin-zero clearfix">
-                <a class="left padding-vertical-small link-secondary0" style="padding-bottom: 0;" href="/product/{{ product.slug }}" j>{{ product.title }}</a>
+                <a class="left padding-vertical-small link-secondary0" style="padding-bottom: 0;" href="/product/{{ product.slug }}" qv-to-static>{{ product.title }}</a>
               </h5>
               <ul ng-if="product.optionsMatrixSelected" class="text-small inline-list dots left strong margin-vertical-xx-small-important">
                 <li>{{ product.optionsMatrixSelected.name }}</li>
@@ -42,7 +42,7 @@
                   <input id="product-{{$index}}" class="margin-vertical-zero-important text-small-important" style="height: 2.1rem; width: 3rem; position: relative; top: 7px;" type="number" ng-model="product.quantity" min="1" max="{{ product.maxQuantity }}" ng-blur="updateCart()" qv-select-text="#product-{{$index}}" placeholder="#">
                 </li>
                 <li>
-                  <div class="right padding-vertical-small"><strong>{{ (product.priceAdjusted || product.price) * product.quantity | currency }}</strong></div>
+                  <div class="right padding-vertical-small" style="min-width: 5rem;"><strong>{{ (product.priceAdjusted || product.price) * product.quantity | currency }}</strong></div>
                 </li>
                 <li>
                   <div class="padding-vertical-small">
