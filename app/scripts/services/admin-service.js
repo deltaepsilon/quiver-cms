@@ -85,6 +85,10 @@ angular.module('quiverCmsApp')
         return $firebase(new Firebase(firebaseEndpoint + '/discounts'));
       },
 
+      getServerDiscounts: function () {
+        return Restangular.one('admin').one('discounts').get();
+      },
+
       getCommerce: function () {
         return $firebase(new Firebase(firebaseEndpoint + '/commerce'));
       },
@@ -118,7 +122,15 @@ angular.module('quiverCmsApp')
       },
 
       getUserTransaction: function (userId, key) {
-        return $firebase(new Firebase(firebaseEndpoint + '/users/' + userId + '/private/transactions/' + key));
+        return $firebase(new Firebase(firebaseEndpoint + '/users/' + userId + '/private/commerce/transactions/' + key));
+      },
+
+      sendEmail: function (key, transaction) {
+        return Restangular.one('admin').one('transaction').one(key).post('email', transaction);
+      },
+
+      chargeCard: function (key, transaction) {
+        return Restangular.one('admin').one('transaction').one(key).post('charge', transaction);
       }
 
     }

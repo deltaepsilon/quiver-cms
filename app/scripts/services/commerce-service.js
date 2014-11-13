@@ -40,11 +40,11 @@ angular.module('quiverCmsApp')
 			},
 
 			getCode: function (code) {
-				return Restangular.one('code').one(code).get();
+				return Restangular.one('discounts').one(code).get();
 			},
 
 			refreshCodes: function(codes) {
-				return Restangular.one('codes').post('refresh', codes);
+				return Restangular.one('discounts').post('refresh', codes);
 			},
 
 			checkout: function (cart) {

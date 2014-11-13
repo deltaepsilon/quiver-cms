@@ -175,7 +175,7 @@
       <!-- Braintree Drop-In Form -->
       <div ng-if="$storage.cart.total" class="column small-12 medium-4">
         <h5 class="font-flair text-secondary0">Add Payment Method</h5>
-
+        <style>#dropin {min-height: 196px;}</style>
         <div braintree-drop-in token="clientToken">
           <form id="checkout" name="cardForm">
             <div id="dropin"></div>
@@ -252,7 +252,7 @@
           </ul>
 
           <div>          
-            <ul class="text-x-small">
+            <ul class="text-x-small" style="min-height: 7px;">
               <li ng-repeat="card in user.private.customer.creditCards" ng-class="{disabled: card.disabled}">
                 <input type="radio" ng-model="$storage.cart.paymentToken" ng-value="card.token">
                 <img class="margin-horizontal-xx-small" style="max-width: 2rem;" ng-src="{{ card.imageUrl }}" alt="{{ card.cardType }}" /> 

@@ -52,7 +52,7 @@ if (config.get('public.content.redisEnabled')) {
 
 
   redis.select(config.get('private.redis.dbIndex'));
-  redis.flushdb();
+  // redis.flushdb();
 
 
   redis.on('ready', function (e) {
@@ -530,6 +530,49 @@ app.get('/search/:searchTerm', function (req, res) {
 
 
   });
+});
+
+/*
+ * Email
+ */
+
+app.get('/transaction/:key/email/:type', function (req, res) {
+  var key = req.params.key,
+    layout = req.params.type === 'html' ? 'email-html'  : 'email-txt',
+    view = req.params.type === 'html' ? 'email-transaction-html' : 'email-transaction-txt',
+    transactionRef = firebaseRoot.child('logs').child('transactions').child(key),
+    transactionDeferred = Q.defer(),
+    userRef,
+    userDeferred = Q.defer();
+
+  transactionRef.once('value', function (snapshot) {
+    return transactionDeferred.resolve(snapshot.val());
+  });
+
+  transactionDeferred.promise.then(function (transaction) {
+    userRef = firebaseRoot.child('users').child(transaction.userId);
+    userRef.once('value', function (snapshot) {
+      return userDeferred.resolve(snapshot.val());
+    });
+  });
+
+  Q.all([transactionDeferred.promise, userDeferred.promise]).spread(function (transaction, user) {
+    // console.log(view, layout, key, config.get('private.email'), config.get('public'), settings);
+    console.log('view', view);
+    app.render(view, {
+        layout: layout,
+        user: user,
+        key: key,
+        transaction: transaction,
+        email: config.get('private.email'),
+        configPublic: config.get('public'),
+        settings: settings
+      }, function (err, content) {
+        console.log('err, content', err, content);
+        return err ? res.status(500).send(err) : res.status(200).send(content);   
+      });  
+  });
+  
 });
 
 

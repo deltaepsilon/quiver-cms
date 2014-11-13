@@ -528,6 +528,9 @@ angular.module('quiverCmsApp', [
         resolve: {
           discountsRef: function (AdminService) {
             return AdminService.getDiscounts();
+          },
+          discounts: function (AdminService) {
+            return AdminService.getServerDiscounts();
           }
         }
       })

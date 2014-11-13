@@ -8,12 +8,27 @@
  * Controller of the quiverCmsApp
  */
 angular.module('quiverCmsApp')
-  .controller('DiscountsCtrl', function ($scope, discountsRef, moment, _, NotificationService) {
+  .controller('DiscountsCtrl', function ($scope, discountsRef, discounts, moment, _, NotificationService) {
 
     /*
      * Discounts
     */
-    $scope.discounts = discountsRef.$asArray();
+    var mapDiscounts = function (discounts) {
+        return _.map(discounts, function (discount, key) {
+          discount.key = key;
+          return discount;
+        });
+      },
+      firebaseDiscounts = discountsRef.$asArray();
+    
+    $scope.discounts = mapDiscounts(discounts.discounts);
+
+    NotificationService.notify('Discounts Loading...');
+    firebaseDiscounts.$loaded().then(function () {
+      NotificationService.notify('Discounts Loaded.');
+      $scope.discounts = firebaseDiscounts;
+      $scope.firebaseLoaded = true;
+    });
 
     var generateCode = function () {
         var possibles = "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
@@ -100,11 +115,11 @@ angular.module('quiverCmsApp')
       discount.useCount = 0;
       discount.expiration = moment(discount.expiration).format();
 
-      $scope.discounts.$add(discount);
+      firebaseDiscounts.$add(discount);
       setNewDiscount();
     };
 
     $scope.removeDiscount = function (discount) {
-      $scope.discounts.$remove(discount);
+      firebaseDiscounts.$remove(discount);
     };
   });

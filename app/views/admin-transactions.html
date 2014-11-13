@@ -4,25 +4,27 @@
     <hr>
 
     <input type="text" ng-model="transactionFilter" ng-focus="transactionFilter = ''" placeholder="Search..."/>
+
     <table class="small-12">
         <thead>
         <tr>
-            <th>User</th><th>Items</th><th>Total</th><th>Created</th>
+            <th>ID</th><th>User</th><th>Items</th><th>Total</th><th>Created</th>
         </tr>
         </thead>
         <tbody>
         <tr ng-repeat="transaction in transactions | filter:transactionFilter">
+            <td><a ui-sref="authenticated.master.admin.transaction({key: transaction.$id, userId: transaction.userId})">{{ ::transaction.$id }}</a></td>
             <td>
-                <a ui-sref="authenticated.master.admin.user({key: transaction.userId})">{{ transaction.user.public.email }}</a>
+                <a ui-sref="authenticated.master.admin.user({key: transaction.userId})">{{ ::transaction.userEmail }}</a>
             </td>
             <td>
-                {{ transaction.productCount }}
+                {{ ::transaction.productCount }}
             </td>
             <td>
-                {{ transaction.total | currency }}
+                {{ ::transaction.total | currency }}
             </td>
             <td>
-                {{ transaction.date | moment:"MM/DD/YY" }}
+                {{ ::transaction.date | moment:"MM/DD/YY" }}
             </td>
         </tr>
         </tbody>

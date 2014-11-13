@@ -376,32 +376,43 @@ app.get('/env.js', function (req, res) {
 /*
  * Discounts
  */
-app.get('/code/:code', payments.getCode);
+app.get('/discounts/:code', payments.getCode);
 
-var discountsRef = firebaseRoot.child('discounts');
+var discountsRef = firebaseRoot.child('discounts'),
+  discountLoadTimer = moment();
 discountsRef.on('value', function (snapshot) {
-  redis.set('discounts', snapshot.val());
+  if (discountLoadTimer) {
+    winston.info('Discounts loaded seconds:', moment().diff(discountLoadTimer, 'seconds'));
+    discountLoadTimer = false;
+  }
+  
+  redis.set('discounts', JSON.stringify(snapshot.val()));
 });
-app.post('/codes/refresh', function(req, res) {
-  var form = new formidable.IncomingForm(),
-    parseDeferred = Q.defer(),
+
+app.get('/admin/discounts', function (req, res) {
+  redis.get('discounts', function (err, discounts) {
+    return err ? res.sendStatus(500) : res.json({discounts: JSON.parse(discounts)});
+  });
+});
+
+app.post('/discounts/refresh', parseBody);
+app.post('/discounts/refresh', function(req, res) {
+  var untrustedCodes = _.toArray(req.body),
     discountsDeferred = Q.defer();
 
-  form.parse(req, function(err, fields) {
-    return err ? parseDeferred.reject(err) : parseDeferred.resolve(fields);
-  });
-
   redis.get('discounts', function (err, discounts) {
-    return err ? discountsDeferred.reject(err) : discountsDeferred.resolve(discounts);
+    return err ? discountsDeferred.reject(err) : discountsDeferred.resolve(JSON.parse(discounts));
   });
 
-  Q.all([parseDeferred.promise, discountsDeferred.promise]).spread(function(untrustedCodes, trustedCodes) {
+  discountsDeferred.promise.then(function(trustedCodes) {
     var untrustedCodesArray = _.pluck(untrustedCodes, 'code'),
       trustedCodes = _.map(trustedCodes, function (code, key) {
         code.key = key;
         return code;
       }),
       now = moment().unix();
+
+      console.log('untrustedCodesArray', untrustedCodesArray, trustedCodes);
     
     var unique = _.filter(trustedCodes, function(trustedCode) {
         if (!~untrustedCodesArray.indexOf(trustedCode.code)) {
@@ -969,23 +980,10 @@ app.get('/user/:userId', function (req, res) {
  */
 var checkoutMethods = require('./lib/checkout')(firebaseRoot);
 
+app.post('/user/checkout', parseBody);
 app.post('/user/checkout', function (req, res) {
-  var form = new formidable.IncomingForm(),
-    user = req.user,
-    parseDeferred = Q.defer(),
-    checkoutError = function (err) {
-        winston.error('Checkout', err);
-        res.sendStatus(500);
-    };
 
-  form.parse(req, function (err, fields) {
-    return err ? parseDeferred.reject(err) : parseDeferred.resolve(fields);      
-  }, checkoutError);
-
-  parseDeferred.promise
-    .then(function (fields) {
-      return checkoutMethods.createTransaction(user, fields.cart);
-    })
+    checkoutMethods.createTransaction(req.user, req.body.cart)
     .then(checkoutMethods.createSubscriptions)
     .then(checkoutMethods.createDiscounts)
     .then(checkoutMethods.createShipments)
@@ -994,11 +992,38 @@ app.post('/user/checkout', function (req, res) {
     .then(checkoutMethods.sendTransactionEmail)
     .then(function (transaction) {
       res.json(transaction);
-    }, checkoutError);
-
+    }, function (err) {
+        winston.error('Checkout', err);
+        res.sendStatus(500);
+    });
 
 });
 
+app.post('/admin/checkout', parseBody);
+app.post('/admin/transaction/:key/email', function (req, res) {
+  checkoutMethods.sendTransactionEmail(req.params.key, req.body).then(function () {
+    res.sendStatus(200);
+  }, function (err) {
+    res.status(500).send(err);
+  });
+  
+});
+
+app.post('/admin/transaction/:key/charge', function (req, res) {
+  var key = req.params.key,
+    transaction = req.body,
+    userRef = firebaseRoot.child('users').child('transaction.userId');
+
+  userRef.once('value', function (snapshot) {
+    payments.chargeTransaction(snapshot.val(), transaction).then(function (transaction) {
+      res.json({transaction: transaction});
+    }, function (err) {
+      res.status(500).send(err);
+    });
+
+  });
+  
+});
 
 /*
  * Finish this sucka up
