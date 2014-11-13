@@ -378,9 +378,12 @@ app.get('/env.js', function (req, res) {
  */
 app.get('/code/:code', payments.getCode);
 
+var discountsRef = firebaseRoot.child('discounts');
+discountsRef.on('value', function (snapshot) {
+  redis.set('discounts', snapshot.val());
+});
 app.post('/codes/refresh', function(req, res) {
-  var discountsRef = firebaseRoot.child('discounts'),
-    form = new formidable.IncomingForm(),
+  var form = new formidable.IncomingForm(),
     parseDeferred = Q.defer(),
     discountsDeferred = Q.defer();
 
@@ -388,8 +391,8 @@ app.post('/codes/refresh', function(req, res) {
     return err ? parseDeferred.reject(err) : parseDeferred.resolve(fields);
   });
 
-  discountsRef.once('value', function(snapshot) {
-    discountsDeferred.resolve(snapshot.val());
+  redis.get('discounts', function (err, discounts) {
+    return err ? discountsDeferred.reject(err) : discountsDeferred.resolve(discounts);
   });
 
   Q.all([parseDeferred.promise, discountsDeferred.promise]).spread(function(untrustedCodes, trustedCodes) {

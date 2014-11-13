@@ -25,3 +25,7 @@
   }
 
 }
+
+.backdrop {
+  @include absolute();
+}

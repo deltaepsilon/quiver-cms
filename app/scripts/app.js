@@ -553,6 +553,29 @@ angular.module('quiverCmsApp', [
             return AdminService.getHashtags();
           }
         }
+      })
+      .state('authenticated.master.admin.transactions', { // ***********************  Transactions *********************
+        url: '/transactions',
+        templateUrl: 'views/admin-transactions.html',
+        controller: 'TransactionsCtrl',
+        resolve: {
+          transactionsRef: function (AdminService) {
+            return AdminService.getTransactions();
+          }
+        }
+      })
+      .state('authenticated.master.admin.transaction', {
+        url: '/transaction/:key/user/:userId',
+        templateUrl: 'views/admin-transaction.html',
+        controller: 'TransactionCtrl',
+        resolve: {
+          transactionRef: function (AdminService, $stateParams) {
+            return AdminService.getTransaction($stateParams.key);
+          },
+          userTransactionRef: function (AdminService, $stateParams) {
+            return AdminService.getUserTransaction($stateParams.userId, $stateParams.key);
+          }
+        }
       });
 
 

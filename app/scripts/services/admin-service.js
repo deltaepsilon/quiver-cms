@@ -107,6 +107,18 @@ angular.module('quiverCmsApp')
 
       getUser: function (key) {
         return $firebase(new Firebase(firebaseEndpoint + '/users/' + key));
+      },
+
+      getTransactions: function () {
+        return $firebase(new Firebase(firebaseEndpoint + '/logs/transactions'));
+      },
+
+      getTransaction: function (key) {
+        return $firebase(new Firebase(firebaseEndpoint + '/logs/transactions/' + key));
+      },
+
+      getUserTransaction: function (userId, key) {
+        return $firebase(new Firebase(firebaseEndpoint + '/users/' + userId + '/private/transactions/' + key));
       }
 
     }

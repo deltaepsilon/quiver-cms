@@ -98,14 +98,12 @@
                   <li ng-hide="currentUser" qv-active><a href="/app/register"><i class="fa fa-pencil"></i> Register</a></li>
 
                   <li class="has-dropdown not-click" ng-show="currentUser" qv-active>
-                    <a href='/app/account'>
-                      <i class="fa fa-gears"></i>
-                    </a>
+                    <a><i class="fa fa-gears"></i></a>
+
                     <ul class="dropdown">
-                      <li ng-show="currentUser"><a ng-click="logOut()" href="#"><i class="fa fa-sign-out"></i> Log Out</a></li>
-                      <li ng-show="user.private.isAdmin">
-                        <a href="/app/admin">Admin</a>
-                      </li>
+                      <li><a href='/app/account'><i class="fa fa-gear"></i> Account</a></li>
+                      <li><a ng-click="logOut()" href="#"><i class="fa fa-sign-out"></i> Log Out</a></li>
+                      <li ng-show="user.private.isAdmin"><a href="/app/admin">Admin</a></li>
                     </ul>
                   </li>
 
