@@ -557,8 +557,6 @@ app.get('/transaction/:key/email/:type', function (req, res) {
   });
 
   Q.all([transactionDeferred.promise, userDeferred.promise]).spread(function (transaction, user) {
-    // console.log(view, layout, key, config.get('private.email'), config.get('public'), settings);
-    console.log('view', view);
     app.render(view, {
         layout: layout,
         user: user,
@@ -568,7 +566,6 @@ app.get('/transaction/:key/email/:type', function (req, res) {
         configPublic: config.get('public'),
         settings: settings
       }, function (err, content) {
-        console.log('err, content', err, content);
         return err ? res.status(500).send(err) : res.status(200).send(content);   
       });  
   });

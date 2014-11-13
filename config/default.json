@@ -105,7 +105,7 @@
       },
       "signature": {
         "text": "TyrionLannister\nMaster of Coin\nAKA The Imp\n1234 East Lannister Lane\nWesteros, Seven Kingdoms 90210",
-        "html": "<p>TyrionLannister<br/>Master of Coin<br/>AKA The Imp<<br/>1234 East Lannister Lane<br/>Westeros, Seven Kingdoms 90210</p>"
+        "html": "<p>TyrionLannister<br/>Master of Coin<br/>AKA The Imp<br/>1234 East Lannister Lane<br/>Westeros, Seven Kingdoms 90210</p>"
       }
     }
   }
