@@ -8,7 +8,7 @@
 		{{/if }}
 	</title>
 </head>
-<body style="padding: 1rem;">
+<body style="padding: 1rem 0; margin: 0;">
 	<table style="width: 100%;">
 		<thead>
 			<tr>
@@ -16,7 +16,8 @@
 					color: #f04e23; 
 					font-family: Helvetica, Arial, sans-serif; 
 					font-size: 5rem; 
-					margin: 1rem 0; 
+					margin: 1rem 0;
+					padding: 0 1rem; 
 					font-weight: 700; 
 					letter-spacing: -6px; 
 					line-height: 3.5625rem; 
@@ -30,7 +31,7 @@
 		</thead>
 		<tbody>
 			<tr>
-				<td style="padding: 2rem 0;">
+				<td style="padding: 2rem 1rem;">
 					<div style="max-width: 60rem; margin: auto;">{{{ body }}}</div>
 				</td>
 			</tr>
@@ -43,10 +44,11 @@
 					color: white;
 					font-family: helvetica;
 					margin-top: 2rem;
+					font-size: .75rem;
 					font-weight: 100;
 					letter-spacing: 1px;
 				">
-					<div style="max-width: 60rem; margin: auto;">{{#if email.signature.html }}{{{ email.signature.html }}}{{ else }}{{ settings.siteName }}{{/if }}</div>
+					<div style="max-width: 60rem; margin: auto; padding: 0 1rem;">{{#if email.signature.html }}{{{ email.signature.html }}}{{ else }}{{ settings.siteTitle }}{{/if }}</div>
 				</td>
 			</tr>
 		</tfoot>
