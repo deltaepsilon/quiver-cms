@@ -122,4 +122,12 @@ angular.module('quiverCmsApp')
     $scope.removeDiscount = function (discount) {
       firebaseDiscounts.$remove(discount);
     };
+
+    $scope.saveDiscount = function (discount) {
+      if (typeof $scope.discounts.$save === 'function') {
+        $scope.discounts.$save(discount);  
+      }
+      
+    };
+    
   });

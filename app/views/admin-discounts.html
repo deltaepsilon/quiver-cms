@@ -78,7 +78,7 @@
         <tbody>
             <tr ng-repeat="discount in discounts | filter:discountFilter | orderBy:'created':'desc'" ng-class="{disabled: disabled}">
                 <td>
-                  <input class="margin-zero-important" type="checkbox" ng-model="discount.active"/>
+                  <input class="margin-zero-important" type="checkbox" ng-model="discount.active" ng-change="saveDiscount(discount)"/>
                 </td>
                 <td>
                   {{ ::discount.type }}

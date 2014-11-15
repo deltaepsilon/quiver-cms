@@ -62,7 +62,6 @@
     "firebase": {
       "secret": "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
     },
-    "sessionSecret": "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
     "mandrill": {
       "apiKey": "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
     },
