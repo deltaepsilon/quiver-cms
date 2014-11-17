@@ -279,8 +279,11 @@
           </div>
 
           <div class="margin-vertical-x-medium">
-            <button class="small success small-12 text-x-medium-important margin-zero-important" ng-show="$storage.cart.total" ng-click="checkout($storage.cart)" ng-disabled="!user || !$storage.cart.paymentToken || ($storage.cart.shipped && !$storage.cart.address)">Complete Purchase</button>
-            <button class="small success small-12 text-x-medium-important margin-zero-important" ng-hide="$storage.cart.total" ng-click="checkout($storage.cart)" ng-disabled="!user || ($storage.cart.shipped && !$storage.cart.address)">Free Checkout</button>
+            <button id="checkout-button" class="small success small-12 text-x-medium-important margin-zero-important" ng-show="$storage.cart.total" ng-click="checkingOut = true; checkout($storage.cart);" ng-disabled="!user || !$storage.cart.paymentToken || ($storage.cart.shipped && !$storage.cart.address) || checkingOut">
+              <span ng-show="$storage.cart.total">Complete Purchase</span>
+              <span ng-hide="$storage.cart.total">Free Checkout</span>
+              <span class="hidden backdrop background-highlight9" qv-loading target="#checkout-button"><img src="/images/ajax-loader.gif" style="margin-top: 1rem;"></span>
+            </button>
           </div>
 
         </div>

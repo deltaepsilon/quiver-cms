@@ -102,10 +102,26 @@
         "name": "Tyrion Lannister",
         "email": "TyrionLannister@westeros.com"
       },
+      "reply": "reply@westeros.com",
       "signature": {
         "text": "TyrionLannister\nMaster of Coin\nAKA The Imp\n1234 East Lannister Lane\nWesteros, Seven Kingdoms 90210",
         "html": "<p>TyrionLannister<br/>Master of Coin<br/>AKA The Imp<br/>1234 East Lannister Lane<br/>Westeros, Seven Kingdoms 90210</p>"
       },
+      "subjects": {
+        "transaction": "Thanks for shopping with Westeros.com!"
+      },
+      "copy": [
+        {
+          "name": "Tywin Lannister",
+          "email": "tywin@westeros.com",
+          "type": "cc"
+        },
+        {
+          "name": "Little Finger",
+          "email": "littlefinger@westeros.com",
+          "type": "bcc"
+        }
+      ],
       "sincerely": "Sincerely,<br>The team at Quiver CMS"
     }
   }

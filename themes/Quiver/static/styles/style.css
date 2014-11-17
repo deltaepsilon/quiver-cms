@@ -11633,7 +11633,7 @@ button.callout:active, button.callout:focus, .button.callout:active, .button.cal
 
 /* line 6, modules/_layout.scss */
 .top-bar .row {
-  max-width: 80rem;
+  max-width: 64rem;
 }
 
 /* line 11, modules/_layout.scss */

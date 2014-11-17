@@ -13,6 +13,7 @@ var LogService = require('./lib/services/log-service'),
   SearchService = require('./lib/services/search-service'),
   ConfigService = require('./lib/services/config-service'),
   RedisService = require('./lib/services/redis-service'),
+  EmailService = require('./lib/services/email-service'),
   WordService = require('./lib/services/word-service');
 
 /*
@@ -113,6 +114,7 @@ FirebaseService.isAuthenticated().then(function () {
       app.set('views', viewsDir);
 
       WordService.setApp(app);
+      EmailService.setApp(app);
 
       SearchService.createIndex(words, function (err, result) {
         return err ? deferred.reject(err) : deferred.resolve(result);

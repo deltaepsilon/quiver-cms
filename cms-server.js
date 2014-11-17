@@ -129,7 +129,7 @@ app.get('/user/:userId', UserController.get);
  */
  app.get('/user/payment/token', PaymentController.getClientToken);
  app.post('/user/payment/:nonce/nonce', PaymentController.createPaymentMethod);
- app.delete('/user/payment/:token/token', PaymentController.removePaymentMethod);
+ app.delete('/user/payment/:token/token', PaymentController.deletePaymentMethod);
 
 /*
  * Checkout
