@@ -76,7 +76,7 @@ app.get('/env.js', EnvironmentController.envJS);
 /*
  * Discounts
  */
-RedisService.setDiscounts();
+RedisService.setDiscounts(); // This is done asynchronously, so any discoutn queries will fail until this is back... but it's not a common call to make, so I don't want to block the entire server
 app.get('/discounts/:code', DiscountController.getCode);
 app.post('/discounts/refresh', FormController.body);
 app.post('/discounts/refresh', DiscountController.refresh);
