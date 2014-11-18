@@ -15,7 +15,10 @@
     "angular-md5": "~0.1.7",
     "ngstorage": "~0.3.0",
     "ng-flow": "2",
-    "angular-google-analytics": "~0.0.6"
+    "angular-google-analytics": "~0.0.6",
+    "firebase": "~2.0.4",
+    "angularfire": "~0.8.2",
+    "angularfire-authentication": "git@github.com:deltaepsilon/angularfire-authentication.git#master"
   },
   "devDependencies": {
     "angular-mocks": ">=1.3.0",
@@ -24,6 +27,7 @@
   },
   "resolutions": {
     "angular": ">=1.3.0",
-    "angular-mocks": ">=1.3.0"
+    "angular-mocks": ">=1.3.0",
+    "firebase": "~2.0.4"
   }
 }

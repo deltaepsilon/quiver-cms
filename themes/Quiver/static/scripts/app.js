@@ -1,6 +1,6 @@
-angular.module('QuiverCMS', ['ngStorage', 'DeltaEpsilon.quiver-angular-utilities', 'angular-md5'])
+angular.module('QuiverCMS', ['ngStorage', 'quiver.angular-utilities', 'quiver.angularfire-authentication', 'angular-md5'])
 
-  .config(function (quiverUtilitiesProvider) {
+  .config(function (quiverUtilitiesProvider, AngularFireAuthenticationProvider) {
 
     /*
      * Configure Notifications
@@ -11,6 +11,11 @@ angular.module('QuiverCMS', ['ngStorage', 'DeltaEpsilon.quiver-angular-utilities
      * Configure Environment
     */
     quiverUtilitiesProvider.setEnv(window.envVars);
+
+    /*
+     * Configure qvAuth
+     */
+    AngularFireAuthenticationProvider.setEndpoint(window.envVars.firebase.endpoint);
 
   })
   // .run()
@@ -32,12 +37,13 @@ angular.module('QuiverCMS', ['ngStorage', 'DeltaEpsilon.quiver-angular-utilities
       }
     };
   })
-  .controller('MasterCtrl', function ($scope, $timeout, $localStorage, ProductService, moment, _, UserService, md5) {
+  .controller('MasterCtrl', function ($scope, $timeout, $localStorage, ProductService, moment, _, qvAuth, md5) {
+
 
     /*
      * User
     */
-    UserService.getUser().then(function (currentUser) {
+    qvAuth.getCurrentUser().then(function (currentUser) {
       $scope.currentUser = currentUser;
       $scope.showNav = true;
 
@@ -45,8 +51,8 @@ angular.module('QuiverCMS', ['ngStorage', 'DeltaEpsilon.quiver-angular-utilities
         $scope.gravatar = "https://www.gravatar.com/avatar/" + md5.createHash(currentUser.email);
       }
 
-      if (currentUser && currentUser.id) {
-        UserService.getUser(currentUser.id).$loaded().then(function (user) {
+      if (currentUser && currentUser.uid) {
+        qvAuth.getUser(currentUser.uid).then(function (user) {
           $scope.user = user;
         });
       }

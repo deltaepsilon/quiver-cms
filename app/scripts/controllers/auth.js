@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('quiverCmsApp')
-  .controller('AuthCtrl', function ($scope, $state, UserService, NotificationService, AdminService, $localStorage) {
+  .controller('AuthCtrl', function ($scope, $state, qvAuth, NotificationService, AdminService, $localStorage) {
     var parseError = function (err) {
       var parts = err.message.split(':');
 
@@ -13,15 +13,15 @@ angular.module('quiverCmsApp')
     }
 
     $scope.logIn = function (email, password) {
-      UserService.logIn(email, password, false).then(function (currentUser) {
-        var headers = {"authorization": currentUser.firebaseAuthToken, "user-id": currentUser.id},
-          user = UserService.getUser(currentUser.id);
+      qvAuth.logIn(email, password, false).then(function (currentUser) {
+        var headers = {"authorization": currentUser.token, "user-id": currentUser.uid},
+          user = qvAuth.getUser(currentUser.uid);
 
         NotificationService.success('Login Success');
         $scope.setCurrentUser(currentUser);
         $scope.setUser(user);
 
-        AdminService.getApiUser(currentUser.id, headers).then(function () {}, function (err) {
+        AdminService.getApiUser(currentUser.uid, headers).then(function (res) {}, function (err) {
           NotificationService.error('Login Error', err);
         });
 
@@ -47,7 +47,7 @@ angular.module('quiverCmsApp')
     };
 
     $scope.register = function (email, password) {
-      UserService.register(email, password).then(function (user) {
+      qvAuth.register(email, password).then(function (user) {
         NotificationService.success('Registration Success');
         $scope.forward();
 
@@ -58,7 +58,7 @@ angular.module('quiverCmsApp')
     };
 
     $scope.resetPassword = function (email) {
-      UserService.resetPassword(email).then(function () {
+      qvAuth.resetPassword(email).then(function () {
         NotificationService.success('Password Reset', 'A Password reset email has been sent to ' + email + '.');
         $state.go('master.nav.login');
 
@@ -72,7 +72,7 @@ angular.module('quiverCmsApp')
       delete $scope.oldPassword;
       delete $scope.newPassword;
 
-      UserService.changePassword(email, oldPassword, newPassword).then(function () {
+      qvAuth.changePassword(email, oldPassword, newPassword).then(function () {
         NotificationService.success('Password Changed');
       }, function (error) {
         NotificationService.error('Error', parseError(error));

@@ -6,7 +6,8 @@ angular.module('quiverCmsApp', [
   'angular-markdown-editable',
   'slugifier',
   'restangular',
-  'DeltaEpsilon.quiver-angular-utilities',
+  'quiver.angular-utilities',
+  'quiver.angularfire-authentication',
   'angular-md5',
   'ngStorage',
   'flow',
@@ -24,7 +25,7 @@ angular.module('quiverCmsApp', [
       NotificationService.error('Server Unresponsive', 'The server could not be reached at ' + env.api + '. Try reloading the page or come back later.');
     });
 
-}).config(function ($locationProvider, $stateProvider, $urlRouterProvider, quiverUtilitiesProvider, RestangularProvider, flowFactoryProvider, AnalyticsProvider) {
+}).config(function ($locationProvider, $stateProvider, $urlRouterProvider, AngularFireAuthenticationProvider, quiverUtilitiesProvider, RestangularProvider, flowFactoryProvider, AnalyticsProvider) {
     /*
      * HTML5 Mode
     */
@@ -48,6 +49,11 @@ angular.module('quiverCmsApp', [
     quiverUtilitiesProvider.setEnv(window.envVars);
 
     /*
+     * Configure qvAuth
+     */
+    AngularFireAuthenticationProvider.setEndpoint(window.envVars.firebase.endpoint);
+
+    /*
      * Configure Default Route
     */
     $urlRouterProvider.otherwise('/app/');
@@ -68,16 +74,16 @@ angular.module('quiverCmsApp', [
     /*
      * Convenience methods
      */
-    var getUser = function ($q, $state, UserService, currentUser) {
-      if (currentUser && currentUser.id) {
+    var getUser = function ($q, $state, qvAuth, currentUser) {
+      if (currentUser && currentUser.uid) {
         // The easy case... currentUser was resolved earlier.
-        return UserService.getUser(currentUser.id);
+        return qvAuth.getUser(currentUser.uid);
 
       } else {
         var deferred = $q.defer();
-        UserService.getUser().then(function (currentUser) {
-          if (currentUser && currentUser.id) {
-            return UserService.getUser(currentUser.id);
+        qvAuth.getCurrentUser().then(function (currentUser) {
+          if (currentUser && currentUser.uid) {
+            return qvAuth.getUser(currentUser.uid);
           } else {
             // Dump users without auth to main page.
             $state.go('master.nav.landing');
@@ -108,8 +114,8 @@ angular.module('quiverCmsApp', [
         templateUrl: 'views/master.html',
         controller: 'MasterCtrl',
         resolve: {
-          currentUser: function (UserService) {
-            return UserService.getUser();
+          currentUser: function (qvAuth) {
+            return qvAuth.getCurrentUser();
           },
           settingsRef: function ($q, AdminService) {
             var deferred = $q.defer(),
@@ -123,23 +129,23 @@ angular.module('quiverCmsApp', [
           filesRef: function (AdminService) {
             return AdminService.getFiles();
           },
-          user: function ($q, $state, UserService) {
+          user: function ($q, $state, qvAuth) {
             var deferred = $q.defer();
-            UserService.getUser().then(function (currentUser) {
+            qvAuth.getCurrentUser().then(function (currentUser) {
 
-              if (currentUser && currentUser.id) {
+              if (currentUser && currentUser.uid) {
                 // Set up auth tokens
                 window.envVars.firebaseAuthToken = currentUser.firebaseAuthToken;
                 quiverUtilitiesProvider.setEnv(window.envVars);
 
                 var headers = {
                     "authorization": currentUser.firebaseAuthToken,
-                    "user-id": currentUser.id
+                    "user-id": currentUser.uid
                   };
                 RestangularProvider.setDefaultHeaders(headers);
                 flowFactoryProvider.defaults = {headers: headers, testChunks: false};
 
-                return UserService.getUser(currentUser.id);
+                return qvAuth.getUser(currentUser.uid);
               } else {
                 deferred.resolve();
               }
@@ -240,23 +246,23 @@ angular.module('quiverCmsApp', [
         templateUrl: 'views/authenticated.html',
         controller: 'AuthenticatedCtrl',
         resolve: {
-          user: function ($q, $state, UserService, $localStorage) {
+          user: function ($q, $state, qvAuth, $localStorage) {
             var deferred = $q.defer();
-            UserService.getUser().then(function (currentUser) {
+            qvAuth.getCurrentUser().then(function (currentUser) {
 
-              if (currentUser && currentUser.id) {
+              if (currentUser && currentUser.uid) {
                 // Set up auth tokens
                 window.envVars.firebaseAuthToken = currentUser.firebaseAuthToken;
                 quiverUtilitiesProvider.setEnv(window.envVars);
 
                 var headers = {
                     "authorization": currentUser.firebaseAuthToken,
-                    "user-id": currentUser.id
+                    "user-id": currentUser.uid
                   };
                 RestangularProvider.setDefaultHeaders(headers);
                 flowFactoryProvider.defaults = {headers: headers, testChunks: false};
 
-                return UserService.getUser(currentUser.id);
+                return qvAuth.getUser(currentUser.uid);
               } else {
                 // Dump users without auth to login.
                 $localStorage.redirect = {
@@ -281,8 +287,8 @@ angular.module('quiverCmsApp', [
         templateUrl: 'views/master.html',
         controller: 'MasterCtrl',
         resolve: {
-          currentUser: function (UserService) {
-            return UserService.getUser();
+          currentUser: function (qvAuth) {
+            return qvAuth.getCurrentUser();
           },
           settingsRef: function (AdminService) {
             return AdminService.getSettings();
@@ -437,7 +443,7 @@ angular.module('quiverCmsApp', [
             return AdminService.getFiles();
           },
           notificationsRef: function (AdminService, currentUser) {
-            return AdminService.getNotifications(currentUser.id);
+            return AdminService.getNotifications(currentUser.uid);
           },
         }
       })

@@ -91,7 +91,7 @@ angular.module('quiverCmsApp')
       while (i--) {
         file = Flow.files[i];
 
-        var fileRef = FileService.getNotification($scope.currentUser.id, $scope.getSlug(file.name)),
+        var fileRef = FileService.getNotification($scope.currentUser.uid, $scope.getSlug(file.name)),
           fileDeferred = $q.defer(),
           fileHandler = function (j, fileDeferred) {
             return function () {

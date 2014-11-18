@@ -22,7 +22,7 @@ angular.module('quiverCmsApp')
 
       _.defaults(author, {
         id: $scope.user.$id,
-        name: $scope.currentUser.id,
+        name: $scope.currentUser.uid,
         email: $scope.currentUser.email
       });
 

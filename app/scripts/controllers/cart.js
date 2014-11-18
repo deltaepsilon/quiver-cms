@@ -416,6 +416,10 @@ angular.module('quiverCmsApp')
       
     };
 
+    $scope.emptyCart = function () {
+      $scope.$storage.cart.items = [];
+    }
+
     /*
      * Checkout
      */
@@ -440,8 +444,10 @@ angular.module('quiverCmsApp')
     
     $scope.checkout = function (cart) {
       $scope.checkingOut = true;
-      CommerceService.checkout(cart).then(function () {
+      CommerceService.checkout(cart).then(function (transaction) {
         NotificationService.success('Checkout Successful');
+        $scope.emptyCart();
+        console.log('transaction', transaction);
         delete $scope.checkingOut;
       }, function (err) {
         NotificationService.error('Checkout Error', err);
