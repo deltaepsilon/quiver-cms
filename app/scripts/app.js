@@ -21,7 +21,7 @@ angular.module('quiverCmsApp', [
       $state.fromParams = fromParams;
     });
      
-    qvAuth.ref.onAuth(function (authData) {
+    qvAuth.auth.$onAuth(function (authData) {
       if (authData && authData.uid) {
         var headers = {"authorization": authData.token, "user-id": authData.uid};
 
@@ -94,35 +94,6 @@ angular.module('quiverCmsApp', [
 
 
     /*
-     * Convenience methods
-     */
-    var getUser = function ($q, $state, qvAuth, currentUser) {
-      if (currentUser && currentUser.uid) {
-        // The easy case... currentUser was resolved earlier.
-        return qvAuth.getUser(currentUser.uid);
-
-      } else {
-        var deferred = $q.defer();
-        qvAuth.getCurrentUser().then(function (currentUser) {
-          if (currentUser && currentUser.uid) {
-            return qvAuth.getUser(currentUser.uid);
-          } else {
-            // Dump users without auth to main page.
-            $state.go('master.nav.landing');
-          }
-
-        }).then(deferred.resolve, deferred.reject);
-
-        /*
-         * The user may be logged in, but hit the page without auth,
-         * so currentUser was not resolved on the initial page load.
-        */
-        return deferred.promise;
-
-      }
-    };
-
-    /*
      * Configure states
     */
 
@@ -157,11 +128,8 @@ angular.module('quiverCmsApp', [
 
               if (currentUser && currentUser.uid) {
                 // Set up auth tokens
-                window.envVars.firebaseAuthToken = currentUser.firebaseAuthToken;
-                quiverUtilitiesProvider.setEnv(window.envVars);
-
                 var headers = {
-                    "authorization": currentUser.firebaseAuthToken,
+                    "authorization": currentUser.token,
                     "user-id": currentUser.uid
                   };
                 RestangularProvider.setDefaultHeaders(headers);
@@ -274,11 +242,8 @@ angular.module('quiverCmsApp', [
 
               if (currentUser && currentUser.uid) {
                 // Set up auth tokens
-                window.envVars.firebaseAuthToken = currentUser.firebaseAuthToken;
-                quiverUtilitiesProvider.setEnv(window.envVars);
-
                 var headers = {
-                    "authorization": currentUser.firebaseAuthToken,
+                    "authorization": currentUser.token,
                     "user-id": currentUser.uid
                   };
                 RestangularProvider.setDefaultHeaders(headers);
