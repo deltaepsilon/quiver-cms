@@ -65,7 +65,7 @@ angular.module('QuiverCMS', ['ngStorage', 'quiver.angular-utilities', 'quiver.an
     });
 
     $scope.logOut = function () {
-      UserService.logOut().then(function () {
+      qvAuth.logOut().then(function () {
         delete $scope.currentUser;
         delete $scope.user;
       });

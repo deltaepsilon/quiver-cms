@@ -12,13 +12,35 @@ angular.module('quiverCmsApp', [
   'ngStorage',
   'flow',
   'angular-google-analytics'
-]).run(function ($rootScope, $state, Restangular, NotificationService, env, Analytics) {
+]).run(function ($rootScope, $state, Restangular, NotificationService, env, Analytics, qvAuth, AdminService) {
     $rootScope.$on('$stateChangeStart', function (e, toState, toParams, fromState, fromParams) {
       $state.previous = _.clone($state);
       $state.toState = toState;
       $state.toParams = toParams;
       $state.fromState = fromState;
       $state.fromParams = fromParams;
+    });
+     
+    qvAuth.ref.onAuth(function (authData) {
+      if (authData && authData.uid) {
+        var headers = {"authorization": authData.token, "user-id": authData.uid};
+
+        qvAuth.getUser(authData.uid).then(function (user) {
+          if (!user || !user.public || !user.private) {
+            AdminService.getApiUser(authData.uid, headers).then(function () {
+              AdminService.setUserEmail(authData.uid, authData.password.email);
+            }, function (err) {
+              console.warn('User creation error.');
+            });
+
+          } else if (!user.public.email) {
+            AdminService.setUserEmail(authData.uid, authData.password.email);
+            // console.log('User authenticated', user);
+          }
+        });
+
+      }
+
     });
 
     Restangular.one('env').get().then(function (res) {}, function (error) {

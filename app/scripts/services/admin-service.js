@@ -131,6 +131,10 @@ angular.module('quiverCmsApp')
 
       chargeCard: function (key, transaction) {
         return Restangular.one('admin').one('transaction').one(key).post('charge', transaction);
+      },
+
+      setUserEmail: function (uid, email) {
+        return $firebase(new Firebase(firebaseEndpoint + '/users/' + uid + '/public/email')).$set(email);
       }
 
     }
