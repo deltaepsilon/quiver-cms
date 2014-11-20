@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('quiverCmsApp')
-  .controller('MasterCtrl', function ($scope, currentUser, env, qvAuth, ObjectService, NotificationService, $state, md5, settingsRef, filesRef, user, AdminService, _, $localStorage) {
+  .controller('MasterCtrl', function ($scope, currentUser, env, qvAuth, ObjectService, NotificationService, $state, md5, settingsRef, filesRef, user, AdminService, _, $localStorage, $timeout) {
     var loggedOutStates = ['master.nav.login', 'master.nav.register', 'master.nav.reset'],
       toLanding = function () {
         $state.go('master.nav.landing');
@@ -109,9 +109,31 @@ angular.module('quiverCmsApp')
         delete $scope.currentUser;
         delete $scope.user;
         toLanding();
-        NotificationService.success('Logout Success');
       });
     };
+
+    console.log('listening in master.js');
+    var deregister = qvAuth.auth.$onAuth(function (authData) {
+      if (!authData) {
+        delete $scope.currentUser;
+        delete $scope.user;
+
+        NotificationService.notify('Session expired');
+        if ($state.toState) {
+          $localStorage.redirect = {
+            toState: $state.toState,
+            toParams: $state.toParams
+          };
+
+        }
+
+      }
+      
+    });
+
+    $scope.$on('$destroy', function () {
+      console.log('deregistering in master.js');
+    });
 
     /*
      * Cache

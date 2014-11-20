@@ -12,7 +12,7 @@ angular.module('quiverCmsApp', [
   'ngStorage',
   'flow',
   'angular-google-analytics'
-]).run(function ($rootScope, $state, Restangular, NotificationService, env, Analytics, qvAuth, AdminService) {
+]).run(function ($rootScope, $state, Restangular, NotificationService, env, Analytics, qvAuth, AdminService, $localStorage) {
     $rootScope.$on('$stateChangeStart', function (e, toState, toParams, fromState, fromParams) {
       $state.previous = _.clone($state);
       $state.toState = toState;
@@ -249,7 +249,10 @@ angular.module('quiverCmsApp', [
                 RestangularProvider.setDefaultHeaders(headers);
                 flowFactoryProvider.defaults = {headers: headers, testChunks: false};
 
-                return qvAuth.getUser(currentUser.uid);
+                return qvAuth.getUser(currentUser.uid, function () {
+                  console.log('in the callback... returning to login');
+                  $state.go('master.nav.login');
+                });
               } else {
                 // Dump users without auth to login.
                 $localStorage.redirect = {

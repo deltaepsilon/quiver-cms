@@ -43,7 +43,7 @@ angular.module('QuiverCMS', ['ngStorage', 'quiver.angular-utilities', 'quiver.an
     /*
      * User
     */
-    qvAuth.getCurrentUser().then(function (currentUser) {
+  qvAuth.getCurrentUser().then(function (currentUser) {
       $scope.currentUser = currentUser;
       $scope.showNav = true;
 

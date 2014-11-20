@@ -8,7 +8,10 @@
 
         <ul class="inline-list">
             <li>
-                <button ng-click="logIn(email, password)" ng-disabled="loginForm.$invalid">Login</button>
+                <button id="login-button" ng-click="logIn(email, password)" ng-disabled="loginForm.$invalid">
+                    <span>Login</span>
+                    <span class="hidden backdrop background-highlight9" qv-loading target="#login-button"><img src="/images/ajax-loader.gif" style="margin-top: 1rem;"></span>
+                </button>
             </li>
             <li>
                 <a ui-sref="master.nav.register">Register</a>
