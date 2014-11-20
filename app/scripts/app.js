@@ -348,19 +348,13 @@ angular.module('quiverCmsApp', [
 
         }
       })
-      .state('authenticated.master.nav.purchased', {
-        url: "/purchased/:nonce",
-        templateUrl: 'views/purchased.html',
-        controller: 'PurchasedCtrl',
+      .state('authenticated.master.nav.transaction', {
+        url: "/user/:userId/transaction/:key",
+        templateUrl: 'views/transaction.html',
+        controller: 'UserTransactionCtrl',
         resolve: {
-          transaction: function (user, CommerceService, $stateParams, $state, $localStorage) {
-            if (!$localStorage.cart) {
-              $state.go('authenticated.master.nav.cart');
-            } else {
-              $localStorage.cart.nonce = $stateParams.nonce;
-              return CommerceService.purchase($localStorage.cart);
-            }
-            
+          transactionRef: function (UserService, $stateParams) {
+            return UserService.getTransaction($stateParams.userId, $stateParams.key);            
             
           }
         }

@@ -112,9 +112,8 @@ angular.module('quiverCmsApp')
       });
     };
 
-    console.log('listening in master.js');
     var deregister = qvAuth.auth.$onAuth(function (authData) {
-      if (!authData) {
+      if (!authData && $scope.currentUser) {
         delete $scope.currentUser;
         delete $scope.user;
 
@@ -132,7 +131,10 @@ angular.module('quiverCmsApp')
     });
 
     $scope.$on('$destroy', function () {
-      console.log('deregistering in master.js');
+      if (typeof deregister === 'function') {
+        deregister();      
+      }
+      
     });
 
     /*

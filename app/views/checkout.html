@@ -42,7 +42,7 @@
                   <input id="product-{{$index}}" class="margin-vertical-zero-important text-small-important" style="height: 2.1rem; width: 3rem; position: relative; top: 7px;" type="number" ng-model="product.quantity" min="1" max="{{ product.maxQuantity }}" ng-blur="updateCart()" qv-select-text="#product-{{$index}}" placeholder="#">
                 </li>
                 <li>
-                  <div class="right padding-vertical-small" style="min-width: 5rem;"><strong>{{ (product.priceAdjusted || product.price) * product.quantity | currency }}</strong></div>
+                  <div class="padding-vertical-small right" style="min-width: 5rem;"><strong>{{ (product.priceAdjusted || product.price) * product.quantity | currency }}</strong></div>
                 </li>
                 <li>
                   <div class="padding-vertical-small">

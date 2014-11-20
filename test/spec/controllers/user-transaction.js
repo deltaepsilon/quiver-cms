@@ -1,24 +1,22 @@
 'use strict';
 
-describe('Controller: PurchasedCtrl', function () {
+describe('Controller: UserTransactionCtrl', function () {
 
   // load the controller's module
   beforeEach(module('quiverCmsApp'));
 
-  var PurchasedCtrl,
+  var UserTransactionCtrl,
     scope;
 
   // Initialize the controller and a mock scope
   beforeEach(inject(function ($controller, $rootScope) {
     scope = $rootScope.$new();
-    PurchasedCtrl = $controller('PurchasedCtrl', {
-      $scope: scope,
-      transaction: {}
+    UserTransactionCtrl = $controller('UserTransactionCtrl', {
+      $scope: scope
     });
   }));
 
   it('should attach a list of awesomeThings to the scope', function () {
-    console.log('PurchasedCtrl is not tested.');
-    expect(3).toBe(3);
+    expect(scope.awesomeThings.length).toBe(3);
   });
 });

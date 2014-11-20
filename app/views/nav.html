@@ -7,6 +7,23 @@
         </ul>
 
         <section class="top-bar-section">
+            <ul class="left">
+                <li ng-if="settings.app1Title" class="has-dropdown not-click">
+                    <a href="#">{{ settings.app1Title }}</a>
+                    <ul class="dropdown">
+                        <li ng-repeat="link in settings.app1">
+                            <a href="{{ link.href }}">{{ link.text }}</a>
+                        </li>
+                    </ul>
+
+                </li>
+                <li ng-if="!settings.app1Title" ng-repeat="link in settings.app1">
+                    <a href="{{ link.href }}">{{ link.text }}</a>
+                </li>
+            </ul>
+        </section>
+
+        <section class="top-bar-section">
             <ul class="right">
 
                 <li ng-show="$storage.cart.productCount" qv-active>
