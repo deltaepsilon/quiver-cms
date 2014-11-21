@@ -23,13 +23,13 @@
                     <a href="#">{{ settings.app1Title }}</a>
                     <ul class="dropdown">
                         <li ng-repeat="link in settings.app1">
-                            <a href="{{ link.href }}">{{ link.text }}</a>
+                            <a href="{{ link.href }}" qv-to-static>{{ link.text }}</a>
                         </li>
                     </ul>
 
                 </li>
                 <li ng-if="!settings.app1Title" ng-repeat="link in settings.app1">
-                    <a href="{{ link.href }}">{{ link.text }}</a>
+                    <a href="{{ link.href }}" qv-to-static>{{ link.text }}</a>
                 </li>
             </ul>
         </section>
@@ -40,13 +40,13 @@
                     <a href="#">{{ settings.app2Title }}</a>
                     <ul class="dropdown">
                         <li ng-repeat="link in settings.app2">
-                            <a href="{{ link.href }}">{{ link.text }}</a>
+                            <<a href="{{ link.href }}" qv-to-static>{{ link.text }}</a>
                         </li>
                     </ul>
 
                 </li>
                 <li ng-if="!settings.app2Title" ng-repeat="link in settings.app2">
-                    <a href="{{ link.href }}">{{ link.text }}</a>
+                    <a href="{{ link.href }}" qv-to-static>{{ link.text }}</a>
                 </li>
             </ul>
         </section>
@@ -57,13 +57,13 @@
                     <a href="#">{{ settings.app3Title }}</a>
                     <ul class="dropdown">
                         <li ng-repeat="link in settings.app3">
-                            <a href="{{ link.href }}">{{ link.text }}</a>
+                            <a href="{{ link.href }}" qv-to-static>{{ link.text }}</a>
                         </li>
                     </ul>
 
                 </li>
                 <li ng-if="!settings.app3Title" ng-repeat="link in settings.app3">
-                    <a href="{{ link.href }}">{{ link.text }}</a>
+                    <a href="{{ link.href }}" qv-to-static>{{ link.text }}</a>
                 </li>
             </ul>
         </section>

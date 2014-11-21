@@ -241,10 +241,7 @@ angular.module('quiverCmsApp', [
                 RestangularProvider.setDefaultHeaders(headers);
                 flowFactoryProvider.defaults = {headers: headers, testChunks: false};
 
-                return qvAuth.getUser(currentUser.uid, function () {
-                  console.log('in the callback... returning to login');
-                  $state.go('master.nav.login');
-                });
+                return qvAuth.getUser(currentUser.uid);
               } else {
                 // Dump users without auth to login.
                 $localStorage.redirect = {
@@ -356,7 +353,17 @@ angular.module('quiverCmsApp', [
           }
         }
       })
-      .state('authenticated.master.subscription', { // *************************  Subscription *********************
+      .state('authenticated.master.nav.messages', { // *****************************  Messages *************************
+        url: '/messages',
+        templateUrl: 'views/messages.html',
+        controller: 'MessagesCtrl',
+        resolve: {
+          messagesRef: function (UserService, user) {
+            return UserService.getMessages(user);
+          }
+        }  
+      })
+      .state('authenticated.master.subscription', { // *****************************  Subscription *********************
         abstract: true,
         url: "/subscription/:subscriptionKey",
         views: {
@@ -367,7 +374,7 @@ angular.module('quiverCmsApp', [
             templateUrl: 'views/subscription.html',
             controller: 'SubscriptionCtrl',
             resolve: {
-              subscription: function (UserService, $stateParams) {
+              subscriptionRef: function (UserService, $stateParams) {
                 return UserService.getSubscription($stateParams.subscriptionKey);
               }
             }
@@ -377,12 +384,12 @@ angular.module('quiverCmsApp', [
           }
         }
       })
-      .state('authenticated.master.subscription.page', { // *************************  Subscription *********************
+      .state('authenticated.master.subscription.page', {
         url: "/page/:pageNumber",
         templateUrl: '/views/page.html',
         controller: 'PageCtrl',
         resolve: {
-          page: function (UserService, subscription, $stateParams) {
+          pageRef: function (UserService, subscription, $stateParams) {
             return UserService.getPage(subscription, $stateParams.pageNumber);
           }
         }
