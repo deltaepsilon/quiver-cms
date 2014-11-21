@@ -115,6 +115,7 @@ FirebaseService.isAuthenticated().then(function () {
 
       WordService.setApp(app);
       EmailService.setApp(app);
+      ProductController.setApp(app);
 
       SearchService.createIndex(words, function (err, result) {
         return err ? deferred.reject(err) : deferred.resolve(result);

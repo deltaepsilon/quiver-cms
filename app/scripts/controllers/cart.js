@@ -8,7 +8,7 @@
  * Controller of the quiverCmsApp
  */
 angular.module('quiverCmsApp')
-  .controller('CartCtrl', function ($scope, $localStorage, _, moment, products, countriesStatus, statesStatus, shippingRef, clientToken, CommerceService, NotificationService, braintree, ObjectService) {
+  .controller('CartCtrl', function ($scope, $localStorage, $state, _, moment, products, countriesStatus, statesStatus, shippingRef, clientToken, CommerceService, NotificationService, braintree, ObjectService) {
     /*
      * Storage
     */
@@ -449,6 +449,10 @@ angular.module('quiverCmsApp')
         $scope.emptyCart();
         console.log('transaction', transaction);
         delete $scope.checkingOut;
+        $state.go('authenticated.master.nav.transaction', {
+          userId: transaction.userId,
+          key: transaction.keys.user
+        });
       }, function (err) {
         NotificationService.error('Checkout Error', err);
         delete $scope.checkingOut;
