@@ -15,6 +15,9 @@ $border-sizes:
 
 //$font-primary: "jaf-bernino-sans-comp";
 $font-primary: "museo-sans-condensed";
+.font-primary {
+  font-family: $font-primary, "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+}
 $font-sizes:
   xx-small 0.625rem,
   x-small  0.75rem,
@@ -47,9 +50,9 @@ $font-sizes:
 //}
 
 //$font-secondary: "azo-sans-uber";
-$font-secondary: "Helvetica";
+$font-secondary: Helvetica;
 
 .font-secondary {
-  font-family: $font-secondary, Helvetica, Arial, sans-serif;
+  font-family: $font-secondary, "Helvetica Neue", Arial, sans-serif;
   letter-spacing: -1px;
 }

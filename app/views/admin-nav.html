@@ -84,7 +84,9 @@
               <img class="gravatar" ng-src="{{ gravatar }}" alt="Gravatar"/>
             </a>
             <ul class="dropdown">
-              <li ng-show="currentUser"><a ng-click="logOut()" ui-sref="master.nav.landing"><i class="fa fa-sign-out"></i> Log Out</a></li>
+              <li qv-active><a ui-sref="authenticated.master.nav.dashboard"><i class="fa fa-dashboard"></i> User Dashboard</a></li>
+              <li qv-active><a ui-sref="authenticated.master.admin"><i class="fa fa-bar-chart"></i> Admin Dashboard</a></li>
+              <li ng-show="currentUser"><a ng-click="logOut()" ui-sref="authenticated.master.nav.dashboard"><i class="fa fa-sign-out"></i> Log Out</a></li>
               <li>
                 <a ng-click="clearCache()">Clear Cache</a>
               </li>

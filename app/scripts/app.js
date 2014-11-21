@@ -164,11 +164,6 @@ angular.module('quiverCmsApp', [
           }
         }
       })
-      .state('master.nav.landing', {
-        url: '/',
-        templateUrl: 'views/landing.html',
-        controller: 'LandingCtrl'
-      })
       .state('master.nav.login', {
         url: '/login',
         templateUrl: 'views/login.html',
@@ -183,9 +178,6 @@ angular.module('quiverCmsApp', [
         url: '/reset',
         templateUrl: 'views/reset.html',
         controller: 'AuthCtrl'
-      })
-      .state('master.nav.content', {
-        url: '/content/:slug'
       })
       .state('master.nav.cart', {
         url: '/cart',
@@ -302,6 +294,11 @@ angular.module('quiverCmsApp', [
           }
         }
       })
+      .state('authenticated.master.nav.dashboard', {
+        url: '/',
+        templateUrl: 'views/dashboard.html',
+        controller: 'DashboardCtrl'
+      })
       .state('authenticated.master.nav.account', { // ******************************  Account **************************
         url: "/account",
         templateUrl: 'views/account.html',
@@ -348,7 +345,7 @@ angular.module('quiverCmsApp', [
 
         }
       })
-      .state('authenticated.master.nav.transaction', {
+      .state('authenticated.master.nav.transaction', { // **************************  Transaction **********************
         url: "/user/:userId/transaction/:key",
         templateUrl: 'views/transaction.html',
         controller: 'UserTransactionCtrl',
@@ -356,6 +353,37 @@ angular.module('quiverCmsApp', [
           transactionRef: function (UserService, $stateParams) {
             return UserService.getTransaction($stateParams.userId, $stateParams.key);            
             
+          }
+        }
+      })
+      .state('authenticated.master.subscription', { // *************************  Subscription *********************
+        abstract: true,
+        url: "/subscription/:subscriptionKey",
+        views: {
+          nav: {
+            templateUrl: 'views/nav.html'
+          },
+          body: {
+            templateUrl: 'views/subscription.html',
+            controller: 'SubscriptionCtrl',
+            resolve: {
+              subscription: function (UserService, $stateParams) {
+                return UserService.getSubscription($stateParams.subscriptionKey);
+              }
+            }
+          },
+          footer: {
+            templateUrl: 'views/footer.html'
+          }
+        }
+      })
+      .state('authenticated.master.subscription.page', { // *************************  Subscription *********************
+        url: "/page/:pageNumber",
+        templateUrl: '/views/page.html',
+        controller: 'PageCtrl',
+        resolve: {
+          page: function (UserService, subscription, $stateParams) {
+            return UserService.getPage(subscription, $stateParams.pageNumber);
           }
         }
       })

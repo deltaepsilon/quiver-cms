@@ -1,0 +1,115 @@
+<div class="column small-12">
+    <div>
+        <h3 class="font-flair">Messages</h3>
+    </div>
+
+    <ul>
+        <li ng-repeat="message in user.public.messages">{{ message }}</li>
+    </ul>
+
+</div>
+
+<div class="column small-12" ng-if="user.private.commerce.subscriptions">
+    <div>
+        <h3 class="font-flair">Subscriptions</h3>
+    </div>
+
+    <ul id="subscriptions" class="table-list striped">
+        <li class="text-x-medium text-hover-white background-hover-primary2-important" ng-repeat="(key, subscription) in user.private.commerce.subscriptions">
+            <a class="clearfix padding-small text-primary0 text-hover-white-important block" ui-sref="authenticated.master.subscription.page({subscriptionKey: key, pageNumber: 0})">
+                <div class="column small-12 medium-3">{{ subscription.title }}</div>
+                <div class="column small-12 medium-2">{{ subscription.subscriptionDays }} Days</div>
+                <div class="column small-12 medium-5">
+                    <span ng-hide="subscription.expiration">
+                        <strong class="text-hover-white-important" ng-show="subscription.subscriptionType === 'content'">Click to Start Subscription</strong>
+                        <strong ng-show="subscription.subscriptionType === 'interaction'">Subscription starts with first teacher interaction.</strong>
+                    </span>
+                    
+                </div>
+                <div class="column small-12 medium-2 medium-text-right"> 
+                    <span ng-show="subscription.expiration">Expiration: {{ subscription.expiration | moment:"MM/DD/YYYY" }}</span>
+                    <span ng-hide="subscription.expiration">Not Started</span>
+                </div>
+                
+                
+            </a>
+        </li>
+    </ul>
+
+</div>
+
+<div class="column small-12" ng-if="user.private.commerce.shipments">
+    <div>
+        <h3 class="font-flair">Shipped Items</h3>
+    </div>
+
+    <ul id="shipped" class="table-list striped">
+        <li class="clearfix padding-small text-x-medium text-hover-white background-hover-secondary5-important" ng-repeat="shipment in user.private.commerce.shipments">
+            <div class="column small-12 medium-3">{{ shipment.item.title }}</div>
+            <div class="column small-12 medium-3">{{ shipment.item.adjusted || shipment.item.price | currency }} x {{ shipment.item.quantity }}</div>
+            <div class="column small-12 medium-3">
+                <a ng-show="shipment.tracking" href="{{ shipment.tracking.href }}">{{ shipment.tracking.number }}</a>
+            </div>
+            <div class="column small-12 medium-3 text-right">{{ shipment.created | moment:"MM/DD/YYYY" }}</div>
+        </li>
+    </ul>
+
+</div>
+
+<div class="column small-12" ng-if="user.private.commerce.gifts">
+    <div>
+        <h3 class="font-flair">Gift Codes</h3>
+    </div>
+
+    <ul id="gifts" class="table-list striped">
+        <li class="clearfix padding-small text-x-medium text-hover-white background-hover-secondary5-important" ng-repeat="gift in user.private.commerce.gifts">
+            <div class="column small-12 medium-6">Code: <strong>{{ gift.code }}</strong></div>
+            <div class="column small-12 medium-6 medium-text-right">Value: {{ -1 * gift.value | currency }}</div>
+        </li>
+    </ul>
+
+</div>
+
+<div class="column small-12" ng-if="user.private.commerce.downloads">
+    <div>
+        <h3 class="font-flair">Downloads</h3>
+    </div>
+
+    <ul id="downloads" class="table-list striped">
+        <li class="text-x-medium text-hover-white background-hover-primary2-important" ng-repeat="download in user.private.commerce.downloads">
+            <a class="clearfix padding-small text-primary0 text-hover-white-important block" href="/resource/{{ download.resource.key }}" target="_blank">
+                <div class="column small-12 medium-6">{{ download.title }}</div>
+                <div class="column small-12 medium-6 medium-text-right">{{ env.root }}/resource/{{ download.resource.key }}</div>
+            </a>
+        </li>
+    </ul>
+
+</div>
+
+<div class="column small-12">
+    <div>
+        <h3 class="font-flair">Transactions</h3>
+    </div>
+
+    <ul id="transactions" class="table-list striped">
+        <li class="text-x-medium text-hover-white background-hover-primary2-important" ng-repeat="transaction in user.private.commerce.transactions">
+            <a class="clearfix padding-small text-primary0 text-hover-white-important block" ui-sref="authenticated.master.nav.transaction({userId: transaction.userId, key: transaction.keys.user })">
+                <div class="column small-12 medium-8">
+                    <span>Items</span>
+                    <hr>
+                    <ul class="inline-list commas text-small">                        
+                        <li ng-repeat="item in transaction.items">{{ item.title }}</li>
+                    </ul>
+                </div>
+                <div class="column small-12 medium-2 medium-text-right">
+                    {{ transaction.date | moment:"MM/DD/YYYY" }}
+                </div>
+                <div class="column small-12 medium-2 medium-text-right">
+                    <strong>{{ transaction.total | currency }}</strong>
+                </div>
+                
+            </a>
+        </li>
+    </ul>
+
+</div>

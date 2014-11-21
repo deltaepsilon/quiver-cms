@@ -38,6 +38,19 @@ $colors:
   .background-#{nth($color, 1)}-important {
     background-color : nth($color, 2) !important;
   }
+
+  .background-hover-#{nth($color, 1)} {
+    &:hover {
+      background-color : nth($color, 2);
+    }
+  }
+
+  .background-hover-#{nth($color, 1)}-important {
+    &:hover {
+      background-color : nth($color, 2) !important;
+    }
+  }
+
 }
 
 // Text colors.
@@ -46,6 +59,17 @@ $colors:
     color : nth($color, 2);
   }
 
+  .text-hover-#{nth($color, 1)} {
+    &:hover {
+      color : nth($color, 2);
+    }    
+  }
+
+  .text-hover-#{nth($color, 1)}-important {
+    &:hover {
+      color : nth($color, 2) !important;
+    }    
+  }
 
   a.link-#{nth($color, 1)} {
     color : nth($color, 2);

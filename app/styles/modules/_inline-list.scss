@@ -30,4 +30,17 @@
 
     }
   }
+
+  &.commas {
+    li {
+      &:last-of-type:after {
+        content: "";
+      }
+      &:after {
+        content: ",";
+      }
+
+    }
+  }
+
 }
