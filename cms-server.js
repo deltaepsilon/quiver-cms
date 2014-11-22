@@ -8,6 +8,7 @@ var express = require('express'),
 var ConfigService = require('./lib/services/config-service'),
   LogService = require('./lib/services/log-service'),
   TemplateService = require('./lib/services/template-service'),
+  CronService = require('./lib/services/cron-service'),
   RedisService = require('./lib/services/redis-service');
 
 /*
@@ -138,6 +139,11 @@ app.post('/user/checkout', FormController.body);
 app.post('/user/checkout', CheckoutController.checkout);
 app.post('/admin/transaction/:key/email', TransactionController.email);
 app.post('/admin/transaction/:key/charge', TransactionController.charge);
+
+/*
+ * Cron
+ */
+ CronService.resources();
 
 /*
  * Finish this sucka up

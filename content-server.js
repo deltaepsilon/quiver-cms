@@ -25,6 +25,7 @@ var CacheController = require('./lib/controllers/cache'),
   ProductController = require('./lib/controllers/product'),
   PageController = require('./lib/controllers/page'),
   EmailController = require('./lib/controllers/email'),
+  ResourceController = require('./lib/controllers/resource'),
   StaticController = require('./lib/controllers/static');
 
 /*
@@ -58,6 +59,11 @@ app.get('/rss', FeedController.rss);
 */
 app.get('/products', ProductController.products);
 app.get('/product/:slug', ProductController.product);
+
+/*
+ * Resource
+ */
+ app.get('/resource/:key', ResourceController.resource);
 
 
 /*
