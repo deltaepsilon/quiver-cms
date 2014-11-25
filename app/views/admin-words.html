@@ -7,15 +7,34 @@
 
     <hr ng-show="words.length">
 
-    <input type="text" ng-show="words.length" ng-model="authorFilter" ng-focus="authorFilter = ''" placeholder="Search..."/>
+    <div class="column small-12 medium-4">
+        <label>Order By Type</label>
+        <select ng-model="query.type" ng-change="query.slug = undefined; setQuery('type', query);">
+            <option value="">All Types</option>
+            <option value="page" default>Page</option>
+            <option value="post" default>Post</option>
+            <option value="subscription" default>Subscription</option>
+        </select>
+    </div>
+
+    <div class="column small-12 medium-4">
+        <label>Order By Slug</label>
+        <input type="text" ng-model="query.slug" ng-change="query.type = ''; setQuery('slug', query);" ng-model-options="{debounce: {'default': 500}}" placeholder="slug...">
+    </div>
+
+    <div class="column small-12 medium-4">
+        <label>Filter Results</label>
+        <input type="text" ng-show="words.length" ng-model="authorFilter" ng-focus="authorFilter = ''" placeholder="Search..."/>
+    </div>
+    
     <table ng-show="words.length">
         <thead>
             <tr>
-                <th>Author</th><th>Title</th><th>Slug</th><th>Type</th><th>Order</th><th>Hashtags</th><th></th><th>Created</th><th>Published</th><th class="text-center">Action</th>
+                <th>Author</th><th>Title</th><th>Slug</th><th>Type</th><th>Priority</th><th>Hashtags</th><th></th><th>Created</th><th>Published</th><th class="text-center">Action</th>
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="word in words | filter:authorFilter | orderBy:'order':'desc'">
+            <tr ng-repeat="word in words | filter:authorFilter | orderBy:'$priority':'desc'">
                 <td>
                     <span>{{ word.author.name }}</span>
                     <span class="cursor-pointer text-xx-small" ng-hide="isAuthor(word.author, user.public)" ng-click="makeAuthor(word, user)">claim</span>
@@ -35,7 +54,7 @@
                     </select>
                 </td>
                 <td>
-                    <input class="margin-zero-important" ng-show="word.type == 'post'" type="number" ng-model="word.order" ng-model-options="{debounce: {'default': 500}}" ng-change="word.edited = true;"/>
+                    <input class="margin-zero-important" ng-show="word.type == 'post' || word.type == 'subscription'" type="number" ng-model="word.$priority" ng-model-options="{debounce: {'default': 500}}" ng-change="word.edited = true; setPriority(word.$id, word.$priority)"/>
                 </td>
                 <td>
                     <input class="margin-zero-important" type="text" placeholder="Hashtag..." ng-model="newHashtag" qv-enter="addHashtag(word, newHashtag); newHashtag = null;" qv-type-ahead include="hashtags" exclude="word.hashtags" prepopulate="true" top-offset="-1"/>
@@ -64,5 +83,10 @@
                 </td>
             </tr>
         </tbody>
+        <tfoot class="background-white">
+            <tr>
+                <td colspan="100%"><button class="secondary small-12" ng-click="loadMore()" ng-hide="words.length < limit">Load More +</button></td>
+            </tr>
+        </tfoot>
     </table>
 </div>

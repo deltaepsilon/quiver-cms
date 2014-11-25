@@ -1,12 +1,12 @@
 'use strict';
 
 angular.module('quiverCmsApp')
-  .service('AdminService', function AdminService($firebase, env, Restangular) {
+  .service('AdminService', function AdminService($firebase, env, Restangular, FirebaseService) {
     var firebaseEndpoint = env.firebase.endpoint;
 
     return {
-      getWords: function () {
-        return $firebase(new Firebase(firebaseEndpoint + '/content/words'));
+      getWords: function (query) {
+        return $firebase(FirebaseService.query(new Firebase(firebaseEndpoint + '/content/words'), query));
       },
 
       getWord: function (key) {
@@ -17,8 +17,8 @@ angular.module('quiverCmsApp')
         return $firebase(new Firebase(firebaseEndpoint + '/content/words/' + key + '/drafts'));
       },
 
-      getFiles: function () {
-        return $firebase(new Firebase(firebaseEndpoint + '/content/files'));
+      getFiles: function (query) {
+        return $firebase(FirebaseService.query(new Firebase(firebaseEndpoint + '/content/files'), query));
       },
 
       getFile: function (key) {
@@ -61,8 +61,8 @@ angular.module('quiverCmsApp')
         return Restangular.one('user').one(id).get({}, headers);
       },
 
-      getProducts: function () {
-        return $firebase(new Firebase(firebaseEndpoint + '/content/products'));
+      getProducts: function (query) {
+        return $firebase(FirebaseService.query(new Firebase(firebaseEndpoint + '/content/products'), query));
       },
 
       getProduct: function (key) {
@@ -81,8 +81,8 @@ angular.module('quiverCmsApp')
         return $firebase(new Firebase(firebaseEndpoint + '/content/products/' + key + '/optionsMatrix'));
       },
 
-      getDiscounts: function () {
-        return $firebase(new Firebase(firebaseEndpoint + '/discounts'));
+      getDiscounts: function (query) {
+        return $firebase(FirebaseService.query(new Firebase(firebaseEndpoint + '/discounts'), query));
       },
 
       getServerDiscounts: function () {
@@ -105,16 +105,16 @@ angular.module('quiverCmsApp')
         return $firebase(new Firebase(firebaseEndpoint + '/commerce/shipping'));
       },
 
-      getUsers: function () {
-        return $firebase(new Firebase(firebaseEndpoint + '/users'));
+      getUsers: function (query) {
+        return $firebase(FirebaseService.query(new Firebase(firebaseEndpoint + '/users'), query));
       },
 
       getUser: function (key) {
         return $firebase(new Firebase(firebaseEndpoint + '/users/' + key));
       },
 
-      getTransactions: function () {
-        return $firebase(new Firebase(firebaseEndpoint + '/logs/transactions'));
+      getTransactions: function (query) {
+        return $firebase(FirebaseService.query(new Firebase(firebaseEndpoint + '/logs/transactions'), query));
       },
 
       getTransaction: function (key) {

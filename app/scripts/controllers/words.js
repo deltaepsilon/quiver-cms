@@ -1,11 +1,40 @@
 'use strict';
 
 angular.module('quiverCmsApp')
-  .controller('WordsCtrl', function ($scope, wordsRef, hashtagsRef, moment, NotificationService, Slug, $timeout) {
+  .controller('WordsCtrl', function ($scope, limit, wordsRef, hashtagsRef, moment, NotificationService, Slug, $timeout, AdminService) {
     /*
      * Words
     */
+    $scope.limit = limit;
     $scope.words = wordsRef.$asArray();
+
+    $scope.loadMore = function (increment) {
+      $scope.limit += (increment || limit);
+
+      wordsRef = AdminService.getWords({orderByPriority: true, limitToFirst: $scope.limit});
+      wordsRef.$asArray().$loaded().then(function (words) {
+        $scope.words = words;
+      });
+
+    };
+
+    $scope.setQuery = function (field, query) {
+      var value = query[field], 
+        options = {orderByChild: field, startAt: value};
+
+      $scope.limit = limit;
+
+      if (!value || !value.length) {
+        options = {orderByPriority: true, limitToFirst: $scope.limit}; 
+      }
+
+      wordsRef = AdminService.getWords(options);
+      wordsRef.$asArray().$loaded().then(function (words) {
+        $scope.words = words;
+      });
+      
+      
+    };
 
     $scope.removeWord = function (word) {
       var title = word.title;
@@ -32,7 +61,8 @@ angular.module('quiverCmsApp')
         type: 'page',
         created: moment().format(),
         author: author
-      }).then(function () {
+      }).then(function (ref) {
+        ref.setPriority(100000);
         delete $scope.newWordTitle;
         NotificationService.success('Created', 'Hi there ' + title + '.');
       });
@@ -124,6 +154,10 @@ angular.module('quiverCmsApp')
         }
       }
 
+    };
+
+    $scope.setPriority = function (key, priority) {
+      AdminService.getWord(key).$ref().setPriority(priority);      
     };
 
 

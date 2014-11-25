@@ -374,8 +374,8 @@ angular.module('quiverCmsApp', [
             templateUrl: 'views/subscription.html',
             controller: 'SubscriptionCtrl',
             resolve: {
-              subscriptionRef: function (UserService, $stateParams) {
-                return UserService.getSubscription($stateParams.subscriptionKey);
+              subscriptionRef: function (UserService, user, $stateParams) {
+                return UserService.getSubscription(user.public.id, $stateParams.subscriptionKey);
               }
             }
           },
@@ -390,7 +390,8 @@ angular.module('quiverCmsApp', [
         controller: 'PageCtrl',
         resolve: {
           pageRef: function (UserService, subscription, $stateParams) {
-            return UserService.getPage(subscription, $stateParams.pageNumber);
+            return {page: false};
+            return UserService.getPage($stateParams.subscriptionKey, $stateParams.pageNumber);
           }
         }
       })
@@ -422,8 +423,11 @@ angular.module('quiverCmsApp', [
         templateUrl: 'views/admin-words.html',
         controller: 'WordsCtrl',
         resolve: {
+          limit: function () {
+            return 20;
+          },
           wordsRef: function (AdminService) {
-            return AdminService.getWords();
+            return AdminService.getWords({orderByPriority: true, limitToFirst: 20});
           },
           hashtagsRef: function (AdminService) {
             return AdminService.getHashtags();
