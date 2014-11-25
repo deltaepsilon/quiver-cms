@@ -363,38 +363,31 @@ angular.module('quiverCmsApp', [
           }
         }  
       })
-      .state('authenticated.master.subscription', { // *****************************  Subscription *********************
+      .state('authenticated.master.nav.subscription', { // *************************  Subscription *********************
         abstract: true,
         url: "/subscription/:subscriptionKey",
-        views: {
-          nav: {
-            templateUrl: 'views/nav.html'
+        controller: 'SubscriptionCtrl',
+        templateUrl: 'views/subscription.html',
+        resolve: {
+          subscriptionRef: function (UserService, user, $stateParams) {
+            return UserService.getSubscription(user.public.id, $stateParams.subscriptionKey);
           },
-          body: {
-            templateUrl: 'views/subscription.html',
-            controller: 'SubscriptionCtrl',
-            resolve: {
-              subscriptionRef: function (UserService, user, $stateParams) {
-                return UserService.getSubscription(user.public.id, $stateParams.subscriptionKey);
-              },
-              pages: function(user, UserService, $stateParams) {
-                return UserService.getPages(user.public.id, $stateParams.subscriptionKey);
-              }
-            }
-          },
-          footer: {
-            templateUrl: 'views/footer.html'
+          pages: function(user, UserService, $stateParams) {
+            return UserService.getPages(user.public.id, $stateParams.subscriptionKey);
           }
         }
       })
-      .state('authenticated.master.subscription.page', {
+      .state('authenticated.master.nav.subscription.page', {
         url: "/page/:pageNumber",
         templateUrl: '/views/page.html',
         controller: 'PageCtrl',
         resolve: {
-          pageRef: function (pages, AdminService, $stateParams) {
-            var keys = Object.keys(pages),
+          wordRef: function (AdminService, $stateParams, pages, $localStorage, $rootScope) {
+            var keys = Object.keys(pages.pages),
               key = keys[$stateParams.pageNumber];
+
+            $rootScope.pageNumber = parseInt($stateParams.pageNumber);
+            $localStorage['bookmark-' + $stateParams.subscriptionKey] = parseInt($stateParams.pageNumber);
             return AdminService.getWord(key);
           }
         }

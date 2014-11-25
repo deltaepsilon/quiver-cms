@@ -1,0 +1,21 @@
+.side-nav {
+  li {
+    @extend .background-secondary4;
+    @extend .background-hover-primary2;
+    @extend .link-hover-white-important;
+    @extend .text-medium-important;
+
+    margin-bottom: 0;
+
+    &.active {
+      @extend .background-primary2;
+      @extend .link-white-important;
+
+      a {
+        @extend .cursor-default;
+      }
+
+    }
+    
+  }
+}

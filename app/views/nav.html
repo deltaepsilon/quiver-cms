@@ -9,10 +9,10 @@
         <section class="top-bar-section" ng-show="currentUser">
             <ul class="left">
                 <li qv-active>
-                    <a ui-sref="authenticated.master.nav.dashboard"><i class="fa fa-dashboard"></i> Dashboard</a>
+                    <a ui-sref="authenticated.master.nav.dashboard"><i class="fa fa-dashboard"></i> &nbsp;Dashboard</a>
                 </li>
                 <li qv-active>
-                    <a ui-sref="authenticated.master.nav.messages"><i class="fa fa-envelope"></i> Messages</a>
+                    <a ui-sref="authenticated.master.nav.messages"><i class="fa fa-envelope"></i> &nbsp;Messages</a>
                 </li>
             </ul>
         </section>
@@ -78,9 +78,9 @@
                   </a>
                 </li>
 
-                <li ng-hide="currentUser" qv-active><a ui-sref="master.nav.login"><i class="fa fa-sign-in"></i> Login</a></li>
+                <li ng-hide="currentUser" qv-active><a ui-sref="master.nav.login"><i class="fa fa-sign-in"></i> &nbsp;Login</a></li>
 
-                <li ng-hide="currentUser" qv-active><a ui-sref="master.nav.register"><i class="fa fa-pencil"></i> Register</a></li>
+                <li ng-hide="currentUser" qv-active><a ui-sref="master.nav.register"><i class="fa fa-pencil"></i> &nbsp;Register</a></li>
 
                 <li class="has-dropdown not-click" ng-show="currentUser" qv-active>
                     <a ui-sref="authenticated.master.nav.account">
@@ -89,10 +89,10 @@
                     </a>
                     <ul class="dropdown">
                         <li ng-show="user.private.isAdmin">
-                            <li qv-active><a ui-sref="authenticated.master.admin"><i class="fa fa-bar-chart"></i> Admin Dashboard</a></li>
+                            <li qv-active><a ui-sref="authenticated.master.admin"><i class="fa fa-bar-chart"></i> &nbsp;Admin Dashboard</a></li>
                         </li>
                         <li ng-show="currentUser">
-                            <a ng-click="logOut()" ui-sref="authenticated.master.nav.dashboard"><i class="fa fa-sign-out"></i> Log Out</a>
+                            <a ng-click="logOut()" ui-sref="authenticated.master.nav.dashboard"><i class="fa fa-sign-out"></i> &nbsp;Log Out</a>
                         </li>
                     </ul>
                 </li>
