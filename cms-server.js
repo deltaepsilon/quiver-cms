@@ -27,6 +27,7 @@ var ConfigService = require('./lib/services/config-service'),
   PaymentController = require('./lib/controllers/payment'),
   CheckoutController = require('./lib/controllers/checkout'),
   TransactionController = require('./lib/controllers/transaction'),
+  SubscriptionController = require('./lib/controllers/subscription'),
   Middleware = require('./lib/controllers/middleware');
 
 /*
@@ -91,16 +92,6 @@ app.use(UserController.hydrateUser);
 app.use('/admin', AdminController.validateAdmin);
 
 /*
- * REST
- * 1. Files
- * 2. Social
- * 3. Redis
- * 4. User
- * 5. Payment
- * 6. Checkout
-*/
-
-/*
  * File endpoints
  */
 app.get('/admin/files/update', FileController.filesUpdate);
@@ -139,6 +130,11 @@ app.post('/user/checkout', FormController.body);
 app.post('/user/checkout', CheckoutController.checkout);
 app.post('/admin/transaction/:key/email', TransactionController.email);
 app.post('/admin/transaction/:key/charge', TransactionController.charge);
+
+/*
+ * Subscription
+ */
+ app.get('/user/:userId/subscription/:subscriptionKey/pages', SubscriptionController.pages);
 
 /*
  * Cron

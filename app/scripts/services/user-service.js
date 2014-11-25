@@ -20,8 +20,8 @@ angular.module('quiverCmsApp')
         return $firebase(new Firebase(firebaseEndpoint + '/users/' + userId + '/private/commerce/subscriptions/' + key));
       },
 
-      getPage: function (subscriptionId) {
-        
+      getPages: function(userId, key) {
+        return Restangular.one('user').one(userId).one('subscription').one(key).one('pages').get();
       }
 
     };

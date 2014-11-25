@@ -376,6 +376,9 @@ angular.module('quiverCmsApp', [
             resolve: {
               subscriptionRef: function (UserService, user, $stateParams) {
                 return UserService.getSubscription(user.public.id, $stateParams.subscriptionKey);
+              },
+              pages: function(user, UserService, $stateParams) {
+                return UserService.getPages(user.public.id, $stateParams.subscriptionKey);
               }
             }
           },
@@ -389,9 +392,10 @@ angular.module('quiverCmsApp', [
         templateUrl: '/views/page.html',
         controller: 'PageCtrl',
         resolve: {
-          pageRef: function (UserService, subscription, $stateParams) {
-            return {page: false};
-            return UserService.getPage($stateParams.subscriptionKey, $stateParams.pageNumber);
+          pageRef: function (pages, AdminService, $stateParams) {
+            var keys = Object.keys(pages),
+              key = keys[$stateParams.pageNumber];
+            return AdminService.getWord(key);
           }
         }
       })

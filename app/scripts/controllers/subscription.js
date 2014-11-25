@@ -8,7 +8,9 @@
  * Controller of the quiverCmsApp
  */
 angular.module('quiverCmsApp')
-  .controller('SubscriptionCtrl', function ($scope, subscriptionRef) {
+  .controller('SubscriptionCtrl', function ($scope, subscriptionRef, pages) {
     $scope.subscription = subscriptionRef.$asObject();
+
+    $scope.pages = pages;
     
   });
