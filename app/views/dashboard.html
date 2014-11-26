@@ -1,14 +1,15 @@
 <div class="column small-12 medium-3">
     <ul class="side-nav padding-vertical-zero-important background-white" style="z-index: 1;" qv-pinned>
         <li><a href="#messages">Messages</a></li>
-        <li><a href="#shipping">Shipping</a></li>
-        <li><a href="#downloads">Downloads</a></li>
-        <li><a href="#transactions">Transactions</a></li>
+        <li ng-show="user.private.commerce.shipments"><a href="#shipping">Shipping</a></li>
+        <li ng-show="user.private.commerce.gifts"><a href="#gifts">Gifts</a></li>
+        <li ng-show="user.private.commerce.downloads"><a href="#downloads">Downloads</a></li>
+        <li ng-show="user.private.commerce.transactions"><a href="#transactions">Transactions</a></li>
     </ul>
     
 </div>
 
-<div class="column small-12 medium-9">
+<div id="messages" class="column small-12 medium-9">
     <div class="small-12">
         <div>
             <h3 class="font-flair">Messages</h3>
@@ -16,6 +17,9 @@
 
         <ul>
             <li ng-repeat="message in user.public.messages">{{ message }}</li>
+            <li ng-show="!user.public.messages">
+                <h5 class="font-flair">No user messages found.</h5>
+            </li>
         </ul>
 
     </div>
@@ -67,7 +71,7 @@
 
     </div>
 
-    <div class="column small-12" ng-if="user.private.commerce.gifts">
+    <div id="gifts" class="column small-12" ng-if="user.private.commerce.gifts">
         <div>
             <h3 class="font-flair">Gift Codes</h3>
         </div>
@@ -97,7 +101,7 @@
 
     </div>
 
-    <div id="transactions" class="column small-12">
+    <div id="transactions" class="column small-12" ng-if="user.private.commerce.transactions">
         <div>
             <h3 class="font-flair">Transactions</h3>
         </div>

@@ -14,6 +14,14 @@
                 <li qv-active>
                     <a ui-sref="authenticated.master.nav.messages"><i class="fa fa-envelope"></i> &nbsp;Messages</a>
                 </li>
+                <li class="has-dropdown not-click" ng-if="user.private.commerce.subscriptions">
+                    <a href="#"><i class="fa fa-university"></i> &nbsp;Subscriptions</a>
+                    <ul class="dropdown">
+                        <li ng-repeat="(key, subscription) in user.private.commerce.subscriptions">
+                            <a ui-sref="authenticated.master.nav.subscription.page({subscriptionKey: key, pageNumber: $storage['bookmark-' + key] || 0})">{{ subscription.title }}</a>
+                        </li>
+                    </ul>
+                </li>
             </ul>
         </section>
 

@@ -4,11 +4,14 @@
 </div>
 <hr>
 <div class="column small-12 medium-3">
-  <h5 class="font-flair" style="padding-left: 0.875rem;">Table of Contents</h5>
-  <ul class="side-nav margin-zero" style="padding-top: 7px;">
-    <li ng-repeat="(key, page) in pages" ng-class="{active: $index == pageNumber}">
-      <a ui-sref="authenticated.master.nav.subscription.page({subscriptionKey: subscription.$id, pageNumber: $index})" ng-disabled="$index == pageNumber">{{ page.title }}</a>
-    </li>
-  </ul>
+  <div qv-pinned>
+    <h5 class="font-flair" style="padding-left: 0.875rem;">Table of Contents</h5>
+    <ul class="side-nav margin-zero" style="padding-top: 7px;">
+      <li ng-repeat="(key, page) in pages" ng-class="{active: $index == pageNumber}">
+        <a ui-sref="authenticated.master.nav.subscription.page({subscriptionKey: subscription.$id, pageNumber: $index})" ng-disabled="$index == pageNumber">{{ page.title }}</a>
+      </li>
+    </ul>
+  </div>
+  
 </div>
 <div class="column small-12 medium-9" ui-view></div>
