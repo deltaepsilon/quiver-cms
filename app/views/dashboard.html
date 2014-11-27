@@ -30,8 +30,8 @@
         </div>
 
         <ul class="table-list striped">
-            <li class="text-x-medium text-hover-white background-hover-primary2-important" ng-repeat="(key, subscription) in user.private.commerce.subscriptions">
-                <a class="clearfix padding-small text-primary0 text-hover-white-important block" ui-sref="authenticated.master.nav.subscription.page({subscriptionKey: key, pageNumber: $storage['bookmark-' + key] || 0})">
+            <li class="text-x-medium text-hover-white background-hover-primary2-important" ng-repeat="(key, subscription) in user.private.commerce.subscriptions" ng-class="{disabled: isExpired(subscription)}">
+                <a class="clearfix padding-small text-primary0 text-hover-white-important block" ui-sref="authenticated.master.nav.subscription.page({subscriptionKey: key, pageNumber: $storage['bookmark-' + key] || 0})" ng-disabled="isExpired(subscription)">
                     <div class="column small-12 medium-3">{{ subscription.title }}</div>
                     <div class="column small-12 medium-2">{{ subscription.subscriptionDays }} Days</div>
                     <div class="column small-12 medium-5">
@@ -42,7 +42,11 @@
                         
                     </div>
                     <div class="column small-12 medium-2 medium-text-right"> 
-                        <span ng-show="subscription.expiration">Expiration: {{ subscription.expiration | moment:"MM/DD/YYYY" }}</span>
+                        <span ng-show="subscription.expiration">    
+                            <span ng-hide="isExpired(subscription)">Expiration: </span>
+                            <span ng-show="isExpired(subscription)">Expired:</span>
+                            {{ subscription.expiration | moment:"MM/DD/YYYY" }}
+                        </span>
                         <span ng-hide="subscription.expiration">Not Started</span>
                     </div>
                     

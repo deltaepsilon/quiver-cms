@@ -25,21 +25,7 @@ angular.module('quiverCmsApp')
           NotificationService.error('Login Error', err);
         });
 
-        if ($localStorage.redirect) {
-          if (typeof $localStorage.redirect === 'object' && $localStorage.redirect.toState && $localStorage.redirect.toState.name !== 'master.nav.login') {
-            $state.go($localStorage.redirect.toState.name, $localStorage.redirect.toParams);  
-          } else if (typeof $localStorage.redirect === 'string') {
-            var redirect = $localStorage.redirect;
-            delete $localStorage.redirect;  
-            location.replace(redirect);
-          } else {
-            $scope.toLanding();
-          }
-          
-          
-        } else {
-          $scope.toLanding();
-        }
+        $scope.redirect();
 
 
       }, function (error) {

@@ -33,6 +33,14 @@
   }
 }
 
+.disabled {
+  cursor: default;
+
+  a {
+    cursor: default;
+  }
+}
+
 .block {
   display: block;
 }
@@ -82,4 +90,8 @@ video, img {
 
 .strong {
   @extend strong;
+}
+
+a[disabled] {
+    pointer-events: none;
 }

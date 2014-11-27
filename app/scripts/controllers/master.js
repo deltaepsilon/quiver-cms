@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('quiverCmsApp')
-  .controller('MasterCtrl', function ($scope, currentUser, env, qvAuth, ObjectService, NotificationService, $state, md5, settingsRef, filesRef, user, AdminService, _, $localStorage, $timeout) {
+  .controller('MasterCtrl', function ($scope, currentUser, env, qvAuth, ObjectService, NotificationService, $state, md5, settingsRef, filesRef, user, AdminService, _, $localStorage, $timeout, moment) {
     var loggedOutStates = ['master.nav.login', 'master.nav.register', 'master.nav.reset'],
       toLanding = function () {
         $state.go('authenticated.master.nav.dashboard');
@@ -30,6 +30,25 @@ angular.module('quiverCmsApp')
     };
 
     $scope.setCurrentUser(currentUser);
+
+    $scope.redirect = function() {
+      if ($localStorage.redirect) {
+        if (typeof $localStorage.redirect === 'object' && $localStorage.redirect.toState && $localStorage.redirect.toState.name !== 'master.nav.login') {
+          $state.go($localStorage.redirect.toState.name, $localStorage.redirect.toParams);  
+        } else if (typeof $localStorage.redirect === 'string') {
+          var redirect = $localStorage.redirect;
+          delete $localStorage.redirect;  
+          location.replace(redirect);
+        } else {
+          $scope.toLanding();
+        }
+        
+        
+      } else {
+        $scope.toLanding();
+      }
+      
+    };
 
     /*
      * Settings
@@ -145,6 +164,13 @@ angular.module('quiverCmsApp')
         NotificationService.success('Cached Cleared!');
       });
     };
+
+    /*
+     * Subscriptions
+     */
+     $scope.isExpired = function(subscription) {
+      return subscription.expiration && moment().unix() > moment(subscription.expiration).unix();
+     };
 
 
 
