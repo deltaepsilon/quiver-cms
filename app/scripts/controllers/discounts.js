@@ -8,8 +8,7 @@
  * Controller of the quiverCmsApp
  */
 angular.module('quiverCmsApp')
-  .controller('DiscountsCtrl', function ($scope, discountsRef, discounts, moment, _, NotificationService) {
-
+  .controller('DiscountsCtrl', function ($scope, limit, discountsRef, discounts, moment, _, NotificationService, AdminService) {
     /*
      * Discounts
     */
@@ -129,5 +128,39 @@ angular.module('quiverCmsApp')
       }
       
     };
+
+    /*
+     * Query
+     */
+    var query = function (q) {
+      var q = q || {orderByPriority: true, limitToLast: $scope.limit};
+
+      discountsRef = AdminService.getDiscounts(q);
+      firebaseDiscounts = discountsRef.$asArray();
+      firebaseDiscounts.$loaded().then(function (discounts) {
+        $scope.discounts = discounts;
+      });
+    };
+
+    $scope.limit = limit;
+
+    $scope.loadMore = function (increment) {
+      $scope.limit += (increment || limit);
+
+      query({orderByPriority: true, limitToLast: $scope.limit});
+       
+    };
+
+    $scope.search = function (term) {
+      $scope.searching = true;
+      query({orderByPriority: true, orderByChild: 'code', startAt: term});
+    };
+
+    $scope.reset = function () {
+      $scope.searching = false;
+      $scope.limit = limit;
+      $scope.discountFilter = '';
+      query();
+    }
     
   });

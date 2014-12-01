@@ -68,17 +68,17 @@
 
     <hr ng-show="discounts.length">
 
-    <input type="text" ng-show="discounts.length" ng-model="discountFilter" ng-focus="discountFilter = ''" placeholder="Search..."/>
-    <table class="small-12" ng-show="discounts.length" ng-class="{disabled: !firebaseLoaded}">
+    <input type="text" ng-show="searching || discounts.length" ng-model="discountFilter" ng-focus="discountFilter = ''" placeholder="Search: Click ENTER to search server..." qv-enter="search(discountFilter)"/>
+    <table class="small-12" ng-show="searching || discounts.length" ng-class="{disabled: !firebaseLoaded}">
         <thead>
             <tr>
                 <th>Active</th><th>Type</th><th>Value</th><th>Code</th><th>Expiration</th><th>Uses</th><th>Used</th><th>Product Slug</th><th>Min</th><th>Max</th><th>Free Shipping</th><th>Created</th><th class="text-center">Action</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody class="row-hover">
             <tr ng-repeat="discount in discounts | filter:discountFilter | orderBy:'created':'desc'" ng-class="{disabled: disabled}">
                 <td>
-                  <input class="margin-zero-important" type="checkbox" ng-model="discount.active" ng-change="saveDiscount(discount)"/>
+                  <input class="margin-xx-small-important" type="checkbox" ng-model="discount.active" ng-change="saveDiscount(discount)"/>
                 </td>
                 <td>
                   {{ ::discount.type }}
@@ -115,9 +115,15 @@
                   {{ ::discount.created | moment:"MM/DD/YY" }}
                 </td>
                 <td>
-                  <button class="alert tiny margin-vertical-zero centered-block" style="min-width: 8rem;" qv-confirm="disabled = true; removeDiscount(discount);" ng-disabled="disabled">Delete</button>
+                  <button class="alert tiny margin-vertical-x-small centered-block" style="min-width: 8rem;" qv-confirm="disabled = true; removeDiscount(discount);" ng-disabled="disabled">Delete</button>
                 </td>
             </tr>
         </tbody>
+        <tfoot>
+          <tr><td colspan="100%">
+            <button class="secondary small-12" ng-click="loadMore()" ng-hide="searching || discounts.length < limit">+ Load More</button>
+            <button class="secondary small-12" ng-click="reset()" ng-show="searching">Reset</button>
+          </td></tr>
+        </tfoot>
     </table>
 </div>

@@ -552,8 +552,11 @@ angular.module('quiverCmsApp', [
         templateUrl: 'views/admin-discounts.html',
         controller: 'DiscountsCtrl',
         resolve: {
+          limit: function () {
+            return 10;
+          },
           discountsRef: function (AdminService) {
-            return AdminService.getDiscounts();
+            return AdminService.getDiscounts({orderByPriority: true, limitToLast: 10});
           },
           discounts: function (AdminService) {
             return AdminService.getServerDiscounts();

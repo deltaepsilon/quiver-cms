@@ -15,4 +15,11 @@ table {
       }
     }
   }
+
+  .row-hover {
+    tr:hover {
+      @extend .background-primary2;
+      @extend .text-white;
+    }
+  }
 }
