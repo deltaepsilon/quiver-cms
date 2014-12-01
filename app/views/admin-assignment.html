@@ -1,0 +1,43 @@
+<div class="column small-12">
+    <div class="column small-12">
+        <h3 class="font-flair left" contenteditable="true" ng-model="assignment.title"></h3>
+    </div>
+
+    <hr>
+
+    <div class="column small-12">
+      <label>CommonMark Description</label>
+      <textarea ng-model="assignment.description" ng-model-options="{debounce: {'default': 500, 'blur': 0}}" style="height: 10rem;"></textarea>
+      <div class="margin-vertical-large padding-large background-secondary4">
+        <h5 class="font-flair">Preview</h5>
+        <div ng-model="assignment.description" markdown-editable></div>
+      </div>
+      
+    </div>
+
+    <div class="column small-12 medium-6 padding-vertical-medium">
+      <input id="supports-upload" class="left margin-xx-small-important" type="checkbox" ng-model="assignment.supportsUpload">
+      <label class="left" for="supports-upload">Supports File Upload</label>
+    </div>
+
+    <div class="column small-12 medium-6 padding-vertical-medium">
+      <input id="starts-subscription" class="left margin-xx-small-important" type="checkbox" ng-model="assignment.startsSubscription">
+      <label class="left" for="starts-subscription">Starts Subscription</label>
+    </div>
+
+    <hr>
+
+    <div class="column small-12">
+      <h5>Apply To Subscriptions</h5>
+      <ul>
+        <li ng-repeat="product in products">
+          <input id="{{ product.slug }}-{{ $index }}" class="left margin-xx-small-important" type="checkbox" ng-model="assignment.products[product.slug]" ng-change="setProduct(product, assignment.products[product.slug])">
+          <!-- <input id="{{ product.slug }}-{{ $index }}" class="left margin-xx-small-important" type="checkbox" ng-model="checked" ng-change="setProduct(product, checked)"> -->
+          <label class="left" for="{{ product.slug }}-{{ $index }}">{{ product.title }}</label>
+        </li>
+      </ul>
+    </div>
+
+
+</div>
+

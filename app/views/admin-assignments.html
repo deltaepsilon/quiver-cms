@@ -1,0 +1,31 @@
+<div class="column small-12">
+  <h3 class="font-flair left">Assignments</h3>
+    <form name="newAssignmentForm">
+        <input id="new-assignment-title" type="text" ng-model="newAssignmentTitle" placeholder="New Title..." required/>
+        <button ng-click="createAssignment(newAssignmentTitle)" ng-disabled="newAssignmentForm.$invalid" qv-focus="#new-assignment-title">Create</button>
+    </form>
+
+    <hr ng-show="assignments.length">
+
+    <ul class="table-list striped" ng-show="assignments.length">
+      <li class="text-x-medium text-hover-white background-hover-primary2-important" ng-repeat="assignment in assignments">
+        <a class="clearfix padding-small text-primary0 text-hover-white-important block" ui-sref="authenticated.master.admin.assignment({key: assignment.$id})">
+          <div class="column small-12 medium-3">{{ assignment.title }}</div>
+          <div class="column small-12 medium-3">
+            <div class="left padding-xx-small margin-horizontal-xx-small text-error circle"><i class="fa fa-clock-o" ng-class="{'text-success': assignment.startsSubscription}"></i></div>
+            <div class="left padding-xx-small margin-horizontal-xx-small text-error circle"><i class="fa fa-cloud-upload" ng-class="{'text-success': assignment.supportsUpload}"></i></div>
+            <span></span>
+          </div>
+          <div class="column small-12 medium-3">
+            <ul class="inline-list dotted margin-zero-important">
+              <li ng-repeat="(slug, value) in assignment.products">{{ slug }}</li>
+            </ul>
+          </div>
+          <div class="column small-12 medium-3 medium-text-right"> 
+            Created: {{ assignment.created | moment:"MM/DD/YYYY" }}
+          </div>
+            
+        </a>
+      </li>
+    </ul>
+</div>

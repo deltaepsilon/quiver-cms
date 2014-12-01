@@ -454,6 +454,29 @@ angular.module('quiverCmsApp', [
           }
         }
       })
+      .state('authenticated.master.admin.assignments', { // ************************  Assignments **********************
+        url: '/assignments',
+        templateUrl: 'views/admin-assignments.html',
+        controller: 'AssignmentsCtrl',
+        resolve: {
+          assignmentsRef: function (AdminService) {
+            return AdminService.getAssignments();
+          }
+        }
+      })
+      .state('authenticated.master.admin.assignment', {
+        url: '/assignment/:key',
+        templateUrl: 'views/admin-assignment.html',
+        controller: 'AssignmentCtrl',
+        resolve: {
+          productsRef: function (AdminService) {
+            return AdminService.getProducts({orderByChild: 'type', equalTo: 'subscription'});
+          },
+          assignmentRef: function (AdminService, $stateParams) {
+            return AdminService.getAssignment($stateParams.key);
+          }
+        }
+      })
       .state('authenticated.master.admin.files', { // ******************************  Files ****************************
         url: '/files',
         templateUrl: 'views/admin-files.html',

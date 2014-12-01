@@ -135,6 +135,14 @@ angular.module('quiverCmsApp')
 
       setUserEmail: function (uid, email) {
         return $firebase(new Firebase(firebaseEndpoint + '/users/' + uid + '/public/email')).$set(email);
+      },
+
+      getAssignments: function (query) {
+        return $firebase(FirebaseService.query(new Firebase(firebaseEndpoint + '/content/assignments'), query));
+      },
+
+      getAssignment: function (key) {
+        return $firebase(new Firebase(firebaseEndpoint + '/content/assignments/' + key));
       }
 
     }
