@@ -156,7 +156,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
 }
 
 /* line 49, theme/_color.scss */
-.background-hover-primary2-important:hover {
+.background-hover-primary2-important:hover, .table-list.hover > li:hover {
   background-color: #076391 !important;
 }
 
@@ -2146,7 +2146,7 @@ a.link-hover-gray-important:hover {
 }
 
 /* line 63, theme/_color.scss */
-.text-hover-white:hover {
+.text-hover-white:hover, .table-list.hover > li:hover {
   color: #fff;
 }
 

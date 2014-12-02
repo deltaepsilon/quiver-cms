@@ -417,8 +417,9 @@ angular.module('quiverCmsApp')
     };
 
     $scope.emptyCart = function () {
-      $scope.$storage.cart.items = [];
-    }
+      delete $scope.$storage.cart;
+
+    };
 
     /*
      * Checkout

@@ -1,1 +1,76 @@
-<p>This is the admin-subscription view.</p>
+<div class="column small-12">
+  <h3 class="font-flair left">{{ subscription.title }}</h3>
+  <h5 class="font-flair right margin-vertical-small">{{ subscription.user.public.email }}</h5>
+</div>
+
+<hr>
+
+<ul class="column small-12 table-list striped hover text-x-medium">
+  <li>
+    <div class="column small-12 medium-6">Date</div>
+    <div class="column small-12 medium-6">{{ subscription.date | moment:"MM/DD/YYYY" }}</div>
+  </li>
+  <li>
+    <div class="column small-12 medium-6">Email</div>
+    <div class="column small-12 medium-6">{{ subscription.user.public.email }}</div>
+  </li>
+  <li>
+    <div class="column small-12 medium-6">Expiration</div>
+    <div class="column small-12 medium-6">
+      <span ng-show="userSubscription.expiration">{{ userSubscription.expiration | moment:"MM/DD/YYYY" }}</span>
+      <span ng-show="!userSubscription.expiration">Subscription Not Started</span>
+    </div>
+  </li>
+  <li>
+    <div class="column small-12 medium-6">Original Expiration</div>
+    <div class="column small-12 medium-6">
+      <span ng-show="userSubscription.originalExpiration">{{ userSubscription.originalExpiration | moment:"MM/DD/YYYY" }}</span>
+      <span ng-show="!userSubscription.originalExpiration">Not edited...</span>
+    </div>
+  </li>
+  <li>
+    <div class="column small-12 medium-6">Days</div>
+    <div class="column small-12 medium-6">{{ subscription.subscriptionDays }}</div>
+  </li>
+  <li>
+    <div class="column small-12 medium-6">Price</div>
+    <div class="column small-12 medium-6">{{ subscription.price | currency }}</div>
+  </li>
+  <li>
+    <div class="column small-12 medium-6">Hashtags</div>
+    <div class="column small-12 medium-6">
+      <ul class="inline-list">
+        <li ng-repeat="hashtag in subscription.hashtags">{{ hashtag.value }}</li>
+      </ul>
+    </div>
+  </li>
+  
+  
+  <li>
+    <div class="column small-12 medium-6"></div>
+    <div class="column small-12 medium-6"></div>
+  </li>
+</ul>
+
+<hr>
+
+
+
+<ul class="column small-12 table-list">
+  <li>
+    <h5 class="font-flair">Actions</h5>
+  </li>
+  <li class="padding-vertical-small" ng-show="userSubscription.expiration">
+    <input id="extra-days" ng-show="userSubscription.expiration" type="number" ng-model="extraDays" placeholder="Add or substract days...">
+    <button class="small" ng-click="addDays(userSubscription, extraDays); extraDays = undefined;" ng-disabled="!extraDays" qv-focus="#extra-days">Add Days</button>
+
+  </li>
+  <li class="padding-vertical-small" ng-show="userSubscription.expiration">
+    <button class="small small-12" ng-click="resetSubscription(userSubscription)">Reset Subscription</button>
+
+  </li>
+  <li class="padding-vertical-small">
+    <button class="small alert small-12" qv-confirm="removeSubscription()" confirmations="['Are you sure?', 'This is not recoverable!', 'Ok. I will take care of it.']">Delete Subscription</button>
+
+  </li>
+</ul>

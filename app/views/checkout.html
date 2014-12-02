@@ -1,6 +1,5 @@
 <div class="column small-12" ng-show="$storage.cart.items.length">
   <h3 class="font-flair padding-large" style="padding-bottom: 0;">Items For Checkout</h3>
-
 </div>
 
 <div class="column small-12">
@@ -244,7 +243,12 @@
             </li>
             <li class="clearfix">
               <div class="column small-12">
-                <a class="text-x-small" ui-sref="master.nav.cart">Back to Cart</a>
+                <div>
+                  <a class="text-x-small" ui-sref="master.nav.cart">Back to Cart</a>
+                </div>
+                <div>
+                  <a class="text-x-small" ng-click="emptyCart()">Empty Cart</a>  
+                </div>
               </div>
               
             </li>
@@ -279,7 +283,7 @@
           </div>
 
           <div class="margin-vertical-x-medium">
-            <button id="checkout-button" class="small success small-12 text-x-medium-important margin-zero-important" ng-show="$storage.cart.total" ng-click="checkingOut = true; checkout($storage.cart);" ng-disabled="!user || !$storage.cart.paymentToken || ($storage.cart.shipped && !$storage.cart.address) || checkingOut">
+            <button id="checkout-button" class="small success small-12 text-x-medium-important margin-zero-important" ng-click="checkingOut = true; checkout($storage.cart);" ng-disabled="!user || (!$storage.cart.paymentToken && $storage.cart.total) || ($storage.cart.shipped && !$storage.cart.address) || checkingOut">
               <span ng-show="$storage.cart.total">Complete Purchase</span>
               <span ng-hide="$storage.cart.total">Free Checkout</span>
               <span class="hidden backdrop background-highlight9" qv-loading target="#checkout-button"><img src="/images/ajax-loader.gif" style="margin-top: 1rem;"></span>

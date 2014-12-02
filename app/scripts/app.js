@@ -652,6 +652,11 @@ angular.module('quiverCmsApp', [
         resolve: {
           subscriptionRef: function(AdminService, $stateParams) {
             return AdminService.getSubscription($stateParams.key);
+          },
+          userSubscriptionRef: function (AdminService, subscriptionRef, $q) {
+            return subscriptionRef.$asObject().$loaded().then(function (subscription) {
+              return AdminService.getUserSubscription(subscription.user.public.id, subscription.keys.user);
+            });
           }
         }
       });

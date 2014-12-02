@@ -24,7 +24,7 @@
 				{{ ::subscription.date | moment:"MM/DD/YYYY"}}
 			</div>
 		</a>
-		<li>
+		<li class="background-white-important">
 			<button class="secondary small-12" ng-click="loadMore()" ng-hide="searching || subscriptions.length < limit">Load More +</button>
 			<button class="secondary small-12" ng-click="reset()" ng-show="searching">Reset</button>
 		</li>
