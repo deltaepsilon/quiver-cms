@@ -155,6 +155,10 @@ angular.module('quiverCmsApp')
 
       getUserSubscription: function (userId, key) {
         return $firebase(new Firebase(firebaseEndpoint + '/users/' + userId + '/private/commerce/subscriptions/' + key));
+      },
+
+      getShipments: function (query) {
+        return $firebase(FirebaseService.query(new Firebase(firebaseEndpoint + '/logs/shipments'), query));
       }
 
     }

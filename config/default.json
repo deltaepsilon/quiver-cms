@@ -48,6 +48,36 @@
     },
     "google": {
       "analyticsId": "UA-6859198-XX"
+    },
+    "shipping": {
+      "defaultCarrier": "usps",
+      "carriers": [
+        {
+          "code": "usps",
+          "name": "USPS",
+          "trackingUrl": "https://tools.usps.com/go/TrackConfirmAction_input?qtc_tLabels1=$NUMBER"
+        },
+        {
+          "code": "ups",
+          "name": "UPS",
+          "trackingUrl": "http://wwwapps.ups.com/WebTracking/track?track=yes&trackNums=$NUMBER"
+        },
+        {
+          "code": "fedex",
+          "name": "FedEx",
+          "trackingUrl": "http://www.fedex.com/Tracking?action=track&tracknumbers=$NUMBER"
+        },
+        {
+          "code": "dhl",
+          "name": "DHL",
+          "trackingUrl": "http://track.dhl-usa.com/TrackByNbr.asp?ShipmentNumber=$NUMBER"
+        },
+        {
+          "code": "ontrac",
+          "name": "OnTrac",
+          "trackingUrl": "http://www.ontrac.com/trackingdetail.asp?tracking=$NUMBER"
+        }
+      ]
     }
   },
   "private": {

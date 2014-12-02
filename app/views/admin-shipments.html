@@ -1,0 +1,43 @@
+<div class="column small-12">
+  <h3 class="font-flair">Shipments</h3>
+</div>
+
+<hr>
+
+<div class="column small-12">
+  <input type="text" ng-show="searching || shipments.length" ng-model="searchTerm" ng-focus="searchTerm = '';" placeholder="Search: Click ENTER to search server by email..." qv-enter="search(searchTerm)"/>
+</div>
+
+<div class="column small-12">
+  <ul class="table-list striped text-medium">
+    <li class="padding-small" ng-repeat="shipment in shipments">
+      <div class="column small-12 medium-2">
+        <input id="shipped-{{ $index }}" class="margin-small" type="checkbox" ng-model="shipment.shipped" ng-change="save(shipment)">
+        <label for="shipped-{{ $index }}">Shipped</label>
+      </div>
+      <div class="column small-12 medium-4">
+        <strong>
+          {{ ::shipment.item.title }} - {{ shipmentitem.priceAdjusted || shipment.item.price | currency }}
+        </strong>
+        <div ng-show="shipment.item.optionsMatrixSelected.name">
+          {{ ::shipment.item.optionsMatrixSelected.name }}
+        </div>
+        
+      </div>
+      <div class="column small-12 medium-3">
+        <select ng-model="shipment.tracking.carrier" ng-options="carrier.code as carrier.name for carrier in shipping.carriers" ng-change="save(shipment)">
+          <option value="">Choose a carrier</option>
+        </select>
+        <input type="text" ng-model="shipment.tracking.number" placeholder="Tracking number..." ng-change="save(shipment)">
+        <a ng-show="shipment.tracking.carrier && shipment.tracking.number" href="{{ shipment.tracking | tracking }}">{{ shipment.tracking | tracking }}</a>
+      </div>
+      <div class="column small-12 medium-3">
+        <textarea class="text-x-small" style="height: 116px;" ng-bind="getAddress(shipment)" qv-select-text></textarea>
+      </div>
+    </li>
+    <li class="background-white-important">
+      <button class="secondary small-12" ng-click="loadMore()" ng-hide="searching || shipments.length < limit">+ Load More</button>
+      <button class="secondary small-12" ng-click="reset()" ng-show="searching">Reset</button>
+    </li>
+  </ul>
+</div>
