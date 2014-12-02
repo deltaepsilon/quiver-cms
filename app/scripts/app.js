@@ -631,6 +631,29 @@ angular.module('quiverCmsApp', [
             return AdminService.getUserTransaction($stateParams.userId, $stateParams.key);
           }
         }
+      })
+      .state('authenticated.master.admin.subscriptions', { // ***********************  Subscriptions *******************
+        url: '/subscriptions',
+        templateUrl: 'views/admin-subscriptions.html',
+        controller: 'SubscriptionsCtrl',
+        resolve: {
+          limit: function() {
+            return 10;
+          },
+          subscriptionsRef: function(AdminService, limit) {
+            return AdminService.getSubscriptions({orderByPriority: true, limitToLast: limit});
+          }
+        }
+      })
+      .state('authenticated.master.admin.subscription', { // ***********************  Subscriptions *******************
+        url: '/subscription/:key',
+        templateUrl: 'views/admin-subscription.html',
+        controller: 'AdminSubscriptionCtrl',
+        resolve: {
+          subscriptionRef: function(AdminService, $stateParams) {
+            return AdminService.getSubscription($stateParams.key);
+          }
+        }
       });
 
 

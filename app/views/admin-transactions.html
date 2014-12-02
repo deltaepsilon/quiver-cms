@@ -5,7 +5,18 @@
 
     <input type="text" ng-model="transactionFilter" ng-focus="transactionFilter = ''" placeholder="Search..."/>
 
-    <table class="small-12">
+    <ul class="table-list striped">
+         <li class="text-x-medium text-hover-white background-hover-primary2-important link-hover-white link-secondary0" ng-repeat="transaction in transactions | filter:transactionFilter">
+            <a class="block column small-12 medium-3" ui-sref="authenticated.master.admin.user({key: transaction.userId})">{{ ::transaction.userEmail }}</a>
+            <a class="block column small-12 medium-9" ui-sref="authenticated.master.admin.transaction({key: transaction.$id, userId: transaction.userId})">
+                <span>{{ ::transaction.total | currency }} for </span>
+                <span>{{ ::transaction.productCount }} Items </span>
+                <span class="right">{{ ::transaction.date | moment:"MM/DD/YY" }}</span>
+            </a>
+        </li>
+    </ul>
+
+    <!-- <table class="small-12">
         <thead>
         <tr>
             <th>ID</th><th>User</th><th>Items</th><th>Total</th><th>Created</th>
@@ -28,5 +39,5 @@
             </td>
         </tr>
         </tbody>
-    </table>
+    </table> -->
 </div>

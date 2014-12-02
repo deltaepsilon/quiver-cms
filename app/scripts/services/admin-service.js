@@ -143,6 +143,14 @@ angular.module('quiverCmsApp')
 
       getAssignment: function (key) {
         return $firebase(new Firebase(firebaseEndpoint + '/content/assignments/' + key));
+      },
+
+      getSubscriptions: function(query) {
+        return $firebase(FirebaseService.query(new Firebase(firebaseEndpoint + '/logs/subscriptions'), query));
+      },
+
+      getSubscription: function(key) {
+        return $firebase(new Firebase(firebaseEndpoint + '/logs/subscriptions/' + key));
       }
 
     }

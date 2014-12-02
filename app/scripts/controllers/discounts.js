@@ -161,6 +161,6 @@ angular.module('quiverCmsApp')
       $scope.limit = limit;
       $scope.discountFilter = '';
       query();
-    }
+    };
     
   });
