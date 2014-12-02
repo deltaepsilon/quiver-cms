@@ -448,7 +448,6 @@ angular.module('quiverCmsApp')
       CommerceService.checkout(cart).then(function (transaction) {
         NotificationService.success('Checkout Successful');
         $scope.emptyCart();
-        console.log('transaction', transaction);
         delete $scope.checkingOut;
         $state.go('authenticated.master.nav.transaction', {
           userId: transaction.userId,
