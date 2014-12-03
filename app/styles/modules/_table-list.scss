@@ -5,6 +5,10 @@
     > li {
       overflow: hidden;
 
+      &.no-stripe {
+        background-color: inherit !important;
+      }
+
       &:nth-of-type(odd) {
         @extend .background-secondary4;
       }
@@ -15,19 +19,58 @@
   &.hover {
     > li {
       @extend .text-hover-white;
+      @extend .link-hover-white;
+      @extend .link-primary0;
       @extend .background-hover-primary2-important;
+
+      &.table-list-header {
+        @extend .text-hover-primary0;
+
+        &:hover {
+          @extend .background-secondary4-important;
+        }
+      }
+
+      &.no-hover:hover {
+        background-color: inherit !important;
+      }
+
+      > a, > a:visited {
+        @extend .text-hover-white;
+      }
     }
   }
 
   &.padded {
     > li {
       @extend .padding-small;
+
+      &.no-pad {
+        padding: inherit !important;
+      }
     }
   }
 
   &.link-padded {
    > li > a {
       @extend .padding-small;
-    } 
+
+      &.no-pad {
+        padding: inherit !important;
+      }
+    }
+
+    > li {
+      &.no-pad {
+        padding: inherit !important;
+      }
+    }
+  }
+
+  li.table-list-header {
+    @extend .background-secondary4-important;
+    
+    font-weight: bold;
+    border-bottom: 1px solid getColor(primary0);
   }
 }

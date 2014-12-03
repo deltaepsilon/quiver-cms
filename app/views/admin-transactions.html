@@ -3,16 +3,42 @@
 
     <hr>
 
-    <input type="text" ng-model="transactionFilter" ng-focus="transactionFilter = ''" placeholder="Search..."/>
+    <input type="text" ng-show="searching || transactions.length" ng-model="searchTerm" ng-focus="searchTerm = ''" placeholder="Search: Click ENTER to search by email..." qv-enter="search(searchTerm)"/>
 
-    <ul class="table-list striped">
-         <li class="text-x-medium text-hover-white background-hover-primary2-important link-hover-white link-secondary0" ng-repeat="transaction in transactions | filter:transactionFilter">
-            <a class="block column small-12 medium-3" ui-sref="authenticated.master.admin.user({key: transaction.userId})">{{ ::transaction.userEmail }}</a>
-            <a class="block column small-12 medium-9" ui-sref="authenticated.master.admin.transaction({key: transaction.$id, userId: transaction.userId})">
-                <span>{{ ::transaction.total | currency }} for </span>
-                <span>{{ ::transaction.productCount }} Items </span>
-                <span class="right">{{ ::transaction.date | moment:"MM/DD/YY" }}</span>
+    <ul class="table-list striped hover">
+        <li class="table-list-header padding-small">
+            <div class="column small-12 medium-3">
+                Email
+            </div>
+            <div class="column small-12 medium-3">
+                Total
+            </div>
+            <div class="column small-12 medium-3">
+                Items
+            </div>
+            <div class="column small-12 medium-3 text-medium-right">
+                Created
+            </div>
+        </li>
+         <li ng-repeat="transaction in transactions | filter:transactionFilter">
+            <a class="clearfix block padding-small" ui-sref="authenticated.master.admin.transaction({key: transaction.$id, userId: transaction.userId})">
+                <div class="column small-12 medium-3">
+                    {{ ::transaction.userEmail }}
+                </div>
+                <div class="column small-12 medium-3">
+                    {{ ::transaction.total | currency }}
+                </div>
+                <div class="column small-12 medium-3">
+                    {{ ::transaction.productCount }}
+                </div>
+                <div class="column small-12 medium-3 text-medium-right">
+                    {{ ::transaction.date | moment:"MM/DD/YY" }}
+                </div>
             </a>
+        </li>
+        <li class="no-hover no-stripe">
+            <button class="secondary small-12" ng-click="loadMore()" ng-hide="searching || transactions.length < limit">Load More +</button>
+            <button class="secondary small-12" ng-click="reset()" ng-show="searching">Reset</button>
         </li>
     </ul>
 

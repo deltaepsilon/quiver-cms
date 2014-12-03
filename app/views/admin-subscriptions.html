@@ -8,25 +8,34 @@
 	<input class="small-12" type="text" ng-model="searchTerm" placeholder="Search: Click Enter to search server by email..." qv-enter="search(searchTerm)">
 </div>
 
-<ul class="column small-12 table-list striped">
-	<li class="text-x-medium text-hover-white background-hover-primary2-important" ng-repeat="subscription in subscriptions | filter:searchTerm">
-		<a class="clearfix padding-small text-primary0 text-hover-white-important block" ui-sref="authenticated.master.admin.subscription({key: subscription.$id})">
-			<div class="column small-12 medium-3">
-				{{ ::subscription.user.public.email }}
-			</div>
-			<div class="column small-12 medium-3">
-				{{ ::subscription.title }}
-			</div>
-			<div class="column small-12 medium-3">
-				{{ ::subscription.subscriptionDays }} Days
-			</div>
-			<div class="column small-12 medium-3">
-				{{ ::subscription.date | moment:"MM/DD/YYYY"}}
-			</div>
-		</a>
-		<li class="background-white-important">
-			<button class="secondary small-12" ng-click="loadMore()" ng-hide="searching || subscriptions.length < limit">Load More +</button>
-			<button class="secondary small-12" ng-click="reset()" ng-show="searching">Reset</button>
+<div class="column small-12">
+	<ul class="small-12 table-list striped hover padded link-padded">
+		<li class="table-list-header">
+			<div class="column small-12 medium-3">User</div>
+			<div class="column small-12 medium-3">Title</div>
+			<div class="column small-12 medium-3">Days</div>
+			<div class="column small-12 medium-3 medium-text-right">Created</div>
 		</li>
-	</li>
-</ul>
+		<li class="no-pad text-x-medium" ng-repeat="subscription in subscriptions | filter:searchTerm">
+			<a class="clearfix block" ui-sref="authenticated.master.admin.subscription({key: subscription.$id})">
+				<div class="column small-12 medium-3">
+					{{ ::subscription.user.public.email }}
+				</div>
+				<div class="column small-12 medium-3">
+					{{ ::subscription.title }}
+				</div>
+				<div class="column small-12 medium-3">
+					{{ ::subscription.subscriptionDays }} Days
+				</div>
+				<div class="column small-12 medium-3  medium-text-right">
+					{{ ::subscription.date | moment:"MM/DD/YYYY"}}
+				</div>
+			</a>
+			<li class="no-hover no-stripe">
+				<button class="secondary small-12" ng-click="loadMore()" ng-hide="searching || subscriptions.length < limit">Load More +</button>
+				<button class="secondary small-12" ng-click="reset()" ng-show="searching">Reset</button>
+			</li>
+		</li>
+	</ul>
+
+</div>

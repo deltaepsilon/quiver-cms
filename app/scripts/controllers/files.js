@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('quiverCmsApp')
-  .controller('FilesCtrl', function ($scope, $q, FileService, NotificationService, filesRef, notificationsRef, $filter, $localStorage, _, ClipboardService, Slug, env, $interval) {
+  .controller('FilesCtrl', function ($scope, $q, FileService, NotificationService, originalsRef, bucket, notificationsRef, $filter, $localStorage, _, ClipboardService, Slug, env, $interval, limit, AdminService, $stateParams) {
 
     /*
      * localStorage
@@ -31,12 +31,63 @@ angular.module('quiverCmsApp')
       return $scope.notifications[$scope.getSlug(name)];
     };
 
+    /*
+     * Originals
+     */
+    var originals = originalsRef.$asArray();
+    $scope.originals = originals;
+
+    /*
+     * Bucket
+     */
+    $scope.bucket = bucket.$value;
+
+    /*
+     * Query
+     */
+    var query = function (q) {
+      var q = q || {orderByPriority: true, limitToLast: $scope.limit};
+
+      originalsRef = AdminService.getOriginals(q);
+      originals = originalsRef.$asArray();
+      originals.$loaded().then(function (originals) {
+        $scope.originals = originals;
+      });
+    };
+
+    $scope.limit = limit;
+
+    $scope.loadMore = function (increment) {
+      $scope.limit += (increment || limit);
+
+      query({orderByPriority: true, limitToLast: $scope.limit});
+       
+    };
+
+    $scope.search = function (term) {
+      $scope.searching = true;
+      query({orderByPriority: true, orderByChild: 'Name', startAt: term});
+    };
+
+    $scope.reset = function () {
+      $scope.searching = false;
+      $scope.limit = limit;
+      $scope.searchTerm = '';
+      query();
+    };
+
+    originals.$loaded().then(function () {
+      if ($stateParams.search) {
+        var term = $stateParams.search;
+        $scope.searchTerm = term;
+        $scope.search(term);
+      }
+      
+    });
 
     /*
      * Files
     */
-    $scope.files = filesRef.$asObject();
-
     $scope.uploadTarget = env.api + '/admin/files';
 
     $scope.deleteFlowFile = function (flow, file) {
@@ -56,21 +107,31 @@ angular.module('quiverCmsApp')
 
     };
 
-//    $scope.fakeUpload = function (Flow) {
-//      console.info('Using $scope.fakeUpload. Switch to $scope.upload to make this work for realsies.');
-//
-//      var i = Flow.files.length,
-//        handleInterval = function (j) {
-//          $interval(function () {
-//            var percent = Flow.files[j].percentComplete;
-//            Flow.files[j].percentComplete = !percent || percent >= 1 ? .1 : percent + .1;
-//          }, 300)
-//        };
-//
-//      while (i--) {
-//        handleInterval(i);
-//      }
-//    };
+    var fakePromises = [];
+    $scope.fakeUpload = function (Flow) {
+      console.info('Using $scope.fakeUpload. Switch to $scope.upload to make this work for realsies.');
+
+      var i = Flow.files.length,
+        handleInterval = function (j) {
+          var promise = $interval(function () {
+            var percent = Flow.files[j].percentComplete;
+            Flow.files[j].percentComplete = !percent || percent >= 1 ? .1 : percent + .1;
+          }, 300);
+          fakePromises.push(promise);
+        };
+
+      if (!fakePromises.length) {
+        while (i--) {
+          handleInterval(i);
+        }
+      } else {
+        i = fakePromises.length;
+        while (i--) {
+          $interval.cancel(fakePromises[i]);
+        }
+      }
+      
+    };
 
     $scope.upload = function (Flow) {
       $scope.uploading = true;
@@ -154,6 +215,7 @@ angular.module('quiverCmsApp')
         $scope.uploading = false; // Just in case the earlier pass at reactivating this button failed.
         $scope.resizing = false;
         clearWatches();
+        $scope.reset();
         NotificationService.success('Images Processed', 'Your images have successfully been resized.');
 
       }, function (err) {
@@ -195,6 +257,7 @@ angular.module('quiverCmsApp')
       FileService.resize().then(function () {
         NotificationService.success('Images Processed', 'Your images have successfully been resized and the file registry has been updated.');
         delete $scope.resizing;
+        $scope.reset();
         deferred.resolve();
       }, function (err) {
         NotificationService.error('Resize Failed', err);

@@ -3,6 +3,13 @@
     &> button {
       margin-top: 4px;
     }
+
+  }
+
+  &.no-margin {
+    &>li:first-child {
+      margin-left: 0;
+    }
   }
 
   &.slashes {

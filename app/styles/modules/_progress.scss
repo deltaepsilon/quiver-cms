@@ -1,27 +1,19 @@
 .qv-progress {
-  @extend .progress;
+  position: relative;
 
-  height: initial;
-}
+  @extend .text-white;
 
-.side-nav {
-  .qv-progress {
-    height: initial;
+  .meter {
+    @extend .background-secondary0;
+    
+    @include absolute(0, initial, 0, 0);
+
+    z-index: 1;
+  }
+
+  .meter-text {
     position: relative;
-
-    @extend .text-white;
-
-    .meter {
-      @include absolute(0, initial, initial, 0);
-
-      z-index: 1;
-    }
-
-    .meter-text {
-      position: relative;
-      z-index: 2;
-    }
-
+    z-index: 2;
   }
 
 }

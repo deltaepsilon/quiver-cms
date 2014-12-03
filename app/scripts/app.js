@@ -488,12 +488,18 @@ angular.module('quiverCmsApp', [
         }
       })
       .state('authenticated.master.admin.files', { // ******************************  Files ****************************
-        url: '/files',
+        url: '/files/:search',
         templateUrl: 'views/admin-files.html',
         controller: 'FilesCtrl',
         resolve: {
-          filesRef: function (AdminService) {
-            return AdminService.getFiles();
+          limit: function () {
+            return 10;
+          },
+          bucket: function (AdminService) {
+            return AdminService.getBucket();
+          },
+          originalsRef: function (AdminService, limit) {
+            return AdminService.getOriginals({orderByPriority: true, limitToLast: limit});
           },
           notificationsRef: function (AdminService, currentUser) {
             return AdminService.getNotifications(currentUser.uid);
@@ -623,12 +629,15 @@ angular.module('quiverCmsApp', [
         }
       })
       .state('authenticated.master.admin.transactions', { // ***********************  Transactions *********************
-        url: '/transactions',
+        url: '/transactions/:search',
         templateUrl: 'views/admin-transactions.html',
         controller: 'TransactionsCtrl',
         resolve: {
-          transactionsRef: function (AdminService) {
-            return AdminService.getTransactions();
+          limit: function () {
+            return 10;
+          },
+          transactionsRef: function (AdminService, limit) {
+            return AdminService.getTransactions({orderByPriority: true, limitToLast: limit});
           }
         }
       })

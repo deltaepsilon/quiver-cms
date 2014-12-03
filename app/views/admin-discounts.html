@@ -69,61 +69,61 @@
     <hr ng-show="discounts.length">
 
     <input type="text" ng-show="searching || discounts.length" ng-model="discountFilter" ng-focus="discountFilter = ''" placeholder="Search: Click ENTER to search server..." qv-enter="search(discountFilter)"/>
-    <table class="small-12" ng-show="searching || discounts.length" ng-class="{disabled: !firebaseLoaded}">
-        <thead>
-            <tr>
-                <th>Active</th><th>Type</th><th>Value</th><th>Code</th><th>Expiration</th><th>Uses</th><th>Used</th><th>Product Slug</th><th>Min</th><th>Max</th><th>Free Shipping</th><th>Created</th><th class="text-center">Action</th>
-            </tr>
-        </thead>
-        <tbody class="row-hover">
-            <tr ng-repeat="discount in discounts | filter:discountFilter | orderBy:'created':'desc'" ng-class="{disabled: disabled}">
-                <td>
-                  <input class="margin-xx-small-important" type="checkbox" ng-model="discount.active" ng-change="saveDiscount(discount)"/>
-                </td>
-                <td>
-                  {{ ::discount.type }}
-                </td>
-                <td>
-                  <span ng-show="discount.type === 'percentage'">{{ ::discount.percentage }}%</span>
-                  <span ng-show="discount.type === 'value'">{{ ::discount.value | currency }}</span>
-                </td>
-                <td>
-                  {{ ::discount.code }}
-                </td>
-                <td>
-                  {{ ::discount.expiration | moment:"MM/DD/YY" }}
-                </td>
-                <td>
-                  {{ ::discount.uses }}
-                </td>
-                <td>
-                  {{ ::discount.useCount || 0 }}
-                </td>
-                <td>
-                  {{ ::discount.productSlug  }}
-                </td>
-                <td>
-                  {{ ::discount.minSubtotal }}
-                </td>
-                <td>
-                  {{ ::discount.maxSubtotal }}
-                </td>
-                <td>
-                  {{ ::discount.freeShipping }}
-                </td>
-                <td>
-                  {{ ::discount.created | moment:"MM/DD/YY" }}
-                </td>
-                <td>
-                  <button class="alert tiny margin-vertical-x-small centered-block" style="min-width: 8rem;" qv-confirm="disabled = true; removeDiscount(discount);" ng-disabled="disabled">Delete</button>
-                </td>
-            </tr>
-        </tbody>
-        <tfoot>
-          <tr><td colspan="100%">
-            <button class="secondary small-12" ng-click="loadMore()" ng-hide="searching || discounts.length < limit">+ Load More</button>
-            <button class="secondary small-12" ng-click="reset()" ng-show="searching">Reset</button>
-          </td></tr>
-        </tfoot>
-    </table>
+
+    <ul class="small-12 table-list striped hover padded">
+      <li class="table-list-header">
+        <div class="column small-3 medium-1">Active</div>
+        <div class="column small-3 medium-1">Type</div>
+        <div class="column small-3 medium-1">Value</div>
+        <div class="column small-3 medium-1">Code</div>
+        <div class="column small-3 medium-1">Expiration</div>
+        <div class="column small-3 medium-1">Uses/Used</div>
+        <div class="column small-3 medium-1">Product</div>
+        <div class="column small-3 medium-1">Min/Max</div>
+        <div class="column small-3 medium-1">Shipping</div>
+        <div class="column small-3 medium-1">Created</div>
+        <div class="column small-6 medium-2 text-center">Action</div>
+      </li>
+      <li ng-repeat="discount in discounts | filter:discountFilter | orderBy:'created':'desc'" ng-class="{disabled: disabled}">
+        <div class="column small-3 medium-1">
+          <input class="margin-xx-small-important" type="checkbox" ng-model="discount.active" ng-change="saveDiscount(discount)"/>
+        </div>
+        <div class="column small-3 medium-1">
+          {{ ::discount.type }}
+        </div>
+        <div class="column small-3 medium-1">
+          <span ng-show="discount.type === 'percentage'">{{ ::discount.percentage }}%</span>
+          <span ng-show="discount.type === 'value'">{{ ::discount.value | currency }}</span>
+        </div>
+        <div class="column small-3 medium-1">
+          {{ ::discount.code }}
+        </div>
+        <div class="column small-3 medium-1">
+          {{ ::discount.expiration | moment:"MM/DD/YY" }}
+        </div>
+        <div class="column small-3 medium-1">
+          {{ ::discount.useCount || 0 }}/{{ ::discount.uses }}
+        </div>
+        <div class="column small-3 medium-1">
+          {{ ::discount.productSlug  || 'All' }}
+        </div>
+        <div class="column small-3 medium-1">
+          {{ ::discount.minSubtotal }}/{{ ::discount.maxSubtotal || 'none'}}
+        </div>
+        <div class="column small-3 medium-1">
+          <span class="text-success"><i class="fa fa-truck" ng-class="{'text-error': !discount.freeShipping}"></i></span>
+        </div>
+        <div class="column small-3 medium-1">
+          {{ ::discount.created | moment:"MM/DD/YY" }}
+        </div>
+        <div class="column small-6 medium-2">
+          <button class="alert tiny centered-block" style="min-width: 8rem;" qv-confirm="disabled = true; removeDiscount(discount);" ng-disabled="disabled">Delete</button>
+        </div>
+      </li>
+      <li class="no-hover no-pad">
+        <button class="secondary small-12" ng-click="loadMore()" ng-hide="searching || discounts.length < limit">Load More +</button>
+        <button class="secondary small-12" ng-click="reset()" ng-show="searching">Reset</button>
+      </li>
+    </ul>
+    
 </div>

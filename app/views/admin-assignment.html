@@ -15,14 +15,20 @@
       
     </div>
 
-    <div class="column small-12 medium-6 padding-vertical-medium">
+    <div class="column small-12 medium-4 padding-vertical-medium">
       <input id="supports-upload" class="left margin-xx-small-important" type="checkbox" ng-model="assignment.supportsUpload">
       <label class="left" for="supports-upload">Supports File Upload</label>
     </div>
 
-    <div class="column small-12 medium-6 padding-vertical-medium">
+    <div class="column small-12 medium-4 padding-vertical-medium">
       <input id="starts-subscription" class="left margin-xx-small-important" type="checkbox" ng-model="assignment.startsSubscription">
       <label class="left" for="starts-subscription">Starts Subscription</label>
+    </div>
+
+    <div class="column small-12 medium-4 padding-vertical-medium">
+      <label class="left" for="priority">Priority</label>
+      <input id="priority" type="number" ng-model="assignment.$priority">
+      
     </div>
 
     <hr>

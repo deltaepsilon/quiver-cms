@@ -22,7 +22,15 @@ angular.module('quiverCmsApp')
       },
 
       getFile: function (key) {
-        return $firebase(new Firebase(firebaseEndpoint + '/content/files/' + key));
+        return $firebase(new Firebase(firebaseEndpoint + '/content/files/Originals/' + key));
+      },
+
+      getOriginals: function (query) {
+        return $firebase(FirebaseService.query(new Firebase(firebaseEndpoint + '/content/files/Originals'), query));
+      },
+
+      getBucket: function () {
+        return $firebase(new Firebase(firebaseEndpoint + '/content/files/Name')).$asObject().$loaded();
       },
 
       getNotifications: function (userId) {
