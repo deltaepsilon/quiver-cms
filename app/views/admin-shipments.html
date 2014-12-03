@@ -11,29 +11,58 @@
 <div class="column small-12">
   <ul class="table-list striped text-medium">
     <li class="padding-small" ng-repeat="shipment in shipments">
-      <div class="column small-12 medium-2">
-        <input id="shipped-{{ $index }}" class="margin-small" type="checkbox" ng-model="shipment.shipped" ng-change="save(shipment)">
-        <label for="shipped-{{ $index }}">Shipped</label>
-      </div>
-      <div class="column small-12 medium-4">
-        <strong>
-          {{ ::shipment.item.title }} - {{ shipmentitem.priceAdjusted || shipment.item.price | currency }}
-        </strong>
-        <div ng-show="shipment.item.optionsMatrixSelected.name">
-          {{ ::shipment.item.optionsMatrixSelected.name }}
+      <div class="column small-12 medium-8 text-small">
+        <div class="column small-12 medium-4">
+          <span>{{ shipment.created | moment:"MM/DD/YYYY" }}</span>
+          <a class="margin-horizontal-small" href="mailto:{{ shipment.transaction.user.public.email }}">{{ shipment.transaction.user.public.email }}</a>
         </div>
+        <div class="column small-12 medium-8">
+          <strong>
+            {{ ::shipment.item.title }} - {{ shipmentitem.priceAdjusted || shipment.item.price | currency }}
+          </strong>
+          <span class="margin-horizontal-small" ng-show="shipment.item.optionsMatrixSelected.name">
+            {{ ::shipment.item.optionsMatrixSelected.name }}
+          </span>
+          
+        </div>
+
+        <hr>
+
+        <div class="column small-12">
+          <div class="left small-12 medium-4">
+            <input id="shipped-{{ $index }}" class="margin-horizontal-xx-small-important" type="checkbox" ng-model="shipment.shipped" ng-change="save(shipment)">
+            <label style="margin-left: 0;" for="shipped-{{ $index }}">Shipped</label>
+
+            <a ng-show="shipment.tracking.carrier && shipment.tracking.number" href="{{ shipment.tracking | tracking }}" target="_blank"><i class="fa fa-paper-plane"></i></a>
+          </div>
+          <div class="left small-12 medium-2" style="margin-right: -1px;">
+            <select style="margin-bottom: -1px;" ng-model="shipment.tracking.carrier" ng-options="carrier.code as carrier.name for carrier in shipping.carriers" ng-change="save(shipment)">
+              <option value="">Choose a carrier</option>
+            </select>
+          </div>
+          <div class="left small-12 medium-6">
+            <input class="margin-zero-important" type="text" ng-model="shipment.tracking.number" placeholder="Tracking number..." ng-change="save(shipment)">
+          </div>
+
+          
+        </div>
+
         
+
       </div>
-      <div class="column small-12 medium-3">
-        <select ng-model="shipment.tracking.carrier" ng-options="carrier.code as carrier.name for carrier in shipping.carriers" ng-change="save(shipment)">
-          <option value="">Choose a carrier</option>
-        </select>
-        <input type="text" ng-model="shipment.tracking.number" placeholder="Tracking number..." ng-change="save(shipment)">
-        <a ng-show="shipment.tracking.carrier && shipment.tracking.number" href="{{ shipment.tracking | tracking }}">{{ shipment.tracking | tracking }}</a>
+
+      <div class="column small-12 medium-2 padding-zero-important" style="right: -1px;">
+          <textarea class="text-x-small margin-zero-important" style="height: 82px;" ng-model="shipment.comments" placeholder="Comments..."></textarea>
+        </div>
+      
+      <div class="column small-12 medium-2 padding-zero-important">
+        <textarea class="text-x-small margin-zero-important" style="height: 82px;" ng-bind="getAddress(shipment)" qv-select-text></textarea>
+        
+
       </div>
-      <div class="column small-12 medium-3">
-        <textarea class="text-x-small" style="height: 116px;" ng-bind="getAddress(shipment)" qv-select-text></textarea>
-      </div>
+      
+      
+      
     </li>
     <li class="background-white-important">
       <button class="secondary small-12" ng-click="loadMore()" ng-hide="searching || shipments.length < limit">+ Load More</button>
