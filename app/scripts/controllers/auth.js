@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('quiverCmsApp')
-  .controller('AuthCtrl', function ($scope, $state, qvAuth, NotificationService, AdminService, $localStorage) {
+  .controller('AuthCtrl', function ($scope, $state, qvAuth, NotificationService, AdminService, $localStorage, moment) {
     var parseError = function (err) {
       var parts = err.message.split(':');
 
@@ -14,7 +14,7 @@ angular.module('quiverCmsApp')
 
     $scope.logIn = function (email, password) {
       qvAuth.logIn(email, password, false).then(function (currentUser) {
-        var headers = {"authorization": currentUser.token, "user-id": currentUser.uid},
+        var headers = {"authorization": currentUser.token, "user-id": currentUser.uid, "email": email},
           user = qvAuth.getUser(currentUser.uid);
 
         NotificationService.success('Login Success');
@@ -37,7 +37,7 @@ angular.module('quiverCmsApp')
     $scope.register = function (email, password) {
       qvAuth.register(email, password).then(function (user) {
         NotificationService.success('Registration Success');
-        $scope.forward();
+        $scope.logIn(email, password);
 
       }, function (error) {
         NotificationService.error('Error', parseError(error));

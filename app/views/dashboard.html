@@ -92,7 +92,7 @@
 
         <ul class="table-list striped">
             <li class="text-x-medium text-hover-white background-hover-primary2-important" ng-repeat="download in user.private.commerce.downloads">
-                <a class="clearfix padding-small text-primary0 text-hover-white-important block" href="/resource/{{ download.resource.key }}" target="_blank">
+                <a class="clearfix padding-small text-primary0 text-hover-white-important block" href="/resource/{{ download.resource.keys.resource }}" target="_blank">
                     <div class="column small-12 medium-6">{{ download.title }}</div>
                     <div class="column small-12 medium-6 medium-text-right">{{ env.root }}/resource/{{ download.resource.key }}</div>
                 </a>

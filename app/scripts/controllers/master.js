@@ -4,7 +4,7 @@ angular.module('quiverCmsApp')
   .controller('MasterCtrl', function ($scope, currentUser, env, qvAuth, ObjectService, NotificationService, $state, md5, settingsRef, filesRef, user, AdminService, _, $localStorage, $timeout, moment) {
     var loggedOutStates = ['master.nav.login', 'master.nav.register', 'master.nav.reset'],
       toLanding = function () {
-        $state.go('authenticated.master.nav.dashboard');
+        location.replace('/');
       },
       handleStateChange = function (event, toState, fromState, fromParams) {
         if ($scope.currentUser && ~loggedOutStates.indexOf(toState.name)) { //Protect login/register/reset states from logged-in users

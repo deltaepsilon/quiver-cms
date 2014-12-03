@@ -3140,7 +3140,7 @@ a.link-hover-black-important:hover {
 }
 
 /* line 12, theme/_spacing.scss */
-.padding-small {
+.padding-small, .table-list.padded > li, .table-list.link-padded > li > a {
   padding: 0.75rem 1.5rem;
 }
 

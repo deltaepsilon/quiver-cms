@@ -27,7 +27,7 @@ angular.module('quiverCmsApp')
     	subscriptionsRef.$asArray().$loaded(function(subscriptions) {
     		$scope.subscriptions = subscriptions;
     	});
-    }
+    };
 
     /*
      * Query

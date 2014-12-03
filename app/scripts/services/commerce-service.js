@@ -49,6 +49,22 @@ angular.module('quiverCmsApp')
 
 			checkout: function (cart) {
 				return Restangular.one('user').post('checkout', {cart: cart})
-			}
+			},
+
+      getAddress: function (shipment) {
+        var address = '';
+
+        address += (shipment.transaction.address.recipient || shipment.transaction.user.public.email) + "\n";
+        address += shipment.transaction.address.street1 ? shipment.transaction.address.street1 + "\n" : '';
+        address += shipment.transaction.address.street2 ? shipment.transaction.address.street2 + "\n" : '';
+        address += shipment.transaction.address.street3 ? shipment.transaction.address.street3 + "\n" : '';
+        address += shipment.transaction.address.city + ", ";
+        address += (shipment.transaction.address.territory || shipment.transaction.address.territoryName || '') + " ";
+        address += shipment.transaction.address.postalCode + "\n";
+        address += shipment.transaction.address.country ? shipment.transaction.address.country + "\n": '';
+        address += shipment.transaction.user.public.email + "\n";
+
+        return address;
+      }
 		}
   });

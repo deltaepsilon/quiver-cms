@@ -1,18 +1,19 @@
 <div class="column small-12">
-	<h3 class="font-flair margin-vertical-large left"><a ui-sref="authenticated.master.admin.user({key: transaction.userId})">
-		{{ transaction.userEmail }}</a>: {{ transaction.date | moment:"MM/DD/YY" }}
-	</h3>
-	<div class="margin-vertical-large">
+	<h3 class="font-flair left">{{ transaction.date | moment:"MM/DD/YY" }}</h3>
+	<h5 class="font-flair right margin-vertical-small">
+		<a ui-sref="authenticated.master.admin.user({key: transaction.userId})">{{ transaction.userEmail }}</a>
+	</h5>
+</div>
+
+	
+<hr>
+
+<div class="column small-12 margin-vertical-large">
 		<a class="button right small secondary" ui-sref="authenticated.master.nav.transaction({userId: transaction.userId, key: transaction.keys.user })">User View</a>
 		<a class="button right small secondary" href="/transaction/{{ transaction.$id }}/email/html" qv-to-static>View Email</a>
 		<button class="right small" ng-click="sendEmail(transaction.$id, transaction)">Send Email</button>
 		<button class="right small alert" ng-click="chargeCard(transaction.$id, transaction)">Charge Card</button>
 	</div>
-	
-</div>
-
-	
-<hr>
 
 <div class="column small-12">
 	<ul class="table-list striped">

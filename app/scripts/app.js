@@ -23,7 +23,7 @@ angular.module('quiverCmsApp', [
      
     qvAuth.auth.$onAuth(function (authData) {
       if (authData && authData.uid) {
-        var headers = {"authorization": authData.token, "user-id": authData.uid};
+        var headers = {"authorization": authData.token, "user-id": authData.uid, "email": authData.email};
 
         qvAuth.getUser(authData.uid).then(function (user) {
           if (!user || !user.public || !user.private) {
@@ -130,7 +130,8 @@ angular.module('quiverCmsApp', [
                 // Set up auth tokens
                 var headers = {
                     "authorization": currentUser.token,
-                    "user-id": currentUser.uid
+                    "user-id": currentUser.uid,
+                    "email": currentUser.auth.email
                   };
                 RestangularProvider.setDefaultHeaders(headers);
                 flowFactoryProvider.defaults = {headers: headers, testChunks: false};
@@ -236,7 +237,8 @@ angular.module('quiverCmsApp', [
                 // Set up auth tokens
                 var headers = {
                     "authorization": currentUser.token,
-                    "user-id": currentUser.uid
+                    "user-id": currentUser.uid,
+                    "email": currentUser.auth.email
                   };
                 RestangularProvider.setDefaultHeaders(headers);
                 flowFactoryProvider.defaults = {headers: headers, testChunks: false};
@@ -405,6 +407,14 @@ angular.module('quiverCmsApp', [
             templateUrl: 'views/body.html',
             controller: "AdminCtrl",
             resolve: {
+              isAdmin: function (user, $state) {
+                if (!user.private.isAdmin) {
+                  $state.go('authenticated.master.nav.dashboard');
+                  return false;
+                } else {
+                  return true;
+                }
+              },
               themeRef: function (AdminService) {
                 return AdminService.getTheme();
               },
@@ -534,8 +544,11 @@ angular.module('quiverCmsApp', [
         templateUrl: 'views/admin-users.html',
         controller: 'UsersCtrl',
         resolve: {
-          usersRef: function (AdminService) {
-            return AdminService.getUsers();
+          limit: function () {
+            return 10;
+          },
+          usersRef: function (AdminService, limit) {
+            return AdminService.getUsers({orderByPriority: true, limitToLast: limit});
           }
         }
       })
@@ -571,7 +584,7 @@ angular.module('quiverCmsApp', [
         }
       })
       .state('authenticated.master.admin.discounts', { // **************************  Discounts ************************
-        url: '/discounts',
+        url: '/discounts/:search',
         templateUrl: 'views/admin-discounts.html',
         controller: 'DiscountsCtrl',
         resolve: {
@@ -661,12 +674,12 @@ angular.module('quiverCmsApp', [
         }
       })
       .state('authenticated.master.admin.shipments', { // **************************  Shipments ************************
-        url: '/shipments',
+        url: '/shipments/:search',
         templateUrl: 'views/admin-shipments.html',
         controller: 'ShipmentsCtrl',
         resolve: {
           limit: function () {
-            return 1;
+            return 10;
           },
           shipmentsRef: function (AdminService, limit) {
             return AdminService.getShipments({orderByPriority: true, limitToLast: limit});

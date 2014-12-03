@@ -8,7 +8,7 @@
  * Controller of the quiverCmsApp
  */
 angular.module('quiverCmsApp')
-  .controller('DiscountsCtrl', function ($scope, limit, discountsRef, discounts, moment, _, NotificationService, AdminService) {
+  .controller('DiscountsCtrl', function ($scope, limit, discountsRef, discounts, moment, _, NotificationService, AdminService, $stateParams) {
     /*
      * Discounts
     */
@@ -162,5 +162,16 @@ angular.module('quiverCmsApp')
       $scope.discountFilter = '';
       query();
     };
+
+    firebaseDiscounts.$loaded().then(function () {
+      if ($stateParams.search) {
+        var term = $stateParams.search;
+        $scope.discountFilter = term;
+        $scope.search(term);
+      }
+      
+    });
+
+    
     
   });

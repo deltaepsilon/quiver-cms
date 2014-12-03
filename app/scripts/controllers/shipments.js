@@ -8,7 +8,7 @@
  * Controller of the quiverCmsApp
  */
 angular.module('quiverCmsApp')
-  .controller('ShipmentsCtrl', function ($scope, limit, shipmentsRef, AdminService, env) {
+  .controller('ShipmentsCtrl', function ($scope, limit, shipmentsRef, AdminService, env, CommerceService, $stateParams, NotificationService, _) {
     /*
      * Shipments
      */
@@ -16,7 +16,18 @@ angular.module('quiverCmsApp')
     $scope.shipments = shipments;
 
     $scope.save = function (shipment) {
-      $scope.shipments.$save(shipment);
+      
+
+      var userShipmentRef = AdminService.getUserShipment(shipment.transaction.user.public.id, shipment.keys.user);
+
+      userShipmentRef.$set(_.omit(shipment, ['$$hashKey', '$id', '$priority'])).then(function () {
+        return $scope.shipments.$save(shipment);
+      }).then(function () {
+        NotificationService.success('Saved');
+      }, function (err) {
+        NotificationService.error('Save Failed', err);
+      });
+      
     };
 
     /*
@@ -43,7 +54,7 @@ angular.module('quiverCmsApp')
 
     $scope.search = function (term) {
       $scope.searching = true;
-      query({orderByPriority: true, orderByChild: 'code', startAt: term});
+      query({orderByPriority: true, orderByChild: 'email', startAt: term});
     };
 
     $scope.reset = function () {
@@ -53,26 +64,20 @@ angular.module('quiverCmsApp')
       query();
     };
 
+    shipments.$loaded().then(function () {
+      if ($stateParams.search) {
+        var term = $stateParams.search;
+        $scope.searchTerm = term;
+        $scope.search(term);
+      }
+    });
+
     /*
      * Shipping
      */
     $scope.shipping = env.shipping;
 
-    $scope.getAddress = function (shipment) {
-      var address = '';
-
-      address += (shipment.transaction.address.recipient || shipment.transaction.user.public.email) + "\n";
-      address += shipment.transaction.address.street1 ? shipment.transaction.address.street1 + "\n" : '';
-      address += shipment.transaction.address.street2 ? shipment.transaction.address.street2 + "\n" : '';
-      address += shipment.transaction.address.street3 ? shipment.transaction.address.street3 + "\n" : '';
-      address += shipment.transaction.address.city + ", ";
-      address += (shipment.transaction.address.territory || shipment.transaction.address.territoryName || '') + " ";
-      address += shipment.transaction.address.postalCode + "\n";
-      address += shipment.transaction.address.country ? shipment.transaction.address.country + "\n": '';
-      address += shipment.transaction.user.public.email + "\n";
-
-      return address;
-    };
+    $scope.getAddress = CommerceService.getAddress;
 
     var TRACKING_REGEX = /\$NUMBER/
     $scope.getTracking = function (tracking) {

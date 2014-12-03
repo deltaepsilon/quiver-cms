@@ -18,4 +18,16 @@
       @extend .background-hover-primary2-important;
     }
   }
+
+  &.padded {
+    > li {
+      @extend .padding-small;
+    }
+  }
+
+  &.link-padded {
+   > li > a {
+      @extend .padding-small;
+    } 
+  }
 }

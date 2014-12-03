@@ -1,1 +1,208 @@
-<p>This is the admin-user view.</p>
+<div class="column small-12">
+  <h3 class="font-flair">{{ user.public.name || user.public.email }}</h3>
+</div>
+
+<hr>
+
+<div class="column small-12">
+  <h5 class="font-flair">Public</h5>
+  <ul class="table-list striped hover padded">
+    <li>
+      <div class="column small-12 medium-3">ID</div>
+      <div class="column small-12 medium-9">{{ user.public.id }}</div>
+    </li>
+    <li>
+      <div class="column small-12 medium-3">Email</div>
+      <div class="column small-12 medium-9">{{ user.public.email }}</div>
+    </li>
+    <li>
+      <div class="column small-12 medium-3">Name</div>
+      <div class="column small-12 medium-9">{{ user.public.name }}</div>
+    </li>
+    <li>
+      <div class="column small-12 medium-3">Birthdate</div>
+      <div class="column small-12 medium-9">{{ user.public.birthdate | moment:"MM/DD/YYYY" }}</div>
+    </li>
+    <li>
+      <div class="column small-12 medium-3">Gender</div>
+      <div class="column small-12 medium-9">{{ user.public.gender }}</div>
+    </li>
+    <li>
+      <div class="column small-12 medium-3">Twitter</div>
+      <div class="column small-12 medium-9">{{ user.public.twitter }}</div>
+    </li>
+    <li>
+      <div class="column small-12 medium-3">Website</div>
+      <div class="column small-12 medium-9">{{ user.public.website }}</div>
+    </li>
+    <li>
+      <div class="column small-12 medium-3">Preferences</div>
+      <div class="column small-12 medium-9">
+        <ul class="inline-list">
+          <li class="text-success" ng-repeat="(name, value) in user.public.preferences">
+            <span ng-class="{'text-error': !value}">{{ name }}</span>
+          </li>
+        </ul>
+      </div>
+    </li>
+    
+  </ul>
+  
+</div>
+
+<div class="column small-12" ng-show="user.private.customer">
+  <h5 class="font-flair">Customer</h5>
+  <ul class="table-list striped hover padded">
+    <li>
+      <div class="column medium-3">ID</div>
+      <div class="column medium-9">{{ user.private.customer.id }}</div>
+    </li>
+    <li>
+      <div class="column medium-3">Email</div>
+      <div class="column medium-9">{{ user.private.customer.email }}</div>
+    </li>
+    <li>
+      <div class="column medium-3">Name</div>
+      <div class="column medium-9">{{ user.private.customer.firstName }} {{ user.private.customer.lastName }}</div>
+    </li>
+    <li>
+      <div class="column medium-3">Merchant ID</div>
+      <div class="column medium-9">{{ user.private.customer.merchantId }}</div>
+    </li>
+    <li>
+      <div class="column medium-3">Created</div>
+      <div class="column medium-9">{{ user.private.customer.createdAt | moment:"MM/DD/YYYY hh:mm" }}</div>
+    </li>
+    <li>
+      <div class="column medium-3">Updated</div>
+      <div class="column medium-9">{{ user.private.customer.updatedAt | moment:"MM/DD/YYYY hh:mm" }}</div>
+    </li>
+    <li>
+      <div class="column small-12 medium-3">Credit Cards</div>
+      <div class="column small-12 medium-9">
+        <ul class="inline-list">
+          <li ng-repeat="card in user.private.customer.creditCards">
+            <img class="left" style="display: inline-block; width: 37px; margin-right: 1rem;" ng-src="{{ card.imageUrl }}">
+            {{ card.last4 }}: {{ card.expirationDate }}
+          </li>
+        </ul>
+      </div>
+    </li>
+    
+  </ul>
+  
+</div>
+
+<div class="column small-12" ng-show="user.private.commerce.transactions">
+  <h5 class="font-flair">Transactions</h5>
+  <ul class="table-list striped text-medium link-padded">
+         <li class="text-hover-white background-hover-primary2-important link-hover-white" ng-repeat="transaction in user.private.commerce.transactions">
+            <a class="clearfix text-primary0 text-hover-white-important block" ui-sref="authenticated.master.admin.transaction({key: transaction.keys.log, userId: transaction.userId})">
+              <div class="column small-12 medium-3">
+                {{ ::transaction.date | moment:"MM/DD/YY" }}
+              </div>
+              <div class="column small-12 medium-3">
+                {{ ::transaction.productCount }} Items
+              </div>
+              <div class="column small-12 medium-3">
+                {{ ::transaction.total | currency }}
+              </div>
+              <div class="column small-12 medium-3 text-right">
+                {{ ::transaction.date | moment:"MM/DD/YYYY" }}
+              </div>
+            </a>
+        </li>
+    </ul>
+  
+</div>
+
+<div class="column small-12" ng-show="user.private.commerce.subscriptions">
+  <h5 class="font-flair">Subscriptions</h5>
+  <ul class="table-list striped link-padded">
+    <li class="text-hover-white background-hover-primary2-important" ng-repeat="subscription in user.private.commerce.subscriptions">
+      <a class="clearfix padding-small text-primary0 text-hover-white-important block" ui-sref="authenticated.master.admin.subscription({key: subscription.keys.log})">
+        <div class="column small-12 medium-3">
+          {{ ::subscription.title }}
+        </div>
+        <div class="column small-12 medium-3">
+          {{ ::subscription.subscriptionDays }} Days
+        </div>
+        <div class="column small-12 medium-3">
+          Expires: {{ ::subscription.expiration | moment:"MM/DD/YYYY" }}
+        </div>
+        <div class="column small-12 medium-3 text-right">
+          {{ ::subscription.date | moment:"MM/DD/YYYY"}}
+        </div>
+      </a>
+    </li>
+  </ul>
+
+</div>
+
+<div class="column small-12" ng-show="user.private.commerce.gifts">
+  <h5 class="font-flair">Gifts</h5>
+  <ul class="table-list striped link-padded">
+    <li class="text-hover-white background-hover-primary2-important" ng-repeat="gift in user.private.commerce.gifts">
+      <a class="clearfix padding-small text-primary0 text-hover-white-important block" ui-sref="authenticated.master.admin.discounts({search: gift.code})">
+        <div class="column small-12 medium-3">
+          {{ ::gift.code }}
+        </div>
+        <div class="column small-12 medium-3">
+          {{ ::gift.price || gift.priceAdjusted | currency }}
+        </div>
+        <div class="column small-12 medium-3">
+          Expires: {{ ::gift.expiration | moment:"MM/DD/YYYY" }}
+        </div>
+        <div class="column small-12 medium-3 text-right">
+          {{ ::subscription.created | moment:"MM/DD/YYYY"}}
+        </div>
+      </a>
+    </li>
+  </ul>
+
+</div>
+
+<div class="column small-12" ng-show="user.private.commerce.shipments">
+  <h5 class="font-flair">Shipments</h5>
+  <ul class="table-list striped">
+    <li class="text-hover-white background-hover-primary2-important" ng-repeat="shipment in user.private.commerce.shipments">
+      <a class="clearfix padding-small text-primary0 text-hover-white-important block" ui-sref="authenticated.master.admin.shipments({search: user.email})">
+        <div class="column small-12 medium-3">
+          <span class="text-success"><i class="fa fa-paper-plane" ng-class="{'text-error': !shipment.shipped}"></i></span>
+        </div>
+        <div class="column small-12 medium-3">
+          {{ ::shipment.item.title }} - {{ shipmentitem.priceAdjusted || shipment.item.price | currency }}
+        </div>
+        <div class="column small-12 medium-3">
+          {{ ::shipment.item.optionsMatrixSelected.name }}
+        </div>
+        <div class="column small-12 medium-3 text-right">
+          {{ ::shipment.created | moment:"MM/DD/YYYY"}}
+        </div>
+
+      </a>
+    </li>
+  </ul>
+
+</div>
+
+<div class="column small-12" ng-show="user.private.commerce.downloads">
+  <h5 class="font-flair">Downloads</h5>
+  <ul class="table-list striped">
+    <li class="text-hover-white background-hover-primary2-important" ng-repeat="download in user.private.commerce.downloads">
+      <a class="clearfix padding-small text-primary0 text-hover-white-important block" href="/resource/{{ download.resource.keys.resource }}" target="_target">
+        <div class="column small-12 medium-3">
+          {{ download.title }}
+        </div>
+        <div class="column small-12 medium-3">
+          {{ download.price | currency }}
+        </div>
+        <div class="column small-12 medium-6 text-right">
+          {{ download.downloadUri }}
+        </div>
+
+      </a>
+    </li>
+  </ul>
+
+</div>
