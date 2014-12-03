@@ -11,9 +11,14 @@
       <div class="column small-12 medium-3">ID</div>
       <div class="column small-12 medium-9">{{ user.public.id }}</div>
     </li>
-    <li>
-      <div class="column small-12 medium-3">Email</div>
-      <div class="column small-12 medium-9">{{ user.public.email }}</div>
+    <li class="link-hover-white padding-zero-important">
+      <a class="clearfix block padding-small" href="mailto:{{ user.public.email }}">
+        <div class="column small-12 medium-3">Email</div>
+        <div class="column small-12 medium-9">
+          {{ user.public.email }}  
+        </div>
+      </a>
+      
     </li>
     <li>
       <div class="column small-12 medium-3">Name</div>
@@ -197,7 +202,7 @@
         <div class="column small-12 medium-3">
           {{ download.price | currency }}
         </div>
-        <div class="column small-12 medium-6 text-right">
+        <div class="column small-12 medium-6 text-right text-x-small">
           {{ download.downloadUri }}
         </div>
 

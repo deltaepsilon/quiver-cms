@@ -44,7 +44,7 @@
               </thead>
               <tbody>
                 <tr ng-repeat="state in states" ng-class="{disabled: !commerce.states[state.abbreviation].enabled}">
-                  <td><input id="checkbox-{{ state.abbreviation }}" class="margin-zero-important" type="checkbox" ng-model="commerce.states[state.abbreviation].enabled"></td>
+                  <td style="padding-right: 1rem;"><input id="checkbox-{{ state.abbreviation }}" class="margin-zero-important" type="checkbox" ng-model="commerce.states[state.abbreviation].enabled"></td>
                   <td><input id="tax-{{ state.abbreviation }}" class="margin-zero-important" type="number" ng-model="commerce.states[state.abbreviation].tax" ng-disabled="!commerce.states[state.abbreviation].enabled"></td>
                   <td>{{ state.name }}</td>
                 </tr>
@@ -76,7 +76,7 @@
                 <tr ng-repeat="country in countries" ng-class="{disabled: !commerce.countries[country['alpha-2']].enabled}">
                   <td><input id="enabled-{{ country['alpha-2'] }}" class="margin-zero-important" type="checkbox" ng-model="commerce.countries[country['alpha-2']].enabled"></td>
                   <td><input id="domestic-{{ country['alpha-2'] }}" class="margin-zero-important" type="checkbox" ng-model="commerce.countries[country['alpha-2']].domestic"></td>
-                  <td><input id="tax-{{ country['alpha-2'] }}" class="margin-zero-important" type="number" ng-model="commerce.countries[country['alpha-2']].tax" ng-disabled="!commerce.countries[country['alpha-2']].enabled"></td>
+                  <td style="padding-right: 1rem;"><input id="tax-{{ country['alpha-2'] }}" class="margin-zero-important" type="number" ng-model="commerce.countries[country['alpha-2']].tax" ng-disabled="!commerce.countries[country['alpha-2']].enabled"></td>
                   <td>{{ country.name }}</td>
                 </tr>
               </tbody>
