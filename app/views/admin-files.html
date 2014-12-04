@@ -60,7 +60,7 @@
             <div class="column small-12 medium-3">Preview</div>
             <div class="column small-12 medium-3">Details</div>
             <div class="column small-12 medium-3">Link/CommonMark</div>
-            <div class="column small-12 medium-3 text-center">Actions</div>
+            <div class="column small-12 medium-3 medium-text-center">Actions</div>
         </li>
         <li ng-repeat="file in originals" ng-class="{'disabled': file.disabled}">
             <div class="column small-12 medium-3">
@@ -84,7 +84,7 @@
                 <input ng-if="fileVersion" type="text" value="![{{ file.Versions[fileVersion].Key | filename }}]({{ file.Versions[fileVersion].Key | s3Link:bucket }})" qv-select-text/>
 
             </div>
-            <div class="column small-12 medium-3 text-center">
+            <div class="column small-12 medium-3 medium-text-center">
                 <button class="alert tiny small-12" style="min-width: 75px;" qv-confirm="removeFile(file); file.disabled = true;" confirmations="['Confirm']" ng-disabled="file.disabled">Delete</button>
                 <button class="tiny secondary small-12" ng-click="addToClipboard(file)" ng-hide="inClipboard(file) || file.disabled">+ Clip</button>
 
