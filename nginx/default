@@ -1,0 +1,43 @@
+server {
+  listen 80;
+  server_name dev.quiver.is;
+  return 302 https://dev.quiver.is$request_uri;
+}
+
+
+server {
+  listen  443;
+  server_name dev.quiver.is;
+
+  ssl on;
+  ssl_certificate      /src/certs/snakeoil.crt;
+  ssl_certificate_key  /src/certs/snakeoil.key;
+
+  ssl_session_timeout 5m;
+
+  ssl_protocols  SSLv2 TLSv1;
+  ssl_ciphers  HIGH:!aNULL:!MD5;
+  ssl_prefer_server_ciphers   on;
+
+  #rewrite_log on;
+
+  location ~ ^/(app|images|lib|scripts|styles|views) {
+    proxy_pass http://127.0.0.1:9800;
+  }
+
+  location ~ ^/api(/?)(.*) {
+    proxy_set_header X-Real-IP  $remote_addr;
+    proxy_set_header X-Forwarded-For $remote_addr;
+    proxy_set_header Host $host;
+    proxy_pass http://127.0.0.1:9800/$2;
+  }
+
+  location / {
+    proxy_set_header X-Real-IP  $remote_addr;
+    proxy_set_header X-Forwarded-For $remote_addr;
+    proxy_set_header Host $host;
+    proxy_pass http://127.0.0.1:9801;
+  }
+
+
+}

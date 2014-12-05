@@ -10,7 +10,8 @@
 module.exports = function (grunt) {
 
   var config = require('config'),
-    serverConfig = config.get('private.server');
+    serverConfig = config.get('private.server'),
+    packageJSON = require('./package.json');
 
   // Load grunt tasks automatically
   require('load-grunt-tasks')(grunt);
@@ -363,7 +364,7 @@ module.exports = function (grunt) {
       ],
       dist: [
         'compass:dist',
-        'imagemin',
+        // 'imagemin',
         'svgmin'
       ]
     },
@@ -391,6 +392,10 @@ module.exports = function (grunt) {
 
       remove: {
         command: "rm -rf .tmp/deploy && rm .tmp/deploy.tar.gz"
+      },
+
+      docker: {
+        command: "docker build -t epsilon/quiver-cms:" + packageJSON.version + " ."
       }
     },
 
@@ -483,6 +488,11 @@ module.exports = function (grunt) {
     'shell:copy',
     'shell:remote',
     'shell:remove'
+  ]);
+
+  grunt.registerTask('docker', [
+    'build',
+    'shell:docker'
   ]);
 
   grunt.registerTask('default', [
