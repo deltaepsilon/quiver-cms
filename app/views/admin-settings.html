@@ -12,8 +12,7 @@
           </div>
           <div class="column small-12 medium-6">
             <label for="front-page">Front Page Template</label>
-            {{ theme.alternates }}
-            <select ng-model="theme.frontPage" ng-options="alternate.filename as alternate.name for alternate in theme.alternates">
+            <select ng-model="theme.frontPage" ng-options="alternate.filename as alternate.name for (key, alternate) in theme.alternates">
               <option value="">Default Template</option>
             </select>
           </div>
