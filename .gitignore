@@ -5,19 +5,22 @@ dist
 .idea
 .DS_STORE
 app/lib
+
 assets/ssl
 newrelic.js
 newrelic_agent.log
+
+config/*
 bin/*
 certs/*
 nginx/*
 logs/*
 uploads/*
 resize/*
-themes/Quiver/static/env.js
-themes/Quiver/static/lib/*
-config/*
-themes/Quiver/views/*.alt.handlebars
+
+themes/quiver/static/env.js
+themes/quiver/static/lib/*
+themes/quiver/views/*.alt.handlebars
 
 !bin/*.dist
 !certs/snakeoil*

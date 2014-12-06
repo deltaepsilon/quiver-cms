@@ -21,7 +21,14 @@ server {
 
   #rewrite_log on;
 
-  location ~ ^/(app|images|lib|scripts|styles|views) {
+  client_max_body_size 2M;
+
+  proxy_connect_timeout 600;
+  proxy_send_timeout 600;
+  proxy_read_timeout 600;
+  send_timeout 600;
+
+  location ~ ^/(app|dist|images|lib|scripts|styles|views) {
     proxy_pass http://127.0.0.1:9800;
   }
 

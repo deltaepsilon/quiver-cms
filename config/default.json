@@ -1,7 +1,7 @@
 {
   "public": {
     "environment": "development",
-    "liveReload": true,
+    "liveReload": false,
     "html5Mode": true,
     "firebase": {
       "endpoint": "https://my-firebase.firebaseio.com/quiver-cms"
@@ -29,9 +29,6 @@
     },
     "amazon": {
       "publicBucket": "assets.westeros.com"
-    },
-    "content": {
-      "redisEnabled": false
     },
     "rss": {
       "title": "Quiver CMS",

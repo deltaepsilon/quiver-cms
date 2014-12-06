@@ -349,8 +349,8 @@ module.exports = function (grunt) {
       },
       deploy: {
         expand: true,
-        src: ['!dist/lib/angular-markdown-editable/node_modules/*', 'dist/**/*', 'themes/Quiver/static/**/*', 'themes/Quiver/views/**/*', 'config/*', 'lib/**/*', 'cms-server.js', 'content-server.js', 'package.json'],
-        dest: '.tmp/deploy'
+        src: ['certs/*', 'config/*', 'nginx/*', 'bin/*'],
+        dest: '.tmp/src'
       }
     },
 
@@ -370,16 +370,20 @@ module.exports = function (grunt) {
     },
 
     shell: {
+      docker: {
+        command: "docker build -t epsilon/quiver-cms:" + packageJSON.version + " ."
+      },
+
       compress: {
-        command: "tar -zcf .tmp/deploy.tar.gz .tmp/deploy"
+        command: "tar -zcf .tmp/src.tar.gz .tmp/src"
       },
 
       copy: {
         command: "scp -i "
           + serverConfig.IdentityFile
           + " -P " + serverConfig.Port
-          + " .tmp/deploy.tar.gz "
-          + serverConfig.User + "@" + serverConfig.HostName + ":" + serverConfig.destination + "/deploy.tar.gz"
+          + " .tmp/src.tar.gz "
+          + serverConfig.User + "@" + serverConfig.HostName + ":" + serverConfig.destination + "/src.tar.gz"
       },
 
       remote: {
@@ -387,15 +391,11 @@ module.exports = function (grunt) {
           + serverConfig.IdentityFile
           + " -p " + serverConfig.Port + " "
           + serverConfig.User + "@" + serverConfig.HostName + " "
-          + serverConfig.remoteCommand
+          + "'" + serverConfig.remoteCommand + "'"
       },
 
       remove: {
-        command: "rm -rf .tmp/deploy && rm .tmp/deploy.tar.gz"
-      },
-
-      docker: {
-        command: "docker build -t epsilon/quiver-cms:" + packageJSON.version + " ."
+        command: "rm -rf .tmp/src && rm .tmp/src.tar.gz"
       }
     },
 
@@ -481,18 +481,17 @@ module.exports = function (grunt) {
     // 'htmlmin'
   ]);
 
-  grunt.registerTask('deploy', [
+  grunt.registerTask('docker', [
     'build',
+    'shell:docker'
+  ]);
+
+  grunt.registerTask('deploy', [
     'copy:deploy',
     'shell:compress',
     'shell:copy',
     'shell:remote',
     'shell:remove'
-  ]);
-
-  grunt.registerTask('docker', [
-    'build',
-    'shell:docker'
   ]);
 
   grunt.registerTask('default', [

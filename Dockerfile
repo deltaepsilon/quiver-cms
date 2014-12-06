@@ -14,11 +14,13 @@ RUN ln -s /src/nginx/default /etc/nginx/sites-enabled/default
 # Don't daemonize NGINX to prevent container exit
 RUN echo "daemon off;" >> /etc/nginx/nginx.conf
 
-RUN npm install -g forever nodemon debug mime-db
+RUN npm install -g forever nodemon
 
 # Copy the important bits
+COPY app /src/app
 COPY dist /src/dist
 COPY lib /src/lib
+COPY themes /src/themes
 COPY cms-server.js /src/cms-server.js
 COPY content-server.js /src/content-server.js
 COPY newrelic.js /src/newrelic.js

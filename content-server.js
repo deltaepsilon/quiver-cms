@@ -14,6 +14,7 @@ var LogService = require('./lib/services/log-service'),
   ConfigService = require('./lib/services/config-service'),
   RedisService = require('./lib/services/redis-service'),
   EmailService = require('./lib/services/email-service'),
+  ThemeService = require('./lib/services/theme-service'),
   WordService = require('./lib/services/word-service');
 
 /*
@@ -94,7 +95,7 @@ FirebaseService.isAuthenticated().then(function () {
   var deferred = Q.defer();
 
   Q.all([
-      RedisService.setTheme(),
+      ThemeService.setTheme(),
       RedisService.setWords(),
       RedisService.setProducts(),
       RedisService.setSettings(),
@@ -103,8 +104,17 @@ FirebaseService.isAuthenticated().then(function () {
     .spread(function (theme, words, products, settings, hashtags) {
       var viewsDir;
 
-      theme.active = theme.options[theme.active || Object.keys(theme.options)[0]];
+      if (!theme) {
+        theme = {
+          active: 'quiver',
+          options: {
+            quiver: 'quiver'
+          }
+        }
+      }
 
+      theme.active =  theme.options[theme.active || Object.keys(theme.options)[0]];
+      
       viewsDir = './themes/' + theme.active + '/views';
 
       handlebars = expressHandlebars.create({

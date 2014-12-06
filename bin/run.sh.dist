@@ -5,7 +5,6 @@ docker run -d -t  \
   -v /Users/quiver/Development/quiver-cms/certs:/src/certs  \
   -v /Users/quiver/Development/quiver-cms/config:/src/config \
   -v /Users/quiver/Development/quiver-cms/nginx:/src/nginx \
-  -v /Users/quiver/Development/quiver-cms/themes:/src/themes \
   -v /Users/quiver/Development/quiver-cms/bin:/src/bin \
   -v /Users/quiver/Development/quiver-cms/logs:/src/logs \
   epsilon/quiver-cms:0.1.0

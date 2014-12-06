@@ -5,13 +5,14 @@
     <form name="themeForm">
         <fieldset>
           <div class="column small-12 medium-6">
-            <label for="theme">Pick a Theme</label>
+            <label for="theme">Theme</label>
             <select ng-model="theme.active" ng-options="key as value for (key, value) in theme.options">
-              <option value="">Default Theme</option>
+              <option value="">Select a Theme</option>
             </select>
           </div>
           <div class="column small-12 medium-6">
             <label for="front-page">Front Page Template</label>
+            {{ theme.alternates }}
             <select ng-model="theme.frontPage" ng-options="alternate.filename as alternate.name for alternate in theme.alternates">
               <option value="">Default Template</option>
             </select>

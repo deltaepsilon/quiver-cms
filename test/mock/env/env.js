@@ -11,7 +11,6 @@ window.envVars = {
     "maps":{"apiKey":"GREATDAYALL"},
     "disqus":{"shortname":"test"},
     "amazon":{"publicBucket":"assets.test.com"},
-    "content":{"redisEnabled":false},
     "rss":{
       "title":"Quiver CMS",
       "description":"A Firebase/Express/Angular/Node CMS",
