@@ -6,7 +6,7 @@ dist
 .DS_STORE
 app/lib
 
-assets/ssl
+assets
 newrelic.js
 newrelic_agent.log
 

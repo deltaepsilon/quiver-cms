@@ -49,6 +49,9 @@ app.get('/env.js', EnvironmentController.envJS);
 */
 app.use('/static', StaticController.content);
 
+app.use('/favicon.ico', StaticController.file('favicon.ico'));
+app.use('/robots.txt', StaticController.file('robots.txt'));
+
 /*
  * Atom 1.0 and RSS 2.0
  */
@@ -71,6 +74,8 @@ app.get('/product/:slug', ProductController.product);
  * Posts
 */
 app.get('/', PageController.frontPage);
+
+app.get('/blog', PageController.frontPage);
 
 
 app.get('/posts/:page', PageController.posts);
