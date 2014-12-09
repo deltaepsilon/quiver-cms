@@ -29,8 +29,11 @@
 }
 
 .fa-bars {
-  font-size: rem-calc(57);
-  margin: 1rem;
+  font-size: 2rem;
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 1.5rem;
 }
 
 .full-bleed {
