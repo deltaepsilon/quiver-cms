@@ -18,7 +18,8 @@ logs/*
 uploads/*
 resize/*
 
-themes/quiver/static/env.js
+themes/*
+!themes/quiver
 themes/quiver/static/lib/*
 themes/quiver/views/*.alt.handlebars
 

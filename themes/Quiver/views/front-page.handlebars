@@ -20,6 +20,7 @@
 
   </ul>
 
+{{#if hashtags.length }}
   <div class="column medium-4">
       <div class="hidden-for-small margin-vertical-large">
           <div class="panel">
@@ -29,6 +30,7 @@
                       <td class="small-12"><hr style="margin: -.2rem 0 .2rem .5rem"/></td>
                   </tr>
               </table>
+            
             <ul>
 
                 {{#each hashtags }}
@@ -43,6 +45,7 @@
       </div>
 
   </div>
+{{/if }}  
   <ul class="post-block-tertiary column small-12 medium-8">
     {{#each postBlocks.tertiary }}
         <li class="post post-{{ @index }}">

@@ -111,7 +111,7 @@ app.get('/admin/instagram', SocialController.searchInstagram);
 /*
  * Redis
 */
-app.get('/admin/clear-cache', CacheController.clearCache);
+app.get('/admin/clear-cache', CacheController.clearPages);
 
 /*
  * User
