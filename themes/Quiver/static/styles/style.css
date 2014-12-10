@@ -255,7 +255,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
 }
 
 /* line 38, theme/_color.scss */
-.background-highlight10 {
+.background-highlight10, .right-off-canvas-toggle {
   background-color: rgba(255, 255, 255, 0.9);
 }
 
@@ -19081,40 +19081,40 @@ button.callout:active, button.callout:focus, .button.callout:active, .button.cal
 }
 
 /* line 31, modules/_layout.scss */
-.fa-bars {
-  font-size: 2rem;
+.right-off-canvas-toggle {
+  font-size: 1rem;
   position: absolute;
   top: 0;
   right: 0;
-  padding: 1.5rem;
+  padding: 1rem 1rem 2rem;
 }
 
-/* line 40, modules/_layout.scss */
+/* line 47, modules/_layout.scss */
 .full-bleed.short {
   overflow: hidden;
   max-height: 10rem;
 }
-/* line 45, modules/_layout.scss */
+/* line 52, modules/_layout.scss */
 .full-bleed.medium {
   overflow: hidden;
   max-height: 20rem;
 }
-/* line 50, modules/_layout.scss */
+/* line 57, modules/_layout.scss */
 .full-bleed.tall {
   overflow: hidden;
   max-height: 40rem;
 }
-/* line 55, modules/_layout.scss */
+/* line 62, modules/_layout.scss */
 .full-bleed.underlay {
   position: absolute;
   left: 0;
   right: 0;
 }
-/* line 61, modules/_layout.scss */
+/* line 68, modules/_layout.scss */
 .full-bleed img {
   width: 100%;
 }
-/* line 65, modules/_layout.scss */
+/* line 72, modules/_layout.scss */
 .full-bleed hr {
   position: absolute;
   top: inherit;
@@ -19123,11 +19123,11 @@ button.callout:active, button.callout:focus, .button.callout:active, .button.cal
   left: -5000px;
 }
 
-/* line 70, modules/_layout.scss */
+/* line 77, modules/_layout.scss */
 .blurred {
   position: relative;
 }
-/* line 73, modules/_layout.scss */
+/* line 80, modules/_layout.scss */
 .blurred:after {
   position: absolute;
   top: 0;

@@ -28,12 +28,19 @@
   word-break: break-all;
 }
 
-.fa-bars {
-  font-size: 2rem;
+.right-off-canvas-toggle {
+  @extend .background-highlight10;
+
+  font-size: 1rem;
   position: absolute;
   top: 0;
   right: 0;
-  padding: 1.5rem;
+  padding: 1rem 1rem 2rem;
+
+}
+
+.fa-bars {
+  
 }
 
 .full-bleed {

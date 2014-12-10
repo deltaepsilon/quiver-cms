@@ -36,7 +36,8 @@
     "angularfire": "~0.9.0",
     "angular-ui-router": "~0.2.11",
     "angular-md5": "~0.1.7",
-    "angularfire-authentication": "git@github.com:deltaepsilon/angularfire-authentication.git#master"
+    "angularfire-authentication": "git@github.com:deltaepsilon/angularfire-authentication.git#master",
+    "jquery.finger": "~0.1.2"
   },
   "devDependencies": {
     "livereload": "~2.0.8"
@@ -44,6 +45,7 @@
   "resolutions": {
     "angular": "~1.3.0",
     "firebase": "~2.0.4",
-    "angularfire": "~0.9.0"
+    "angularfire": "~0.9.0",
+    "jquery": "~1.10.0"
   }
 }
