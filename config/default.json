@@ -21,6 +21,7 @@
     },
     "supportedImageTypes": ["jpg", "jpeg", "png", "gif", "tiff"],
     "supportedVideoTypes": ["mp4", "webm", "mpeg", "ogg"],
+    "maxUploadBytes": 10000000,
     "maps": {
       "apiKey": "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
     },

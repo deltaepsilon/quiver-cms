@@ -153,6 +153,18 @@ angular.module('quiverCmsApp')
         return $firebase(new Firebase(firebaseEndpoint + '/content/assignments/' + key));
       },
 
+      getUserAssignment: function (userId, key) {
+        return $firebase(new Firebase(firebaseEndpoint + '/users/' + userId + '/public/assignments/' + key));
+      },
+
+      getUserAssignmentUploads: function (userId, key) {
+        return $firebase(new Firebase(firebaseEndpoint + '/users/' + userId + '/public/assignments/' + key + '/uploads'));
+      },
+
+      getUserAssignmentMessages: function (userId, key) {
+        return $firebase(new Firebase(firebaseEndpoint + '/users/' + userId + '/public/assignments/' + key + '/messages'));
+      },
+
       getSubscriptions: function(query) {
         return $firebase(FirebaseService.query(new Firebase(firebaseEndpoint + '/logs/subscriptions'), query));
       },

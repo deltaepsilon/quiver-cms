@@ -11,6 +11,13 @@
         <a ui-sref="authenticated.master.nav.subscription.page({subscriptionKey: subscription.$id, pageNumber: $index})" ng-disabled="$index == pageNumber">{{ page.title }}</a>
       </li>
     </ul>
+
+    <h5 class="font-flair" style="padding-left: 0.875rem;">Assignments</h5>
+    <ul class="side-nav margin-zero" style="padding-top: 7px;">
+      <li ng-repeat="(key, assignment) in assignments" ng-class="{active: key == assignmentKey}">
+        <a ui-sref="authenticated.master.nav.subscription.assignment({subscriptionKey: subscription.$id, assignmentKey: key})" ng-disabled="key == assignmentKey">{{ assignment.title }}</a>
+      </li>
+    </ul>
   </div>
   
 </div>

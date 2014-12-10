@@ -8,29 +8,37 @@
 <div class="column small-12">
     <form name="filesForm" flow-init="{target: uploadTarget}" flow-name="flow">
         <fieldset>
-            <label class="button tiny small-12" for="upload-file">Select Files</label>
-            <input id="upload-file" class="hidden" type="file" flow-btn/>
+            <div class="column small-12 medium-6">
+                <label class="button tiny small-12" for="upload-file">Select Files</label>
+                <input id="upload-file" class="hidden" type="file" flow-btn/>
 
-            <label class="button tiny small-12" for="upload-directory">Select Directory</label>
-            <input id="upload-directory" class="hidden" type="file" flow-btn flow-directory/>
-
-            <div class="panel callout" flow-drop flow-drag-enter="style={'border-color': '#4A910A'}" flow-drag-leave="style={}">
-                File Drop
             </div>
+            <div class="column small-12 medium-6">
+                <label class="button tiny small-12" for="upload-directory">Select Directory</label>
+                <input id="upload-directory" class="hidden" type="file" flow-btn flow-directory/>    
+            </div>
+            <div class="column small-12">
+                <div class="panel callout" flow-drop flow-drag-enter="style={'border-color': '#4A910A'}" flow-drag-leave="style={}">
+                    File Drop
+                </div>
+                
+            </div>
+            <div class="column small-12">
+                <ul class="table-list striped hover link-padded" ng-if="$flow.files.length">
+                    <li ng-repeat="file in $flow.files">
+                        <a class="qv-progress success clearfix block" qv-confirm="deleteFlowFile($flow, file)" confirmations="['Click to Delete']">
+                            <span class="meter-text">{{ file.name }} {{ file.size / 1000 | number:0 }}kb</span>
+                            <span class="meter" qv-meter="file.percentComplete"></span>
+                        </a>
 
-            <ul class="table-list striped hover link-padded" ng-if="$flow.files.length">
-                <li ng-repeat="file in $flow.files">
-                    <a class="qv-progress success clearfix block" qv-confirm="deleteFlowFile($flow, file)" confirmations="['Click to Delete']">
-                        <span class="meter-text">{{ file.name }} {{ file.size / 1000 | number:0 }}kb</span>
-                        <span class="meter" qv-meter="file.percentComplete"></span>
-                    </a>
+                    </li>
+                </ul>
 
-                </li>
-            </ul>
+                <button class="left" ng-click="upload($flow)" ng-hide="!$flow.files.length" ng-disabled="uploading">Upload Files</button>
+                <!-- <button class="left" ng-click="fakeUpload($flow)" ng-hide="!$flow.files.length" ng-disabled="uploading">Fake</button> -->
+                <button class="right" ng-show="files.Originals.length" ng-click="resize()" ng-disabled="resizing">Resize and Update</button>
 
-            <button class="left" ng-click="upload($flow)" ng-hide="!$flow.files.length" ng-disabled="uploading">Upload Files</button>
-            <!-- <button class="left" ng-click="fakeUpload($flow)" ng-hide="!$flow.files.length" ng-disabled="uploading">Fake</button> -->
-            <button class="right" ng-show="files.Originals.length" ng-click="resize()" ng-disabled="resizing">Resize and Update</button>
+            </div>
 
         </fieldset>
 

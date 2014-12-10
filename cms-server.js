@@ -28,6 +28,7 @@ var ConfigService = require('./lib/services/config-service'),
   CheckoutController = require('./lib/controllers/checkout'),
   TransactionController = require('./lib/controllers/transaction'),
   SubscriptionController = require('./lib/controllers/subscription'),
+  MessageController = require('./lib/controllers/message'),
   Middleware = require('./lib/controllers/middleware');
 
 /*
@@ -136,7 +137,20 @@ app.post('/admin/transaction/:key/charge', TransactionController.charge);
 /*
  * Subscription
  */
- app.get('/user/:userId/subscription/:subscriptionKey/pages', SubscriptionController.pages);
+app.get('/user/:userId/subscription/:subscriptionKey/pages', SubscriptionController.pages);
+app.get('/user/:userId/subscription/:subscriptionKey/assignments', SubscriptionController.assignments);
+
+/*
+ * Messages
+ */
+app.post('/user/:userId/log/*', FormController.body);
+app.post('/user/:userId/log/:type', MessageController.log);
+
+app.post('/user/:userId/upload', FormController.flow); // Use formidable body parser... the Flow variety
+app.post('/user/:userId/upload', MessageController.upload);
+
+app.post('/user/:userId/upload/remove', FormController.body);
+app.post('/user/:userId/upload/remove', MessageController.remove);
 
 /*
  * Cron

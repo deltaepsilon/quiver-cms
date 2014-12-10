@@ -2,29 +2,54 @@
 
 /**
  * @ngdoc function
- * @name quiverCmsApp.controller:SubscriptionCtrl
+ * @name quiverCmsApp.controller:AdminSubscriptionCtrl
  * @description
- * # SubscriptionCtrl
+ * # AdminSubscriptionCtrl
  * Controller of the quiverCmsApp
  */
 angular.module('quiverCmsApp')
-  .controller('SubscriptionCtrl', function ($scope, subscriptionRef, pages, $stateParams, $localStorage, moment, NotificationService) {
+  .controller('SubscriptionCtrl', function ($scope, subscriptionRef, userSubscriptionRef, NotificationService, moment, $state) {
+    /*
+     * Subscription
+     */
     $scope.subscription = subscriptionRef.$asObject();
 
-    $scope.subscription.$loaded().then(function(subscription) {
-    	if (subscription.subscriptionType === 'content') {
-    		if (!$scope.subscription.expiration) {
-    			$scope.subscription.expiration = moment().add(subscription.subscriptionDays, 'days').format();
-    			$scope.subscription.$save();
-    		} else if (moment().unix() > moment($scope.subscription.expiration).unix()) {
-    			NotificationService.notify('Subscription Expired');
-    			$scope.redirect();
-    		}
-    		
-    	}
-    	
-    });
+    /*
+     * User Subscription
+     */
+    $scope.userSubscription = userSubscriptionRef.$asObject();
 
-    $scope.pages = pages.pages;
-    
+    /*
+     * Actions
+     */
+    $scope.addDays = function (subscription, days) {
+      if (!subscription.originalExpiration) {
+        subscription.originalExpiration = subscription.expiration;
+      }
+      subscription.expiration = moment(subscription.expiration).add(days, 'days').format();
+      subscription.$save();
+    };
+
+    $scope.resetSubscription = function (subscription) {
+      delete subscription.expiration;
+      subscription.$save();
+    };
+
+    $scope.removeSubscription = function () {
+      userSubscriptionRef.$remove().then(function () {
+        NotificationService.success('Removed', 'User Subscription')  
+      }, function (err) {
+        NotificationService.error('Failed to Remove', err);
+      });
+
+      subscriptionRef.$remove().then(function () {
+        NotificationService.success('Removed', 'Subscription Log')
+      }, function (err) {
+        NotificationService.error('Failed to Remove', err);
+      });
+
+      $state.go('authenticated.master.admin.subscriptions');
+
+    };
+
   });

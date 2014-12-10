@@ -365,10 +365,10 @@ angular.module('quiverCmsApp', [
           }
         }  
       })
-      .state('authenticated.master.nav.subscription', { // *************************  Subscription *********************
+      .state('authenticated.master.nav.subscription', { // *************************  User Subscription ****************
         abstract: true,
         url: "/subscription/:subscriptionKey",
-        controller: 'SubscriptionCtrl',
+        controller: 'UserSubscriptionCtrl',
         templateUrl: 'views/subscription.html',
         resolve: {
           subscriptionRef: function (UserService, user, $stateParams) {
@@ -376,6 +376,9 @@ angular.module('quiverCmsApp', [
           },
           pages: function(user, UserService, $stateParams) {
             return UserService.getPages(user.public.id, $stateParams.subscriptionKey);
+          },
+          assignments: function (UserService, user, $stateParams) {
+            return UserService.getAssignments(user.public.id, $stateParams.subscriptionKey);
           }
         }
       })
@@ -388,9 +391,36 @@ angular.module('quiverCmsApp', [
             var keys = Object.keys(pages.pages),
               key = keys[$stateParams.pageNumber];
 
+            $rootScope.assignmentKey = undefined;
             $rootScope.pageNumber = parseInt($stateParams.pageNumber);
             $localStorage['bookmark-' + $stateParams.subscriptionKey] = parseInt($stateParams.pageNumber);
             return AdminService.getWord(key);
+          }
+        }
+      })
+      .state('authenticated.master.nav.subscription.assignment', {
+        url: "/assignment/:assignmentKey",
+        templateUrl: '/views/assignment.html',
+        controller: 'UserAssignmentCtrl',
+        resolve: {
+          assignmentRef: function (AdminService, $stateParams, $localStorage, $rootScope) {
+
+            $rootScope.pageNumber = undefined;
+            $rootScope.assignmentKey = $stateParams.assignmentKey;
+            $localStorage['assignment-' + $stateParams.assignmentKey] = $stateParams.assignmentKey;
+            return AdminService.getAssignment($stateParams.assignmentKey);
+          },
+          userAssignmentRef: function (AdminService, user, $stateParams) {
+            return AdminService.getUserAssignment(user.public.id, $stateParams.assignmentKey);
+          },
+          userAssignmentUploadsRef: function (AdminService, user, $stateParams) {
+            return AdminService.getUserAssignmentUploads(user.public.id, $stateParams.assignmentKey);
+          },
+          userAssignmentMessagesRef: function (AdminService, user, $stateParams) {
+            return AdminService.getUserAssignmentMessages(user.public.id, $stateParams.assignmentKey);
+          },
+          notificationsRef: function (AdminService, currentUser) {
+            return AdminService.getNotifications(currentUser.uid);
           }
         }
       })
@@ -503,7 +533,7 @@ angular.module('quiverCmsApp', [
           },
           notificationsRef: function (AdminService, currentUser) {
             return AdminService.getNotifications(currentUser.uid);
-          },
+          }
         }
       })
       .state('authenticated.master.admin.products', { // ***************************  Products *************************
@@ -670,7 +700,7 @@ angular.module('quiverCmsApp', [
       .state('authenticated.master.admin.subscription', { // ***********************  Subscriptions *******************
         url: '/subscription/:key',
         templateUrl: 'views/admin-subscription.html',
-        controller: 'AdminSubscriptionCtrl',
+        controller: 'SubscriptionCtrl',
         resolve: {
           subscriptionRef: function(AdminService, $stateParams) {
             return AdminService.getSubscription($stateParams.key);

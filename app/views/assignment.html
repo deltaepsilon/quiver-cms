@@ -1,0 +1,95 @@
+<div class="small-12">
+  <h5 class="font-flair">{{ assignment.title }}</h5>
+</div>
+
+
+
+<div class="small-12">
+  <div markdown-editable ng-model="assignment.description" extensions="video"></div>
+</div>
+
+<div class="small-12" ng-show="assignment.supportsUpload">
+  <h5 class="font-flair">Uploads</h5>
+
+  <form name="filesForm" flow-init="{target: uploadTarget}" flow-file-added="handleFileAdded($event, $flow, $file)" flow-name="flow">
+    <fieldset>
+      <div class="column small-12 medium-6">
+        <label class="button small-12" for="upload-file">Select Files</label>
+        <input id="upload-file" class="hidden" type="file" flow-btn/>
+      </div>
+
+      <div class="column small-12 medium-6">
+        <label class="button small-12" for="upload-directory">Select Directory</label>
+        <input id="upload-directory" class="hidden" type="file" flow-btn flow-directory/>
+      </div>
+
+      <div class="column small-12">
+        <div class="panel callout" flow-drop flow-drag-enter="style={'border-color': '#4A910A'}" flow-drag-leave="style={}">
+          File Drop
+        </div>      
+      </div>
+
+      <div class="column small-12">
+        <ul class="table-list striped hover link-padded" ng-if="$flow.files.length">
+          <li ng-repeat="file in $flow.files">
+            <a class="qv-progress success clearfix block" qv-confirm="deleteFlowFile($flow, file)" confirmations="['Click to Delete']">
+              <span class="meter-text">{{ file.name }} {{ file.size / 1000 | number:0 }}kb</span>
+              <span class="meter" qv-meter="file.percentComplete"></span>
+            </a>
+
+          </li>
+        </ul>
+
+        <button class="left" ng-click="upload($flow)" ng-hide="!$flow.files.length" ng-disabled="uploading">Upload Files</button>
+        <!-- <button class="left" ng-click="fakeUpload($flow)" ng-hide="!$flow.files.length" ng-disabled="uploading">Fake</button> -->
+      </div>
+
+    </fieldset>
+
+  </form>
+
+  <div class="column small-12">
+    <ul class="table-list striped padded">
+      <li class="table-list-header">
+        <div class="column small-12 medium-4">
+          Image
+        </div>
+        <div class="column small-12 medium-4">
+          Details
+        </div>
+        <div class="column small-12 medium-4">
+          Action
+        </div>
+      </li>
+      <li ng-repeat="(key, image) in uploads" ng-class="{'disabled': image.disabled}">
+        <div class="column small-12 medium-4">
+          <a href="{{ image.url }}" target="_blank">
+            <img ng-src="{{ image.url }}" alt="{{ image.name }}">
+          </a>
+        </div>
+        <div class="column small-12 medium-4">
+          {{ image.Name }} ({{ image.Size / 1000 | number:0 }}kb)
+        </div>
+        <div class="column small-12 medium-4">
+          <button class="alert small small-12" qv-confirm="remove(image); image.disabled = true;" confirmations="['Are you sure?']" ng-disabled="image.disabled">Remove</button>
+        </div>
+
+      </li>
+    </ul>
+  </div>
+
+</div>
+
+<div class="small-12">
+  <h5 class="font-flair">Messages</h5>
+  <ul class="table-list striped padded">
+    <li ng-repeat="message in messages">
+      <div class="column small-4 medium-3">{{ message.user.name }}</div>
+      <div class="column small-8 medium-9">{{ message.text }}</div>
+    </li>
+    <li class="no-stripe">
+      <textarea id="new-message" ng-model="text" placeholder="Message..."></textarea>
+      <button ng-click="sendMessage(text); text = undefined;" qv-focus="#new-message" ng-disabled="!text || !text.length">Send</button>
+    </li>
+  </ul>
+</div>
