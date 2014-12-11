@@ -48,7 +48,7 @@
 
   </form>
 
-  <div class="column small-12">
+  <div class="small-12" ng-show="uploads.length">
     <ul class="table-list striped padded">
       <li class="table-list-header">
         <div class="column small-12 medium-4">
@@ -71,7 +71,7 @@
           {{ image.Name }} ({{ image.Size / 1000 | number:0 }}kb)
         </div>
         <div class="column small-12 medium-4">
-          <button class="alert small small-12" qv-confirm="remove(image); image.disabled = true;" confirmations="['Are you sure?']" ng-disabled="image.disabled">Remove</button>
+          <button class="alert small small-12 margin-zero" qv-confirm="remove(image); image.disabled = true;" confirmations="['Are you sure?']" ng-disabled="image.disabled">Remove</button>
         </div>
 
       </li>
@@ -84,8 +84,10 @@
   <h5 class="font-flair">Messages</h5>
   <ul class="table-list striped padded">
     <li ng-repeat="message in messages">
-      <div class="column small-4 medium-3">{{ message.user.name }}</div>
-      <div class="column small-8 medium-9">{{ message.text }}</div>
+      <div class="column small-4 medium-3"><strong>{{ message.user.name }}</strong></div>
+      <div class="column small-8 medium-9">
+        <div markdown-editable ng-model="message.text"></div>
+      </div>
     </li>
     <li class="no-stripe">
       <textarea id="new-message" ng-model="text" placeholder="Message..."></textarea>

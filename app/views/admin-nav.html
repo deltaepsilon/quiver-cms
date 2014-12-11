@@ -11,6 +11,21 @@
             <li qv-active>
                 <a ui-sref="authenticated.master.admin.words">Words</a>
             </li>
+
+            <li class="has-dropdown not-click" qv-active>
+              <a>Assignments</a>
+              
+              <ul class="dropdown">
+
+                <li qv-active>
+                  <a ui-sref="authenticated.master.admin.messages">Messages</a>
+                </li>
+                <li qv-active>
+                  <a ui-sref="authenticated.master.admin.uploads">Uploads</a>
+                </li>
+              </ul>
+
+            </li>
             
             <li class="has-dropdown not-click" qv-active>
               <a>Content</a>
@@ -58,7 +73,6 @@
               </ul>
 
             </li>
-
 
             <li class="has-dropdown not-click" qv-active>
               <a><i class="fa fa-bars"></i></a>

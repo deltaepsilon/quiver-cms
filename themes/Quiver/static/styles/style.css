@@ -345,7 +345,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
 }
 
 /* line 38, theme/_color.scss */
-.background-white, .type-ahead {
+.background-white, .qv-lightbox.open .marquee img, .qv-lightbox li img, .type-ahead {
   background-color: #fff;
 }
 
@@ -19162,7 +19162,7 @@ button.callout:active, button.callout:focus, .button.callout:active, .button.cal
   margin: auto;
   max-height: 100%;
 }
-/* line 32, modules/_lightbox.scss */
+/* line 34, modules/_lightbox.scss */
 .qv-lightbox.open .marquee .floating-button {
   display: flex;
   justify-content: center;
@@ -19172,11 +19172,11 @@ button.callout:active, button.callout:focus, .button.callout:active, .button.cal
   position: relative;
   height: 100%;
 }
-/* line 52, modules/_lightbox.scss */
+/* line 54, modules/_lightbox.scss */
 .qv-lightbox.open .marquee .prev, .qv-lightbox.open .marquee .next {
   cursor: pointer;
 }
-/* line 57, modules/_lightbox.scss */
+/* line 59, modules/_lightbox.scss */
 .qv-lightbox.open .drawer {
   height: 33%;
   overflow: auto;
@@ -19188,14 +19188,14 @@ button.callout:active, button.callout:focus, .button.callout:active, .button.cal
   align-items: flex-start;
   align-content: flex-start;
 }
-/* line 77, modules/_lightbox.scss */
+/* line 79, modules/_lightbox.scss */
 .qv-lightbox.open .drawer > ul > li, .qv-lightbox.open .drawer > ol > li {
   clear: none !important;
   float: left;
   max-width: 150px;
   padding: .5rem;
 }
-/* line 93, modules/_lightbox.scss */
+/* line 95, modules/_lightbox.scss */
 .qv-lightbox li {
   cursor: pointer;
 }

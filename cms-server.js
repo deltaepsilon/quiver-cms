@@ -132,6 +132,8 @@ app.get('/user/:userId', UserController.get);
 app.post('/user/checkout', FormController.body);
 app.post('/user/checkout', CheckoutController.checkout);
 app.post('/admin/transaction/:key/email', TransactionController.email);
+
+app.post('/admin/transaction/:key/charge', FormController.body);
 app.post('/admin/transaction/:key/charge', TransactionController.charge);
 
 /*
@@ -143,11 +145,11 @@ app.get('/user/:userId/subscription/:subscriptionKey/assignments', SubscriptionC
 /*
  * Messages
  */
-app.post('/user/:userId/log/*', FormController.body);
-app.post('/user/:userId/log/:type', MessageController.log);
+app.post('/user/:userId/assignment/:assignmentId/log/*', FormController.body);
+app.post('/user/:userId/assignment/:assignmentId/log/:type', MessageController.log);
 
-app.post('/user/:userId/upload', FormController.flow); // Use formidable body parser... the Flow variety
-app.post('/user/:userId/upload', MessageController.upload);
+app.post('/user/:userId/assignment/:assignmentId/upload', FormController.flow); // Use formidable body parser... the Flow variety
+app.post('/user/:userId/assignment/:assignmentId/upload', MessageController.upload);
 
 app.post('/user/:userId/upload/remove', FormController.body);
 app.post('/user/:userId/upload/remove', MessageController.remove);

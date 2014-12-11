@@ -96,8 +96,8 @@
                         <img class="gravatar" ng-src="{{ gravatar }}" alt="Gravatar"/>
                     </a>
                     <ul class="dropdown">
-                        <li ng-show="user.private.isAdmin">
-                            <li qv-active><a ui-sref="authenticated.master.admin"><i class="fa fa-bar-chart"></i> &nbsp;Admin Dashboard</a></li>
+                        <li ng-show="user.private.isAdmin" qv-active>
+                            <a ui-sref="authenticated.master.admin"><i class="fa fa-bar-chart"></i> &nbsp;Admin Dashboard</a>
                         </li>
                         <li ng-show="currentUser">
                             <a ng-click="logOut()" ui-sref="authenticated.master.nav.dashboard"><i class="fa fa-sign-out"></i> &nbsp;Log Out</a>

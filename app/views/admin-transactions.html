@@ -26,7 +26,8 @@
                     {{ ::transaction.userEmail }}
                 </div>
                 <div class="column small-12 medium-3">
-                    {{ ::transaction.total | currency }}
+                    <span ng-class="{'text-error': transaction.total && !transaction.charge.success}">{{ ::transaction.total | currency }}</span>
+                    <div class="text-error text-xx-small" ng-show="transaction.total && !transaction.charge.success">{{ transaction.charge.message }}</div>
                 </div>
                 <div class="column small-12 medium-3">
                     {{ ::transaction.productCount }}

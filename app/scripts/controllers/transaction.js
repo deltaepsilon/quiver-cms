@@ -22,8 +22,8 @@ angular.module('quiverCmsApp')
   		});
   	};
 
-  	$scope.chargeCard = function (key, transaction) {
-  		AdminService.chargeCard(key, transaction).then(function () {
+  	$scope.chargeCard = function (transaction, key) {
+  		AdminService.chargeCard(transaction, key || transaction.$id).then(function () {
   			NotificationService.success('Card charged');
   		}, function (err) {
   			NotificationService.error('Charge failed', err);

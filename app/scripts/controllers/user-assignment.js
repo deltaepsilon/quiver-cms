@@ -39,16 +39,10 @@ angular.module('quiverCmsApp')
         text: text,
         created: now
       }).then(function (ref) {
-        UserService.logMessage(user.public.id, 'comment', {
+        UserService.logMessage(user.public.id, assignmentRef.$ref().key(), 'comment', {
           key: ref.key(),
-          created: now,
-          text: text,
-          user: {
-            id: user.public.id,
-            email: user.public.email,
-            loginEmail: user.email
-          }
-        })
+          text: text
+        });
       });
     };
 
@@ -75,7 +69,7 @@ angular.module('quiverCmsApp')
     /*
      * Files
     */
-    $scope.uploadTarget = env.api + '/user/' + user.public.id + '/upload';
+    $scope.uploadTarget = env.api + '/user/' + user.public.id + '/assignment/' + assignmentRef.$ref().key() + '/upload';
 
     $scope.deleteFlowFile = function (flow, file) {
       var i = flow.files.length;
@@ -169,7 +163,6 @@ angular.module('quiverCmsApp')
 
       var completed = [],
         catchAllHandler = function (e, flowFile, result) {
-          console.log('catchAllHandler', arguments);
           switch (e) {
             case 'fileSuccess':
               var file = JSON.parse(result),
@@ -179,11 +172,11 @@ angular.module('quiverCmsApp')
                 completed.push(file);
                 $scope.uploads.$add(file);
               }
+              break;
             case 'complete':
-              console.warn('complete', 'repair multi-file upload... it is not working.');
-              Flow.off('catchAll', catchAllHandler);
-              $scope.uploading = false; // I know I do this twice, but I wouldn't want it to fail for some reason.
-              uploadDeferred.resolve(e);
+                Flow.off('catchAll', catchAllHandler);
+                $scope.uploading = false; // I know I do this twice, but I wouldn't want it to fail for some reason.
+                uploadDeferred.resolve(e);              
               break;
             case 'error':
               uploadDeferred.reject(e);

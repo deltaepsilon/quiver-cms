@@ -137,8 +137,8 @@ angular.module('quiverCmsApp')
         return Restangular.one('admin').one('transaction').one(key).post('email', transaction);
       },
 
-      chargeCard: function (key, transaction) {
-        return Restangular.one('admin').one('transaction').one(key).post('charge', transaction);
+      chargeCard: function (transaction, key) {
+        return Restangular.one('admin').one('transaction').one(key || transaction.$id).post('charge', transaction);
       },
 
       setUserEmail: function (uid, email) {
@@ -183,6 +183,14 @@ angular.module('quiverCmsApp')
 
       getUserShipment: function (userId, key) {
         return $firebase(new Firebase(firebaseEndpoint + '/users/' + userId + '/private/commerce/shipments/' + key));
+      },
+
+      getMessages: function (query) {
+        return $firebase(FirebaseService.query(new Firebase(firebaseEndpoint + '/logs/messages'), query));
+      },
+
+      getUploads: function (query) {
+        return $firebase(FirebaseService.query(new Firebase(firebaseEndpoint + '/logs/uploads'), query));
       }
 
     }

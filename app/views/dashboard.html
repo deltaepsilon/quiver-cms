@@ -120,7 +120,8 @@
                         {{ transaction.date | moment:"MM/DD/YYYY" }}
                     </div>
                     <div class="column small-12 medium-2 medium-text-right">
-                        <strong>{{ transaction.total | currency }}</strong>
+                        <strong ng-class="{'text-error': transaction.total && !transaction.charge.success}">{{ transaction.total | currency }}</strong>
+                        <div class="text-error text-xx-small" ng-show="transaction.total && !transaction.charge.success">{{ transaction.charge.message }}</div>
                     </div>
                     
                 </a>

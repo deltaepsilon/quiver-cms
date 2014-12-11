@@ -720,8 +720,40 @@ angular.module('quiverCmsApp', [
           limit: function () {
             return 10;
           },
-          shipmentsRef: function (AdminService, limit) {
+          shipmentsRef: function (AdminService, limit) { 
             return AdminService.getShipments({orderByPriority: true, limitToLast: limit});
+          }
+        }
+      })
+      .state('authenticated.master.admin.messages', { // ***************************  Messages *************************
+        url: '/messages/:search',
+        templateUrl: 'views/admin-messages.html',
+        controller: 'MessagesCtrl',
+        resolve: {
+          limit: function () {
+            return 10;
+          },
+          messagesRef: function (AdminService, limit) {
+            return AdminService.getMessages({orderByPriority: true, limitToLast: limit});
+          }
+        }
+      })
+      .state('authenticated.master.admin.feedback', { // ***************************  Assignment *********************
+        url: '/user/:userId/feedback/:assignmentId',
+        templateUrl: 'views/admin-feedback.html',
+        controller: 'FeedbackCtrl',
+        resolve: {
+          clientRef: function (AdminService, $stateParams) {
+            return AdminService.getUser($stateParams.userId);
+          },
+          assignmentRef: function (AdminService, $stateParams) {
+            return AdminService.getAssignment($stateParams.assignmentId);
+          },
+          assignmentUploadsRef: function (AdminService, $stateParams) {
+            return AdminService.getUserAssignmentUploads($stateParams.userId, $stateParams.assignmentId);
+          },
+          assignmentMessagesRef: function (AdminService, $stateParams) {
+            return AdminService.getUserAssignmentMessages($stateParams.userId, $stateParams.assignmentId);
           }
         }
       });

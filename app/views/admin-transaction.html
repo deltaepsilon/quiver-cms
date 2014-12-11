@@ -1,5 +1,11 @@
 <div class="column small-12">
-	<h3 class="font-flair left">{{ transaction.date | moment:"MM/DD/YY" }}</h3>
+	<h3 class="font-flair left">
+		<span>Date: {{ transaction.date | moment:"MM/DD/YY" }}</span>
+
+	</h3>
+	<h5 class="font-flair margin-small left" ng-show="transaction.updated">
+		<span>Updated: {{ transaction.updated | moment:"MM/DD/YY hh:mm:ss" }}</span>
+	</h5>
 	<h5 class="font-flair right margin-vertical-small">
 		<a ui-sref="authenticated.master.admin.user({key: transaction.userId})">{{ transaction.userEmail }}</a>
 	</h5>
@@ -9,44 +15,65 @@
 <hr>
 
 <div class="column small-12 margin-vertical-large">
+		<div class="left" ng-show="transaction.total && !transaction.charge.success">
+			<h5 class="text-error">
+				<span>Transaction Not Charged!</span>
+				<span>{{ transaction.charge.message }}</span>
+			</h5>
+		</div>
 		<a class="button right small secondary" ui-sref="authenticated.master.nav.transaction({userId: transaction.userId, key: transaction.keys.user })">User View</a>
 		<a class="button right small secondary" href="/transaction/{{ transaction.$id }}/email/html" qv-to-static>View Email</a>
 		<button class="right small" ng-click="sendEmail(transaction.$id, transaction)">Send Email</button>
-		<button class="right small alert" ng-click="chargeCard(transaction.$id, transaction)">Charge Card</button>
-	</div>
+		<button class="right small alert" ng-click="chargeCard(transaction)">Charge Card</button>
+</div>
 
 <div class="column small-12">
-	<ul class="table-list striped">
-		<li class="text-small" ng-repeat="item in transaction.items">
-			<div class="overflow-hidden background-secondary3 text-white link-white link-hover-secondary4">
-        <a class="left padding-small" ui-sref="authenticated.master.admin.product({key: item.$id})">{{ item.title }} x {{ item.quantity }} @ {{ item.priceAdjusted || item.price | currency }}</a>
-        <div class="right padding-small background-success text-center" style="min-width: 8rem;">{{ item.type }}</div>
+	<ul class="table-list padded striped">
+		<li class="table-list-header">
+			<div class="column small-12 medium-2">
+        Type
 
-      </div>
-      <div class="padding-vertical-small padding-horizontal-x-small clearfix">
-				<div class="column small-12 medium-4">
+			</div>
+			<div class="column small-12 medium-4">
+				Product
+
+			</div>
+			<div class="column small-12 medium-4">
+				Details
+
+			</div>
+			<div class="column small-12 medium-2">
+				Shipping/Tax
+			</div>
+
+		</li>
+		<li ng-repeat="item in transaction.items">
+			<div class="column small-12 medium-2">
+        <strong>{{ item.type }}</strong>
+
+			</div>
+			<div class="column small-12 medium-4">
+				<a ui-sref="authenticated.master.admin.product({key: item.$id})">{{ item.title }} x {{ item.quantity }} @ {{ item.priceAdjusted || item.price | currency }}</a>
+				<div>
 					<strong>{{ item.optionsMatrixSelected.name || '&nbsp;' }}</strong>
 				</div>
-				<div class="column small-12 medium-4">
-					<ul class="text-small">
-						<li ng-if="item.type == 'digital'"><strong><a href="{{ ::item.downloadUri }}">{{ ::item.downloadUri }}</a></strong></li>
-						<li ng-if="item.type == 'gift'" ng-repeat="discount in item.discounts">Code: <strong>{{ ::discount.code }}</strong> for <strong>{{ ::discount.value | currency }}</strong></li>
-						<li ng-if="item.type == 'subscription'">Subscription: <strong>{{ ::item.subscriptionType }}</strong> for <strong>{{ ::item.subscriptionDays }} days</strong></li>
-					</ul>
 
-				</div>
-				<div class="column small-12 medium-4">
-					<ul class="text-small">
-						<li>Shipped: <strong ng-class="{'text-success': item.shipped}">{{ item.shipped || 'false' }}</strong></li>
-						<li>Taxable: <strong ng-class="{'text-success': item.taxable}">{{ item.taxable || 'false' }}</strong></li>
-					</ul>
-					
-				</div>
-				
-      </div>
-			
-			
+			</div>
+			<div class="column small-12 medium-4">
+				<ul class="text-small margin-zero">
+					<li ng-if="item.type == 'digital'"><strong><a href="{{ ::item.downloadUri }}">{{ ::item.downloadUri }}</a></strong></li>
+					<li ng-if="item.type == 'gift'" ng-repeat="discount in item.discounts">Code: <strong>{{ ::discount.code }}</strong> for <strong>{{ ::discount.value | currency }}</strong></li>
+					<li ng-if="item.type == 'subscription'">Subscription: <strong>{{ ::item.subscriptionType }}</strong> for <strong>{{ ::item.subscriptionDays }} days</strong></li>
+				</ul>
+
+			</div>
+			<div class="column small-12 medium-2">
+				<ul class="text-small margin-zero">
+					<li>Shipped: <strong ng-class="{'text-success': item.shipped}">{{ item.shipped || 'false' }}</strong></li>
+					<li>Taxable: <strong ng-class="{'text-success': item.taxable}">{{ item.taxable || 'false' }}</strong></li>
+				</ul>
+			</div>
+
 		</li>
 	</ul>
-
 </div>

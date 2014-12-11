@@ -28,8 +28,8 @@ angular.module('quiverCmsApp')
         return Restangular.one('user').one(userId).one('subscription').one(key).one('assignments').get();
       },
 
-      logMessage: function (userId, type, message) {
-        return Restangular.one('user').one(userId).one('log').post(type, message);
+      logMessage: function (userId, assignmentId, type, message) {
+        return Restangular.one('user').one(userId).one('assignment').one(assignmentId).one('log').post(type, message);
       },
 
       removeUpload: function (userId, file) {
