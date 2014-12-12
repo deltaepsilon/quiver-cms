@@ -8,7 +8,7 @@ angular.module('quiverCmsApp')
     var messages = messagesRef.$asArray();
     $scope.messages = messages;
 
-        /*
+    /*
      * Query
      */
     var query = function (q) {
@@ -81,5 +81,12 @@ angular.module('quiverCmsApp')
       $scope.limit = limit;
       query();
     };
+
+    /*
+     * Subscription
+     */
+    $scope.isExpired = function (subscription) {
+      return moment().unix() > moment(subscription.expiration).unix();
+    }
 
   });

@@ -17,6 +17,19 @@
   &.bottom {
     @include absolute(inherit, 0, -1px, 0);
   }
+
+  &.centered {   
+    @extend .flex;
+    @extend .align-items-center;
+    @extend .align-content-center;
+    @include absolute();
+
+    & > * {
+      margin: auto;
+      z-index: 1;
+    }
+
+  }
 }
 
 .centered-block {

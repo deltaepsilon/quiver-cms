@@ -33,8 +33,29 @@
   display: none;
 }
 
+.disabled, [disabled] {
+  cursor: default;
+  pointer-events: none;
+
+  a {
+    cursor: default;
+    pointer-events: none;
+  }
+}
+
 .disabled {
-  opacity: .3;
+  opacity: .5;
+
+  a {
+    opacity: .5;
+  }
+}
+
+a {
+  &.disabled, &[disabled] {
+    cursor: default;
+    pointer-events: none;
+  }
 }
 
 .relative {

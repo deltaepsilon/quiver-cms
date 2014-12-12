@@ -14,17 +14,30 @@ angular.module('quiverCmsApp')
      */
     $scope.subscription = subscriptionRef.$asObject();
 
+    $scope.isExpired = function (subscription) {
+        return moment().unix() > moment(subscription.expiration).unix();
+    };
+
+    $scope.startSubscription = function (subscription) {
+        subscription.expiration = moment().add(subscription.subscriptionDays, 'days').format();
+        subscription.$save();
+    };
+
+    $scope.checkSubscription = function (subscription) {
+        if (subscription.subscriptionType === 'content') {
+            if (!subscription.expiration) {
+                subscription.expiration = moment().add(subscription.subscriptionDays, 'days').format();
+                subscription.$save();
+            } else if ($scope.isExpired(subscription)) {
+                NotificationService.notify('Subscription Expired');
+                return $scope.redirect();
+            }
+        }
+        
+    };
+
     $scope.subscription.$loaded().then(function(subscription) {
-    	if (subscription.subscriptionType === 'content') {
-    		if (!$scope.subscription.expiration) {
-    			$scope.subscription.expiration = moment().add(subscription.subscriptionDays, 'days').format();
-    			$scope.subscription.$save();
-    		} else if (moment().unix() > moment($scope.subscription.expiration).unix()) {
-    			NotificationService.notify('Subscription Expired');
-    			$scope.redirect();
-    		}
-    		
-    	}
+        $scope.checkSubscription(subscription);
     	
     });
 

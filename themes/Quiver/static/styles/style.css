@@ -3189,21 +3189,42 @@ a.link-hover-black-important:hover {
 }
 
 /* line 36, theme/_global.scss */
-.disabled {
-  opacity: .3;
+.disabled, [disabled] {
+  cursor: default;
+  pointer-events: none;
+}
+/* line 40, theme/_global.scss */
+.disabled a, [disabled] a {
+  cursor: default;
+  pointer-events: none;
 }
 
-/* line 40, theme/_global.scss */
+/* line 46, theme/_global.scss */
+.disabled {
+  opacity: .5;
+}
+/* line 49, theme/_global.scss */
+.disabled a {
+  opacity: .5;
+}
+
+/* line 55, theme/_global.scss */
+a.disabled, a[disabled] {
+  cursor: default;
+  pointer-events: none;
+}
+
+/* line 61, theme/_global.scss */
 .relative {
   position: relative;
 }
 
-/* line 44, theme/_global.scss */
+/* line 65, theme/_global.scss */
 .circle, .delete-button, .social-button {
   border-radius: 50%;
 }
 
-/* line 48, theme/_global.scss */
+/* line 69, theme/_global.scss */
 .delete-button {
   position: absolute;
   top: -0.5rem;
@@ -3213,28 +3234,28 @@ a.link-hover-black-important:hover {
   display: block;
   padding: 0rem .5rem;
 }
-/* line 56, theme/_global.scss */
+/* line 77, theme/_global.scss */
 .delete-button .left {
   left: -.5rem;
   right: initial;
 }
 
-/* line 63, theme/_global.scss */
+/* line 84, theme/_global.scss */
 video, img {
   max-width: 100%;
 }
 
-/* line 67, theme/_global.scss */
+/* line 88, theme/_global.scss */
 .social-button {
   padding: .25rem .6rem;
 }
-/* line 71, theme/_global.scss */
+/* line 92, theme/_global.scss */
 .social-button i {
   min-width: 1rem;
   text-align: center;
 }
 
-/* line 78, theme/_global.scss */
+/* line 99, theme/_global.scss */
 .markdown ul, .markdown li {
   list-style-type: initial;
 }

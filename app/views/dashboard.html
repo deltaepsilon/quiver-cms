@@ -55,20 +55,31 @@
         </div>
 
         <ul class="table-list striped hover link-padded text-x-medium">
-            <li ng-repeat="(key, subscription) in user.private.commerce.subscriptions">
+            <li ng-repeat="(key, subscription) in user.private.commerce.subscriptions | orderBy:'expiration'" ng-disabled="subscription.subscriptionType == 'content' && expired(subscription)" ng-class="{disabled: subscription.subscriptionType == 'content' && isExpired(subscription)}">
                 <a ui-sref="authenticated.master.nav.subscription.page({subscriptionKey: key, pageNumber: $storage['bookmark-' + key] || 0})">
                     <div class="column small-12 medium-3">{{ subscription.title }}</div>
-                    <div class="column small-12 medium-2">{{ subscription.subscriptionDays }} Days</div>
-                    <div class="column small-12 medium-5">
-                        <span ng-hide="subscription.expiration">
-                            <strong class="text-hover-white-important" ng-show="subscription.subscriptionType === 'content'">Click to Start Subscription</strong>
-                            <strong ng-show="subscription.subscriptionType === 'interaction'">Subscription </strong>
+                    <div class="column small-12 medium-3">{{ subscription.subscriptionDays }} Days</div>
+                    <div class="column small-12 medium-6 medium-text-right">
+                        <span ng-show="subscription.subscriptionType === 'interaction'">
+                            <span ng-show="isExpired(subscription)">
+                                <strong>Assignments Expired</strong>: {{ subscription.expiration | moment:"MM/DD/YYYY" }}
+                            </span>
+                            <span ng-hide="isExpired(subscription)">
+                                <span ng-show="subscription.expiration">Assignments Expiration: {{ subscription.expiration | moment:"MM/DD/YYYY" }}</span>
+                                <span ng-hide="subscription.expiration">Assignments not started</span>
+                            </span>
+                        </span>
+                        <span ng-show="subscription.subscriptionType === 'content'">
+                            <span ng-show="isExpired(subscription)">
+                                <strong>Expired</strong>: {{ subscription.expiration | moment:"MM/DD/YYYY" }}
+                            </span>
+                            <span ng-hide="isExpired(subscription)">
+                                <span ng-show="subscription.expiration">Expiration: {{ subscription.expiration | moment:"MM/DD/YYYY" }}</span>
+                                <strong ng-hide="subscription.expiration">Click to start subscription</strong>
+                            </span>
+                            
                         </span>
                         
-                    </div>
-                    <div class="column small-12 medium-2 medium-text-right"> 
-                        <span ng-show="subscription.expiration">Expiration: {{ subscription.expiration | moment:"MM/DD/YYYY" }}</span>
-                        <span ng-hide="subscription.expiration">Not Started</span>
                     </div>
                     
                     

@@ -72,11 +72,18 @@ $colors:
   }
 
   a.link-#{nth($color, 1)} {
+    &:visited {
+      color : nth($color, 2);
+    }
     color : nth($color, 2);
+    
   }
 
-  .link-#{nth($color, 1)} a {
-    color : nth($color, 2)
+  .link-#{nth($color, 1)} {
+    a, a:visited {
+      color : nth($color, 2)
+    }
+    
   }
 
   a.link-hover-#{nth($color, 1)}:hover {
@@ -93,11 +100,17 @@ $colors:
 
 
   a.link-#{nth($color, 1)}-important {
+    &:visited {
+      color : nth($color, 2) !important;  
+    }
     color : nth($color, 2) !important;
   }
 
-  .link-#{nth($color, 1)}-important a {
-    color : nth($color, 2) !important;
+  .link-#{nth($color, 1)}-important {
+    a, a:visited {
+      color : nth($color, 2) !important;  
+    }
+    
   }
 
   a.link-hover-#{nth($color, 1)}-important:hover {

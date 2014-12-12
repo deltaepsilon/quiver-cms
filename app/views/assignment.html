@@ -11,21 +11,24 @@
 <div class="small-12" ng-show="assignment.supportsUpload">
   <h5 class="font-flair">Uploads</h5>
 
-  <form name="filesForm" flow-init="{target: uploadTarget}" flow-file-added="handleFileAdded($event, $flow, $file)" flow-name="flow">
+  <form name="filesForm" flow-init="{target: uploadTarget}" flow-file-added="handleFileAdded($event, $flow, $file)" flow-name="flow" ng-hide="isExpired(subscription)">
     <fieldset>
       <div class="column small-12 medium-6">
         <label class="button small-12" for="upload-file">Select Files</label>
         <input id="upload-file" class="hidden" type="file" flow-btn/>
-      </div>
 
-      <div class="column small-12 medium-6">
         <label class="button small-12" for="upload-directory">Select Directory</label>
         <input id="upload-directory" class="hidden" type="file" flow-btn flow-directory/>
       </div>
 
-      <div class="column small-12">
-        <div class="panel callout" flow-drop flow-drag-enter="style={'border-color': '#4A910A'}" flow-drag-leave="style={}">
-          File Drop
+      <!-- <div class="column small-12 medium-6">
+        <label class="button small-12" for="upload-directory">Select Directory</label>
+        <input id="upload-directory" class="hidden" type="file" flow-btn flow-directory/>
+      </div> -->
+
+      <div class="column small-12 medium-6">
+        <div class="panel callout text-center margin-zero-important" style="padding: 2.8rem;" flow-drop ng-class="{'drag-over': dragOver}" flow-drag-enter="dragOver = true;" flow-drag-leave="dragOver = false;">
+          <strong class="text-x-large" style="color: inherit;">File Drop</strong>
         </div>      
       </div>
 
@@ -48,9 +51,9 @@
 
   </form>
 
-  <div class="small-12" ng-show="uploads.length">
+  <div class="small-12">
     <ul class="table-list striped padded">
-      <li class="table-list-header">
+      <li class="table-list-header" ng-show="uploads.length">
         <div class="column small-12 medium-4">
           Image
         </div>
@@ -75,6 +78,9 @@
         </div>
 
       </li>
+      <li class="no-stripe" ng-show="!uploads.length">
+        <h5 class="font-flair">No uploads found.</h5>
+      </li>
     </ul>
   </div>
 
@@ -89,9 +95,14 @@
         <div markdown-editable ng-model="message.text"></div>
       </div>
     </li>
+    <li class="no-stripe" ng-show="!messages.length">
+        <h5 class="font-flair">No messages found.</h5>
+    </li>
     <li class="no-stripe">
-      <textarea id="new-message" ng-model="text" placeholder="Message..."></textarea>
-      <button ng-click="sendMessage(text); text = undefined;" qv-focus="#new-message" ng-disabled="!text || !text.length">Send</button>
+      <span ng-if="!isExpired(subscription)">
+        <textarea id="new-message" ng-model="text" placeholder="Message..."></textarea>
+        <button ng-click="sendMessage(text); text = undefined;" qv-focus="#new-message" ng-disabled="!text || !text.length">Send</button>
+      </span>      
     </li>
   </ul>
 </div>
