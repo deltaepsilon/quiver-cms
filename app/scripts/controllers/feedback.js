@@ -8,7 +8,7 @@
  * Controller of the quiverCmsApp
  */
 angular.module('quiverCmsApp')
-  .controller('FeedbackCtrl', function ($scope, clientRef, assignmentRef, assignmentUploadsRef, assignmentMessagesRef, UserService) {
+  .controller('FeedbackCtrl', function ($scope, clientRef, assignmentRef, userAssignmentRef, assignmentUploadsRef, assignmentMessagesRef, UserService) {
     /*
      * Client
      */
@@ -18,6 +18,11 @@ angular.module('quiverCmsApp')
      * Assignment
      */
     $scope.assignment = assignmentRef.$asObject();
+
+    /*
+     * User Assignment
+     */
+    $scope.userAssignment = userAssignmentRef.$asObject();
 
     /*
      * Messages
@@ -38,7 +43,8 @@ angular.module('quiverCmsApp')
         UserService.logMessage(user.public.id, assignmentRef.$ref().key(), 'comment', {
           key: ref.key(),
           text: text,
-          clientId: clientRef.$ref().key(),
+          recipientId: clientRef.$ref().key(),
+          subscriptionKey: $scope.userAssignment.subscriptionKey,
           isAdmin: true
         });
       });

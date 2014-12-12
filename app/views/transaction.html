@@ -59,7 +59,7 @@
           <li>{{ transaction.address.street1 }}</li>
           <li>{{ transaction.address.street2 }}</li>
           <li>{{ transaction.address.street3 }}</li>
-          <li>{{ transaction.address.city }}, {{ transaction.address.territory }} {{ transaction.address.postalCode }}</li>
+          <li>{{ transaction.address.city }}<span ng-show="transaction.address.city && (transaction.address.territory)">,</span> {{ transaction.address.territory }} {{ transaction.address.postalCode }}</li>
           <li>{{ transaction.address.countryName }}</li>
           <li ng-show="transaction.address.instructions" class="margin-vertical-small">
             <strong>Shipping Instructions:</strong>

@@ -92,7 +92,7 @@
           <input id="product-subscription-days" type="number" name="product-subscription-days" ng-model="product.subscriptionDays" placeholder="Subscription days..." ng-change="checkValidity()">
 
           <label for="product-subscription-type">Subscription Type</label>
-          <select id="product-subscription-type" required>
+          <select id="product-subscription-type" ng-model="product.subscriptionType" required>
             <option value="">Subscription type...</option>
             <option value="content">Content Limited</option>
             <option value="interaction">Interaction Limited</option>

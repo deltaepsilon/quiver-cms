@@ -8,7 +8,7 @@
  * Controller of the quiverCmsApp
  */
 angular.module('quiverCmsApp')
-  .controller('UserAssignmentCtrl', function ($scope, $q, $filter, Slug, assignmentRef, userAssignmentRef, userAssignmentUploadsRef, userAssignmentMessagesRef, notificationsRef, user, UserService, NotificationService, moment, env, FileService, $timeout, $interval) {
+  .controller('UserAssignmentCtrl', function ($scope, $q, $filter, Slug, $stateParams, assignmentRef, userAssignmentRef, userAssignmentUploadsRef, userAssignmentMessagesRef, notificationsRef, user, UserService, NotificationService, moment, env, FileService, $timeout, $interval) {
     /*
      * Assignment
      */
@@ -18,6 +18,13 @@ angular.module('quiverCmsApp')
      * User Assignment
      */
     $scope.userAssignment = userAssignmentRef.$asObject();
+
+    var setSubscriptionKey = function () {
+      if (!$scope.userAssignment.subscriptionKey) {
+        $scope.userAssignment.subscriptionKey = $stateParams.subscriptionKey;
+        $scope.userAssignment.$save();
+      }
+    };
 
     /*
      * Uploads
@@ -36,12 +43,16 @@ angular.module('quiverCmsApp')
         user: {
           name: user.public.name || user.public.email || user.email
         },
+        subscriptionKey: $stateParams.subscriptionKey,
         text: text,
         created: now
       }).then(function (ref) {
+        setSubscriptionKey();
+        
         UserService.logMessage(user.public.id, assignmentRef.$ref().key(), 'comment', {
           key: ref.key(),
-          text: text
+          text: text,
+          subscriptionKey: $stateParams.subscriptionKey
         });
       });
     };
@@ -197,6 +208,7 @@ angular.module('quiverCmsApp')
         Flow.files = [];
         $scope.uploading = false; // Just in case the earlier pass at reactivating this button failed.
         clearWatches();
+        setSubscriptionKey();
         NotificationService.success('Files Processed', 'Your files have successfully been uploaded.');
 
       }, function (err) {

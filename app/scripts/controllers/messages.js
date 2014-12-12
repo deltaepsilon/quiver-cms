@@ -72,4 +72,5 @@ angular.module('quiverCmsApp')
         $scope.search(term);
       }
     });
+    
   });

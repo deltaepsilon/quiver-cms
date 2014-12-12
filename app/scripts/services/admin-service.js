@@ -189,6 +189,14 @@ angular.module('quiverCmsApp')
         return $firebase(FirebaseService.query(new Firebase(firebaseEndpoint + '/logs/messages'), query));
       },
 
+      getUserMessages: function (userId, query) {
+        return $firebase(FirebaseService.query(new Firebase(firebaseEndpoint + '/users/' + userId + '/public/messages'), query));
+      },
+
+      getUserMessage: function (userId, key) {
+        return $firebase(new Firebase(firebaseEndpoint + '/users/' + userId + '/public/messages/' + key));
+      },
+
       getUploads: function (query) {
         return $firebase(FirebaseService.query(new Firebase(firebaseEndpoint + '/logs/uploads'), query));
       }

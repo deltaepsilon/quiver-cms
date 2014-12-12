@@ -95,3 +95,13 @@ video, img {
 a[disabled] {
     pointer-events: none;
 }
+
+.truncate {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.transition-color {
+  transition: color 300ms ease;
+}

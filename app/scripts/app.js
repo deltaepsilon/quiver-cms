@@ -296,7 +296,15 @@ angular.module('quiverCmsApp', [
       .state('authenticated.master.nav.dashboard', {
         url: '/',
         templateUrl: 'views/dashboard.html',
-        controller: 'DashboardCtrl'
+        controller: 'DashboardCtrl',
+        resolve: {
+          limit: function () {
+            return 5;
+          },
+          messagesRef: function (AdminService, user, limit) {
+            return AdminService.getUserMessages(user.$id, {orderByPriority: true, limitToLast: limit});
+          }
+        }
       })
       .state('authenticated.master.nav.account', { // ******************************  Account **************************
         url: "/account",
@@ -739,7 +747,7 @@ angular.module('quiverCmsApp', [
         }
       })
       .state('authenticated.master.admin.feedback', { // ***************************  Assignment *********************
-        url: '/user/:userId/feedback/:assignmentId',
+        url: '/user/:userId/feedback/:assignmentKey',
         templateUrl: 'views/admin-feedback.html',
         controller: 'FeedbackCtrl',
         resolve: {
@@ -747,13 +755,16 @@ angular.module('quiverCmsApp', [
             return AdminService.getUser($stateParams.userId);
           },
           assignmentRef: function (AdminService, $stateParams) {
-            return AdminService.getAssignment($stateParams.assignmentId);
+            return AdminService.getAssignment($stateParams.assignmentKey);
+          },
+          userAssignmentRef: function (AdminService, $stateParams) {
+            return AdminService.getUserAssignment($stateParams.userId, $stateParams.assignmentKey);
           },
           assignmentUploadsRef: function (AdminService, $stateParams) {
-            return AdminService.getUserAssignmentUploads($stateParams.userId, $stateParams.assignmentId);
+            return AdminService.getUserAssignmentUploads($stateParams.userId, $stateParams.assignmentKey);
           },
           assignmentMessagesRef: function (AdminService, $stateParams) {
-            return AdminService.getUserAssignmentMessages($stateParams.userId, $stateParams.assignmentId);
+            return AdminService.getUserAssignmentMessages($stateParams.userId, $stateParams.assignmentKey);
           }
         }
       });

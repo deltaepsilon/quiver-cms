@@ -21,7 +21,11 @@
       @extend .text-hover-white;
       @extend .link-hover-white;
       @extend .link-primary0;
-      @extend .background-hover-primary2-important;
+      @extend .background-hover-secondary5-important;
+
+      & > a {
+        @extend .background-hover-primary2-important;
+      }
 
       &.table-list-header {
         @extend .text-hover-primary0;
@@ -54,6 +58,9 @@
   &.link-padded {
    > li > a {
       @extend .padding-small;
+      @extend .clearfix;
+
+      display: block;
 
       &.no-pad {
         padding: inherit !important;

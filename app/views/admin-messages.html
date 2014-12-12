@@ -6,7 +6,7 @@
   <input type="text" ng-model="searchTerm" qv-enter="search(searchTerm)" placeholder="Click ENTER to search by email...">
   <ul class="table-list link-padded hover striped">
     <li ng-repeat="message in messages">
-      <a class="clearfix block" ui-sref="authenticated.master.admin.feedback({userId: message.userId, assignmentId: message.assignmentId })">
+      <a class="clearfix block" ui-sref="authenticated.master.admin.feedback({userId: message.recipientId || message.userId, assignmentKey: message.assignmentKey })">
       <div class="column small-4">
         <span class="cursor-pointer" ng-click="setSearch(message.userEmail)">{{ message.userEmail }}</span>
       </div>

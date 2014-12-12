@@ -156,7 +156,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
 }
 
 /* line 49, theme/_color.scss */
-.background-hover-primary2-important:hover, .table-list.hover > li:hover {
+.background-hover-primary2-important:hover, .table-list.hover > li > a:hover {
   background-color: #076391 !important;
 }
 
@@ -276,7 +276,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
 }
 
 /* line 49, theme/_color.scss */
-.background-hover-secondary5-important:hover {
+.background-hover-secondary5-important:hover, .table-list.hover > li:hover {
   background-color: #aaa !important;
 }
 
@@ -3588,6 +3588,18 @@ a[disabled] {
   pointer-events: none;
 }
 
+/* line 99, theme/_global.scss */
+.truncate {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+/* line 105, theme/_global.scss */
+.transition-color {
+  transition: color 300ms ease;
+}
+
 /* line 347, ../lib/foundation/scss/foundation/components/_global.scss */
 meta.foundation-version {
   font-family: "/5.4.3/";
@@ -3699,12 +3711,12 @@ img {
 }
 
 /* line 172, ../lib/foundation/scss/foundation/components/_global.scss */
-.clearfix:before, .dark-form .dark-wrapper:before, .clearfix:after, .dark-form .dark-wrapper:after {
+.clearfix:before, .dark-form .dark-wrapper:before, .table-list.link-padded > li > a:before, .clearfix:after, .dark-form .dark-wrapper:after, .table-list.link-padded > li > a:after {
   content: " ";
   display: table;
 }
 /* line 173, ../lib/foundation/scss/foundation/components/_global.scss */
-.clearfix:after, .dark-form .dark-wrapper:after {
+.clearfix:after, .dark-form .dark-wrapper:after, .table-list.link-padded > li > a:after {
   clear: both;
 }
 
@@ -12314,23 +12326,27 @@ form.top-offset {
 .table-list.striped > li.no-stripe {
   background-color: inherit !important;
 }
-/* line 34, modules/_table-list.scss */
+/* line 38, modules/_table-list.scss */
 .table-list.hover > li.no-hover:hover {
   background-color: inherit !important;
 }
-/* line 48, modules/_table-list.scss */
+/* line 52, modules/_table-list.scss */
 .table-list.padded > li.no-pad {
   padding: inherit !important;
 }
-/* line 58, modules/_table-list.scss */
+/* line 59, modules/_table-list.scss */
+.table-list.link-padded > li > a {
+  display: block;
+}
+/* line 65, modules/_table-list.scss */
 .table-list.link-padded > li > a.no-pad {
   padding: inherit !important;
 }
-/* line 64, modules/_table-list.scss */
+/* line 71, modules/_table-list.scss */
 .table-list.link-padded > li.no-pad {
   padding: inherit !important;
 }
-/* line 70, modules/_table-list.scss */
+/* line 77, modules/_table-list.scss */
 .table-list li.table-list-header {
   font-weight: bold;
   border-bottom: 1px solid #333;

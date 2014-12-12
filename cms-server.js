@@ -145,11 +145,11 @@ app.get('/user/:userId/subscription/:subscriptionKey/assignments', SubscriptionC
 /*
  * Messages
  */
-app.post('/user/:userId/assignment/:assignmentId/log/*', FormController.body);
-app.post('/user/:userId/assignment/:assignmentId/log/:type', MessageController.log);
+app.post('/user/:userId/assignment/:assignmentKey/log/*', FormController.body);
+app.post('/user/:userId/assignment/:assignmentKey/log/:type', MessageController.log);
 
-app.post('/user/:userId/assignment/:assignmentId/upload', FormController.flow); // Use formidable body parser... the Flow variety
-app.post('/user/:userId/assignment/:assignmentId/upload', MessageController.upload);
+app.post('/user/:userId/assignment/:assignmentKey/upload', FormController.flow); // Use formidable body parser... the Flow variety
+app.post('/user/:userId/assignment/:assignmentKey/upload', MessageController.upload);
 
 app.post('/user/:userId/upload/remove', FormController.body);
 app.post('/user/:userId/upload/remove', MessageController.remove);
