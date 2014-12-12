@@ -24,15 +24,42 @@
   <h5 class="font-flair">Messages</h5>
   <ul class="table-list striped padded">
     <li ng-repeat="message in messages">
-      <div class="column small-4 medium-3"><strong>{{ message.user.name }}</strong></div>
-      <div class="column small-8 medium-9">
+      <div class="column small-3"><strong>{{ message.user.name }}</strong></div>
+      <div class="column small-8">
         <div markdown-editable ng-model="message.text"></div>
+      </div>
+      <div class="small-1">
+        <span ng-show="message.queued"><i class="fa fa-envelope text-secondary3"></i> {{ message.queued | moment:"MM/DD/YYYY" }}</span>
+        <span ng-show="message.alerted"><i class="fa fa-envelope text-success"></i> {{ message.alerted | moment:"MM/DD/YYYY" }}</span>
       </div>
     </li>
     <li class="no-stripe">
       <textarea id="new-message" ng-model="text" placeholder="Message..."></textarea>
-      <button ng-click="sendMessage(text); text = undefined;" qv-focus="#new-message" ng-disabled="!text || !text.length">Send</button>
+      <button class="left" ng-click="sendMessage(text); text = undefined;" qv-focus="#new-message" ng-disabled="!text || !text.length">Send</button>
+      <button class="right alert" ng-click="queueFeedbackEmail(client.$id, userAssignment.$id)">Email Assignment Update</button>
     </li>
   </ul>
+</div>
+
+<div class="column small-12">
+  <h5 class="font-flair">Instructor's-Eyes-Only</h5>
+
+  <div>
+    <a href="/user/{{ client.$id }}/assignment/{{ userAssignment.$id }}/feedback-email/html" target="_blank">Preview HTML Email</a>
+  </div>
+  <div>
+    <a href="/user/{{ client.$id }}/assignment/{{ userAssignment.$id }}/feedback-email/text" target="_blank">Preview Text Email</a>
+  </div>
+  
+</div>
+
+<div class="column small-12 medium-6">
+  <label>Client</label>
+  <textarea class="small-12" style="min-height: 10rem;" ng-model="client.comment" ng-model-options="{debounce: {'default': 1000}}" placeholder="Client comments..."></textarea>
+</div>
+
+<div class="column small-12 medium-6">
+  <label>Assignment</label>
+  <textarea class="small-12" style="min-height: 10rem;" ng-model="userAssignment.comment" ng-model-options="{debounce: {'default': 1000}}" placeholder="Assignment comments..."></textarea>
 </div>
 

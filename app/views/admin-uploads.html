@@ -1,0 +1,47 @@
+<div class="column small-12">
+  <h3 class="font-flair">Uploads</h3>
+</div>
+
+<div class="column small-12">
+  <input type="text" ng-model="searchTerm" qv-enter="search(searchTerm)" placeholder="Click ENTER to search by email...">
+  <ul class="table-list padded hover striped">
+    <li ng-repeat="upload in uploads">
+      <div class="column small-3">
+        <span class="cursor-pointer" ng-click="setSearch(upload.userEmail)">{{ upload.userEmail }}</span>
+      </div>
+      <div class="column small-3">
+        <a class="clearfix block" ui-sref="authenticated.master.admin.feedback({userId: upload.recipientId || upload.userId, assignmentKey: upload.assignmentKey })">
+          <img ng-src="{{ upload.upload.url }}">
+        </a>
+      </div>
+      <div class="column small-3">
+        <textarea ng-model="upload.comment" ng-model-options="{updateOn: 'blur'}" ng-change="save(upload)" placeholder="Comments..."></textarea>
+      </div>
+      <div class="column small-3 medium-text-right">
+        <div class="text-secondary3 cursor-pointer" ng-click="flag(upload)">
+          <i class="fa fa-flag" ng-class="{'text-secondary0': upload.flag == 1, 'text-warning': upload.flag == 2, 'text-success': upload.flag == 3}"></i>
+        </div>
+        <span>{{ upload.created | moment:"MMM DD, hh:mm" }}</span>
+      </div>
+    </li>
+    <li class="no-stripe no-hover">
+      <div ng-hide="searching">
+        <div class="column small-4">
+          <button class="secondary small-12" ng-click="loadPrev()" ng-hide="!uploads.length">Previous {{ limit }}</button>&nbsp;
+        </div>
+        <div class="column small-4">
+          <button class="secondary small-12" ng-click="loadMore()" ng-hide="uploads.length !== limit">Load More +</button>
+          <button class="secondary small-12" ng-click="reset()" ng-show="uploads.length !== limit">Reset</button>
+        </div>
+        <div class="column small-4">
+          <button class="secondary small-12" ng-click="loadNext()" ng-hide="0 < uploads.length && uploads.length < limit">Next {{ limit }}</button>
+        </div>
+      </div>
+      <button class="secondary small-12" ng-click="reset()" ng-show="searching">Reset</button>
+    </li>
+  </ul>
+</div>
+
+<div class="column small-12" ui-view>
+
+</div>

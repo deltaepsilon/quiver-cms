@@ -199,6 +199,10 @@ angular.module('quiverCmsApp')
 
       getUploads: function (query) {
         return $firebase(FirebaseService.query(new Firebase(firebaseEndpoint + '/logs/uploads'), query));
+      },
+
+      queueFeedbackEmail: function (userId, assignmentKey) {
+        return Restangular.one('admin').one('user').one(userId).one('assignment').one(assignmentKey).post('queue-feedback-email');
       }
 
     }

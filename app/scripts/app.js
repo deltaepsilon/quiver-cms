@@ -746,7 +746,20 @@ angular.module('quiverCmsApp', [
           }
         }
       })
-      .state('authenticated.master.admin.feedback', { // ***************************  Assignment *********************
+      .state('authenticated.master.admin.uploads', { // ****************************  Uploads **************************
+        url: '/uploads/:search',
+        templateUrl: 'views/admin-uploads.html',
+        controller: 'UploadsCtrl',
+        resolve: {
+          limit: function () {
+            return 3;
+          },
+          uploadsRef: function (AdminService, limit) {
+            return AdminService.getUploads({orderByPriority: true, limitToLast: limit});
+          }
+        }
+      })
+      .state('authenticated.master.admin.feedback', { // ***************************  Assignment ***********************
         url: '/user/:userId/feedback/:assignmentKey',
         templateUrl: 'views/admin-feedback.html',
         controller: 'FeedbackCtrl',

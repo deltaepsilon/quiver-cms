@@ -2,18 +2,29 @@
 
 /**
  * @ngdoc function
- * @name quiverCmsApp.controller:MessagesCtrl
+ * @name quiverCmsApp.controller:UploadsCtrl
  * @description
- * # MessagesCtrl
+ * # UploadsCtrl
  * Controller of the quiverCmsApp
  */
 angular.module('quiverCmsApp')
-  .controller('MessagesCtrl', function ($scope, limit, messagesRef, AdminService, $stateParams) {
+  .controller('UploadsCtrl', function ($scope, limit, uploadsRef, AdminService, $stateParams) {
     /*
-     * Messages
+     * Uploads
      */
-    var messages = messagesRef.$asArray();
-    $scope.messages = messages;
+    var uploads = uploadsRef.$asArray();
+    $scope.uploads = uploads;
+
+    $scope.save = function (upload) {
+      $scope.uploads.$save(upload);
+    };
+
+    $scope.flag = function (upload) {
+      var flag = (upload.flag || 0) + 1;
+
+      upload.flag = flag <= 3 ? flag : 0;
+      $scope.save(upload);
+    };
 
     /*
      * Query
@@ -21,10 +32,10 @@ angular.module('quiverCmsApp')
     var query = function (q) {
       var q = q || {orderByPriority: true, limitToLast: $scope.limit};
 
-      messagesRef = AdminService.getMessages(q);
-      messages = messagesRef.$asArray();
-      messages.$loaded().then(function (messages) {
-        $scope.messages = messages;
+      uploadsRef = AdminService.getUploads(q);
+      uploads = uploadsRef.$asArray();
+      uploads.$loaded().then(function (uploads) {
+        $scope.uploads = uploads;
       });
     };
 
@@ -37,13 +48,13 @@ angular.module('quiverCmsApp')
     };
 
     $scope.loadNext = function (increment) {
-      var priority = $scope.messages[0] ? $scope.messages[0].$priority : moment().unix();
+      var priority = $scope.uploads[0] ? $scope.uploads[0].$priority : moment().unix();
 
       query({orderByPriority: true, limitToLast: $scope.limit, endAt: priority - 1});
     };
 
     $scope.loadPrev = function (increment) {
-      var priority = $scope.messages.length ? $scope.messages[$scope.messages.length - 1].$priority : 0;
+      var priority = $scope.uploads.length ? $scope.uploads[$scope.uploads.length - 1].$priority : 0;
 
       query({orderByPriority: true, limitToLast: $scope.limit, startAt: priority + 1});
     };
@@ -55,7 +66,7 @@ angular.module('quiverCmsApp')
 
     $scope.setSearch = function (term) {
       $scope.searchTerm = term;
-      $scope.search(term);
+    $scope.search(term);
     };
 
     $scope.reset = function () {
@@ -65,12 +76,12 @@ angular.module('quiverCmsApp')
       query();
     };
 
-    messages.$loaded().then(function () {
+    uploads.$loaded().then(function () {
       if ($stateParams.search) {
         var term = $stateParams.search;
         $scope.searchTerm = term;
         $scope.search(term);
       }
     });
-    
+
   });

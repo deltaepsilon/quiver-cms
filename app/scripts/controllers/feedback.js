@@ -8,11 +8,12 @@
  * Controller of the quiverCmsApp
  */
 angular.module('quiverCmsApp')
-  .controller('FeedbackCtrl', function ($scope, clientRef, assignmentRef, userAssignmentRef, assignmentUploadsRef, assignmentMessagesRef, UserService) {
+  .controller('FeedbackCtrl', function ($scope, clientRef, assignmentRef, userAssignmentRef, assignmentUploadsRef, assignmentMessagesRef, UserService, AdminService, NotificationService) {
     /*
      * Client
      */
-    $scope.client = clientRef.$asObject();
+    var client = clientRef.$asObject();
+    client.$bindTo($scope, 'client');
     
     /*
      * Assignment
@@ -22,7 +23,8 @@ angular.module('quiverCmsApp')
     /*
      * User Assignment
      */
-    $scope.userAssignment = userAssignmentRef.$asObject();
+    var userAssignment = userAssignmentRef.$asObject();
+    userAssignment.$bindTo($scope, 'userAssignment');
 
     /*
      * Messages
@@ -54,5 +56,16 @@ angular.module('quiverCmsApp')
      * Uploads
      */
     $scope.uploads = assignmentUploadsRef.$asArray();
+
+    /*
+     * Email Alerts
+     */
+    $scope.queueFeedbackEmail = function (clientId, userAssignmentKey) {
+      AdminService.queueFeedbackEmail(clientId, userAssignmentKey).then(function () {
+        NotificationService.success('Email Queued.');
+      }, function (err) {
+        NotificationService.error('Email Queue Failed', err);
+      });
+    };
 
   });

@@ -136,7 +136,8 @@
         "html": "<p>TyrionLannister<br/>Master of Coin<br/>AKA The Imp<br/>1234 East Lannister Lane<br/>Westeros, Seven Kingdoms 90210</p>"
       },
       "subjects": {
-        "transaction": "Thanks for shopping with Westeros.com!"
+        "transaction": "Thanks for shopping with Westeros.com!",
+        "feedbackAlert": "Westeros.com - Feedback Received"
       },
       "copy": [
         {

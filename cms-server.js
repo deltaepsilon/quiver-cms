@@ -49,6 +49,8 @@ if (ConfigService.get('private.cms.staticEnabled')) {
 
   app.use('/app/transaction/*', StaticController.getHandler('index.html', true));
 
+  app.use('/app/subscription/*', StaticController.getHandler('index.html', true));
+
   app.use('/app', StaticController.getHandler('index.html', true));
 
 } else {
@@ -153,6 +155,8 @@ app.post('/user/:userId/assignment/:assignmentKey/upload', MessageController.upl
 
 app.post('/user/:userId/upload/remove', FormController.body);
 app.post('/user/:userId/upload/remove', MessageController.remove);
+
+app.post('/admin/user/:userId/assignment/:assignmentKey/queue-feedback-email', MessageController.queueFeedbackEmail);
 
 /*
  * Cron

@@ -89,6 +89,7 @@ app.get('/search/:searchTerm', PageController.search);
  */
 
 app.get('/transaction/:key/email/:type', EmailController.transaction);
+app.get('/user/:userId/assignment/:assignmentKey/feedback-email/:type', EmailController.feedbackEmail);
 
 /*
  * Auth & App Listen

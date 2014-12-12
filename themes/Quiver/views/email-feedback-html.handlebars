@@ -1,0 +1,78 @@
+<div style="font-family: helvetica; font-weight: lighter;">
+  <div style="margin: 2rem 0 3rem;">
+    <h3>You have feedback!</h3>
+    <div style="font-size: .9rem;">
+      <p>
+        View your feedback online for <strong>{{ assignment.title }}</strong>:
+      </p>
+      <p>
+        <a href="{{ configPublic.root }}/app/subscription/{{ assignment.subscriptionKey }}/assignment/{{ assignmentKey }}">{{ configPublic.root }}/app/subscription/{{ assignment.subscriptionKey }}/assignment/{{ assignmentKey }}</a>
+      </p>
+
+    </div>
+
+  </div>
+  
+  
+  <style type="text/css">
+    #body-table td {
+      padding-bottom: .5rem;
+      padding-right: 1rem;
+    }
+
+    #items-list > li {
+      padding-bottom: 1rem;
+    }
+
+    #totals-table td {
+      padding: 0 1rem 0 0;
+    }
+
+    hr {
+      border-width: 1px 0 0 0;
+    }
+
+  </style>
+
+  <hr>
+
+  <table id="body-table" style="
+    font-weight: lighter;
+    font-size: .8rem;
+    margin: 2rem;
+  ">
+    <thead>
+      <tr>
+        <th colspan="2" style="
+          text-align: left; 
+          text-transform: uppercase;
+        ">
+          Messages
+        </th>
+      </tr>
+    </thead>
+    <tbody style="vertical-align: top;">
+      {{#each userAssignment.messages }}
+        <tr>
+          <td>{{ user.name }}</td>
+          <td>{{ text }}</td>
+        </tr>
+      {{/each }}
+      
+    </tbody>
+  </table>
+
+  <hr>
+
+  <ul style="
+            list-style-type: none; 
+            padding: 0;
+            font-size: .6rem;
+            float: right;
+          ">
+            <li>User ID: {{ user.public.id }}</li>
+            <li>Subscription Key: {{ userAssignment.subscriptionKey }}</li>
+            <li>Assignment Key: {{ assignmentKey }}</li>
+          </ul>
+
+</div>
