@@ -23,7 +23,7 @@
 		</div>
 		<a class="button right small secondary" ui-sref="authenticated.master.nav.transaction({userId: transaction.userId, key: transaction.keys.user })">User View</a>
 		<a class="button right small secondary" href="/transaction/{{ transaction.$id }}/email/html" qv-to-static>View Email</a>
-		<button class="right small" ng-click="sendEmail(transaction.$id, transaction)">Send Email</button>
+		<button class="right small" ng-click="sendTransactionEmail(transaction.$id, transaction)">Send Email</button>
 		<button class="right small alert" ng-click="chargeCard(transaction)">Charge Card</button>
 </div>
 

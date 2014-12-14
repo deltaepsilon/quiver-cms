@@ -1,0 +1,60 @@
+<ul class="table-list hover padded striped">
+  <li class="table-list-header">
+    <div class="column small-12 medium-3">
+      Email
+    </div>
+    <div class="column small-12 medium-4">
+      Subject
+    </div>
+    <div class="column small-12 medium-3">
+      Created
+    </div>
+    <div class="column small-12 medium-2 medium-text-right">
+      Action/Sent
+    </div>
+  </li>
+  <li ng-repeat="email in items" ng-class="{disabled: email.disabled}">
+    <div class="column small-12 medium-3">
+      {{ email.context.to[0].email }}&nbsp;
+    </div>
+    <div class="column small-12 medium-4 truncate">
+      <span id="modal-open-{{ $index }}" class="cursor-pointer">{{ email.context.subject }}</span>
+    </div>
+    <div class="column small-12 medium-3">
+      <span ng-show="email.created">{{ email.created | moment:"MM/DD/YYYY hh:mm" }}</span>
+    </div>
+    <div class="column small-12 medium-2 medium-text-right">
+      <span ng-show="email.created">
+        <button class="tiny margin-zero" ng-hide="email.sent" ng-click="send(email); email.disabled = true;" ng-disabled="email.disabled">Send</button>
+        <span class="cursor-pointer text-success" ng-show="email.sent" qv-confirm="send(email); email.disabled = true;" confirmations="['Resend?']">{{ email.sent | moment:"MM/DD/YYYY" }}</span>
+      </span>
+      
+    </div>
+  </li>
+  <li class="no-stripe no-hover padding-small" ng-show="items.length || paginating">
+      <div class="column small-4">
+        <button class="secondary small-12 tiny" ng-click="loadNext()" ng-disabled="disableNext">Previous {{ limit }}</button>&nbsp;
+      </div>
+      <div class="column small-4">
+        <button class="secondary small-12 tiny" ng-click="reset()" ng-disabled="!paginating">Reset</button>
+      </div>
+      <div class="column small-4">
+        <button class="secondary small-12 tiny" ng-click="loadPrev()" ng-disabled="disablePrev">Next {{ limit }}</button>
+      </div>
+  </li>
+  <li class="no-stripe no-hover" ng-show="!items.length">
+      <h5 class="font-flair">The queue is empty!</h5>
+  </li>
+</ul>
+
+<div qv-modal="#modal-open-{{ $index }}" ng-repeat="email in items">
+  <div class="modal-content">
+    <div class="column small-12" style="height: 80%; overflow: scroll;">
+      <div class="background-white padding-medium" ng-bind-html="trustHtml(email.context.html)"></div>
+    </div>
+    <div class="column small-12" style="height: 20%;">
+      <textarea style="height: 100%;">{{ email.context.text }}</textarea>
+    </div>
+  </div>
+  
+</div>

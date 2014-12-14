@@ -15,7 +15,7 @@ angular.module('quiverCmsApp')
   	transaction.$bindTo($scope, 'transaction');
 
   	$scope.sendEmail = function (key, transaction) {
-  		AdminService.sendEmail(key, transaction).then(function () {
+  		AdminService.sendTransactionEmail(key, transaction).then(function () {
   			NotificationService.success('Email sent');
   		}, function (err) {
   			NotificationService.error('Email failed', err);

@@ -1,12 +1,19 @@
 'use strict';
 
+/**
+ * @ngdoc function
+ * @name quiverCmsApp.controller:ListCtrl
+ * @description
+ * # ListCtrl
+ * Controller of the quiverCmsApp
+ */
 angular.module('quiverCmsApp')
-  .controller('DashboardCtrl', function ($scope, limit, messagesRef, AdminService, $stateParams, moment, _) {
+  .controller('ListCtrl', function ($scope, limit, ref, getRef, moment) {
     /*
-     * Messages
+     * Items
      */
-    var messages = messagesRef.$asArray();
-    $scope.messages = messages;
+    var items = ref.$asArray();
+    $scope.items = items;
 
     /*
      * Query
@@ -15,10 +22,10 @@ angular.module('quiverCmsApp')
       var isPaginating = !!q,
         q = q || {orderByPriority: true, limitToLast: $scope.limit};
 
-      messagesRef = AdminService.getUserMessages($scope.user.$id, q);
-      messages = messagesRef.$asArray();
-      messages.$loaded().then(function (messages) {
-        var i = $scope.limit - messages.length,
+      ref = getRef(q);
+      items = ref.$asArray();
+      items.$loaded().then(function (items) {
+        var i = $scope.limit - items.length,
          priority;
 
         if (i && q.endAt) {
@@ -31,16 +38,11 @@ angular.module('quiverCmsApp')
         }
 
         while (i--) {
-          messages.push({"$priority": priority});
+          items.push({"$priority": priority});
         }
-        $scope.messages = messages;
+        $scope.items = items;
         $scope.paginating = isPaginating;
 
-        // Force priorities
-        // _.each(messages, function (message) {
-        //   console.log('message', message);
-        //   AdminService.getUserMessage($scope.user.$id, message.$id).$ref().setPriority(message.unix);
-        // });
       });
 
     };
@@ -55,7 +57,7 @@ angular.module('quiverCmsApp')
 
     $scope.loadNext = function (priority) {
       if (typeof priority === 'undefined') {
-        priority = $scope.messages[0] ? $scope.messages[0].$priority : moment().unix();
+        priority = $scope.items[0] ? $scope.items[0].$priority : moment().unix();
       }
 
       $scope.disablePrev = false;
@@ -65,7 +67,7 @@ angular.module('quiverCmsApp')
     $scope.disablePrev = true;
     $scope.loadPrev = function (priority) {
       if (typeof priority === 'undefined') {
-        priority = $scope.messages.length ? $scope.messages[$scope.messages.length - 1].$priority : 0;
+        priority = $scope.items.length ? $scope.items[$scope.items.length - 1].$priority : 0;
       }
 
       if (priority !== 0) {
@@ -80,12 +82,5 @@ angular.module('quiverCmsApp')
       $scope.limit = limit;
       query();
     };
-
-    /*
-     * Subscription
-     */
-    $scope.isExpired = function (subscription) {
-      return moment().unix() > moment(subscription.expiration).unix();
-    }
-
+    
   });

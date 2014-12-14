@@ -1,6 +1,7 @@
 'use strict';
 
 angular.module('quiverCmsApp', [
+  'ngSanitize',
   'ui.router',
   'firebase',
   'angular-markdown-editable',
@@ -778,6 +779,35 @@ angular.module('quiverCmsApp', [
           },
           assignmentMessagesRef: function (AdminService, $stateParams) {
             return AdminService.getUserAssignmentMessages($stateParams.userId, $stateParams.assignmentKey);
+          }
+        }
+      })
+      .state('authenticated.master.admin.email', { // ******************************  Email Queue***********************
+        abstract: true,
+        templateUrl: 'views/admin-email.html',
+        controller: 'EmailCtrl',
+        resolve: {
+          limit: function () {
+            return 10;
+          },
+          emailRef: function (AdminService, limit) {
+            return AdminService.getEmailQueue({orderByPriority: true, limitToLast: limit});
+          }
+        }
+      })
+      .state('authenticated.master.admin.email.list', {
+        url: '/email',
+        templateUrl: 'views/admin-email-list.html',
+        controller: 'ListCtrl',
+        resolve: {
+          limit: function () {
+            return 10;
+          },
+          getRef: function (AdminService) {
+            return AdminService.getEmailQueue;
+          },
+          ref: function (AdminService, limit) {
+            return AdminService.getEmailQueue({orderByPriority: true, limitToLast: limit}); 
           }
         }
       });

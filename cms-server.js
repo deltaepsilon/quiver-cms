@@ -158,6 +158,9 @@ app.post('/user/:userId/upload/remove', MessageController.remove);
 
 app.post('/admin/user/:userId/assignment/:assignmentKey/queue-feedback-email', MessageController.queueFeedbackEmail);
 
+app.post('/admin/email/:emailKey/send', FormController.body);
+app.post('/admin/email/:emailKey/send', MessageController.sendQueuedEmail);
+
 /*
  * Cron
  */

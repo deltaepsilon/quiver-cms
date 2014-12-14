@@ -381,7 +381,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
 }
 
 /* line 34, theme/_color.scss */
-.background-highlight5, .qv-lightbox.open {
+.background-highlight5, .qv-lightbox.open, .qv-modal.open {
   background-color: rgba(0, 0, 0, 0.9);
 }
 
@@ -601,7 +601,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
 }
 
 /* line 34, theme/_color.scss */
-.background-white, .qv-lightbox.open .marquee img, .qv-lightbox li img, .type-ahead {
+.background-white, .qv-lightbox.open .marquee img, .qv-lightbox li img, .qv-modal .modal-content, .type-ahead {
   background-color: #fff;
 }
 
@@ -3560,7 +3560,7 @@ a.link-hover-black-important:hover {
 }
 
 /* line 12, theme/_spacing.scss */
-.padding-large, .qv-lightbox.open .marquee {
+.padding-large, .qv-lightbox.open .marquee, .qv-modal .modal-content {
   padding: 1.5rem 3rem;
 }
 
@@ -12578,6 +12578,29 @@ form.top-offset {
 /* line 2, modules/_markdown.scss */
 .markdown ul, .markdown li {
   list-style-type: initial;
+}
+
+/* line 1, modules/_modal.scss */
+.qv-modal {
+  display: none;
+}
+/* line 4, modules/_modal.scss */
+.qv-modal.open {
+  display: block;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+/* line 22, modules/_modal.scss */
+.qv-modal .modal-content {
+  height: 80%;
+  width: 80%;
 }
 
 /* line 1, modules/_notifications.scss */

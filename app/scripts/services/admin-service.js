@@ -133,7 +133,7 @@ angular.module('quiverCmsApp')
         return $firebase(new Firebase(firebaseEndpoint + '/users/' + userId + '/private/commerce/transactions/' + key));
       },
 
-      sendEmail: function (key, transaction) {
+      sendTransactionEmail: function (key, transaction) {
         return Restangular.one('admin').one('transaction').one(key).post('email', transaction);
       },
 
@@ -203,6 +203,14 @@ angular.module('quiverCmsApp')
 
       queueFeedbackEmail: function (userId, assignmentKey) {
         return Restangular.one('admin').one('user').one(userId).one('assignment').one(assignmentKey).post('queue-feedback-email');
+      },
+
+      getEmailQueue: function (query) {
+        return $firebase(FirebaseService.query(new Firebase(firebaseEndpoint + '/queues/email'), query));
+      },
+
+      sendQueuedEmail: function (email) {
+        return Restangular.one('admin').one('email').one(email.$id).post('send', email);
       }
 
     }

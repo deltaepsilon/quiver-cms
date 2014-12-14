@@ -24,19 +24,18 @@
   <h5 class="font-flair">Messages</h5>
   <ul class="table-list striped padded">
     <li ng-repeat="message in messages">
-      <div class="column small-3"><strong>{{ message.user.name }}</strong></div>
+      <div class="column small-2"><strong>{{ message.user.name }}</strong></div>
       <div class="column small-8">
         <div markdown-editable ng-model="message.text"></div>
       </div>
-      <div class="small-1">
-        <span ng-show="message.queued"><i class="fa fa-envelope text-secondary3"></i> {{ message.queued | moment:"MM/DD/YYYY" }}</span>
-        <span ng-show="message.alerted"><i class="fa fa-envelope text-success"></i> {{ message.alerted | moment:"MM/DD/YYYY" }}</span>
+      <div class="column small-2">
+        <span ng-show="message.queued"><i class="fa fa-envelope" ng-class="{'text-success': message.alerted}"></i>&nbsp; {{ message.alerted || message.queued | moment:"MM/DD/YYYY" }}</span>
       </div>
     </li>
     <li class="no-stripe">
       <textarea id="new-message" ng-model="text" placeholder="Message..."></textarea>
       <button class="left" ng-click="sendMessage(text); text = undefined;" qv-focus="#new-message" ng-disabled="!text || !text.length">Send</button>
-      <button class="right alert" ng-click="queueFeedbackEmail(client.$id, userAssignment.$id)">Email Assignment Update</button>
+      <button class="right alert" ng-click="queueFeedbackEmail(client.$id, userAssignment.$id); disableEmail = true;" ng-disabled="disableEmail">Email Assignment Update</button>
     </li>
   </ul>
 </div>
