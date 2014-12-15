@@ -161,10 +161,13 @@ app.post('/admin/user/:userId/assignment/:assignmentKey/queue-feedback-email', M
 app.post('/admin/email/:emailKey/send', FormController.body);
 app.post('/admin/email/:emailKey/send', MessageController.sendQueuedEmail);
 
+app.post('/admin/email/send/feedback', MessageController.sendQueuedFeedback);
+
 /*
  * Cron
  */
  CronService.resources();
+ CronService.feedbackEmail();
 
 /*
  * Finish this sucka up

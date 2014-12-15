@@ -91,7 +91,7 @@
         <label>Feedback Email Cron</label>
         <a href="https://github.com/ncb000gt/node-cron" target="_blank">See docs</a>:
         <span>(seconds minutes hours days months weekdays) 0-59 0-59 0-23 1-31 0-11 0-6</span>
-        <input type="text" ng-model="settings.crons.feedbackEmail" placeholder="S M H D M Weekday / 0-59 0-59 0-23 1-31 0-11 0-6">
+        <input type="text" ng-model="settings.crons.feedbackEmail" ng-model-options="{'updateOn': 'blur'}" placeholder="S M H D M Weekday / 0-59 0-59 0-23 1-31 0-11 0-6">
       </fieldset>
     </form>
 </div>

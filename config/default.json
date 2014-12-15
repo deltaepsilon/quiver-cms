@@ -76,7 +76,8 @@
           "trackingUrl": "http://www.ontrac.com/trackingdetail.asp?tracking=$NUMBER"
         }
       ]
-    }
+    },
+    "timeZone": "America/Denver"
   },
   "private": {
     "cms": {

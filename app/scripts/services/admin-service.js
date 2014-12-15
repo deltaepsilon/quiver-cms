@@ -211,6 +211,10 @@ angular.module('quiverCmsApp')
 
       sendQueuedEmail: function (email) {
         return Restangular.one('admin').one('email').one(email.$id).post('send', email);
+      },
+
+      sendQueuedFeedback: function (email) {
+        return Restangular.one('admin').one('email').one('send').post('feedback');
       }
 
     }
