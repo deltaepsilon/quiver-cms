@@ -25,14 +25,14 @@ angular.module('quiverCmsApp')
       ref = getRef(q);
       items = ref.$asArray();
       items.$loaded().then(function (items) {
-        var i = $scope.limit - items.length,
+        var i = Math.max($scope.limit - items.length, 0),
          priority;
 
         if (i && q.endAt) {
           priority = 0;
           $scope.disableNext = true;
           return $scope.loadPrev(0);
-        } else if (i && q.startAt) {
+        } else if (i && q.startAt && !q.orderByChild) {
           $scope.disablePrev = true;
           return $scope.reset();
         }
@@ -55,32 +55,59 @@ angular.module('quiverCmsApp')
        
     };
 
-    $scope.loadNext = function (priority) {
+    $scope.loadNext = function (priority, q) {
+
       if (typeof priority === 'undefined') {
         priority = $scope.items[0] ? $scope.items[0].$priority : moment().unix();
       }
 
+      q = q || {};
+      _.defaults(q, {orderByPriority: true, limitToLast: $scope.limit, endAt: priority - 1});
+
+      if (q.limitToFirst) { // Can't have both
+        delete q.limitToLast;
+      }
+
+      if (q.startAt || q.endAt === false) { // Can't have both
+        delete q.endAt;
+      }
+
       $scope.disablePrev = false;
-      query({orderByPriority: true, limitToLast: $scope.limit, endAt: priority - 1});
+      query(q);
     };
 
     $scope.disablePrev = true;
-    $scope.loadPrev = function (priority) {
+    $scope.loadPrev = function (priority, q) {
       if (typeof priority === 'undefined') {
         priority = $scope.items.length ? $scope.items[$scope.items.length - 1].$priority : 0;
+      }
+
+      q = q || {};
+      _.defaults(q, {orderByPriority: true, limitToLast: $scope.limit, startAt: priority + 1});
+
+      if (q.limitToFirst) { // Can't have both
+        delete q.limitToLast;
+      }
+
+      if (q.endAt || q.startAt === false) { // Can't have both
+        delete q.startAt;
       }
 
       if (priority !== 0) {
         $scope.disableNext = false;
       }      
-      query({orderByPriority: true, limitToLast: $scope.limit, startAt: priority + 1});
+      query(q);
     };
 
-    $scope.reset = function () {
+    $scope.search = function (q) {
+      query(_.defaults(q, {limitToLast: $scope.limit}));
+    };
+
+    $scope.reset = function (q) {
       $scope.disableNext = false;
       $scope.disablePrev = true;
       $scope.limit = limit;
-      query();
+      query(q);
     };
     
   });

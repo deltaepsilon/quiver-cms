@@ -1,45 +1,79 @@
 'use strict';
 
 angular.module('quiverCmsApp')
-  .controller('WordsCtrl', function ($scope, limit, wordsRef, hashtagsRef, moment, NotificationService, Slug, $timeout, AdminService) {
+  .controller('WordsCtrl', function ($scope, wordsRef, hashtagsRef, moment, NotificationService, Slug, $timeout, AdminService) {
     /*
      * Words
     */
-    $scope.limit = limit;
-    $scope.words = wordsRef.$asArray();
+    // $scope.limit = limit;
+    var words = wordsRef.$asArray();
 
-    $scope.loadMore = function (increment) {
-      $scope.limit += (increment || limit);
+    // $scope.loadMore = function (increment) {
+    //   $scope.limit += (increment || limit);
 
-      wordsRef = AdminService.getWords({orderByPriority: true, limitToFirst: $scope.limit});
-      wordsRef.$asArray().$loaded().then(function (words) {
-        $scope.words = words;
-      });
+    //   wordsRef = AdminService.getWords({orderByPriority: true, limitToFirst: $scope.limit});
+    //   wordsRef.$asArray().$loaded().then(function (words) {
+    //     words = words;
+    //   });
 
+    // };
+
+    // $scope.setQuery = function (field, query) {
+    //   var value = query[field], 
+    //     options = {orderByChild: field, startAt: value};
+
+    //   $scope.limit = limit;
+
+    //   if (!value || !value.length) {
+    //     options = {orderByPriority: true, limitToFirst: $scope.limit}; 
+    //   }
+
+    //   wordsRef = AdminService.getWords(options);
+    //   wordsRef.$asArray().$loaded().then(function (words) {
+    //     words = words;
+    //   });
+      
+      
+    // };
+
+    $scope.getPriority = function (word) {
+      if ($scope.searching !== true && word && word.$priority) {
+        console.log('word.$priority', word.$priority);
+        return word.$priority;
+
+      } else if (!word.$id) {
+        return 'zzzz';
+      }
+      return -1;
+      
     };
 
-    $scope.setQuery = function (field, query) {
-      var value = query[field], 
-        options = {orderByChild: field, startAt: value};
+    $scope.endAt = function (words) {
+      var firstItem = words[0];
+      $scope.searching = true;
+      return firstItem.$priority ? firstItem.$priority : undefined;
+    };
 
-      $scope.limit = limit;
+    $scope.startAt = function (words) {
+      var lastItem = words[words.length - 1];
+      $scope.searching = true;
+      return lastItem.$priority ? lastItem.$priority + 1 : null;
+    };
 
-      if (!value || !value.length) {
-        options = {orderByPriority: true, limitToFirst: $scope.limit}; 
-      }
+    $scope.getTypeQuery = function (type) {
+      $scope.searching = true;
+      return type ? {orderByChild: 'type', equalTo: type} : {orderByPriority: true};
+    };
 
-      wordsRef = AdminService.getWords(options);
-      wordsRef.$asArray().$loaded().then(function (words) {
-        $scope.words = words;
-      });
-      
-      
+    $scope.getSlugQuery = function (slug) {
+      $scope.searching = true;
+      return slug ? {orderByChild: 'slug', startAt: slug} : {orderByPriority: true};
     };
 
     $scope.removeWord = function (word) {
       var title = word.title;
 
-      $scope.words.$remove(word).then(function () {
+      words.$remove(word).then(function () {
         NotificationService.success('Deleted', 'Bye bye ' + title + '!');
       }, function (error) {
         NotificationService.error('Delete Failed', 'Something is up!');
@@ -55,7 +89,7 @@ angular.module('quiverCmsApp')
         email: $scope.currentUser.email
       });
 
-      $scope.words.$add({
+      words.$add({
         title: title,
         slug: Slug.slugify(title),
         type: 'page',
@@ -79,8 +113,16 @@ angular.module('quiverCmsApp')
       delete word.edited;
 
       word.slug = Slug.slugify(word.slug);
+      
+      var hashtags = [];
+      _.each(word.hashtags, function (hashtag) {
+        hashtags.push(_.omit(hashtag, ['$$hashKey']));
+      });
+      if (hashtags.length) {
+        word.hashtags = hashtags;
+      }
 
-      $scope.words.$save(word).then(function () {
+      AdminService.getWord(word.$id).$set(_.omit(word, ['$$hashKey', '$id', '$priority'])).then(function () {
         NotificationService.success('Saved', word.title);
       }, function (error) {
         NotificationService.error('Save Error', error);
@@ -99,7 +141,7 @@ angular.module('quiverCmsApp')
       var i = authorAttributes.length;
 
       while (i--) {
-        if (author[authorAttributes[i]] !== user[authorAttributes[i]]) {
+        if (author && author[authorAttributes[i]] !== user[authorAttributes[i]]) {
           return false;
         }
       }
@@ -125,10 +167,10 @@ angular.module('quiverCmsApp')
             key: Slug.slugify(hashtag),
             value: hashtag
           });
-          $scope.words.$save(word);
+          $scope.saveWord(word);
         } else if (newHashtag && newHashtag.key) {
           word.hashtags.push(word.newHashtag);
-          $scope.words.$save(word);
+          $scope.saveWord(word);
         }
 
       });
@@ -150,7 +192,7 @@ angular.module('quiverCmsApp')
       while (i--) {
         if (word.hashtags[i].key === slug) {
           word.hashtags.splice(i, 1);
-          return $scope.words.$save(word);
+          return $scope.saveWord(word);
         }
       }
 

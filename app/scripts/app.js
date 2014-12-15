@@ -465,18 +465,31 @@ angular.module('quiverCmsApp', [
         }
       })
       .state('authenticated.master.admin.words', { // ******************************  Words ****************************
-        url: '/words',
+        abstract: true,
         templateUrl: 'views/admin-words.html',
         controller: 'WordsCtrl',
         resolve: {
-          limit: function () {
-            return 20;
-          },
           wordsRef: function (AdminService) {
-            return AdminService.getWords({orderByPriority: true, limitToFirst: 20});
+            return AdminService.getWords();
           },
           hashtagsRef: function (AdminService) {
             return AdminService.getHashtags();
+          }
+        }
+      })
+      .state('authenticated.master.admin.words.list', {
+        url: '/words',
+        templateUrl: 'views/admin-words-list.html',
+        controller: 'ListCtrl',
+        resolve: {
+          limit: function () {
+            return 5;
+          },
+          getRef: function (AdminService) {
+            return AdminService.getWords;
+          },
+          ref: function (AdminService, limit) {
+            return AdminService.getWords({orderByPriority: true, limitToFirst: limit});
           }
         }
       })
