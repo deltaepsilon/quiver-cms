@@ -8,7 +8,7 @@
  * Controller of the quiverCmsApp
  */
 angular.module('quiverCmsApp')
-  .controller('ListCtrl', function ($scope, limit, ref, getRef, moment) {
+  .controller('ListCtrl', function ($scope, $q, limit, ref, getRef, moment, $stateParams) {
     /*
      * Items
      */
@@ -19,31 +19,56 @@ angular.module('quiverCmsApp')
      * Query
      */
     var query = function (q) {
-      var isPaginating = !!q,
+      var deferred = $q.defer(),
+        isPaginating = !!q,
         q = q || {orderByPriority: true, limitToLast: $scope.limit};
+      
+      $scope.disableMore = false;
+      $scope.disableReset = false;
+      $scope.disablePrev = false;
+      $scope.disableNext = false;
 
       ref = getRef(q);
       items = ref.$asArray();
       items.$loaded().then(function (items) {
         var i = Math.max($scope.limit - items.length, 0),
-         priority;
+         priority = $scope.getNullPriority ? $scope.getNullPriority(items) : 0;
 
         if (i && q.endAt) {
           priority = 0;
-          $scope.disableNext = true;
-          return $scope.loadPrev(0);
-        } else if (i && q.startAt && !q.orderByChild) {
-          $scope.disablePrev = true;
-          return $scope.reset();
-        }
+          $scope.loadPrev(0).then(function (items) {
+            $scope.disablePrev = true;
+            deferred.resolve(items);
+            
+          });
 
-        while (i--) {
-          items.push({"$priority": priority});
+        } else if (i && q.startAt && !q.orderByChild) {
+          
+          $scope.reset().then(function (items) {
+            $scope.disableNext = true;
+            deferred.resolve(items);
+
+          });
+
+        } else {
+          if (i) {
+            $scope.disableMore = true;
+          }
+
+          while (i--) {
+            items.push({"$priority": priority});
+          }
+          $scope.items = items;
+          $scope.paginating = isPaginating;
+
+          deferred.resolve(items);
+
         }
-        $scope.items = items;
-        $scope.paginating = isPaginating;
+        
 
       });
+
+      return deferred.promise;
 
     };
 
@@ -73,10 +98,9 @@ angular.module('quiverCmsApp')
       }
 
       $scope.disablePrev = false;
-      query(q);
+      return query(q);
     };
 
-    $scope.disablePrev = true;
     $scope.loadPrev = function (priority, q) {
       if (typeof priority === 'undefined') {
         priority = $scope.items.length ? $scope.items[$scope.items.length - 1].$priority : 0;
@@ -96,7 +120,7 @@ angular.module('quiverCmsApp')
       if (priority !== 0) {
         $scope.disableNext = false;
       }      
-      query(q);
+      return query(q);
     };
 
     $scope.search = function (q) {
@@ -104,10 +128,34 @@ angular.module('quiverCmsApp')
     };
 
     $scope.reset = function (q) {
-      $scope.disableNext = false;
-      $scope.disablePrev = true;
       $scope.limit = limit;
-      query(q);
+      return query(q).then(function (items) {
+        var deferred = $q.defer();
+
+        $scope.disableReset = true;
+
+        deferred.resolve(items);
+
+        return deferred.promise;
+      });    
+
+      return promise;
     };
+
+    items.$loaded().then(function () {
+      if ($stateParams.search) {
+        var term = $stateParams.search,
+          q = {startAt: term};
+        $scope.searchTerm = term;
+
+        if ($scope.searchField) {
+          q.orderByChild = $scope.searchField;
+        } else {
+          q.orderByPriority = true;
+        }
+
+        $scope.search(q);
+      }
+    });
     
   });

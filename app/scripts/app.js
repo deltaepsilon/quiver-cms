@@ -748,14 +748,22 @@ angular.module('quiverCmsApp', [
         }
       })
       .state('authenticated.master.admin.messages', { // ***************************  Messages *************************
-        url: '/messages/:search',
+        abstract: true,
         templateUrl: 'views/admin-messages.html',
-        controller: 'MessagesCtrl',
+        controller: 'MessagesCtrl'
+      })
+      .state('authenticated.master.admin.messages.list', {
+        url: '/messages/:search',
+        templateUrl: 'views/admin-messages-list.html',
+        controller: 'ListCtrl',
         resolve: {
           limit: function () {
             return 10;
           },
-          messagesRef: function (AdminService, limit) {
+          getRef: function (AdminService) {
+            return AdminService.getMessages;
+          },
+          ref: function (AdminService, limit) {
             return AdminService.getMessages({orderByPriority: true, limitToLast: limit});
           }
         }

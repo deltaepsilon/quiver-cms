@@ -1,0 +1,34 @@
+<input type="text" ng-model="searchTerm" qv-enter="search({orderByChild: 'userEmail', startAt: searchTerm})" placeholder="Click ENTER to search by email...">
+<ul class="table-list link-padded hover striped">
+  <li ng-repeat="message in items | orderBy:'$priority':'desc'">
+    <a class="clearfix block" ui-sref="authenticated.master.admin.feedback({userId: message.recipientId || message.userId, assignmentKey: message.assignmentKey })">
+    <div class="column small-4">
+      <span class="cursor-pointer" ng-click="setSearch(message.userEmail)">{{ message.userEmail }}</span>
+    </div>
+    
+      <div class="column small-4">
+        {{ message.text | truncate:30 }}
+        &nbsp;
+      </div>
+      <div class="column small-4">
+        <span ng-show="message.created">{{ message.created | moment:"MMM DD, hh:mm" }}</span>
+      </div>
+    </a>
+  </li>
+  <li class="no-stripe no-hover">
+    <div ng-hide="searching">
+      <div class="column small-3">
+        <button class="secondary small-12" ng-click="loadNext()" ng-disabled="disablePrev">Previous {{ limit }}</button>
+      </div>
+      <div class="column small-3">
+        <button class="secondary small-12" ng-click="loadMore()" ng-disabled="disableMore">Load More +</button>
+      </div>
+      <div class="column small-3">
+        <button class="secondary small-12" ng-click="reset()" ng-disabled="disableReset">Reset</button>
+      </div>
+      <div class="column small-3">
+        <button class="secondary small-12" ng-click="loadPrev()" ng-disabled="disableNext">Next {{ limit }}</button>&nbsp;
+      </div>
+    </div>
+  </li>
+</ul>
