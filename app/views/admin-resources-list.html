@@ -1,0 +1,52 @@
+<input type="text" ng-model="searchTerm" ng-focus="searchTerm = '';" placeholder="Search: Click ENTER to search server by email..." qv-enter="search({orderByChild: 'userEmail', limitToFirst: 100, startAt: searchTerm})"/>
+
+<ul class="table-list padded hover striped">
+  <li ng-repeat="resource in items | orderBy:'$priority':'desc'" ng-class="{disabled: resource.disabled}">
+    <div class="column small-12 medium-3">
+      {{ resource.userEmail }}
+    </div>
+    <div class="column small-12 medium-3">
+      <a href="/resource/{{ resource.$id }}" target="_blank" ng-disabled="resource.disabled">{{ resource.$id }}</a>
+    </div>
+    <div class="column small-12 medium-3">
+      <span ng-show="resource.ttl">ttl: {{ resource.ttl }}</span>
+      &nbsp;
+    </div>
+    <div class="column small-12 medium-3 medium-text-right">
+      <button class="tiny alert" style="min-width: 6rem;" qv-confirm="resource.disabled; remove(resource);">Delete</button>
+    </div>
+    <div class="column small-12">
+      <hr>
+    </div>
+    <div ng-repeat="log in resource.logs">
+      <div class="column small-12 medium-2">
+        {{ log.date | moment:"MM/DD/YYYY hh:mm:ss" }}
+      </div>
+      <div class="column small-12 medium-2">
+        {{ log.ip }}
+      </div>
+      <div class="column small-12 medium-3">
+        {{ log.ga }}
+      </div>
+      <div class="column small-12 medium-5">
+        {{ log.fingerprint }}
+      </div>
+
+    </div>
+    
+  </li>
+  <li class="no-stripe no-hover padding-small" ng-show="items.length || paginating">
+      <div class="column small-3">
+        <button class="secondary small-12 tiny" ng-click="loadNext()" ng-disabled="disablePrev">Previous</button>&nbsp;
+      </div>
+      <div class="column small-3">
+        <button class="secondary small-12 tiny" ng-click="reset()" ng-disabled="disableReset">Reset</button>
+      </div>
+      <div class="column small-3">
+        <button class="secondary small-12 tiny" ng-click="loadMore()" ng-disabled="disableMore">Load More +</button>
+      </div>
+      <div class="column small-3">
+        <button class="secondary small-12 tiny" ng-click="loadPrev()" ng-disabled="disableNext">Next</button>
+      </div>
+    </li>
+</ul>

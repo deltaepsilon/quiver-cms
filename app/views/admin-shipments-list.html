@@ -1,4 +1,4 @@
-<input type="text" ng-show="searching || shipments.length" ng-model="searchTerm" ng-focus="searchTerm = '';" placeholder="Search: Click ENTER to search server by email..." qv-enter="search(searchTerm)"/>
+<input type="text" ng-model="searchTerm" ng-focus="searchTerm = '';" placeholder="Search: Click ENTER to search server by email..." qv-enter="search(searchTerm)"/>
 
 <ul class="table-list striped text-medium">
     <li class="padding-small" ng-repeat="shipment in items | orderBy:'$priority':'desc'">

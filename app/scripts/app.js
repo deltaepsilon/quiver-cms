@@ -776,13 +776,34 @@ angular.module('quiverCmsApp', [
         controller: 'ListCtrl',
         resolve: {
           limit: function () {
-            return 3;
+            return 10;
           },
           getRef: function (AdminService) {
             return AdminService.getShipments;
           },
           ref: function (AdminService, limit) { 
             return AdminService.getShipments({orderByPriority: true, limitToLast: limit});
+          }
+        }
+      })
+      .state('authenticated.master.admin.resources', { // **************************  Resources ************************
+        abstract: true,
+        templateUrl: 'views/admin-resources.html',
+        controller: 'ResourcesCtrl'
+      })
+      .state('authenticated.master.admin.resources.list', {
+        url: '/resources/:search',
+        templateUrl: 'views/admin-resources-list.html',
+        controller: 'ListCtrl',
+        resolve: {
+          limit: function () {
+            return 3;
+          },
+          getRef: function (AdminService) {
+            return AdminService.getResources;
+          },
+          ref: function (AdminService, limit) { 
+            return AdminService.getResources({orderByPriority: true, limitToLast: limit});
           }
         }
       })

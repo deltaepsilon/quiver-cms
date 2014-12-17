@@ -223,6 +223,14 @@ angular.module('quiverCmsApp')
 
       sendQueuedFeedback: function (email) {
         return Restangular.one('admin').one('email').one('send').post('feedback');
+      },
+
+      getResources: function (query) {
+        return $firebase(FirebaseService.query(new Firebase(firebaseEndpoint + '/resources'), query));
+      },
+
+      getResource: function (key) {
+        return $firebase(new Firebase(firebaseEndpoint + '/resources/' + key));
       }
 
     }
