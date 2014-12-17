@@ -1,0 +1,72 @@
+<input type="text" ng-show="searching || shipments.length" ng-model="searchTerm" ng-focus="searchTerm = '';" placeholder="Search: Click ENTER to search server by email..." qv-enter="search(searchTerm)"/>
+
+<ul class="table-list striped text-medium">
+    <li class="padding-small" ng-repeat="shipment in items | orderBy:'$priority':'desc'">
+      <div class="column small-12 medium-8 text-small">
+        <div class="column small-12 medium-4">
+          <span>{{ shipment.created | moment:"MM/DD/YYYY" }}</span>
+          <a class="margin-horizontal-small" href="mailto:{{ shipment.transaction.user.public.email }}">{{ shipment.transaction.user.public.email }}</a>
+        </div>
+        <div class="column small-12 medium-8">
+          <strong>
+            {{ ::shipment.item.title }} - {{ shipmentitem.priceAdjusted || shipment.item.price | currency }}
+          </strong>
+          <span class="margin-horizontal-small" ng-show="shipment.item.optionsMatrixSelected.name">
+            {{ ::shipment.item.optionsMatrixSelected.name }}
+          </span>
+          
+        </div>
+
+        <hr>
+
+        <div class="column small-12">
+          <div class="left small-12 medium-4">
+            <input id="shipped-{{ $index }}" class="margin-horizontal-xx-small-important" type="checkbox" ng-model="shipment.shipped" ng-change="save(shipment)">
+            <label style="margin-left: 0;" for="shipped-{{ $index }}">Shipped</label>
+
+            <a ng-show="shipment.tracking.carrier && shipment.tracking.number" href="{{ shipment.tracking | tracking }}" target="_blank"><i class="fa fa-paper-plane"></i></a>
+          </div>
+          <div class="left small-12 medium-2" style="margin-right: -1px;">
+            <select style="margin-bottom: -1px;" ng-model="shipment.tracking.carrier" ng-options="carrier.code as carrier.name for carrier in shipping.carriers" ng-blur="save(shipment)" qv-enter="save(shipment)">
+              <option value="">Carrier</option>
+            </select>
+          </div>
+          <div class="left small-12 medium-6">
+            <input class="margin-zero-important" type="text" ng-model="shipment.tracking.number" placeholder="Tracking number..." ng-blur="save(shipment)" qv-enter="save(shipment)">
+          </div>
+
+          
+        </div>
+
+        
+
+      </div>
+
+      <div class="column small-12 medium-2 padding-zero-important" style="right: -1px;">
+          <textarea class="text-x-small margin-zero-important" style="height: 82px;" ng-model="shipment.comments" placeholder="Comments..." ng-blur="save(shipment)" qv-enter="save(shipment)"></textarea>
+        </div>
+      
+      <div class="column small-12 medium-2 padding-zero-important">
+        <textarea class="text-x-small margin-zero-important" style="height: 82px;" ng-bind="getAddress(shipment)" qv-select-text></textarea>
+        
+
+      </div>
+      
+      
+      
+    </li>
+    <li class="no-stripe no-hover padding-small" ng-show="items.length || paginating">
+      <div class="column small-3">
+        <button class="secondary small-12 tiny" ng-click="loadNext()" ng-disabled="disablePrev">Previous</button>&nbsp;
+      </div>
+      <div class="column small-3">
+        <button class="secondary small-12 tiny" ng-click="reset()" ng-disabled="disableReset">Reset</button>
+      </div>
+      <div class="column small-3">
+        <button class="secondary small-12 tiny" ng-click="loadMore()" ng-disabled="disableMore">Load More +</button>
+      </div>
+      <div class="column small-3">
+        <button class="secondary small-12 tiny" ng-click="loadPrev()" ng-disabled="disableNext">Next</button>
+      </div>
+    </li>
+  </ul>

@@ -766,14 +766,22 @@ angular.module('quiverCmsApp', [
         }
       })
       .state('authenticated.master.admin.shipments', { // **************************  Shipments ************************
-        url: '/shipments/:search',
+        abstract: true,
         templateUrl: 'views/admin-shipments.html',
-        controller: 'ShipmentsCtrl',
+        controller: 'ShipmentsCtrl'
+      })
+      .state('authenticated.master.admin.shipments.list', {
+        url: '/shipments/:search',
+        templateUrl: 'views/admin-shipments-list.html',
+        controller: 'ListCtrl',
         resolve: {
           limit: function () {
-            return 10;
+            return 3;
           },
-          shipmentsRef: function (AdminService, limit) { 
+          getRef: function (AdminService) {
+            return AdminService.getShipments;
+          },
+          ref: function (AdminService, limit) { 
             return AdminService.getShipments({orderByPriority: true, limitToLast: limit});
           }
         }
