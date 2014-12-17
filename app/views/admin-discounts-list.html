@@ -1,0 +1,67 @@
+<input type="text" ng-show="searching || items.length" ng-model="searchTerm" ng-focus="searchTerm = ''" placeholder="Search: Click ENTER to search server..." qv-enter="search({orderByChild: 'code', limitToLast: 3, startAt: searchTerm})"/>
+
+<ul class="small-12 table-list striped hover padded">
+  <li class="table-list-header">
+    <div class="column small-3 medium-1">Active</div>
+    <div class="column small-3 medium-1">Type</div>
+    <div class="column small-3 medium-1">Value</div>
+    <div class="column small-3 medium-1">Code</div>
+    <div class="column small-3 medium-1">Expiration</div>
+    <div class="column small-3 medium-1">Uses/Used</div>
+    <div class="column small-3 medium-1">Product</div>
+    <div class="column small-3 medium-1">Min/Max</div>
+    <div class="column small-3 medium-1">Shipping</div>
+    <div class="column small-3 medium-1">Created</div>
+    <div class="column small-6 medium-2 text-center">Action</div>
+  </li>
+  <li ng-repeat="discount in items | orderBy:'$priority':'desc'" ng-class="{disabled: disabled}">
+    <div class="column small-3 medium-1">
+      <input class="margin-xx-small-important" type="checkbox" ng-model="discount.active" ng-change="saveDiscount(discount)"/>
+    </div>
+    <div class="column small-3 medium-1">
+      {{ ::discount.type }}
+    </div>
+    <div class="column small-3 medium-1">
+      <span ng-show="discount.type === 'percentage'">{{ ::discount.percentage }}%</span>
+      <span ng-show="discount.type === 'value'">{{ ::discount.value | currency }}</span>
+    </div>
+    <div class="column small-3 medium-1">
+      <span style="word-wrap: break-word;">{{ ::discount.code }}</span>
+    </div>
+    <div class="column small-3 medium-1">
+      {{ ::discount.expiration | moment:"MM/DD/YY" }}
+    </div>
+    <div class="column small-3 medium-1">
+      {{ ::discount.useCount || 0 }}/{{ ::discount.uses }}
+    </div>
+    <div class="column small-3 medium-1">
+      {{ ::discount.productSlug  || 'All' }}
+    </div>
+    <div class="column small-3 medium-1">
+      {{ ::discount.minSubtotal }}/{{ ::discount.maxSubtotal || 'none'}}
+    </div>
+    <div class="column small-3 medium-1">
+      <span class="text-success"><i class="fa fa-truck" ng-class="{'text-error': !discount.freeShipping}"></i></span>
+    </div>
+    <div class="column small-3 medium-1">
+      {{ ::discount.created | moment:"MM/DD/YY" }}
+    </div>
+    <div class="column small-6 medium-2">
+      <button class="alert tiny centered-block" style="min-width: 8rem;" qv-confirm="disabled = true; removeDiscount(discount);" ng-disabled="disabled">Delete</button>
+    </div>
+  </li>
+  <li class="no-stripe no-hover padding-small" ng-show="items.length || paginating">
+    <div class="column small-3">
+      <button class="secondary small-12 tiny" ng-click="loadNext()" ng-disabled="disablePrev">Previous</button>&nbsp;
+    </div>
+    <div class="column small-3">
+      <button class="secondary small-12 tiny" ng-click="reset()" ng-disabled="disableReset">Reset</button>
+    </div>
+    <div class="column small-3">
+      <button class="secondary small-12 tiny" ng-click="loadMore()" ng-disabled="disableMore">Load More +</button>
+    </div>
+    <div class="column small-3">
+      <button class="secondary small-12 tiny" ng-click="loadPrev()" ng-disabled="disableNext">Next</button>
+    </div>
+  </li>
+</ul>

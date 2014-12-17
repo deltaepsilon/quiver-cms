@@ -1,0 +1,40 @@
+<input class="small-12" type="text" ng-model="searchTerm" placeholder="Search: Click Enter to search server by email..." qv-enter="search(searchTerm)">
+
+<ul class="small-12 table-list striped hover padded link-padded">
+  <li class="table-list-header">
+    <div class="column small-12 medium-3">User</div>
+    <div class="column small-12 medium-3">Title</div>
+    <div class="column small-12 medium-3">Days</div>
+    <div class="column small-12 medium-3 medium-text-right">Created</div>
+  </li>
+  <li class="no-pad text-x-medium" ng-repeat="subscription in items | filter:searchTerm | orderBy:'$priority':'desc'">
+    <a class="clearfix block" ui-sref="authenticated.master.admin.subscription({key: subscription.$id})">
+      <div class="column small-12 medium-3">
+        {{ ::subscription.user.public.email }}
+      </div>
+      <div class="column small-12 medium-3">
+        {{ ::subscription.title }}
+      </div>
+      <div class="column small-12 medium-3">
+        {{ ::subscription.subscriptionDays }} Days
+      </div>
+      <div class="column small-12 medium-3  medium-text-right">
+        {{ ::subscription.date | moment:"MM/DD/YYYY"}}
+      </div>
+    </a>
+  </li>
+  <li class="no-stripe no-hover padding-small" ng-show="items.length || paginating">
+    <div class="column small-3">
+      <button class="secondary small-12 tiny" ng-click="loadNext()" ng-disabled="disablePrev">Previous</button>&nbsp;
+    </div>
+    <div class="column small-3">
+      <button class="secondary small-12 tiny" ng-click="reset()" ng-disabled="disableReset">Reset</button>
+    </div>
+    <div class="column small-3">
+      <button class="secondary small-12 tiny" ng-click="loadMore()" ng-disabled="disableMore">Load More +</button>
+    </div>
+    <div class="column small-3">
+      <button class="secondary small-12 tiny" ng-click="loadPrev()" ng-disabled="disableNext">Next</button>
+    </div>
+  </li>
+</ul>

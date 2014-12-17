@@ -652,20 +652,25 @@ angular.module('quiverCmsApp', [
         }
       })
       .state('authenticated.master.admin.discounts', { // **************************  Discounts ************************
-        url: '/discounts/:search',
+        abstract: true,
         templateUrl: 'views/admin-discounts.html',
-        controller: 'DiscountsCtrl',
-        resolve: {
-          limit: function () {
-            return 10;
-          },
-          discountsRef: function (AdminService) {
-            return AdminService.getDiscounts({orderByPriority: true, limitToLast: 10});
-          },
-          discounts: function (AdminService) {
-            return AdminService.getServerDiscounts();
+        controller: 'DiscountsCtrl'
+      })
+      .state('authenticated.master.admin.discounts.list', {
+          url: '/discounts/:search',
+          templateUrl: 'views/admin-discounts-list.html',
+          controller: 'ListCtrl',
+          resolve: {
+            limit: function () {
+              return 3;
+            },
+            getRef: function (AdminService) {
+              return AdminService.getDiscounts;
+            },
+            ref: function (AdminService, limit) {
+              return AdminService.getDiscounts({orderByPriority: true, limitToLast: limit});
+            }
           }
-        }
       })
       .state('authenticated.master.admin.social', { // *****************************  Social ***************************
         url: '/social-media',
@@ -725,14 +730,22 @@ angular.module('quiverCmsApp', [
         }
       })
       .state('authenticated.master.admin.subscriptions', { // ***********************  Subscriptions *******************
-        url: '/subscriptions',
+        abstract: true,
         templateUrl: 'views/admin-subscriptions.html',
-        controller: 'SubscriptionsCtrl',
+        controller: 'SubscriptionsCtrl'
+      })
+      .state('authenticated.master.admin.subscriptions.list', {
+        url: '/subscriptions/:search',
+        templateUrl: 'views/admin-subscriptions-list.html',
+        controller: 'ListCtrl',
         resolve: {
           limit: function() {
-            return 10;
+            return 2;
           },
-          subscriptionsRef: function(AdminService, limit) {
+          getRef: function (AdminService) {
+            return AdminService.getSubscriptions;
+          },
+          ref: function(AdminService, limit) {
             return AdminService.getSubscriptions({orderByPriority: true, limitToLast: limit});
           }
         }

@@ -15,6 +15,16 @@ angular.module('quiverCmsApp')
     var items = ref.$asArray();
     $scope.items = items;
 
+    // items.$loaded().then(function (items) {
+    //   var i = items.length;
+
+    //   while (i--) {
+    //     items[i].$priority = moment(items[i].created).unix();
+    //     items.$save(items[i]);
+    //   }
+
+    // });
+
     /*
      * Query
      */
@@ -46,7 +56,7 @@ angular.module('quiverCmsApp')
             
           });
 
-        } else if (i && q.startAt) {
+        } else if (i && q.startAt && !q.noReset) {
           
           $scope.reset().then(function (items) {
             $scope.disableNext = true;
@@ -126,7 +136,7 @@ angular.module('quiverCmsApp')
     };
 
     $scope.search = function (q) {
-      query(_.defaults(q, {limitToLast: $scope.limit}));
+      query(_.defaults(q, {limitToLast: $scope.limit, noReset: true}));
     };
 
     $scope.reset = function (q) {

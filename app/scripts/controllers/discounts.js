@@ -8,26 +8,35 @@
  * Controller of the quiverCmsApp
  */
 angular.module('quiverCmsApp')
-  .controller('DiscountsCtrl', function ($scope, limit, discountsRef, discounts, moment, _, NotificationService, AdminService, $stateParams) {
+  .controller('DiscountsCtrl', function ($scope, moment, _, NotificationService, AdminService) {
     /*
      * Discounts
     */
-    var mapDiscounts = function (discounts) {
-        return _.map(discounts, function (discount, key) {
-          discount.key = key;
-          return discount;
-        });
-      },
-      firebaseDiscounts = discountsRef.$asArray();
+    // var mapDiscounts = function (discounts) {
+    //     return _.map(discounts, function (discount, key) {
+    //       discount.key = key;
+    //       return discount;
+    //     });
+    //   },
+    //   firebaseDiscounts = discountsRef.$asArray();
     
-    $scope.discounts = mapDiscounts(discounts.discounts);
+    // $scope.discounts = mapDiscounts(discounts.discounts);
 
-    NotificationService.notify('Discounts Loading...');
-    firebaseDiscounts.$loaded().then(function () {
-      NotificationService.notify('Discounts Loaded.');
-      $scope.discounts = firebaseDiscounts;
-      $scope.firebaseLoaded = true;
-    });
+
+    // NotificationService.notify('Discounts Loading...');
+    // firebaseDiscounts.$loaded().then(function () {
+    //   NotificationService.notify('Discounts Loaded.');
+    //   $scope.discounts = firebaseDiscounts;
+    //   $scope.firebaseLoaded = true;
+
+    //   // _.each($scope.discounts, function (discount) {
+    //   //   discount.$priority = moment(discount.created).unix();
+    //   //   $scope.discounts.$save(discount).then(function (ref) {
+    //   //     console.log('discount ref', ref);
+    //   //   });
+    //   // });
+
+    // });
 
     var generateCode = function () {
         var possibles = "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
@@ -109,17 +118,18 @@ angular.module('quiverCmsApp')
     $scope.createDiscount = function (discount) {
       discount = validateDiscount(discount);
 
+      discount.$priority = moment().unix();
       discount.created = moment().format();
       discount.active = true;
       discount.useCount = 0;
       discount.expiration = moment(discount.expiration).format();
 
-      firebaseDiscounts.$add(discount);
+      AdminService.getDiscounts().$asArray().$add(discount);
       setNewDiscount();
     };
 
     $scope.removeDiscount = function (discount) {
-      firebaseDiscounts.$remove(discount);
+      AdminService.getDiscounts().$remove(discount.$id);
     };
 
     $scope.saveDiscount = function (discount) {
@@ -128,50 +138,5 @@ angular.module('quiverCmsApp')
       }
       
     };
-
-    /*
-     * Query
-     */
-    var query = function (q) {
-      var q = q || {orderByPriority: true, limitToLast: $scope.limit};
-
-      discountsRef = AdminService.getDiscounts(q);
-      firebaseDiscounts = discountsRef.$asArray();
-      firebaseDiscounts.$loaded().then(function (discounts) {
-        $scope.discounts = discounts;
-      });
-    };
-
-    $scope.limit = limit;
-
-    $scope.loadMore = function (increment) {
-      $scope.limit += (increment || limit);
-
-      query({orderByPriority: true, limitToLast: $scope.limit});
-       
-    };
-
-    $scope.search = function (term) {
-      $scope.searching = true;
-      query({orderByPriority: true, orderByChild: 'code', startAt: term});
-    };
-
-    $scope.reset = function () {
-      $scope.searching = false;
-      $scope.limit = limit;
-      $scope.discountFilter = '';
-      query();
-    };
-
-    firebaseDiscounts.$loaded().then(function () {
-      if ($stateParams.search) {
-        var term = $stateParams.search;
-        $scope.discountFilter = term;
-        $scope.search(term);
-      }
-      
-    });
-
-    
     
   });
