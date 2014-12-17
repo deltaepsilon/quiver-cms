@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('quiverCmsApp')
-  .controller('FilesCtrl', function ($scope, $q, FileService, NotificationService, originalsRef, bucket, notificationsRef, $filter, $localStorage, _, ClipboardService, Slug, env, $interval, limit, AdminService, $stateParams) {
+  .controller('FilesCtrl', function ($scope, $q, FileService, NotificationService, bucket, notificationsRef, $filter, $localStorage, _, ClipboardService, Slug, env, $interval, AdminService, $stateParams) {
 
     /*
      * localStorage
@@ -32,12 +32,6 @@ angular.module('quiverCmsApp')
     };
 
     /*
-     * Originals
-     */
-    var originals = originalsRef.$asArray();
-    $scope.originals = originals;
-
-    /*
      * Bucket
      */
     $scope.bucket = bucket.$value;
@@ -45,45 +39,25 @@ angular.module('quiverCmsApp')
     /*
      * Query
      */
-    var query = function (q) {
-      var q = q || {orderByPriority: true, limitToLast: $scope.limit};
 
-      originalsRef = AdminService.getOriginals(q);
-      originals = originalsRef.$asArray();
-      originals.$loaded().then(function (originals) {
-        $scope.originals = originals;
-      });
-    };
-
-    $scope.limit = limit;
-
-    $scope.loadMore = function (increment) {
-      $scope.limit += (increment || limit);
-
-      query({orderByPriority: true, limitToLast: $scope.limit});
-       
-    };
-
-    $scope.search = function (term) {
-      $scope.searching = true;
-      query({orderByPriority: true, orderByChild: 'Name', startAt: term});
-    };
-
-    $scope.reset = function () {
-      $scope.searching = false;
-      $scope.limit = limit;
-      $scope.searchTerm = '';
-      query();
-    };
-
-    originals.$loaded().then(function () {
-      if ($stateParams.search) {
-        var term = $stateParams.search;
-        $scope.searchTerm = term;
-        $scope.search(term);
+    $scope.getPrev = function (items) {
+      if (items.length) {
+        return {orderByChild: 'Index', endAt: (items[0].Index || 0) - 1};  
+      } else {
+        return 0;
       }
       
-    });
+    };
+
+    $scope.getNext = function (items) {
+      if (items.length) {
+        return {orderByChild: 'Index', startAt: (items[items.length - 1].Index || 0) + 1};  
+      } else {
+        return 10000000000;
+      }
+      
+    };
+
 
     /*
      * Files
@@ -215,7 +189,6 @@ angular.module('quiverCmsApp')
         $scope.uploading = false; // Just in case the earlier pass at reactivating this button failed.
         $scope.resizing = false;
         clearWatches();
-        $scope.reset();
         NotificationService.success('Images Processed', 'Your images have successfully been resized.');
 
       }, function (err) {
@@ -257,7 +230,6 @@ angular.module('quiverCmsApp')
       FileService.resize().then(function () {
         NotificationService.success('Images Processed', 'Your images have successfully been resized and the file registry has been updated.');
         delete $scope.resizing;
-        $scope.reset();
         deferred.resolve();
       }, function (err) {
         NotificationService.error('Resize Failed', err);

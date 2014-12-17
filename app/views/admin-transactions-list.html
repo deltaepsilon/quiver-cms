@@ -1,0 +1,46 @@
+<input type="text" ng-show="searching || transactions.length" ng-model="searchTerm" ng-focus="searchTerm = ''" placeholder="Search: Click ENTER to search by email..." qv-enter="search(searchTerm)"/>
+
+<ul class="table-list striped hover">
+    <li class="table-list-header padding-small">
+        <div class="column small-12 medium-3">
+            Email
+        </div>
+        <div class="column small-12 medium-3">
+            Total
+        </div>
+        <div class="column small-12 medium-3">
+            Items
+        </div>
+        <div class="column small-12 medium-3 text-medium-right">
+            Created
+        </div>
+    </li>
+     <li ng-repeat="transaction in items | filter:transactionFilter | orderBy:'$priority':'desc'">
+        <a class="clearfix block padding-small" ui-sref="authenticated.master.admin.transaction({key: transaction.$id, userId: transaction.userId})">
+            <div class="column small-12 medium-3">
+                {{ ::transaction.userEmail }}
+            </div>
+            <div class="column small-12 medium-3">
+                <span ng-class="{'text-error': transaction.total && !transaction.charge.success}">{{ ::transaction.total | currency }}</span>
+                <div class="text-error text-xx-small" ng-show="transaction.total && !transaction.charge.success">{{ transaction.charge.message }}</div>
+            </div>
+            <div class="column small-12 medium-3">
+                {{ ::transaction.productCount }}
+            </div>
+            <div class="column small-12 medium-3 text-medium-right">
+                {{ ::transaction.date | moment:"MM/DD/YY hh:mm:ss" }}
+            </div>
+        </a>
+    </li>
+    <li class="no-stripe no-hover padding-small" ng-show="items.length || paginating">
+        <div class="column small-4">
+          <button class="secondary small-12 tiny" ng-click="loadNext()" ng-disabled="disablePrev">Previous</button>&nbsp;
+        </div>
+        <div class="column small-4">
+          <button class="secondary small-12 tiny" ng-click="reset()" ng-disabled="!paginating">Reset</button>
+        </div>
+        <div class="column small-4">
+          <button class="secondary small-12 tiny" ng-click="loadPrev()" ng-disabled="disableNext">Next</button>
+        </div>
+    </li>
+</ul>

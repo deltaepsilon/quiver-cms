@@ -52,7 +52,7 @@ angular.module('quiverCmsApp')
       },
 
       resize: function () {
-        return Restangular.one('admin').one('files').one('resize').get();
+        return Restangular.one('admin').one('files').one('update').get();
       }
 
     };

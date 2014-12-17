@@ -57,6 +57,10 @@ angular.module('quiverCmsApp')
      */
     $scope.uploads = assignmentUploadsRef.$asArray();
 
+    // $scope.saveUpload = function (upload) {
+    //   $scope.uploads.$save(upload);
+    // };
+
     /*
      * Email Alerts
      */

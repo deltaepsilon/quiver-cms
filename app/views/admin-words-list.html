@@ -54,77 +54,70 @@
       </div>
     </li> -->
     <li ng-repeat="word in items | filter:authorFilter | orderBy:getPriority">
-      <div ng-if="!word.$id">
-        &nbsp;
+      <div class="small-12">
+        <div class="column small-12 medium-3">
+          <span>{{ word.author.name }}</span>
+          <span class="cursor-pointer text-xx-small" ng-hide="isAuthor(word.author, user.public)" ng-click="makeAuthor(word, user)">claim</span>
+        </div>
+        <div class="column small-12 medium-6">
+          <div>
+            <strong><a ui-sref="authenticated.master.admin.word({key: word.$id})">{{ word.title }}</a></strong>
+          </div>
+          <div>
+            <span class="cursor-pointer" contenteditable="true" ng-model="word.slug" ng-change="word.edited = true;">{{ word.slug }}</span>
+          </div>
+        </div>
+        <div class="column small-12 medium-3 medium-text-right">
+          <button class="tiny margin-zero" style="min-width: 7rem;" ng-show="word.edited" ng-click="saveWord(word)">Save</button>
+          <button class="tiny alert margin-zero" style="min-width: 7rem;" ng-hide="word.edited" qv-confirm="removeWord(word)" confirmations="['Really???', 'Last chance!']" qv-confirm>Delete</button>  
+        </div>
+       
       </div>
-      <div ng-if="word.$id">
-        <div class="small-12">
-          <div class="column small-12 medium-3">
-            <span>{{ word.author.name }}</span>
-            <span class="cursor-pointer text-xx-small" ng-hide="isAuthor(word.author, user.public)" ng-click="makeAuthor(word, user)">claim</span>
-          </div>
-          <div class="column small-12 medium-6">
-            <div>
-              <strong><a ui-sref="authenticated.master.admin.word({key: word.$id})">{{ word.title }}</a></strong>
-            </div>
-            <div>
-              <span class="cursor-pointer" contenteditable="true" ng-model="word.slug" ng-change="word.edited = true;">{{ word.slug }}</span>
-            </div>
-          </div>
-          <div class="column small-12 medium-3 medium-text-right">
-            <button class="tiny margin-zero" style="min-width: 7rem;" ng-show="word.edited" ng-click="saveWord(word)">Save</button>
-            <button class="tiny alert margin-zero" style="min-width: 7rem;" ng-hide="word.edited" qv-confirm="removeWord(word)" confirmations="['Really???', 'Last chance!']" qv-confirm>Delete</button>  
-          </div>
-         
-        </div>
 
-        <div class="column small-12">
-          <hr>
-        </div>
-        
-
-        <div class="column small-12">
-          <div class="column small-12 medium-2">
-            <select class="margin-zero" style="min-width: 5rem;" ng-model="word.type" ng-change="word.edited = true">
-                <option value="">Select Type</option>
-                <option value="post">Post</option>
-                <option value="page">Page</option>
-                <option value="subscription">Subscription</option>
-            </select>
-          </div>
-          <div class="column small-12 medium-2">
-            <input class="margin-zero-important" type="text" placeholder="Hashtag..." ng-model="newHashtag" qv-enter="addHashtag(word, newHashtag); newHashtag = null;" qv-type-ahead include="hashtags" exclude="word.hashtags" prepopulate="true" top-offset="-1"/>
-          </div>
-          <div class="column small-12 medium-3">
-            <ul class="inline-list margin-zero-important text-x-small">
-                <li class="cursor-pointer" ng-repeat="hashtag in word.hashtags" ng-click="removeHashtag(word, hashtag.key)">#{{ hashtag.value }}</li>
-            </ul>
-            &nbsp;
-          </div>
-          <div class="column small-12 medium-2">
-            <input class="margin-zero-important" ng-show="word.type == 'post' || word.type == 'subscription'" type="number" ng-model="word.$priority" ng-model-options="{debounce: {'default': 500}}" ng-change="word.edited = true; setPriority(word.$id, word.$priority)" placeholder="Priority"/>
-            &nbsp;
-          </div>
-          <div class="column small-12 medium-3 medium-text-right">
-            <div>
-              <span class="text-x-small" ng-show="word.published">
-                  Published: {{ word.published.published | moment:"MM/DD/YY" }}
-                  <a class="link-highlight0 link-hover-secondary0 margin-horizontal-xx-small" ng-click="unpublishWord(word)">X</a>
-              </span>
-              <span ng-hide="word.published">
-                  <a ui-sref="authenticated.master.admin.word({key: word.$id})">Publish</a>
-              </span>
-            </div>
-            <div>
-              <span class="text-x-small">Created: {{ word.created | moment:"MM/DD/YY" }}</span>
-            </div>
-            
-          </div>
-
-        </div>
-
-      </div>     
+      <div class="column small-12">
+        <hr>
+      </div>
       
+
+      <div class="column small-12">
+        <div class="column small-12 medium-2">
+          <select class="margin-zero" style="min-width: 5rem;" ng-model="word.type" ng-change="word.edited = true">
+              <option value="">Select Type</option>
+              <option value="post">Post</option>
+              <option value="page">Page</option>
+              <option value="subscription">Subscription</option>
+          </select>
+        </div>
+        <div class="column small-12 medium-2">
+          <input class="margin-zero-important" type="text" placeholder="Hashtag..." ng-model="newHashtag" qv-enter="addHashtag(word, newHashtag); newHashtag = null;" qv-type-ahead include="hashtags" exclude="word.hashtags" prepopulate="true" top-offset="-1"/>
+        </div>
+        <div class="column small-12 medium-3">
+          <ul class="inline-list margin-zero-important text-x-small">
+              <li class="cursor-pointer" ng-repeat="hashtag in word.hashtags" ng-click="removeHashtag(word, hashtag.key)">#{{ hashtag.value }}</li>
+          </ul>
+          &nbsp;
+        </div>
+        <div class="column small-12 medium-2">
+          <input class="margin-zero-important" ng-show="word.type == 'post' || word.type == 'subscription'" type="number" ng-model="word.$priority" ng-model-options="{debounce: {'default': 500}}" ng-change="word.edited = true; setPriority(word.$id, word.$priority)" placeholder="Priority"/>
+          &nbsp;
+        </div>
+        <div class="column small-12 medium-3 medium-text-right">
+          <div>
+            <span class="text-x-small" ng-show="word.published">
+                Published: {{ word.published.published | moment:"MM/DD/YY" }}
+                <a class="link-highlight0 link-hover-secondary0 margin-horizontal-xx-small" ng-click="unpublishWord(word)">X</a>
+            </span>
+            <span ng-hide="word.published">
+                <a ui-sref="authenticated.master.admin.word({key: word.$id})">Publish</a>
+            </span>
+          </div>
+          <div>
+            <span class="text-x-small">Created: {{ word.created | moment:"MM/DD/YY" }}</span>
+          </div>
+          
+        </div>
+
+      </div>  
 
     </li>
     <li class="no-stripe no-hover padding-small" ng-show="items.length || paginating">
@@ -140,67 +133,3 @@
     </li>
   </ul>
 </div>
-    
-    <!-- <table ng-show="words.length">
-        <thead>
-            <tr>
-                <th>Author</th><th>Title</th><th>Slug</th><th>Type</th><th>Priority</th><th>Hashtags</th><th></th><th>Created</th><th>Published</th><th class="text-center">Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr ng-repeat="word in words | filter:authorFilter | orderBy:'$priority':'desc'">
-                <td>
-                    <span>{{ word.author.name }}</span>
-                    <span class="cursor-pointer text-xx-small" ng-hide="isAuthor(word.author, user.public)" ng-click="makeAuthor(word, user)">claim</span>
-                </td>
-                <td>
-                    <a ui-sref="authenticated.master.admin.word({key: word.$id})">{{ word.title }}</a>
-                </td>
-                <td>
-                    <span class="cursor-pointer" contenteditable="true" ng-model="word.slug" ng-change="word.edited = true;">{{ word.slug }}</span>
-                </td>
-                <td>
-                    <select class="margin-zero" style="min-width: 5rem;" ng-model="word.type" ng-change="word.edited = true">
-                        <option value="">Select Type</option>
-                        <option value="post">Post</option>
-                        <option value="page">Page</option>
-                        <option value="subscription">Subscription</option>
-                    </select>
-                </td>
-                <td>
-                    <input class="margin-zero-important" ng-show="word.type == 'post' || word.type == 'subscription'" type="number" ng-model="word.$priority" ng-model-options="{debounce: {'default': 500}}" ng-change="word.edited = true; setPriority(word.$id, word.$priority)"/>
-                </td>
-                <td>
-                    <input class="margin-zero-important" type="text" placeholder="Hashtag..." ng-model="newHashtag" qv-enter="addHashtag(word, newHashtag); newHashtag = null;" qv-type-ahead include="hashtags" exclude="word.hashtags" prepopulate="true" top-offset="-1"/>
-                </td>
-                <td>
-                    <ul class="inline-list margin-zero-important text-x-small">
-                        <li class="cursor-pointer" ng-repeat="hashtag in word.hashtags" ng-click="removeHashtag(word, hashtag.key)">#{{ hashtag.value }}</li>
-                    </ul>
-                </td>
-                <td>
-                    <span class="text-x-small">{{ word.created | moment:"MM/DD/YY" }}</span>
-                </td>
-                <td>
-                    <span class="text-x-small" ng-show="word.published">
-                        {{ word.published.published | moment:"MM/DD/YY" }}
-                        <a class="link-highlight0 link-hover-secondary0 margin-horizontal-xx-small" ng-click="unpublishWord(word)">X</a>
-                    </span>
-                    <span ng-hide="word.published">
-                        <a ui-sref="authenticated.master.admin.word({key: word.$id})">Publish</a>
-                    </span>
-
-                </td>
-                <td>
-                    <button class="tiny margin-zero centered-block" style="min-width: 7rem;" ng-show="word.edited" ng-click="saveWord(word)">Save</button>
-                    <button class="tiny alert margin-zero centered-block" style="min-width: 7rem;" ng-hide="word.edited" qv-confirm="removeWord(word)" confirmations="['Really???', 'Last chance!']" qv-confirm>Delete</button>
-                </td>
-            </tr>
-        </tbody>
-        <tfoot class="background-white">
-            <tr>
-                <td colspan="100%"><button class="secondary small-12" ng-click="loadMore()" ng-hide="words.length < limit">Load More +</button></td>
-            </tr>
-        </tfoot>
-    </table>
- -->

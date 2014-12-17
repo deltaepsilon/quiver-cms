@@ -10,5 +10,5 @@
 angular.module('quiverCmsApp')
   .controller('MessagesCtrl', function ($scope) {
 
-    $scope.searchField = 'userEmail';    
+    $scope.searchField = 'userEmail';
   });

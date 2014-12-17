@@ -28,6 +28,10 @@ angular.module('quiverCmsApp')
       $scope.disablePrev = false;
       $scope.disableNext = false;
 
+      if (q.orderByChild) {
+        delete q.orderByPriority;
+      }
+
       ref = getRef(q);
       items = ref.$asArray();
       items.$loaded().then(function (items) {
@@ -42,7 +46,7 @@ angular.module('quiverCmsApp')
             
           });
 
-        } else if (i && q.startAt && !q.orderByChild) {
+        } else if (i && q.startAt) {
           
           $scope.reset().then(function (items) {
             $scope.disableNext = true;
@@ -55,8 +59,10 @@ angular.module('quiverCmsApp')
             $scope.disableMore = true;
           }
 
-          while (i--) {
-            items.push({"$priority": priority});
+          if ($scope.padList) {
+            while (i--) {
+              items.push({"$priority": priority});
+            }
           }
           $scope.items = items;
           $scope.paginating = isPaginating;
@@ -97,7 +103,6 @@ angular.module('quiverCmsApp')
         delete q.endAt;
       }
 
-      $scope.disablePrev = false;
       return query(q);
     };
 
@@ -117,9 +122,6 @@ angular.module('quiverCmsApp')
         delete q.startAt;
       }
 
-      if (priority !== 0) {
-        $scope.disableNext = false;
-      }      
       return query(q);
     };
 

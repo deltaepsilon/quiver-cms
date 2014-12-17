@@ -1,0 +1,57 @@
+<input type="text" ng-show="searching || originals.length" ng-model="searchTerm" ng-focus="searchTerm = ''" placeholder="Search: Click ENTER to search server filename..." qv-enter="search({orderByChild: 'Name', startAt: searchTerm, limitToLast: 20})"/>
+
+<ul class="table-list striped padded">
+  <li class="table-list-header">
+    <div class="column small-12 medium-3">Preview</div>
+    <div class="column small-12 medium-3">Details</div>
+    <div class="column small-12 medium-3">Link/CommonMark</div>
+    <div class="column small-12 medium-3 medium-text-center">Actions</div>
+  </li>
+  <li ng-repeat="file in items | orderBy:'$id':'desc'" ng-class="{'disabled': file.disabled}">
+    <div ng-if="file.Size">
+      <div class="column small-12 medium-3">
+        <select ng-model="fileVersion">
+            <option value="" selected>Original: ({{ file.Size / 1000 | number:0 }}kb)</option>
+            <option ng-repeat="(key, version) in file.Versions" value="{{ key }}">{{ key }}: ({{ version.Size / 1000 | number:0 }}kb)</option>
+        </select>
+        <span class="text-x-small">{{ file.Index }}: {{ file.Name }}</span>
+
+      </div>
+      <div class="column small-12 medium-3">
+        <a ng-if='!fileVersion' href="{{ file.Key | s3Link:bucket }}" target="_blank" qv-media="{{ file.Key | s3Link:bucket }}" alt="{{ file.Key | filename }}" attributes="{embed: {width: '100px', height: '100px'}, img: {'style': 'width: 200px; max-width: 100%;'}, video: {width: '200px'}}"></a>
+        <a ng-if="fileVersion" href="{{ file.Versions[fileVersion].Key | s3Link:bucket }}" target="_blank" qv-media="{{ file.Key | s3Link:bucket }}" alt="{{ file.Key | filename }}" attributes="{embed: {width: '100px', height: '100px'}, img: {'style': 'width: 200px; max-width: 100%;'}, video: {width: '200px'}}"></a>
+
+      </div>
+      <div class="column small-12 medium-3">
+        <input ng-if="!fileVersion" type="text" qv-select-text value="{{ file.Key | s3Link:bucket }}"/>
+        <input ng-if="fileVersion" type="text" qv-select-text value="{{ file.Versions[fileVersion].Key | s3Link:bucket }}"/>
+
+        <input ng-if="!fileVersion" type="text" value="![{{ file.Key | filename }}]({{ file.Key | s3Link:bucket }})" qv-select-text/>
+        <input ng-if="fileVersion" type="text" value="![{{ file.Versions[fileVersion].Key | filename }}]({{ file.Versions[fileVersion].Key | s3Link:bucket }})" qv-select-text/>
+
+      </div>
+      <div class="column small-12 medium-3 medium-text-center">
+        <button class="alert tiny small-12" style="min-width: 75px;" qv-confirm="removeFile(file); file.disabled = true;" confirmations="['Confirm']" ng-disabled="file.disabled">Delete</button>
+        <button class="tiny secondary small-12" ng-click="addToClipboard(file)" ng-hide="inClipboard(file) || file.disabled">+ Clip</button>
+
+      </div>
+    </div>
+    
+  </li>
+  <li class="no-stripe no-hover">
+    <div ng-hide="searching">
+      <div class="column small-3">
+        <button class="secondary small-12" ng-click="loadPrev(undefined, getPrev(items))" ng-disabled="disablePrev">Prev</button>&nbsp;
+      </div>
+      <div class="column small-3">
+        <button class="secondary small-12" ng-click="loadMore()" ng-disabled="disableMore">Load More +</button>
+      </div>
+      <div class="column small-3">
+        <button class="secondary small-12" ng-click="reset()" ng-disabled="disableReset">Reset</button>
+      </div>
+      <div class="column small-3">
+        <button class="secondary small-12" ng-click="loadNext(undefined, getNext(items))" ng-disabled="disableNext">Next</button>
+      </div>
+    </div>
+  </li>
+</ul>

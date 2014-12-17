@@ -540,21 +540,31 @@ angular.module('quiverCmsApp', [
         }
       })
       .state('authenticated.master.admin.files', { // ******************************  Files ****************************
-        url: '/files/:search',
+        abstract: true,
         templateUrl: 'views/admin-files.html',
         controller: 'FilesCtrl',
         resolve: {
-          limit: function () {
-            return 10;
-          },
           bucket: function (AdminService) {
             return AdminService.getBucket();
           },
-          originalsRef: function (AdminService, limit) {
-            return AdminService.getOriginals({orderByPriority: true, limitToLast: limit});
-          },
           notificationsRef: function (AdminService, currentUser) {
             return AdminService.getNotifications(currentUser.uid);
+          }
+        }
+      })
+      .state('authenticated.master.admin.files.list', {
+        url: '/files/:search',
+        templateUrl: 'views/admin-files-list.html',
+        controller: 'ListCtrl',
+        resolve: {
+          limit: function () {
+            return 3;
+          },
+          getRef: function (AdminService) {
+            return AdminService.getOriginals;
+          },
+          ref: function (AdminService, limit) {
+            return AdminService.getOriginals({orderByKey: true, limitToLast: limit});
           }
         }
       })
@@ -681,14 +691,22 @@ angular.module('quiverCmsApp', [
         }
       })
       .state('authenticated.master.admin.transactions', { // ***********************  Transactions *********************
-        url: '/transactions/:search',
+        abstract: true,
         templateUrl: 'views/admin-transactions.html',
-        controller: 'TransactionsCtrl',
+        controller: 'TransactionsCtrl'
+      })
+      .state('authenticated.master.admin.transactions.list', {
+        url: '/transactions/:search',
+        templateUrl: 'views/admin-transactions-list.html',
+        controller: 'ListCtrl',
         resolve: {
           limit: function () {
             return 10;
           },
-          transactionsRef: function (AdminService, limit) {
+          getRef: function (AdminService) {
+            return AdminService.getTransactions;
+          },
+          ref: function (AdminService, limit) {
             return AdminService.getTransactions({orderByPriority: true, limitToLast: limit});
           }
         }
@@ -769,14 +787,22 @@ angular.module('quiverCmsApp', [
         }
       })
       .state('authenticated.master.admin.uploads', { // ****************************  Uploads **************************
-        url: '/uploads/:search',
+        abstract: true,
         templateUrl: 'views/admin-uploads.html',
-        controller: 'UploadsCtrl',
+        controller: 'UploadsCtrl'
+      })
+      .state('authenticated.master.admin.uploads.list', {
+        url: '/uploads/:search',
+        templateUrl: 'views/admin-uploads-list.html',
+        controller: 'ListCtrl',
         resolve: {
           limit: function () {
             return 3;
           },
-          uploadsRef: function (AdminService, limit) {
+          getRef: function (AdminService) {
+            return AdminService.getUploads;
+          },
+          ref: function (AdminService, limit) {
             return AdminService.getUploads({orderByPriority: true, limitToLast: limit});
           }
         }

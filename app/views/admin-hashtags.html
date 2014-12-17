@@ -8,27 +8,36 @@
     <hr>
 
     <input type="text" ng-model="hashtagFilter" ng-focus="hashtagFilter = ''" placeholder="Search..."/>
-    <table class="small-12">
-        <thead>
-        <tr>
-            <th>Tag</th><th>Slug</th><th>Creator</th><th>Action</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr ng-repeat="hashtag in hashtags | filter:hashtagFilter">
-            <td>
+
+    <ul class="table-list padded hover striped">
+        <li class="table-list-header">
+            <div class="column small-12 medium-3">
+                Tag
+            </div>
+            <div class="column small-12 medium-3">
+                Slug
+            </div>
+            <div class="column small-12 medium-3">
+                Creator
+            </div>
+            <div class="column small-12 medium-3 medium-text-right">
+                Action
+            </div>
+        </li>
+        <li ng-repeat="hashtag in hashtags | filter:hashtagFilter">
+            <div class="column small-12 medium-3">
                 #{{ hashtag.value }}
-            </td>
-            <td>
+            </div>
+            <div class="column small-12 medium-3">
                 {{ hashtag.key }}
-            </td>
-            <td>
+            </div>
+            <div class="column small-12 medium-3">
                 {{ hashtag.creator }}
-            </td>
-            <td>
+            </div>
+            <div class="column small-12 medium-3 medium-text-right">
                 <button class="tiny alert margin-zero" qv-confirm="removeHashtag(hashtag)" confirmations="['Really???', 'Last chance!']" qv-confirm>Delete</button>
-            </td>
-        </tr>
-        </tbody>
-    </table>
+            </div>
+        </li>
+    </ul>
+
 </div>

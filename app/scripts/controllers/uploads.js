@@ -8,15 +8,30 @@
  * Controller of the quiverCmsApp
  */
 angular.module('quiverCmsApp')
-  .controller('UploadsCtrl', function ($scope, limit, uploadsRef, AdminService, $stateParams) {
+  .controller('UploadsCtrl', function ($scope, AdminService) {
     /*
      * Uploads
      */
-    var uploads = uploadsRef.$asArray();
-    $scope.uploads = uploads;
-
     $scope.save = function (upload) {
-      $scope.uploads.$save(upload);
+      AdminService.getUpload(upload.$id).$asObject().$loaded().then(function (serverUpload) {
+        serverUpload.comment = upload.comment;
+        serverUpload.flag = upload.flag;
+        
+        if (!serverUpload.comment) {
+          delete serverUpload.comment;
+        }
+
+        if (!serverUpload.flag) {
+          delete serverUpload.flag;
+        }
+
+        serverUpload.$save();
+
+      });
+    };
+
+    $scope.remove = function (upload) {
+      AdminService.getUpload(upload.$id).$remove();
     };
 
     $scope.flag = function (upload) {
@@ -26,62 +41,10 @@ angular.module('quiverCmsApp')
       $scope.save(upload);
     };
 
-    /*
-     * Query
-     */
-    var query = function (q) {
-      var q = q || {orderByPriority: true, limitToLast: $scope.limit};
 
-      uploadsRef = AdminService.getUploads(q);
-      uploads = uploadsRef.$asArray();
-      uploads.$loaded().then(function (uploads) {
-        $scope.uploads = uploads;
-      });
-    };
-
-    $scope.limit = limit;
-
-    $scope.loadMore = function (increment) {
-      $scope.limit += (increment || limit);
-      query({orderByPriority: true, limitToLast: $scope.limit});
-       
-    };
-
-    $scope.loadNext = function (increment) {
-      var priority = $scope.uploads[0] ? $scope.uploads[0].$priority : moment().unix();
-
-      query({orderByPriority: true, limitToLast: $scope.limit, endAt: priority - 1});
-    };
-
-    $scope.loadPrev = function (increment) {
-      var priority = $scope.uploads.length ? $scope.uploads[$scope.uploads.length - 1].$priority : 0;
-
-      query({orderByPriority: true, limitToLast: $scope.limit, startAt: priority + 1});
-    };
-
-    $scope.search = function (term) {
-      $scope.searching = true;
-      query({orderByChild: 'userEmail', equalTo: term});
-    };
-
+    $scope.searchField = 'userEmail';
     $scope.setSearch = function (term) {
       $scope.searchTerm = term;
-    $scope.search(term);
     };
-
-    $scope.reset = function () {
-      $scope.searching = false;
-      $scope.limit = limit;
-      $scope.searchTerm = '';
-      query();
-    };
-
-    uploads.$loaded().then(function () {
-      if ($stateParams.search) {
-        var term = $stateParams.search;
-        $scope.searchTerm = term;
-        $scope.search(term);
-      }
-    });
 
   });
