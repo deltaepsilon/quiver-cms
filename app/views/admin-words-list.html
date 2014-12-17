@@ -1,7 +1,8 @@
 <div class="column small-12 medium-4">
     <label>Order By Type</label>
-    <select ng-model="query.type" qv-enter="query.slug = undefined; reset(getTypeQuery(query.type));">
+    <select ng-model="query.type" ng-change="query.slug = undefined; reset(getTypeQuery(query.type));">
         <option value="">All Types</option>
+        <option value="post">Post</option>
         <option value="page">Page</option>
         <!-- <option value="post" default>Post</option> -->
         <option value="subscription">Subscription</option>
@@ -10,7 +11,7 @@
 
 <div class="column small-12 medium-4">
     <label>Order By Slug</label>
-    <input type="text" ng-model="query.slug" qv-enter="query.type = ''; reset(getSlugQuery(query.slug));" placeholder="Slug...">
+    <input type="text" ng-model="query.slug" qv-enter="query.type = ''; reset(getSlugQuery(query.slug));" placeholder="Slug (click ENTER to search)...">
 </div>
 
 <div class="column small-12 medium-4">
@@ -98,6 +99,7 @@
             <ul class="inline-list margin-zero-important text-x-small">
                 <li class="cursor-pointer" ng-repeat="hashtag in word.hashtags" ng-click="removeHashtag(word, hashtag.key)">#{{ hashtag.value }}</li>
             </ul>
+            &nbsp;
           </div>
           <div class="column small-12 medium-2">
             <input class="margin-zero-important" ng-show="word.type == 'post' || word.type == 'subscription'" type="number" ng-model="word.$priority" ng-model-options="{debounce: {'default': 500}}" ng-change="word.edited = true; setPriority(word.$id, word.$priority)" placeholder="Priority"/>

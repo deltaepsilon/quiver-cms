@@ -38,7 +38,7 @@ angular.module('quiverCmsApp')
 
     $scope.getPriority = function (word) {
       if ($scope.searching !== true && word && word.$priority) {
-        console.log('word.$priority', word.$priority);
+        // console.log('word.$priority', word.$priority);
         return word.$priority;
 
       } else if (!word.$id) {
@@ -61,7 +61,6 @@ angular.module('quiverCmsApp')
     };
 
     $scope.getTypeQuery = function (type) {
-      $scope.searching = true;
       return type ? {orderByChild: 'type', equalTo: type} : {orderByPriority: true};
     };
 
@@ -73,10 +72,10 @@ angular.module('quiverCmsApp')
     $scope.removeWord = function (word) {
       var title = word.title;
 
-      words.$remove(word).then(function () {
+      AdminService.getWord(word.$id).$remove().then(function () {
         NotificationService.success('Deleted', 'Bye bye ' + title + '!');
       }, function (error) {
-        NotificationService.error('Delete Failed', 'Something is up!');
+        NotificationService.error('Delete Failed', error);
       });
     };
 
