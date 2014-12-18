@@ -608,14 +608,22 @@ angular.module('quiverCmsApp', [
         }
       })
       .state('authenticated.master.admin.users', { // ******************************  Users ****************************
-        url: '/users',
+        abstract: true,
         templateUrl: 'views/admin-users.html',
-        controller: 'UsersCtrl',
+        controller: 'UsersCtrl'
+      })
+      .state('authenticated.master.admin.users.list', {
+        url: '/users/:search',
+        templateUrl: 'views/admin-users-list.html',
+        controller: 'ListCtrl',
         resolve: {
           limit: function () {
             return 10;
           },
-          usersRef: function (AdminService, limit) {
+          getRef: function (AdminService) {
+            return AdminService.getUsers;
+          },
+          ref: function (AdminService, limit) {
             return AdminService.getUsers({orderByPriority: true, limitToLast: limit});
           }
         }
@@ -797,7 +805,7 @@ angular.module('quiverCmsApp', [
         controller: 'ListCtrl',
         resolve: {
           limit: function () {
-            return 3;
+            return 10;
           },
           getRef: function (AdminService) {
             return AdminService.getResources;
@@ -839,7 +847,7 @@ angular.module('quiverCmsApp', [
         controller: 'ListCtrl',
         resolve: {
           limit: function () {
-            return 3;
+            return 5;
           },
           getRef: function (AdminService) {
             return AdminService.getUploads;
@@ -874,15 +882,7 @@ angular.module('quiverCmsApp', [
       .state('authenticated.master.admin.email', { // ******************************  Email Queue***********************
         abstract: true,
         templateUrl: 'views/admin-email.html',
-        controller: 'EmailCtrl',
-        resolve: {
-          limit: function () {
-            return 10;
-          },
-          emailRef: function (AdminService, limit) {
-            return AdminService.getEmailQueue({orderByPriority: true, limitToLast: limit});
-          }
-        }
+        controller: 'EmailCtrl'
       })
       .state('authenticated.master.admin.email.list', {
         url: '/email',

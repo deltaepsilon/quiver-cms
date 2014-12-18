@@ -45,7 +45,7 @@
               <tbody>
                 <tr ng-repeat="state in states" ng-class="{disabled: !commerce.states[state.abbreviation].enabled}">
                   <td style="padding-right: 1rem;"><input id="checkbox-{{ state.abbreviation }}" class="margin-zero-important" type="checkbox" ng-model="commerce.states[state.abbreviation].enabled"></td>
-                  <td><input id="tax-{{ state.abbreviation }}" class="margin-zero-important" type="number" ng-model="commerce.states[state.abbreviation].tax" ng-disabled="!commerce.states[state.abbreviation].enabled"></td>
+                  <td style="padding-right: 1rem;"><input id="tax-{{ state.abbreviation }}" class="margin-zero-important" type="number" ng-model="commerce.states[state.abbreviation].tax" ng-disabled="!commerce.states[state.abbreviation].enabled"></td>
                   <td>{{ state.name }}</td>
                 </tr>
               </tbody>

@@ -4,29 +4,4 @@
 
 </div>
 
-<div class="column small-12">
-  <input class="small-12" type="text" ng-model="searchTerm" placeholder="Search: Click Enter to search server by email..." qv-enter="search(searchTerm)">
-  <ul class="table-list striped">
-    <li class="text-x-medium text-hover-white background-hover-primary2-important" ng-repeat="user in users | filter:searchTerm">
-      <a class="clearfix text-primary0 text-hover-white-important block" ui-sref="authenticated.master.admin.user({key: user.$id})">
-        <div class="column small-12 medium-3 padding-small">
-          {{ user.public.email || user.email }}
-        </div>
-        <div class="column small-12 medium-3 padding-small">
-          Created: {{ user.created | moment:"MM/DD/YYYY" }}
-        </div>
-        <div class="column small-12 medium-3 padding-small">
-          Last Login: {{ user.lastLogin | moment:"MM/DD/YYYY hh:mm" }}
-        </div>
-        <div class="column small-12 medium-2 padding-zero-important">
-          <div class="right padding-small text-white background-success" ng-if="user.private.isAdmin">Admin</div>
-        </div>
-
-      </a>
-    </li>
-    <li class="background-white-important">
-      <button class="secondary small-12" ng-click="loadMore()" ng-hide="searching || users.length < limit">Load More +</button>
-      <button class="secondary small-12" ng-click="reset()" ng-show="searching">Reset</button>
-    </li>
-  </ul>
-</div>
+<div class="column small-12" ui-view></div>

@@ -3,24 +3,26 @@
 <ul class="table-list striped text-medium">
     <li class="padding-small" ng-repeat="shipment in items | orderBy:'$priority':'desc'">
       <div class="column small-12 medium-8 text-small">
-        <div class="column small-12 medium-4">
-          <span>{{ shipment.created | moment:"MM/DD/YYYY" }}</span>
-          <a class="margin-horizontal-small" href="mailto:{{ shipment.transaction.user.public.email }}">{{ shipment.transaction.user.public.email }}</a>
+        <div class="column small-12 medium-6">
+          <a href="mailto:{{ shipment.transaction.user.public.email }}">{{ shipment.transaction.user.public.email }}</a>
+          <div>{{ shipment.created | moment:"MM/DD/YYYY" }}</div>
         </div>
-        <div class="column small-12 medium-8">
+        <div class="column padding-horizontal-zero-important small-12 medium-6">
           <strong>
             {{ ::shipment.item.title }} - {{ shipmentitem.priceAdjusted || shipment.item.price | currency }}
           </strong>
-          <span class="margin-horizontal-small" ng-show="shipment.item.optionsMatrixSelected.name">
+          <div ng-show="shipment.item.optionsMatrixSelected.name">
             {{ ::shipment.item.optionsMatrixSelected.name }}
-          </span>
+          </div>
           
         </div>
-
-        <hr>
+        
+        <div class="column small-12">
+          <hr class="margin-vertical-x-small">
+        </div>
 
         <div class="column small-12">
-          <div class="left small-12 medium-4">
+          <div class="left small-12 medium-6">
             <input id="shipped-{{ $index }}" class="margin-horizontal-xx-small-important" type="checkbox" ng-model="shipment.shipped" ng-change="save(shipment)">
             <label style="margin-left: 0;" for="shipped-{{ $index }}">Shipped</label>
 
@@ -31,7 +33,7 @@
               <option value="">Carrier</option>
             </select>
           </div>
-          <div class="left small-12 medium-6">
+          <div class="left small-12 medium-4">
             <input class="margin-zero-important" type="text" ng-model="shipment.tracking.number" placeholder="Tracking number..." ng-blur="save(shipment)" qv-enter="save(shipment)">
           </div>
 
@@ -43,11 +45,11 @@
       </div>
 
       <div class="column small-12 medium-2 padding-zero-important" style="right: -1px;">
-          <textarea class="text-x-small margin-zero-important" style="height: 82px;" ng-model="shipment.comments" placeholder="Comments..." ng-blur="save(shipment)" qv-enter="save(shipment)"></textarea>
+          <textarea class="text-x-small margin-zero-important" style="height: 98px;" ng-model="shipment.comments" placeholder="Comments..." ng-blur="save(shipment)" qv-enter="save(shipment)"></textarea>
         </div>
       
       <div class="column small-12 medium-2 padding-zero-important">
-        <textarea class="text-x-small margin-zero-important" style="height: 82px;" ng-bind="getAddress(shipment)" qv-select-text></textarea>
+        <textarea class="text-x-small margin-zero-important" style="height: 98px;" ng-bind="getAddress(shipment)" qv-select-text></textarea>
         
 
       </div>

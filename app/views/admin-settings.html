@@ -1,97 +1,95 @@
 <div class="column small-12">
-    <h3 class="font-flair">Settings</h3>
-    <hr>
+  <h3 class="font-flair">Site Settings</h3>
 
-    <form name="themeForm">
-        <fieldset>
-          <div class="column small-12 medium-6">
-            <label for="theme">Theme</label>
-            <select ng-model="theme.active" ng-options="key as value for (key, value) in theme.options">
-              <option value="">Select a Theme</option>
-            </select>
-          </div>
-          <div class="column small-12 medium-6">
-            <label for="front-page">Front Page Template</label>
-            <select ng-model="theme.frontPage" ng-options="alternate.filename as alternate.name for (key, alternate) in theme.alternates">
-              <option value="">Default Template</option>
-            </select>
-          </div>
+  <form name="themeForm">
+    <fieldset>
+      <div class="column small-12 medium-6">
+        <label for="theme">Theme</label>
+        <select ng-model="theme.active" ng-options="key as value for (key, value) in theme.options">
+          <option value="">Select a Theme</option>
+        </select>
+      </div>
+      <div class="column small-12 medium-6">
+        <label for="front-page">Front Page Template</label>
+        <select ng-model="theme.frontPage" ng-options="alternate.filename as alternate.name for (key, alternate) in theme.alternates">
+          <option value="">Default Template</option>
+        </select>
+      </div>
 
+      <div class="column small-12 medium-4">
+          <label for="site-title">Site Title</label>
+          <input id="site-title" type="text" ng-model="settings.siteTitle" ng-model-options="{debounce: {'default': 500, 'blur': 0}}" placeholder="Site title..."/>
+      </div>
+      <div class="column small-12 medium-4">
+          <label for="front-page-image">Front Page Image</label>
+          <input id="front-page-image" type="text" ng-model="settings.frontPageImage" ng-model-options="{debounce: {'default': 500, 'blur': 0}}" placeholder="https://..."/>
+      </div>
+      <div class="column small-12 medium-4">
+          <label for="login-image">Login Image</label>
+          <input id="login-page-image" type="text" ng-model="settings.loginImage" ng-model-options="{debounce: {'default': 500, 'blur': 0}}" placeholder="https://..."/>
+      </div>
 
+      <div class="column small-12 medium-4">
+          <label for="primary-post-count">Primary Post Count</label>
+          <input id="primary-post-count" type="number" ng-model="settings.primaryPostCount"/>
+      </div>
+      <div class="column small-12 medium-4">
+          <label for="secondary-post-count">Secondary Post Count</label>
+          <input id="secondary-post-count" type="number" ng-model="settings.secondaryPostCount"/>
+      </div>
+      <div class="column small-12 medium-4">
+          <label for="tertiary-post-count">Tertiary Post Count</label>
+          <input id="tertiary-post-count" type="number" ng-model="settings.tertiaryPostCount"/>
+      </div>
 
-        </fieldset>
-    </form>
-    <form name="settingsForm">
+    </fieldset>
+  </form>
+</div>
+<div class="column small-12">
+  <h3 class="font-flair">Nav Links</h3>
+  <form name="settingsForm">
+    <fieldset class="clearfix" style="clear: both;">
 
-        <fieldset class="clearfix" style="clear: both;">
-            <div class="column small-12 medium-4">
-                <label for="site-title">Site Title</label>
-                <input id="site-title" type="text" ng-model="settings.siteTitle" ng-model-options="{debounce: {'default': 500, 'blur': 0}}" placeholder="Site title..."/>
-            </div>
-            <div class="column small-12 medium-4">
-                <label for="front-page-image">Front Page Image</label>
-                <input id="front-page-image" type="text" ng-model="settings.frontPageImage" ng-model-options="{debounce: {'default': 500, 'blur': 0}}" placeholder="https://..."/>
-            </div>
-            <div class="column small-12 medium-4">
-                <label for="login-image">Login Image</label>
-                <input id="login-page-image" type="text" ng-model="settings.loginImage" ng-model-options="{debounce: {'default': 500, 'blur': 0}}" placeholder="https://..."/>
-            </div>
+    <!-- Nav Links -->
 
-            <div class="column small-12 medium-4">
-                <label for="primary-post-count">Primary Post Count</label>
-                <input id="primary-post-count" type="number" ng-model="settings.primaryPostCount"/>
-            </div>
-            <div class="column small-12 medium-4">
-                <label for="secondary-post-count">Secondary Post Count</label>
-                <input id="secondary-post-count" type="number" ng-model="settings.secondaryPostCount"/>
-            </div>
-            <div class="column small-12 medium-4">
-                <label for="tertiary-post-count">Tertiary Post Count</label>
-                <input id="tertiary-post-count" type="number" ng-model="settings.tertiaryPostCount"/>
-            </div>
+      <div ng-repeat="nav in navList">
 
-            <hr>
+        <hr ng-if="$index%3 === 0">
 
-            <!-- Nav Links -->
+        <div class="column small-12 medium-4">
+            <form>
+                <label for="{{ nav.slug }}-link-text">{{ nav.name }} Links</label>
 
-            <div ng-repeat="nav in navList">
+                <input ng-hide="settings[nav.slug + 'Title']" id="{{ nav.slug }}-title" type="text" ng-model="navTitle" placeholder="{{ nav.name }} title..." ng-blur="setNavTitle(nav.slug, navTitle); navTitle = null;"/>
+                <span class="title-contenteditable" ng-show="settings[nav.slug + 'Title']" ng-model="settings[nav.slug + 'Title']" contenteditable="true">{{ settings[nav.slug + 'Title'] }}</span>
 
-              <hr ng-if="$index%3 === 0">
+                <input id="footer1-link-text" type="text" ng-model="navNew.text" placeholder="New link text..."/>
+                <input id="footer1-link-href" type="text" ng-model="navNew.href" placeholder="New link href..."/>
+                <button class="right" ng-click="addNavLink(nav.slug, navNew); navNew = {};" qv-focus="#{{ nav.slug }}-link-text" ng-disabled="!navNew.text || !navNew.href">Add</button>
+            </form>
+            <ul>
+                <li ng-repeat="link in settings[nav.slug]">
+                    <span class="cursor-pointer text-x-small" href="{{ link.href }}" qv-confirm="removeNavLink(nav.slug, $index)" confirmations="['Click to Delete']">{{ link.text }}: {{ link.href }}</span>
+                </li>
+            </ul>
 
-              <div class="column small-12 medium-4">
-                  <form>
-                      <label for="{{ nav.slug }}-link-text">{{ nav.name }} Links</label>
+        </div>
 
-                      <input ng-hide="settings[nav.slug + 'Title']" id="{{ nav.slug }}-title" type="text" ng-model="navTitle" placeholder="{{ nav.name }} title..." ng-blur="setNavTitle(nav.slug, navTitle); navTitle = null;"/>
-                      <span class="title-contenteditable" ng-show="settings[nav.slug + 'Title']" ng-model="settings[nav.slug + 'Title']" contenteditable="true">{{ settings[nav.slug + 'Title'] }}</span>
+      </div>
 
-                      <input id="footer1-link-text" type="text" ng-model="navNew.text" placeholder="New link text..."/>
-                      <input id="footer1-link-href" type="text" ng-model="navNew.href" placeholder="New link href..."/>
-                      <button class="right" ng-click="addNavLink(nav.slug, navNew); navNew = {};" qv-focus="#{{ nav.slug }}-link-text" ng-disabled="!navNew.text || !navNew.href">Add</button>
-                  </form>
-                  <ul>
-                      <li ng-repeat="link in settings[nav.slug]">
-                          <span class="cursor-pointer text-x-small" href="{{ link.href }}" qv-confirm="removeNavLink(nav.slug, $index)" confirmations="['Click to Delete']">{{ link.text }}: {{ link.href }}</span>
-                      </li>
-                  </ul>
+    </fieldset>
 
-              </div>
+  </form>
+</div>
+<div class="column small-12">
+  <h3 class="font-flair">Email Settings</h3>
 
-            </div>
-
-
-        </fieldset>
-
-    </form>
-
-    <h3 class="font-flair">Email Settings</h3>
-
-    <form name="emailCronForm">
-      <fieldset>
-        <label>Feedback Email Cron</label>
-        <a href="https://github.com/ncb000gt/node-cron" target="_blank">See docs</a>:
-        <span>(seconds minutes hours days months weekdays) 0-59 0-59 0-23 1-31 0-11 0-6</span>
-        <input type="text" ng-model="settings.crons.feedbackEmail" ng-model-options="{'updateOn': 'blur'}" placeholder="S M H D M Weekday / 0-59 0-59 0-23 1-31 0-11 0-6">
-      </fieldset>
-    </form>
+  <form name="emailCronForm">
+    <fieldset>
+      <label>Feedback Email Cron</label>
+      <a href="https://github.com/ncb000gt/node-cron" target="_blank">See docs</a>:
+      <span>(seconds minutes hours days months weekdays) 0-59 0-59 0-23 1-31 0-11 0-6</span>
+      <input type="text" ng-model="settings.crons.feedbackEmail" ng-model-options="{'updateOn': 'blur'}" placeholder="S M H D M Weekday / 0-59 0-59 0-23 1-31 0-11 0-6">
+    </fieldset>
+  </form>
 </div>

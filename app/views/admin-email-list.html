@@ -31,16 +31,21 @@
       
     </div>
   </li>
-  <li class="no-stripe no-hover padding-small" ng-show="items.length || paginating">
-      <div class="column small-4">
-        <button class="secondary small-12 tiny" ng-click="loadNext()" ng-disabled="disableNext">Previous {{ limit }}</button>&nbsp;
+  <li class="no-stripe no-hover">
+    <div ng-hide="searching">
+      <div class="column small-3">
+        <button class="secondary small-12" ng-click="loadNext()" ng-disabled="disablePrev">Previous</button>
       </div>
-      <div class="column small-4">
-        <button class="secondary small-12 tiny" ng-click="reset()" ng-disabled="!paginating">Reset</button>
+      <div class="column small-3">
+        <button class="secondary small-12" ng-click="loadMore()" ng-disabled="disableMore">Load More +</button>
       </div>
-      <div class="column small-4">
-        <button class="secondary small-12 tiny" ng-click="loadPrev()" ng-disabled="disablePrev">Next {{ limit }}</button>
+      <div class="column small-3">
+        <button class="secondary small-12" ng-click="reset()" ng-disabled="disableReset">Reset</button>
       </div>
+      <div class="column small-3">
+        <button class="secondary small-12" ng-click="loadPrev()" ng-disabled="disableNext">Next</button>&nbsp;
+      </div>
+    </div>
   </li>
   <li class="no-stripe no-hover" ng-show="!items.length">
       <h5 class="font-flair">The queue is empty!</h5>

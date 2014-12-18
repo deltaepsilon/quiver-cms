@@ -1,0 +1,51 @@
+<input class="small-12" type="text" ng-model="searchTerm" placeholder="Search: Click Enter to search server by email..." qv-enter="search({orderByChild: 'email', startAt: searchTerm, limit: 10})">
+
+<ul class="table-list link-padded hover striped">
+  <li class="table-list-header padding-small">
+    <div class="column small-12 medium-3">
+      Email
+    </div>
+    <div class="column small-12 medium-3">
+      Created
+    </div>
+    <div class="column small-12 medium-3">
+      Last Login
+    </div>
+    <div class="column small-12 medium-3 medium-text-right">
+      Admin
+    </div>
+  </li>
+  <li class="text-x-medium" ng-repeat="user in items | orderBy:'$priority':'asc'">
+    <a ui-sref="authenticated.master.admin.user({key: user.$id})">
+      <div class="column small-12 medium-3 padding-small">
+        <span>{{ user.public.email || user.email }}</span>
+      </div>
+      <div class="column small-12 medium-3 padding-small">
+        Created: {{ user.created | moment:"MM/DD/YYYY" }}
+      </div>
+      <div class="column small-12 medium-3 padding-small">
+        Last Login: {{ user.lastLogin | moment:"MM/DD/YYYY hh:mm" }}
+      </div>
+      <div class="column small-12 medium-3 medium-text-right">
+        <i class="fa fa-asterisk text-success padding-vertical-small" ng-if="user.private.isAdmin"></i>
+      </div>
+
+    </a>
+  </li>
+  <li class="no-stripe no-hover">
+    <div ng-hide="searching">
+      <div class="column small-3">
+        <button class="secondary small-12" ng-click="loadNext()" ng-disabled="disablePrev">Previous</button>
+      </div>
+      <div class="column small-3">
+        <button class="secondary small-12" ng-click="loadMore()" ng-disabled="disableMore">Load More +</button>
+      </div>
+      <div class="column small-3">
+        <button class="secondary small-12" ng-click="reset()" ng-disabled="disableReset">Reset</button>
+      </div>
+      <div class="column small-3">
+        <button class="secondary small-12" ng-click="loadPrev()" ng-disabled="disableNext">Next</button>&nbsp;
+      </div>
+    </div>
+  </li>
+</ul>

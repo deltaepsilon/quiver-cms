@@ -19,8 +19,8 @@ angular.module('quiverCmsApp')
     //   var i = items.length;
 
     //   while (i--) {
-    //     // items[i].$priority = moment(items[i].created).unix();
-    //     items[i].$priority = i + 1;
+    //     items[i].$priority = moment(items[i].created).unix();
+    //     // items[i].$priority = i + 1;
     //     items.$save(items[i]);
     //   }
 
