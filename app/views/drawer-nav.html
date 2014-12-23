@@ -1,0 +1,119 @@
+<div class="drawer-small-nav">
+  <ul class="margin-zero-important">
+    <li>
+      <label class="drawer-bars left" for="top-drawer-toggle"><i class="fa fa-bars"></i></label>
+    </li>
+    <li class="right" ng-hide="currentUser" qv-active><a ui-sref="master.nav.login"><i class="fa fa-sign-in"></i> &nbsp;Login</a></li>
+    <li class="right" ng-show="$storage.cart.productCount" qv-active>
+      <a ui-sref="master.nav.cart">
+        <i class="fa fa-shopping-cart"></i>
+        &nbsp;
+        <span ng-bind="$storage.cart.productCount"></span>
+        <span>Items</span>
+        
+      </a>
+    </li>
+
+  </ul>
+</div>
+
+<ul>
+  <li class="left-nav-top-block background-black0 link-white0 flex align-items-center" style="line-height: 2rem;">
+    <a class="font-flair bold-important text-x-large" href="{{ env.root }}" qv-to-static ng-show="settings">{{ settings.siteTitle || 'Quiver CMS' }}</a>
+  </li>
+
+  <li class="has-popout click" ng-show="currentUser" qv-active>
+    <input id="user-toggle" class="popout-toggle" type="checkbox" name="left-nav" qv-exclusive>
+    <label for="user-toggle">
+      <i class="fa fa-gears"></i> &nbsp;{{ user.public.name || user.public.email || user.email }}
+    </label>
+    <ul class="popout">
+      <li qv-active>
+        <a ui-sref="authenticated.master.nav.account">User Settings</a>
+      </li>
+
+      <li ng-show="user.private.isAdmin" qv-active>
+          <a ui-sref="authenticated.master.admin"><i class="fa fa-bar-chart"></i> &nbsp;Admin Dashboard</a>
+      </li>
+      <li>
+        <a ng-click="logOut()" ui-sref="authenticated.master.nav.dashboard"><i class="fa fa-sign-out"></i> &nbsp;Log Out</a>
+      </li>
+    </ul>
+  </li>
+
+  <li ng-hide="currentUser" qv-active><a ui-sref="master.nav.login"><i class="fa fa-sign-in"></i> &nbsp;Login</a></li>
+
+  <li ng-hide="currentUser" qv-active><a ui-sref="master.nav.register"><i class="fa fa-pencil"></i> &nbsp;Register</a></li>
+
+  <li ng-show="$storage.cart.productCount" qv-active>
+    <a ui-sref="master.nav.cart">
+      <i class="fa fa-shopping-cart"></i>
+      &nbsp;
+      <span ng-bind="$storage.cart.productCount"></span>
+      <span>Items</span>
+      
+    </a>
+  </li>
+
+  
+
+  <li ng-show="currentUser" qv-active>
+    <a ui-sref="authenticated.master.nav.dashboard"><i class="fa fa-dashboard"></i> &nbsp;Dashboard</a>
+  </li>
+
+  <li ng-show="currentUser" qv-active>
+    <a ui-sref="authenticated.master.nav.messages"><i class="fa fa-envelope"></i> &nbsp;Messages</a>
+  </li>
+
+  <li class="has-popout click" ng-if="user.private.commerce.subscriptions">
+    <input id="subscriptions-toggle" class="popout-toggle" type="checkbox" name="left-nav" qv-exclusive>
+    <label for="subscriptions-toggle"><i class="fa fa-university"></i> &nbsp;Subscriptions</label>
+    <ul class="popout">
+      <li ng-repeat="(key, subscription) in user.private.commerce.subscriptions">
+        <a ui-sref="authenticated.master.nav.subscription.page({subscriptionKey: key, pageNumber: $storage['bookmark-' + key] || 0})">{{ subscription.title }}</a>
+      </li>
+    </ul>
+  </li>
+  <li ng-if="settings.app1Title" class="has-popout click">
+    <input id="app1-toggle" class="popout-toggle" type="checkbox" name="left-nav" qv-exclusive>
+    <label for="app1-toggle">{{ settings.app1Title }}</label>
+    <ul class="popout">
+      <li ng-repeat="link in settings.app1">
+        <a href="{{ link.href }}" qv-to-static>{{ link.text }}</a>
+      </li>
+    </ul>
+
+  </li>
+  <li ng-if="!settings.app1Title" ng-repeat="link in settings.app1">
+      <a href="{{ link.href }}" qv-to-static>{{ link.text }}</a>
+  </li>
+
+  <li ng-if="settings.app2Title" class="has-popout click">
+    <input id="app2-toggle" class="popout-toggle" type="checkbox" name="left-nav" qv-exclusive>
+    <label for="app2-toggle">{{ settings.app2Title }}</label>
+    <ul class="popout">
+      <li ng-repeat="link in settings.app2">
+        <a href="{{ link.href }}" qv-to-static>{{ link.text }}</a>
+      </li>
+    </ul>
+
+  </li>
+  <li ng-if="!settings.app2Title" ng-repeat="link in settings.app2">
+      <a href="{{ link.href }}" qv-to-static>{{ link.text }}</a>
+  </li>
+
+  <li ng-if="settings.app3Title" class="has-popout click">
+    <input id="app3-toggle" class="popout-toggle" type="checkbox" name="left-nav" qv-exclusive>
+    <label for="app3-toggle">{{ settings.app3Title }}</label>
+    <ul class="popout">
+      <li ng-repeat="link in settings.app3">
+        <a href="{{ link.href }}" qv-to-static>{{ link.text }}</a>
+      </li>
+    </ul>
+
+  </li>
+  <li ng-if="!settings.app3Title" ng-repeat="link in settings.app3">
+      <a href="{{ link.href }}" qv-to-static>{{ link.text }}</a>
+  </li>
+
+</ul>

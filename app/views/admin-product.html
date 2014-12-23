@@ -2,7 +2,7 @@
   <div class="column small-12">
     <div class="column small-12">
       <h3 class="font-flair left" ng-model="product.title" contenteditable="true">{{ product.title }}</h3>
-      <div class="right text-white">
+      <div class="right text-white0">
         <button class="tiny margin-vertical-xx-small secondary" ng-show="product.active && product.isValid" ng-click="product.active = false">Active</button>
         <button class="tiny margin-vertical-xx-small alert" ng-show="product.active && !product.isValid" ng-click="product.active = false">Product Invalid!</button>
         <button class="tiny margin-vertical-xx-small warning" ng-show="!product.active && product.isValid" ng-click="product.active = true">Activate?</button>
@@ -174,8 +174,8 @@
           <li class="relative" ng-repeat="file in $storage.clipboard">
               <div class="relative">
                   <div class="cursor-pointer" ng-click="addImage(file)" qv-media="https://s3.amazonaws.com/{{ files.Name }}/{{ file.Versions.small.Key || file.Key }}" alt="{{ file.Key | filename }}" attributes="{embed: {width: '100px', height: '100px'}, img: {'style': 'min-width: 100%;'}, video: {'style': 'max-width: 100%;'}}" alt="Click to Add"></div>
-                  <a class="delete-button text-small background-highlight1 link-white link-hover-secondary0" ng-click="removeFromClipboard(file)">x</a>
-                  <div class="overlay bottom padding-xx-small text-center background-highlight1 text-xx-small link-white link-hover-secondary2" ng-hide="word.keyImage.Key == file.Key">
+                  <a class="delete-button text-small background-highlight1 link-white0 link-hover-secondary0" ng-click="removeFromClipboard(file)">x</a>
+                  <div class="overlay bottom padding-xx-small text-center background-highlight1 text-xx-small link-white0 link-hover-secondary2" ng-hide="word.keyImage.Key == file.Key">
                       <a ng-click="makeFeaturedImage(file)">+ Featured</a>
                   </div>
               </div>

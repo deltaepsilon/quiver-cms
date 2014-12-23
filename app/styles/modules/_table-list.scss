@@ -18,8 +18,8 @@
 
   &.hover {
     > li {
-      @extend .text-hover-white;
-      @extend .link-hover-white;
+      @extend .text-hover-white0;
+      @extend .link-hover-white0;
       @extend .link-primary0;
       @extend .background-hover-secondary5-important;
 
@@ -40,7 +40,7 @@
       }
 
       > a, > a:visited {
-        @extend .text-hover-white;
+        @extend .text-hover-white0;
       }
     }
   }

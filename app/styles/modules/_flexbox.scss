@@ -26,6 +26,7 @@ $flexParentProperties:
 
 .flex {
   display: flex;
+  display: flexbox;
 }
 
 @each $property in $flexParentProperties {

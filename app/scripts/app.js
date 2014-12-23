@@ -156,7 +156,7 @@ angular.module('quiverCmsApp', [
         abstract: true,
         views: {
           nav: {
-            templateUrl: 'views/nav.html'
+            templateUrl: 'views/drawer-nav.html'
           },
           body: {
             templateUrl: 'views/body.html'
@@ -284,7 +284,7 @@ angular.module('quiverCmsApp', [
         abstract: true,
         views: {
           nav: {
-            templateUrl: 'views/nav.html'
+            templateUrl: 'views/drawer-nav.html'
           },
           body: {
             templateUrl: 'views/body.html'
@@ -440,7 +440,7 @@ angular.module('quiverCmsApp', [
         url: '/admin',
         views: {
           nav: {
-            templateUrl: 'views/admin-nav.html'
+            templateUrl: 'views/drawer-admin-nav.html'
           },
           body: {
             templateUrl: 'views/body.html',

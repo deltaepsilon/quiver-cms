@@ -1,0 +1,134 @@
+<div class="drawer-small-nav">
+  <ul class="margin-zero-important">
+    <li>
+      <label class="drawer-bars left" for="top-drawer-toggle"><i class="fa fa-bars"></i></label>
+    </li>
+    <li class="right" ng-hide="currentUser" qv-active><a ui-sref="master.nav.login"><i class="fa fa-sign-in"></i> &nbsp;Login</a></li>
+    <li class="right" ng-show="$storage.cart.productCount" qv-active>
+      <a ui-sref="master.nav.cart">
+        <i class="fa fa-shopping-cart"></i>
+        &nbsp;
+        <span ng-bind="$storage.cart.productCount"></span>
+        <span>Items</span>
+        
+      </a>
+    </li>
+
+  </ul>
+</div>
+
+<ul>
+  <li class="left-nav-top-block background-black0 link-white0 flex align-items-center" style="line-height: 2rem;">
+    <a class="font-flair bold-important text-x-large" ui-sref="authenticated.master.admin" ng-show="settings">{{ settings.siteTitle || 'Quiver CMS' }} Admin</a>
+  </li>
+
+  <li tabindex="1" class="has-popout click" ng-show="currentUser" qv-active>
+    <input id="user-toggle" class="popout-toggle" type="checkbox" name="left-nav" qv-exclusive>
+    <label for="user-toggle">{{ user.public.name || user.public.email || user.email }}</label>
+    
+    <ul class="popout">
+      <li qv-active><a ui-sref="authenticated.master.nav.dashboard"><i class="fa fa-dashboard"></i> &nbsp;User Dashboard</a></li>
+      <li qv-active><a ui-sref="authenticated.master.admin"><i class="fa fa-bar-chart"></i> &nbsp;Admin Dashboard</a></li>
+      <li ng-show="currentUser"><a ng-click="logOut()" ui-sref="authenticated.master.nav.dashboard"><i class="fa fa-sign-out"></i> &nbsp;Log Out</a></li>
+      <li qv-active>
+        <a ui-sref="authenticated.master.nav.account">
+          <i class="fa fa-gears"></i> &nbsp;User Settings
+          <!-- <img class="gravatar" ng-src="{{ gravatar }}" alt="Gravatar"/> -->
+        </a>
+      </li>
+      <li>
+        <a ng-click="clearCache()">Clear Cache</a>
+      </li>
+      <li><a href="{{ env.root }}" qv-to-static>{{ settings.siteTitle || 'Front Page' }}</a></li>
+
+    </ul>
+  </li>
+
+  <li tabindex="1" class="has-popout click" qv-active>
+    <input id="assignments-toggle" class="popout-toggle" type="checkbox" name="left-nav" qv-exclusive>
+    <label for="assignments-toggle">Feedback</label>
+    
+    <ul class="popout">
+
+      <li qv-active>
+        <a ui-sref="authenticated.master.admin.messages.list">Messages</a>
+      </li>
+      <li qv-active>
+        <a ui-sref="authenticated.master.admin.uploads.list">Uploads</a>
+      </li>
+    </ul>
+
+  </li>
+  
+  <li tabindex="1" class="has-popout click" qv-active>
+    <input id="content-toggle" class="popout-toggle" type="checkbox" name="left-nav" qv-exclusive>
+    <label for="content-toggle">Content</label>
+    
+    <ul class="popout">
+
+      <li qv-active>
+        <a ui-sref="authenticated.master.admin.assignments">Assignments</a>
+      </li>
+      <li qv-active>
+        <a ui-sref="authenticated.master.admin.files.list">Files</a>
+      </li>
+      <li qv-active>
+          <a ui-sref="authenticated.master.admin.products">Products</a>
+      </li>
+      <li qv-active>
+        <a ui-sref="authenticated.master.admin.social">Social Media</a>
+      </li>
+      <li qv-active>
+        <a ui-sref="authenticated.master.admin.hashtags">Hashtags</a>
+      </li>
+    </ul>
+
+  </li>
+
+  <li tabindex="1" class="has-popout click" qv-active>
+    <input id="ecommerce-toggle" class="popout-toggle" type="checkbox" name="left-nav" qv-exclusive>
+    <label for="ecommerce-toggle">eCommerce</label>
+    
+    <ul class="popout">
+      <li qv-active>
+        <a ui-sref="authenticated.master.admin.transactions.list">Transactions</a>
+      </li>
+      <li qv-active>
+        <a ui-sref="authenticated.master.admin.discounts.list">Discounts</a>
+      </li>
+      <li qv-active>
+        <a ui-sref="authenticated.master.admin.subscriptions.list">Subscriptions</a>
+      </li>
+      <li qv-active>
+        <a ui-sref="authenticated.master.admin.shipments.list">Shipments</a>
+      </li>
+      <li qv-active>
+        <a ui-sref="authenticated.master.admin.resources.list">Resources</a>
+      </li>
+    </ul>
+
+  </li>
+
+  <li tabindex="1" class="has-popout click" qv-active>
+    <input id="settings-toggle" class="popout-toggle" type="checkbox" name="left-nav" qv-exclusive>
+    <label for="settings-toggle">Settings</label>
+    
+    <ul class="popout">
+      <li qv-active>
+        <a ui-sref="authenticated.master.admin.settings">Settings</a>
+      </li>
+      <li qv-active>
+        <a ui-sref="authenticated.master.admin.email.list">Email</a>
+      </li>
+      <li qv-active>
+        <a ui-sref="authenticated.master.admin.users.list">Users</a>
+      </li>
+      <li qv-active>
+        <a ui-sref="authenticated.master.admin.commerce">Commerce</a>
+      </li>
+    </ul>
+
+  </li>
+
+
+</ul>

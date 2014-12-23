@@ -79,6 +79,12 @@ $body-font-family: $font-primary, "Helvetica Neue", "Helvetica", Helvetica, Aria
 // $column-gutter: rem-calc(30);
 
 // Media Query Ranges
+$small-range: (0em, 60em);
+$medium-range: (60.063em, 84em);
+$large-range: (84.063em, 110em);
+$xlarge-range: (110.063em, 140em);
+$xxlarge-range: (140.063em, 99999999em);
+
 // $small-range: (0em, 40em);
 // $medium-range: (40.063em, 64em);
 // $large-range: (64.063em, 90em);

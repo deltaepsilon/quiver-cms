@@ -2,13 +2,13 @@
 
   .dark-wrapper {
     @extend .clearfix;
-    @extend .background-highlight3;
+    @extend .background-highlight4;
   }
 
   .title {
-    @extend .text-white;
+    @extend .text-white0;
     @extend .padding-medium;
-    @extend .background-highlight1;
+    @extend .background-black0;
     @extend .margin-zero;
   }
 
@@ -23,6 +23,6 @@
   }
 
   a, a:hover {
-    @extend .text-white;
+    @extend .text-white0;
   }
 }

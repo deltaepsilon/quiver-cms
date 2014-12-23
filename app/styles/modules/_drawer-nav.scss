@@ -1,0 +1,298 @@
+$drawer-nav-width: 12rem;
+$drawer-small-nav-height: rem-calc(57);
+$drawer-background-color: getColor(highlight4);
+
+@media #{$medium-up} {
+  .drawer-small-nav {
+    display: none;
+
+  }
+
+  .drawer-nav {
+    @include absolute();
+
+  
+    &.left-nav {
+      right: inherit;
+    }
+
+  }
+
+  .drawer-nav-body {
+    @include absolute(0, 0, 0, 0);
+
+    
+
+    &.left-nav {
+      padding-left: $drawer-nav-width;
+    }
+  }
+
+  .drawer-nav-footer {
+    @include absolute(inherit, 0, 0, 0);
+
+    &.left-nav {
+      padding-left: $drawer-nav-width;
+    }
+  }
+
+}
+
+@media #{$small-only} {
+  .drawer-small-nav {
+    display: block;
+
+  }
+
+  .drawer-nav {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+
+    &.left-nav {
+      right: inherit;
+      margin-left: -1 * $drawer-nav-width;
+
+    }
+
+  }
+
+  .drawer-nav-body {
+    margin-top: $drawer-small-nav-height;
+  }
+
+  .drawer-toggle:checked ~ .drawer-nav {
+    &.left-nav {
+      margin-left: 0;
+
+      .drawer-small-nav {
+        margin-left: $drawer-nav-width;
+      }
+
+    }
+
+  }
+
+  .drawer-toggle:checked ~ .drawer-nav-body {
+    &.left-nav {
+        left: $drawer-nav-width;
+
+    }
+
+  }
+
+  .drawer-toggle:checked ~ .drawer-nav-footer {
+    &.left-nav {
+        left: $drawer-nav-width;
+
+    }
+
+  }
+
+}
+
+.drawer-nav-body {
+  @include transition(left, .25s, ease-in-out);
+  position: relative;
+  left: 0;
+}   
+
+.drawer-nav-footer {
+  @include transition(left, .25s, ease-in-out);
+  @include transition(opacity, 1s, ease-in-out);
+  position: relative;
+  left: 0;
+}
+
+.drawer-small-nav {
+  @extend .text-white0;
+  @include transition(all, .25s, ease-in-out);
+
+  background-color: $drawer-background-color;
+
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  
+  
+  z-index: 20;
+
+  .drawer-bars {
+    @extend .text-x-large;
+    @extend .text-white0;
+    @extend .background-black0;
+
+    padding: .7rem 1rem;
+    line-height: 0;
+  }
+  
+  
+}
+
+.drawer-toggle, .popout-toggle {
+  display: none;
+}
+
+.drawer-nav {
+  @extend .link-white0;
+  @include transition(all, .25s, ease-in-out);
+
+  background-color: $drawer-background-color;
+  width: $drawer-nav-width;
+  z-index: 10;
+
+  & > ul {
+    margin-left: 0;
+  }
+
+  &.left-nav {
+    right: inherit;
+  }
+
+  .left-nav-top-block {
+    height: $drawer-nav-width;
+
+    a:hover {
+      background-color: inherit;
+    }
+  }
+
+  .has-popout {
+    position: relative;
+
+    
+
+    > label {
+      @extend .margin-zero;
+      @extend .text-white0;
+
+      display: block;
+      padding: 1rem;
+    }
+
+    &.click {
+      .popout-toggle:checked ~ .popout {
+        max-height: 10000px;
+
+        &:after {
+          transform: rotate(90deg);
+        }
+
+        label {
+          cursor: default;
+        }
+      }
+
+      // .popout-toggle:checked ~ label {
+      //   @extend .background-secondary0;
+      //   @extend .text-white0;
+
+      // }
+
+    }
+
+    // &.not-click:hover {
+    //   &:after {
+    //     transform: rotate(180deg);
+    //   }
+
+    //   .popout {
+    //     max-height: 10000px;
+    //   }
+
+    //   label {
+    //     @extend .background-secondary0;
+    //     @extend .text-white0;
+    //   }      
+    // }
+
+    &.focus {
+      &:focus {
+  
+        
+        .popout {
+          max-height: 10000px;
+
+          &:after {
+            transform: rotate(90deg);
+          }
+
+        }
+
+        label {
+          cursor: default;
+        }
+
+      }
+
+    }
+
+    &:focus {
+      outline: 0;
+    } 
+
+    
+
+    .popout:hover {
+      max-height: 10000px;
+    }
+
+    
+  }
+
+  .popout {
+    @include transition(all, .25s, ease-in-out);
+
+    background-color: $drawer-background-color;
+    overflow: hidden;
+    margin-left: 0;
+    max-height: 0;
+
+    &:after {
+      @include absolute(1.25rem, 1rem, initial, initial);
+      @include triangle-right(15px, 7.5px, getColor(white0));
+      @include transition(all, .25s, ease-in-out);
+      
+      content: "";
+
+    }
+
+    li {
+      white-space: nowrap;
+
+      &.active {
+        > a, > label {
+          cursor: default;
+        }        
+      }
+    }
+  }
+
+  li {
+
+    &.active {
+      background-color: getColor(primary2);
+
+      > a:hover, > label {
+        background-color: getColor(primary2);
+      }
+
+    }
+
+    a:hover, label:hover {
+      background-color: getColor(secondary0);
+      color: getColor(white0);
+    }
+
+    > a, label {
+      display: block;
+      padding: 1rem;
+    }
+  }
+
+
+}
+

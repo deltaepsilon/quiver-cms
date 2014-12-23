@@ -1,22 +1,24 @@
-<form name="registerForm" class="column small-12 medium-6 medium-centered top-offset" ng-class="{'dark-form': settings.loginImage}">
-  <div class="dark-wrapper">
-    <h3 class="title">Register</h3>
+<div class="flex align-items-center">
+    <form name="registerForm" class="column small-12 medium-10 large-6 medium-centered top-offset" ng-class="{'dark-form': settings.loginImage}">
+      <div class="dark-wrapper">
+        <h3 class="title">Register</h3>
 
-    <fieldset>
-        <input type="email" ng-model="email" placeholder="Email..." required/>
-        <input type="password" ng-model="password" placeholder="Password..." required/>
+        <fieldset>
+            <input type="email" ng-model="email" placeholder="Email..." required/>
+            <input type="password" ng-model="password" placeholder="Password..." required/>
 
-        <ul class="inline-list">
-            <li>
-                <button ng-click="register(email, password)" ng-disabled="registerForm.$invalid">Register</button>
-            </li>
-            <li>
-                <a ui-sref="master.nav.login">Login</a>
-            </li>
-            <li>
-                <a ui-sref="master.nav.reset">Reset Password</a>
-            </li>
-        </ul>
-    </fieldset>
-  </div>
-</form>
+            <ul class="inline-list">
+                <li>
+                    <button ng-click="register(email, password)" ng-disabled="registerForm.$invalid">Register</button>
+                </li>
+                <li>
+                    <a ui-sref="master.nav.login">Login</a>
+                </li>
+                <li>
+                    <a ui-sref="master.nav.reset">Reset Password</a>
+                </li>
+            </ul>
+        </fieldset>
+      </div>
+    </form>
+</div>

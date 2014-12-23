@@ -1,3 +1,4 @@
-<div class="clearfix" ui-view="nav"></div>
-<div class="clearfix" ui-view="body" style="visibility: none;" qv-full-page="0" qv-background-image="settings.loginImage" states="['master.nav.login', 'master.nav.register', 'master.nav.reset']"></div>
-<div class="clearfix" ui-view="footer"></div>
+<input id="top-drawer-toggle" class="drawer-toggle" type="checkbox">
+<nav id="drawer" class="drawer-nav left-nav" ui-view="nav"></nav>
+<div id="drawer-body" class="drawer-nav-body left-nav" ui-view="body" style="visibility: none;" qv-background-image="settings.loginImage" states="['master.nav.login', 'master.nav.register', 'master.nav.reset']" qv-full-page="0"></div>
+<div id="drawer-footer" class="drawer-nav-footer left-nav" ui-view="footer" qv-display style="opacity: 0;"></div>

@@ -11,7 +11,7 @@
       <div class="column small-12 medium-3">ID</div>
       <div class="column small-12 medium-9">{{ user.public.id }}</div>
     </li>
-    <li class="link-hover-white padding-zero-important">
+    <li class="link-hover-white0 padding-zero-important">
       <a class="clearfix block padding-small" href="mailto:{{ user.public.email }}">
         <div class="column small-12 medium-3">Email</div>
         <div class="column small-12 medium-9">
@@ -101,8 +101,8 @@
 <div class="column small-12" ng-show="user.private.commerce.transactions">
   <h5 class="font-flair">Transactions</h5>
   <ul class="table-list striped text-medium link-padded">
-         <li class="text-hover-white background-hover-primary2-important link-hover-white" ng-repeat="transaction in user.private.commerce.transactions">
-            <a class="clearfix text-primary0 text-hover-white-important block" ui-sref="authenticated.master.admin.transaction({key: transaction.keys.log, userId: transaction.userId})">
+         <li class="text-hover-white0 background-hover-primary2-important link-hover-white0" ng-repeat="transaction in user.private.commerce.transactions">
+            <a class="clearfix text-primary0 text-hover-white0-important block" ui-sref="authenticated.master.admin.transaction({key: transaction.keys.log, userId: transaction.userId})">
               <div class="column small-12 medium-3">
                 {{ ::transaction.date | moment:"MM/DD/YY" }}
               </div>
@@ -124,8 +124,8 @@
 <div class="column small-12" ng-show="user.private.commerce.subscriptions">
   <h5 class="font-flair">Subscriptions</h5>
   <ul class="table-list striped link-padded">
-    <li class="text-hover-white background-hover-primary2-important" ng-repeat="subscription in user.private.commerce.subscriptions">
-      <a class="clearfix padding-small text-primary0 text-hover-white-important block" ui-sref="authenticated.master.admin.subscription({key: subscription.keys.log})">
+    <li class="text-hover-white0 background-hover-primary2-important" ng-repeat="subscription in user.private.commerce.subscriptions">
+      <a class="clearfix padding-small text-primary0 text-hover-white0-important block" ui-sref="authenticated.master.admin.subscription({key: subscription.keys.log})">
         <div class="column small-12 medium-3">
           {{ ::subscription.title }}
         </div>
@@ -147,8 +147,8 @@
 <div class="column small-12" ng-show="user.private.commerce.gifts">
   <h5 class="font-flair">Gifts</h5>
   <ul class="table-list striped link-padded">
-    <li class="text-hover-white background-hover-primary2-important" ng-repeat="gift in user.private.commerce.gifts">
-      <a class="clearfix padding-small text-primary0 text-hover-white-important block" ui-sref="authenticated.master.admin.discounts({search: gift.code})">
+    <li class="text-hover-white0 background-hover-primary2-important" ng-repeat="gift in user.private.commerce.gifts">
+      <a class="clearfix padding-small text-primary0 text-hover-white0-important block" ui-sref="authenticated.master.admin.discounts({search: gift.code})">
         <div class="column small-12 medium-3">
           {{ ::gift.code }}
         </div>
@@ -170,8 +170,8 @@
 <div class="column small-12" ng-show="user.private.commerce.shipments">
   <h5 class="font-flair">Shipments</h5>
   <ul class="table-list striped">
-    <li class="text-hover-white background-hover-primary2-important" ng-repeat="shipment in user.private.commerce.shipments">
-      <a class="clearfix padding-small text-primary0 text-hover-white-important block" ui-sref="authenticated.master.admin.shipments({search: user.email})">
+    <li class="text-hover-white0 background-hover-primary2-important" ng-repeat="shipment in user.private.commerce.shipments">
+      <a class="clearfix padding-small text-primary0 text-hover-white0-important block" ui-sref="authenticated.master.admin.shipments({search: user.email})">
         <div class="column small-12 medium-3">
           <span class="text-success"><i class="fa fa-paper-plane" ng-class="{'text-error': !shipment.shipped}"></i></span>
         </div>
@@ -194,8 +194,8 @@
 <div class="column small-12" ng-show="user.private.commerce.downloads">
   <h5 class="font-flair">Downloads</h5>
   <ul class="table-list striped">
-    <li class="text-hover-white background-hover-primary2-important" ng-repeat="download in user.private.commerce.downloads">
-      <a class="clearfix padding-small text-primary0 text-hover-white-important block" href="/resource/{{ download.resource.keys.resource }}" target="_target">
+    <li class="text-hover-white0 background-hover-primary2-important" ng-repeat="download in user.private.commerce.downloads">
+      <a class="clearfix padding-small text-primary0 text-hover-white0-important block" href="/resource/{{ download.resource.keys.resource }}" target="_target">
         <div class="column small-12 medium-3">
           {{ download.title }}
         </div>

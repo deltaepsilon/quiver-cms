@@ -100,8 +100,8 @@
             <li class="relative" ng-repeat="file in $storage.clipboard">
                 <div class="relative">
                     <div class="cursor-pointer" ng-click="addFromClipboard(file)" qv-media="https://s3.amazonaws.com/{{ files.Name }}/{{ file.Versions.small.Key || file.Key }}" alt="{{ file.Key | filename }}" attributes="{embed: {width: '100px', height: '100px'}, img: {'style': 'min-width: 100%;'}, video: {'style': 'max-width: 100%;'}}" alt="Click to Add"></div>
-                    <a class="delete-button text-small background-highlight1 link-white link-hover-secondary0" ng-click="removeFromClipboard(file)">x</a>
-                    <div class="overlay bottom padding-xx-small text-center background-highlight1 text-xx-small link-white link-hover-secondary2" ng-hide="word.keyImage.Key == file.Key">
+                    <a class="delete-button text-small background-highlight1 link-white0 link-hover-secondary0" ng-click="removeFromClipboard(file)">x</a>
+                    <div class="overlay bottom padding-xx-small text-center background-highlight1 text-xx-small link-white0 link-hover-secondary2" ng-hide="word.keyImage.Key == file.Key">
                         <a ng-click="makeKeyImage(file)">+ Featured</a>
                     </div>
                 </div>

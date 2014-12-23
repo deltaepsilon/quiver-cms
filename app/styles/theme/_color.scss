@@ -25,9 +25,9 @@ $colors:
   success #4A910A,
   warning #FC0272,
 
-  gray #333,
-  white #fff,
-  black #000;
+  gray0 #333,
+  white0 #fff,
+  black0 #000;
 
 // Background colors class names.
 @each $color in $colors {

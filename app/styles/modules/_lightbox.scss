@@ -24,7 +24,7 @@
       position: relative;
 
       img {
-        @extend .background-white;
+        @extend .background-white0;
 
         display: block;
         margin: auto;
@@ -96,7 +96,7 @@
     cursor: pointer;
 
     img {
-      @extend .background-white;
+      @extend .background-white0;
     }
   }
   

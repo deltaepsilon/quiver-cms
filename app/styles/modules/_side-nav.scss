@@ -2,14 +2,14 @@
   li {
     @extend .background-secondary4;
     @extend .background-hover-primary2;
-    @extend .link-hover-white-important;
+    @extend .link-hover-white0-important;
     @extend .text-medium-important;
 
     margin-bottom: 0;
 
     &.active {
       @extend .background-primary2;
-      @extend .link-white-important;
+      @extend .link-white0-important;
 
       a {
         @extend .cursor-default;

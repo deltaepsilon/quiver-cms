@@ -9,8 +9,10 @@
   display: block;
 }
 
-form {
-  &.top-offset {
-    margin-top: 5rem;
+@media #{$medium-up} {
+  form {
+    &.top-offset {
+      padding-top: 20%;
+    }
   }
 }
