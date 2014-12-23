@@ -244,9 +244,10 @@ $drawer-background-color: getColor(highlight4);
   }
 
   .popout {
+    @extend .background-black0;
+
     @include transition(all, .25s, ease-in-out);
 
-    background-color: $drawer-background-color;
     overflow: hidden;
     margin-left: 0;
     max-height: 0;
