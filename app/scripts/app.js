@@ -899,6 +899,42 @@ angular.module('quiverCmsApp', [
             return AdminService.getEmailQueue({orderByPriority: true, limitToLast: limit}); 
           }
         }
+      })
+      .state('authenticated.master.admin.exercises', { // ***************************  Exercises ***********************
+        abstract: true,
+        templateUrl: 'views/admin-exercises.html',
+        controller: 'ExercisesCtrl',
+        resolve: {
+          exercisesRef: function (AdminService) {
+            return AdminService.getExercises();
+          }
+        }
+      })
+      .state('authenticated.master.admin.exercises.list', {
+        url: '/exercises',
+        templateUrl: 'views/admin-exercises-list.html',
+        controller: 'ListCtrl',
+        resolve: {
+          limit: function () {
+            return 10;
+          },
+          getRef: function (AdminService) {
+            return AdminService.getExercises;
+          },
+          ref: function (AdminService, limit) {
+            return AdminService.getExercises({orderByPriority: true, limitToLast: limit});  
+          }
+        }
+      })
+      .state('authenticated.master.admin.exercise', {
+        url: '/exercise/:exerciseKey',
+        templateUrl: 'views/admin-exercise.html',
+        controller: 'ExerciseCtrl',
+        resolve: {
+          exerciseRef: function (AdminService, $stateParams) {
+            return AdminService.getExercise($stateParams.exerciseKey);
+          }
+        }
       });
 
 
