@@ -5,7 +5,7 @@
 <div class="column small-12 medium-8">
   <form name="newExerciseForm">
     <input id="new-exercise-title" type="text" ng-model="newExerciseTitle" placeholder="New Title..." required/>
-    <button ng-click="create(newExerciseTitle)" ng-disabled="newExerciseForm.$invalid" qv-focus="#new-exercise-title">Create</button>
+    <button ng-click="create(newExerciseTitle); newExerciseTitle = '';" ng-disabled="newExerciseForm.$invalid" qv-focus="#new-exercise-title">Create</button>
   </form>
 
 </div>
@@ -16,7 +16,7 @@
       Recently Added
     </li>
     <li ng-repeat="exercise in added">
-      <a ui-sref="authenticated.master.admin.exercise({exerciseKey: exercise.$id})">{{ exercise.title }}</a>
+      <a ui-sref="authenticated.master.admin.fit.exercise({exerciseKey: exercise.$id})">{{ exercise.title }}</a>
     </li>
   </ul>
 </div>

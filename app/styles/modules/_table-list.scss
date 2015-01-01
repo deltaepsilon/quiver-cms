@@ -74,6 +74,20 @@
     }
   }
 
+  &.label-padded {
+    > li  {
+      @extend .padding-small;
+      @extend .clearfix;
+
+      position: relative;
+
+      > label {
+        @extend .padding-small;
+        @include absolute();
+      }
+    }
+  }
+
   li.table-list-header {
     @extend .background-secondary4-important;
     

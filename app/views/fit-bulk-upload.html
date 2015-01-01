@@ -1,0 +1,164 @@
+<div class="column small-12">
+  <h3 class="font-flair">Bulk Upload</h3>
+</div>
+
+<div class="column small-12">
+  <form name="strengthForm">
+    <fieldset>
+      <h5 class="font-flair">Strength</h5>
+
+      <textarea class="small-12" style="min-height: 10rem;" ng-model="strengthText" placeholder="Exercise Name, Level 1 Reps, Level 1 Video, Level 2 Reps, Level 2 Video ,Level 3 Reps, Level 3 Video, Movement, Body Focus, Equipment, Intensity, Side" required></textarea>
+      <button class="left" ng-click="importStrength(strengthText)" ng-disabled="strengthForm.$invalid">Import Strength</button>
+      <button class="right" ng-click="uploadAllStrength()" ng-disabled="!strengthImports.length">Upload All</button>
+
+    </fieldset>
+
+  </form>
+  
+</div>
+
+<div class="column small-12" ng-show="strengthImports.length">
+  <h5 class="font-flair">Prospective Imports</h5>
+  <ul class="table-list padded hover striped">
+    <li ng-repeat="exercise in strengthImports" ng-class="{disabled: exercise.disabled}">
+      <div class="column small-12 medium-9">
+        <strong>{{ exercise.title }}</strong>
+        <span>: {{ exercise.slug }}</span>
+      </div>
+      <div class="column small-12 medium-3 medium-text-right">
+        <button class="tiny margin-zero" ng-click="uploadStrength(exercise); exercise.disabled=true;" ng-disabled="exercise.disabled">Upload</button>
+        <button class="alert tiny margin-zero" ng-click="removeStrength(exercise); exercise.disabled=true;" ng-disabled="exercise.disabled">Delete</button>
+      </div>
+      <div class="column small-12">
+        <hr class="margin-vertical-x-small">
+      </div>
+      <div class="column small-12 medium-3">
+        <strong>Level One</strong>
+        <div>Reps: {{ exercise.levelOne.reps.min }} - {{ exercise.levelOne.reps.max }}</div>
+        <div>
+          <span>Videos: <a href="{{exercise.levelOne.video.primary}}" target="_blank">Primary</a></span>
+          <span ng-show="exercise.levelOne.video.secondary"> / <a href="{{exercise.levelOne.video.secondary}}" target="_blank">Secondary</a></span>
+        </div>
+      </div>
+      <div class="column small-12 medium-3">
+        <strong>Level Two</strong>
+        <div>Reps: {{ exercise.levelTwo.reps.min }} - {{ exercise.levelTwo.reps.max }}</div>
+        <div>
+          <span>Videos: <a href="{{exercise.levelTwo.video.primary}}" target="_blank">Primary</a></span>
+          <span ng-show="exercise.levelTwo.video.secondary"> / <a href="{{exercise.levelTwo.video.secondary}}" target="_blank">Secondary</a></span>
+        </div>
+      </div>
+      <div class="column small-12 medium-3">
+        <strong>Level Three</strong>
+        <div>Reps: {{ exercise.levelThree.reps.min }} - {{ exercise.levelThree.reps.max }}</div>
+        <div>
+          <span>Videos: <a href="{{exercise.levelThree.video.primary" target="_blank">Primary</a></span>
+          <span ng-show="exercise.levelThree.video.secondary"> / <a href="{{exercise.levelThree.video.secondary" target="_blank">Secondary</a></span>
+        </div>
+      </div>
+      <div class="column small-12 medium-3 medium-text-center">
+        <ul class="inline-list dots">
+          <li><div class="inline-important"><i class="fa fa-gear"></i> &nbsp; {{ exercise.movement }}</div></li>
+          <li><div class="inline-important"><i class="fa fa-male"></i> &nbsp; {{ exercise.bodyFocus }}</div></li>
+          <li><div class="inline-important"><i class="fa fa-wrench"></i> &nbsp; {{ exercise.equipment }}</div></li>
+          <li ng-repeat="(level, value) in exercise.levels">Level {{ level }}</li>
+        </ul>
+      </div>
+    </li>
+  </ul>
+</div>
+
+<div class="column small-12">
+  <form name="hiitForm">
+    <fieldset>
+      <h5 class="font-flair">HIIT</h5>
+
+      <textarea class="small-12" style="min-height: 10rem;" ng-model="hiitText" placeholder="Exercise Name, Standard Video, Standard Reps, Long Video, Long Reps, Level, Equipment, Body Focus" required></textarea>
+      <button ng-click="importHiit(hiitText)" ng-disabled="hiitForm.$invalid">Import HIIT</button>
+      <button class="right" ng-click="uploadAllHiit()" ng-disabled="!hiitImports.length">Upload All</button>
+
+    </fieldset>
+
+  </form>
+  
+</div>
+
+<div class="column small-12" ng-show="hiitImports.length">
+  <h5 class="font-flair">Prospective Imports</h5>
+  <ul class="table-list padded hover striped">
+    <li ng-repeat="exercise in hiitImports" ng-class="{disabled: exercise.disabled}">
+      <div class="column small-12 medium-9">
+        <strong>{{ exercise.title }}</strong>
+        <span>: {{ exercise.slug }}</span>
+      </div>
+      <div class="column small-12 medium-3 medium-text-right">
+        <button class="tiny margin-zero" ng-click="uploadHiit(exercise); exercise.disabled=true;" ng-disabled="exercise.disabled">Upload</button>
+        <button class="alert tiny margin-zero" ng-click="removeHiit(exercise); exercise.disabled=true;" ng-disabled="exercise.disabled">Delete</button>
+      </div>
+      <div class="column small-12">
+        <hr class="margin-vertical-x-small">
+      </div>
+      <div class="column small-12 medium-4">
+        <strong>Standard</strong>
+        <div>Reps: {{ exercise.standard.reps.min }} - {{ exercise.standard.reps.max }}</div>
+        <div>
+          <span>Video: <a href="{{exercise.standard.video}}" target="_blank">Standard Video</a></span>
+        </div>
+      </div>
+      <div class="column small-12 medium-4">
+        <strong>Long</strong>
+        <div>Reps: {{ exercise.long.reps.min }} - {{ exercise.long.reps.max }}</div>
+        <div>
+          <span>Video: <a href="{{exercise.long.video}}" target="_blank">Long Video</a></span>
+        </div>
+      </div>
+      <div class="column small-12 medium-4 medium-text-center">
+        <ul class="inline-list dots">
+          <li><div class="inline-important"><i class="fa fa-male"></i> &nbsp; {{ exercise.bodyFocus }}</div></li>
+          <li><div class="inline-important"><i class="fa fa-wrench"></i> &nbsp; {{ exercise.equipment }}</div></li>
+          <li><div class="inline-important">Level {{ exercise.level }}</div></li>
+        </ul>
+      </div>
+    </li>
+  </ul>
+</div>
+
+<div class="column small-12">
+  <form name="cardioForm">
+    <fieldset>
+      <h5 class="font-flair">Cardio</h5>
+
+      <textarea class="small-12" style="min-height: 10rem;" ng-model="cardioText" placeholder="Exercise Name, Level 1 Video, Level 2 Video" required></textarea>
+      <button ng-click="importCardio(cardioText)" ng-disabled="cardioForm.$invalid">Import Cardio</button>
+      <button class="right" ng-click="uploadAllCardio()" ng-disabled="!cardioImports.length">Upload All</button>
+
+    </fieldset>
+
+  </form>
+  
+</div>
+
+<div class="column small-12" ng-show="cardioImports.length">
+  <h5 class="font-flair">Prospective Imports</h5>
+  <ul class="table-list padded hover striped">
+    <li ng-repeat="exercise in cardioImports" ng-class="{disabled: exercise.disabled}">
+      <div class="column small-12 medium-9">
+        <strong>{{ exercise.title }}</strong>
+        <span>: {{ exercise.slug }}</span>
+      </div>
+      <div class="column small-12 medium-3 medium-text-right">
+        <button class="tiny margin-zero" ng-click="uploadCardio(exercise); exercise.disabled=true;" ng-disabled="exercise.disabled">Upload</button>
+        <button class="alert tiny margin-zero" ng-click="removeCardio(exercise); exercise.disabled=true;" ng-disabled="exercise.disabled">Delete</button>
+      </div>
+      <div class="column small-12">
+        <hr class="margin-vertical-x-small">
+      </div>
+      <div class="column small-12 medium-6">
+        <a href="{{exercise.levelOne.video}}" target="_blank">Level One Video</a>
+      </div>
+      <div class="column small-12 medium-6">
+        <a href="{{exercise.levelTwo.video}}" target="_blank">Level Two Video</a>
+      </div>
+    </li>
+  </ul>
+</div>

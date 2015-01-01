@@ -233,12 +233,28 @@ angular.module('quiverCmsApp')
         return $firebase(new Firebase(firebaseEndpoint + '/resources/' + key));
       },
 
+      getFitSettings: function () {
+        return $firebase(new Firebase(firebaseEndpoint + '/fit/settings'));
+      },
+
+      getMovements: function () {
+        return $firebase(new Firebase(firebaseEndpoint + '/fit/settings/movements'));
+      },
+
+      getBodyFocuses: function () {
+        return $firebase(new Firebase(firebaseEndpoint + '/fit/settings/bodyFocuses'));
+      },
+
+      getEquipment: function () {
+        return $firebase(new Firebase(firebaseEndpoint + '/fit/settings/equipment'));
+      },
+
       getExercises: function (query) {
-        return $firebase(FirebaseService.query(new Firebase(firebaseEndpoint + '/exercises'), query));
+        return $firebase(FirebaseService.query(new Firebase(firebaseEndpoint + '/fit/exercises'), query));
       },
 
       getExercise: function (key) {
-        return $firebase(new Firebase(firebaseEndpoint + '/exercises/' + key));
+        return $firebase(new Firebase(firebaseEndpoint + '/fit/exercises/' + key));
       }
 
     }

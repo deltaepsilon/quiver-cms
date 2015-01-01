@@ -8,8 +8,9 @@
  * Controller of the quiverCmsApp
  */
 angular.module('quiverCmsApp')
-  .controller('ExercisesCtrl', function ($scope, exercisesRef, moment, Slug, NotificationService, _) {
-    $scope.exercises = exercisesRef.$asArray();
+  .controller('ExercisesCtrl', function ($scope, limit, exercisesRef, moment, Slug, NotificationService, _) {
+    var exercises = exercisesRef.$asArray();
+    $scope.exercises = exercises;
 
     $scope.added = [];
 
@@ -33,12 +34,27 @@ angular.module('quiverCmsApp')
     };
 
     $scope.remove = function (exercise) {
-      $scope.exercises.$remove(exercise.$id).then(function (ref) {
-        NotificationService.success('Deleted', ref.key());
-      }, function (err) {
-        exercise.disabled = false;
-        NotificationService.error('Delete Failed', err);
-      });
+      var i = exercises.length;
+
+      while (i--) {
+        if (exercises[i].$id === exercise.$id) {
+          $scope.exercises.$remove(i).then(function (ref) {
+            NotificationService.success('Deleted', ref.key());
+          }, function (err) {
+            exercise.disabled = false;
+            NotificationService.error('Delete Failed', err);
+          });
+        }
+      }
+      
+    };
+
+    $scope.getPrev = function (exercises) {
+      return {orderByPriority: true, limitToFirst: limit, startAt: exercises[exercises.length -1].slug};
+    };
+
+    $scope.getNext = function (exercises) {
+      return {orderByPriority: true, limitToFirst: limit, endAt: exercises[0].slug};
     };
 
   });

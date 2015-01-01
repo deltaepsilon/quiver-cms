@@ -1,0 +1,208 @@
+<div class="column small-12">
+  <h3 class="font-flair left" ng-model="exercise.title" contenteditable="true">{{ exercise.title }}</h3>
+  <div class="right text-white0">
+    <div class="padding-small background-success" ng-show="validate()">Valid</div>
+    <div class="padding-small background-highlight0" ng-show="!validate()">Invalid</div>
+  </div>
+  
+</div>
+
+<div class="column small-12">
+  <form class="exerciseForm">
+    <div class="column small-12">
+      <label for="exercise-type">Exercise Type</label>
+      <select id="exercise-type" ng-model="exercise.type">
+        <option value="">Choose Type</option>
+        <option value="strength">Strength</option>
+        <option value="hiit">HIIT</option>
+        <option value="cardio">Cardio</option>
+      </select>
+    </div>
+
+    <h5 class="font-flair" ng-show="!exercise.type">Choose an exercise type to continue.</h5>
+    
+    <fieldset ng-show="exercise.type">
+      <div class="column small-12">
+        <label for="slug">Slug</label>
+        <input type="text" ng-model="exercise.slug" ng-change="validate();" placeholder="Slug..." required>
+      </div>
+
+      <div ng-show="exercise.type == 'strength'">
+        <div class="column small-12">
+          <label for="movement">Movement</label>
+          <select id="movement" ng-model="exercise.movement" ng-options="movement.slug as movement.name for (key, movement) in fitSettings.movements">
+            <option value="">Movement...</option>
+          </select>
+        </div>
+
+        <div class="column small-12">
+          <label for="body-focus">Body Focus</label>
+          <select id="body-focus" ng-model="exercise.bodyFocus" ng-options="focus.slug as focus.name for (key, focus) in fitSettings.bodyFocuses"
+            <option value="">Body Focus...</option>
+          </select>
+        </div>
+
+        <div class="column small-12">
+          <label for="equipment">Equipment</label>
+          <select id="equipment" ng-model="exercise.equipment" ng-options="equipment.slug as equipment.name for (key, equipment) in fitSettings.equipment">
+          </select>
+        </div>
+
+        <div class="column small-12">
+          <h5 class="font-flair">Two-Sided</h5>
+          <ul class="table-list label-padded hover striped">
+            <li>
+              <label for="side" style="padding-left: 4rem;">Split Sided</label>
+              <input id="side" class="margin-xx-small-important" type="checkbox" ng-model="exercise.side">
+            </li>
+          </ul>
+          
+        </div>
+
+        <div class="column small-12">
+          <h5 class="font-flair">Levels</h5>
+          <ul class="table-list label-padded hover striped">
+            <li>
+              <label for="level-one" style="padding-left: 4rem;">One</label>
+              <input id="level-one" class="margin-xx-small-important" type='checkbox' ng-model="exercise.levels.one">
+            </li>
+            <li>
+              <label for="level-two" style="padding-left: 4rem;">Two</label>
+              <input id="level-two" class="margin-xx-small-important" type='checkbox' ng-model="exercise.levels.two">
+            </li>
+            <li>
+              <label for="level-three" style="padding-left: 4rem;">Three</label>
+              <input id="level-three" class="margin-xx-small-important" type='checkbox' ng-model="exercise.levels.three">
+            </li>
+          </ul>
+        </div>
+
+        <div class="column small-12" ng-show="exercise.levels.one">
+          <h5 class="font-flair">Level One</h5>
+          
+          <label for="level-one-reps-min">Min Reps</label>
+          <input id="level-one-reps-min" type="number" ng-model="exercise.levelOne.reps.min" min="1" max="1000" placeholder="Level one min reps...">
+
+          <label for="level-one-reps-max">Max Reps</label>
+          <input id="level-one-reps-max" type="number" ng-model="exercise.levelOne.reps.max" min="1" max="1000" placeholder="Level one max reps...">
+
+          <label for="level-one-video-primary">Primary Video</label>
+          <input id="level-one-video-primary" type="text" ng-model="exercise.levelOne.video.primary" placeholder="Level one primary video...">
+
+          <div ng-show="exercise.side">
+            <label for="level-one-video-primary">Secondary Video</label>
+            <input id="level-one-video-primary" type="text" ng-model="exercise.levelOne.video.secondary" placeholder="Level one secondary video...">
+          </div>
+          
+        </div>
+
+        <div class="column small-12" ng-show="exercise.levels.two">
+          <h5 class="font-flair">Level Two</h5>
+          
+          <label for="level-two-reps-min">Min Reps</label>
+          <input id="level-two-reps-min" type="number" ng-model="exercise.levelTwo.reps.min" min="1" max="1000" placeholder="Level two min reps...">
+
+          <label for="level-two-reps-max">Max Reps</label>
+          <input id="level-two-reps-max" type="number" ng-model="exercise.levelTwo.reps.max" min="1" max="1000" placeholder="Level two max reps...">
+
+          <label for="level-two-video-primary">Primary Video</label>
+          <input id="level-two-video-primary" type="text" ng-model="exercise.levelTwo.video.primary" placeholder="Level two primary video...">
+
+          <div ng-show="exercise.side">
+            <label for="level-two-video-primary">Secondary Video</label>
+            <input id="level-two-video-primary" type="text" ng-model="exercise.levelTwo.video.secondary" placeholder="Level two secondary video...">
+          </div>
+          
+        </div>
+
+        <div class="column small-12" ng-show="exercise.levels.three">
+          <h5 class="font-flair">Level Three</h5>
+          
+          <label for="level-three-reps-min">Min Reps</label>
+          <input id="level-three-reps-min" type="number" ng-model="exercise.levelThree.reps.min" min="1" max="1000" placeholder="Level three min reps...">
+
+          <label for="level-three-reps-max">Max Reps</label>
+          <input id="level-three-reps-max" type="number" ng-model="exercise.levelThree.reps.max" min="1" max="1000" placeholder="Level three max reps...">
+
+          <label for="level-three-video-primary">Primary Video</label>
+          <input id="level-three-video-primary" type="text" ng-model="exercise.levelThree.video.primary" placeholder="Level three primary video...">
+
+          <div ng-show="exercise.side">
+            <label for="level-three-video-primary">Secondary Video</label>
+            <input id="level-three-video-primary" type="text" ng-model="exercise.levelThree.video.secondary" placeholder="Level three secondary video...">
+          </div>
+          
+        </div>
+      </div> 
+
+      <div ng-show="exercise.type == 'hiit'">
+        <div class="column small-12">
+          <label for="body-focus">Body Focus</label>
+          <select id="body-focus" ng-model="exercise.bodyFocus" ng-options="focus.slug as focus.name for (key, focus) in fitSettings.bodyFocuses" required>
+            <option value="">Body Focus...</option>
+          </select>
+        </div>
+
+        <div class="column small-12">
+          <label for="equipment">Equipment</label>
+          <select id="equipment" ng-model="exercise.equipment" ng-options="equipment.slug as equipment.name for (key, equipment) in fitSettings.equipment" required>
+          </select>
+        </div>
+
+        <div class="column small-12">
+          <label for="hiit-level">Level</label>
+          <select id="hiit-level" ng-model="exercise.level">
+            <option value="">Choose Level</option>
+            <option value="one">One</option>
+            <option value="two">Two</option>
+            <option value="Three">Three</option>
+          </select>
+        </div>
+
+        <div class="column small-12">
+          <h5 class="font-flair">Standard</h5>
+
+          <label for="standard-reps-min">Min Reps</label>
+          <input id="standard-reps-min" type="number" ng-model="exercise.standard.reps.min" placeholder="Standard min reps...">
+
+          <label for="standard-reps-max">Max Reps</label>
+          <input id="standard-reps-max" type="number" ng-model="exercise.standard.reps.max" placeholder="Standard max reps...">
+
+          <label for="standard-video">Video</label>
+          <input id="standard-video" type="text" ng-model="exercise.standard.video" placeholder="Standard video...">
+
+        </div>
+
+        <div class="column small-12">
+          <h5 class="font-flair">Long</h5>
+
+          <label for="long-reps-min">Min Reps</label>
+          <input id="long-reps-min" type="number" ng-model="exercise.long.reps.min" placeholder="Long min reps...">
+
+          <label for="long-reps-max">Max Reps</label>
+          <input id="long-reps-max" type="number" ng-model="exercise.long.reps.max" placeholder="Long max reps...">
+
+          <label for="long-video">Video</label>
+          <input id="long-video" type="text" ng-model="exercise.long.video" placeholder="Long video...">
+
+        </div>
+      </div>
+
+      <div ng-show="exercise.type == 'cardio'">
+        <div class="column small-12">
+          <label for="cardio-level-one-video-primary">Level One Video</label>
+          <input id="cardio-level-one-video-primary" type="text" ng-model="exercise.levelOne.video" placeholder="Level one video...">
+        </div>
+
+        <div class="column small-12">
+          <label for="cardio-level-two-video-primary">Level Two Video</label>
+          <input id="cardio-level-two-video-primary" type="text" ng-model="exercise.levelTwo.video" placeholder="Level two video...">
+        </div>
+
+      </div>
+
+
+    </fieldset>
+    
+  </form>
+</div>

@@ -62,6 +62,28 @@ a {
   display: block;
 }
 
+.block-important {
+  display: block !important;
+}
+
+
+.inline-block {
+  display: inline-block;
+}
+
+.inline-block-important {
+  display: inline-block !important;
+}
+
+.inline {
+  display: inline;
+}
+
+
+.inline-important {
+  display: inline !important;
+}
+
 .hidden {
   display: none;
 }

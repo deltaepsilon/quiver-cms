@@ -900,40 +900,89 @@ angular.module('quiverCmsApp', [
           }
         }
       })
-      .state('authenticated.master.admin.exercises', { // ***************************  Exercises ***********************
+      .state('authenticated.master.admin.fit', { // *********************************  Fit.io **************************
+        url: '/fit',
+        templateUrl: 'views/fit.html',
+        abstract: true
+      })
+      .state('authenticated.master.admin.fit.settings', { // ************************  Fit Settings ********************
+        url: '/settings',
+        templateUrl: 'views/fit-settings.html',
+        controller: 'FitSettingsCtrl',
+        resolve: {
+          settingsRef: function (AdminService) {
+            return AdminService.getFitSettings();   
+          },
+          movementsRef: function (AdminService) {
+            return AdminService.getMovements();   
+          },
+          bodyFocusesRef: function (AdminService) {
+            return AdminService.getBodyFocuses();
+          },
+          equipmentRef: function (AdminService) {
+            return AdminService.getEquipment();
+          }
+        }
+      })
+      .state('authenticated.master.admin.fit.exercises', { // ***************************  Exercises *******************
         abstract: true,
-        templateUrl: 'views/admin-exercises.html',
+        templateUrl: 'views/fit-exercises.html',
         controller: 'ExercisesCtrl',
         resolve: {
+          limit: function () {
+            return 10;
+          },
           exercisesRef: function (AdminService) {
             return AdminService.getExercises();
           }
         }
       })
-      .state('authenticated.master.admin.exercises.list', {
+      .state('authenticated.master.admin.fit.exercises.list', {
         url: '/exercises',
-        templateUrl: 'views/admin-exercises-list.html',
+        templateUrl: 'views/fit-exercises-list.html',
         controller: 'ListCtrl',
         resolve: {
-          limit: function () {
-            return 10;
-          },
           getRef: function (AdminService) {
             return AdminService.getExercises;
           },
           ref: function (AdminService, limit) {
-            return AdminService.getExercises({orderByPriority: true, limitToLast: limit});  
+            return AdminService.getExercises({orderByPriority: true, limitToFirst: limit});  
           }
         }
       })
-      .state('authenticated.master.admin.exercise', {
+      .state('authenticated.master.admin.fit.exercise', {
         url: '/exercise/:exerciseKey',
-        templateUrl: 'views/admin-exercise.html',
+        templateUrl: 'views/fit-exercise.html',
         controller: 'ExerciseCtrl',
         resolve: {
+          fitSettingsRef: function (AdminService) {
+            return AdminService.getFitSettings();
+          },
           exerciseRef: function (AdminService, $stateParams) {
             return AdminService.getExercise($stateParams.exerciseKey);
           }
+        }
+      })
+      .state('authenticated.master.admin.fit.bulk-upload', { // ***************************  Bulk Upload ***************
+        url: '/bulk-upload',
+        templateUrl: 'views/fit-bulk-upload.html',
+        controller: 'BulkUploadCtrl',
+        resolve: {
+          settingsRef: function (AdminService) {
+            return AdminService.getFitSettings();   
+          },
+          movementsRef: function (AdminService) {
+            return AdminService.getMovements();   
+          },
+          bodyFocusesRef: function (AdminService) {
+            return AdminService.getBodyFocuses();
+          },
+          equipmentRef: function (AdminService) {
+            return AdminService.getEquipment();
+          },
+          exercisesRef: function (AdminService) {
+            return AdminService.getExercises();
+          } 
         }
       });
 

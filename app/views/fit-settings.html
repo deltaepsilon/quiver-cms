@@ -1,0 +1,132 @@
+<div class="column small-12">
+  <h3 class="font-flair">Fit.io Settings</h3>
+</div>
+
+<div class="column small-12">
+  <form name="movementForm">
+    <fieldset>
+      <h5 class="font-flair">Movements</h5>
+
+      <div class="column small-12">
+        <input id="movement" type="text" ng-model="newMovement" qv-enter="addMovement(newMovement); newMovement = '';" placeholder="New movement..." required>
+        <button ng-click="addMovement(newMovement); newMovement = '';" qv-focus="#movement" ng-disabled="movementForm.$invalid">Add Movement</button>
+
+        <ul class="table-list hover padded striped">
+          <li class="table-list-header">
+            <div class="column small-12 medium-4">
+              Movement
+            </div>
+            <div class="column small-12 medium-4">
+              Slug
+            </div>
+            <div class="column small-12 medium-4 medium-text-right">
+              Action
+            </div>
+
+          </li>
+          <li ng-repeat="movement in movements" ng-class="{disabled: movement.disabled}">
+            <div class="column small-12 medium-4">
+              {{ movement.name }}
+            </div>
+            <div class="column small-12 medium-4">
+              {{ movement.slug }}
+            </div>
+            <div class="column small-12 medium-4 medium-text-right">
+              <button class="tiny alert margin-zero" qv-confirm="removeMovement(movement); movement.disabled = true;" style="min-width: 7rem;" ng-disabled="movement.disabled">Delete</button>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      
+    </fieldset>
+
+  </form>
+  
+</div>
+
+<div class="column small-12">
+  <form name="bodyFocusForm">
+    <fieldset>
+      <h5 class="font-flair">Body Focuses</h5>
+
+      <div class="column small-12">
+        <input id="body-focus" type="text" ng-model="newFocus" qv-enter="addBodyFocus(newFocus); newFocus = '';" placeholder="New body focus..." required>
+        <button ng-click="addBodyFocus(newFocus); newFocus = '';" qv-focus="#body-focus" ng-disabled="bodyFocusForm.$invalid">Add Focus</button>
+
+        <ul class="table-list hover padded striped">
+          <li class="table-list-header">
+            <div class="column small-12 medium-4">
+              Body Focus
+            </div>
+            <div class="column small-12 medium-4">
+              Slug
+            </div>
+            <div class="column small-12 medium-4 medium-text-right">
+              Action
+            </div>
+
+          </li>
+          <li ng-repeat="focus in bodyFocuses" ng-class="{disabled: focus.disabled}">
+            <div class="column small-12 medium-4">
+              {{ focus.name }}
+            </div>
+            <div class="column small-12 medium-4">
+              {{ focus.slug }}
+            </div>
+            <div class="column small-12 medium-4 medium-text-right">
+              <button class="tiny alert margin-zero" qv-confirm="removeBodyFocus(focus); focus.disabled = true;" style="min-width: 7rem;" ng-disabled="focus.disabled">Delete</button>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      
+    </fieldset>
+
+  </form>
+  
+</div>
+
+<div class="column small-12">
+  <form name="equipmentForm">
+    <fieldset>
+      <h5 class="font-flair">Equipment</h5>
+
+      <div class="column small-12">
+        <input id="equipment" type="text" ng-model="newEquipment" qv-enter="addEquipment(newEquipment); newEquipment = '';" placeholder="New equipment..." required>
+        <button ng-click="addEquipment(newEquipment); newEquipment = '';" qv-focus="#equipment" ng-disabled="equipmentForm.$invalid">Add Equipment</button>
+
+        <ul class="table-list hover padded striped">
+          <li class="table-list-header">
+            <div class="column small-12 medium-4">
+              Name
+            </div>
+            <div class="column small-12 medium-4">
+              Slug
+            </div>
+            <div class="column small-12 medium-4 medium-text-right">
+              Action
+            </div>
+
+          </li>
+          <li ng-repeat="item in equipment" ng-class="{disabled: item.disabled}">
+            <div class="column small-12 medium-4">
+              {{ item.name }}
+            </div>
+            <div class="column small-12 medium-4">
+              {{ item.slug }}
+            </div>
+            <div class="column small-12 medium-4 medium-text-right">
+              <button class="tiny alert margin-zero" qv-confirm="removeEquipment(item); item.disabled = true;" style="min-width: 7rem;" ng-disabled="item.disabled">Delete</button>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      
+    </fieldset>
+
+  </form>
+  
+</div>
