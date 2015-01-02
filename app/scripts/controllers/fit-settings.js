@@ -14,7 +14,7 @@ angular.module('quiverCmsApp')
      */
     var settings = settingsRef.$asObject();
 
-    $scope.settings = settings;
+    settings.$bindTo($scope, 'settings');
 
     /*
      * Movements
@@ -82,4 +82,19 @@ angular.module('quiverCmsApp')
       $scope.equipment.$remove(item);
     };
 
+    $scope.levels = [
+      {
+        name: 'levelOne',
+        description: 'Level One'
+      },
+      {
+        name: 'levelTwo',
+        description: 'Level Two'
+      },
+      {
+        name: 'levelThree',
+        description: 'Level Three'
+      }
+    ];
+    
   });

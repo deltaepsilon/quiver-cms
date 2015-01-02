@@ -984,6 +984,19 @@ angular.module('quiverCmsApp', [
             return AdminService.getExercises();
           } 
         }
+      })
+      .state('authenticated.master.admin.fit.workout-builder', { // *************************  Workout Builder *********
+        url: '/workout-builder',
+        templateUrl: 'views/fit-workout-builder.html',
+        controller: 'WorkoutCtrl',
+        resolve: {
+          settingsRef: function (AdminService) {
+            return AdminService.getFitSettings();   
+          },
+          exercisesRef: function (AdminService) {
+            return AdminService.getExercises();
+          }  
+        }
       });
 
 
