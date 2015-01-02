@@ -136,8 +136,8 @@ angular.module('quiverCmsApp')
         var bodyFocus = _.findWhere(bodyFocuses, {slug: Slug.slugify(columns[8])});
         exercise.bodyFocus = bodyFocus && bodyFocus.slug ? bodyFocus.slug : defaultExercise.bodyFocus;
         
-        var equipment = _.findWhere(equipment, {slug: Slug.slugify(columns[9])});
-        exercise.equipment = equipment && equipment.slug ? equipment.slug : defaultExercise.equipment;
+        var item = _.findWhere(equipment, {slug: Slug.slugify(columns[9])});
+        exercise.equipment = item && item.slug ? item.slug : defaultExercise.equipment;
 
         exercise.levels = {};
         _.each(columns[10].split(','), function (level) {

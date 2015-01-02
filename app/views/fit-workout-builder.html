@@ -1,0 +1,94 @@
+<div class="column small-12">
+  <h3 class="font-flair">Workout Builder</h3>
+</div>
+
+<div class="column small-12">
+  <form name="workoutForm">
+    <fieldset>
+      <h5 class="font-flair">Workout Preferences</h5>
+
+      <div class="column small-12">
+        <label for="workout-type">Workout Type</label>
+        <select ng-model="preferences.type" ng-options="type.name as type.description for type in types" required>
+          <option value="">Select a workout type...</option>
+        </select>
+      </div>
+
+      <div class="column small-12">
+        <label for="workout-level">Intensity</label>
+        <select id="workout-level" ng-model="preferences.intensity" ng-options="level.name as level.description for level in levels" required>
+          <option value="">Select an intensity...</option>
+        </select>
+
+      </div>
+
+      <div class="column small-12">
+        <label for="workout-duration">Workout Duration</label>
+        <select id="workout-duration" ng-model="preferences.duration" ng-options="duration.value as duration.description for duration in durations" required>
+          <option value="">Select a workout duration...</option>
+        </select>
+
+      </div>
+
+      <div class="column small-12">
+        <label for="workout-focus">Body Focus</label>
+        <select id="workout-focus" ng-model="preferences.bodyFocus" ng-options="focus.slug as focus.name for (key, focus) in settings.bodyFocuses" required>
+          <option value="">Select a body focus...</option>
+        </select>
+
+      </div>
+
+      <div class="column small-12">
+        <label>Equipment</label>
+        <ul class="table-list label-padded hover striped">
+          <li ng-repeat="(key, item) in settings.equipment">
+            <label for="equipment-{{ item.slug }}" style="padding-left: 4rem;">{{ item.name }}</label>
+            <input id="equipment-{{ item.slug }}" class="margin-xx-small-important" type="checkbox" ng-model="preferences.equipment[item.slug]" ng-change="validateEquipment(item, preferences)">
+          </li>
+        </ul>
+        
+      </div>
+
+      <div class="column small-12">
+        <button ng-click="generateWorkout(preferences)" ng-disabled="workoutForm.$invalid">Generate Workout</button>
+      </div>
+
+    </fieldset>
+  </form>
+</div>
+
+<div class="column small-12" ng-show="workout.exercises.length">
+  <h5 class="font-flair">Workout</h5>
+
+  <ul class="table-list hover padded striped">
+    <li class="table-list-header">
+      <div class="column small-12 medium-3">
+        Exercise
+      </div>
+      <div class="column small-12 medium-3">
+        Equipment
+      </div>
+      <div class="column small-12 medium-3">
+        Rep Range
+      </div>
+      <div class="column small-12 medium-3">
+        Video
+      </div>
+    </li>
+    <li ng-repeat="exercise in workout.exercises">
+      <div class="column small-12 medium-3">
+        {{ exercise.title }}
+      </div>
+      <div class="column small-12 medium-3">
+        {{ exercise.equipment || 'none' }}
+      </div>
+      <div class="column small-12 medium-3">
+        {{ exercise[workout.preferences.intensity].reps.min }} - {{ exercise[workout.preferences.intensity].reps.max }}
+      </div>
+      <div class="column small-12 medium-3">
+        <a href="{{ exercise[workout.preferences.intensity].video.primary || exercise.levelOne.video }}" target="_blank">Primary</a>, 
+        <a href="{{ exercise[workout.preferences.intensity].video.secondary || exercise.levelTwo.video }}" target="_blank">Secondary</a>
+      </div>
+    </li>
+  </ul>
+</div>

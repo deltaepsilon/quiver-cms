@@ -1,13 +1,10 @@
 <input type="text" ng-model="searchTerm" qv-enter="search({orderByChild: 'slug', startAt: searchTerm})" placeholder="Click ENTER to search by slug..." ng-blur="searchTerm = '';">
 <ul class="table-list hover padded striped">
-  <li class="table-list-header padding-small">
-    <div class="column small-12 medium-3">
+  <!-- <li class="table-list-header padding-small">
+    <div class="column small-12 medium-4">
       Name
     </div>
-    <div class="column small-12 medium-3">
-      Slug
-    </div>
-    <div class="column small-12 medium-2">
+    <div class="column small-12 medium-4">
       Type
     </div>
     <div class="column small-12 medium-2">
@@ -16,23 +13,53 @@
     <div class="column small-12 medium-2 medium-text-center">
       Action
     </div>
-  </li>
+  </li> -->
   <li ng-repeat="exercise in items" ng-class="{disabled: disabled}">
-    <div class="column small-12 medium-3">
-      <a ui-sref="authenticated.master.admin.fit.exercise({exerciseKey: exercise.$id})">{{ exercise.title }}&nbsp;</a>
+    <div class="column small-12 medium-4">
+      <a ui-sref="authenticated.master.admin.fit.exercise({exerciseKey: exercise.$id})"><strong>{{ exercise.title }}</strong></a>
     </div>
-    <div class="column small-12 medium-3">
+    <div class="column small-12 medium-6">
       {{ exercise.slug }}
     </div>
-    <div class="column small-12 medium-2">
-      {{ exercise.type }} &nbsp;
+    <div class="column small-12 medium-2 medium-text-right">
+      <button class="tiny alert margin-zero padding-vertical-xx-small-important" style="min-width: 8rem;" qv-confirm="remove(exercise); disabled = true;" ng-disabled="disabled">Delete</button>
+    </div>
+    <div class="column small-12">
+      <hr class="margin-vertical-x-small">
+    </div>
+    <div class="column small-12 medium-4">
+      <!-- {{ exercise.type }} -->
+      &nbsp;
+    </div>
+    <div class="column small-12 medium-6">
+      <ul class="inline-list margin-vertical-zero-important">
+        <li ng-show="exercise.type"><div class="inline-important"><i class="fa fa-filter"></i> &nbsp; {{ exercise.type }}</div></li>
+        <li ng-show="exercise.movement"><div class="inline-important"><i class="fa fa-gear"></i> &nbsp; {{ exercise.movement }}</div></li>
+        <li ng-show="exercise.bodyFocus"><div class="inline-important"><i class="fa fa-male"></i> &nbsp; {{ exercise.bodyFocus }}</div></li>
+        <li ng-show="exercise.equipment"><div class="inline-important"><i class="fa fa-wrench"></i> &nbsp; {{ exercise.equipment }}</div></li>
+      </ul>
+    </div>
+    <div class="column small-12 medium-2 medium-text-right">
+      {{ exercise.created | moment:"MM/DD/YYYY" }}
+    </div>
+    
+    <!-- <div class="column small-12 medium-2">
+      <a ui-sref="authenticated.master.admin.fit.exercise({exerciseKey: exercise.$id})">{{ exercise.title }} <br><span>{{ exercise.slug }}</span></a>      
+    </div>
+    <div class="column small-12 medium-6">
+      <ul class="inline-list text-x-small">
+        <li>{{ exercise.type }}</li>
+        <li><div class="inline-important"><i class="fa fa-gear"></i> &nbsp; {{ exercise.movement }}</div></li>
+          <li><div class="inline-important"><i class="fa fa-male"></i> &nbsp; {{ exercise.bodyFocus }}</div></li>
+          <li><div class="inline-important"><i class="fa fa-wrench"></i> &nbsp; {{ exercise.equipment }}</div></li>
+      </ul>
     </div>
     <div class="column small-12 medium-2">
       {{ exercise.created | moment:"MM/DD/YYYY" }}
     </div>
     <div class="column small-12 medium-2 medium-text-center">
       <button class="tiny alert margin-zero" style="min-width: 8rem;" qv-confirm="remove(exercise); disabled = true;" ng-disabled="disabled">Delete</button>
-    </div>
+    </div> -->
   </li>
   <li class="no-stripe no-hover" ng-show="items.length">
     <div ng-hide="searching">

@@ -8,7 +8,7 @@
  * Controller of the quiverCmsApp
  */
 angular.module('quiverCmsApp')
-  .controller('FitSettingsCtrl', function ($scope, settingsRef, movementsRef, bodyFocusesRef, equipmentRef, Slug) {
+  .controller('FitSettingsCtrl', function ($scope, settingsRef, movementsRef, bodyFocusesRef, equipmentRef, FitService, Slug) {
     /*
      * Settings
      */
@@ -82,19 +82,6 @@ angular.module('quiverCmsApp')
       $scope.equipment.$remove(item);
     };
 
-    $scope.levels = [
-      {
-        name: 'levelOne',
-        description: 'Level One'
-      },
-      {
-        name: 'levelTwo',
-        description: 'Level Two'
-      },
-      {
-        name: 'levelThree',
-        description: 'Level Three'
-      }
-    ];
+    $scope.levels = FitService.levels;
     
   });
