@@ -1,0 +1,59 @@
+{{#if settings.frontPageImage }}
+  <div class="full-bleed tall underlay fade-white">
+      <img src="{{ settings.frontPageImage }}"/>
+  </div>
+{{/if }}
+
+<div id="posts" class="posts row">
+    {{#each postBlocks.primary }}
+      <div class="post column small-12 post-{{ @index }}">
+          {{> inline-post }}
+      </div>
+    {{/each }}
+
+  <ul class="column medium-block-grid-{{ settings.secondaryPostCount }} post-block-secondary">
+    {{#each postBlocks.secondary }}
+        <li class="post post-{{ @index }}">
+          {{> inline-post }}
+        </li>
+    {{/each }}
+
+  </ul>
+
+{{#if hashtags.length }}
+  <div class="column medium-4">
+      <div class="hidden-for-small margin-vertical-large">
+          <div class="panel">
+              <table>
+                  <tr>
+                      <td><h6>HASHTAGS&nbsp;</h6></td>
+                      <td class="small-12"><hr style="margin: -.2rem 0 .2rem .5rem"/></td>
+                  </tr>
+              </table>
+            
+            <ul>
+
+                {{#each hashtags }}
+                  <li>
+                      <a href="/search/{{ this.key }}">#{{ this.value }}</a>
+                  </li>
+                {{/each }}
+            </ul>
+
+          </div>
+
+      </div>
+
+  </div>
+{{/if }}  
+  <ul class="post-block-tertiary column small-12 medium-8">
+    {{#each postBlocks.tertiary }}
+        <li class="post post-{{ @index }}">
+          {{> inline-post }}
+        </li>
+    {{/each }}
+  </ul>
+
+  {{> prev-next }}
+
+</div>

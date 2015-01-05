@@ -1,0 +1,60 @@
+<html>
+<head>
+	<title>
+		{{#if settings.siteTitle  }}
+			{{ settings.siteTitle }}
+		{{ else }}
+			Quiver CMS
+		{{/if }}
+	</title>
+	<link rel="icon" type="image/x-icon" href="/static/favicon.ico">
+</head>
+<body style="padding: 1rem 0; margin: 0;">
+	<table style="width: 100%;">
+		<thead>
+			<tr>
+				<th style="
+					color: #f04e23; 
+					font-family: Helvetica, Arial, sans-serif; 
+					font-size: 5rem; 
+					margin: 1rem 0;
+					padding: 0 1rem; 
+					font-weight: 700; 
+					letter-spacing: -6px; 
+					line-height: 3.5625rem; 
+					text-align: left;
+					width: initial !important; 
+					word-break: break-all;
+				">
+					<div style="max-width: 60rem; margin: auto;">{{ settings.siteTitle }}</div>
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td style="padding: 2rem 1rem;">
+					<div style="max-width: 60rem; margin: auto;">{{{ body }}}</div>
+				</td>
+			</tr>
+		</tbody>
+		<tfoot>
+			<tr>
+				<td style="
+					padding: 2rem;
+					background-color: #333333;
+					color: white;
+					font-family: helvetica;
+					margin-top: 2rem;
+					font-size: .75rem;
+					font-weight: 100;
+					letter-spacing: 1px;
+				">
+					<div style="max-width: 60rem; margin: auto; padding: 0 1rem;">{{#if email.signature.html }}{{{ email.signature.html }}}{{ else }}{{ settings.siteTitle }}{{/if }}</div>
+				</td>
+			</tr>
+		</tfoot>
+
+	</table>
+
+</body>
+</html>

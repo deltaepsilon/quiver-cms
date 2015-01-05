@@ -1,0 +1,69 @@
+<div class="post-left">
+    {{#if keyImage }}
+      <a href="/{{ slug }}">
+          {{#if keyImage.Versions.small.Key }}
+            <img src="{{s3 keyImage.Versions.small.Key }}" alt="{{deSlug keyImage.Name }}"/>
+          {{ else }}
+              <img src="{{s3 keyImage.Key }}" alt="{{deSlug keyImage.Name }}"/>
+          {{/if }}
+      </a>
+    {{/if }}
+</div>
+<div class="post-right background-white">
+    <div class="post-title font-flair">
+        <a class="link-primary0" href="/{{ slug }}">{{ title }}</a>
+    </div>
+
+    <hr>
+
+    <div class="post-details">
+        <span class="author-name">{{ author.name }}</span>
+
+        <ul class="social inline-list">
+            <li class="comment-count">
+                <a class="link-secondary0 link-hover-secondary0" href="/{{ slug }}" data-disqus-identifier="{{ slug }}"></a>
+                <a class="link-secondary0 link-hover-secondary0" href="/{{ slug }}">
+                    <i class="fa fa-comment"></i>
+                </a>
+            </li>
+
+            <li>
+                <a class="link-secondary3 link-hover-secondary3" href="https://twitter.com/{{ author.twitter }}" target="_blank">
+                    <i class="fa fa-twitter"></i>
+                </a>
+            </li>
+            <li>
+                <a class="link-secondary3 link-hover-secondary3" href="https://instagram.com/{{ author.instagram }}" target="_blank">
+                    <i class="fa fa-instagram"></i>
+                </a>
+            </li>
+            <li>
+                <a class="link-secondary3 link-hover-secondary3" href="mailto:{{ author.email }}">
+                    <i class="fa fa-envelope"></i>
+                </a>
+            </li>
+        </ul>
+
+        <div class="publish-date">{{calendar published.published}}</div>
+
+    </div>
+
+
+
+    <div class="excerpt">
+        {{#if excerpt }}
+          {{markdown excerpt }}
+        {{/if }}
+    </div>
+
+    <ul class="hashtags inline-list">
+      {{#each hashtags }}
+          <li>
+              <a href="/search/{{ this.key }}">#{{ this.value }}</a>
+          </li>
+      {{/each }}
+    </ul>
+
+
+
+</div>

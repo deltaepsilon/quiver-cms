@@ -1,0 +1,80 @@
+@mixin keyframes($name) {
+  @keyframes #{$name} {
+    @content;
+  }
+
+  @-webkit-keyframes #{$name} {
+    @content;
+  }
+
+  @-moz-keyframes #{$name} {
+    @content;
+  }
+
+  @-ms-keyframes #{$name} {
+    @content;
+  }
+}
+
+@mixin placeholder($color) {
+  &::-moz-placeholder { color: $color }
+  &::-webkit-input-placeholder { color: $color }
+  &:-ms-input-placeholder { color: $color }
+}
+
+@mixin transition($property, $time:"", $method:""){
+  -webkit-transition : $property #{$time} #{$method};
+  -moz-transition    : $property #{$time} #{$method};
+  -ms-transition     : $property #{$time} #{$method};
+  -o-transition      : $property #{$time} #{$method};
+  transition         : $property #{$time} #{$method};
+}
+
+@mixin boxShadow($x:'1px', $y:'1px', $blur:'1px', $offset:'0', $color:"#000"){
+  -moz-box-shadow    : #{$x} #{$y} #{$blur} #{$offset} #{$color};
+  -webkit-box-shadow : #{$x} #{$y} #{$blur} #{$offset} #{$color};
+  box-shadow         : #{$x} #{$y} #{$blur} #{$offset} #{$color};
+}
+
+@mixin before() {
+  content: "";
+  display: block;
+  position: relative;
+}
+
+@mixin after() {
+  @include before;
+}
+
+@mixin border-radius($radius: 2px) {
+  -webkit-border-radius: $radius;
+  -moz-border-radius: $radius;
+  border-radius: $radius;
+}
+
+
+@mixin border-radius-by-corner($top-left, $top-right, $bottom-right, $bottom-left) {
+  -webkit-border-top-left-radius: $top-left;
+  -moz-border-top-left-radius: $top-left;
+  border-top-left-radius: $top-left;
+
+  -webkit-border-top-right-radius: $top-right;
+  -moz-border-top-right-radius: $top-right;
+  border-top-right-radius: $top-right;
+
+  -webkit-border-bottom-right-radius: $bottom-right;
+  -moz-border-bottom-right-radius: $bottom-right;
+  border-bottom-right-radius: $bottom-right;
+
+  -webkit-border-bottom-left-radius: $bottom-left;
+  -moz-border-bottom-left-radius: $bottom-left;
+  border-bottom-left-radius: $bottom-left;
+}
+
+@mixin absolute($top: 0, $right: 0, $bottom: 0, $left: 0) {
+  position: absolute;
+  top: $top;
+  right: $right;
+  bottom: $bottom;
+  left: $left;
+}

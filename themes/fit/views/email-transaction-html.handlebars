@@ -1,0 +1,158 @@
+<div style="font-family: helvetica; font-weight: lighter;">
+	<div style="margin: 2rem 0 3rem;">
+		<h3>Thank you for your purchase!</h3>
+		<div style="font-size: .9rem;">
+			<p>
+				We love to take care of our customers, so contact us anytime!
+			</p>
+			<p>
+				{{#if email.sincerely}}
+					{{{ email.sincerely }}}
+				{{ else }}
+					Sincerely,<br>
+					The team at {{settings.siteTitle}}
+				{{/if }}
+				
+			</p>
+
+		</div>
+
+	</div>
+	
+	
+	<style type="text/css">
+		#body-table td {
+			padding-bottom: .5rem;
+			padding-right: 1rem;
+		}
+
+		#items-list > li {
+			padding-bottom: 1rem;
+		}
+
+		#totals-table td {
+			padding: 0 1rem 0 0;
+		}
+
+		hr {
+			border-width: 1px 0 0 0;
+		}
+
+	</style>
+
+	<hr>
+
+	<table id="body-table" style="
+		font-weight: lighter;
+		font-size: .8rem;
+		margin: 2rem;
+	">
+		<thead>
+			<tr>
+				<th colspan="2" style="
+					text-align: left; 
+					text-transform: uppercase;
+				">
+					Transaction Details
+				</th>
+			</tr>
+		</thead>
+		<tbody style="vertical-align: top;">
+			<tr>
+				<td>Link</td>
+				<td><a href="{{ configPublic.root }}/app/user/{{ transaction.userId }}/transaction/{{ key }}">{{ configPublic.root }}/app/user/{{ transaction.userId }}/transaction/{{ key }}</a></td>
+			</tr>
+			<tr>
+				<td>Date</td>
+				<td>{{date transaction.date "MMMM D, YYYY" }} at {{date transaction.date "HH:mm" }} GMT</td>
+			</tr>
+			<tr>
+				<td>Items</td>
+				<td>
+					<ul id="items-list" style="list-style-type: none; padding: 0;">
+							{{#each transaction.items }}
+							<li>
+								<strong>{{ title }}{{#if optionsMatrixSelected}} ({{ optionsMatrixSelected.name }}){{/if }}:</strong> {{ quantity }} x ${{#if priceAdjusted }}{{ priceAdjusted }}{{ else }}{{ price }}{{/if }}	
+								{{#if resource }}
+									<p style="margin: 0;">
+										Download:
+									</p>
+									<ul style="list-style-type: none; padding: 0 .5rem; margin: 0;">
+										<li>{{ ../../configPublic.root }}/resource/{{ resource.key }}</li>
+									</ul>
+									
+									
+									
+										
+
+								{{/if }}
+								{{#if discounts}}
+									<p style="margin: 0;">
+										Discounts:
+									</p>
+									<ul style="list-style-type: none; padding: 0 .5rem; margin: 0;">
+											{{#each discounts}}
+											<li>
+												{{ code }}: {{ value }}USD
+											</li>
+										{{/each}}
+										</ul>
+									
+								
+								{{/if }}
+							</li>
+							{{/each }}						
+						</ul>
+				</td>
+			</tr>
+			<tr>
+				<td>Totals</td>
+				<td>
+					<table id="totals-table" style="
+						font-weight: lighter;
+						font-size: .8rem;
+					">
+						<tbody>
+							{{#if transaction.discount }}
+							<tr>
+								<td>Discount</td>
+								<td>{{currency transaction.discount "$" }}</td>
+							</tr>
+							{{/if }}
+							<tr>
+								<td>Subtotal</td>
+								<td>{{currency transaction.subtotal "$" }}</td>
+							</tr>
+							<tr>
+								<td>Shipping</td>
+								<td>{{currency transaction.shipping "$" }}</td>
+							</tr>
+							<tr>
+								<td>Tax</td>
+								<td>{{currency transaction.tax "$" }}</td>
+							</tr>
+							<tr>
+								<td>Total</td>
+								<td>{{currency transaction.total "$" }}</td>
+							</tr>
+						</tbody>
+					</table>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+
+	<hr>
+
+	<ul style="
+						list-style-type: none; 
+						padding: 0;
+						font-size: .6rem;
+						float: right;
+					">
+						<li>User ID: {{ transaction.userId }}</li>
+						<li>Transaction ID: {{ key }}</li>
+						<li>Charge Date: {{date transaction.date }}</li>
+					</ul>
+
+</div>

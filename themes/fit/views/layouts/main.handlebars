@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>{{> title }}</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <script type="text/javascript" src="//use.typekit.net/bmk8cii.js"></script>
+    <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+    <link rel="icon" type="image/x-icon" href="/static/favicon.ico"/>
+    <link rel="stylesheet" href="/static/styles/style.css">
+    <link rel="stylesheet" href="/static/lib/rainbow/themes/github.css">
+    <script src="/env.js"></script>
+
+</head>
+<body ng-app="QuiverCMS" ng-controller="MasterCtrl">
+
+  <input id="off-canvas-checkbox" class="off-canvas-checkbox" type="checkbox"/>
+  <div class="off-canvas-wrap checkbox-move-left">
+      <div class="inner-wrap">
+          <section class="clearfix hidden-for-small">
+            {{> nav-medium }}
+          </section>
+          <section class="clearfix show-for-small-down">
+            {{> nav-small }}
+          </section>
+          <section id="body-container" style="min-height: 10rem;">
+            {{{body}}}
+          </section>
+
+      </div>
+
+
+
+  </div>
+
+  {{#if env.liveReload }}
+    {{> livereload}}
+  {{/if  }}
+
+  {{#if env.google.analyticsId }}
+    {{> analytics }}
+  {{/if }}
+
+  {{> disqus-comment-count }}
+
+  <script src="/static/lib/rainbow/js/rainbow.js"></script>
+  <script src="/static/lib/jquery/jquery.min.js"></script>
+  <script src="/static/lib/jquery.finger/dist/jquery.finger.js"></script>
+  <script src="/static/lib/angular/angular.js"></script>
+  <script src="/static/lib/ngstorage/ngStorage.js"></script>
+  <script src="/static/lib/moment/min/moment.min.js"></script>
+  <script src="/static/lib/underscore/underscore-min.js"></script>
+  <script src="/static/lib/angular-notifications/notification.js"></script>
+  <script src="/static/lib/firebase/firebase.js"></script>
+  <script src="/static/lib/angularfire/dist/angularfire.js"></script>
+  <script src="/static/lib/angular-ui-router/release/angular-ui-router.js"></script>
+  <script src="/static/lib/quiver-angular-utilities/utilities.js"></script>
+  <script src="/static/lib/angularfire-authentication/angularfire-authentication.js"></script>
+  <script src="/static/lib/angular-md5/angular-md5.js"></script>
+  <script src="/static/scripts/app.js"></script>
+
+</body>
+</html>

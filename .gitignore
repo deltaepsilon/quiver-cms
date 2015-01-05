@@ -23,6 +23,10 @@ themes/*
 themes/quiver/static/lib/*
 themes/quiver/views/*.alt.handlebars
 
+!themes/fit
+themes/fit/static/lib/*
+themes/fit/views/*.alt.handlebars
+
 !bin/*.dist
 !certs/snakeoil*
 !nginx/default

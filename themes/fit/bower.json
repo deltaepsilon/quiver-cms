@@ -1,0 +1,51 @@
+{
+  "name": "Quiver CMS",
+  "version": "0.0.1",
+  "homepage": "https://github.com/deltaepsilon/quiver-cms",
+  "authors": [
+    "Chris Esplin <chris@quiver.is>"
+  ],
+  "description": "A front end to the Quiver CMS.",
+  "main": "index.html",
+  "keywords": [
+    "quiver",
+    "node",
+    "express",
+    "cms"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "static/lib",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.3.0",
+    "json3": "~3.3.2",
+    "es5-shim": "~4.0.3",
+    "foundation": "~5.4.4",
+    "font-awesome": "~4.2.0",
+    "rainbow": "~1.1.9",
+    "ngstorage": "~0.3.0",
+    "moment": "~2.8.3",
+    "underscore": "~1.7.0",
+    "quiver-angular-utilities": "git@github.com:deltaepsilon/quiver-angular-utilities.git#master",
+    "angularfire": "~0.9.0",
+    "angular-ui-router": "~0.2.11",
+    "angular-md5": "~0.1.7",
+    "angularfire-authentication": "git@github.com:deltaepsilon/angularfire-authentication.git#master",
+    "jquery.finger": "~0.1.2"
+  },
+  "devDependencies": {
+    "livereload": "~2.0.8"
+  },
+  "resolutions": {
+    "angular": "~1.3.0",
+    "firebase": "~2.0.4",
+    "angularfire": "~0.9.0",
+    "jquery": ">=1.2"
+  }
+}

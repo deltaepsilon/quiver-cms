@@ -1,0 +1,7 @@
+.reveal-modal {
+  a.close-reveal-modal {
+    @extend .text-large;
+    @extend .fa;
+    @extend .fa-times;
+  }
+}

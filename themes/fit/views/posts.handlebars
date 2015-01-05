@@ -1,0 +1,28 @@
+{{!--<div class="full-bleed tall underlay fade-white">--}}
+    {{!--<img src="{{ settings.frontPageImage }}"/>--}}
+{{!--</div>--}}
+
+{{#if title }}
+  <div class="row">
+      <h3 class="font-flair margin-large">{{ title }}</h3>
+  </div>
+{{/if }}
+
+<div id="posts" class="posts row">
+  <ul class="post-block-tertiary column small-12">
+    {{#if posts}}
+      {{#each posts }}
+          <li class="post post-{{ @index }}">
+            {{> inline-post }}
+          </li>
+      {{/each }}
+    {{ else }}
+      <li class="post not-found">
+        <h5 class="font-flair margin-x-small">No posts found!</h5>
+      </li>
+    {{/if }}
+  </ul>
+
+  {{> prev-next }}
+
+</div>

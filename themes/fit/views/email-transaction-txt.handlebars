@@ -1,0 +1,36 @@
+Thank you for your purchase. We love to take care of our customers, so contact us anytime!
+
+Transaction Link:
+	{{ configPublic.root }}/app/transaction/{{ key }}
+
+Date: 
+	{{date transaction.date "MMMM D, YYYY" }} at {{date transaction.date "HH:mm" }} GMT
+
+Items:
+{{#each transaction.items }}
+	{{ title }}{{#if optionsMatrixSelected}} ({{ optionsMatrixSelected.name }}){{/if }}: {{ quantity }} x ${{#if priceAdjusted }}{{ priceAdjusted }}{{ else }}{{ price }}{{/if }}
+{{#if resource }}
+	Download: 
+		{{ ../../configPublic.root }}/resource/{{ resource.key }}
+{{/if }}
+{{#if discounts}}
+	Discounts:
+	{{#each discounts}}
+		{{ code }}: {{ value }}USD
+	{{/each}}
+{{/if }}
+
+{{/each }}
+Totals:
+{{#if transaction.discount }}
+	Discount:	{{ transaction.discount }}
+{{/if }}
+	Subtotal:	{{ transaction.subtotal }}
+	Shipping:	{{ transaction.shipping }}
+	Tax:		{{ transaction.tax}}
+	Total:		{{ transaction.total }}
+
+Reference:
+	User ID: {{ transaction.userId }}
+	Transaction ID: {{ key }}
+	Charge Date: {{date transaction.date }}

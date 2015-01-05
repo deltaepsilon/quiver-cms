@@ -1,0 +1,9 @@
+You have feedback!
+
+View your feedback online for {{ assignment.title }}:
+  {{ configPublic.root }}/app/subscription/{{ userAssignment.subscriptionKey }}/assignment/{{ assignmentKey }}
+
+Messages:
+{{#each userAssignment.messages }}
+  {{ user.name }}:  {{ text }}
+{{/each }}

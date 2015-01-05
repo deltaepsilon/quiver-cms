@@ -1,0 +1,15 @@
+button, .button {
+  &.callout {
+    @extend .background-secondary1;
+
+    text-transform: uppercase;
+
+    &:hover {
+      @extend .background-secondary0;
+    }
+
+    &:active, &:focus {
+      background-color: adjust-lightness(getColor(secondary0), 20);
+    }
+  }
+}

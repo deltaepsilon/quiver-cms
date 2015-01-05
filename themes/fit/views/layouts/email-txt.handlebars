@@ -1,0 +1,5 @@
+{{#if user.public.name }}Greetings {{ user.public.name }}{{ else }}Greetings{{/if }},
+
+{{ body }}
+
+{{#if email.signature.text }}{{ email.signature.text }}{{ else }}{{ settings.siteName }}{{/if }}

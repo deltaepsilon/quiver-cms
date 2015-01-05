@@ -1,0 +1,33 @@
+.block-form {
+  margin: 0;
+  display: block;
+  overflow: scroll;
+  height: 23rem;
+
+  &.no-wrap {
+    li {
+      white-space: nowrap;
+    }
+  }
+
+  .title {
+    @extend .background-primary0;
+    @extend .text-white0;
+    @extend .text-large;
+
+    text-align: center;
+  }
+
+  li {
+    @extend .padding-x-small;
+  }
+
+  label {
+    @extend .text-large;
+  }
+
+  [type="radio"], [type="checkbox"] {
+    position: relative;
+    top: -3px;
+  }
+}

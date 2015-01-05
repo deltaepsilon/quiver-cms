@@ -1,0 +1,82 @@
+{{#if post.keyImage }}
+  <div class="full-bleed blurred">
+    <img src="{{s3 post.keyImage.Key }}"/>
+  </div>
+{{/if}}
+<div id="page" class="row">
+  <div class="post column small-12">
+      <h3 class="post-title font-flair">
+          <a class="link-primary0" href="/{{ post.slug }}">{{ post.title }}</a>
+      </h3>
+
+      <div class="post-details margin-vertical-medium">
+          <span class="author-name left">By {{ post.author.name }}</span>
+
+
+          <ul class="social inline-list left margin-horizontal-medium-important">
+              <li>
+                  <a href="https://twitter.com/{{ post.author.twitter }}" target="_blank">
+                      <i class="fa fa-twitter"></i>
+                  </a>
+              </li>
+              <li>
+                  <a href="https://instagram.com/{{ post.author.instagram }}" target="_blank">
+                      <i class="fa fa-instagram"></i>
+                  </a>
+              </li>
+              <li>
+                  <a href="mailto:{{ post.author.email }}">
+                      <i class="fa fa-envelope"></i>
+                  </a>
+              </li>
+          </ul>
+
+          <span class="publish-date right">{{calendar post.published.published}}</span>
+
+      </div>
+
+      <div class="full-bleed underlay">
+          <hr class="margin-zero">
+      </div>
+
+      <div class="share margin-vertical-large padding-medium right background-secondary4">
+          <ul class="inline-list margin-zero-important">
+              <li class="margin-zero-important">
+                  <h6 class="margin-vertical-xx-small">SHARE</h6>
+              </li>
+              <li>
+                  <a class="social-button background-twitter" href="http://twitter.com/share?text={{ post.title }}&url={{ post.url }}"><i class="fa fa-twitter text-white"></i></a>
+              </li>
+              <li>
+                  <a class="social-button background-facebook" href="https://www.facebook.com/sharer/sharer.php?u={{ post.url }}"><i class="fa fa-facebook text-white"></i></a>
+              </li>
+              <li>
+                  <a class="social-button background-google-plus" href="https://plus.google.com/share?url={{ post.url }}"><i class="fa fa-google-plus text-white"></i></a>
+              </li>
+              <li>
+                  <a class="social-button background-secondary0" href="mailto:?subject={{ post.title }}&body={{ post.url }}"><i class="fa fa-envelope text-white"></i></a>
+              </li>
+          </ul>
+
+      </div>
+
+      <div class="post-body margin-vertical-x-large">
+        {{markdown post.published.markdown }}
+      </div>
+
+  </div>
+
+
+
+</div>
+
+{{#if env.disqus.shortname }}
+    <div class="background-secondary4 padding-vertical-large">
+        <div class="row">
+            <div class="comments disqus panel column small-12 margin-vertical-large">
+              {{> disqus }}
+            </div>
+        </div>
+    </div>
+
+{{/if }}
