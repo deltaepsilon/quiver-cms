@@ -57,7 +57,29 @@ angular.module('quiverCmsApp')
           value: 60,
           description: '60 Minutes'
         }
-      ]
+      ],
+
+      circuitTypes: [
+        {
+          priority: 1,
+          name: 'abcd',
+          description: 'ABCD'
+        },
+        {
+          priority: 2,
+          name: 'abc',
+          description: 'ABC'
+        },
+        {
+          priority: 3,
+          name: 'ab',
+          description: 'AB'
+        }
+      ],
+
+      video: {
+        duration: 30
+      }
 
     };
 

@@ -78,17 +78,117 @@ angular.module('quiverCmsApp')
           return _.compact(result);
 
         })(grouped);
+      
+      var getExercise = function () {
+          var exercise = sorted.shift();
+          sorted.push(exercise);
+          return exercise;
+        },
+        level = settings[preferences.type][preferences.intensity],
+        circuitTypes = _.sortBy(FitService.circuitTypes, function (type) { return type.priority || 0; }),
+        secondsMax = preferences.duration * 60,
+        circuit = {
+          flat: [],
+          grouped: [],
+          seconds: 0
+        },
+        type,
+        last;
+
+      while (circuit.seconds <= secondsMax) {
+        type = circuitTypes.shift();
+        circuitTypes.push(type);
+
+        circuit.grouped.push({
+          type: type,
+          exercises: {},
+          duration: 0
+        });
+
+        var group = circuit.grouped[circuit.grouped.length - 1],
+          slots = type.name.split(''),
+          sets = type.name === 'abcd' ? level.sets.min : level.sets.max,
+          setRest = type.name === 'abcd' ? level.rest.min : level.rest.max,
+          exerciseRest = level.rest.exercise,
+          exerciseDuration = FitService.video.duration,
+          last = true,
+          flat = [],
+          flatIndex,
+          exercise,
+          slotsLength = slots.length,
+          j = slotsLength,
+          k;
+        
+
+        while (j--) {
+          exercise = getExercise();
+          exercise.duration = exerciseDuration;
+          exercise.rest = exerciseRest;
+          exercise.last = last;
+          last = false;
+
+          group.exercises[slots[j]] = exercise;
+
+
+          k = sets - 1;
+          while (k--) {
+            flatIndex = j + k * slotsLength;
+            flat[flatIndex] = _.clone(exercise);
+            // flat.splice(1 + flatIndex, 0, {type: 'rest', duration: last ? setRest : exerciseRest});
+          }
+
+        }
+
+        var l = flat.length;
+
+        while (l--) {
+          flat.splice(l + 1, 0, {type: 'rest', title: 'Rest', duration: flat[l].last ? setRest : exerciseRest});
+        }
+
+        _.each(flat, function (activity) {
+          if (activity) {
+            group.duration += activity.duration;
+            circuit.seconds += activity.duration;
+          }
+          
+        });
+        
+
+        circuit.flat = circuit.flat.concat(flat);
+
+      }     
+
+      var cumulativeDuration = 0;
+
+      _.each(circuit.flat, function (exercise) {
+        cumulativeDuration += exercise.duration;
+        exercise.cumulativeDuration = cumulativeDuration;
+      });
+
+      if (circuit.flat[circuit.flat.length - 1].type === 'rest') {
+        circuit.flat.splice(circuit.flat.length - 1, 1);
+      }
+
+      $scope.workout = {
+        exercises: sorted,
+        circuit: circuit,
+        preferences: preferences
+      };
+
+      console.log($scope.workout);
 
       // _.each(sorted, function (exercise) {
       //   console.log(exercise);
       // });
-
-      $scope.workout = {
-        exercises: sorted,
-        preferences: preferences
-      };
       
     };
+
+    $scope.$id = function (item) {
+      console.log(item.index);
+      return item.index;
+    };
+
+
 
     $scope.types = FitService.types;
 

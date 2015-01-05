@@ -58,7 +58,7 @@
 </div>
 
 <div class="column small-12" ng-show="workout.exercises.length">
-  <h5 class="font-flair">Workout</h5>
+  <h5 class="font-flair">Exercises</h5>
 
   <ul class="table-list hover padded striped">
     <li class="table-list-header">
@@ -88,6 +88,42 @@
       <div class="column small-12 medium-3">
         <a href="{{ exercise[workout.preferences.intensity].video.primary || exercise.levelOne.video }}" target="_blank">Primary</a>, 
         <a href="{{ exercise[workout.preferences.intensity].video.secondary || exercise.levelTwo.video }}" target="_blank">Secondary</a>
+      </div>
+    </li>
+  </ul>
+</div>
+
+<div class="column small-12" ng-show="workout.circuit.flat.length">
+  <h5 class="font-flair">Circuit Flat</h5>
+
+  <ul class="table-list hover padded striped">
+    <li class="table-list-header">
+      <div class="column small-12 medium-3">
+        Exercise
+      </div>
+      <div class="column small-12 medium-3">
+        Equipment
+      </div>
+      <div class="column small-12 medium-3">
+        Rep Range
+      </div>
+      <div class="column small-12 medium-3">
+        Time
+      </div>
+    </li>
+    <li ng-repeat="exercise in workout.circuit.flat track by $index">
+      <div class="column small-12 medium-3">
+        {{ exercise.title }}
+      </div>
+      <div class="column small-12 medium-3">
+        {{ exercise.equipment }}&nbsp;
+      </div>
+      <div class="column small-12 medium-3">
+        <span>{{ exercise.duration }}s</span>
+        <span ng-show="exercise[workout.preferences.intensity].reps"> / {{ exercise[workout.preferences.intensity].reps.min }} - {{ exercise[workout.preferences.intensity].reps.max }} reps</span>
+      </div>
+      <div class="column small-12 medium-3">
+        {{ exercise.cumulativeDuration | clockTime }}
       </div>
     </li>
   </ul>
