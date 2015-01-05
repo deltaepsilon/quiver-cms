@@ -8,13 +8,13 @@
  * Controller of the quiverCmsApp
  */
 angular.module('quiverCmsApp')
-  .controller('WorkoutCtrl', function ($scope, settingsRef, exercisesRef, FitService, _) {
+  .controller('WorkoutCtrl', function ($scope, fitSettingsRef, exercisesRef, FitService, _) {
     /*
      * Settings
      */
-    var settings = settingsRef.$asObject();
+    var fitSettings = fitSettingsRef.$asObject();
 
-    $scope.settings = settings;
+    $scope.fitSettings = fitSettings;
 
     /*
      * Exercises
@@ -84,8 +84,12 @@ angular.module('quiverCmsApp')
           sorted.push(exercise);
           return exercise;
         },
-        level = settings[preferences.type][preferences.intensity],
-        circuitTypes = _.sortBy(FitService.circuitTypes, function (type) { return type.priority || 0; }),
+        level = fitSettings[preferences.type][preferences.intensity],
+        enabledCircuitTypes = Object.keys(level.sets.types),
+        allCircuitTypes = _.sortBy(FitService.circuitTypes, function (type) { return type.priority || 0; }),
+        circuitTypes = _.filter(allCircuitTypes, function (type) {
+          return ~enabledCircuitTypes.indexOf(type.name);
+        }),
         secondsMax = preferences.duration * 60,
         circuit = {
           flat: [],
@@ -94,6 +98,7 @@ angular.module('quiverCmsApp')
         },
         type,
         last;
+
 
       while (circuit.seconds <= secondsMax) {
         type = circuitTypes.shift();
@@ -108,9 +113,9 @@ angular.module('quiverCmsApp')
         var group = circuit.grouped[circuit.grouped.length - 1],
           slots = type.name.split(''),
           sets = type.name === 'abcd' ? level.sets.min : level.sets.max,
-          setRest = type.name === 'abcd' ? level.rest.min : level.rest.max,
-          exerciseRest = level.rest.exercise,
-          exerciseDuration = FitService.video.duration,
+          setRest = typeof level.rest === 'number' ? level.rest : type.name === 'abcd' ? level.rest.min : level.rest.max,
+          exerciseRest = level.interval ? level.interval.rest : level.rest.exercise,
+          exerciseDuration = level.interval ? level.interval.work : FitService.video.duration,
           last = true,
           flat = [],
           flatIndex,
@@ -118,7 +123,6 @@ angular.module('quiverCmsApp')
           slotsLength = slots.length,
           j = slotsLength,
           k;
-        
 
         while (j--) {
           exercise = getExercise();
@@ -130,7 +134,7 @@ angular.module('quiverCmsApp')
           group.exercises[slots[j]] = exercise;
 
 
-          k = sets - 1;
+          k = Math.max((sets || 1) - 1, 1);
           while (k--) {
             flatIndex = j + k * slotsLength;
             flat[flatIndex] = _.clone(exercise);
@@ -196,15 +200,24 @@ angular.module('quiverCmsApp')
 
     $scope.durations = FitService.durations;
 
-    $scope.preferences = {
-      type: $scope.types[0].name,
-      intensity: $scope.levels[1].name,
-      duration: $scope.durations[2].value,
-      equipment: {
-        'none': true
-      },
-      bodyFocus: 'full-body'
+    
 
-    };
+    fitSettings.$loaded().then(function () {
+      $scope.bodyFocuses = _.toArray(fitSettings.bodyFocuses);
+
+      $scope.preferences = {
+        type: $scope.types[0].name,
+        intensity: $scope.levels[1].name,
+        duration: $scope.durations[2].value,
+        equipment: {
+          'none': true
+        },
+        bodyFocus: $scope.bodyFocuses[0].slug
+
+      };
+      
+    });
+
+    
 
   });

@@ -8,13 +8,13 @@
  * Controller of the quiverCmsApp
  */
 angular.module('quiverCmsApp')
-  .controller('FitSettingsCtrl', function ($scope, settingsRef, movementsRef, bodyFocusesRef, equipmentRef, FitService, Slug) {
+  .controller('FitSettingsCtrl', function ($scope, fitSettingsRef, movementsRef, bodyFocusesRef, equipmentRef, FitService, Slug) {
     /*
      * Settings
      */
-    var settings = settingsRef.$asObject();
+    var fitSettings = fitSettingsRef.$asObject();
 
-    settings.$bindTo($scope, 'settings');
+    fitSettings.$bindTo($scope, 'fitSettings');
 
     /*
      * Movements

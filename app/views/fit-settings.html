@@ -1,5 +1,5 @@
 <div class="column small-12">
-  <h3 class="font-flair">Fit.io Settings</h3>
+  <h3 class="font-flair">Fit.io fitSettings</h3>
 </div>
 
 <div class="column small-12">
@@ -142,40 +142,40 @@
 
       <div class="column small-12">
         <label for="strength-{{ level.name }}-sets-min">Min Sets/Exercise</label>
-        <input id="strength-{{ level.name }}-sets-min" type="number" ng-model="settings.strength[level.name].sets.min" placeholder="Min sets per exercise...">
+        <input id="strength-{{ level.name }}-sets-min" type="number" ng-model="fitSettings.strength[level.name].sets.min" placeholder="Min sets per exercise...">
       </div>
       <div class="column small-12">
         <label for="strength-{{ level.name }}-sets-max">Max Sets/Exercise</label>
-        <input id="strength-{{ level.name }}-sets-max" type="number" ng-model="settings.strength[level.name].sets.max" placeholder="Max sets per exercise...">
+        <input id="strength-{{ level.name }}-sets-max" type="number" ng-model="fitSettings.strength[level.name].sets.max" placeholder="Max sets per exercise...">
       </div>
       <div class="column small-12">
         <label>Set Types</label>
         <ul class="table-list label-padded hover striped">
           <li>
             <label for="strength-{{ level.name }}-types-ab" style="padding-left: 4rem;">AB</label>
-            <input id="strength-{{ level.name }}-types-ab" class="margin-xx-small-important" type="checkbox" ng-model="settings.strength[level.name].sets.types.ab">
+            <input id="strength-{{ level.name }}-types-ab" class="margin-xx-small-important" type="checkbox" ng-model="fitSettings.strength[level.name].sets.types.ab">
           </li>
           <li>
             <label for="strength-{{ level.name }}-types-abc" style="padding-left: 4rem;">ABC</label>
-            <input id="strength-{{ level.name }}-types-abc" class="margin-xx-small-important" type="checkbox" ng-model="settings.strength[level.name].sets.types.abc">
+            <input id="strength-{{ level.name }}-types-abc" class="margin-xx-small-important" type="checkbox" ng-model="fitSettings.strength[level.name].sets.types.abc">
           </li>
           <li>
             <label for="strength-{{ level.name }}-types-abcd" style="padding-left: 4rem;">ABCD</label>
-            <input id="strength-{{ level.name }}-types-abcd" class="margin-xx-small-important" type="checkbox" ng-model="settings.strength[level.name].sets.types.abcd">
+            <input id="strength-{{ level.name }}-types-abcd" class="margin-xx-small-important" type="checkbox" ng-model="fitSettings.strength[level.name].sets.types.abcd">
           </li>
         </ul>
       </div>
       <div class="column small-12">
         <label for="strength-{{ level.name }}-rest-min">Min Inter-Set Rest</label>
-        <input id="strength-{{ level }}-rest-min" type="number" ng-model="settings.strength[level.name].rest.min" placeholder="Min rest between sets (seconds)...">
+        <input id="strength-{{ level }}-rest-min" type="number" ng-model="fitSettings.strength[level.name].rest.min" placeholder="Min rest between sets (seconds)...">
       </div>
       <div class="column small-12">
         <label for="strength-{{ level.name }}-rest-max">Max Inter-Set Rest</label>
-        <input id="strength-{{ level.name }}-rest-max" type="number" ng-model="settings.strength[level.name].rest.max" placeholder="Max rest between sets (seconds)...">
+        <input id="strength-{{ level.name }}-rest-max" type="number" ng-model="fitSettings.strength[level.name].rest.max" placeholder="Max rest between sets (seconds)...">
       </div>
       <div class="column small-12">
         <label for="strength-{{ level.name }}-rest-exercise">Inter-Exercise Rest</label>
-        <input id="strength-{{ level.name }}-rest-exercise" type="number" ng-model="settings.strength[level.name].rest.exercise" placeholder="Rest between exercises (seconds)...">
+        <input id="strength-{{ level.name }}-rest-exercise" type="number" ng-model="fitSettings.strength[level.name].rest.exercise" placeholder="Rest between exercises (seconds)...">
       </div>
       
     </fieldset>
@@ -195,30 +195,30 @@
 
       <div class="column small-12">
         <label for="hiit-{{ level.name }}-interval-work">Work Interval</label>
-        <input id="hiit-{{ level.name }}-interval-work" type="number" ng-model="settings.hiit[level.name].interval.work" placeholder="Work interval (seconds)...">
+        <input id="hiit-{{ level.name }}-interval-work" type="number" ng-model="fitSettings.hiit[level.name].interval.work" placeholder="Work interval (seconds)...">
       </div>
       <div class="column small-12">
         <label for="hiit-{{ level.name }}-interval-rest">Rest Interval</label>
-        <input id="hiit-{{ level.name }}-interval-rest" type="number" ng-model="settings.hiit[level.name].interval.rest" placeholder="Rest interval (seconds)...">
+        <input id="hiit-{{ level.name }}-interval-rest" type="number" ng-model="fitSettings.hiit[level.name].interval.rest" placeholder="Rest interval (seconds)...">
       </div>
       <div class="column small-12">
         <label for="hiit-{{ level.name }}-rest">Circuit Rest</label>
-        <input id="hiit-{{ level.name }}-rest" type="number" ng-model="settings.hiit[level.name].rest" placeholder="Rest between circuits (seconds)...">
+        <input id="hiit-{{ level.name }}-rest" type="number" ng-model="fitSettings.hiit[level.name].rest" placeholder="Rest between circuits (seconds)...">
       </div>
       <div class="column small-12">
         <label>Set Types</label>
         <ul class="table-list label-padded hover striped">
           <li>
             <label for="hiit-{{ level.name }}-types-ab" style="padding-left: 4rem;">AB</label>
-            <input id="hiit-{{ level.name }}-types-ab" class="margin-xx-small-important" type="checkbox" ng-model="settings.hiit[level.name].sets.types.ab">
+            <input id="hiit-{{ level.name }}-types-ab" class="margin-xx-small-important" type="checkbox" ng-model="fitSettings.hiit[level.name].sets.types.ab">
           </li>
           <li>
             <label for="hiit-{{ level.name }}-types-abc" style="padding-left: 4rem;">ABC</label>
-            <input id="hiit-{{ level.name }}-types-abc" class="margin-xx-small-important" type="checkbox" ng-model="settings.hiit[level.name].sets.types.abc">
+            <input id="hiit-{{ level.name }}-types-abc" class="margin-xx-small-important" type="checkbox" ng-model="fitSettings.hiit[level.name].sets.types.abc">
           </li>
           <li>
             <label for="hiit-{{ level.name }}-types-abcd" style="padding-left: 4rem;">ABCD</label>
-            <input id="hiit-{{ level.name }}-types-abcd" class="margin-xx-small-important" type="checkbox" ng-model="settings.hiit[level.name].sets.types.abcd">
+            <input id="hiit-{{ level.name }}-types-abcd" class="margin-xx-small-important" type="checkbox" ng-model="fitSettings.hiit[level.name].sets.types.abcd">
           </li>
         </ul>
       </div>
@@ -240,30 +240,30 @@
 
       <div class="column small-12">
         <label for="cardio-{{ level.name }}-interval-work">Work Interval</label>
-        <input id="cardio-{{ level.name }}-interval-work" type="number" ng-model="settings.cardio[level.name].interval.work" placeholder="Work interval (seconds)...">
+        <input id="cardio-{{ level.name }}-interval-work" type="number" ng-model="fitSettings.cardio[level.name].interval.work" placeholder="Work interval (seconds)...">
       </div>
       <div class="column small-12">
         <label for="cardio-{{ level.name }}-interval-rest">Rest Interval</label>
-        <input id="cardio-{{ level.name }}-interval-rest" type="number" ng-model="settings.cardio[level.name].interval.rest" placeholder="Rest interval (seconds)...">
+        <input id="cardio-{{ level.name }}-interval-rest" type="number" ng-model="fitSettings.cardio[level.name].interval.rest" placeholder="Rest interval (seconds)...">
       </div>
       <div class="column small-12">
         <label for="cardio-{{ level.name }}-rest">Circuit Rest</label>
-        <input id="cardio-{{ level.name }}-rest" type="number" ng-model="settings.cardio[level.name].rest" placeholder="Rest between circuits (seconds)...">
+        <input id="cardio-{{ level.name }}-rest" type="number" ng-model="fitSettings.cardio[level.name].rest" placeholder="Rest between circuits (seconds)...">
       </div>
       <div class="column small-12">
         <label>Set Types</label>
         <ul class="table-list label-padded hover striped">
           <li>
             <label for="cardio-{{ level.name }}-types-ab" style="padding-left: 4rem;">AB</label>
-            <input id="cardio-{{ level.name }}-types-ab" class="margin-xx-small-important" type="checkbox" ng-model="settings.cardio[level.name].sets.types.ab">
+            <input id="cardio-{{ level.name }}-types-ab" class="margin-xx-small-important" type="checkbox" ng-model="fitSettings.cardio[level.name].sets.types.ab">
           </li>
           <li>
             <label for="cardio-{{ level.name }}-types-abc" style="padding-left: 4rem;">ABC</label>
-            <input id="cardio-{{ level.name }}-types-abc" class="margin-xx-small-important" type="checkbox" ng-model="settings.cardio[level.name].sets.types.abc">
+            <input id="cardio-{{ level.name }}-types-abc" class="margin-xx-small-important" type="checkbox" ng-model="fitSettings.cardio[level.name].sets.types.abc">
           </li>
           <li>
             <label for="cardio-{{ level.name }}-types-abcd" style="padding-left: 4rem;">ABCD</label>
-            <input id="cardio-{{ level.name }}-types-abcd" class="margin-xx-small-important" type="checkbox" ng-model="settings.cardio[level.name].sets.types.abcd">
+            <input id="cardio-{{ level.name }}-types-abcd" class="margin-xx-small-important" type="checkbox" ng-model="fitSettings.cardio[level.name].sets.types.abcd">
           </li>
         </ul>
       </div>
@@ -272,11 +272,11 @@
         <ul class="table-list label-padded hover striped">
           <li>
             <label for="cardio-{{ level.name }}-types-ab" style="padding-left: 4rem;">Slow</label>
-            <input id="cardio-{{ level.name }}-types-ab" class="margin-xx-small-important" type="checkbox" ng-model="settings.cardio[level.name].pace.slow">
+            <input id="cardio-{{ level.name }}-types-ab" class="margin-xx-small-important" type="checkbox" ng-model="fitSettings.cardio[level.name].pace.slow">
           </li>
           <li>
             <label for="cardio-{{ level.name }}-types-abc" style="padding-left: 4rem;">Fast</label>
-            <input id="cardio-{{ level.name }}-types-abc" class="margin-xx-small-important" type="checkbox" ng-model="settings.cardio[level.name].pace.fast">
+            <input id="cardio-{{ level.name }}-types-abc" class="margin-xx-small-important" type="checkbox" ng-model="fitSettings.cardio[level.name].pace.fast">
           </li>
         </ul>
       </div>

@@ -32,7 +32,7 @@
 
       <div class="column small-12">
         <label for="workout-focus">Body Focus</label>
-        <select id="workout-focus" ng-model="preferences.bodyFocus" ng-options="focus.slug as focus.name for (key, focus) in settings.bodyFocuses" required>
+        <select id="workout-focus" ng-model="preferences.bodyFocus" ng-options="focus.slug as focus.name for (key, focus) in fitSettings.bodyFocuses" required>
           <option value="">Select a body focus...</option>
         </select>
 
@@ -41,7 +41,7 @@
       <div class="column small-12">
         <label>Equipment</label>
         <ul class="table-list label-padded hover striped">
-          <li ng-repeat="(key, item) in settings.equipment">
+          <li ng-repeat="(key, item) in fitSettings.equipment">
             <label for="equipment-{{ item.slug }}" style="padding-left: 4rem;">{{ item.name }}</label>
             <input id="equipment-{{ item.slug }}" class="margin-xx-small-important" type="checkbox" ng-model="preferences.equipment[item.slug]" ng-change="validateEquipment(item, preferences)">
           </li>

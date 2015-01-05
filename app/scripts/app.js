@@ -922,7 +922,7 @@ angular.module('quiverCmsApp', [
         templateUrl: 'views/fit-settings.html',
         controller: 'FitSettingsCtrl',
         resolve: {
-          settingsRef: function (AdminService) {
+          fitSettingsRef: function (AdminService) {
             return AdminService.getFitSettings();   
           },
           movementsRef: function (AdminService) {
@@ -1002,7 +1002,7 @@ angular.module('quiverCmsApp', [
         templateUrl: 'views/fit-workout-builder.html',
         controller: 'WorkoutCtrl',
         resolve: {
-          settingsRef: function (AdminService) {
+          fitSettingsRef: function (AdminService) {
             return AdminService.getFitSettings();   
           },
           exercisesRef: function (AdminService) {
