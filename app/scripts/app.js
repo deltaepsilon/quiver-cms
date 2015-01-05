@@ -461,6 +461,18 @@ angular.module('quiverCmsApp', [
                 return AdminService.getSettings();
               }
             }
+          },
+          footer: {
+            templateUrl: 'views/admin-footer.html',
+            controller: 'FooterCtrl',
+            resolve: {
+              limit: function () {
+                return 2;
+              },
+              filesRef: function (AdminService, limit) {
+                return AdminService.getOriginals({orderByPriority: true, limitToLast: limit});
+              }
+            }
           }
         }
       })

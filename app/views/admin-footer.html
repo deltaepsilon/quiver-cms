@@ -1,0 +1,66 @@
+<footer class="footer background-black0 text-white0">
+    <section class="row">
+        <div class="column small-12 padding-vertical-small">
+            <ul class="footer-links inline-list link-secondary4 link-hover-secondary1">
+                <li class="text-hover-success">
+                  <i class="cursor-pointer fa fa-camera open-image-gallery"></i>
+                </li>
+
+            </ul>
+        </div>
+    </section>
+
+</footer>
+
+<div qv-modal=".open-image-gallery" open="true">
+  <div class="modal-content" qv-list ref="filesRef" get-ref="getOriginals" limit="limit" locals="{bucket: bucket, getPrev: getPrev, getNext: getNext}">
+    <ul class="table-list hover padded striped">
+      <li class="table-list-header">
+        <div class="column small-12 medium-3">
+          Name
+        </div>
+        <div class="column small-12 medium-3">
+          Size
+        </div>
+        <div class="column small-12 medium-3">
+          Link
+        </div>
+        <div class="column small-12 medium-3">
+          CommonMark
+        </div>
+      </li>
+
+      <li ng-repeat="file in items">
+        <div class="column small-12 medium-3">
+          {{ file.Name }}
+        </div>
+        <div class="column small-12 medium-3">
+          {{ file.Size }}
+        </div>
+        <div class="column small-12 medium-3">
+          <input type="text" value="{{ file.Key | s3Link:bucket }}">
+        </div>
+        <div class="column small-12 medium-3">
+          <input type="text" value="[{{ file.Name }}]({{ file.Key | s3Link:bucket }})">
+          
+        </div>
+      </li>
+      <li class="no-stripe no-hover">
+        <div ng-hide="searching">
+          <div class="column small-3">
+            <button class="secondary small-12" ng-click="loadPrev(undefined, getPrev(items))" ng-disabled="disablePrev">Prev</button>&nbsp;
+          </div>
+          <div class="column small-3">
+            <button class="secondary small-12" ng-click="loadMore()" ng-disabled="disableMore">Load More +</button>
+          </div>
+          <div class="column small-3">
+            <button class="secondary small-12" ng-click="reset()" ng-disabled="disableReset">Reset</button>
+          </div>
+          <div class="column small-3">
+            <button class="secondary small-12" ng-click="loadNext(undefined, getNext(items))" ng-disabled="disableNext">Next</button>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>

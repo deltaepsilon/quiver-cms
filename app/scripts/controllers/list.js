@@ -14,6 +14,9 @@ angular.module('quiverCmsApp')
      */
     var items = ref.$asArray();
     $scope.items = items;
+    items.$loaded().then(function (items) {
+      console.log('items', items);
+    });
 
     // items.$loaded().then(function (items) {
     //   var i = items.length;
