@@ -132,7 +132,7 @@ angular.module('quiverCmsApp', [
                 var headers = {
                     "authorization": currentUser.token,
                     "user-id": currentUser.uid,
-                    "email": currentUser.auth.email
+                    "email": currentUser.password.email
                   };
                 RestangularProvider.setDefaultHeaders(headers);
                 flowFactoryProvider.defaults = {headers: headers, testChunks: false};
@@ -239,7 +239,7 @@ angular.module('quiverCmsApp', [
                 var headers = {
                     "authorization": currentUser.token,
                     "user-id": currentUser.uid,
-                    "email": currentUser.auth.email
+                    "email": currentUser.password.email
                   };
                 RestangularProvider.setDefaultHeaders(headers);
                 flowFactoryProvider.defaults = {headers: headers, testChunks: false};

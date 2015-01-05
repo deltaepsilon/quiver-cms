@@ -1,10 +1,10 @@
 .type-ahead {
   @extend .margin-zero;
   @extend .padding-zero;
-  @extend .border-gray;
+  @extend .border-gray0;
   @extend .text-small;
   @extend .text-primary2;
-  @extend .background-white;
+  @extend .background-white0;
 
   li {
     @extend .cursor-pointer;

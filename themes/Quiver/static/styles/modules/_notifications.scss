@@ -8,11 +8,11 @@
 
 .notifications {
   @mixin notification($background) {
-    color: getColor(white);
+    color: getColor(white0);
     background-color: getColor($background);
 
     h3 {
-      color: getColor(white);
+      color: getColor(white0);
     }
   }
   .notify {

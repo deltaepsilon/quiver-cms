@@ -9,7 +9,7 @@
     height: initial;
     position: relative;
 
-    @extend .text-white;
+    @extend .text-white0;
 
     .meter {
       @include absolute(0, initial, initial, 0);
