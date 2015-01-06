@@ -51,8 +51,12 @@ angular.module('quiverCmsApp')
         return $firebase(new Firebase(env.firebase.endpoint + '/users/' + userId + '/notifications/' + slug));
       },
 
-      resize: function () {
+      update: function () {
         return Restangular.one('admin').one('files').one('update').get();
+      },
+
+      resize: function () {
+        return Restangular.one('admin').one('files').one('resize').get();
       }
 
     };
