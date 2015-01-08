@@ -370,7 +370,7 @@ angular.module('quiverCmsApp', [
         controller: 'MessagesCtrl',
         resolve: {
           messagesRef: function (UserService, user) {
-            return UserService.getMessages(user);
+            return UserService.getMessages(user.$id);
           }
         }  
       })
