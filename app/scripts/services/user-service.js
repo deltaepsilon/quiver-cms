@@ -8,7 +8,7 @@
  * Service in the quiverCmsApp.
  */
 angular.module('quiverCmsApp')
-  .service('UserService', function ($firebase, env, Restangular) {
+  .service('UserService', function ($firebase, env, Restangular, FirebaseService) {
     var firebaseEndpoint = env.firebase.endpoint;
 
     return {
@@ -26,6 +26,10 @@ angular.module('quiverCmsApp')
 
       getAssignments: function (userId, key) {
         return Restangular.one('user').one(userId).one('subscription').one(key).one('assignments').get();
+      },
+
+      getMessages: function (userId, query) {
+        return $firebase(FirebaseService.query(new Firebase(firebaseEndpoint + '/users/' + userId + '/public/messages'), query));
       },
 
       logMessage: function (userId, assignmentKey, type, message) {
