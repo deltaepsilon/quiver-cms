@@ -22,6 +22,10 @@ angular.module('quiverCmsApp')
     $scope.countries = countries;
 
     $scope.checkAllCountries = function () {
+      if (!$scope.commerce.countries) {
+        $scope.commerce.countries = {};
+      }
+      
       _.each(countries, function (country) {
         if (!$scope.commerce.countries[country['alpha-2']]) {
           $scope.commerce.countries[country['alpha-2']] = {};
@@ -34,6 +38,10 @@ angular.module('quiverCmsApp')
     };
 
     $scope.uncheckAllCountries = function () {
+      if (!$scope.commerce.countries) {
+        $scope.commerce.countries = {};
+      }
+
       _.each(countries, function (country) {
         if ($scope.commerce.countries[country['alpha-2']] && $scope.commerce.countries[country['alpha-2']].enabled) {
           $scope.commerce.countries[country['alpha-2']].enabled = false;
@@ -47,6 +55,10 @@ angular.module('quiverCmsApp')
     $scope.states = states;
 
     $scope.checkAllStates = function () {
+      if (!$scope.commerce.states) {
+        $scope.commerce.states = {};
+      }
+
       _.each(states, function (state) {
         if (!$scope.commerce.states[state.abbreviation]) {
           $scope.commerce.states[state.abbreviation] = {};
@@ -59,6 +71,10 @@ angular.module('quiverCmsApp')
     };
 
     $scope.uncheckAllStates = function () {
+      if (!$scope.commerce.states) {
+        $scope.commerce.states = {};
+      }
+
       _.each(states, function (state) {
         if ($scope.commerce.states[state.abbreviation] && $scope.commerce.states[state.abbreviation].enabled) {
           $scope.commerce.states[state.abbreviation].enabled = false;
