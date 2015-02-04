@@ -1,0 +1,55 @@
+<input type="text" ng-show="searching || items.length" ng-model="searchTerm" ng-focus="searchTerm = ''" placeholder="Search: Click ENTER to search server..." qv-enter="search({orderByChild: 'slug', limitToLast: 3, startAt: searchTerm})"/>
+
+<ul class="small-12 table-list striped hover padded">
+  <li class="table-list-header">
+    <div class="column small-3 medium-1">Priority</div>
+    <div class="column small-3 medium-1">Active</div>
+    <div class="column small-3 medium-2">Name</div>
+    <div class="column small-3 medium-2">Question</div>
+    <div class="column small-3 medium-2">Asked / Answered</div>
+    <div class="column small-3 medium-2">Created</div>
+    <div class="column small-6 medium-2 medium-text-right">Action</div>
+  </li>
+  <li ng-repeat="survey in items | orderBy:'-$priority'" ng-class="{disabled: disabled}">
+    <div class="column small-3 medium-1">
+      <a class="link-hover-secondary0-important" ng-show="$index" ng-click="prioritizeSurvey(survey)"><i class="fa fa-arrow-circle-o-up"></i></a>
+      &nbsp;
+      <!-- <strong>{{ survey.$priority }}</strong> -->
+    </div>
+    <div class="column small-3 medium-1">
+      
+      <input class="margin-xx-small-important" type="checkbox" ng-model="survey.active" ng-change="setActive(survey, survey.active)"/>
+    </div>
+    <div class="column small-3 medium-2">
+      <a ui-sref="authenticated.master.admin.survey({key: survey.$id})">
+        {{ ::survey.name }} <br> ({{ ::survey.slug }})
+      </a>
+    </div>
+    <div class="column small-3 medium-2">
+      {{ ::survey.question }}
+    </div>
+    <div class="column small-3 medium-2">
+      {{ ::survey.answered || 0 }} / {{ ::survey.asked || 0 }}
+    </div>
+    <div class="column small-3 medium-2">
+      {{ ::survey.created | moment:"MM/DD/YY" }}
+    </div>
+    <div class="column small-6 medium-2 medium-text-right">
+      <button class="alert tiny centered-block" style="min-width: 8rem;" qv-confirm="disabled = true; removeSurvey(survey);" ng-disabled="disabled">Delete</button>
+    </div>
+  </li>
+  <li class="no-stripe no-hover padding-small" ng-show="items.length || paginating">
+    <div class="column small-3">
+      <button class="secondary small-12 tiny" ng-click="loadNext()" ng-disabled="disablePrev">Previous</button>&nbsp;
+    </div>
+    <div class="column small-3">
+      <button class="secondary small-12 tiny" ng-click="reset()" ng-disabled="disableReset">Reset</button>
+    </div>
+    <div class="column small-3">
+      <button class="secondary small-12 tiny" ng-click="loadMore()" ng-disabled="disableMore">Load More +</button>
+    </div>
+    <div class="column small-3">
+      <button class="secondary small-12 tiny" ng-click="loadPrev()" ng-disabled="disableNext">Next</button>
+    </div>
+  </li>
+</ul>

@@ -671,6 +671,42 @@ angular.module('quiverCmsApp', [
           }
         }
       })
+      .state('authenticated.master.admin.surveys', { // ****************************  Surveys **************************
+        abstract: true,
+        templateUrl: 'views/admin-surveys.html',
+        controller: 'SurveysCtrl',
+        resolve: {
+          surveysRef: function (AdminService) {
+            return AdminService.getSurveys();
+          }
+        }
+      })
+      .state('authenticated.master.admin.surveys.list', {
+        url: '/surveys/:search',
+        templateUrl: 'views/admin-surveys-list.html',
+        controller: 'ListCtrl',
+        resolve: {
+          limit: function () {
+            return 10;
+          },
+          getRef: function (AdminService) {
+            return AdminService.getSurveys;
+          },
+          ref: function (AdminService, limit) {
+            return AdminService.getSurveys({orderByPriority: true, limitToLast: limit});
+          }
+        }
+      })
+      .state('authenticated.master.admin.survey', {
+        url: '/survey/:key',
+        templateUrl: 'views/admin-survey.html',
+        controller: 'SurveyCtrl',
+        resolve: {
+          surveyRef: function (AdminService, $stateParams) {
+            return AdminService.getSurvey($stateParams.key);
+          }
+        }
+      })
       .state('authenticated.master.admin.discounts', { // **************************  Discounts ************************
         abstract: true,
         templateUrl: 'views/admin-discounts.html',

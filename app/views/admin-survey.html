@@ -1,0 +1,42 @@
+<div class="column small-12">
+  <h3 class="font-flair left">Survey</h3>
+  <div class="right text-white0">
+    <button class="tiny margin-vertical-xx-small secondary" ng-show="survey.active" ng-click="survey.active = false">Active</button>
+    <button class="tiny margin-vertical-xx-small alert" ng-show="!survey.active" ng-click="survey.active = true">Inactive</button>
+  </div>
+</div>
+
+<form class="column small-12" name="surveyForm">
+  <fieldset>
+    <div class="column small-12">
+    <label for="survey-name">Name</label>
+    <input id="survey-name" type="text" ng-model="survey.name" ng-model-options="{debounce: {'default': 500}}" placeholder="Name..." required>
+    </div>
+
+    <div class="column small-12">
+      <label for="survey-question">Question</label>
+      <textarea id="survey-question" ng-model="survey.question" ng-model-options="{debounce: {'default': 500}}" placeholder="Question..." required></textarea>    
+    </div>
+
+    <div class="column small-12">
+      <label for="survey-message">Message</label>
+      <textarea id="survey-message" ng-model="survey.message" ng-model-options="{debounce: {'default': 500}}" placeholder="Message..."></textarea>
+    </div>
+
+    <div class="column small-12">
+      <label for="survey-answer">Answers</label>
+      <hr>
+    </div>
+
+    <div class="column small-12 medium-6">
+      <input id="survey-answer" type="text" ng-model="newAnswer" placeholder="New Answer (click ENTER to save)..." qv-enter="addAnswer(newAnswer); newAnswer = '';">
+    </div>
+
+    <div class="column small-12 medium-6">
+      <ul class="margin-zero-important">
+        <li class="cursor-pointer" ng-repeat="answer in survey.answers" qv-confirm="removeAnswer(answer)" confirmations="['Click to Delete']">{{ answer.text }}</li>
+      </ul>    
+    </div>
+
+  </fieldset>
+</form>
