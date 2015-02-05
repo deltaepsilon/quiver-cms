@@ -231,7 +231,15 @@ angular.module('quiverCmsApp')
 
       getResource: function (key) {
         return $firebase(new Firebase(firebaseEndpoint + '/resources/' + key));
-      }
+      },
+
+      getSurveys: function (query) {
+        return $firebase(FirebaseService.query(new Firebase(firebaseEndpoint + '/settings/surveys'), query));
+      },
+
+      getSurvey: function (key) {
+        return $firebase(new Firebase(firebaseEndpoint + '/settings/surveys/' + key));
+      }git 
 
     }
   });
