@@ -1,0 +1,45 @@
+<div class="column small-12">
+    <h3 class="font-flair">Surveys</h3>
+    <form name="newSurveyForm">
+      <fieldset>
+
+        <div class="column small-12">
+          <label for="survey-value">Name</label>
+          <input id="survey-value" type="text" ng-model="newSurvey.name" placeholder="Name..." required>
+        </div>
+
+        <div class="column small-12">
+          <label for="survey-question">Question</label>
+          <textarea id="survey-question" type="text" ng-model="newSurvey.question" placeholder="Question..." required></textarea>
+        </div>
+
+        <div class="column small-12">
+          <label for="survey-message">Message</label>
+          <textarea id="survey-message" ng-model="newSurvey.message" placeholder="Message..."></textarea>
+        </div>
+
+        <div class="column small-12">
+          <label for="survey-answer">Answers</label>
+          <hr>
+        </div>
+
+        <div class="column small-12 medium-6">
+          <input id="survey-answer" type="text" ng-model="newAnswer" placeholder="New Answer (click ENTER to save)..." qv-enter="addAnswer(newAnswer); newAnswer = '';">
+          <button ng-click="addSurvey(newSurvey)" ng-disabled="newSurveyForm.$invalid" qv-focus="#survey-name">Create</button>
+        </div>
+
+        <div class="column small-12 medium-6">
+          <ul class="margin-zero-important">
+            <li class="cursor-pointer" ng-repeat="answer in newSurvey.answers" qv-confirm="removeAnswer(answer)" confirmations="['Click to Delete']">{{ answer.text }}</li>
+          </ul>
+        </div>
+
+      </fieldset>
+
+    </form>
+
+    <hr ng-show="surveys.length">
+
+</div>
+
+<div class="column small-12" ui-view></div>
