@@ -8,39 +8,42 @@
  * Controller of the quiverCmsApp
  */
 angular.module('quiverCmsApp')
-  .controller('SurveysCtrl', function ($scope, surveysRef, moment, _, Slug) {
+  .controller('SurveysCtrl', function ($scope, $q, surveysRef, moment, _, Slug, AdminService) {
     $scope.surveys = surveysRef.$asArray();
 
     $scope.addAnswer = function (answer) {
-      var slug = Slug.slugify(answer);
-
       if (!$scope.newSurvey) {
         $scope.newSurvey = {
-          answers: {}
+          answers: []
         };
       }
 
-      if (!$scope.newSurvey.answers || typeof $scope.newSurvey.answers !== 'object') {
-        $scope.newSurvey.answers = {};
+      if (!$scope.newSurvey.answers || !Array.isArray($scope.newSurvey.answers)) {
+        $scope.newSurvey.answers = [];
       }
 
-      $scope.newSurvey.answers[slug] = {
-        slug: slug,
-        text: answer
-      };
+      if (!~$scope.newSurvey.answers.indexOf(answer)) {
+        $scope.newSurvey.answers.push(answer);  
+      }
+      
 
     };
 
-    $scope.removeAnswer = function (answer) {
+    $scope.removeAnswer = function (index) {
       $scope.$apply(function () {
-        delete $scope.newSurvey.answers[answer.slug];  
+        $scope.newSurvey.answers.splice(index, 1);
       });
       
 
     };
 
     $scope.addSurvey = function (survey) {
-      var now = moment();
+      var now = moment(),
+        answers = survey.answers;
+
+      if (survey.answers) {
+        delete survey.answers;
+      }
 
       _.defaults(survey, {
         $priority: now.unix(),
@@ -50,9 +53,24 @@ angular.module('quiverCmsApp')
         unix: now.unix()
       });
 
-      $scope.surveys.$add(survey).then(function () {
+      $scope.surveys.$add(survey).then(function (surveyRef) {
         delete $scope.newSurvey;
         delete $scope.newAnswer;
+        return AdminService.getSurveyAnswers(surveyRef.key());
+        
+      }).then(function (answersRef) {
+        var promises = [],
+          answersArray = answersRef.$asArray();
+        
+        _.each(answers, function (answer) {
+          promises.push(answersArray.$add({
+            $priority: moment().unix(),
+            slug: Slug.slugify(answer),
+            text: answer
+          }));
+        });
+
+        return $q.all(promises);
       });
 
     };

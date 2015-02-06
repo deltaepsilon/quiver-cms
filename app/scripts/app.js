@@ -704,6 +704,9 @@ angular.module('quiverCmsApp', [
         resolve: {
           surveyRef: function (AdminService, $stateParams) {
             return AdminService.getSurvey($stateParams.key);
+          },
+          answersRef: function (AdminService, $stateParams) {
+            return AdminService.getSurveyAnswers($stateParams.key);
           }
         }
       })

@@ -34,7 +34,7 @@
 
     <div class="column small-12 medium-6">
       <ul class="margin-zero-important">
-        <li class="cursor-pointer" ng-repeat="answer in survey.answers" qv-confirm="removeAnswer(answer)" confirmations="['Click to Delete']">{{ answer.text }}</li>
+        <li class="cursor-pointer" ng-repeat="answer in survey.answers" qv-confirm="removeAnswer($index)" confirmations="['Click to Delete']">{{ answer.text }}</li>
       </ul>    
     </div>
 

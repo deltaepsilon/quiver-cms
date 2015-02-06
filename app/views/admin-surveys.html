@@ -24,13 +24,14 @@
         </div>
 
         <div class="column small-12 medium-6">
-          <input id="survey-answer" type="text" ng-model="newAnswer" placeholder="New Answer (click ENTER to save)..." qv-enter="addAnswer(newAnswer); newAnswer = '';">
-          <button ng-click="addSurvey(newSurvey)" ng-disabled="newSurveyForm.$invalid" qv-focus="#survey-name">Create</button>
+          <input id="survey-answer" type="text" ng-model="newAnswer" placeholder="New Answer...">
+          <button class="secondary left" ng-click="addAnswer(newAnswer); newAnswer = '';" qv-focus="#survey-answer">Add Answer</button>
+          <button class="right" ng-click="addSurvey(newSurvey)" ng-disabled="newSurveyForm.$invalid" qv-focus="#survey-name">Create</button>
         </div>
 
         <div class="column small-12 medium-6">
           <ul class="margin-zero-important">
-            <li class="cursor-pointer" ng-repeat="answer in newSurvey.answers" qv-confirm="removeAnswer(answer)" confirmations="['Click to Delete']">{{ answer.text }}</li>
+            <li class="cursor-pointer" ng-repeat="answer in newSurvey.answers" qv-confirm="removeAnswer($index)" confirmations="['Click to Delete']">{{ answer }}</li>
           </ul>
         </div>
 

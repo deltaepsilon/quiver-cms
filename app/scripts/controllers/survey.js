@@ -8,37 +8,32 @@
  * Controller of the quiverCmsApp
  */
 angular.module('quiverCmsApp')
-  .controller('SurveyCtrl', function ($scope, surveyRef, Slug) {
+  .controller('SurveyCtrl', function ($scope, surveyRef, answersRef, Slug, moment) {
+    /*
+     * Survey
+     */
     var survey = surveyRef.$asObject();
 
     survey.$bindTo($scope, 'survey');
 
+    /*
+     * Answers
+     */
+    var answers = answersRef.$asArray();
+    $scope.answers = answers;
+
 
     $scope.addAnswer = function (answer) {
-      var slug = Slug.slugify(answer);
-
-      if (!$scope.survey) {
-        $scope.survey = {
-          answers: {}
-        };
-      }
-
-      if (!$scope.survey.answers || typeof $scope.survey.answers !== 'object') {
-        $scope.survey.answers = {};
-      }
-
-      $scope.survey.answers[slug] = {
-        slug: slug,
+      $scope.answers.$add({
+        $priority: moment().unix(),
+        slug: Slug.slugify(answer),
         text: answer
-      };
+      });
 
     };
 
-    $scope.removeAnswer = function (answer) {
-      $scope.$apply(function () {
-        delete $scope.survey.answers[answer.slug];  
-      });
-      
+    $scope.removeAnswer = function (index) {
+      $scope.answers.$remove(index);     
 
     };
 
