@@ -14,8 +14,66 @@
 
 <!-- <div qv-modal=".open-image-gallery" open="true"> -->
 <div qv-modal=".open-image-gallery">
-  <div class="modal-content" qv-list ref="filesRef" get-ref="getOriginals" limit="limit" locals="{bucket: bucket, getPrev: getPrev, getNext: getNext}">
-    <ul class="table-list hover padded striped">
+  <!-- <div class="modal-content" qv-list ref="filesRef" get-ref="getOriginals" limit="limit" locals="{bucket: bucket, getPrev: getPrev, getNext: getNext}"> -->
+  <div class="modal-content" qv-list ref="filesRef" get-ref="getOriginals" limit="limit" locals="{bucket: bucket}">
+    <div style="position: absolute; right: 1rem; top: 1rem; z-index: 1;">
+      <button class="tiny secondary" ng-click="listView = !listView">
+        <span ng-hide="listView">List View</span>
+        <span ng-show="listView">Grid View</span>
+      </button>
+    </div>
+    
+    <!-- <ul class="small-block-grid-1 medium-block-grid-2 large-block-grid-4" ng-if="!listView">
+      <li class="relative text-center text-small" ng-repeat="file in items | orderBy:'-$priority'"> -->
+    <div ng-if="!listView">
+      <div packery preserve-order="true">
+        <div class="packery-brick small-12 medium-4 large-3 padding-x-small relative text-center text-small" ng-repeat="file in items | orderBy:'-$priority'">
+          <a href="{{ file.Versions.small.Key | s3Link:bucket }}" target="_blank">
+            <img ng-src="{{ file.Versions.small.Key | s3Link:bucket }}">
+          </a>
+          
+          <div class="background-highlight10 padding-vertical-x-small" style="position: absolute; bottom: 0; left: 0; right: 0;">
+            <div class="column small-12">
+              <a class="link-primary1" href="{{ file.Versions.small.Key | s3Link:bucket }}" target="_blank">
+                <strong>{{ file.Name }}</strong>
+                <span>{{ file.Size | filesize}}</span>
+              </a>
+              
+            </div>
+            <div class="column small-12 medium-6">
+              <input type="text" value="{{ file.Key | s3Link:bucket }}">
+            </div>
+            <div class="column small-12 medium-6">
+              <input type="text" value="[{{ file.Name }}]({{ file.Key | s3Link:bucket }})">
+              
+            </div>
+          </div>
+          
+          
+        </div>
+        
+
+        
+      </div>
+      <div class="padding-vertical-large">
+        <div class="column small-12 medium-3">
+          <button class="secondary small-12" ng-click="loadNext()" ng-disabled="disablePrev">Prev</button>&nbsp;
+        </div>
+        <div class="column small-12 medium-3">
+          <button class="secondary small-12" ng-click="loadPrev()" ng-disabled="disableNext">Next</button>  
+        </div>
+        <div class="column small-12 medium-3">
+          <button class="secondary small-12" ng-click="loadMore()" ng-disabled="disableMore">Load More +</button>  
+        </div>
+        <div class="column small-12 medium-3">
+          <button class="secondary small-12" ng-click="reset()" ng-disabled="disableReset">Reset</button>  
+        </div>
+        
+      </div>
+
+    </div>
+
+    <ul class="table-list hover padded striped" ng-if="listView">
       <li class="table-list-header">
         <div class="column small-12 medium-3">
           Name
@@ -31,12 +89,14 @@
         </div>
       </li>
 
-      <li ng-repeat="file in items">
+      <li ng-repeat="file in items | orderBy:'-$priority'">
         <div class="column small-12 medium-3">
-          {{ file.Name }}
+          <img ng-src="{{ file.Versions.small.Key | s3Link:bucket }}">
         </div>
         <div class="column small-12 medium-3">
-          {{ file.Size }}
+          <strong>{{ file.Name }}</strong>
+          <br>
+          <span>{{ file.Size | filesize}}</span>
         </div>
         <div class="column small-12 medium-3">
           <input type="text" value="{{ file.Key | s3Link:bucket }}">
@@ -49,7 +109,8 @@
       <li class="no-stripe no-hover">
         <div ng-hide="searching">
           <div class="column small-3">
-            <button class="secondary small-12" ng-click="loadPrev(undefined, getPrev(items))" ng-disabled="disablePrev">Prev</button>&nbsp;
+            <!-- <button class="secondary small-12" ng-click="loadPrev(undefined, getPrev(items))" ng-disabled="disablePrev">Prev</button>&nbsp; -->
+            <button class="secondary small-12" ng-click="loadNext()" ng-disabled="disablePrev">Prev</button>&nbsp;
           </div>
           <div class="column small-3">
             <button class="secondary small-12" ng-click="loadMore()" ng-disabled="disableMore">Load More +</button>
@@ -58,7 +119,8 @@
             <button class="secondary small-12" ng-click="reset()" ng-disabled="disableReset">Reset</button>
           </div>
           <div class="column small-3">
-            <button class="secondary small-12" ng-click="loadNext(undefined, getNext(items))" ng-disabled="disableNext">Next</button>
+            <!-- <button class="secondary small-12" ng-click="loadNext(undefined, getNext(items))" ng-disabled="disableNext">Next</button> -->
+            <button class="secondary small-12" ng-click="loadPrev()" ng-disabled="disableNext">Next</button>
           </div>
         </div>
       </li>

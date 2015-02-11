@@ -22,8 +22,10 @@
   .modal-content {
     @extend .background-white0;
     @extend .padding-large;
-    height: 80%;
+    height: 90%;
     width: 80%;
+    overflow: auto;
+    position: relative;
   }
   
 }

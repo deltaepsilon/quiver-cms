@@ -12,7 +12,8 @@ angular.module('quiverCmsApp', [
   'angular-md5',
   'ngStorage',
   'flow',
-  'angular-google-analytics'
+  'angular-google-analytics',
+  'wu.packery'
 ]).run(function ($rootScope, $state, Restangular, NotificationService, env, Analytics, qvAuth, AdminService, $localStorage) {
     $rootScope.$on('$stateChangeStart', function (e, toState, toParams, fromState, fromParams) {
       $state.previous = _.clone($state);
@@ -467,7 +468,7 @@ angular.module('quiverCmsApp', [
             controller: 'FooterCtrl',
             resolve: {
               limit: function () {
-                return 2;
+                return 12;
               },
               filesRef: function (AdminService, limit) {
                 return AdminService.getOriginals({orderByPriority: true, limitToLast: limit});

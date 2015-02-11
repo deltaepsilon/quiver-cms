@@ -19,7 +19,8 @@
     "firebase": "~2.0.4",
     "angularfire": "~0.9.0",
     "angularfire-authentication": "git@github.com:deltaepsilon/angularfire-authentication.git#master",
-    "angular-sanitize": "~1.3.12"
+    "angular-sanitize": "~1.3.12",
+    "angular-packery": "git@github.com:deltaepsilon/angular-packery.git"
   },
   "devDependencies": {
     "angular": ">=1.3.12",
@@ -28,9 +29,8 @@
     "grunt-contrib-jasmine": "~0.8.1"
   },
   "resolutions": {
-    "angular": "1.3.12",
+    "angular": ">=1.3.12",
     "angular-mocks": ">=1.3.0",
-    "firebase": "~2.0.4",
-    "angularfire": "~0.9.0"
+    "firebase": "~2.0.4"
   }
 }
