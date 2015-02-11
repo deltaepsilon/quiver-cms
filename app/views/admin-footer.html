@@ -1,4 +1,4 @@
-<footer class="footer background-black0 text-white0">
+<footer class="footer background-black0 text-white0" style="visibility: hidden;">
     <section class="row">
         <div class="column small-12 padding-vertical-small">
             <ul class="footer-links inline-list link-secondary4 link-hover-secondary1">
@@ -26,7 +26,7 @@
     <!-- <ul class="small-block-grid-1 medium-block-grid-2 large-block-grid-4" ng-if="!listView">
       <li class="relative text-center text-small" ng-repeat="file in items | orderBy:'-$priority'"> -->
     <div ng-if="!listView">
-      <div packery preserve-order="true">
+      <div packery>
         <div class="packery-brick small-12 medium-4 large-3 padding-x-small relative text-center text-small" ng-repeat="file in items | orderBy:'-$priority'">
           <a href="{{ file.Versions.small.Key | s3Link:bucket }}" target="_blank">
             <img ng-src="{{ file.Versions.small.Key | s3Link:bucket }}">
