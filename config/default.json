@@ -88,6 +88,21 @@
         }
       ]
     },
+    "easypost": {
+      "predefinedDefault": {
+        "predefined_package": "FlatRatePaddedEnvelope"
+      },
+      "predefinedPackages": [
+        {
+          "key": "FlatRatePaddedEnvelope",
+          "value": "USPS Flat Rate Padded Envelope"
+        },
+        {
+          "key": "FedExPak",
+          "value": "FedEx Pak"
+        }
+      ]
+    },
     "timeZone": "America/Denver"
   },
   "private": {
@@ -136,6 +151,9 @@
       "merchantId": "ASDFASDFASDF",
       "publicKey": "ASDFADSFASDF",
       "privateKey": "ASDFASDFADFS"
+    },
+    "easypost": {
+      "key": "ASDFASDFASDFASDF"
     },
     "email": {
       "from": {

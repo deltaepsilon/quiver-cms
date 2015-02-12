@@ -23,6 +23,12 @@
 
         <div class="column small-12">
           <div class="left small-12 medium-6">
+            <a class="show-shipment" ng-click="selectShipment(shipment)">
+              <i class="fa fa-gear"></i>
+            </a>
+            <a ng-click="addCustomsItem(shipment)">
+              <i class="fa fa-truck"></i>
+            </a>
             <input id="shipped-{{ $index }}" class="margin-horizontal-xx-small-important" type="checkbox" ng-model="shipment.shipped" ng-change="save(shipment)">
             <label style="margin-left: 0;" for="shipped-{{ $index }}">Shipped</label>
 

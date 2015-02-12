@@ -29,6 +29,7 @@ var ConfigService = require('./lib/services/config-service'),
   TransactionController = require('./lib/controllers/transaction'),
   SubscriptionController = require('./lib/controllers/subscription'),
   MessageController = require('./lib/controllers/message'),
+  ShipmentController = require('./lib/controllers/shipment'),
   Middleware = require('./lib/controllers/middleware');
 
 /*
@@ -162,6 +163,12 @@ app.post('/admin/email/:emailKey/send', FormController.body);
 app.post('/admin/email/:emailKey/send', MessageController.sendQueuedEmail);
 
 app.post('/admin/email/send/feedback', MessageController.sendQueuedFeedback);
+
+/*
+ * Shipment
+ */
+app.post('/admin/shipment/*', FormController.body);
+app.post('/admin/shipment/address/create', ShipmentController.createAddress);
 
 /*
  * Cron

@@ -81,6 +81,12 @@
           </label>
           <input type="text" ng-model="$storage.address.recipient" ng-blur="validateAddress($storage.address)" placeholder="First and last name..." required>
 
+          <label for="address-email">
+            <span>Recipient Email</span>
+            <strong class="text-small text-error margin-horizontal-small">{{ errorMessages.email }}</strong>
+          </label>
+          <input type="text" ng-model="$storage.address.email" ng-blur="validateAddress($storage.address)" placeholder="Notification email..." required>
+
           <label for="address-line-one">
             <span>Street</span>
             <strong class="text-small text-error margin-horizontal-small">{{ errorMessages.street }}</strong>

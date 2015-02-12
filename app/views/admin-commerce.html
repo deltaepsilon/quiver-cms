@@ -1,6 +1,117 @@
 <div class="column small-12">
     <h3 class="font-flair">Commerce</h3>
 
+    <form name="addressForm">
+      <fieldset>
+        <div class="column small-12">
+          <ul class="table-list padded striped">
+            <li class="table-list-header">
+              <div class="column small-12 medium-6">
+                New Address
+              </div>
+              <div class="column small-12 medium-6">
+                Verified Address
+              </div>
+            </li>
+            <li>
+              <div class="column small-12 medium-6">
+                <input type="text" ng-model="unverifiedAddress.name" placeholder="Name..." required>
+              </div>
+              <div class="column small-12 medium-6 padding-vertical-x-small">
+                {{ $storage.shipment.fromAddress.name }}
+              </div>
+            </li>
+            <li>
+              <div class="column small-12 medium-6">
+                <input type="text" ng-model="unverifiedAddress.company" placeholder="Company...">
+              </div>
+              <div class="column small-12 medium-6 padding-vertical-x-small">
+                {{ $storage.shipment.fromAddress.company }}
+              </div>
+            </li>
+            <li>
+              <div class="column small-12 medium-6">
+                <input type="text" ng-model="unverifiedAddress.street1" placeholder="Street 1..." required>
+              </div>
+              <div class="column small-12 medium-6 padding-vertical-x-small">
+                {{ $storage.shipment.fromAddress.street1 }}
+              </div>
+            </li>
+            <li>
+              <div class="column small-12 medium-6">
+                <input type="text" ng-model="unverifiedAddress.street2" placeholder="Street 2...">
+              </div>
+              <div class="column small-12 medium-6 padding-vertical-x-small">
+                {{ $storage.shipment.fromAddress.street2 }}
+              </div>
+            </li>
+            <li>
+              <div class="column small-12 medium-6">
+                <input type="text" ng-model="unverifiedAddress.street3" placeholder="Street 3...">
+              </div>
+              <div class="column small-12 medium-6 padding-vertical-x-small">
+                {{ $storage.shipment.fromAddress.street3 }}
+              </div>
+            </li>
+            <li>
+              <div class="column small-12 medium-6">
+                <input type="text" ng-model="unverifiedAddress.city" placeholder="City..." required>
+              </div>
+              <div class="column small-12 medium-6 padding-vertical-x-small">
+                {{ $storage.shipment.fromAddress.city }}
+              </div>
+            </li>
+            <li>
+              <div class="column small-12 medium-6">
+                <input type="text" ng-model="unverifiedAddress.state" placeholder="State..." required>
+              </div>
+              <div class="column small-12 medium-6 padding-vertical-x-small">
+                {{ $storage.shipment.fromAddress.state }}
+              </div>
+            </li>
+            <li>
+              <div class="column small-12 medium-6">
+                <input type="text" ng-model="unverifiedAddress.zip" placeholder="Zip..." required>
+              </div>
+              <div class="column small-12 medium-6 padding-vertical-x-small">
+                {{ $storage.shipment.fromAddress.zip }}
+              </div>
+            </li>
+            <li>
+              <div class="column small-12 medium-6">
+                <input type="text" ng-model="unverifiedAddress.country" placeholder="Country..." required>
+              </div>
+              <div class="column small-12 medium-6 padding-vertical-x-small">
+                {{ $storage.shipment.fromAddress.country }}
+              </div>
+            </li>
+            <li>
+              <div class="column small-12 medium-6">
+                <input type="text" ng-model="unverifiedAddress.email" placeholder="Email..." required>
+              </div>
+              <div class="column small-12 medium-6 padding-vertical-x-small">
+                {{ $storage.shipment.fromAddress.email }}
+              </div>
+            </li>
+            <li>
+              <div class="column small-12 medium-6">
+                <input type="text" ng-model="unverifiedAddress.phone" placeholder="Phone..." required>
+              </div>
+              <div class="column small-12 medium-6 padding-vertical-x-small">
+                {{ $storage.shipment.fromAddress.phone }}
+              </div>
+            </li>
+            <li class="no-stripe no-hover padding-small">
+              <div class="column small-12">
+                <button ng-click="createAddress(unverifiedAddress)" ng-disabled="addressForm.$invalid">Verify</button>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+      </fieldset>
+    </form>
+
     <form name="shippingForm">
       <fieldset>
         <div class="column small-12 medium-4">

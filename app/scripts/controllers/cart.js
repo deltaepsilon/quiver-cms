@@ -8,7 +8,7 @@
  * Controller of the quiverCmsApp
  */
 angular.module('quiverCmsApp')
-  .controller('CartCtrl', function ($scope, $localStorage, $state, _, moment, products, countriesStatus, statesStatus, shippingRef, clientToken, CommerceService, NotificationService, braintree, ObjectService) {
+  .controller('CartCtrl', function ($scope, $localStorage, $state, _, moment, products, countriesStatus, statesStatus, shippingRef, clientToken, CommerceService, NotificationService, braintree, ObjectService, user) {
     /*
      * Storage
     */
@@ -34,7 +34,9 @@ angular.module('quiverCmsApp')
     });
 
     if (!$scope.$storage.address) {
-      $scope.$storage.address = {};
+      $scope.$storage.address = {
+        email: user.public.email
+      };
     }
 
     if (!$scope.$storage.address.country) {

@@ -3766,21 +3766,31 @@ a.disabled, a[disabled] {
 }
 
 /* line 65, theme/_global.scss */
+.inline {
+  display: inline;
+}
+
+/* line 69, theme/_global.scss */
+.inline-block {
+  display: inline-block;
+}
+
+/* line 73, theme/_global.scss */
 .hidden {
   display: none;
 }
 
-/* line 69, theme/_global.scss */
+/* line 77, theme/_global.scss */
 .relative {
   position: relative;
 }
 
-/* line 73, theme/_global.scss */
+/* line 81, theme/_global.scss */
 .circle, .delete-button {
   border-radius: 50%;
 }
 
-/* line 77, theme/_global.scss */
+/* line 85, theme/_global.scss */
 .delete-button {
   position: absolute;
   top: -0.5rem;
@@ -3790,40 +3800,40 @@ a.disabled, a[disabled] {
   display: block;
   padding: 0rem .5rem;
 }
-/* line 85, theme/_global.scss */
+/* line 93, theme/_global.scss */
 .delete-button .left {
   left: -.5rem;
   right: initial;
 }
 
-/* line 92, theme/_global.scss */
+/* line 100, theme/_global.scss */
 video, img {
   max-width: 100%;
 }
 
-/* line 96, theme/_global.scss */
+/* line 104, theme/_global.scss */
 .overflow-hidden {
   overflow: hidden !important;
 }
 
-/* line 100, theme/_global.scss */
+/* line 108, theme/_global.scss */
 .border-zero {
   border-width: 0;
 }
 
-/* line 108, theme/_global.scss */
+/* line 116, theme/_global.scss */
 .truncate {
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
 }
 
-/* line 114, theme/_global.scss */
+/* line 122, theme/_global.scss */
 .transition-color, [flow-drop] {
   transition: color 300ms ease;
 }
 
-/* line 118, theme/_global.scss */
+/* line 126, theme/_global.scss */
 .transition-background, [flow-drop] {
   transition: background 300ms ease;
 }

@@ -6,3 +6,411 @@
 
 <div class="column small-12" ui-view></div>
 
+<div qv-modal=".show-shipment">
+  <div class="modal-content" ng-if="selectedShipment">
+    <div class="column small-12">
+      <h5 class="font-flair">Quotes</h5>
+      <div>
+        {{ quotes }}
+      </div>
+      <div class="column small-6">
+        <button ng-click="getQuotes(verifiedAddress, $storage.shipment)" ng-disable="!verifiedAddress || validateShipment($storage.shipment)">Get Quotes</button>
+      </div>
+      <div class="column small-6">
+        <button class="alert" ng-click="buyLabel(shipment, rate)" ng-disabled="!shipment || !rate">
+          <span ng-hide="rate">Buy Label</span>
+          <span ng-show="rate">Buy: {{ rate.service }} @ {{ rate.rate | currency }}</span>
+        </button>
+      </div>
+      
+    </div>
+
+    <div class="column small-12">
+      <hr>
+    </div>
+
+    <div class="column small-12 medium-4">
+      <h5 class="font-flair inline">From</h5>
+      <a ui-sref="authenticated.master.admin.commerce">&nbsp; edit</a>
+      
+      <div class="text-small">
+        <div ng-show="$storage.shipment.fromAddress.name">{{ $storage.shipment.fromAddress.name }}</div>
+        <div ng-show="$storage.shipment.fromAddress.company">{{ $storage.shipment.fromAddress.company }}</div>
+        <div ng-show="$storage.shipment.fromAddress.street1">{{ $storage.shipment.fromAddress.street1 }}</div>
+        <div ng-show="$storage.shipment.fromAddress.street2">{{ $storage.shipment.fromAddress.street2 }}</div>
+        <div ng-show="$storage.shipment.fromAddress.street3">{{ $storage.shipment.fromAddress.street3 }}</div>
+        <div ng-show="$storage.shipment.fromAddress.city">{{ $storage.shipment.fromAddress.city }}</div>
+        <div ng-show="$storage.shipment.fromAddress.state">{{ $storage.shipment.fromAddress.state }}</div>
+        <div ng-show="$storage.shipment.fromAddress.zip">{{ $storage.shipment.fromAddress.zip }}</div>
+        <div ng-show="$storage.shipment.fromAddress.country">{{ $storage.shipment.fromAddress.country }}</div>
+        <div ng-show="$storage.shipment.fromAddress.email">{{ $storage.shipment.fromAddress.email }}</div>
+        <div ng-show="$storage.shipment.fromAddress.phone">{{ $storage.shipment.fromAddress.phone }}</div>
+        
+      </div>
+    </div>
+    <div class="column small-12 medium-4">
+      <h5 class="font-flair inline">To</h5>
+      <!-- <a ui-sref="#address-form">&nbsp; edit</a> -->
+
+      <div class="text-small">
+        <div ng-show="verifiedAddress.name">    {{ verifiedAddress.name }}    </div>
+        <div ng-show="verifiedAddress.company"> {{ verifiedAddress.company }} </div>
+        <div ng-show="verifiedAddress.street1"> {{ verifiedAddress.street1 }} </div>
+        <div ng-show="verifiedAddress.street2"> {{ verifiedAddress.street2 }} </div>
+        <div ng-show="verifiedAddress.street3"> {{ verifiedAddress.street3 }} </div>
+        <div ng-show="verifiedAddress.city">    {{ verifiedAddress.city }}    </div>
+        <div ng-show="verifiedAddress.state">   {{ verifiedAddress.state }}   </div>
+        <div ng-show="verifiedAddress.zip">     {{ verifiedAddress.zip }}     </div>
+        <div ng-show="verifiedAddress.country"> {{ verifiedAddress.country }} </div>
+        <div ng-show="verifiedAddress.email">   {{ verifiedAddress.email }}   </div>
+        <div ng-show="verifiedAddress.phone">   {{ verifiedAddress.phone }}   </div>
+      </div>
+    </div>
+    <div class="column small-12 medium-4">
+      <h5 class="font-flair">Parcel</h5>
+
+      
+
+      <form name="parcelForm" ng-show="!$storage.parcel.predefined_package">
+        <div class="column small-12 medium-6 padding-horizontal-zero-important">
+          <label>Type</label>
+          <select ng-model="$storage.parcel.predefined_package" ng-options="package.key as package.value for package in env.easypost.predefinedPackages">
+            <option value="">Custom</option>
+          </select>
+
+        </div>
+
+        <div class="column small-12 medium-6">
+          <label for="parcel-weight">Weight (oz)</label>
+          <input id="parcel-weight" type="number" ng-model="$storage.parcel.weight" placeholder="Weight (oz)..." ng-change="$storage.parcel.weight = forcePrecision($storage.parcel.weight, 10)" ng-model-options="{debounce: {'default': 500}}">        
+        </div>
+
+        <div class="column small-12 medium-4 padding-horizontal-zero-important">
+          <label for="parcel-length">Length (in)</label>
+          <input id="parcel-length" type="number" ng-model="$storage.parcel.length" placeholder="Length (in)..." ng-change="$storage.parcel.length = forcePrecision($storage.parcel.length, 10)" ng-model-options="{debounce: {'default': 500}}">
+        </div>
+        
+        <div class="column small-12 medium-4">
+          <label for="parcel-width">Width (in)</label>
+        <input id="parcel-width" type="number" ng-model="$storage.parcel.width" placeholder="Width (in)..." ng-change="$storage.parcel.width = forcePrecision($storage.parcel.width, 10)" ng-model-options="{debounce: {'default': 500}}">          
+        </div>
+        
+        <div class="column small-12 medium-4">
+          <label for="parcel-height">Height (in)</label>
+          <input id="parcel-height" type="number" ng-model="$storage.parcel.height" placeholder="Height (in)..." ng-change="$storage.parcel.height = forcePrecision($storage.parcel.height, 10)" ng-model-options="{debounce: {'default': 500}}">          
+        </div>
+        
+        
+
+      </form>
+
+    </div>
+
+    <div class="column small-12">
+      <hr>
+    </div>
+
+
+    <div class="column small-12">
+      <h5 class="font-flair">Customs Details</h5>
+
+      <div class="column small-12 medium-4">
+        <label for="customs-eel-pfc">AES Exemption or Proof of Filing Citation ITN</label>
+        <input id="customs-eel-pfc" type="text" ng-model="$storage.shipment.customs.eel_pfc" placeholder="AES exemption or ITN (NOEEI 30.36AES X20080930987654..." required>
+      </div>
+
+      <div class="column small-12 medium-8">
+        <label>&nbsp;</label>
+        <button class="tiny" ng-click="$storage.shipment.customs.eel_pfc = 'NOEEI 30.37(a)'">NOEEI 30.37(a) - value < 2500USD</button>  
+        <button class="tiny" ng-click="$storage.shipment.customs.eel_pfc = 'NOEEI 30.36'">NOEEI 30.36 - Canada</button>  
+      </div>
+
+      <div class="column small-12 medium-4">
+        <label for="customs-type">Contents Type</label>
+        <select id="customs-type" ng-model="$storage.shipment.customs.contents_type" required>
+          <option value="">Choose...</option>
+          <option value="merchandise">Merchandise</option>
+          <option value="gift">Gift</option>
+          <option value="documents">Documents</option>
+          <option value="returned_goods">Returned Goods</option>
+          <option value="sample">Sample</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+      <div class="column small-12 medium-8">
+        <label>&nbsp;</label>
+        <input type="text" ng-model="$storage.shipment.customs.contents_explanation" placeholder="Contents explanation (required for 'other')...">
+      </div>
+
+      <div class="column small-12 medium-4">
+        <label for="customs-restriction">Restriction Type</label>
+        <select id="customs-restriction" ng-model="$storage.shipment.customs.restriction_type" required>
+          <option value="">Choose...</option>
+          <option value="none">None</option>
+          <option value="quarantine">Quarantine</option>
+          <option value="sanitary_phytosanitary_inspection">Sanitary/Phytosanitary Inspection</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+      <div class="column small-12 medium-8">
+        <label>&nbsp;</label>
+        <input type="text" ng-model="$storage.shipment.customs.restriction_comments" placeholder="Restriction comments (required for 'other')...">      
+      </div>
+      
+      <div class="column small-12 medium-4">
+        <label for="customs-non-delivery">Non-delivery Option</label>
+        <select id="customs-non-delivery" ng-model="$storage.shipment.customs.non_delivery_option" required>
+          <option value="">Return</option>
+          <option value="abandon">Abandon</option>
+        </select>  
+      </div>
+
+      <div class="column small-12">
+        <h5 class="font-flair">Customs Items</h5>
+        <ul class="table-list padded">
+          <li class="table-list-header clearfix">
+            <div class="column small-12 medium-3">
+              Description
+            </div>
+            <div class="column small-12 medium-1">
+              Quantity
+            </div>
+            <div class="column small-12 medium-1">
+              Weight
+            </div>
+            <div class="column small-12 medium-2">
+              Value (USD)
+            </div>
+            <div class="column small-12 medium-2">
+              HS Tariff Number
+            </div>
+            <div class="column small-12 medium-1">
+              Origin
+            </div>
+            <div class="column small-12 medium-2 medium-text-right">
+              Action
+            </div>
+          </li>
+          <li ng-repeat="item in $storage.shipment.customs.customs_items">
+            <div class="column small-12 medium-3">
+              <input type="text" ng-model="item.description" placeholder="Description...">
+            </div>
+            <div class="column small-12 medium-1">
+              <input type="number" ng-model="item.quantity" placeholder="Quantity...">
+            </div>
+            <div class="column small-12 medium-1">
+              <input type="number" ng-model="item.weight" placeholder="Weight...">
+            </div>
+            <div class="column small-12 medium-2">
+              <input type="number" ng-model="item.value" placeholder="Value (USD)...">
+            </div>
+            <div class="column small-12 medium-2">
+              <input type="text" ng-model="item.hs_tariff_number" placeholder="HS Tariff Number...">
+            </div>
+            <div class="column small-12 medium-1">
+              <input type="text" ng-model="item.origin_country" placeholder="Country of origin...">
+            </div>
+            <div class="column small-12 medium-2">
+              <button class="tiny alert right" ng-click="removeCustomsItem($storage.shipment.customs.customs_items, $index)">Delete</button>
+            </div>
+          </li>
+          <li class="no-stripe no-hover padding-small">
+            <div class="column small-12">
+              <button class="tiny" ng-click="addCustomsItem()">Add Item</button>
+            </div>
+            
+          </li>
+        </ul>
+      </div>
+
+    </div>
+   
+    <div class="column small-12">
+      <hr>
+    </div>
+
+    <div class="column small-12">
+      <h5 class="font-flair">Order Details</h5>
+
+      <ul class="table-list padded hover striped">
+        <li>
+          <div class="column small-4">
+            <strong>User</strong>
+          </div>
+          <div class="column small-8 text-error">
+            <a ui-sref="authenticated.master.admin.user({key: transaction.userId})">
+              <i class="fa fa-user"></i>
+              <span ng-show="selectedShipment.transaction.user.public.name">{{ selectedShipment.transaction.user.public.name }}</span>
+            </a>
+            &nbsp;
+            <a href="mailto:{{ selectedShipment.transaction.user.public.email || selectedShipment.transaction.user.email }}">
+              {{ selectedShipment.transaction.user.public.name || selectedShipment.transaction.user.public.email || selectedShipment.transaction.user.email }}
+            </a>
+          </div>
+        </li>
+        <li>
+          <div class="column small-4">
+            <strong>Created</strong>
+          </div>
+          <div class="column small-8">
+            {{ selectedShipment.created | moment:"MMM. DD, YYYY HH:mm:ss"}}
+          </div>
+        </li>
+        <li>
+          <div class="column small-4">
+            <strong>Shipped</strong>
+          </div>
+          <div class="column small-8 text-error">
+            <i class="fa fa-paper-plane cursor-pointer" ng-class="{'text-success': selectedShipment.shipped}" ng-click="toggleShipped(selectedShipment)"></i>
+          </div>
+        </li>
+        <li>
+          <div class="column small-4">
+            <strong>Item</strong>
+          </div>
+          <div class="column small-8">
+            {{ selectedShipment.item.title }}: {{ selectedShipment.item.priceAdjusted | currency }}
+          </div>
+        </li>
+        <li>
+          <div class="column small-4">
+            <strong>Count</strong>
+          </div>
+          <div class="column small-8">
+            <strong>{{ selectedShipment.totalCount }}</strong>
+          </div>
+        </li>
+        <li>
+          <div class="column small-4">
+            <strong>Address</strong>
+          </div>
+          <div class="column small-8">
+            <textarea class="text-medium" style="height: 10rem;" ng-bind="getAddress(selectedShipment)" qv-select-text></textarea>
+          </div>
+        </li>
+        <li>
+          <div class="column small-4">
+            <strong>Comments</strong>
+          </div>
+          <div class="column small-8">
+            <textarea class="text-medium" style="height: 10rem;" ng-model="shipment.comments" placeholder="Comments..." ng-blur="save(selectedShipment)" qv-enter="save(selectedShipment)"></textarea>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <form id="address-form" class="column small-12" name="addressForm">
+      <h5 class="font-flair">Address Verification</h5>
+
+      <fieldset>
+        <div class="column small-12">
+          <ul class="table-list padded striped">
+            <li class="table-list-header">
+              <div class="column small-12 medium-6">
+                Address
+              </div>
+              <div class="column small-12 medium-6">
+                Verified Address
+              </div>
+            </li>
+            <li>
+              <div class="column small-12 medium-6">
+                <input class="margin-zero-important" type="text" ng-model="unverifiedAddress.name" placeholder="Name..." required>
+              </div>
+              <div class="column small-12 medium-6 padding-vertical-x-small">
+                {{ verifiedAddress.name }}
+              </div>
+            </li>
+            <li>
+              <div class="column small-12 medium-6">
+                <input class="margin-zero-important" type="text" ng-model="unverifiedAddress.company" placeholder="Company...">
+              </div>
+              <div class="column small-12 medium-6 padding-vertical-x-small">
+                {{ verifiedAddress.company }}
+              </div>
+            </li>
+            <li>
+              <div class="column small-12 medium-6">
+                <input class="margin-zero-important" type="text" ng-model="unverifiedAddress.street1" placeholder="Street 1..." required>
+              </div>
+              <div class="column small-12 medium-6 padding-vertical-x-small">
+                {{ verifiedAddress.street1 }}
+              </div>
+            </li>
+            <li>
+              <div class="column small-12 medium-6">
+                <input class="margin-zero-important" type="text" ng-model="unverifiedAddress.street2" placeholder="Street 2...">
+              </div>
+              <div class="column small-12 medium-6 padding-vertical-x-small">
+                {{ verifiedAddress.street2 }}
+              </div>
+            </li>
+            <li>
+              <div class="column small-12 medium-6">
+                <input class="margin-zero-important" type="text" ng-model="unverifiedAddress.street3" placeholder="Street 3...">
+              </div>
+              <div class="column small-12 medium-6 padding-vertical-x-small">
+                {{ verifiedAddress.street3 }}
+              </div>
+            </li>
+            <li>
+              <div class="column small-12 medium-6">
+                <input class="margin-zero-important" type="text" ng-model="unverifiedAddress.city" placeholder="City..." required>
+              </div>
+              <div class="column small-12 medium-6 padding-vertical-x-small">
+                {{ verifiedAddress.city }}
+              </div>
+            </li>
+            <li>
+              <div class="column small-12 medium-6">
+                <input class="margin-zero-important" type="text" ng-model="unverifiedAddress.state" placeholder="State..." required>
+              </div>
+              <div class="column small-12 medium-6 padding-vertical-x-small">
+                {{ verifiedAddress.state }}
+              </div>
+            </li>
+            <li>
+              <div class="column small-12 medium-6">
+                <input class="margin-zero-important" type="text" ng-model="unverifiedAddress.zip" placeholder="Zip..." required>
+              </div>
+              <div class="column small-12 medium-6 padding-vertical-x-small">
+                {{ verifiedAddress.zip }}
+              </div>
+            </li>
+            <li>
+              <div class="column small-12 medium-6">
+                <input class="margin-zero-important" type="text" ng-model="unverifiedAddress.country" placeholder="Country..." required>
+              </div>
+              <div class="column small-12 medium-6 padding-vertical-x-small">
+                {{ verifiedAddress.country }}
+              </div>
+            </li>
+            <li>
+              <div class="column small-12 medium-6">
+                <input class="margin-zero-important" type="text" ng-model="unverifiedAddress.email" placeholder="Email...">
+              </div>
+              <div class="column small-12 medium-6 padding-vertical-x-small">
+                {{ verifiedAddress.email }}
+              </div>
+            </li>
+            <li>
+              <div class="column small-12 medium-6">
+                <input class="margin-zero-important" type="text" ng-model="unverifiedAddress.phone" placeholder="Phone...">
+              </div>
+              <div class="column small-12 medium-6 padding-vertical-x-small">
+                {{ verifiedAddress.phone }}
+              </div>
+            </li>
+            <li class="no-stripe no-hover padding-small">
+              <div class="column small-12">
+                <button ng-click="createAddress(unverifiedAddress)" ng-disabled="addressForm.$invalid">Verify</button>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+      </fieldset>
+    </form>
+
+  </div>
+</div>

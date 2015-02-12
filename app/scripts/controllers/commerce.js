@@ -8,7 +8,13 @@
  * Controller of the quiverCmsApp
  */
 angular.module('quiverCmsApp')
-  .controller('CommerceCtrl', function ($scope, commerceRef, countries, states) {
+  .controller('CommerceCtrl', function ($scope, commerceRef, countries, states, ShipmentService, $localStorage) {
+
+    /*
+     * localStorge
+     */
+    $scope.$storage = $localStorage;
+
     /*
      * Commerce
     */
@@ -80,6 +86,26 @@ angular.module('quiverCmsApp')
           $scope.commerce.states[state.abbreviation].enabled = false;
         }
       });
+    };
+
+    /*
+     * From Address
+     */
+    $scope.createAddress = function (address) {
+      return ShipmentService.createAddress(address).then(function (response) {
+        if (response.message) {
+          NotificationService.notify(response.message);
+        }
+
+        if (response.address) {
+          if (!$scope.$storage.shipment) {
+            $scope.$storage.shipment = {};
+          }
+          $scope.$storage.shipment.fromAddress = response.address;
+        }
+
+      });
+
     };
 
   });
