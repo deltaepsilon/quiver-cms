@@ -50,6 +50,20 @@ angular.module('quiverCmsApp')
     /*
      * Manage shipment
      */
+     var verifyDataStructure = function () {
+      if (!$scope.$storage.shipment) {
+        $scope.$storage.shipment = {};
+      }
+
+      if (!$scope.$storage.shipment.customs) {
+        $scope.$storage.shipment.customs = {};
+      }
+
+      if (!$scope.$storage.shipment.customs.customs_items) {
+        $scope.$storage.shipment.customs.customs_items = [];
+      }
+    };
+
     $scope.setUnverifiedAddress = function (shipment) {
       var address = shipment.transaction.address;
 
@@ -70,6 +84,12 @@ angular.module('quiverCmsApp')
 
 
     $scope.selectShipment = function (shipment) {
+      verifyDataStructure();
+
+      if ($scope.$storage.shipment.toAddress) {
+        delete $scope.$storage.shipment.toAddress;
+      }
+
       $scope.selectedShipment = shipment;
       $scope.setUnverifiedAddress(shipment);
       $scope.createAddress($scope.unverifiedAddress);
@@ -97,7 +117,8 @@ angular.module('quiverCmsApp')
         }
 
         if (response.address) {
-          $scope.verifiedAddress = response.address;
+          verifyDataStructure();
+          $scope.$storage.shipment.toAddress = response.address;
         }
 
       });
@@ -111,7 +132,7 @@ angular.module('quiverCmsApp')
 
       if (!parcel) {
         return false;
-      } else if (!parcel.predefined_package && (!parcel.length || !parcel.width || !parcel.height || !parcel.weight)) {
+      } else if (!parcel.weight || (!parcel.predefined_package  && (!parcel.length || !parcel.width || !parcel.height || !parcel.weight || !parcel.weight))) {
         return false;
       } else if (!fromAddress) {
         return false;
@@ -122,21 +143,8 @@ angular.module('quiverCmsApp')
       return true;
     }
 
-    var verifyCustomsDataStructure = function () {
-      if (!$scope.$storage.shipment) {
-        $scope.$storage.shipment = {};
-      }
-
-      if (!$scope.$storage.shipment.customs) {
-        $scope.$storage.shipment.customs = {};
-      }
-
-      if (!$scope.$storage.shipment.customs.customs_items) {
-        $scope.$storage.shipment.customs.customs_items = [];
-      }
-    };
     $scope.addCustomsItem = function (shipment) {
-      verifyCustomsDataStructure();
+      verifyDataStructure();
 
       var item = shipment && shipment.item ? shipment.item : {};
       $scope.$storage.shipment.customs.customs_items.push({
@@ -156,6 +164,49 @@ angular.module('quiverCmsApp')
         }  
       });
 
+    };
+
+    $scope.createShipment = function (newShipment) {
+      ShipmentService.createShipment({
+        to_address: newShipment.toAddress,
+        from_address: newShipment.fromAddress,
+        parcel: newShipment.parcel,
+        customs_info: newShipment.customs
+      }).then(function (response) {
+        ShipmentService.saveQuote($scope.selectedShipment.$id, response.shipment);
+        NotificationService.success('Shipment created');
+
+      }, function (error) {
+        NotificationService.error('Shipment failed', error.data.message.message);
+      });
+      
+    };
+
+    $scope.buyShipment = function (shipment, rate) {
+      ShipmentService.buyShipment(shipment.$id, shipment.quote.id, rate.id).then(function (response) {
+        NotificationService.success('Purchase successful');
+        ShipmentService.removeQuote($scope.selectedShipment.$id);
+        console.log('response', response);
+      }, function (error) {
+        NotificationService.error('Purchase failed', error.data.message);
+      });
+
+    };
+
+    $scope.updateTracking = function (shipmentKey, labelKey, tracking, email) {
+      ShipmentService.updateTracking(shipmentKey, labelKey, tracking, email).then(function () {
+        NotificationService.success('Aftership updated');
+      }, function (err) {
+        NotificationService.error('Aftership failed', err);
+      });
+    };
+
+    $scope.refundShipment = function (shipmentKey, labelId) {
+      ShipmentService.refundShipment(shipmentKey, labelId).then(function () {
+        NotificationService.success('Refund processing');
+      }, function (err) {
+        NotificationService.error('Refund failed', err);
+      });
     };
 
   });

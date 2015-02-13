@@ -169,6 +169,10 @@ app.post('/admin/email/send/feedback', MessageController.sendQueuedFeedback);
  */
 app.post('/admin/shipment/*', FormController.body);
 app.post('/admin/shipment/address/create', ShipmentController.createAddress);
+app.post('/admin/shipment/create', ShipmentController.createShipment);
+app.post('/admin/shipment/:shipmentKey/quote/:quoteId/rate/:rateId/buy', ShipmentController.buyShipment);
+app.post('/admin/shipment/:shipmentKey/label/:labelKey/refund', ShipmentController.refundShipment);
+app.post('/admin/shipment/:shipmentKey/label/:labelKey/tracking', ShipmentController.updateTracking);
 
 /*
  * Cron

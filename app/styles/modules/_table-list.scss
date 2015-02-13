@@ -1,6 +1,10 @@
 .table-list {
   margin-left: 0;
 
+  > li {
+    @extend .clearfix;
+  }
+
   &.striped {
     > li {
       overflow: hidden;
