@@ -57,8 +57,8 @@
           </div>
           <div class="column small-12 medium-4">
             <a class="button tiny left text-white0-important" href="{{ label.postage_label.label_url }}" download>Download</a>
-            <button class="alert tiny left" qv-confirm="updateTracking(selectedShipment.$id, label.id, label.tracker.tracking_code, label.to_address.email)" confirmations="['Confirm Aftership']">Aftership</button>
-            <button class="secondary tiny left" qv-confirm="refundShipment(selectedShipment.$id, label.id)" confirmations="['Confirm Refund']">Refund</button>
+            <button class="alert tiny left" qv-confirm="updateTracking(selectedShipment.$id, label.id, label.tracker.tracking_code, label.to_address.email)" confirmations="['Confirm']">Aftership</button>
+            <button class="secondary tiny left" qv-confirm="refundShipment(selectedShipment.$id, label.id)" confirmations="['Confirm']">Refund</button>
           </div>
         </li>
       </ul>
@@ -74,7 +74,7 @@
 
 
         <div class="column small-12 medium-9">
-          <ul class="table-list padded striped hover">
+          <ul class="table-list padded striped hover" ng-show="selectedShipment.quote.rates">
             <li class="table-list-header">
               <div class="column small-12 medium-3">
                 Carrier
@@ -104,7 +104,7 @@
           
         </div>  
 
-        <div class="column small-12">
+        <div class="column small-12" ng-show="selectedShipment.quote.rates">
           <hr>
         </div>
 

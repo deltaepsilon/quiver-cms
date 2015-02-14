@@ -290,6 +290,8 @@ angular.module('quiverCmsApp')
         territory = address.territory,
         formattedAddress = {
           recipient: address.recipient,
+          email: address.email,
+          phone: address.phone,
           street1: address.street1 && address.street1.length ? address.street1 : null,
           street2: address.street2 && address.street2.length ? address.street2 : null,
           street3: address.street3 && address.street3.length ? address.street3 : null,
@@ -306,7 +308,7 @@ angular.module('quiverCmsApp')
 
       if (!formattedAddress.recipient) {
         errorMessages.recipient = 'Missing recipient name.';
-      }        
+      }
 
       if (!formattedAddress.street1) {
         errorMessages.street = 'Missing street line 1.';
@@ -315,6 +317,14 @@ angular.module('quiverCmsApp')
       if (!formattedAddress.city) {
         errorMessages.city = 'Missing city.';
       }
+
+      if (!formattedAddress.email) {
+        errorMessages.email = 'Missing recipient email.';
+      }
+
+      if (!formattedAddress.phone) {
+        errorMessages.phone = 'Missing recipient phone.';
+      }        
 
       if (!formattedAddress.territory) {
         if (address.country === 'US') {

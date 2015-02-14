@@ -76,7 +76,8 @@ angular.module('quiverCmsApp')
         state: address.territory,
         zip: address.postalCode,
         country: address.country,
-        email: address.email || shipment.transaction.user.email
+        email: address.email || shipment.transaction.user.email,
+        phone: address.phone
 
       };
 
@@ -126,17 +127,17 @@ angular.module('quiverCmsApp')
     };
 
     $scope.validateShipment = function (shipment) {
-      var parcel = shipment.parcel,
-        fromAddress = shipment.fromAddress,
-        customs = shipment.customs;
+      var parcel = shipment.parcel;
 
       if (!parcel) {
         return false;
       } else if (!parcel.weight || (!parcel.predefined_package  && (!parcel.length || !parcel.width || !parcel.height || !parcel.weight || !parcel.weight))) {
         return false;
-      } else if (!fromAddress) {
+      } else if (!shipment.fromAddress) {
         return false;
-      } else if (!customs) {
+      } else if (!shipment.toAddress) {
+        return false;
+      } else if (!shipment.customs) {
         return false;
       }
 

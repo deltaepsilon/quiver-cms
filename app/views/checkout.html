@@ -82,10 +82,19 @@
           <input type="text" ng-model="$storage.address.recipient" ng-blur="validateAddress($storage.address)" placeholder="First and last name..." required>
 
           <label for="address-email">
-            <span>Recipient Email</span>
+            <span>Notification Email</span>
             <strong class="text-small text-error margin-horizontal-small">{{ errorMessages.email }}</strong>
           </label>
           <input type="text" ng-model="$storage.address.email" ng-blur="validateAddress($storage.address)" placeholder="Notification email..." required>
+
+          <label for="address-phone">
+            <span>Notification Phone</span>
+            <strong class="text-small text-error margin-horizontal-small">{{ errorMessages.phone }}</strong>
+          </label>
+          <input type="text" style="margin-bottom: .25rem;" ng-model="$storage.address.phone" ng-blur="validateAddress($storage.address)" placeholder="Notification phone..." required>
+          <input id="address-sms" class="left margin-vertical-x-small-important" type="checkbox" ng-model="$storage.address.sms">
+          <label for="address-sms" style="margin-bottom: 1rem;">Enable SMS notifications</label>
+          
 
           <label for="address-line-one">
             <span>Street</span>
@@ -156,6 +165,8 @@
             <li>{{ $storage.cart.address.street3 }}</li>
             <li>{{ $storage.cart.address.city }}, {{ $storage.cart.address.territory }} {{ $storage.cart.address.postalCode }}</li>
             <li>{{ $storage.cart.address.countryName }}</li>
+            <li>{{ $storage.cart.address.email }}</li>
+            <li>{{ $storage.cart.address.phone }}</li>
             <li ng-show="$storage.cart.address.instructions" class="margin-vertical-small">
               <strong>Shipping Instructions:</strong>
               <p class="text-small padding-horizontal-x-small">
