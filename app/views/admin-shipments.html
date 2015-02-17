@@ -46,18 +46,31 @@
 
           </div>
           <div class="column small-12 medium-3">
-            <div>
-              <a href="{{label.postage_label.label_url }}" target="_blank">Label</a>
-            </div>
-            <div>
-              <a href="https://www.google.com/search?q={{ label.tracker.tracking_code }}" target="_blank">{{ label.tracker.tracking_code }}</a>
-            </div>
-            
+            <ul class="table-list">
+              <li>
+                Label: <a href="{{label.postage_label.label_url }}" target="_blank">View</a>
+              </li>
+              <li>
+                Track: <a href="https://www.google.com/search?q={{ label.tracker.tracking_code }}" target="_blank">{{ label.tracker.tracking_code }}</a>
+              </li>
+              <li ng-show="label.aftership.tracking.tag">
+                Tag:&nbsp;&nbsp;&nbsp; {{ label.aftership.tracking.tag }}
+              </li>
+              <li ng-show="label.aftership.tracking.delivery_time">
+                Delivery time: {{ label.aftership.tracking.delivery_time }}
+              </li>
+              <li ng-repeat="email in label.aftership.tracking.emails">
+                <a href="mailto:{{ email }}">{{ email }}</a>
+              </li>
+              <li ng-repeat="sms in label.aftership.tracking.smses">
+                {{ sms }}
+              </li>
+            </ul>           
             
           </div>
           <div class="column small-12 medium-4">
             <a class="button tiny left text-white0-important" href="{{ label.postage_label.label_url }}" download>Download</a>
-            <button class="alert tiny left" qv-confirm="updateTracking(selectedShipment.$id, label.id, label.tracker.tracking_code, label.to_address.email)" confirmations="['Confirm']">Aftership</button>
+            <button class="alert tiny left" qv-confirm="updateTracking(selectedShipment.$id, label.id, label.tracker.tracking_code, label.to_address.email, selectedShipment.transaction.address.sms)" confirmations="['Confirm']" ng-disabled="updatingTracking">Aftership</button>
             <button class="secondary tiny left" qv-confirm="refundShipment(selectedShipment.$id, label.id)" confirmations="['Confirm']">Refund</button>
           </div>
         </li>
@@ -69,7 +82,7 @@
 
       <fieldset>
         <div class="column small-12 medium-3">
-          <button ng-click="createShipment($storage.shipment)" ng-disabled="!validateShipment($storage.shipment)">Get Quote</button>
+          <button ng-click="createShipment($storage.shipment)" ng-disabled="!validateShipment($storage.shipment) || creatingShipment">Get Quote</button>
         </div>
 
 
@@ -94,7 +107,7 @@
                 {{ rate.service }}
               </div>
               <div class="column small-12 medium-6 medium-text-right">
-                <button class="alert tiny margin-zero-important" style="min-width: 9rem;" qv-confirm="buyShipment(selectedShipment, rate)" confirmations="['Purchase for {{ rate.rate }} {{ rate.currency }}?']" ng-disabled="!selectedShipment.quote || !rate">
+                <button class="alert tiny margin-zero-important" style="min-width: 9rem;" qv-confirm="buyShipment(selectedShipment, rate)" confirmations="['Purchase for {{ rate.rate }} {{ rate.currency }}?']" ng-disabled="!selectedShipment.quote || !rate || buyingShipment">
                   {{ rate.rate }} {{ rate.currency }}
                 </button>
               </div>
@@ -494,7 +507,8 @@
           </li>
           <li class="no-stripe no-hover padding-small">
             <div class="column small-12">
-              <button class="tiny" ng-click="addCustomsItem()">Add Item</button>
+              <button class="tiny left" ng-click="addCustomsItem()">Add Blank Item</button>
+              <button class="tiny right" ng-click="addCustomsItem(selectedShipment)">Add Current Item</button>
             </div>
             
           </li>

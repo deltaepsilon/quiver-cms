@@ -4,6 +4,9 @@
     <li class="padding-small" ng-repeat="shipment in items | orderBy:'$priority':'desc'">
       <div class="column small-12 medium-8 text-small">
         <div class="column small-12 medium-6">
+          <button class="show-shipment tiny left" style="margin: 7px 1rem 0 0" ng-click="selectShipment(shipment)">
+            <i class="fa fa-truck"></i>
+          </button>
           <a href="mailto:{{ shipment.transaction.user.public.email }}">{{ shipment.transaction.user.public.email }}</a>
           <div>{{ shipment.created | moment:"MM/DD/YYYY" }}</div>
         </div>
@@ -23,11 +26,8 @@
 
         <div class="column small-12">
           <div class="left small-12 medium-6">
-            <a class="show-shipment" ng-click="selectShipment(shipment)">
-              <i class="fa fa-gear"></i>
-            </a>
             <a ng-click="addCustomsItem(shipment)">
-              <i class="fa fa-truck"></i>
+              <i class="fa fa-plus"></i>
             </a>
             <input id="shipped-{{ $index }}" class="margin-horizontal-xx-small-important" type="checkbox" ng-model="shipment.shipped" ng-change="save(shipment)">
             <label style="margin-left: 0;" for="shipped-{{ $index }}">Shipped</label>

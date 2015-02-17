@@ -69,7 +69,16 @@
             <input type="number" name="product-shipping-international" placeholder="International USD..." ng-model="product.shipping.internationalBase" ng-change="checkValidity()">
 
             <label>International Incremental Shipping per Unit</label>
-            <input type="number" name="product-shipping-international-incremental" placeholder="Intrnational incremental USD..." ng-model="product.shipping.internationalIncremental" ng-change="checkValidity()">
+            <input type="number" name="product-shipping-international-incremental" placeholder="International incremental USD..." ng-model="product.shipping.internationalIncremental" ng-change="checkValidity()">
+
+            <label>HS Tariff Number</label>
+            <input type="text" name="product-shipping-hs-tariff-number" placeholder="HS Tariff Number..." ng-model="product.hsTariffNumber" ng-change="checkValidity()">
+
+            <label>Origin Country</label>
+            <input type="text" name="product-shipping-hs-tariff-number" placeholder="Origin country..." ng-model="product.originCountry" ng-change="checkValidity()">
+
+            <label>Weight (ounces)</label>
+            <input type="number" name="product-shipping-hs-tariff-number" placeholder="Weight..." ng-model="product.weight" ng-change="checkValidity()">
 
             <div>
               <label class="left" for="product-allow-international">Ship Internationally?</label>

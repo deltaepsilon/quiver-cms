@@ -89,11 +89,26 @@
 
           <label for="address-phone">
             <span>Notification Phone</span>
+            <strong class="text-small text-error margin-horizontal-small">{{ errorMessages.countryCode }}</strong>
             <strong class="text-small text-error margin-horizontal-small">{{ errorMessages.phone }}</strong>
           </label>
-          <input type="text" style="margin-bottom: .25rem;" ng-model="$storage.address.phone" ng-blur="validateAddress($storage.address)" placeholder="Notification phone..." required>
-          <input id="address-sms" class="left margin-vertical-x-small-important" type="checkbox" ng-model="$storage.address.sms">
-          <label for="address-sms" style="margin-bottom: 1rem;">Enable SMS notifications</label>
+          <div class="clearfix">
+            <div class="small-3 left">
+              <select class="margin-zero-important" ng-model="$storage.address.countryCode" ng-options="code.key as code.value for code in countryCodes" required>
+                <option val="">+1</option>
+              </select>
+            </div>
+            <div class="small-9 left">
+              <input class="small-8" type="text" style="margin-bottom: .25rem;" ng-model="$storage.address.phone" ng-blur="validateAddress($storage.address)" placeholder="202-555-0100..." required>
+            </div>
+          </div>
+          
+          <div>
+            <input id="address-sms" class="left margin-vertical-x-small-important" type="checkbox" ng-model="$storage.address.sms">
+            <label for="address-sms" style="margin-bottom: 1rem;">Enable SMS notifications</label>
+          </div>
+          
+          
           
 
           <label for="address-line-one">
@@ -166,7 +181,8 @@
             <li>{{ $storage.cart.address.city }}, {{ $storage.cart.address.territory }} {{ $storage.cart.address.postalCode }}</li>
             <li>{{ $storage.cart.address.countryName }}</li>
             <li>{{ $storage.cart.address.email }}</li>
-            <li>{{ $storage.cart.address.phone }}</li>
+            <li>{{ $storage.cart.address.countryCode }} {{ $storage.cart.address.phone }}</li>
+            <li ng-show="$storage.cart.address.sms">SMS notifications enabled</li>
             <li ng-show="$storage.cart.address.instructions" class="margin-vertical-small">
               <strong>Shipping Instructions:</strong>
               <p class="text-small padding-horizontal-x-small">

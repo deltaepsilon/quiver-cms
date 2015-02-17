@@ -33,6 +33,25 @@ angular.module('quiverCmsApp')
       return statesStatus[state.abbreviation] ? statesStatus[state.abbreviation].enabled : false;
     });
 
+    var cleanedCountryCodes = _.map(CommerceService.getCountryCodes(), function (code) {
+      var dialCode = code.dial_code,
+        i = 6 - dialCode.length;
+
+      while (i--) {
+        dialCode += " ";
+      }
+      return {
+        key: code.dial_code,
+        value: dialCode + " " + code.code
+      };
+    });
+
+    var COUNTRY_CODE_REGEX = /(\s|\+)/g;
+    $scope.countryCodes = _.sortBy(cleanedCountryCodes, function (code) {
+      console.log(code.key.replace(COUNTRY_CODE_REGEX, ""));
+      return parseInt(code.key.replace(COUNTRY_CODE_REGEX, ""));
+    });
+
     if (!$scope.$storage.address) {
       $scope.$storage.address = {
         email: user.public.email
@@ -45,6 +64,10 @@ angular.module('quiverCmsApp')
 
     if (!$scope.$storage.address.state && $scope.$storage.address.country === 'US') {
       $scope.$storage.address.state = 'AL';
+    }
+
+    if (!$scope.$storage.address.countryCode) {
+      $scope.$storage.address.countryCode = "+1"
     }
 
     /*
@@ -291,7 +314,8 @@ angular.module('quiverCmsApp')
         formattedAddress = {
           recipient: address.recipient,
           email: address.email,
-          phone: address.phone,
+          phone: address.countryCode + " " + address.phone.replace(/[^\d]/g, ""),
+          sms: address.sms || false,
           street1: address.street1 && address.street1.length ? address.street1 : null,
           street2: address.street2 && address.street2.length ? address.street2 : null,
           street3: address.street3 && address.street3.length ? address.street3 : null,

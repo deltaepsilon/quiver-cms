@@ -45,8 +45,8 @@ angular.module('quiverCmsApp')
         return Restangular.one('admin').one('shipment').one(shipmentKey).one('label').one(labelKey).post('refund');
       },
 
-      updateTracking: function (shipmentKey, labelKey, tracking, email) {
-        return Restangular.one('admin').one('shipment').one(shipmentKey).one('label').one(labelKey).post('tracking', {tracking: tracking, email: email});
+      updateTracking: function (shipmentKey, labelKey, tracking, email, smsEnabled) {
+        return Restangular.one('admin').one('shipment').one(shipmentKey).one('label').one(labelKey).post('tracking', {tracking: tracking, email: email, sms: smsEnabled || false});
       }
 
 

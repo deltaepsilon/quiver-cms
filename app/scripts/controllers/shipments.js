@@ -94,7 +94,6 @@ angular.module('quiverCmsApp')
       $scope.selectedShipment = shipment;
       $scope.setUnverifiedAddress(shipment);
       $scope.createAddress($scope.unverifiedAddress);
-      $scope.addCustomsItem(shipment);
 
     };
 
@@ -156,6 +155,8 @@ angular.module('quiverCmsApp')
         hs_tariff_number: item.hsTariffNumber || "",
         origin_country: item.originCountry || 'US'
       });
+
+      NotificationService.success('Customs', item.title + " added to customs form");
     };
 
     $scope.removeCustomsItem = function (customsItems, index) {
@@ -168,6 +169,7 @@ angular.module('quiverCmsApp')
     };
 
     $scope.createShipment = function (newShipment) {
+      $scope.creatingShipment = true;
       ShipmentService.createShipment({
         to_address: newShipment.toAddress,
         from_address: newShipment.fromAddress,
@@ -176,29 +178,36 @@ angular.module('quiverCmsApp')
       }).then(function (response) {
         ShipmentService.saveQuote($scope.selectedShipment.$id, response.shipment);
         NotificationService.success('Shipment created');
+        delete $scope.creatingShipment;
 
       }, function (error) {
         NotificationService.error('Shipment failed', error.data.message.message);
+        delete $scope.creatingShipment;
       });
       
     };
 
     $scope.buyShipment = function (shipment, rate) {
+      $scope.buyingShipment = true;
       ShipmentService.buyShipment(shipment.$id, shipment.quote.id, rate.id).then(function (response) {
         NotificationService.success('Purchase successful');
         ShipmentService.removeQuote($scope.selectedShipment.$id);
-        console.log('response', response);
+        delete $scope.buyingShipment;
       }, function (error) {
         NotificationService.error('Purchase failed', error.data.message);
+        delete $scope.buyingShipment;
       });
 
     };
 
-    $scope.updateTracking = function (shipmentKey, labelKey, tracking, email) {
-      ShipmentService.updateTracking(shipmentKey, labelKey, tracking, email).then(function () {
+    $scope.updateTracking = function (shipmentKey, labelKey, tracking, email, smsEnabled) {
+      $scope.updatingTracking = true;
+      ShipmentService.updateTracking(shipmentKey, labelKey, tracking, email, smsEnabled).then(function () {
         NotificationService.success('Aftership updated');
+        delete $scope.updatingTracking;
       }, function (err) {
         NotificationService.error('Aftership failed', err);
+        delete $scope.updatingTracking;
       });
     };
 

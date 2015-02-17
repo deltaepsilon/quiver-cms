@@ -103,6 +103,9 @@
         }
       ]
     },
+    "braintree": {
+      "cse": "ASDFBCE"
+    },
     "timeZone": "America/Denver"
   },
   "private": {
@@ -153,6 +156,9 @@
       "privateKey": "ASDFASDFADFS"
     },
     "easypost": {
+      "key": "ASDFASDFASDFASDF"
+    },
+    "aftership": {
       "key": "ASDFASDFASDFASDF"
     },
     "email": {

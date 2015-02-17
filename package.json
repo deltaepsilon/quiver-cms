@@ -2,6 +2,7 @@
   "name": "quivercms",
   "version": "0.1.4",
   "dependencies": {
+    "aftership": "^4.1.4",
     "aws-sdk": "~2.0.15",
     "braintree": "^1.20.0",
     "browser_fingerprint": "0.0.5",
