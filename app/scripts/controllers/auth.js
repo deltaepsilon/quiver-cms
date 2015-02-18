@@ -67,5 +67,18 @@ angular.module('quiverCmsApp')
       });
     };
 
+    $scope.google = function () {
+      qvAuth.auth.$authWithOAuthPopup('google', {
+        scope: 'email'
+      });
+
+    };
+
+    $scope.facebook = function () {
+      qvAuth.auth.$authWithOAuthPopup('facebook', {
+        scope: 'email'
+      });
+
+    };
 
   });

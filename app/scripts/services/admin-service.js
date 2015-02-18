@@ -1,10 +1,35 @@
 'use strict';
 
 angular.module('quiverCmsApp')
-  .service('AdminService', function AdminService($firebase, env, Restangular, FirebaseService) {
-    var firebaseEndpoint = env.firebase.endpoint;
+  .service('AdminService', function AdminService($firebase, env, Restangular, FirebaseService, $localStorage) {
+    var firebaseEndpoint = env.firebase.endpoint,
+      toLanding = function () {
+        location.replace('/');        
+      };
 
     return {
+      toLanding: toLanding,
+
+      loggedOutStates: ['master.nav.login', 'master.nav.register', 'master.nav.reset'],
+
+      redirect: function () {
+        if ($localStorage.redirect) {
+          if (typeof $localStorage.redirect === 'object' && $localStorage.redirect.toState && $localStorage.redirect.toState.name !== 'master.nav.login') {
+            $state.go($localStorage.redirect.toState.name, $localStorage.redirect.toParams);  
+          } else if (typeof $localStorage.redirect === 'string') {
+            var redirect = $localStorage.redirect;
+            delete $localStorage.redirect;  
+            location.replace(redirect);
+          } else {
+            toLanding();
+          }
+          
+          
+        } else {
+          toLanding();
+        }
+      },
+
       getWords: function (query) {
         return $firebase(FirebaseService.query(new Firebase(firebaseEndpoint + '/content/words'), query));
       },
@@ -65,8 +90,8 @@ angular.module('quiverCmsApp')
         return Restangular.one('admin').one('clear-cache').get();
       },
 
-      getApiUser: function (id, headers) {
-        return Restangular.one('user').one(id).get({}, headers);
+      getApiUser: function (headers) {
+        return Restangular.one('user').one(headers.uid).one('provider').one(headers.provider).get({}, headers);
       },
 
       getProducts: function (query) {

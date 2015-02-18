@@ -120,7 +120,7 @@ app.get('/admin/clear-cache', CacheController.clearPages);
 /*
  * User
 */
-app.get('/user/:userId', UserController.get);
+app.get('/user/:uid/provider/:provider', UserController.get);
 
 /*
  * Payment

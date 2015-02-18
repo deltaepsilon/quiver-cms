@@ -2,13 +2,10 @@
 
 angular.module('quiverCmsApp')
   .controller('MasterCtrl', function ($scope, currentUser, env, qvAuth, ObjectService, NotificationService, $state, md5, settingsRef, filesRef, user, AdminService, _, $localStorage, $timeout, moment) {
-    var loggedOutStates = ['master.nav.login', 'master.nav.register', 'master.nav.reset'],
-      toLanding = function () {
-        location.replace('/');
-      },
+    var loggedOutStates = AdminService.loggedOutStates,
       handleStateChange = function (event, toState, fromState, fromParams) {
         if ($scope.currentUser && ~loggedOutStates.indexOf(toState.name)) { //Protect login/register/reset states from logged-in users
-          toLanding();
+          AdminService.toLanding();
         }
       };
 
@@ -18,7 +15,8 @@ angular.module('quiverCmsApp')
     $scope.environment = env.environment;
     $scope.env = env;
 
-    $scope.toLanding = toLanding;
+    $scope.toLanding = AdminService.toLanding;
+    $scope.redirect = AdminService.redirect;
 
     $scope.setCurrentUser = function (currentUser) {
       $scope.currentUser = currentUser;
@@ -31,24 +29,7 @@ angular.module('quiverCmsApp')
 
     $scope.setCurrentUser(currentUser);
 
-    $scope.redirect = function() {
-      if ($localStorage.redirect) {
-        if (typeof $localStorage.redirect === 'object' && $localStorage.redirect.toState && $localStorage.redirect.toState.name !== 'master.nav.login') {
-          $state.go($localStorage.redirect.toState.name, $localStorage.redirect.toParams);  
-        } else if (typeof $localStorage.redirect === 'string') {
-          var redirect = $localStorage.redirect;
-          delete $localStorage.redirect;  
-          location.replace(redirect);
-        } else {
-          $scope.toLanding();
-        }
-        
-        
-      } else {
-        $scope.toLanding();
-      }
-      
-    };
+    
 
     /*
      * Settings
@@ -115,7 +96,7 @@ angular.module('quiverCmsApp')
       if ($state.previous && $state.previous.current.name.length > 0) {
         $state.go($state.previous.current.name, $state.previous.params);
       } else {
-        toLanding();
+        $scope.toLanding();
       }
 
     }
@@ -127,7 +108,7 @@ angular.module('quiverCmsApp')
       qvAuth.logOut().then(function () {
         delete $scope.currentUser;
         delete $scope.user;
-        toLanding();
+        $scope.toLanding();
       });
     };
 

@@ -161,6 +161,19 @@
     "aftership": {
       "key": "ASDFASDFASDFASDF"
     },
+    "facebook": {
+      "id": "123456",
+      "secret": "123456"
+    },
+    "twitter": {
+      "id": "123456",
+      "secret": "123456"
+    },
+    "google": {
+      "id": "123456",
+      "secret": "123456",
+      "email": "123123123123@developer.gserviceaccount.com"
+    },
     "email": {
       "from": {
         "name": "Tyrion Lannister",

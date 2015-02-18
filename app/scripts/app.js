@@ -24,22 +24,15 @@ angular.module('quiverCmsApp', [
     });
      
     qvAuth.auth.$onAuth(function (authData) {
-      if (authData && authData.uid) {
-        var headers = {"authorization": authData.token, "user-id": authData.uid, "email": authData.email};
 
-        qvAuth.getUser(authData.uid).then(function (user) {
-          if (!user || !user.public || !user.private) {
-            AdminService.getApiUser(authData.uid, headers).then(function () {
-              AdminService.setUserEmail(authData.uid, authData.password.email);
-            }, function (err) {
-              console.warn('User creation error.');
-            });
-
-          } else if (!user.public.email) {
-            AdminService.setUserEmail(authData.uid, authData.password.email);
-            // console.log('User authenticated', user);
+      if (authData && authData.uid) {       
+        // Make sure that the user has been created and redirect if needed
+        AdminService.getApiUser(qvAuth.getHeaders(authData)).then(function () {
+          if (~AdminService.loggedOutStates.indexOf($state.toState.name)) {
+            AdminService.redirect();
           }
-        });
+          
+        }); 
 
       }
 
@@ -124,32 +117,27 @@ angular.module('quiverCmsApp', [
           filesRef: function (AdminService) {
             return AdminService.getFiles();
           },
-          user: function ($q, $state, qvAuth) {
-            var deferred = $q.defer();
-            qvAuth.getCurrentUser().then(function (currentUser) {
-
-              if (currentUser && currentUser.uid) {
-                // Set up auth tokens
-                var headers = {
-                    "authorization": currentUser.token,
-                    "user-id": currentUser.uid,
-                    "email": currentUser.password.email
-                  };
-                RestangularProvider.setDefaultHeaders(headers);
-                flowFactoryProvider.defaults = {headers: headers, testChunks: false};
-
-                return qvAuth.getUser(currentUser.uid);
-              } else {
-                deferred.resolve();
-              }
-
-            }).then(deferred.resolve, deferred.reject);
-
+          user: function ($q, $state, qvAuth, AdminService) {
             /*
              * The user may be logged in, but hit the page without auth,
              * so currentUser was not resolved on the initial page load.
             */
-            return deferred.promise; //
+            return qvAuth.getCurrentUser().then(function (currentUser) {
+              if (!currentUser || !currentUser.uid) {
+                return qvAuth.getResolvedPromise();
+              }
+
+              var headers = qvAuth.getHeaders(currentUser);
+
+              RestangularProvider.setDefaultHeaders(headers);
+              flowFactoryProvider.defaults = {headers: headers, testChunks: false};
+
+              return AdminService.getApiUser(headers);
+
+            }).then(function (data) {
+              return !data ? qvAuth.getResolvedPromise() : qvAuth.getUser(data.key);
+            });
+
           }
         }
       })
@@ -231,36 +219,28 @@ angular.module('quiverCmsApp', [
         templateUrl: 'views/authenticated.html',
         controller: 'AuthenticatedCtrl',
         resolve: {
-          user: function ($q, $state, qvAuth, $localStorage) {
-            var deferred = $q.defer();
-            qvAuth.getCurrentUser().then(function (currentUser) {
-
-              if (currentUser && currentUser.uid) {
-                // Set up auth tokens
-                var headers = {
-                    "authorization": currentUser.token,
-                    "user-id": currentUser.uid,
-                    "email": currentUser.password.email
-                  };
-                RestangularProvider.setDefaultHeaders(headers);
-                flowFactoryProvider.defaults = {headers: headers, testChunks: false};
-
-                return qvAuth.getUser(currentUser.uid);
-              } else {
+          user: function ($q, $state, qvAuth, $localStorage, AdminService) {
+            return qvAuth.getCurrentUser().then(function (currentUser) {
+              if (!currentUser || !currentUser.uid) {
                 // Dump users without auth to login.
                 $localStorage.redirect = {
                   toState: $state.toState,
                   toParams: $state.toParams
                 };
-                $state.go('master.nav.login');
+                return $state.go('master.nav.login');  
               }
 
-            }).then(deferred.resolve, deferred.reject);
-            /*
-             * The user may be logged in, but hit the page without auth,
-             *  so currentUser was not resolved on the initial page load.
-            */
-            return deferred.promise;
+              var headers = qvAuth.getHeaders(currentUser);
+
+              RestangularProvider.setDefaultHeaders(headers);
+              flowFactoryProvider.defaults = {headers: headers, testChunks: false};
+
+              return AdminService.getApiUser(headers);
+
+            }).then(function (data) {
+              return !data ? qvAuth.getRejectedPromise() : qvAuth.getUser(data.key);
+            });
+
           }
         }
       })
