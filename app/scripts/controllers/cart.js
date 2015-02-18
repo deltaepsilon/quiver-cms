@@ -48,7 +48,6 @@ angular.module('quiverCmsApp')
 
     var COUNTRY_CODE_REGEX = /(\s|\+)/g;
     $scope.countryCodes = _.sortBy(cleanedCountryCodes, function (code) {
-      console.log(code.key.replace(COUNTRY_CODE_REGEX, ""));
       return parseInt(code.key.replace(COUNTRY_CODE_REGEX, ""));
     });
 

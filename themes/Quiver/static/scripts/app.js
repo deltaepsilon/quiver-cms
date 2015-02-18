@@ -46,35 +46,33 @@ angular.module('QuiverCMS', ['ngStorage', 'quiver.angular-utilities', 'quiver.an
     
   })
   .controller('MasterCtrl', function ($scope, $http, $timeout, $localStorage, ProductService, moment, _, qvAuth, md5) {
-
-
     /*
      * User
     */
-  qvAuth.getCurrentUser().then(function (currentUser) {
-    $scope.currentUser = currentUser;
-    $scope.showNav = true;
+    qvAuth.getCurrentUser().then(function (currentUser) {
+      $scope.currentUser = currentUser;
+      $scope.showNav = true;
 
-    if (currentUser && currentUser.email) {
-      $scope.gravatar = "https://www.gravatar.com/avatar/" + md5.createHash(currentUser.email);
-    }
+      if (currentUser && currentUser.email) {
+        $scope.gravatar = "https://www.gravatar.com/avatar/" + md5.createHash(currentUser.email);
+      }
 
-    if (currentUser && currentUser.uid) {
-      var headers = qvAuth.getHeaders(currentUser);
-      $http.get(window.envVars.api + '/user/' + headers.uid + '/provider/' + headers.provider, {headers: headers}).then(function (res) {
-        qvAuth.getUser(res.data.key).then(function (user) {
-          $scope.user = user;
+      if (currentUser && currentUser.uid) {
+        var headers = qvAuth.getHeaders(currentUser);
+        $http.get(window.envVars.api + '/user/' + headers.uid + '/provider/' + headers.provider, {headers: headers}).then(function (res) {
+          qvAuth.getUser(res.data.key).then(function (user) {
+            $scope.user = user;
+          });
         });
-      });
 
-    }
+      }
 
-    if (!currentUser) {
-      $localStorage.redirect = '/';
-    }
+      if (!currentUser) {
+        $localStorage.redirect = '/';
+      }
 
 
-  });
+    });
 
     $scope.logOut = function () {
       qvAuth.logOut().then(function () {
