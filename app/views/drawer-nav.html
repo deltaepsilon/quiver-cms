@@ -29,7 +29,7 @@
     </label>
     <ul class="popout">
       <li qv-active>
-        <a ui-sref="authenticated.master.nav.account">User Settings</a>
+        <a ui-sref="authenticated.master.nav.account"><i class="fa fa-gear"></i> &nbsp; Account</a>
       </li>
 
       <li ng-show="user.private.isAdmin" qv-active>
@@ -37,6 +37,16 @@
       </li>
       <li>
         <a ng-click="logOut()" ui-sref="authenticated.master.nav.dashboard"><i class="fa fa-sign-out"></i> &nbsp;Log Out</a>
+      </li>
+    </ul>
+  </li>
+
+  <li class="has-popout click" ng-if="user.private.commerce.subscriptions">
+    <input id="subscriptions-toggle" class="popout-toggle" type="checkbox" name="left-nav" qv-exclusive>
+    <label for="subscriptions-toggle"><i class="fa fa-university"></i> &nbsp;Subscriptions</label>
+    <ul class="popout">
+      <li ng-repeat="(key, subscription) in user.private.commerce.subscriptions">
+        <a ui-sref="authenticated.master.nav.subscription.page({subscriptionKey: key, pageNumber: $storage['bookmark-' + key] || 0})">{{ subscription.title }}</a>
       </li>
     </ul>
   </li>
@@ -65,15 +75,6 @@
     <a ui-sref="authenticated.master.nav.messages"><i class="fa fa-envelope"></i> &nbsp;Messages</a>
   </li>
 
-  <li class="has-popout click" ng-if="user.private.commerce.subscriptions">
-    <input id="subscriptions-toggle" class="popout-toggle" type="checkbox" name="left-nav" qv-exclusive>
-    <label for="subscriptions-toggle"><i class="fa fa-university"></i> &nbsp;Subscriptions</label>
-    <ul class="popout">
-      <li ng-repeat="(key, subscription) in user.private.commerce.subscriptions">
-        <a ui-sref="authenticated.master.nav.subscription.page({subscriptionKey: key, pageNumber: $storage['bookmark-' + key] || 0})">{{ subscription.title }}</a>
-      </li>
-    </ul>
-  </li>
   <li ng-if="settings.app1Title" class="has-popout click">
     <input id="app1-toggle" class="popout-toggle" type="checkbox" name="left-nav" qv-exclusive>
     <label for="app1-toggle">{{ settings.app1Title }}</label>

@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('quiverCmsApp')
-  .controller('AccountCtrl', function ($scope, qvAuth, NotificationService, moment) {
+  .controller('AccountCtrl', function ($scope, qvAuth, NotificationService, CommerceService, moment) {
     $scope.user.$bindTo($scope, 'user'); // $scope.user is defined up the scope chain by AuthenticatedCtrl
 
     $scope.changePassword = function (email, oldPassword, newPassword) {
@@ -25,5 +25,22 @@ angular.module('quiverCmsApp')
     $scope.setBirthdate = function (birthdate) {
       $scope.user.public.birthdate = moment(birthdate).format();
     };
+
+
+    $scope.removePaymentMethod = function (token) {
+      if ($scope.$storage.cart && token === $scope.$storage.cart.paymentToken) {
+        $scope.$storage.cart.paymentToken = false;
+      }
+
+      CommerceService.removePaymentMethod(token).then(function (response) {
+        if (response.error) {
+          NotificationService.error('Card Error', response.error);
+        } else {
+          NotificationService.success('Card Removed');
+        }
+      }, function (err) {
+        NotificationService.error('Card Error', err);
+      });
+    }
 
   });
