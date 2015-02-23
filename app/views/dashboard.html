@@ -16,22 +16,39 @@
             <h3 class="font-flair transition-color">Messages</h3>
         </div>
 
-        <ul class="table-list striped hover link-padded text-x-medium">
+        <ul class="table-list striped hover link-padded text-x-medium" style="max-height: 500px; overflow: auto;">
+            <li class="table-list-header padding-small" ng-show="messages.length">
+                <div class="column small-2">
+                    Assignment
+                </div>
+                <div class="column small-3">
+                    User
+                </div>
+                <div class="column small-5">
+                    Text
+                </div>
+                <div class="column small-2 medium-text-right">
+                    Date
+                </div>
+            </li>
             <li ng-repeat="message in messages | orderBy:'$priority':'desc'">
                 <a class="clearfix block" ui-sref="authenticated.master.nav.subscription.assignment({subscriptionKey: message.subscriptionKey, assignmentKey: message.assignmentKey })">
-                    <div class="column small-12 medium-3">
-                        {{ message.userName || message.userEmail }}
+                    <div class="column small-12 medium-2 truncate">
+                        {{ message.assignmentTitle }}&nbsp;
                     </div>
-                    <div class="column small-12 medium-6 truncate">
-                        {{ message.text }}
+                    <div class="column small-12 medium-3 truncate">
+                        {{ message.userName }}&nbsp;
                     </div>
-                    <div class="column small-12 medium-3 medium-text-right">
-                        <span ng-show="message.date">{{ message.date | moment:"MM/DD/YYYY" }}</span>&nbsp;
+                    <div class="column small-12 medium-5 truncate">
+                        {{ message.text }}&nbsp;
+                    </div>
+                    <div class="column small-12 medium-2 medium-text-right truncate">
+                        <span>{{ message.created | moment:"MM/DD/YYYY" }}</span>&nbsp;
 
                     </div>
                 </a>
             </li>
-            <li class="no-stripe no-hover padding-small" ng-show="messages.length || paginating">
+            <!-- <li class="no-stripe no-hover padding-small" ng-show="messages.length || paginating">
                 <div class="column small-4">
                   <button class="secondary small-12 tiny" ng-click="loadNext()" ng-disabled="disableNext">Previous {{ limit }}</button>&nbsp;
                 </div>
@@ -41,8 +58,8 @@
                 <div class="column small-4">
                   <button class="secondary small-12 tiny" ng-click="loadPrev()" ng-disabled="disablePrev">Next {{ limit }}</button>
                 </div>
-            </li>
-            <li class="padding-small" ng-show="!user.public.messages">
+            </li> -->
+            <li class="padding-small" ng-hide="messages.length">
                 <h5 class="font-flair">No user messages found.</h5>
             </li>
         </ul>

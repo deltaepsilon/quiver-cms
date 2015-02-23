@@ -43,7 +43,10 @@
           </li>
         </ul>
 
-        <button class="left" ng-click="upload($flow)" ng-hide="!$flow.files.length" ng-disabled="uploading">Upload Files</button>
+        <button id="upload-button" class="left" ng-click="upload($flow)" ng-hide="!$flow.files.length" ng-disabled="uploading">
+          <span>Upload Files</span>
+          <span class="hidden backdrop background-highlight9" qv-loading target="#upload-button"><img src="/images/ajax-loader.gif" style="margin-top: 1rem;"></span>
+        </button>
         <!-- <button class="left" ng-click="fakeUpload($flow)" ng-hide="!$flow.files.length" ng-disabled="uploading">Fake</button> -->
       </div>
 
@@ -90,7 +93,7 @@
   <h5 class="font-flair">Messages</h5>
   <ul class="table-list striped padded">
     <li ng-repeat="message in messages">
-      <div class="column small-4 medium-3"><strong>{{ message.user.name }}</strong></div>
+      <div class="column small-4 medium-3"><strong>{{ message.userName }}</strong></div>
       <div class="column small-8 medium-9">
         <div markdown-editable ng-model="message.text"></div>
       </div>
@@ -101,7 +104,7 @@
     <li class="no-stripe">
       <span ng-if="!isExpired(subscription)">
         <textarea id="new-message" ng-model="text" placeholder="Message..."></textarea>
-        <button ng-click="sendMessage(text); text = undefined;" qv-focus="#new-message" ng-disabled="!text || !text.length">Send</button>
+        <button ng-click="sendMessage(text); text = undefined;" qv-focus="#new-message" ng-disabled="!text || !text.length|| !loaded">Send</button>
       </span>      
     </li>
   </ul>

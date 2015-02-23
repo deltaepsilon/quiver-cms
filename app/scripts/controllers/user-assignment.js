@@ -37,25 +37,30 @@ angular.module('quiverCmsApp')
     $scope.messages = userAssignmentMessagesRef.$asArray();
 
     $scope.sendMessage = function (text) {
-      var now = moment().format();
-
-      $scope.messages.$add({
-        user: {
-          name: user.public.name || user.public.email || user.email
-        },
-        subscriptionKey: $stateParams.subscriptionKey,
-        text: text,
-        created: now
-      }).then(function (ref) {
-        setSubscriptionKey();
-        
-        UserService.logMessage(user.public.id, assignmentRef.$ref().key(), 'comment', {
-          key: ref.key(),
+      var now = moment(),
+        message = {
+          userName: user.public.name || user.public.email || user.email,
+          subscriptionKey: $stateParams.subscriptionKey,
+          assignmentTitle: $scope.assignment.title,
           text: text,
-          subscriptionKey: $stateParams.subscriptionKey
-        });
+          created: now.format(),
+          $priority: now.unix(),
+        };
+
+      $scope.messages.$add(message).then(function (ref) {
+        setSubscriptionKey();
+        message.key = ref.key();
+        
+        return UserService.logMessage(user.public.id, assignmentRef.$ref().key(), 'comment', message);
       });
     };
+
+    /*
+     * Loaded
+     */
+    $q.all([$scope.uploads.$loaded(), $scope.messages.$loaded()]).then(function () {
+      $scope.loaded = true;
+    });
 
     /*
      * Notifications

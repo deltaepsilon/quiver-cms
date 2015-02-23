@@ -283,8 +283,8 @@ angular.module('quiverCmsApp', [
           limit: function () {
             return 5;
           },
-          messagesRef: function (AdminService, user, limit) {
-            return AdminService.getUserMessages(user.$id, {orderByPriority: true, limitToLast: limit});
+          assignmentsRef: function (UserService, user, limit) {
+            return UserService.getSubmittedAssignments(user.$id, {orderByPriority: true, limitToLast: limit});
           }
         }
       })
@@ -410,14 +410,14 @@ angular.module('quiverCmsApp', [
             $localStorage['assignment-' + $stateParams.assignmentKey] = $stateParams.assignmentKey;
             return AdminService.getAssignment($stateParams.assignmentKey);
           },
-          userAssignmentRef: function (AdminService, user, $stateParams) {
-            return AdminService.getUserAssignment(user.public.id, $stateParams.assignmentKey);
+          userAssignmentRef: function (UserService, user, $stateParams) {
+            return UserService.getAssignment(user.public.id, $stateParams.assignmentKey);
           },
-          userAssignmentUploadsRef: function (AdminService, user, $stateParams) {
-            return AdminService.getUserAssignmentUploads(user.public.id, $stateParams.assignmentKey);
+          userAssignmentUploadsRef: function (UserService, user, $stateParams) {
+            return UserService.getAssignmentUploads(user.public.id, $stateParams.assignmentKey);
           },
-          userAssignmentMessagesRef: function (AdminService, user, $stateParams) {
-            return AdminService.getUserAssignmentMessages(user.public.id, $stateParams.assignmentKey);
+          userAssignmentMessagesRef: function (UserService, user, $stateParams) {
+            return UserService.getAssignmentMessages(user.public.id, $stateParams.assignmentKey);
           },
           notificationsRef: function (AdminService, currentUser) {
             return AdminService.getNotifications(currentUser.uid);
@@ -864,8 +864,7 @@ angular.module('quiverCmsApp', [
       })
       .state('authenticated.master.admin.messages', { // ***************************  Messages *************************
         abstract: true,
-        templateUrl: 'views/admin-messages.html',
-        controller: 'MessagesCtrl'
+        templateUrl: 'views/admin-messages.html'
       })
       .state('authenticated.master.admin.messages.list', {
         url: '/messages/:search',
@@ -915,14 +914,14 @@ angular.module('quiverCmsApp', [
           assignmentRef: function (AdminService, $stateParams) {
             return AdminService.getAssignment($stateParams.assignmentKey);
           },
-          userAssignmentRef: function (AdminService, $stateParams) {
-            return AdminService.getUserAssignment($stateParams.userId, $stateParams.assignmentKey);
+          userAssignmentRef: function (UserService, $stateParams) {
+            return UserService.getAssignment($stateParams.userId, $stateParams.assignmentKey);
           },
-          assignmentUploadsRef: function (AdminService, $stateParams) {
-            return AdminService.getUserAssignmentUploads($stateParams.userId, $stateParams.assignmentKey);
+          assignmentUploadsRef: function (UserService, $stateParams) {
+            return UserService.getAssignmentUploads($stateParams.userId, $stateParams.assignmentKey);
           },
-          assignmentMessagesRef: function (AdminService, $stateParams) {
-            return AdminService.getUserAssignmentMessages($stateParams.userId, $stateParams.assignmentKey);
+          assignmentMessagesRef: function (UserService, $stateParams) {
+            return UserService.getAssignmentMessages($stateParams.userId, $stateParams.assignmentKey);
           }
         }
       })

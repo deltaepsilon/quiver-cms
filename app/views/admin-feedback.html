@@ -24,7 +24,7 @@
   <h5 class="font-flair">Messages</h5>
   <ul class="table-list striped padded">
     <li ng-repeat="message in messages">
-      <div class="column small-2"><strong>{{ message.user.name }}</strong></div>
+      <div class="column small-2"><strong>{{ message.userName }}</strong></div>
       <div class="column small-8">
         <div markdown-editable ng-model="message.text"></div>
       </div>

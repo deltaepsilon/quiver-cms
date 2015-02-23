@@ -49,11 +49,27 @@ angular.module('quiverCmsApp')
       },
 
       getReceivedMessage: function (userId, key) {
-        return $firebase(new Firebase(firebaseEndpoint + '/users/' + userId + '/received/' + key));
+        return $firebase(new Firebase(firebaseEndpoint + '/messages/' + userId + '/received/' + key));
       },
 
       sendMessage: function (userId, recipientId, text) {
         return Restangular.one('user').one(userId).one('recipient').one(recipientId).post('send', {text: text});
+      },
+
+      getSubmittedAssignments: function (userId, query) {
+        return $firebase(FirebaseService.query(new Firebase(firebaseEndpoint + '/assignments/' + userId + '/submitted'), query));
+      },
+
+      getAssignment: function (userId, key) {
+        return $firebase(new Firebase(firebaseEndpoint + '/assignments/' + userId + '/submitted/' + key));
+      },
+
+      getAssignmentUploads: function (userId, key) {
+        return $firebase(new Firebase(firebaseEndpoint + '/assignments/' + userId + '/submitted/' + key + '/uploads'));
+      },
+
+      getAssignmentMessages: function (userId, key) {
+        return $firebase(new Firebase(firebaseEndpoint + '/assignments/' + userId + '/submitted/' + key + '/messages'));
       }
 
     };

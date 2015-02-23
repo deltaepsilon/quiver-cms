@@ -33,22 +33,22 @@ angular.module('quiverCmsApp')
 
     $scope.sendMessage = function (text) {
       var user = $scope.user,
-        now = moment().format();
-
-      $scope.messages.$add({
-        user: {
-          name: user.public.name || user.public.email || user.email
-        },
-        text: text,
-        created: now
-      }).then(function (ref) {
-        UserService.logMessage(user.public.id, assignmentRef.$ref().key(), 'comment', {
-          key: ref.key(),
-          text: text,
-          recipientId: clientRef.$ref().key(),
+        now = moment(),
+        message = {
+          userName: user.public.name || user.public.email || user.email,
           subscriptionKey: $scope.userAssignment.subscriptionKey,
-          isAdmin: true
-        });
+          assignmentTitle: $scope.assignment.title,
+          text: text,
+          created: now.format(),
+          $priority: now.unix(),
+        };
+
+      $scope.messages.$add(message).then(function (ref) {
+        message.key = ref.key();
+        message.isAdmin = true;
+        message.recipientId = clientRef.$ref().key();
+
+        UserService.logMessage(user.public.id, assignmentRef.$ref().key(), 'comment', message);
       });
     };
 
