@@ -346,14 +346,24 @@ angular.module('quiverCmsApp', [
         }
       })
       .state('authenticated.master.nav.messages', { // *****************************  Messages *************************
-        url: '/messages',
+        abstract: true,
         templateUrl: 'views/messages.html',
         controller: 'MessagesCtrl',
         resolve: {
-          messagesRef: function (UserService, user) {
-            return UserService.getMessages(user.$id);
+          messageableRef: function (AdminService) {
+            return AdminService.getMessageable();
+          },
+          sentMessagesRef: function (UserService, user) {
+            return UserService.getSentMessages(user.$id);
+          },
+          receivedMessagesRef: function (UserService, user) {
+            return UserService.getReceivedMessages(user.$id);
           }
         }  
+      })
+      .state('authenticated.master.nav.messages.list', { // *****************************  Messages *************************
+        url: '/messages',
+        templateUrl: 'views/messages-list.html'
       })
       .state('authenticated.master.nav.subscription', { // *************************  User Subscription ****************
         abstract: true,
@@ -603,7 +613,12 @@ angular.module('quiverCmsApp', [
       .state('authenticated.master.admin.users', { // ******************************  Users ****************************
         abstract: true,
         templateUrl: 'views/admin-users.html',
-        controller: 'UsersCtrl'
+        controller: 'UsersCtrl',
+        resolve: {
+          messageableRef: function (AdminService) {
+            return AdminService.getMessageable();
+          }
+        }
       })
       .state('authenticated.master.admin.users.list', {
         url: '/users/:search',

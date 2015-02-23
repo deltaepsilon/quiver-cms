@@ -1,0 +1,33 @@
+<ul class="striped hover padded margin-zero-important" ng-if="loaded && selectedUser">
+  <li class="clearfix" ng-repeat="message in getMessages(selectedUser.id)" ng-class="{disabled: disabled}">
+    <div class="column small-2 medium-1">
+      <img class="border-radius-small" style="max-width: 2rem;" ng-src="{{ message.senderEmail | gravatar }}">
+    </div>
+    <div class="column small-10 medium-11">
+      <strong>{{ message.senderName || message.senderEmail }}</strong>
+      <span class="text-small text-secondary5">{{ message.date | timeago }}</span>
+      <span ng-show="message.type === 'assignment'">
+        <a ui-sref="authenticated.master.nav.subscription.assignment({subscriptionKey: message.subscriptionKey, assignmentKey: message.assignmentKey })">See assignment</a>
+      </span>
+      <div>
+        <div ng-model="message.text" markdown-editable>{{ message.text }}</div>
+      </div>
+    </div>
+    
+  </li>
+  <li>
+
+  </li>
+
+</ul>
+
+<form name="messageForm">
+  <div class="column small-12 medium-9">
+    <input id="new-message" type="text" ng-model="newMessage" placeholder="Message..." required/>
+  </div>
+  <div class="column small-12 medium-3">
+    <button class="tiny" style="height: 2.3rem;" qv-focus="#new-message" ng-click="sendMessage(user.$id, selectedUser.id, newMessage); newMessage = '';" ng-disabled="messageForm.$invalid || !selectedUser">Send</button>
+  </div>
+  <div ng-if="loaded" qv-autoscroll></div>
+
+</form>

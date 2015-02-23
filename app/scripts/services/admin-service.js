@@ -268,6 +268,10 @@ angular.module('quiverCmsApp')
 
       getSurveyAnswers: function (key) {
         return $firebase(new Firebase(firebaseEndpoint + '/settings/surveys/' + key + '/answers'));
+      },
+
+      getMessageable: function (query) {
+        return $firebase(FirebaseService.query(new Firebase(firebaseEndpoint + '/messageable'), query));
       }
 
     }

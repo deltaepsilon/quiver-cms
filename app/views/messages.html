@@ -1,1 +1,17 @@
-<p>This is the messages view.</p>
+<div>
+  <div class="column small-12 medium-3" qv-pinned>
+    <select ng-model="newRecipient" ng-options="user as (user.userName || user.email) for user in newRecipients" ng-change="addUser(newRecipient)" ng-show="newRecipients.length">
+      <option value="">Find a user</option>
+    </select>
+    <ul class="table-list hover padded">
+      <li class="cursor-pointer" ng-click="selectUser(user)" ng-repeat="user in uniqueUsers" ng-class="{'background-secondary5 text-white0': user.active}">
+        {{ user.name }}
+      </li>
+    </ul>
+
+    <hr>
+  </div>
+
+  <div class="column small-12 medium-9 flex flex-direction-column justify-content-flex-end" ui-view></div>
+
+</div>

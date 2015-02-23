@@ -157,6 +157,9 @@ app.post('/user/:userId/assignment/:assignmentKey/upload', MessageController.upl
 app.post('/user/:userId/upload/remove', FormController.body);
 app.post('/user/:userId/upload/remove', MessageController.remove);
 
+app.post('/user/:userId/recipient/:recipientId/send', FormController.body);
+app.post('/user/:userId/recipient/:recipientId/send', MessageController.send);
+
 app.post('/admin/user/:userId/assignment/:assignmentKey/queue-feedback-email', MessageController.queueFeedbackEmail);
 
 app.post('/admin/email/:emailKey/send', FormController.body);

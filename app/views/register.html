@@ -9,7 +9,7 @@
 
             <ul class="inline-list">
                 <li>
-                    <button ng-click="register(email, password)" ng-disabled="registerForm.$invalid">Register</button>
+                    <button ng-click="register(email, password)" ng-disabled="registerForm.$invalid || !loaded">Register</button>
                 </li>
                 <li>
                     <a ui-sref="master.nav.login">Login</a>

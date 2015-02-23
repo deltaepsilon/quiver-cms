@@ -28,16 +28,32 @@ angular.module('quiverCmsApp')
         return Restangular.one('user').one(userId).one('subscription').one(key).one('assignments').get();
       },
 
-      getMessages: function (userId, query) {
-        return $firebase(FirebaseService.query(new Firebase(firebaseEndpoint + '/users/' + userId + '/public/messages'), query));
-      },
-
       logMessage: function (userId, assignmentKey, type, message) {
         return Restangular.one('user').one(userId).one('assignment').one(assignmentKey).one('log').post(type, message);
       },
 
       removeUpload: function (userId, file) {
         return Restangular.one('user').one(userId).one('upload').post('remove', file);
+      },
+
+      getSentMessages: function (userId, query) {
+        return $firebase(FirebaseService.query(new Firebase(firebaseEndpoint + '/messages/' + userId + '/sent'), query));
+      },
+
+      getSentMessage: function (userId, key) {
+        return $firebase(new Firebase(firebaseEndpoint + '/messages/' + userId + '/sent/' + key));
+      },
+
+      getReceivedMessages: function (userId, query) {
+        return $firebase(FirebaseService.query(new Firebase(firebaseEndpoint + '/messages/' + userId + '/received'), query));
+      },
+
+      getReceivedMessage: function (userId, key) {
+        return $firebase(new Firebase(firebaseEndpoint + '/users/' + userId + '/received/' + key));
+      },
+
+      sendMessage: function (userId, recipientId, text) {
+        return Restangular.one('user').one(userId).one('recipient').one(recipientId).post('send', {text: text});
       }
 
     };

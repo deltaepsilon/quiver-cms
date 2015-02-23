@@ -7,50 +7,61 @@ angular.module('quiverCmsApp')
 
       if (parts.length > 1) {
         return parts[1].trim();
+      } else if (parts.length) {
+        return parts[0].trim();
       }
+
       return err;
+
+      
 
     }
 
+    $scope.loaded = true;
     $scope.logIn = function (email, password) {
-      qvAuth.logIn(email, password, false).then(function (currentUser) {
-        var headers = {"authorization": currentUser.token, "user-id": currentUser.uid, "email": email},
-          user = qvAuth.getUser(currentUser.uid);
+      $scope.loaded = false;
 
-        NotificationService.success('Login Success');
+      qvAuth.logIn(email, password, false).then(function (currentUser) {        
         $scope.setCurrentUser(currentUser);
-        $scope.setUser(user);
-
-        AdminService.getApiUser(currentUser.uid, headers).then(function (res) {}, function (err) {
-          NotificationService.error('Login Error', err);
+        return AdminService.getApiUser(qvAuth.getHeaders(currentUser)).then(function () {
+          return qvAuth.getUser(currentUser.uid);  
         });
 
+      }).then(function (user) {
+        $scope.setUser(user);
+        $scope.loaded = true;
+        NotificationService.success('Login Success');
         $scope.redirect();
 
-
-      }, function (error) {
-        NotificationService.error('Login Error', parseError(error));
-
+      }, function (err) {
+        $scope.loaded = true;
+        NotificationService.error('Login Error', parseError(err));
       });
     };
 
     $scope.register = function (email, password) {
+      $scope.loaded = false;
       qvAuth.register(email, password).then(function (user) {
+        $scope.loaded = true;
         NotificationService.success('Registration Success');
         $scope.logIn(email, password);
 
       }, function (error) {
+        $scope.loaded = true;
         NotificationService.error('Error', parseError(error));
 
       });
     };
 
     $scope.resetPassword = function (email) {
+      $scope.loaded = false;
       qvAuth.resetPassword(email).then(function () {
+        $scope.loaded = true;
         NotificationService.success('Password Reset', 'A Password reset email has been sent to ' + email + '.');
         $state.go('master.nav.login');
 
       }, function (error) {
+        $scope.loaded = true;
         NotificationService.error('Error', parseError(error));
 
       });
@@ -60,9 +71,12 @@ angular.module('quiverCmsApp')
       delete $scope.oldPassword;
       delete $scope.newPassword;
 
+      $scope.loaded = false;
       qvAuth.changePassword(email, oldPassword, newPassword).then(function () {
+        $scope.loaded = true;
         NotificationService.success('Password Changed');
       }, function (error) {
+        $scope.loaded = true;
         NotificationService.error('Error', parseError(error));
       });
     };

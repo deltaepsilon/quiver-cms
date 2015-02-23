@@ -9,7 +9,9 @@ $border-sizes:
 
 @each $size in $border-sizes {
   .border-radius-#{nth($size, 1)} {
-    //@include border-radius(nth($size, 2));
+    -webkit-border-radius: nth($size, 2);
+    -moz-border-radius: nth($size, 2);
+    border-radius: nth($size, 2);
   }
 }
 

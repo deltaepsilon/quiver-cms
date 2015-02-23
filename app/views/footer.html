@@ -1,10 +1,10 @@
-<footer class="footer background-black0 text-primary2">
+<footer class="footer background-black0 text-primary2" style="min-height: 3.5rem;">
     <section class="row">
         <div class="column small-12 padding-vertical-small">
-            <ul class="footer-links inline-list link-secondary4 link-hover-secondary1">
+            <ul class="footer-links inline-list link-secondary4 link-hover-secondary1 margin-zero-important">
                 <li><a class="footer-title font-flair font-large" ui-sref="authenticated.master.nav.dashboard">{{ settings.siteTitle || 'Quiver CMS' }}</a></li>
                 <li class="text-white0">
-                  <ul class="text-x-small margin-vertical-xx-small">
+                  <ul class="inline-list text-x-small margin-vertical-xx-small-important">
                     <li ng-repeat="item in settings.footer1">
                       <a href="{{ item.href }}">{{ item.text }}</a>
                     </li>
@@ -12,7 +12,7 @@
                 </li>
 
                 <li class="text-white0">
-                  <ul class="text-x-small margin-vertical-xx-small">
+                  <ul class="inline-list text-x-small margin-vertical-xx-small-important">
                     <li ng-repeat="item in settings.footer2">
                       <a href="{{ item.href }}">{{ item.text }}</a>
                     </li>
@@ -20,7 +20,7 @@
                 </li>
 
                 <li class="text-white0">
-                  <ul class="text-x-small margin-vertical-xx-small">
+                  <ul class="inline-list text-x-small margin-vertical-xx-small-important">
                     <li ng-repeat="item in settings.footer3">
                       <a href="{{ item.href }}">{{ item.text }}</a>
                     </li>

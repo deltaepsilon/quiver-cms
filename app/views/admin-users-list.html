@@ -1,36 +1,47 @@
 <input class="small-12" type="text" ng-model="searchTerm" placeholder="Search: Click Enter to search server by email..." qv-enter="search({orderByChild: 'email', startAt: searchTerm, limit: 10})">
 
-<ul class="table-list link-padded hover striped">
+<ul class="table-list padded hover striped">
   <li class="table-list-header padding-small">
-    <div class="column small-12 medium-3">
+    <div class="column small-12 medium-5">
       Email
     </div>
-    <div class="column small-12 medium-3">
+    <div class="column small-12 medium-2">
       Created
     </div>
-    <div class="column small-12 medium-3">
+    <div class="column small-12 medium-2">
       Last Login
     </div>
-    <div class="column small-12 medium-3 medium-text-right">
+    <div class="column small-12 medium-1">
       Admin
+    </div>
+    <div class="column small-12 medium-1">
+      Moderator
+    </div>
+    <div class="column small-12 medium-1">
+      Messageable
     </div>
   </li>
   <li class="text-x-medium" ng-repeat="user in items | orderBy:'$priority':'asc'">
-    <a ui-sref="authenticated.master.admin.user({key: user.$id})">
-      <div class="column small-12 medium-3 padding-small">
-        <span>{{ user.public.email || user.email }}</span>
+      <div class="column small-12 medium-5 padding-small">
+        <a ui-sref="authenticated.master.admin.user({key: user.$id})">{{ user.public.email || user.email }}</a>
       </div>
-      <div class="column small-12 medium-3 padding-small">
-        Created: {{ user.created | moment:"MM/DD/YYYY" }}
+      <div class="column small-12 medium-2 padding-small">
+        {{ user.created | moment:"MM/DD/YYYY" }}
       </div>
-      <div class="column small-12 medium-3 padding-small">
-        Last Login: {{ user.lastLogin | moment:"MM/DD/YYYY hh:mm" }}
+      <div class="column small-12 medium-2 padding-small">
+        {{ user.lastLogin | moment:"MM/DD/YYYY hh:mm" }}
       </div>
-      <div class="column small-12 medium-3 medium-text-right">
-        <i class="fa fa-asterisk text-success padding-vertical-small" ng-if="user.private.isAdmin"></i>
+      <div class="column small-12 medium-1">    
+        <input id="user-admin-{{ user.$id }}" style="margin: 1.3rem auto 0;" type="checkbox" ng-model="user.private.isAdmin" ng-change="saveUserRoles(user)">
+      </div>
+      <div class="column small-12 medium-1">
+        <input id="user-moderator-{{ user.$id }}" style="margin: 1.3rem auto 0;" type="checkbox" ng-model="user.private.isModerator" ng-change="saveUserRoles(user)">
+      </div>
+      <div class="column small-12 medium-1">
+        <input id="user-message-enabled-{{ user.$id }}" style="margin: 1.3rem auto 0;" type="checkbox" ng-model="user.messageable" ng-change="saveUserMessageable(user)">
       </div>
 
-    </a>
+    
   </li>
   <li class="no-stripe no-hover">
     <div ng-hide="searching">
