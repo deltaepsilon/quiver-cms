@@ -6,20 +6,38 @@ angular.module('quiverCmsApp')
     /*
      * Assignments
      */
-    $scope.assignments = assignmentsRef.$asArray();
-
-    $scope.assignments.$loaded().then(function (assignments) {
+    var populateMessages = function (assignments) {
       var i = assignments.length,
-        messages = [];
+        messages = [],
+        flatMessages,
+        j;
 
       while (i--) {
-        messages = messages.concat(_.toArray(assignments[i].messages));
+        flatMessages = _.toArray(assignments[i].messages);
+        j = flatMessages.length;
+
+        while (j--) {
+            flatMessages[j].subscriptionKey = assignments[i].subscriptionKey;            
+            flatMessages[j].assignmentKey = assignments[i].assignmentKey;
+        }
+
+        messages = messages.concat(flatMessages);
 
       }
 
       $scope.messages = _.sortBy(messages, function (message) {
-        return message.$priority || moment(message.created).unix();
-      });
+        return-1 * (message.$priority || moment(message.created).unix());
+      });  
+    };
+
+    $scope.assignments = assignmentsRef.$asArray();
+
+    $scope.assignments.$loaded().then(function (assignments) {
+      populateMessages(assignments);
+    });
+
+    $scope.$watch('assignments', function () {
+      populateMessages($scope.assignments);
     });
 
 

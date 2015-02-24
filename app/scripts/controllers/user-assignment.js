@@ -20,8 +20,9 @@ angular.module('quiverCmsApp')
     $scope.userAssignment = userAssignmentRef.$asObject();
 
     var setSubscriptionKey = function () {
-      if (!$scope.userAssignment.subscriptionKey) {
+      if (!$scope.userAssignment.subscriptionKey || !$scope.userAssignment.assignmentKey) {
         $scope.userAssignment.subscriptionKey = $stateParams.subscriptionKey;
+        $scope.userAssignment.assignmentKey = $stateParams.assignmentKey;
         $scope.userAssignment.$save();
       }
     };
@@ -40,7 +41,6 @@ angular.module('quiverCmsApp')
       var now = moment(),
         message = {
           userName: user.public.name || user.public.email || user.email,
-          subscriptionKey: $stateParams.subscriptionKey,
           assignmentTitle: $scope.assignment.title,
           text: text,
           created: now.format(),

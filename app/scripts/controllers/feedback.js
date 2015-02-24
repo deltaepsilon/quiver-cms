@@ -36,7 +36,6 @@ angular.module('quiverCmsApp')
         now = moment(),
         message = {
           userName: user.public.name || user.public.email || user.email,
-          subscriptionKey: $scope.userAssignment.subscriptionKey,
           assignmentTitle: $scope.assignment.title,
           text: text,
           created: now.format(),

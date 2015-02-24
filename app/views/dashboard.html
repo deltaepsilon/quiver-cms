@@ -31,7 +31,7 @@
                     Date
                 </div>
             </li>
-            <li ng-repeat="message in messages | orderBy:'$priority':'desc'">
+            <li ng-repeat="message in messages">
                 <a class="clearfix block" ui-sref="authenticated.master.nav.subscription.assignment({subscriptionKey: message.subscriptionKey, assignmentKey: message.assignmentKey })">
                     <div class="column small-12 medium-2 truncate">
                         {{ message.assignmentTitle }}&nbsp;
