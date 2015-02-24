@@ -2,7 +2,7 @@
   "name": "quiver-cms",
   "version": "0.1.5",
   "dependencies": {
-    "angular": ">=1.3.12",
+    "angular": ">=1.3.13",
     "json3": "~3.2.6",
     "es5-shim": "~2.1.0",
     "quiver-angular-utilities": "git@github.com:deltaepsilon/quiver-angular-utilities.git#master",
@@ -19,17 +19,17 @@
     "firebase": "~2.0.4",
     "angularfire": "~0.9.0",
     "angularfire-authentication": "git@github.com:deltaepsilon/angularfire-authentication.git#master",
-    "angular-sanitize": "~1.3.12",
+    "angular-sanitize": "~1.3.13",
     "angular-packery": "git@github.com:deltaepsilon/angular-packery.git"
   },
   "devDependencies": {
-    "angular": ">=1.3.12",
-    "angular-mocks": ">=1.3.12",
-    "angular-scenario": ">=1.3.12",
+    "angular": ">=1.3.13",
+    "angular-mocks": ">=1.3.13",
+    "angular-scenario": ">=1.3.13",
     "grunt-contrib-jasmine": "~0.8.1"
   },
   "resolutions": {
-    "angular": ">=1.3.12",
+    "angular": ">=1.3.13",
     "angular-mocks": ">=1.3.0",
     "firebase": "~2.0.4"
   }

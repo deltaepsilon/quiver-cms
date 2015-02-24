@@ -492,7 +492,7 @@ angular.module('quiverCmsApp', [
             return AdminService.getWords;
           },
           ref: function (AdminService, limit) {
-            return AdminService.getWords({orderByPriority: true, limitToFirst: limit});
+            return AdminService.getWords({orderByPriority: true, limitToLast: limit});
           }
         }
       })

@@ -53,7 +53,7 @@
         Action
       </div>
     </li> -->
-    <li ng-repeat="word in items | filter:authorFilter | orderBy:getPriority">
+    <li ng-repeat="word in items | filter:authorFilter | orderBy:'-$priority'">
       <div class="small-12">
         <div class="column small-12 medium-3">
           <span>{{ word.author.name }}</span>
@@ -91,16 +91,16 @@
         <div class="column small-12 medium-2">
           <input class="margin-zero-important" type="text" placeholder="Hashtag..." ng-model="newHashtag" qv-enter="addHashtag(word, newHashtag); newHashtag = null;" qv-type-ahead include="hashtags" exclude="word.hashtags" prepopulate="true" top-offset="-1"/>
         </div>
-        <div class="column small-12 medium-3">
+        <div class="column small-12 medium-5">
           <ul class="inline-list margin-zero-important text-x-small">
               <li class="cursor-pointer" ng-repeat="hashtag in word.hashtags" ng-click="removeHashtag(word, hashtag.key)">#{{ hashtag.value }}</li>
           </ul>
           &nbsp;
         </div>
-        <div class="column small-12 medium-2">
+        <!-- <div class="column small-12 medium-2">
           <input class="margin-zero-important" ng-show="word.type == 'post' || word.type == 'subscription'" type="number" ng-model="word.$priority" ng-model-options="{debounce: {'default': 500}}" ng-change="word.edited = true; setPriority(word.$id, word.$priority)" placeholder="Priority"/>
           &nbsp;
-        </div>
+        </div> -->
         <div class="column small-12 medium-3 medium-text-right">
           <div>
             <span class="text-x-small" ng-show="word.published">
@@ -122,13 +122,13 @@
     </li>
     <li class="no-stripe no-hover padding-small" ng-show="items.length || paginating">
         <div class="column small-4">
-          <button class="secondary small-12 tiny" ng-click="loadPrev(undefined, {limitToFirst: limit, startAt: startAt(items)})" ng-disabled="false">Previous {{ limit }}</button>&nbsp;
+          <button class="secondary small-12 tiny" ng-click="loadNext(undefined, {limitToLast: limit, endAt: endAt(items)})" ng-disabled="false">Previous {{ limit }}</button>&nbsp;
         </div>
         <div class="column small-4">
-          <button class="secondary small-12 tiny" ng-click="reset({orderByPriority: true, limitToFirst: limit})" ng-disabled="!paginating">Reset</button>
+          <button class="secondary small-12 tiny" ng-click="reset({orderByPriority: true, limitToLast: limit})" ng-disabled="!paginating">Reset</button>
         </div>
         <div class="column small-4">
-          <button class="secondary small-12 tiny" ng-click="loadNext(undefined, {limitToFirst: limit, endAt: endAt(items)})" ng-disabled="false">Next {{ limit }}</button>
+          <button class="secondary small-12 tiny" ng-click="loadPrev(undefined, {limitToLast: limit, startAt: startAt(items)})" ng-disabled="false">Next {{ limit }}</button>
         </div>
     </li>
   </ul>

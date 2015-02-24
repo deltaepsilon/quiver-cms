@@ -36,6 +36,15 @@ angular.module('quiverCmsApp')
       
     // };
 
+    // words.$loaded().then(function (words) {
+    //   var i = words.length;
+
+    //   while (i--) {
+    //     console.log('word', words[i].$id, words[i].$priority, moment(words[i].created).unix());
+    //     $scope.setPriority(words[i].$id, moment(words[i].created).unix());
+    //   }
+    // });
+
     $scope.getPriority = function (word) {
       if ($scope.searching !== true && word && word.$priority) {
         // console.log('word.$priority', word.$priority);
@@ -89,13 +98,13 @@ angular.module('quiverCmsApp')
       });
 
       words.$add({
+        $priority: moment().unix(),
         title: title,
         slug: Slug.slugify(title),
         type: 'page',
         created: moment().format(),
         author: author
       }).then(function (ref) {
-        ref.setPriority(100000);
         delete $scope.newWordTitle;
         NotificationService.success('Created', 'Hi there ' + title + '.');
       });
@@ -132,7 +141,7 @@ angular.module('quiverCmsApp')
     $scope.makeAuthor = function (word, user) {
       word.edited = true;
       word.author = user.public;
-      word.author.id = parseInt(user.$id);
+      word.author.id = user.$id;
     };
 
     var authorAttributes = ['birthdate', 'email', 'gender', 'instagram', 'name', 'twitter', 'instagram', 'website'];
