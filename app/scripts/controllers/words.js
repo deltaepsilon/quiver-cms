@@ -93,8 +93,8 @@ angular.module('quiverCmsApp')
 
       _.defaults(author, {
         id: $scope.user.$id,
-        name: $scope.currentUser.uid,
-        email: $scope.currentUser.email
+        name: $scope.user.email,
+        email: $scope.user.email
       });
 
       words.$add({

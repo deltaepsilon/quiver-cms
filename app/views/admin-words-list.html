@@ -56,7 +56,7 @@
     <li ng-repeat="word in items | filter:authorFilter | orderBy:'-$priority'">
       <div class="small-12">
         <div class="column small-12 medium-3">
-          <span>{{ word.author.name }}</span>
+          <span>{{ word.author.name || word.author.email }}</span>
           <span class="cursor-pointer text-xx-small" ng-hide="isAuthor(word.author, user.public)" ng-click="makeAuthor(word, user)">claim</span>
         </div>
         <div class="column small-12 medium-6">

@@ -164,6 +164,10 @@
       name = 'quiver-cms-product-{{ product.slug }}';
 
     localStorage.setItem(name, JSON.stringify(product));
+    setTimeout(function () {
+      angular.element($(document.body)).scope().logProductImpression(product);  
+    });
+    
   })();
 
 </script>

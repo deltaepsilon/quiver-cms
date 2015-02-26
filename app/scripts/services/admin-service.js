@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('quiverCmsApp')
-  .service('AdminService', function AdminService($firebase, env, Restangular, FirebaseService, $localStorage) {
+  .service('AdminService', function AdminService($firebase, env, Restangular, FirebaseService, $localStorage, $state) {
     var firebaseEndpoint = env.firebase.endpoint,
       toLanding = function () {
         location.replace('/');        

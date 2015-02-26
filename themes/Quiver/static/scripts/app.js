@@ -1,6 +1,6 @@
-angular.module('QuiverCMS', ['ngStorage', 'quiver.angular-utilities', 'quiver.angularfire-authentication', 'angular-md5'])
+angular.module('QuiverCMS', ['ngStorage', 'quiver.angular-utilities', 'quiver.angularfire-authentication', 'angular-md5', 'angular-google-analytics'])
 
-  .config(function (quiverUtilitiesProvider, AngularFireAuthenticationProvider) {
+  .config(function (quiverUtilitiesProvider, AngularFireAuthenticationProvider, AnalyticsProvider) {
 
     /*
      * Configure Notifications
@@ -16,6 +16,16 @@ angular.module('QuiverCMS', ['ngStorage', 'quiver.angular-utilities', 'quiver.an
      * Configure qvAuth
      */
     AngularFireAuthenticationProvider.setEndpoint(window.envVars.firebase.endpoint);
+
+    /*
+     * Analytics
+    */
+    if (window.envVars.google && window.envVars.google.analyticsId) {
+      AnalyticsProvider.setAccount(window.envVars.google.analyticsId);
+      AnalyticsProvider.trackPages(true);
+      AnalyticsProvider.useAnalytics(true);
+      AnalyticsProvider.useECommerce(true, true);
+    }
 
   })
   // .run()
@@ -45,7 +55,7 @@ angular.module('QuiverCMS', ['ngStorage', 'quiver.angular-utilities', 'quiver.an
     };
     
   })
-  .controller('MasterCtrl', function ($scope, $http, $timeout, $localStorage, ProductService, moment, _, qvAuth, md5) {
+  .controller('MasterCtrl', function ($scope, $http, $timeout, $localStorage, ProductService, moment, _, qvAuth, md5, Analytics, $location) {
     /*
      * User
     */
@@ -85,6 +95,51 @@ angular.module('QuiverCMS', ['ngStorage', 'quiver.angular-utilities', 'quiver.an
      * Storage
     */
     $scope.$storage = $localStorage;
+
+    /*
+     * Analytics
+     */
+
+    var getAnalyticsProduct = function (product) {
+         return {
+          productId: product.slug,
+          name: product.title,
+          category: product.type,
+          brand: product.brand,
+          variant: product.optionsMatrixSelected ? product.optionsMatrixSelected.slug : 'default variant',
+          price: product.price,
+          quantity: product.quantity || 1,
+          coupon: product.coupon,
+          position: product.position,
+          list: product.list
+         }  
+      },
+      getReferral = function () {
+        var pairs = location.search.substr(1).split('&'),
+          search = {};
+
+          _.each(pairs, function (pair) {
+            var parts = pair.split('=');
+
+            search[parts[0]] = parts[1];
+          });
+
+        if (search.referral) {
+          $scope.$storage.affiliate = search;
+          Analytics.addPromo('referral', search.referral, search.creative, search.position);
+          Analytics.pageView();
+        }
+
+      };
+
+    getReferral();
+
+    $scope.logProductImpression = function (product) {
+      var analyticsProduct = getAnalyticsProduct(product);
+
+      Analytics.addImpression(analyticsProduct.productId, analyticsProduct.name, analyticsProduct.list, analyticsProduct.brand, analyticsProduct.category, analyticsProduct.variant, analyticsProduct.position, analyticsProduct.price);
+      Analytics.pageView();
+    };
 
     /*
      * Cart
@@ -135,9 +190,10 @@ angular.module('QuiverCMS', ['ngStorage', 'quiver.angular-utilities', 'quiver.an
 
     $scope.addToCart = function (slug) {
       var product = ProductService.getProduct(slug),
-      cart = $scope.$storage.cart,
-      i,
-      exists = false;
+        analyticsProduct = getAnalyticsProduct(product),
+        cart = $scope.$storage.cart,
+        i,
+        exists = false;
 
       if (!cart || !cart.items || !Array.isArray(cart.items)) {
         cart = {
@@ -150,6 +206,10 @@ angular.module('QuiverCMS', ['ngStorage', 'quiver.angular-utilities', 'quiver.an
       } else {
         cart.items.push(product);
         $scope.$storage.cart = cart;
+
+        Analytics.addProduct(analyticsProduct.productId, analyticsProduct.name, analyticsProduct.category, analyticsProduct.brand, analyticsProduct.variant, analyticsProduct.price, analyticsProduct.quantity, analyticsProduct.coupon, analyticsProduct.position);
+        Analytics.trackCart('add');
+
       }
 
       return updateCart();
@@ -164,7 +224,11 @@ angular.module('QuiverCMS', ['ngStorage', 'quiver.angular-utilities', 'quiver.an
     $scope.removeFromCart = function (slug) {
       if (!$scope.$storage.cart || !$scope.$storage.cart.items || !$scope.$storage.cart.items.length) return;
 
-      var product = ProductService.getProduct(slug);
+      var product = ProductService.getProduct(slug),
+        analyticsProduct = getAnalyticsProduct(product);
+
+      Analytics.addProduct(analyticsProduct.productId, analyticsProduct.name, analyticsProduct.category, analyticsProduct.brand, analyticsProduct.variant, analyticsProduct.price, analyticsProduct.quantity, analyticsProduct.coupon, analyticsProduct.position);
+      Analytics.trackCart('remove');
 
       $scope.$storage.cart.items = _.filter($scope.$storage.cart.items, function (item) {
         return !testEquality(item, product);
@@ -218,6 +282,7 @@ angular.module('QuiverCMS', ['ngStorage', 'quiver.angular-utilities', 'quiver.an
       }
 
       ProductService.setProduct(slug, product);
+      $scope.logProductImpression(ProductService.getProduct(slug));
 
       return product;
 

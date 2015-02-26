@@ -104,7 +104,8 @@ app.get('/admin/files/update', FileController.filesUpdate);
 app.get('/admin/files', FileController.get);
 app.post('/admin/files', FormController.flow); // Use formidable body parser... the Flow variety
 app.post('/admin/files', FileController.post);
-app.delete('/admin/files/:fileName', FileController.remove);
+app.post('/admin/files/remove', FormController.body);
+app.post('/admin/files/remove', FileController.remove);
 app.get('/admin/files/resize', FileController.resize);
 
 /*

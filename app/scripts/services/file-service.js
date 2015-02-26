@@ -16,7 +16,7 @@ angular.module('quiverCmsApp')
       },
 
       remove: function (key) {
-        return Restangular.one('admin').one('files', key).remove();
+        return Restangular.one('admin').one('files').post('remove', {key: key});
       },
 
       setMetadata: function (key, metadata) {

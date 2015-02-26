@@ -58,7 +58,7 @@
             <input id="product-shipped" class="left margin-xx-small-important" type="checkbox" name="product-shipped" ng-model="product.shipped" ng-change="checkValidity()">
           </div>
 
-          <div class="clearfix margin-vertical-small" ng-show="product.shipped">
+          <div class="clearfix margin-vertical-small" ng-show="isShipped(product)">
             <label>Domestic Base Shipping</label>
             <input type="number" name="product-shipping-domestic-base" placeholder="Domestic base USD..." ng-model="product.shipping.domesticBase" ng-change="checkValidity()">
 
@@ -130,6 +130,7 @@
             <ul class="table-list striped">
               <li class="clearfix padding-x-small" ng-repeat="option in group.options">
                 <div class="cursor-pointer left margin-vertical-x-small text-small" qv-confirm="removeOption(group, option)" confirmations="['Click to Delete']">{{ option.name }}</div>
+
                 <div class="right">
                   <input class="left margin-vertical-zero-important" style="max-width: 4rem; margin-left: -1px;" type="number" placeholder="$..." ng-model="option.priceDifference" ng-model-options="{'debounce': {'default': 300}}" title="Option Price Difference">
                 </div>
@@ -138,6 +139,10 @@
                     <span> + {{ ::option.priceDifference || 0 | currency }}</span>
                   </span>
 
+                </div>
+                <div class="right margin-vertical-x-small" style="margin-bottom: 0;">
+                  <label for="options-{{$index}}" class="left">Shipped?</label>
+                  <input id="options-{{$index}}" class="margin-vertical-x-small-important margin-horizontal-xx-small-important" type="checkbox" ng-model="option.shipped" ng-change="saveOption(group, option)">
                 </div>
 
 

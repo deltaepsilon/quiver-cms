@@ -18,7 +18,7 @@ angular.module('quiverCmsApp')
     $scope.addUser = function (user) {
       if (user && !_.findWhere($scope.uniqueUsers, {id: user.userKey})) {
         $scope.uniqueUsers = getUniqueUsers($scope.sentMessages.concat($scope.receivedMessages)).concat({
-          id: user.userKey,
+          id: user.userKey || user.$id,
           name: user.userName || user.email,
           email: user.email
         });  
@@ -30,7 +30,7 @@ angular.module('quiverCmsApp')
       var i = $scope.uniqueUsers.length;
 
       while (i--) {
-        if ($scope.uniqueUsers[i].id === user.userKey) {
+        if ($scope.uniqueUsers[i].id === (user.userKey || user.$id)) {
           return $scope.selectUser($scope.uniqueUsers[i]);
         }
       }

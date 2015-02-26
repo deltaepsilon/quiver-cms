@@ -11,12 +11,16 @@ angular.module('quiverCmsApp')
     theme.$bindTo($scope, 'theme');
     ObjectService.toDestroy(theme);
 
-    theme.$loaded().then(function () {
-      var keys = Object.keys($scope.theme.options);
+    theme.$loaded().then(function (theme) {
+      if (theme.options) {
+        var keys = Object.keys($scope.theme.options);
 
-      if (!$scope.theme.active && keys.length) {
-        $scope.theme.active = keys[0];
+        if (!$scope.theme.active && keys.length) {
+          $scope.theme.active = keys[0];
+        }
+
       }
+      
 
     });
 

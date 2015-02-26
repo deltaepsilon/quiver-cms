@@ -37,7 +37,8 @@
     "angular-ui-router": "~0.2.11",
     "angular-md5": "~0.1.7",
     "angularfire-authentication": "git@github.com:deltaepsilon/angularfire-authentication.git#master",
-    "jquery.finger": "~0.1.2"
+    "jquery.finger": "~0.1.2",
+    "angular-google-analytics": "~0.0.10"
   },
   "devDependencies": {
     "livereload": "~2.0.8"

@@ -87,8 +87,20 @@
         <fieldset>
             <h3 class="font-flair">Preferences</h3>
 
-            <label class="left" for="marketing-email">Receive marketing email:</label>
-            <input id="marketing-email" class="margin-horizontal-large-important" type="checkbox" ng-model="user.public.preferences.marketing"/>
+            <div>
+                <label class="left" for="marketing-email">Receive marketing email:</label>
+                <input id="marketing-email" class="margin-horizontal-large-important" type="checkbox" ng-model="user.public.preferences.marketing"/>
+            </div>
+                <label class="left" for="user-tracking">Enable user analytics:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                <input id="user-analytics" class="margin-horizontal-large-important" type="checkbox" ng-model="user.public.preferences.tracking"/>
+            <div>
+            <p>
+                Using {{ settings.siteTitle }} indicates that you agree to our <a href="/policies" qv-to-static>privacy policy and terms of service</a>.
+            </p>
+            <p>
+                We take your privacy seriously. We do occasionally send out marketing email and we like to track on-site activity to better serve our users. We don't share your usage data with anyone, and the checkboxes above enable you to opt-out of our marketing and our user-based analytics.
+            </p>
+            </div>
         </fieldset>
     </form>
 </div>

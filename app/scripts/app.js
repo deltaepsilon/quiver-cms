@@ -14,7 +14,23 @@ angular.module('quiverCmsApp', [
   'flow',
   'angular-google-analytics',
   'wu.packery'
-]).run(function ($rootScope, $state, Restangular, NotificationService, env, Analytics, qvAuth, AdminService, $localStorage) {
+]).run(function ($rootScope, $state, Restangular, NotificationService, env, Analytics, qvAuth, AdminService, $localStorage, $timeout) {
+    var stateChangeSuccessOff,
+    handleStateChangeSuccess = function () {
+      $timeout(function () {
+        var config;
+        if ($localStorage.userId) {
+          config = {userId: $localStorage.userId};
+        }
+        
+        Analytics.createAnalyticsScriptTag(config);
+        stateChangeSuccessOff();
+      });
+      
+    };
+    
+    stateChangeSuccessOff = $rootScope.$on('$stateChangeSuccess', handleStateChangeSuccess);
+
     $rootScope.$on('$stateChangeStart', function (e, toState, toParams, fromState, fromParams) {
       $state.previous = _.clone($state);
       $state.toState = toState;
@@ -82,9 +98,10 @@ angular.module('quiverCmsApp', [
       AnalyticsProvider.setAccount(window.envVars.google.analyticsId);
       AnalyticsProvider.trackPages(true);
       AnalyticsProvider.useAnalytics(true);
-      AnalyticsProvider.ignoreFirstPageLoad(true);
-      AnalyticsProvider.useECommerce(true);
+      AnalyticsProvider.ignoreFirstPageLoad(false);
+      AnalyticsProvider.useECommerce(true, true);
       AnalyticsProvider.setPageEvent('$stateChangeSuccess');
+      AnalyticsProvider.delayScriptTag(true);
     }
 
 
@@ -350,8 +367,13 @@ angular.module('quiverCmsApp', [
         templateUrl: 'views/messages.html',
         controller: 'MessagesCtrl',
         resolve: {
-          messageableRef: function (AdminService) {
-            return AdminService.getMessageable();
+          messageableRef: function (AdminService, user) {
+            if (user && user.private && user.private.isAdmin) {
+              return AdminService.getUsers({orderByChild: 'email'});
+            } else {
+              return AdminService.getMessageable();  
+            }
+            
           },
           sentMessagesRef: function (UserService, user) {
             return UserService.getSentMessages(user.$id);
@@ -561,7 +583,7 @@ angular.module('quiverCmsApp', [
         controller: 'ListCtrl',
         resolve: {
           limit: function () {
-            return 3;
+            return 20;
           },
           getRef: function (AdminService) {
             return AdminService.getOriginals;

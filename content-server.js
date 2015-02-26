@@ -119,6 +119,7 @@ FirebaseService.isAuthenticated().then(function () {
         }
       }
 
+
       theme.active =  theme.options[theme.active || Object.keys(theme.options)[0]];
       
       viewsDir = './themes/' + theme.active + '/views';

@@ -8,7 +8,7 @@
  * Controller of the quiverCmsApp
  */
 angular.module('quiverCmsApp')
-  .controller('CartCtrl', function ($scope, $localStorage, $state, _, moment, products, countriesStatus, statesStatus, shippingRef, clientToken, CommerceService, NotificationService, braintree, ObjectService, user) {
+  .controller('CartCtrl', function ($scope, $localStorage, $state, _, moment, products, countriesStatus, statesStatus, shippingRef, clientToken, CommerceService, NotificationService, braintree, ObjectService, Analytics, user, env) {
     /*
      * Storage
     */
@@ -132,7 +132,8 @@ angular.module('quiverCmsApp')
           product.quantity = Math.min(product.quantity, product.maxQuantity);
         }
 
-        if (product.shipped) {
+        if (product.shipped || (product.optionsMatrixSelected && product.optionsMatrixSelected.shipped)) {
+          product.shipped = true;
           cart.shipped = true;
 
           if (product.shipping) {
@@ -237,15 +238,16 @@ angular.module('quiverCmsApp')
             applied.push(code.code);
 
             if (code.type === 'value') {
-              cart.discount += code.value;
+              code.discount = code.value;
             } else if (code.type === 'percentage') {
               if (code.maxSubtotal) {
-                cart.discount += Math.min(cart.subtotal, code.maxSubtotal) * code.percentage * .01;
+                code.discount = Math.min(cart.subtotal, code.maxSubtotal) * code.percentage * .01;
               } else {
-                cart.discount += cart.subtotal * code.percentage * .01;
+                code.discount = cart.subtotal * code.percentage * .01;
               }
               
             }
+            cart.discount += code.discount;
 
           });
 
@@ -256,6 +258,10 @@ angular.module('quiverCmsApp')
         
         
       } else {
+        if (cart.freeShipping) {
+          delete cart.freeShipping;
+        };
+
         finishIt();
       }
 
@@ -391,11 +397,29 @@ angular.module('quiverCmsApp')
     };
 
     /*
+     * Analytics
+     */
+    var trackCheckout = function () {
+      if ($scope.$storage.cart) {
+        CommerceService.addProducts($scope.$storage.cart);
+
+        if ($state.current.name === 'master.nav.cart') {
+          Analytics.trackCheckout(1);
+        } else if ($state.current.name === 'authenticated.master.nav.checkout') {
+          Analytics.trackCheckout(2);
+        }
+
+      }
+
+    };
+
+    /*
      * Shipping
     */
     shipping.$loaded().then(function (shipping) {
       $scope.shipping = shipping;
       $scope.updateAddress();
+      trackCheckout();
     });
 
     /*
@@ -480,7 +504,30 @@ angular.module('quiverCmsApp')
     
     $scope.checkout = function (cart) {
       $scope.checkingOut = true;
+      
+      CommerceService.addProducts(cart);
+      Analytics.trackCheckout(3);
+
+      if ($scope.$storage.affiliate) {
+        cart.affiliate = $scope.$storage.affiliate;
+        delete $scope.$storage.affiliate;
+      }
+
       CommerceService.checkout(cart).then(function (transaction) {
+        var transactionId = transaction.keys.log,
+            affiliation = env.root,
+            revenue = transaction.total,
+            tax = transaction.tax,
+            shipping = transaction.shipping,
+            coupon = transaction.codes ? _.pluck(transaction.codes, 'code').join('|') : undefined,
+            list = transaction.list,
+            step = transaction.step,
+            option = transaction.paymentToken;
+
+        CommerceService.addProducts(transaction);
+        CommerceService.addCodes(transaction);
+        Analytics.trackTransaction(transactionId, affiliation, revenue, tax, shipping, coupon, list, step, option);
+
         NotificationService.success('Checkout Successful');
         $scope.emptyCart();
         delete $scope.checkingOut;
@@ -488,6 +535,7 @@ angular.module('quiverCmsApp')
           userId: transaction.userId,
           key: transaction.keys.user
         });
+
       }, function (err) {
         NotificationService.error('Checkout Error', err);
         delete $scope.checkingOut;

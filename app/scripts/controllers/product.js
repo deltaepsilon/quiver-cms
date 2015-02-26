@@ -8,7 +8,7 @@
  * Controller of the quiverCmsApp
  */
 angular.module('quiverCmsApp')
-  .controller('ProductCtrl', function ($scope, productRef, productImagesRef, productOptionGroupsRef, productOptionsMatrixRef, filesRef, hashtagsRef, $localStorage, env, $filter, $timeout, Slug, _) {
+  .controller('ProductCtrl', function ($scope, productRef, productImagesRef, productOptionGroupsRef, productOptionsMatrixRef, filesRef, hashtagsRef, NotificationService, ClipboardService, CommerceService, $localStorage, env, $filter, $timeout, Slug, _) {
 
     /*
      * Product
@@ -133,7 +133,9 @@ angular.module('quiverCmsApp')
             }
             matrix[slug].name = option.name;
             matrix[slug].slug = option.slug;
+            matrix[slug].shipped = option.shipped || false;
             matrix[slug].priceDifference = option.priceDifference || 0;
+            
           });
 
 
@@ -154,6 +156,7 @@ angular.module('quiverCmsApp')
                 }
                 matrix[slug].name = matrixItem.name + ' + ' + option.name;
                 matrix[slug].slug = key + '|' + option.slug;
+                matrix[slug].shipped = option.shipped || false;
                 matrix[slug].priceDifference = matrixItem.priceDifference + (option.priceDifference || 0);
 
               });
@@ -180,6 +183,7 @@ angular.module('quiverCmsApp')
           }
           $scope.productOptionsMatrix[keys[j]].name = matrix[keys[j]].name;
           $scope.productOptionsMatrix[keys[j]].slug = matrix[keys[j]].slug;
+          $scope.productOptionsMatrix[keys[j]].shipped = matrix[keys[j]].shipped;
           $scope.productOptionsMatrix[keys[j]].priceDifference = matrix[keys[j]].priceDifference;
         }
 
@@ -292,6 +296,12 @@ angular.module('quiverCmsApp')
     $scope.removeFromClipboard = function (file) {
       var fileName = $filter('filename')(file.Key);
 
+      if (ClipboardService.remove(file, $scope)) {
+        return NotificationService.success('- Clipboard', fileName + ' has been removed from the clipboard.');
+      } else {
+        return NotificationService.error('Not Found', fileName + ' was not found in the clipboard');
+      }
+
     };
 
     $scope.addImage = function (file) {
@@ -339,5 +349,10 @@ angular.module('quiverCmsApp')
       }
 
     };
+
+    /*
+     * Shipping
+     */
+    $scope.isShipped = CommerceService.isShipped;
 
   });
