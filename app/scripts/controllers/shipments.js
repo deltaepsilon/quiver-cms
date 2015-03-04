@@ -8,13 +8,13 @@
  * Controller of the quiverCmsApp
  */
 angular.module('quiverCmsApp')
-  .controller('ShipmentsCtrl', function ($scope, $q, $timeout, AdminService, env, CommerceService, NotificationService, ShipmentService, _) {
+  .controller('ShipmentsCtrl', function ($scope, $q, $timeout, AdminService, UserService, env, CommerceService, NotificationService, ShipmentService, _) {
     /*
      * Shipments
      */
     
     $scope.save = function (shipment) {
-      var userShipmentRef = AdminService.getUserShipment(shipment.transaction.user.public.id, shipment.keys.user);
+      var userShipmentRef = UserService.getShipment(shipment.transaction.user.public.id, shipment.keys.user);
 
       userShipmentRef.$set(_.omit(shipment, ['$$hashKey', '$id', '$priority'])).then(function () {        
         return AdminService.getShipment(shipment.$id).$update(_.omit(shipment, ['$$hashKey', '$id', '$priority']));

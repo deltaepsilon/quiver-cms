@@ -129,13 +129,13 @@
 
               
             </li>
-            <li class="clearfix" ng-show="$storage.cart.codes.length">
-              <div class="column small-6">Discount</div>
-              <div class="column small-6">{{ -1 * $storage.cart.discount | currency }}</div>
-            </li>
             <li>
               <div class="column small-6">Subtotal</div>
               <div class="column small-6">{{ $storage.cart.subtotal | currency }}</div>
+            </li>
+            <li class="clearfix" ng-show="$storage.cart.codes.length">
+              <div class="column small-6">Discount</div>
+              <div class="column small-6">{{ -1 * $storage.cart.discount | currency }}</div>
             </li>
             <li>
               <div class="column small-6">

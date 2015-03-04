@@ -95,7 +95,7 @@ angular.module('quiverCmsApp')
       var uniqueUserIds = _.pluck($scope.uniqueUsers, 'id');
 
       return _.filter($scope.users, function (user) {
-        return $scope.user.$id !== user.userKey && !~uniqueUserIds.indexOf(user.userKey);
+        return $scope.user.$id !== user.$id && !~uniqueUserIds.indexOf(user.userKey);
       });
     };
 

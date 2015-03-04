@@ -3,5 +3,66 @@
     &> button {
       margin-top: 4px;
     }
+
   }
+
+  &.no-margin {
+    &>li:first-child {
+      margin-left: 0;
+    }
+  }
+
+  &.slashes {
+    li {
+      position: relative;
+
+      &:last-of-type:after {
+        content: "";
+      }
+      &:after {
+        content: "/";
+        margin-left: 1rem;
+        position: absolute;
+        right: -1rem;
+        top: 0;
+      }
+
+    }
+  }
+
+  &.dots {
+    li {
+      position: relative;
+
+      &:last-of-type:after {
+        content: "";
+      }
+      &:after {
+        content: "•";
+        margin-left: 1rem;
+        position: absolute;
+        right: -1rem;
+        top: 0;
+      }
+
+    }
+  }
+
+  &.commas {
+    li {
+      position: relative;
+      
+      &:last-of-type:after {
+        content: "";
+      }
+      &:after {
+        content: ",";
+        position: absolute;
+        right: 0;
+        top: 0;
+      }
+
+    }
+  }
+
 }

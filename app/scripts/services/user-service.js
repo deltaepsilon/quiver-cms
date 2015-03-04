@@ -12,12 +12,20 @@ angular.module('quiverCmsApp')
     var firebaseEndpoint = env.firebase.endpoint;
 
     return {
+      getTransactions: function (userId, query) {
+        return $firebase(FirebaseService.query(new Firebase(firebaseEndpoint + '/transactions/' + userId), query));
+      },
+
       getTransaction: function (userId, key) {
-        return $firebase(new Firebase(firebaseEndpoint + '/users/' + userId + '/private/commerce/transactions/' + key));
+        return $firebase(new Firebase(firebaseEndpoint + '/transactions/' + userId + '/' + key));
+      },
+
+      getSubscriptions: function (userId, query) {
+        return $firebase(FirebaseService.query(new Firebase(firebaseEndpoint + '/subscriptions/' + userId), query));
       },
 
       getSubscription: function (userId, key) {
-        return $firebase(new Firebase(firebaseEndpoint + '/users/' + userId + '/private/commerce/subscriptions/' + key));
+        return $firebase(new Firebase(firebaseEndpoint + '/subscriptions/' + userId + '/' + key));
       },
 
       getPages: function(userId, key) {
@@ -70,8 +78,28 @@ angular.module('quiverCmsApp')
 
       getAssignmentMessages: function (userId, key) {
         return $firebase(new Firebase(firebaseEndpoint + '/assignments/' + userId + '/submitted/' + key + '/messages'));
-      }
+      },
 
+      getMessage: function (userId, key) {
+        return $firebase(new Firebase(firebaseEndpoint + '/messages/' + userId + '/' + key));
+      },
+
+      getShipments: function (userId, query) {
+        return $firebase(FirebaseService.query(new Firebase(firebaseEndpoint + '/shipments/' + userId), query));
+      },      
+
+      getShipment: function (userId, key) {
+        return $firebase(new Firebase(firebaseEndpoint + '/shipments/' + userId + '/' + key));
+      },
+
+      getGifts: function (userId, query) {
+        return $firebase(FirebaseService.query(new Firebase(firebaseEndpoint + '/gifts/' + userId), query));
+      },
+      
+      getDownloads: function (userId, query) {
+        return $firebase(FirebaseService.query(new Firebase(firebaseEndpoint + '/downloads/' + userId), query));
+      }
+      
     };
     
   });

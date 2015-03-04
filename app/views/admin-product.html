@@ -33,7 +33,7 @@
 
 
         <label for="product-slug">Slug</label>
-        <input id="product-slug" type="text" name="product-slug" ng-model='product.slug' placeholder="Slug..." ng-change="slugify(); checkValidity()">
+        <input id="product-slug" type="text" name="product-slug" ng-model='product.slug' placeholder="Slug..." ng-change="slugify(); checkValidity()" ng-model-options="{debounce: {'default': 500}}">
 
         <label for="product-price">Price</label>
         <input id="product-price" type="number" name="product-price" ng-model="product.price" placeholder="Price in USD..." ng-change="checkValidity()">
@@ -60,29 +60,29 @@
 
           <div class="clearfix margin-vertical-small" ng-show="isShipped(product)">
             <label>Domestic Base Shipping</label>
-            <input type="number" name="product-shipping-domestic-base" placeholder="Domestic base USD..." ng-model="product.shipping.domesticBase" ng-change="checkValidity()">
+            <input type="number" name="product-shipping-domestic-base" placeholder="Domestic base USD..." ng-model="product.shipping.domesticBase" ng-change="checkValidity()" ng-model-options="{debounce: {'default': 500}}">
 
             <label>Domestic Incremental Shipping per Unit</label>
-            <input type="number" name="product-shipping-domestic-incremental" placeholder="Domestic incremental USD..." ng-model="product.shipping.domesticIncremental" ng-change="checkValidity()">
+            <input type="number" name="product-shipping-domestic-incremental" placeholder="Domestic incremental USD..." ng-model="product.shipping.domesticIncremental" ng-change="checkValidity()" ng-model-options="{debounce: {'default': 500}}">
 
             <label>International Base Shipping</label>
-            <input type="number" name="product-shipping-international" placeholder="International USD..." ng-model="product.shipping.internationalBase" ng-change="checkValidity()">
+            <input type="number" name="product-shipping-international" placeholder="International USD..." ng-model="product.shipping.internationalBase" ng-change="checkValidity()" ng-model-options="{debounce: {'default': 500}}">
 
             <label>International Incremental Shipping per Unit</label>
-            <input type="number" name="product-shipping-international-incremental" placeholder="International incremental USD..." ng-model="product.shipping.internationalIncremental" ng-change="checkValidity()">
+            <input type="number" name="product-shipping-international-incremental" placeholder="International incremental USD..." ng-model="product.shipping.internationalIncremental" ng-change="checkValidity()" ng-model-options="{debounce: {'default': 500}}">
 
             <label>HS Tariff Number</label>
-            <input type="text" name="product-shipping-hs-tariff-number" placeholder="HS Tariff Number..." ng-model="product.hsTariffNumber" ng-change="checkValidity()">
+            <input type="text" name="product-shipping-hs-tariff-number" placeholder="HS Tariff Number..." ng-model="product.hsTariffNumber" ng-change="checkValidity()" ng-model-options="{debounce: {'default': 500}}">
 
             <label>Origin Country</label>
-            <input type="text" name="product-shipping-hs-tariff-number" placeholder="Origin country..." ng-model="product.originCountry" ng-change="checkValidity()">
+            <input type="text" name="product-shipping-hs-tariff-number" placeholder="Origin country..." ng-model="product.originCountry" ng-change="checkValidity()" ng-model-options="{debounce: {'default': 500}}">
 
             <label>Weight (ounces)</label>
             <input type="number" name="product-shipping-hs-tariff-number" placeholder="Weight..." ng-model="product.weight" ng-change="checkValidity()">
 
             <div>
               <label class="left" for="product-allow-international">Ship Internationally?</label>
-              <input class="left margin-xx-small-important" type="checkbox" name="product-allow-international" ng-model="product.shipping.internationalAllowed">
+              <input class="left margin-xx-small-important" type="checkbox" name="product-allow-international" ng-model="product.shipping.internationalAllowed" >
             </div>
 
           </div>
@@ -210,7 +210,7 @@
 
       <div class="column small-12">
         <textarea class="margin-vertical-medium" style="min-height: 5rem;" ng-model="product.description.excerpt" ng-model-options="{debounce: {'default': 500, 'blur': 0}}" placeholder="Product excerpt..."></textarea>
-        <div ng-if="!textMode" class="small-12 background-secondary4 padding-small" style="min-height: 40rem;" delay="300" contenteditable="true" ng-model="product.description.markdown" markdown-editable extensions="video"></div>
+        <div ng-if="!textMode" class="small-12 background-secondary4 padding-small" style="height: 40rem; overflow: auto;" delay="300" contenteditable="true" ng-model="product.description.markdown" markdown-editable extensions="video"></div>
         <textarea ng-if="textMode" class="small-12 background-secondary4 padding-small" style="min-height: 40rem;" delay="300" ng-model="product.description.markdown"></textarea>
       </div>
 

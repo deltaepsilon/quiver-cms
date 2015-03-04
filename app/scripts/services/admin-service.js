@@ -154,10 +154,6 @@ angular.module('quiverCmsApp')
         return $firebase(new Firebase(firebaseEndpoint + '/logs/transactions/' + key));
       },
 
-      getUserTransaction: function (userId, key) {
-        return $firebase(new Firebase(firebaseEndpoint + '/users/' + userId + '/private/commerce/transactions/' + key));
-      },
-
       sendTransactionEmail: function (key, transaction) {
         return Restangular.one('admin').one('transaction').one(key).post('email', transaction);
       },
@@ -186,10 +182,6 @@ angular.module('quiverCmsApp')
         return $firebase(new Firebase(firebaseEndpoint + '/logs/subscriptions/' + key));
       },
 
-      getUserSubscription: function (userId, key) {
-        return $firebase(new Firebase(firebaseEndpoint + '/users/' + userId + '/private/commerce/subscriptions/' + key));
-      },
-
       getShipments: function (query) {
         return $firebase(FirebaseService.query(new Firebase(firebaseEndpoint + '/logs/shipments'), query));
       },
@@ -198,16 +190,8 @@ angular.module('quiverCmsApp')
         return $firebase(new Firebase(firebaseEndpoint + '/logs/shipments/' + key));
       },
 
-      getUserShipment: function (userId, key) {
-        return $firebase(new Firebase(firebaseEndpoint + '/users/' + userId + '/private/commerce/shipments/' + key));
-      },
-
       getMessages: function (query) {
         return $firebase(FirebaseService.query(new Firebase(firebaseEndpoint + '/logs/messages'), query));
-      },
-
-      getUserMessage: function (userId, key) {
-        return $firebase(new Firebase(firebaseEndpoint + '/users/' + userId + '/public/messages/' + key));
       },
 
       getUploads: function (query) {

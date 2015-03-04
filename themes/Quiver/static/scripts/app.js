@@ -25,6 +25,7 @@ angular.module('QuiverCMS', ['ngStorage', 'quiver.angular-utilities', 'quiver.an
       AnalyticsProvider.trackPages(true);
       AnalyticsProvider.useAnalytics(true);
       AnalyticsProvider.useECommerce(true, true);
+      AnalyticsProvider.useEnhancedLinkAttribution(true);
     }
 
   })

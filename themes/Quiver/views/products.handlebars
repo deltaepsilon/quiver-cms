@@ -1,20 +1,48 @@
 {{#if title }}
   <div class="row">
     <div class="column small-12">
-      <h3 class="font-flair margin-vertical-medium">{{ title }}</h3>
+      <ul class="inline-list slashes no-margin margin-horizontal-zero-important margin-vertical-small-important">
+        {{#if breadcrumbs}}
+          {{#each breadcrumbs}}
+            <li><a href="{{ href }}">{{ text }}</a></li>
+          {{/each }}
+        {{/if }}
+        {{#if title}}
+          <li>
+            <strong>{{ title }}</strong>
+          </li>
+        {{/if }}
+      </ul>
     </div>
+    
   </div>
 {{/if }}
 
-<div id="products" class="posts row">
-  <ul class="column small-12 table-list striped margin-horizontal-zero-important padding-horizontal-zero-important">
-    {{#each products }}
-      {{#if active }}
-        <li class="product product-{{ @index }}">
-          {{> inline-product }}
-        </li>
-      {{/if }}
-    {{/each }}
-  </ul>
+{{#if products }}
+  <div id="products" class="posts row">
+    <ul class="column small-12 table-list striped margin-horizontal-zero-important padding-horizontal-zero-important">
+      {{#each products }}
+        {{#if active }}
+          <li class="product product-{{ @index }}">
+            {{> inline-product }}
+          </li>
+        {{/if }}
+      {{/each }}
+    </ul>
 
-</div>
+  </div>
+
+{{ else }}
+
+  <div id="products" class="posts row">
+    <div class="column small-12 padding-vertical-large">
+      <h5 class="font-flair">
+        No products found! 
+        <br>
+        Head back to the <a href="/products">products page</a>.
+      </h5>
+    </div>
+    
+  </div>
+
+{{/if }}

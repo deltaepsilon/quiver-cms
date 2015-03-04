@@ -47,7 +47,7 @@
 
     <div class="panel" ng-show="$storage.clipboard.length">
         <h5>Clipboard</h5>
-        <ul class="side-nav">
+        <ul class="side-nav" style="height: 15rem; overflow: auto;">
             <li ng-repeat="file in $storage.clipboard">
                 <a class="text-x-small" qv-confirm="removeFromClipboard(file)" confirmations="['Click to Remove']">{{ file.Key | filename }}</a>
             </li>

@@ -19073,6 +19073,57 @@ button.callout:active, button.callout:focus, .button.callout:active, .button.cal
 .inline-list > li > button {
   margin-top: 4px;
 }
+/* line 10, modules/_inline-list.scss */
+.inline-list.no-margin > li:first-child {
+  margin-left: 0;
+}
+/* line 16, modules/_inline-list.scss */
+.inline-list.slashes li {
+  position: relative;
+}
+/* line 19, modules/_inline-list.scss */
+.inline-list.slashes li:last-of-type:after {
+  content: "";
+}
+/* line 22, modules/_inline-list.scss */
+.inline-list.slashes li:after {
+  content: "/";
+  margin-left: 1rem;
+  position: absolute;
+  right: -1rem;
+  top: 0;
+}
+/* line 34, modules/_inline-list.scss */
+.inline-list.dots li {
+  position: relative;
+}
+/* line 37, modules/_inline-list.scss */
+.inline-list.dots li:last-of-type:after {
+  content: "";
+}
+/* line 40, modules/_inline-list.scss */
+.inline-list.dots li:after {
+  content: "•";
+  margin-left: 1rem;
+  position: absolute;
+  right: -1rem;
+  top: 0;
+}
+/* line 52, modules/_inline-list.scss */
+.inline-list.commas li {
+  position: relative;
+}
+/* line 55, modules/_inline-list.scss */
+.inline-list.commas li:last-of-type:after {
+  content: "";
+}
+/* line 58, modules/_inline-list.scss */
+.inline-list.commas li:after {
+  content: ",";
+  position: absolute;
+  right: 0;
+  top: 0;
+}
 
 /* line 1, modules/_layout.scss */
 .row, .top-bar .row {

@@ -1,11 +1,11 @@
 <div class="column small-12 medium-3">
     <ul class="side-nav padding-vertical-zero-important background-white0" style="z-index: 1;" qv-pinned>
         <li><a href="#messages" qv-highlight="text-secondary0" selector="#messages .transition-color">Messages</a></li>
-        <li ng-show="user.private.commerce.subscriptions"><a href="#subscriptions" qv-highlight="text-secondary0" selector="#subscriptions .transition-color">Subscriptions</a></li>
-        <li ng-show="user.private.commerce.shipments"><a href="#shipping" qv-highlight="text-secondary0" selector="#shipping .transition-color">Shipping</a></li>
-        <li ng-show="user.private.commerce.gifts"><a href="#gifts" qv-highlight="text-secondary0" selector="#gifts .transition-color">Gifts</a></li>
-        <li ng-show="user.private.commerce.downloads"><a href="#downloads" qv-highlight="text-secondary0" selector="#downloads .transition-color">Downloads</a></li>
-        <li ng-show="user.private.commerce.transactions"><a href="#transactions" qv-highlight="text-secondary0" selector="#transactions .transition-color">Transactions</a></li>
+        <li ng-show="subscriptions.length"><a href="#subscriptions" qv-highlight="text-secondary0" selector="#subscriptions .transition-color">Subscriptions</a></li>
+        <li ng-show="shipments.length"><a href="#shipping" qv-highlight="text-secondary0" selector="#shipping .transition-color">Shipping</a></li>
+        <li ng-show="gifts.length"><a href="#gifts" qv-highlight="text-secondary0" selector="#gifts .transition-color">Gifts</a></li>
+        <li ng-show="downloads.length"><a href="#downloads" qv-highlight="text-secondary0" selector="#downloads .transition-color">Downloads</a></li>
+        <li ng-show="transactions.length"><a href="#transactions" qv-highlight="text-secondary0" selector="#transactions .transition-color">Transactions</a></li>
     </ul>
     
 </div>
@@ -13,7 +13,7 @@
 <div class="column small-12 medium-9">
     <div id="messages" class="small-12">
         <div>
-            <h3 class="font-flair transition-color">Messages</h3>
+            <h3 class="font-flair transition-color">Assignment Feedback</h3>
         </div>
 
         <ul class="table-list striped hover link-padded text-x-medium" style="max-height: 500px; overflow: auto;">
@@ -31,7 +31,7 @@
                     Date
                 </div>
             </li>
-            <li ng-repeat="message in messages">
+            <li ng-repeat="message in messages.length">
                 <a class="clearfix block" ui-sref="authenticated.master.nav.subscription.assignment({subscriptionKey: message.subscriptionKey, assignmentKey: message.assignmentKey })">
                     <div class="column small-12 medium-2 truncate">
                         {{ message.assignmentTitle }}&nbsp;
@@ -60,19 +60,19 @@
                 </div>
             </li> -->
             <li class="padding-small" ng-hide="messages.length">
-                <h5 class="font-flair">No user messages found.</h5>
+                <h5 class="font-flair">No user assigment feedback found.</h5>
             </li>
         </ul>
 
     </div>
 
-    <div id="subscriptions" class="small-12" ng-if="user.private.commerce.subscriptions">
+    <div id="subscriptions" class="small-12" ng-if="subscriptions.length">
         <div>
             <h3 class="font-flair transition-color">Subscriptions</h3>
         </div>
 
         <ul class="table-list striped hover link-padded text-x-medium">
-            <li ng-repeat="(key, subscription) in user.private.commerce.subscriptions | orderBy:'expiration'" ng-disabled="subscription.subscriptionType == 'content' && expired(subscription)" ng-class="{disabled: subscription.subscriptionType == 'content' && isExpired(subscription)}">
+            <li ng-repeat="(key, subscription) in subscriptions | orderBy:'expiration'" ng-disabled="subscription.subscriptionType == 'content' && expired(subscription)" ng-class="{disabled: subscription.subscriptionType == 'content' && isExpired(subscription)}">
                 <a ui-sref="authenticated.master.nav.subscription.page({subscriptionKey: key, pageNumber: $storage['bookmark-' + key] || 0})">
                     <div class="column small-12 medium-3">{{ subscription.title }}</div>
                     <div class="column small-12 medium-3">{{ subscription.subscriptionDays }} Days</div>
@@ -106,13 +106,13 @@
 
     </div>
 
-    <div id="shipping" class="small-12" ng-if="user.private.commerce.shipments">
+    <div id="shipping" class="small-12" ng-if="shipments.length">
         <div>
             <h3 class="font-flair transition-color">Shipping</h3>
         </div>
 
         <ul class="table-list striped hover padded text-x-medium">
-            <li ng-repeat="shipment in user.private.commerce.shipments">
+            <li ng-repeat="shipment in shipments">
                 <div class="column small-12 medium-3">{{ shipment.item.title }}</div>
                 <div class="column small-12 medium-3">{{ shipment.item.adjusted || shipment.item.price | currency }} x {{ shipment.item.quantity }}</div>
                 <div class="column small-12 medium-3">
@@ -124,27 +124,27 @@
 
     </div>
 
-    <div id="gifts" class="small-12" ng-if="user.private.commerce.gifts">
+    <div id="gifts" class="small-12" ng-if="gifts.length">
         <div>
             <h3 class="font-flair transition-color">Gift Codes</h3>
         </div>
 
         <ul class="table-list striped hover padded text-x-medium">
-            <li ng-repeat="gift in user.private.commerce.gifts">
+            <li ng-repeat="gift in gifts" ng-class="{disabled: gift.useCount == gift.uses}">
                 <div class="column small-12 medium-6">Code: <strong>{{ gift.code }}</strong></div>
-                <div class="column small-12 medium-6 medium-text-right">Value: {{ -1 * gift.value | currency }}</div>
+                <div class="column small-12 medium-6 medium-text-right">Value: {{ gift.value | currency }}</div>
             </li>
         </ul>
 
     </div>
 
-    <div id="downloads" class="small-12" ng-if="user.private.commerce.downloads">
+    <div id="downloads" class="small-12" ng-if="downloads.length">
         <div>
             <h3 class="font-flair transition-color">Downloads</h3>
         </div>
 
         <ul class="table-list striped hover link-padded text-x-medium">
-            <li ng-repeat="download in user.private.commerce.downloads">
+            <li ng-repeat="download in downloads">
                 <a href="/resource/{{ download.resource.keys.resource }}" target="_blank">
                     <div class="column small-12 medium-6">{{ download.title }}</div>
                     <div class="column small-12 medium-6 medium-text-right">{{ env.root }}/resource/{{ download.resource.key }}</div>
@@ -154,13 +154,13 @@
 
     </div>
 
-    <div id="transactions" class="small-12" ng-if="user.private.commerce.transactions">
+    <div id="transactions" class="small-12" ng-if="transactions.length">
         <div>
             <h3 class="font-flair transition-color">Transactions</h3>
         </div>
 
         <ul class="table-list striped hover link-padded">
-            <li class="text-x-medium" ng-repeat="transaction in user.private.commerce.transactions">
+            <li class="text-x-medium" ng-repeat="transaction in transactions">
                 <a ui-sref="authenticated.master.nav.transaction({userId: transaction.userId, key: transaction.keys.user })">
                     <div class="column small-12 medium-8">
                         <span>Items</span>

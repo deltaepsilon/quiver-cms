@@ -62,6 +62,7 @@ app.get('/rss', FeedController.rss);
  * Product
 */
 app.get('/products', ProductController.products);
+app.get('/products/:hashtag', ProductController.hashtag);
 app.get('/product/:slug', ProductController.product);
 
 /*

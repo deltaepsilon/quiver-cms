@@ -16155,8 +16155,8 @@ th.hide-for-touch {
  * -------------------------- */
 @font-face {
   font-family: 'FontAwesome';
-  src: url("../lib/font-awesome/fonts/fontawesome-webfont.eot?v=4.3.0");
-  src: url("../lib/font-awesome/fonts/fontawesome-webfont.eot?#iefix&v=4.3.0") format("embedded-opentype"), url("../lib/font-awesome/fonts/fontawesome-webfont.woff2?v=4.3.0") format("woff2"), url("../lib/font-awesome/fonts/fontawesome-webfont.woff?v=4.3.0") format("woff"), url("../lib/font-awesome/fonts/fontawesome-webfont.ttf?v=4.3.0") format("truetype"), url("../lib/font-awesome/fonts/fontawesome-webfont.svg?v=4.3.0#fontawesomeregular") format("svg");
+  src: url("../lib/font-awesome/fonts/fontawesome-webfont.eot?v=4.2.0");
+  src: url("../lib/font-awesome/fonts/fontawesome-webfont.eot?#iefix&v=4.2.0") format("embedded-opentype"), url("../lib/font-awesome/fonts/fontawesome-webfont.woff?v=4.2.0") format("woff"), url("../lib/font-awesome/fonts/fontawesome-webfont.ttf?v=4.2.0") format("truetype"), url("../lib/font-awesome/fonts/fontawesome-webfont.svg?v=4.2.0#fontawesomeregular") format("svg");
   font-weight: normal;
   font-style: normal;
 }
@@ -16168,7 +16168,6 @@ th.hide-for-touch {
   text-rendering: auto;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  transform: translate(0, 0);
 }
 
 /* Font Awesome uses the Unicode Private Use Area (PUA) to ensure screen
@@ -16912,849 +16911,848 @@ th.hide-for-touch {
 }
 
 /* line 161, ../lib/font-awesome/scss/_icons.scss */
-.fa-facebook-f:before,
 .fa-facebook:before {
   content: "";
 }
 
-/* line 163, ../lib/font-awesome/scss/_icons.scss */
+/* line 162, ../lib/font-awesome/scss/_icons.scss */
 .fa-github:before {
   content: "";
 }
 
-/* line 164, ../lib/font-awesome/scss/_icons.scss */
+/* line 163, ../lib/font-awesome/scss/_icons.scss */
 .fa-unlock:before {
   content: "";
 }
 
-/* line 165, ../lib/font-awesome/scss/_icons.scss */
+/* line 164, ../lib/font-awesome/scss/_icons.scss */
 .fa-credit-card:before {
   content: "";
 }
 
-/* line 166, ../lib/font-awesome/scss/_icons.scss */
+/* line 165, ../lib/font-awesome/scss/_icons.scss */
 .fa-rss:before {
   content: "";
 }
 
-/* line 167, ../lib/font-awesome/scss/_icons.scss */
+/* line 166, ../lib/font-awesome/scss/_icons.scss */
 .fa-hdd-o:before {
   content: "";
 }
 
-/* line 168, ../lib/font-awesome/scss/_icons.scss */
+/* line 167, ../lib/font-awesome/scss/_icons.scss */
 .fa-bullhorn:before {
   content: "";
 }
 
-/* line 169, ../lib/font-awesome/scss/_icons.scss */
+/* line 168, ../lib/font-awesome/scss/_icons.scss */
 .fa-bell:before {
   content: "";
 }
 
-/* line 170, ../lib/font-awesome/scss/_icons.scss */
+/* line 169, ../lib/font-awesome/scss/_icons.scss */
 .fa-certificate:before {
   content: "";
 }
 
-/* line 171, ../lib/font-awesome/scss/_icons.scss */
+/* line 170, ../lib/font-awesome/scss/_icons.scss */
 .fa-hand-o-right:before {
   content: "";
 }
 
-/* line 172, ../lib/font-awesome/scss/_icons.scss */
+/* line 171, ../lib/font-awesome/scss/_icons.scss */
 .fa-hand-o-left:before {
   content: "";
 }
 
-/* line 173, ../lib/font-awesome/scss/_icons.scss */
+/* line 172, ../lib/font-awesome/scss/_icons.scss */
 .fa-hand-o-up:before {
   content: "";
 }
 
-/* line 174, ../lib/font-awesome/scss/_icons.scss */
+/* line 173, ../lib/font-awesome/scss/_icons.scss */
 .fa-hand-o-down:before {
   content: "";
 }
 
-/* line 175, ../lib/font-awesome/scss/_icons.scss */
+/* line 174, ../lib/font-awesome/scss/_icons.scss */
 .fa-arrow-circle-left:before {
   content: "";
 }
 
-/* line 176, ../lib/font-awesome/scss/_icons.scss */
+/* line 175, ../lib/font-awesome/scss/_icons.scss */
 .fa-arrow-circle-right:before {
   content: "";
 }
 
-/* line 177, ../lib/font-awesome/scss/_icons.scss */
+/* line 176, ../lib/font-awesome/scss/_icons.scss */
 .fa-arrow-circle-up:before {
   content: "";
 }
 
-/* line 178, ../lib/font-awesome/scss/_icons.scss */
+/* line 177, ../lib/font-awesome/scss/_icons.scss */
 .fa-arrow-circle-down:before {
   content: "";
 }
 
-/* line 179, ../lib/font-awesome/scss/_icons.scss */
+/* line 178, ../lib/font-awesome/scss/_icons.scss */
 .fa-globe:before {
   content: "";
 }
 
-/* line 180, ../lib/font-awesome/scss/_icons.scss */
+/* line 179, ../lib/font-awesome/scss/_icons.scss */
 .fa-wrench:before {
   content: "";
 }
 
-/* line 181, ../lib/font-awesome/scss/_icons.scss */
+/* line 180, ../lib/font-awesome/scss/_icons.scss */
 .fa-tasks:before {
   content: "";
 }
 
-/* line 182, ../lib/font-awesome/scss/_icons.scss */
+/* line 181, ../lib/font-awesome/scss/_icons.scss */
 .fa-filter:before {
   content: "";
 }
 
-/* line 183, ../lib/font-awesome/scss/_icons.scss */
+/* line 182, ../lib/font-awesome/scss/_icons.scss */
 .fa-briefcase:before {
   content: "";
 }
 
-/* line 184, ../lib/font-awesome/scss/_icons.scss */
+/* line 183, ../lib/font-awesome/scss/_icons.scss */
 .fa-arrows-alt:before {
   content: "";
 }
 
-/* line 185, ../lib/font-awesome/scss/_icons.scss */
+/* line 184, ../lib/font-awesome/scss/_icons.scss */
 .fa-group:before,
 .fa-users:before {
   content: "";
 }
 
-/* line 187, ../lib/font-awesome/scss/_icons.scss */
+/* line 186, ../lib/font-awesome/scss/_icons.scss */
 .fa-chain:before,
 .fa-link:before {
   content: "";
 }
 
-/* line 189, ../lib/font-awesome/scss/_icons.scss */
+/* line 188, ../lib/font-awesome/scss/_icons.scss */
 .fa-cloud:before {
   content: "";
 }
 
-/* line 190, ../lib/font-awesome/scss/_icons.scss */
+/* line 189, ../lib/font-awesome/scss/_icons.scss */
 .fa-flask:before {
   content: "";
 }
 
-/* line 191, ../lib/font-awesome/scss/_icons.scss */
+/* line 190, ../lib/font-awesome/scss/_icons.scss */
 .fa-cut:before,
 .fa-scissors:before {
   content: "";
 }
 
-/* line 193, ../lib/font-awesome/scss/_icons.scss */
+/* line 192, ../lib/font-awesome/scss/_icons.scss */
 .fa-copy:before,
 .fa-files-o:before {
   content: "";
 }
 
-/* line 195, ../lib/font-awesome/scss/_icons.scss */
+/* line 194, ../lib/font-awesome/scss/_icons.scss */
 .fa-paperclip:before {
   content: "";
 }
 
-/* line 196, ../lib/font-awesome/scss/_icons.scss */
+/* line 195, ../lib/font-awesome/scss/_icons.scss */
 .fa-save:before,
 .fa-floppy-o:before {
   content: "";
 }
 
-/* line 198, ../lib/font-awesome/scss/_icons.scss */
+/* line 197, ../lib/font-awesome/scss/_icons.scss */
 .fa-square:before {
   content: "";
 }
 
-/* line 199, ../lib/font-awesome/scss/_icons.scss */
+/* line 198, ../lib/font-awesome/scss/_icons.scss */
 .fa-navicon:before,
 .fa-reorder:before,
 .fa-bars:before {
   content: "";
 }
 
-/* line 202, ../lib/font-awesome/scss/_icons.scss */
+/* line 201, ../lib/font-awesome/scss/_icons.scss */
 .fa-list-ul:before {
   content: "";
 }
 
-/* line 203, ../lib/font-awesome/scss/_icons.scss */
+/* line 202, ../lib/font-awesome/scss/_icons.scss */
 .fa-list-ol:before {
   content: "";
 }
 
-/* line 204, ../lib/font-awesome/scss/_icons.scss */
+/* line 203, ../lib/font-awesome/scss/_icons.scss */
 .fa-strikethrough:before {
   content: "";
 }
 
-/* line 205, ../lib/font-awesome/scss/_icons.scss */
+/* line 204, ../lib/font-awesome/scss/_icons.scss */
 .fa-underline:before {
   content: "";
 }
 
-/* line 206, ../lib/font-awesome/scss/_icons.scss */
+/* line 205, ../lib/font-awesome/scss/_icons.scss */
 .fa-table:before {
   content: "";
 }
 
-/* line 207, ../lib/font-awesome/scss/_icons.scss */
+/* line 206, ../lib/font-awesome/scss/_icons.scss */
 .fa-magic:before {
   content: "";
 }
 
-/* line 208, ../lib/font-awesome/scss/_icons.scss */
+/* line 207, ../lib/font-awesome/scss/_icons.scss */
 .fa-truck:before {
   content: "";
 }
 
-/* line 209, ../lib/font-awesome/scss/_icons.scss */
+/* line 208, ../lib/font-awesome/scss/_icons.scss */
 .fa-pinterest:before {
   content: "";
 }
 
-/* line 210, ../lib/font-awesome/scss/_icons.scss */
+/* line 209, ../lib/font-awesome/scss/_icons.scss */
 .fa-pinterest-square:before {
   content: "";
 }
 
-/* line 211, ../lib/font-awesome/scss/_icons.scss */
+/* line 210, ../lib/font-awesome/scss/_icons.scss */
 .fa-google-plus-square:before {
   content: "";
 }
 
-/* line 212, ../lib/font-awesome/scss/_icons.scss */
+/* line 211, ../lib/font-awesome/scss/_icons.scss */
 .fa-google-plus:before {
   content: "";
 }
 
-/* line 213, ../lib/font-awesome/scss/_icons.scss */
+/* line 212, ../lib/font-awesome/scss/_icons.scss */
 .fa-money:before {
   content: "";
 }
 
-/* line 214, ../lib/font-awesome/scss/_icons.scss */
+/* line 213, ../lib/font-awesome/scss/_icons.scss */
 .fa-caret-down:before {
   content: "";
 }
 
-/* line 215, ../lib/font-awesome/scss/_icons.scss */
+/* line 214, ../lib/font-awesome/scss/_icons.scss */
 .fa-caret-up:before {
   content: "";
 }
 
-/* line 216, ../lib/font-awesome/scss/_icons.scss */
+/* line 215, ../lib/font-awesome/scss/_icons.scss */
 .fa-caret-left:before {
   content: "";
 }
 
-/* line 217, ../lib/font-awesome/scss/_icons.scss */
+/* line 216, ../lib/font-awesome/scss/_icons.scss */
 .fa-caret-right:before {
   content: "";
 }
 
-/* line 218, ../lib/font-awesome/scss/_icons.scss */
+/* line 217, ../lib/font-awesome/scss/_icons.scss */
 .fa-columns:before {
   content: "";
 }
 
-/* line 219, ../lib/font-awesome/scss/_icons.scss */
+/* line 218, ../lib/font-awesome/scss/_icons.scss */
 .fa-unsorted:before,
 .fa-sort:before {
   content: "";
 }
 
-/* line 221, ../lib/font-awesome/scss/_icons.scss */
+/* line 220, ../lib/font-awesome/scss/_icons.scss */
 .fa-sort-down:before,
 .fa-sort-desc:before {
   content: "";
 }
 
-/* line 223, ../lib/font-awesome/scss/_icons.scss */
+/* line 222, ../lib/font-awesome/scss/_icons.scss */
 .fa-sort-up:before,
 .fa-sort-asc:before {
   content: "";
 }
 
-/* line 225, ../lib/font-awesome/scss/_icons.scss */
+/* line 224, ../lib/font-awesome/scss/_icons.scss */
 .fa-envelope:before {
   content: "";
 }
 
-/* line 226, ../lib/font-awesome/scss/_icons.scss */
+/* line 225, ../lib/font-awesome/scss/_icons.scss */
 .fa-linkedin:before {
   content: "";
 }
 
-/* line 227, ../lib/font-awesome/scss/_icons.scss */
+/* line 226, ../lib/font-awesome/scss/_icons.scss */
 .fa-rotate-left:before,
 .fa-undo:before {
   content: "";
 }
 
-/* line 229, ../lib/font-awesome/scss/_icons.scss */
+/* line 228, ../lib/font-awesome/scss/_icons.scss */
 .fa-legal:before,
 .fa-gavel:before {
   content: "";
 }
 
-/* line 231, ../lib/font-awesome/scss/_icons.scss */
+/* line 230, ../lib/font-awesome/scss/_icons.scss */
 .fa-dashboard:before,
 .fa-tachometer:before {
   content: "";
 }
 
-/* line 233, ../lib/font-awesome/scss/_icons.scss */
+/* line 232, ../lib/font-awesome/scss/_icons.scss */
 .fa-comment-o:before {
   content: "";
 }
 
-/* line 234, ../lib/font-awesome/scss/_icons.scss */
+/* line 233, ../lib/font-awesome/scss/_icons.scss */
 .fa-comments-o:before {
   content: "";
 }
 
-/* line 235, ../lib/font-awesome/scss/_icons.scss */
+/* line 234, ../lib/font-awesome/scss/_icons.scss */
 .fa-flash:before,
 .fa-bolt:before {
   content: "";
 }
 
-/* line 237, ../lib/font-awesome/scss/_icons.scss */
+/* line 236, ../lib/font-awesome/scss/_icons.scss */
 .fa-sitemap:before {
   content: "";
 }
 
-/* line 238, ../lib/font-awesome/scss/_icons.scss */
+/* line 237, ../lib/font-awesome/scss/_icons.scss */
 .fa-umbrella:before {
   content: "";
 }
 
-/* line 239, ../lib/font-awesome/scss/_icons.scss */
+/* line 238, ../lib/font-awesome/scss/_icons.scss */
 .fa-paste:before,
 .fa-clipboard:before {
   content: "";
 }
 
-/* line 241, ../lib/font-awesome/scss/_icons.scss */
+/* line 240, ../lib/font-awesome/scss/_icons.scss */
 .fa-lightbulb-o:before {
   content: "";
 }
 
-/* line 242, ../lib/font-awesome/scss/_icons.scss */
+/* line 241, ../lib/font-awesome/scss/_icons.scss */
 .fa-exchange:before {
   content: "";
 }
 
-/* line 243, ../lib/font-awesome/scss/_icons.scss */
+/* line 242, ../lib/font-awesome/scss/_icons.scss */
 .fa-cloud-download:before {
   content: "";
 }
 
-/* line 244, ../lib/font-awesome/scss/_icons.scss */
+/* line 243, ../lib/font-awesome/scss/_icons.scss */
 .fa-cloud-upload:before {
   content: "";
 }
 
-/* line 245, ../lib/font-awesome/scss/_icons.scss */
+/* line 244, ../lib/font-awesome/scss/_icons.scss */
 .fa-user-md:before {
   content: "";
 }
 
-/* line 246, ../lib/font-awesome/scss/_icons.scss */
+/* line 245, ../lib/font-awesome/scss/_icons.scss */
 .fa-stethoscope:before {
   content: "";
 }
 
-/* line 247, ../lib/font-awesome/scss/_icons.scss */
+/* line 246, ../lib/font-awesome/scss/_icons.scss */
 .fa-suitcase:before {
   content: "";
 }
 
-/* line 248, ../lib/font-awesome/scss/_icons.scss */
+/* line 247, ../lib/font-awesome/scss/_icons.scss */
 .fa-bell-o:before {
   content: "";
 }
 
-/* line 249, ../lib/font-awesome/scss/_icons.scss */
+/* line 248, ../lib/font-awesome/scss/_icons.scss */
 .fa-coffee:before {
   content: "";
 }
 
-/* line 250, ../lib/font-awesome/scss/_icons.scss */
+/* line 249, ../lib/font-awesome/scss/_icons.scss */
 .fa-cutlery:before {
   content: "";
 }
 
-/* line 251, ../lib/font-awesome/scss/_icons.scss */
+/* line 250, ../lib/font-awesome/scss/_icons.scss */
 .fa-file-text-o:before {
   content: "";
 }
 
-/* line 252, ../lib/font-awesome/scss/_icons.scss */
+/* line 251, ../lib/font-awesome/scss/_icons.scss */
 .fa-building-o:before {
   content: "";
 }
 
-/* line 253, ../lib/font-awesome/scss/_icons.scss */
+/* line 252, ../lib/font-awesome/scss/_icons.scss */
 .fa-hospital-o:before {
   content: "";
 }
 
-/* line 254, ../lib/font-awesome/scss/_icons.scss */
+/* line 253, ../lib/font-awesome/scss/_icons.scss */
 .fa-ambulance:before {
   content: "";
 }
 
-/* line 255, ../lib/font-awesome/scss/_icons.scss */
+/* line 254, ../lib/font-awesome/scss/_icons.scss */
 .fa-medkit:before {
   content: "";
 }
 
-/* line 256, ../lib/font-awesome/scss/_icons.scss */
+/* line 255, ../lib/font-awesome/scss/_icons.scss */
 .fa-fighter-jet:before {
   content: "";
 }
 
-/* line 257, ../lib/font-awesome/scss/_icons.scss */
+/* line 256, ../lib/font-awesome/scss/_icons.scss */
 .fa-beer:before {
   content: "";
 }
 
-/* line 258, ../lib/font-awesome/scss/_icons.scss */
+/* line 257, ../lib/font-awesome/scss/_icons.scss */
 .fa-h-square:before {
   content: "";
 }
 
-/* line 259, ../lib/font-awesome/scss/_icons.scss */
+/* line 258, ../lib/font-awesome/scss/_icons.scss */
 .fa-plus-square:before {
   content: "";
 }
 
-/* line 260, ../lib/font-awesome/scss/_icons.scss */
+/* line 259, ../lib/font-awesome/scss/_icons.scss */
 .fa-angle-double-left:before {
   content: "";
 }
 
-/* line 261, ../lib/font-awesome/scss/_icons.scss */
+/* line 260, ../lib/font-awesome/scss/_icons.scss */
 .fa-angle-double-right:before {
   content: "";
 }
 
-/* line 262, ../lib/font-awesome/scss/_icons.scss */
+/* line 261, ../lib/font-awesome/scss/_icons.scss */
 .fa-angle-double-up:before {
   content: "";
 }
 
-/* line 263, ../lib/font-awesome/scss/_icons.scss */
+/* line 262, ../lib/font-awesome/scss/_icons.scss */
 .fa-angle-double-down:before {
   content: "";
 }
 
-/* line 264, ../lib/font-awesome/scss/_icons.scss */
+/* line 263, ../lib/font-awesome/scss/_icons.scss */
 .fa-angle-left:before {
   content: "";
 }
 
-/* line 265, ../lib/font-awesome/scss/_icons.scss */
+/* line 264, ../lib/font-awesome/scss/_icons.scss */
 .fa-angle-right:before {
   content: "";
 }
 
-/* line 266, ../lib/font-awesome/scss/_icons.scss */
+/* line 265, ../lib/font-awesome/scss/_icons.scss */
 .fa-angle-up:before {
   content: "";
 }
 
-/* line 267, ../lib/font-awesome/scss/_icons.scss */
+/* line 266, ../lib/font-awesome/scss/_icons.scss */
 .fa-angle-down:before {
   content: "";
 }
 
-/* line 268, ../lib/font-awesome/scss/_icons.scss */
+/* line 267, ../lib/font-awesome/scss/_icons.scss */
 .fa-desktop:before {
   content: "";
 }
 
-/* line 269, ../lib/font-awesome/scss/_icons.scss */
+/* line 268, ../lib/font-awesome/scss/_icons.scss */
 .fa-laptop:before {
   content: "";
 }
 
-/* line 270, ../lib/font-awesome/scss/_icons.scss */
+/* line 269, ../lib/font-awesome/scss/_icons.scss */
 .fa-tablet:before {
   content: "";
 }
 
-/* line 271, ../lib/font-awesome/scss/_icons.scss */
+/* line 270, ../lib/font-awesome/scss/_icons.scss */
 .fa-mobile-phone:before,
 .fa-mobile:before {
   content: "";
 }
 
-/* line 273, ../lib/font-awesome/scss/_icons.scss */
+/* line 272, ../lib/font-awesome/scss/_icons.scss */
 .fa-circle-o:before {
   content: "";
 }
 
-/* line 274, ../lib/font-awesome/scss/_icons.scss */
+/* line 273, ../lib/font-awesome/scss/_icons.scss */
 .fa-quote-left:before {
   content: "";
 }
 
-/* line 275, ../lib/font-awesome/scss/_icons.scss */
+/* line 274, ../lib/font-awesome/scss/_icons.scss */
 .fa-quote-right:before {
   content: "";
 }
 
-/* line 276, ../lib/font-awesome/scss/_icons.scss */
+/* line 275, ../lib/font-awesome/scss/_icons.scss */
 .fa-spinner:before {
   content: "";
 }
 
-/* line 277, ../lib/font-awesome/scss/_icons.scss */
+/* line 276, ../lib/font-awesome/scss/_icons.scss */
 .fa-circle:before {
   content: "";
 }
 
-/* line 278, ../lib/font-awesome/scss/_icons.scss */
+/* line 277, ../lib/font-awesome/scss/_icons.scss */
 .fa-mail-reply:before,
 .fa-reply:before {
   content: "";
 }
 
-/* line 280, ../lib/font-awesome/scss/_icons.scss */
+/* line 279, ../lib/font-awesome/scss/_icons.scss */
 .fa-github-alt:before {
   content: "";
 }
 
-/* line 281, ../lib/font-awesome/scss/_icons.scss */
+/* line 280, ../lib/font-awesome/scss/_icons.scss */
 .fa-folder-o:before {
   content: "";
 }
 
-/* line 282, ../lib/font-awesome/scss/_icons.scss */
+/* line 281, ../lib/font-awesome/scss/_icons.scss */
 .fa-folder-open-o:before {
   content: "";
 }
 
-/* line 283, ../lib/font-awesome/scss/_icons.scss */
+/* line 282, ../lib/font-awesome/scss/_icons.scss */
 .fa-smile-o:before {
   content: "";
 }
 
-/* line 284, ../lib/font-awesome/scss/_icons.scss */
+/* line 283, ../lib/font-awesome/scss/_icons.scss */
 .fa-frown-o:before {
   content: "";
 }
 
-/* line 285, ../lib/font-awesome/scss/_icons.scss */
+/* line 284, ../lib/font-awesome/scss/_icons.scss */
 .fa-meh-o:before {
   content: "";
 }
 
-/* line 286, ../lib/font-awesome/scss/_icons.scss */
+/* line 285, ../lib/font-awesome/scss/_icons.scss */
 .fa-gamepad:before {
   content: "";
 }
 
-/* line 287, ../lib/font-awesome/scss/_icons.scss */
+/* line 286, ../lib/font-awesome/scss/_icons.scss */
 .fa-keyboard-o:before {
   content: "";
 }
 
-/* line 288, ../lib/font-awesome/scss/_icons.scss */
+/* line 287, ../lib/font-awesome/scss/_icons.scss */
 .fa-flag-o:before {
   content: "";
 }
 
-/* line 289, ../lib/font-awesome/scss/_icons.scss */
+/* line 288, ../lib/font-awesome/scss/_icons.scss */
 .fa-flag-checkered:before {
   content: "";
 }
 
-/* line 290, ../lib/font-awesome/scss/_icons.scss */
+/* line 289, ../lib/font-awesome/scss/_icons.scss */
 .fa-terminal:before {
   content: "";
 }
 
-/* line 291, ../lib/font-awesome/scss/_icons.scss */
+/* line 290, ../lib/font-awesome/scss/_icons.scss */
 .fa-code:before {
   content: "";
 }
 
-/* line 292, ../lib/font-awesome/scss/_icons.scss */
+/* line 291, ../lib/font-awesome/scss/_icons.scss */
 .fa-mail-reply-all:before,
 .fa-reply-all:before {
   content: "";
 }
 
-/* line 294, ../lib/font-awesome/scss/_icons.scss */
+/* line 293, ../lib/font-awesome/scss/_icons.scss */
 .fa-star-half-empty:before,
 .fa-star-half-full:before,
 .fa-star-half-o:before {
   content: "";
 }
 
-/* line 297, ../lib/font-awesome/scss/_icons.scss */
+/* line 296, ../lib/font-awesome/scss/_icons.scss */
 .fa-location-arrow:before {
   content: "";
 }
 
-/* line 298, ../lib/font-awesome/scss/_icons.scss */
+/* line 297, ../lib/font-awesome/scss/_icons.scss */
 .fa-crop:before {
   content: "";
 }
 
-/* line 299, ../lib/font-awesome/scss/_icons.scss */
+/* line 298, ../lib/font-awesome/scss/_icons.scss */
 .fa-code-fork:before {
   content: "";
 }
 
-/* line 300, ../lib/font-awesome/scss/_icons.scss */
+/* line 299, ../lib/font-awesome/scss/_icons.scss */
 .fa-unlink:before,
 .fa-chain-broken:before {
   content: "";
 }
 
-/* line 302, ../lib/font-awesome/scss/_icons.scss */
+/* line 301, ../lib/font-awesome/scss/_icons.scss */
 .fa-question:before {
   content: "";
 }
 
-/* line 303, ../lib/font-awesome/scss/_icons.scss */
+/* line 302, ../lib/font-awesome/scss/_icons.scss */
 .fa-info:before {
   content: "";
 }
 
-/* line 304, ../lib/font-awesome/scss/_icons.scss */
+/* line 303, ../lib/font-awesome/scss/_icons.scss */
 .fa-exclamation:before {
   content: "";
 }
 
-/* line 305, ../lib/font-awesome/scss/_icons.scss */
+/* line 304, ../lib/font-awesome/scss/_icons.scss */
 .fa-superscript:before {
   content: "";
 }
 
-/* line 306, ../lib/font-awesome/scss/_icons.scss */
+/* line 305, ../lib/font-awesome/scss/_icons.scss */
 .fa-subscript:before {
   content: "";
 }
 
-/* line 307, ../lib/font-awesome/scss/_icons.scss */
+/* line 306, ../lib/font-awesome/scss/_icons.scss */
 .fa-eraser:before {
   content: "";
 }
 
-/* line 308, ../lib/font-awesome/scss/_icons.scss */
+/* line 307, ../lib/font-awesome/scss/_icons.scss */
 .fa-puzzle-piece:before {
   content: "";
 }
 
-/* line 309, ../lib/font-awesome/scss/_icons.scss */
+/* line 308, ../lib/font-awesome/scss/_icons.scss */
 .fa-microphone:before {
   content: "";
 }
 
-/* line 310, ../lib/font-awesome/scss/_icons.scss */
+/* line 309, ../lib/font-awesome/scss/_icons.scss */
 .fa-microphone-slash:before {
   content: "";
 }
 
-/* line 311, ../lib/font-awesome/scss/_icons.scss */
+/* line 310, ../lib/font-awesome/scss/_icons.scss */
 .fa-shield:before {
   content: "";
 }
 
-/* line 312, ../lib/font-awesome/scss/_icons.scss */
+/* line 311, ../lib/font-awesome/scss/_icons.scss */
 .fa-calendar-o:before {
   content: "";
 }
 
-/* line 313, ../lib/font-awesome/scss/_icons.scss */
+/* line 312, ../lib/font-awesome/scss/_icons.scss */
 .fa-fire-extinguisher:before {
   content: "";
 }
 
-/* line 314, ../lib/font-awesome/scss/_icons.scss */
+/* line 313, ../lib/font-awesome/scss/_icons.scss */
 .fa-rocket:before {
   content: "";
 }
 
-/* line 315, ../lib/font-awesome/scss/_icons.scss */
+/* line 314, ../lib/font-awesome/scss/_icons.scss */
 .fa-maxcdn:before {
   content: "";
 }
 
-/* line 316, ../lib/font-awesome/scss/_icons.scss */
+/* line 315, ../lib/font-awesome/scss/_icons.scss */
 .fa-chevron-circle-left:before {
   content: "";
 }
 
-/* line 317, ../lib/font-awesome/scss/_icons.scss */
+/* line 316, ../lib/font-awesome/scss/_icons.scss */
 .fa-chevron-circle-right:before {
   content: "";
 }
 
-/* line 318, ../lib/font-awesome/scss/_icons.scss */
+/* line 317, ../lib/font-awesome/scss/_icons.scss */
 .fa-chevron-circle-up:before {
   content: "";
 }
 
-/* line 319, ../lib/font-awesome/scss/_icons.scss */
+/* line 318, ../lib/font-awesome/scss/_icons.scss */
 .fa-chevron-circle-down:before {
   content: "";
 }
 
-/* line 320, ../lib/font-awesome/scss/_icons.scss */
+/* line 319, ../lib/font-awesome/scss/_icons.scss */
 .fa-html5:before {
   content: "";
 }
 
-/* line 321, ../lib/font-awesome/scss/_icons.scss */
+/* line 320, ../lib/font-awesome/scss/_icons.scss */
 .fa-css3:before {
   content: "";
 }
 
-/* line 322, ../lib/font-awesome/scss/_icons.scss */
+/* line 321, ../lib/font-awesome/scss/_icons.scss */
 .fa-anchor:before {
   content: "";
 }
 
-/* line 323, ../lib/font-awesome/scss/_icons.scss */
+/* line 322, ../lib/font-awesome/scss/_icons.scss */
 .fa-unlock-alt:before {
   content: "";
 }
 
-/* line 324, ../lib/font-awesome/scss/_icons.scss */
+/* line 323, ../lib/font-awesome/scss/_icons.scss */
 .fa-bullseye:before {
   content: "";
 }
 
-/* line 325, ../lib/font-awesome/scss/_icons.scss */
+/* line 324, ../lib/font-awesome/scss/_icons.scss */
 .fa-ellipsis-h:before {
   content: "";
 }
 
-/* line 326, ../lib/font-awesome/scss/_icons.scss */
+/* line 325, ../lib/font-awesome/scss/_icons.scss */
 .fa-ellipsis-v:before {
   content: "";
 }
 
-/* line 327, ../lib/font-awesome/scss/_icons.scss */
+/* line 326, ../lib/font-awesome/scss/_icons.scss */
 .fa-rss-square:before {
   content: "";
 }
 
-/* line 328, ../lib/font-awesome/scss/_icons.scss */
+/* line 327, ../lib/font-awesome/scss/_icons.scss */
 .fa-play-circle:before {
   content: "";
 }
 
-/* line 329, ../lib/font-awesome/scss/_icons.scss */
+/* line 328, ../lib/font-awesome/scss/_icons.scss */
 .fa-ticket:before {
   content: "";
 }
 
-/* line 330, ../lib/font-awesome/scss/_icons.scss */
+/* line 329, ../lib/font-awesome/scss/_icons.scss */
 .fa-minus-square:before {
   content: "";
 }
 
-/* line 331, ../lib/font-awesome/scss/_icons.scss */
+/* line 330, ../lib/font-awesome/scss/_icons.scss */
 .fa-minus-square-o:before {
   content: "";
 }
 
-/* line 332, ../lib/font-awesome/scss/_icons.scss */
+/* line 331, ../lib/font-awesome/scss/_icons.scss */
 .fa-level-up:before {
   content: "";
 }
 
-/* line 333, ../lib/font-awesome/scss/_icons.scss */
+/* line 332, ../lib/font-awesome/scss/_icons.scss */
 .fa-level-down:before {
   content: "";
 }
 
-/* line 334, ../lib/font-awesome/scss/_icons.scss */
+/* line 333, ../lib/font-awesome/scss/_icons.scss */
 .fa-check-square:before {
   content: "";
 }
 
-/* line 335, ../lib/font-awesome/scss/_icons.scss */
+/* line 334, ../lib/font-awesome/scss/_icons.scss */
 .fa-pencil-square:before {
   content: "";
 }
 
-/* line 336, ../lib/font-awesome/scss/_icons.scss */
+/* line 335, ../lib/font-awesome/scss/_icons.scss */
 .fa-external-link-square:before {
   content: "";
 }
 
-/* line 337, ../lib/font-awesome/scss/_icons.scss */
+/* line 336, ../lib/font-awesome/scss/_icons.scss */
 .fa-share-square:before {
   content: "";
 }
 
-/* line 338, ../lib/font-awesome/scss/_icons.scss */
+/* line 337, ../lib/font-awesome/scss/_icons.scss */
 .fa-compass:before {
   content: "";
 }
 
-/* line 339, ../lib/font-awesome/scss/_icons.scss */
+/* line 338, ../lib/font-awesome/scss/_icons.scss */
 .fa-toggle-down:before,
 .fa-caret-square-o-down:before {
   content: "";
 }
 
-/* line 341, ../lib/font-awesome/scss/_icons.scss */
+/* line 340, ../lib/font-awesome/scss/_icons.scss */
 .fa-toggle-up:before,
 .fa-caret-square-o-up:before {
   content: "";
 }
 
-/* line 343, ../lib/font-awesome/scss/_icons.scss */
+/* line 342, ../lib/font-awesome/scss/_icons.scss */
 .fa-toggle-right:before,
 .fa-caret-square-o-right:before {
   content: "";
 }
 
-/* line 345, ../lib/font-awesome/scss/_icons.scss */
+/* line 344, ../lib/font-awesome/scss/_icons.scss */
 .fa-euro:before,
 .fa-eur:before {
   content: "";
 }
 
-/* line 347, ../lib/font-awesome/scss/_icons.scss */
+/* line 346, ../lib/font-awesome/scss/_icons.scss */
 .fa-gbp:before {
   content: "";
 }
 
-/* line 348, ../lib/font-awesome/scss/_icons.scss */
+/* line 347, ../lib/font-awesome/scss/_icons.scss */
 .fa-dollar:before,
 .fa-usd:before {
   content: "";
 }
 
-/* line 350, ../lib/font-awesome/scss/_icons.scss */
+/* line 349, ../lib/font-awesome/scss/_icons.scss */
 .fa-rupee:before,
 .fa-inr:before {
   content: "";
 }
 
-/* line 352, ../lib/font-awesome/scss/_icons.scss */
+/* line 351, ../lib/font-awesome/scss/_icons.scss */
 .fa-cny:before,
 .fa-rmb:before,
 .fa-yen:before,
@@ -17762,574 +17760,573 @@ th.hide-for-touch {
   content: "";
 }
 
-/* line 356, ../lib/font-awesome/scss/_icons.scss */
+/* line 355, ../lib/font-awesome/scss/_icons.scss */
 .fa-ruble:before,
 .fa-rouble:before,
 .fa-rub:before {
   content: "";
 }
 
-/* line 359, ../lib/font-awesome/scss/_icons.scss */
+/* line 358, ../lib/font-awesome/scss/_icons.scss */
 .fa-won:before,
 .fa-krw:before {
   content: "";
 }
 
-/* line 361, ../lib/font-awesome/scss/_icons.scss */
+/* line 360, ../lib/font-awesome/scss/_icons.scss */
 .fa-bitcoin:before,
 .fa-btc:before {
   content: "";
 }
 
-/* line 363, ../lib/font-awesome/scss/_icons.scss */
+/* line 362, ../lib/font-awesome/scss/_icons.scss */
 .fa-file:before {
   content: "";
 }
 
-/* line 364, ../lib/font-awesome/scss/_icons.scss */
+/* line 363, ../lib/font-awesome/scss/_icons.scss */
 .fa-file-text:before {
   content: "";
 }
 
-/* line 365, ../lib/font-awesome/scss/_icons.scss */
+/* line 364, ../lib/font-awesome/scss/_icons.scss */
 .fa-sort-alpha-asc:before {
   content: "";
 }
 
-/* line 366, ../lib/font-awesome/scss/_icons.scss */
+/* line 365, ../lib/font-awesome/scss/_icons.scss */
 .fa-sort-alpha-desc:before {
   content: "";
 }
 
-/* line 367, ../lib/font-awesome/scss/_icons.scss */
+/* line 366, ../lib/font-awesome/scss/_icons.scss */
 .fa-sort-amount-asc:before {
   content: "";
 }
 
-/* line 368, ../lib/font-awesome/scss/_icons.scss */
+/* line 367, ../lib/font-awesome/scss/_icons.scss */
 .fa-sort-amount-desc:before {
   content: "";
 }
 
-/* line 369, ../lib/font-awesome/scss/_icons.scss */
+/* line 368, ../lib/font-awesome/scss/_icons.scss */
 .fa-sort-numeric-asc:before {
   content: "";
 }
 
-/* line 370, ../lib/font-awesome/scss/_icons.scss */
+/* line 369, ../lib/font-awesome/scss/_icons.scss */
 .fa-sort-numeric-desc:before {
   content: "";
 }
 
-/* line 371, ../lib/font-awesome/scss/_icons.scss */
+/* line 370, ../lib/font-awesome/scss/_icons.scss */
 .fa-thumbs-up:before {
   content: "";
 }
 
-/* line 372, ../lib/font-awesome/scss/_icons.scss */
+/* line 371, ../lib/font-awesome/scss/_icons.scss */
 .fa-thumbs-down:before {
   content: "";
 }
 
-/* line 373, ../lib/font-awesome/scss/_icons.scss */
+/* line 372, ../lib/font-awesome/scss/_icons.scss */
 .fa-youtube-square:before {
   content: "";
 }
 
-/* line 374, ../lib/font-awesome/scss/_icons.scss */
+/* line 373, ../lib/font-awesome/scss/_icons.scss */
 .fa-youtube:before {
   content: "";
 }
 
-/* line 375, ../lib/font-awesome/scss/_icons.scss */
+/* line 374, ../lib/font-awesome/scss/_icons.scss */
 .fa-xing:before {
   content: "";
 }
 
-/* line 376, ../lib/font-awesome/scss/_icons.scss */
+/* line 375, ../lib/font-awesome/scss/_icons.scss */
 .fa-xing-square:before {
   content: "";
 }
 
-/* line 377, ../lib/font-awesome/scss/_icons.scss */
+/* line 376, ../lib/font-awesome/scss/_icons.scss */
 .fa-youtube-play:before {
   content: "";
 }
 
-/* line 378, ../lib/font-awesome/scss/_icons.scss */
+/* line 377, ../lib/font-awesome/scss/_icons.scss */
 .fa-dropbox:before {
   content: "";
 }
 
-/* line 379, ../lib/font-awesome/scss/_icons.scss */
+/* line 378, ../lib/font-awesome/scss/_icons.scss */
 .fa-stack-overflow:before {
   content: "";
 }
 
-/* line 380, ../lib/font-awesome/scss/_icons.scss */
+/* line 379, ../lib/font-awesome/scss/_icons.scss */
 .fa-instagram:before {
   content: "";
 }
 
-/* line 381, ../lib/font-awesome/scss/_icons.scss */
+/* line 380, ../lib/font-awesome/scss/_icons.scss */
 .fa-flickr:before {
   content: "";
 }
 
-/* line 382, ../lib/font-awesome/scss/_icons.scss */
+/* line 381, ../lib/font-awesome/scss/_icons.scss */
 .fa-adn:before {
   content: "";
 }
 
-/* line 383, ../lib/font-awesome/scss/_icons.scss */
+/* line 382, ../lib/font-awesome/scss/_icons.scss */
 .fa-bitbucket:before {
   content: "";
 }
 
-/* line 384, ../lib/font-awesome/scss/_icons.scss */
+/* line 383, ../lib/font-awesome/scss/_icons.scss */
 .fa-bitbucket-square:before {
   content: "";
 }
 
-/* line 385, ../lib/font-awesome/scss/_icons.scss */
+/* line 384, ../lib/font-awesome/scss/_icons.scss */
 .fa-tumblr:before {
   content: "";
 }
 
-/* line 386, ../lib/font-awesome/scss/_icons.scss */
+/* line 385, ../lib/font-awesome/scss/_icons.scss */
 .fa-tumblr-square:before {
   content: "";
 }
 
-/* line 387, ../lib/font-awesome/scss/_icons.scss */
+/* line 386, ../lib/font-awesome/scss/_icons.scss */
 .fa-long-arrow-down:before {
   content: "";
 }
 
-/* line 388, ../lib/font-awesome/scss/_icons.scss */
+/* line 387, ../lib/font-awesome/scss/_icons.scss */
 .fa-long-arrow-up:before {
   content: "";
 }
 
-/* line 389, ../lib/font-awesome/scss/_icons.scss */
+/* line 388, ../lib/font-awesome/scss/_icons.scss */
 .fa-long-arrow-left:before {
   content: "";
 }
 
-/* line 390, ../lib/font-awesome/scss/_icons.scss */
+/* line 389, ../lib/font-awesome/scss/_icons.scss */
 .fa-long-arrow-right:before {
   content: "";
 }
 
-/* line 391, ../lib/font-awesome/scss/_icons.scss */
+/* line 390, ../lib/font-awesome/scss/_icons.scss */
 .fa-apple:before {
   content: "";
 }
 
-/* line 392, ../lib/font-awesome/scss/_icons.scss */
+/* line 391, ../lib/font-awesome/scss/_icons.scss */
 .fa-windows:before {
   content: "";
 }
 
-/* line 393, ../lib/font-awesome/scss/_icons.scss */
+/* line 392, ../lib/font-awesome/scss/_icons.scss */
 .fa-android:before {
   content: "";
 }
 
-/* line 394, ../lib/font-awesome/scss/_icons.scss */
+/* line 393, ../lib/font-awesome/scss/_icons.scss */
 .fa-linux:before {
   content: "";
 }
 
-/* line 395, ../lib/font-awesome/scss/_icons.scss */
+/* line 394, ../lib/font-awesome/scss/_icons.scss */
 .fa-dribbble:before {
   content: "";
 }
 
-/* line 396, ../lib/font-awesome/scss/_icons.scss */
+/* line 395, ../lib/font-awesome/scss/_icons.scss */
 .fa-skype:before {
   content: "";
 }
 
-/* line 397, ../lib/font-awesome/scss/_icons.scss */
+/* line 396, ../lib/font-awesome/scss/_icons.scss */
 .fa-foursquare:before {
   content: "";
 }
 
-/* line 398, ../lib/font-awesome/scss/_icons.scss */
+/* line 397, ../lib/font-awesome/scss/_icons.scss */
 .fa-trello:before {
   content: "";
 }
 
-/* line 399, ../lib/font-awesome/scss/_icons.scss */
+/* line 398, ../lib/font-awesome/scss/_icons.scss */
 .fa-female:before {
   content: "";
 }
 
-/* line 400, ../lib/font-awesome/scss/_icons.scss */
+/* line 399, ../lib/font-awesome/scss/_icons.scss */
 .fa-male:before {
   content: "";
 }
 
-/* line 401, ../lib/font-awesome/scss/_icons.scss */
-.fa-gittip:before,
-.fa-gratipay:before {
+/* line 400, ../lib/font-awesome/scss/_icons.scss */
+.fa-gittip:before {
   content: "";
 }
 
-/* line 403, ../lib/font-awesome/scss/_icons.scss */
+/* line 401, ../lib/font-awesome/scss/_icons.scss */
 .fa-sun-o:before {
   content: "";
 }
 
-/* line 404, ../lib/font-awesome/scss/_icons.scss */
+/* line 402, ../lib/font-awesome/scss/_icons.scss */
 .fa-moon-o:before {
   content: "";
 }
 
-/* line 405, ../lib/font-awesome/scss/_icons.scss */
+/* line 403, ../lib/font-awesome/scss/_icons.scss */
 .fa-archive:before {
   content: "";
 }
 
-/* line 406, ../lib/font-awesome/scss/_icons.scss */
+/* line 404, ../lib/font-awesome/scss/_icons.scss */
 .fa-bug:before {
   content: "";
 }
 
-/* line 407, ../lib/font-awesome/scss/_icons.scss */
+/* line 405, ../lib/font-awesome/scss/_icons.scss */
 .fa-vk:before {
   content: "";
 }
 
-/* line 408, ../lib/font-awesome/scss/_icons.scss */
+/* line 406, ../lib/font-awesome/scss/_icons.scss */
 .fa-weibo:before {
   content: "";
 }
 
-/* line 409, ../lib/font-awesome/scss/_icons.scss */
+/* line 407, ../lib/font-awesome/scss/_icons.scss */
 .fa-renren:before {
   content: "";
 }
 
-/* line 410, ../lib/font-awesome/scss/_icons.scss */
+/* line 408, ../lib/font-awesome/scss/_icons.scss */
 .fa-pagelines:before {
   content: "";
 }
 
-/* line 411, ../lib/font-awesome/scss/_icons.scss */
+/* line 409, ../lib/font-awesome/scss/_icons.scss */
 .fa-stack-exchange:before {
   content: "";
 }
 
-/* line 412, ../lib/font-awesome/scss/_icons.scss */
+/* line 410, ../lib/font-awesome/scss/_icons.scss */
 .fa-arrow-circle-o-right:before {
   content: "";
 }
 
-/* line 413, ../lib/font-awesome/scss/_icons.scss */
+/* line 411, ../lib/font-awesome/scss/_icons.scss */
 .fa-arrow-circle-o-left:before {
   content: "";
 }
 
-/* line 414, ../lib/font-awesome/scss/_icons.scss */
+/* line 412, ../lib/font-awesome/scss/_icons.scss */
 .fa-toggle-left:before,
 .fa-caret-square-o-left:before {
   content: "";
 }
 
-/* line 416, ../lib/font-awesome/scss/_icons.scss */
+/* line 414, ../lib/font-awesome/scss/_icons.scss */
 .fa-dot-circle-o:before {
   content: "";
 }
 
-/* line 417, ../lib/font-awesome/scss/_icons.scss */
+/* line 415, ../lib/font-awesome/scss/_icons.scss */
 .fa-wheelchair:before {
   content: "";
 }
 
-/* line 418, ../lib/font-awesome/scss/_icons.scss */
+/* line 416, ../lib/font-awesome/scss/_icons.scss */
 .fa-vimeo-square:before {
   content: "";
 }
 
-/* line 419, ../lib/font-awesome/scss/_icons.scss */
+/* line 417, ../lib/font-awesome/scss/_icons.scss */
 .fa-turkish-lira:before,
 .fa-try:before {
   content: "";
 }
 
-/* line 421, ../lib/font-awesome/scss/_icons.scss */
+/* line 419, ../lib/font-awesome/scss/_icons.scss */
 .fa-plus-square-o:before {
   content: "";
 }
 
-/* line 422, ../lib/font-awesome/scss/_icons.scss */
+/* line 420, ../lib/font-awesome/scss/_icons.scss */
 .fa-space-shuttle:before {
   content: "";
 }
 
-/* line 423, ../lib/font-awesome/scss/_icons.scss */
+/* line 421, ../lib/font-awesome/scss/_icons.scss */
 .fa-slack:before {
   content: "";
 }
 
-/* line 424, ../lib/font-awesome/scss/_icons.scss */
+/* line 422, ../lib/font-awesome/scss/_icons.scss */
 .fa-envelope-square:before {
   content: "";
 }
 
-/* line 425, ../lib/font-awesome/scss/_icons.scss */
+/* line 423, ../lib/font-awesome/scss/_icons.scss */
 .fa-wordpress:before {
   content: "";
 }
 
-/* line 426, ../lib/font-awesome/scss/_icons.scss */
+/* line 424, ../lib/font-awesome/scss/_icons.scss */
 .fa-openid:before {
   content: "";
 }
 
-/* line 427, ../lib/font-awesome/scss/_icons.scss */
+/* line 425, ../lib/font-awesome/scss/_icons.scss */
 .fa-institution:before,
 .fa-bank:before,
 .fa-university:before {
   content: "";
 }
 
-/* line 430, ../lib/font-awesome/scss/_icons.scss */
+/* line 428, ../lib/font-awesome/scss/_icons.scss */
 .fa-mortar-board:before,
 .fa-graduation-cap:before {
   content: "";
 }
 
-/* line 432, ../lib/font-awesome/scss/_icons.scss */
+/* line 430, ../lib/font-awesome/scss/_icons.scss */
 .fa-yahoo:before {
   content: "";
 }
 
-/* line 433, ../lib/font-awesome/scss/_icons.scss */
+/* line 431, ../lib/font-awesome/scss/_icons.scss */
 .fa-google:before {
   content: "";
 }
 
-/* line 434, ../lib/font-awesome/scss/_icons.scss */
+/* line 432, ../lib/font-awesome/scss/_icons.scss */
 .fa-reddit:before {
   content: "";
 }
 
-/* line 435, ../lib/font-awesome/scss/_icons.scss */
+/* line 433, ../lib/font-awesome/scss/_icons.scss */
 .fa-reddit-square:before {
   content: "";
 }
 
-/* line 436, ../lib/font-awesome/scss/_icons.scss */
+/* line 434, ../lib/font-awesome/scss/_icons.scss */
 .fa-stumbleupon-circle:before {
   content: "";
 }
 
-/* line 437, ../lib/font-awesome/scss/_icons.scss */
+/* line 435, ../lib/font-awesome/scss/_icons.scss */
 .fa-stumbleupon:before {
   content: "";
 }
 
-/* line 438, ../lib/font-awesome/scss/_icons.scss */
+/* line 436, ../lib/font-awesome/scss/_icons.scss */
 .fa-delicious:before {
   content: "";
 }
 
-/* line 439, ../lib/font-awesome/scss/_icons.scss */
+/* line 437, ../lib/font-awesome/scss/_icons.scss */
 .fa-digg:before {
   content: "";
 }
 
-/* line 440, ../lib/font-awesome/scss/_icons.scss */
+/* line 438, ../lib/font-awesome/scss/_icons.scss */
 .fa-pied-piper:before {
   content: "";
 }
 
-/* line 441, ../lib/font-awesome/scss/_icons.scss */
+/* line 439, ../lib/font-awesome/scss/_icons.scss */
 .fa-pied-piper-alt:before {
   content: "";
 }
 
-/* line 442, ../lib/font-awesome/scss/_icons.scss */
+/* line 440, ../lib/font-awesome/scss/_icons.scss */
 .fa-drupal:before {
   content: "";
 }
 
-/* line 443, ../lib/font-awesome/scss/_icons.scss */
+/* line 441, ../lib/font-awesome/scss/_icons.scss */
 .fa-joomla:before {
   content: "";
 }
 
-/* line 444, ../lib/font-awesome/scss/_icons.scss */
+/* line 442, ../lib/font-awesome/scss/_icons.scss */
 .fa-language:before {
   content: "";
 }
 
-/* line 445, ../lib/font-awesome/scss/_icons.scss */
+/* line 443, ../lib/font-awesome/scss/_icons.scss */
 .fa-fax:before {
   content: "";
 }
 
-/* line 446, ../lib/font-awesome/scss/_icons.scss */
+/* line 444, ../lib/font-awesome/scss/_icons.scss */
 .fa-building:before {
   content: "";
 }
 
-/* line 447, ../lib/font-awesome/scss/_icons.scss */
+/* line 445, ../lib/font-awesome/scss/_icons.scss */
 .fa-child:before {
   content: "";
 }
 
-/* line 448, ../lib/font-awesome/scss/_icons.scss */
+/* line 446, ../lib/font-awesome/scss/_icons.scss */
 .fa-paw:before {
   content: "";
 }
 
-/* line 449, ../lib/font-awesome/scss/_icons.scss */
+/* line 447, ../lib/font-awesome/scss/_icons.scss */
 .fa-spoon:before {
   content: "";
 }
 
-/* line 450, ../lib/font-awesome/scss/_icons.scss */
+/* line 448, ../lib/font-awesome/scss/_icons.scss */
 .fa-cube:before {
   content: "";
 }
 
-/* line 451, ../lib/font-awesome/scss/_icons.scss */
+/* line 449, ../lib/font-awesome/scss/_icons.scss */
 .fa-cubes:before {
   content: "";
 }
 
-/* line 452, ../lib/font-awesome/scss/_icons.scss */
+/* line 450, ../lib/font-awesome/scss/_icons.scss */
 .fa-behance:before {
   content: "";
 }
 
-/* line 453, ../lib/font-awesome/scss/_icons.scss */
+/* line 451, ../lib/font-awesome/scss/_icons.scss */
 .fa-behance-square:before {
   content: "";
 }
 
-/* line 454, ../lib/font-awesome/scss/_icons.scss */
+/* line 452, ../lib/font-awesome/scss/_icons.scss */
 .fa-steam:before {
   content: "";
 }
 
-/* line 455, ../lib/font-awesome/scss/_icons.scss */
+/* line 453, ../lib/font-awesome/scss/_icons.scss */
 .fa-steam-square:before {
   content: "";
 }
 
-/* line 456, ../lib/font-awesome/scss/_icons.scss */
+/* line 454, ../lib/font-awesome/scss/_icons.scss */
 .fa-recycle:before {
   content: "";
 }
 
-/* line 457, ../lib/font-awesome/scss/_icons.scss */
+/* line 455, ../lib/font-awesome/scss/_icons.scss */
 .fa-automobile:before,
 .fa-car:before {
   content: "";
 }
 
-/* line 459, ../lib/font-awesome/scss/_icons.scss */
+/* line 457, ../lib/font-awesome/scss/_icons.scss */
 .fa-cab:before,
 .fa-taxi:before {
   content: "";
 }
 
-/* line 461, ../lib/font-awesome/scss/_icons.scss */
+/* line 459, ../lib/font-awesome/scss/_icons.scss */
 .fa-tree:before {
   content: "";
 }
 
-/* line 462, ../lib/font-awesome/scss/_icons.scss */
+/* line 460, ../lib/font-awesome/scss/_icons.scss */
 .fa-spotify:before {
   content: "";
 }
 
-/* line 463, ../lib/font-awesome/scss/_icons.scss */
+/* line 461, ../lib/font-awesome/scss/_icons.scss */
 .fa-deviantart:before {
   content: "";
 }
 
-/* line 464, ../lib/font-awesome/scss/_icons.scss */
+/* line 462, ../lib/font-awesome/scss/_icons.scss */
 .fa-soundcloud:before {
   content: "";
 }
 
-/* line 465, ../lib/font-awesome/scss/_icons.scss */
+/* line 463, ../lib/font-awesome/scss/_icons.scss */
 .fa-database:before {
   content: "";
 }
 
-/* line 466, ../lib/font-awesome/scss/_icons.scss */
+/* line 464, ../lib/font-awesome/scss/_icons.scss */
 .fa-file-pdf-o:before {
   content: "";
 }
 
-/* line 467, ../lib/font-awesome/scss/_icons.scss */
+/* line 465, ../lib/font-awesome/scss/_icons.scss */
 .fa-file-word-o:before {
   content: "";
 }
 
-/* line 468, ../lib/font-awesome/scss/_icons.scss */
+/* line 466, ../lib/font-awesome/scss/_icons.scss */
 .fa-file-excel-o:before {
   content: "";
 }
 
-/* line 469, ../lib/font-awesome/scss/_icons.scss */
+/* line 467, ../lib/font-awesome/scss/_icons.scss */
 .fa-file-powerpoint-o:before {
   content: "";
 }
 
-/* line 470, ../lib/font-awesome/scss/_icons.scss */
+/* line 468, ../lib/font-awesome/scss/_icons.scss */
 .fa-file-photo-o:before,
 .fa-file-picture-o:before,
 .fa-file-image-o:before {
   content: "";
 }
 
-/* line 473, ../lib/font-awesome/scss/_icons.scss */
+/* line 471, ../lib/font-awesome/scss/_icons.scss */
 .fa-file-zip-o:before,
 .fa-file-archive-o:before {
   content: "";
 }
 
-/* line 475, ../lib/font-awesome/scss/_icons.scss */
+/* line 473, ../lib/font-awesome/scss/_icons.scss */
 .fa-file-sound-o:before,
 .fa-file-audio-o:before {
   content: "";
 }
 
-/* line 477, ../lib/font-awesome/scss/_icons.scss */
+/* line 475, ../lib/font-awesome/scss/_icons.scss */
 .fa-file-movie-o:before,
 .fa-file-video-o:before {
   content: "";
 }
 
-/* line 479, ../lib/font-awesome/scss/_icons.scss */
+/* line 477, ../lib/font-awesome/scss/_icons.scss */
 .fa-file-code-o:before {
   content: "";
 }
 
-/* line 480, ../lib/font-awesome/scss/_icons.scss */
+/* line 478, ../lib/font-awesome/scss/_icons.scss */
 .fa-vine:before {
   content: "";
 }
 
-/* line 481, ../lib/font-awesome/scss/_icons.scss */
+/* line 479, ../lib/font-awesome/scss/_icons.scss */
 .fa-codepen:before {
   content: "";
 }
 
-/* line 482, ../lib/font-awesome/scss/_icons.scss */
+/* line 480, ../lib/font-awesome/scss/_icons.scss */
 .fa-jsfiddle:before {
   content: "";
 }
 
-/* line 483, ../lib/font-awesome/scss/_icons.scss */
+/* line 481, ../lib/font-awesome/scss/_icons.scss */
 .fa-life-bouy:before,
 .fa-life-buoy:before,
 .fa-life-saver:before,
@@ -18338,509 +18335,307 @@ th.hide-for-touch {
   content: "";
 }
 
-/* line 488, ../lib/font-awesome/scss/_icons.scss */
+/* line 486, ../lib/font-awesome/scss/_icons.scss */
 .fa-circle-o-notch:before {
   content: "";
 }
 
-/* line 489, ../lib/font-awesome/scss/_icons.scss */
+/* line 487, ../lib/font-awesome/scss/_icons.scss */
 .fa-ra:before,
 .fa-rebel:before {
   content: "";
 }
 
-/* line 491, ../lib/font-awesome/scss/_icons.scss */
+/* line 489, ../lib/font-awesome/scss/_icons.scss */
 .fa-ge:before,
 .fa-empire:before {
   content: "";
 }
 
-/* line 493, ../lib/font-awesome/scss/_icons.scss */
+/* line 491, ../lib/font-awesome/scss/_icons.scss */
 .fa-git-square:before {
   content: "";
 }
 
-/* line 494, ../lib/font-awesome/scss/_icons.scss */
+/* line 492, ../lib/font-awesome/scss/_icons.scss */
 .fa-git:before {
   content: "";
 }
 
-/* line 495, ../lib/font-awesome/scss/_icons.scss */
+/* line 493, ../lib/font-awesome/scss/_icons.scss */
 .fa-hacker-news:before {
   content: "";
 }
 
-/* line 496, ../lib/font-awesome/scss/_icons.scss */
+/* line 494, ../lib/font-awesome/scss/_icons.scss */
 .fa-tencent-weibo:before {
   content: "";
 }
 
-/* line 497, ../lib/font-awesome/scss/_icons.scss */
+/* line 495, ../lib/font-awesome/scss/_icons.scss */
 .fa-qq:before {
   content: "";
 }
 
-/* line 498, ../lib/font-awesome/scss/_icons.scss */
+/* line 496, ../lib/font-awesome/scss/_icons.scss */
 .fa-wechat:before,
 .fa-weixin:before {
   content: "";
 }
 
-/* line 500, ../lib/font-awesome/scss/_icons.scss */
+/* line 498, ../lib/font-awesome/scss/_icons.scss */
 .fa-send:before,
 .fa-paper-plane:before {
   content: "";
 }
 
-/* line 502, ../lib/font-awesome/scss/_icons.scss */
+/* line 500, ../lib/font-awesome/scss/_icons.scss */
 .fa-send-o:before,
 .fa-paper-plane-o:before {
   content: "";
 }
 
-/* line 504, ../lib/font-awesome/scss/_icons.scss */
+/* line 502, ../lib/font-awesome/scss/_icons.scss */
 .fa-history:before {
   content: "";
 }
 
-/* line 505, ../lib/font-awesome/scss/_icons.scss */
-.fa-genderless:before,
+/* line 503, ../lib/font-awesome/scss/_icons.scss */
 .fa-circle-thin:before {
   content: "";
 }
 
-/* line 507, ../lib/font-awesome/scss/_icons.scss */
+/* line 504, ../lib/font-awesome/scss/_icons.scss */
 .fa-header:before {
   content: "";
 }
 
-/* line 508, ../lib/font-awesome/scss/_icons.scss */
+/* line 505, ../lib/font-awesome/scss/_icons.scss */
 .fa-paragraph:before {
   content: "";
 }
 
-/* line 509, ../lib/font-awesome/scss/_icons.scss */
+/* line 506, ../lib/font-awesome/scss/_icons.scss */
 .fa-sliders:before {
   content: "";
 }
 
-/* line 510, ../lib/font-awesome/scss/_icons.scss */
+/* line 507, ../lib/font-awesome/scss/_icons.scss */
 .fa-share-alt:before {
   content: "";
 }
 
-/* line 511, ../lib/font-awesome/scss/_icons.scss */
+/* line 508, ../lib/font-awesome/scss/_icons.scss */
 .fa-share-alt-square:before {
   content: "";
 }
 
-/* line 512, ../lib/font-awesome/scss/_icons.scss */
+/* line 509, ../lib/font-awesome/scss/_icons.scss */
 .fa-bomb:before {
   content: "";
 }
 
-/* line 513, ../lib/font-awesome/scss/_icons.scss */
+/* line 510, ../lib/font-awesome/scss/_icons.scss */
 .fa-soccer-ball-o:before,
 .fa-futbol-o:before {
   content: "";
 }
 
-/* line 515, ../lib/font-awesome/scss/_icons.scss */
+/* line 512, ../lib/font-awesome/scss/_icons.scss */
 .fa-tty:before {
   content: "";
 }
 
-/* line 516, ../lib/font-awesome/scss/_icons.scss */
+/* line 513, ../lib/font-awesome/scss/_icons.scss */
 .fa-binoculars:before {
   content: "";
 }
 
-/* line 517, ../lib/font-awesome/scss/_icons.scss */
+/* line 514, ../lib/font-awesome/scss/_icons.scss */
 .fa-plug:before {
   content: "";
 }
 
-/* line 518, ../lib/font-awesome/scss/_icons.scss */
+/* line 515, ../lib/font-awesome/scss/_icons.scss */
 .fa-slideshare:before {
   content: "";
 }
 
-/* line 519, ../lib/font-awesome/scss/_icons.scss */
+/* line 516, ../lib/font-awesome/scss/_icons.scss */
 .fa-twitch:before {
   content: "";
 }
 
-/* line 520, ../lib/font-awesome/scss/_icons.scss */
+/* line 517, ../lib/font-awesome/scss/_icons.scss */
 .fa-yelp:before {
   content: "";
 }
 
-/* line 521, ../lib/font-awesome/scss/_icons.scss */
+/* line 518, ../lib/font-awesome/scss/_icons.scss */
 .fa-newspaper-o:before {
   content: "";
 }
 
-/* line 522, ../lib/font-awesome/scss/_icons.scss */
+/* line 519, ../lib/font-awesome/scss/_icons.scss */
 .fa-wifi:before {
   content: "";
 }
 
-/* line 523, ../lib/font-awesome/scss/_icons.scss */
+/* line 520, ../lib/font-awesome/scss/_icons.scss */
 .fa-calculator:before {
   content: "";
 }
 
-/* line 524, ../lib/font-awesome/scss/_icons.scss */
+/* line 521, ../lib/font-awesome/scss/_icons.scss */
 .fa-paypal:before {
   content: "";
 }
 
-/* line 525, ../lib/font-awesome/scss/_icons.scss */
+/* line 522, ../lib/font-awesome/scss/_icons.scss */
 .fa-google-wallet:before {
   content: "";
 }
 
-/* line 526, ../lib/font-awesome/scss/_icons.scss */
+/* line 523, ../lib/font-awesome/scss/_icons.scss */
 .fa-cc-visa:before {
   content: "";
 }
 
-/* line 527, ../lib/font-awesome/scss/_icons.scss */
+/* line 524, ../lib/font-awesome/scss/_icons.scss */
 .fa-cc-mastercard:before {
   content: "";
 }
 
-/* line 528, ../lib/font-awesome/scss/_icons.scss */
+/* line 525, ../lib/font-awesome/scss/_icons.scss */
 .fa-cc-discover:before {
   content: "";
 }
 
-/* line 529, ../lib/font-awesome/scss/_icons.scss */
+/* line 526, ../lib/font-awesome/scss/_icons.scss */
 .fa-cc-amex:before {
   content: "";
 }
 
-/* line 530, ../lib/font-awesome/scss/_icons.scss */
+/* line 527, ../lib/font-awesome/scss/_icons.scss */
 .fa-cc-paypal:before {
   content: "";
 }
 
-/* line 531, ../lib/font-awesome/scss/_icons.scss */
+/* line 528, ../lib/font-awesome/scss/_icons.scss */
 .fa-cc-stripe:before {
   content: "";
 }
 
-/* line 532, ../lib/font-awesome/scss/_icons.scss */
+/* line 529, ../lib/font-awesome/scss/_icons.scss */
 .fa-bell-slash:before {
   content: "";
 }
 
-/* line 533, ../lib/font-awesome/scss/_icons.scss */
+/* line 530, ../lib/font-awesome/scss/_icons.scss */
 .fa-bell-slash-o:before {
   content: "";
 }
 
-/* line 534, ../lib/font-awesome/scss/_icons.scss */
+/* line 531, ../lib/font-awesome/scss/_icons.scss */
 .fa-trash:before {
   content: "";
 }
 
-/* line 535, ../lib/font-awesome/scss/_icons.scss */
+/* line 532, ../lib/font-awesome/scss/_icons.scss */
 .fa-copyright:before {
   content: "";
 }
 
-/* line 536, ../lib/font-awesome/scss/_icons.scss */
+/* line 533, ../lib/font-awesome/scss/_icons.scss */
 .fa-at:before {
   content: "";
 }
 
-/* line 537, ../lib/font-awesome/scss/_icons.scss */
+/* line 534, ../lib/font-awesome/scss/_icons.scss */
 .fa-eyedropper:before {
   content: "";
 }
 
-/* line 538, ../lib/font-awesome/scss/_icons.scss */
+/* line 535, ../lib/font-awesome/scss/_icons.scss */
 .fa-paint-brush:before {
   content: "";
 }
 
-/* line 539, ../lib/font-awesome/scss/_icons.scss */
+/* line 536, ../lib/font-awesome/scss/_icons.scss */
 .fa-birthday-cake:before {
   content: "";
 }
 
-/* line 540, ../lib/font-awesome/scss/_icons.scss */
+/* line 537, ../lib/font-awesome/scss/_icons.scss */
 .fa-area-chart:before {
   content: "";
 }
 
-/* line 541, ../lib/font-awesome/scss/_icons.scss */
+/* line 538, ../lib/font-awesome/scss/_icons.scss */
 .fa-pie-chart:before {
   content: "";
 }
 
-/* line 542, ../lib/font-awesome/scss/_icons.scss */
+/* line 539, ../lib/font-awesome/scss/_icons.scss */
 .fa-line-chart:before {
   content: "";
 }
 
-/* line 543, ../lib/font-awesome/scss/_icons.scss */
+/* line 540, ../lib/font-awesome/scss/_icons.scss */
 .fa-lastfm:before {
   content: "";
 }
 
-/* line 544, ../lib/font-awesome/scss/_icons.scss */
+/* line 541, ../lib/font-awesome/scss/_icons.scss */
 .fa-lastfm-square:before {
   content: "";
 }
 
-/* line 545, ../lib/font-awesome/scss/_icons.scss */
+/* line 542, ../lib/font-awesome/scss/_icons.scss */
 .fa-toggle-off:before {
   content: "";
 }
 
-/* line 546, ../lib/font-awesome/scss/_icons.scss */
+/* line 543, ../lib/font-awesome/scss/_icons.scss */
 .fa-toggle-on:before {
   content: "";
 }
 
-/* line 547, ../lib/font-awesome/scss/_icons.scss */
+/* line 544, ../lib/font-awesome/scss/_icons.scss */
 .fa-bicycle:before {
   content: "";
 }
 
-/* line 548, ../lib/font-awesome/scss/_icons.scss */
+/* line 545, ../lib/font-awesome/scss/_icons.scss */
 .fa-bus:before {
   content: "";
 }
 
-/* line 549, ../lib/font-awesome/scss/_icons.scss */
+/* line 546, ../lib/font-awesome/scss/_icons.scss */
 .fa-ioxhost:before {
   content: "";
 }
 
-/* line 550, ../lib/font-awesome/scss/_icons.scss */
+/* line 547, ../lib/font-awesome/scss/_icons.scss */
 .fa-angellist:before {
   content: "";
 }
 
-/* line 551, ../lib/font-awesome/scss/_icons.scss */
+/* line 548, ../lib/font-awesome/scss/_icons.scss */
 .fa-cc:before {
   content: "";
 }
 
-/* line 552, ../lib/font-awesome/scss/_icons.scss */
+/* line 549, ../lib/font-awesome/scss/_icons.scss */
 .fa-shekel:before,
 .fa-sheqel:before,
 .fa-ils:before {
   content: "";
 }
 
-/* line 555, ../lib/font-awesome/scss/_icons.scss */
+/* line 552, ../lib/font-awesome/scss/_icons.scss */
 .fa-meanpath:before {
   content: "";
-}
-
-/* line 556, ../lib/font-awesome/scss/_icons.scss */
-.fa-buysellads:before {
-  content: "";
-}
-
-/* line 557, ../lib/font-awesome/scss/_icons.scss */
-.fa-connectdevelop:before {
-  content: "";
-}
-
-/* line 558, ../lib/font-awesome/scss/_icons.scss */
-.fa-dashcube:before {
-  content: "";
-}
-
-/* line 559, ../lib/font-awesome/scss/_icons.scss */
-.fa-forumbee:before {
-  content: "";
-}
-
-/* line 560, ../lib/font-awesome/scss/_icons.scss */
-.fa-leanpub:before {
-  content: "";
-}
-
-/* line 561, ../lib/font-awesome/scss/_icons.scss */
-.fa-sellsy:before {
-  content: "";
-}
-
-/* line 562, ../lib/font-awesome/scss/_icons.scss */
-.fa-shirtsinbulk:before {
-  content: "";
-}
-
-/* line 563, ../lib/font-awesome/scss/_icons.scss */
-.fa-simplybuilt:before {
-  content: "";
-}
-
-/* line 564, ../lib/font-awesome/scss/_icons.scss */
-.fa-skyatlas:before {
-  content: "";
-}
-
-/* line 565, ../lib/font-awesome/scss/_icons.scss */
-.fa-cart-plus:before {
-  content: "";
-}
-
-/* line 566, ../lib/font-awesome/scss/_icons.scss */
-.fa-cart-arrow-down:before {
-  content: "";
-}
-
-/* line 567, ../lib/font-awesome/scss/_icons.scss */
-.fa-diamond:before {
-  content: "";
-}
-
-/* line 568, ../lib/font-awesome/scss/_icons.scss */
-.fa-ship:before {
-  content: "";
-}
-
-/* line 569, ../lib/font-awesome/scss/_icons.scss */
-.fa-user-secret:before {
-  content: "";
-}
-
-/* line 570, ../lib/font-awesome/scss/_icons.scss */
-.fa-motorcycle:before {
-  content: "";
-}
-
-/* line 571, ../lib/font-awesome/scss/_icons.scss */
-.fa-street-view:before {
-  content: "";
-}
-
-/* line 572, ../lib/font-awesome/scss/_icons.scss */
-.fa-heartbeat:before {
-  content: "";
-}
-
-/* line 573, ../lib/font-awesome/scss/_icons.scss */
-.fa-venus:before {
-  content: "";
-}
-
-/* line 574, ../lib/font-awesome/scss/_icons.scss */
-.fa-mars:before {
-  content: "";
-}
-
-/* line 575, ../lib/font-awesome/scss/_icons.scss */
-.fa-mercury:before {
-  content: "";
-}
-
-/* line 576, ../lib/font-awesome/scss/_icons.scss */
-.fa-transgender:before {
-  content: "";
-}
-
-/* line 577, ../lib/font-awesome/scss/_icons.scss */
-.fa-transgender-alt:before {
-  content: "";
-}
-
-/* line 578, ../lib/font-awesome/scss/_icons.scss */
-.fa-venus-double:before {
-  content: "";
-}
-
-/* line 579, ../lib/font-awesome/scss/_icons.scss */
-.fa-mars-double:before {
-  content: "";
-}
-
-/* line 580, ../lib/font-awesome/scss/_icons.scss */
-.fa-venus-mars:before {
-  content: "";
-}
-
-/* line 581, ../lib/font-awesome/scss/_icons.scss */
-.fa-mars-stroke:before {
-  content: "";
-}
-
-/* line 582, ../lib/font-awesome/scss/_icons.scss */
-.fa-mars-stroke-v:before {
-  content: "";
-}
-
-/* line 583, ../lib/font-awesome/scss/_icons.scss */
-.fa-mars-stroke-h:before {
-  content: "";
-}
-
-/* line 584, ../lib/font-awesome/scss/_icons.scss */
-.fa-neuter:before {
-  content: "";
-}
-
-/* line 585, ../lib/font-awesome/scss/_icons.scss */
-.fa-facebook-official:before {
-  content: "";
-}
-
-/* line 586, ../lib/font-awesome/scss/_icons.scss */
-.fa-pinterest-p:before {
-  content: "";
-}
-
-/* line 587, ../lib/font-awesome/scss/_icons.scss */
-.fa-whatsapp:before {
-  content: "";
-}
-
-/* line 588, ../lib/font-awesome/scss/_icons.scss */
-.fa-server:before {
-  content: "";
-}
-
-/* line 589, ../lib/font-awesome/scss/_icons.scss */
-.fa-user-plus:before {
-  content: "";
-}
-
-/* line 590, ../lib/font-awesome/scss/_icons.scss */
-.fa-user-times:before {
-  content: "";
-}
-
-/* line 591, ../lib/font-awesome/scss/_icons.scss */
-.fa-hotel:before,
-.fa-bed:before {
-  content: "";
-}
-
-/* line 593, ../lib/font-awesome/scss/_icons.scss */
-.fa-viacoin:before {
-  content: "";
-}
-
-/* line 594, ../lib/font-awesome/scss/_icons.scss */
-.fa-train:before {
-  content: "";
-}
-
-/* line 595, ../lib/font-awesome/scss/_icons.scss */
-.fa-subway:before {
-  content: "";
-}
-
-/* line 596, ../lib/font-awesome/scss/_icons.scss */
-.fa-medium:before {
-  content: "";
 }
 
 /* line 1, modules/_block-form.scss */
@@ -19293,31 +19088,52 @@ button.callout:active, button.callout:focus, .button.callout:active, .button.cal
 .inline-list.no-margin > li:first-child {
   margin-left: 0;
 }
-/* line 17, modules/_inline-list.scss */
+/* line 16, modules/_inline-list.scss */
+.inline-list.slashes li {
+  position: relative;
+}
+/* line 19, modules/_inline-list.scss */
 .inline-list.slashes li:last-of-type:after {
   content: "";
 }
-/* line 20, modules/_inline-list.scss */
+/* line 22, modules/_inline-list.scss */
 .inline-list.slashes li:after {
   content: "/";
   margin-left: 1rem;
+  position: absolute;
+  right: -1rem;
+  top: 0;
 }
-/* line 30, modules/_inline-list.scss */
+/* line 34, modules/_inline-list.scss */
+.inline-list.dots li {
+  position: relative;
+}
+/* line 37, modules/_inline-list.scss */
 .inline-list.dots li:last-of-type:after {
   content: "";
 }
-/* line 33, modules/_inline-list.scss */
+/* line 40, modules/_inline-list.scss */
 .inline-list.dots li:after {
   content: "•";
   margin-left: 1rem;
+  position: absolute;
+  right: -1rem;
+  top: 0;
 }
-/* line 43, modules/_inline-list.scss */
+/* line 52, modules/_inline-list.scss */
+.inline-list.commas li {
+  position: relative;
+}
+/* line 55, modules/_inline-list.scss */
 .inline-list.commas li:last-of-type:after {
   content: "";
 }
-/* line 46, modules/_inline-list.scss */
+/* line 58, modules/_inline-list.scss */
 .inline-list.commas li:after {
   content: ",";
+  position: absolute;
+  right: 0;
+  top: 0;
 }
 
 /* line 3, modules/_layout.scss */

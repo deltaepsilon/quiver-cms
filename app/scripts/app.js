@@ -102,6 +102,7 @@ angular.module('quiverCmsApp', [
       AnalyticsProvider.useECommerce(true, true);
       AnalyticsProvider.setPageEvent('$stateChangeSuccess');
       AnalyticsProvider.delayScriptTag(true);
+      AnalyticsProvider.useEnhancedLinkAttribution(true);
     }
 
 
@@ -302,7 +303,22 @@ angular.module('quiverCmsApp', [
           },
           assignmentsRef: function (UserService, user, limit) {
             return UserService.getSubmittedAssignments(user.$id, {orderByPriority: true, limitToLast: limit});
-          }
+          },
+          subscriptionsRef: function (UserService, user) {
+            return UserService.getSubscriptions(user.$id);
+          },
+          shipmentsRef: function (UserService, user) {
+            return UserService.getShipments(user.$id);
+          },
+          giftsRef: function (UserService, user) {
+            return UserService.getGifts(user.$id);
+          },
+          downloadsRef: function (UserService, user) {
+            return UserService.getDownloads(user.$id);
+          },
+          transactionsRef: function (UserService, user) {
+            return UserService.getTransactions(user.$id);
+          },
         }
       })
       .state('authenticated.master.nav.account', { // ******************************  Account **************************
@@ -801,8 +817,8 @@ angular.module('quiverCmsApp', [
           transactionRef: function (AdminService, $stateParams) {
             return AdminService.getTransaction($stateParams.key);
           },
-          userTransactionRef: function (AdminService, $stateParams) {
-            return AdminService.getUserTransaction($stateParams.userId, $stateParams.key);
+          userTransactionRef: function (UserService, $stateParams) {
+            return UserService.getTransaction($stateParams.userId, $stateParams.key);
           }
         }
       })
@@ -835,9 +851,9 @@ angular.module('quiverCmsApp', [
           subscriptionRef: function(AdminService, $stateParams) {
             return AdminService.getSubscription($stateParams.key);
           },
-          userSubscriptionRef: function (AdminService, subscriptionRef, $q) {
+          userSubscriptionRef: function (UserService, subscriptionRef, $q) {
             return subscriptionRef.$asObject().$loaded().then(function (subscription) {
-              return AdminService.getUserSubscription(subscription.user.public.id, subscription.keys.user);
+              return UserService.getSubscription(subscription.user.public.id, subscription.keys.user);
             });
           }
         }

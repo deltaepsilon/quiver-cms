@@ -1,5 +1,17 @@
 <div class="row padding-large" itemscope itemtype="http://schema.org/Product">
   <div class="column small-12">
+    <ul class="inline-list slashes no-margin margin-horizontal-zero-important margin-vertical-small-important">
+      {{#if breadcrumbs}}
+        {{#each breadcrumbs}}
+          <li><a href="{{ href }}">{{ text }}</a></li>
+        {{/each }}
+      {{/if }}
+      <li>
+        <strong>{{ title }}</strong>
+      </li>
+    </ul>
+  </div>
+  <div class="column small-12">
     {{#if product.featuredImage }}
       <div class="margin-vertical-medium">
         {{#if product.featuredImage.Versions.small.Key }}
