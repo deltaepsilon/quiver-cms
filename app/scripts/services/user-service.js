@@ -29,11 +29,11 @@ angular.module('quiverCmsApp')
       },
 
       getPages: function(userId, key) {
-        return Restangular.one('user').one(userId).one('subscription').one(key).one('pages').get();
+        return Restangular.one('user').one(userId).one('subscription').one(key).one('pages').getList();
       },
 
       getAssignments: function (userId, key) {
-        return Restangular.one('user').one(userId).one('subscription').one(key).one('assignments').get();
+        return Restangular.one('user').one(userId).one('subscription').one(key).one('assignments').getList();
       },
 
       logMessage: function (userId, assignmentKey, type, message) {

@@ -5,7 +5,7 @@
 
 
 <div class="small-12">
-  <div markdown-editable ng-model="assignment.description" extensions="video"></div>
+  <div markdown-editable class="markdown" ng-model="assignment.description" extensions="video"></div>
 </div>
 
 <div class="small-12" ng-show="assignment.supportsUpload">
@@ -95,7 +95,7 @@
     <li ng-repeat="message in messages">
       <div class="column small-4 medium-3"><strong>{{ message.userName }}</strong></div>
       <div class="column small-8 medium-9">
-        <div markdown-editable ng-model="message.text"></div>
+        <div class="markdown" markdown-editable ng-model="message.text"></div>
       </div>
     </li>
     <li class="no-stripe" ng-show="!messages.length">

@@ -210,7 +210,7 @@
 
       <div class="column small-12">
         <textarea class="margin-vertical-medium" style="min-height: 5rem;" ng-model="product.description.excerpt" ng-model-options="{debounce: {'default': 500, 'blur': 0}}" placeholder="Product excerpt..."></textarea>
-        <div ng-if="!textMode" class="small-12 background-secondary4 padding-small" style="height: 40rem; overflow: auto;" delay="300" contenteditable="true" ng-model="product.description.markdown" markdown-editable extensions="video"></div>
+        <div ng-if="!textMode" class="small-12 background-secondary4 padding-small markdown" style="height: 40rem; overflow: auto;" delay="300" contenteditable="true" ng-model="product.description.markdown" markdown-editable extensions="video"></div>
         <textarea ng-if="textMode" class="small-12 background-secondary4 padding-small" style="min-height: 40rem;" delay="300" ng-model="product.description.markdown"></textarea>
       </div>
 

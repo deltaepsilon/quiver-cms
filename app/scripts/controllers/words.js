@@ -130,11 +130,14 @@ angular.module('quiverCmsApp')
         word.hashtags = hashtags;
       }
 
-      AdminService.getWord(word.$id).$set(_.omit(word, ['$$hashKey', '$id', '$priority'])).then(function () {
-        NotificationService.success('Saved', word.title);
-      }, function (error) {
-        NotificationService.error('Save Error', error);
-      });
+      words.$save(word);
+
+
+      // AdminService.getWord(word.$id).$set(_.omit(word, ['$$hashKey', '$id'])).then(function () {
+      //   NotificationService.success('Saved', word.title);
+      // }, function (error) {
+      //   NotificationService.error('Save Error', error);
+      // });
 
     };
 

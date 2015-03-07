@@ -97,7 +97,7 @@ a {
 
 }
 
-video, img {
+video, img, iframe {
   max-width: 100%;
 }
 
@@ -135,4 +135,10 @@ video, img {
 .drag-over {
   @extend .background-secondary0-important;
   @extend .text-white0-important;
+}
+
+.markdown {
+  ul, li {
+    list-style-type: initial;
+  }
 }

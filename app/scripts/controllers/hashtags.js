@@ -11,7 +11,7 @@ angular.module('quiverCmsApp')
         $scope.hashtags.$add({
           value: hashtag,
           key: Slug.slugify(hashtag),
-          creator: $scope.currentUser.email
+          creator: $scope.user.email
         }).then(function () {
             delete $scope.newHashtag;
             NotificationService.success('Hashtag Added');

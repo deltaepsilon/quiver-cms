@@ -1,4 +1,4 @@
-<input type="text" ng-show="searching || originals.length" ng-model="searchTerm" ng-focus="searchTerm = ''" placeholder="Search: Click ENTER to search server filename..." qv-enter="search({orderByChild: 'Name', startAt: searchTerm, limitToLast: 20})"/>
+<input type="text" ng-show="searching || items.length" ng-model="searchTerm" ng-focus="searchTerm = ''" placeholder="Search: Click ENTER to search server filename..." qv-enter="search({orderByChild: 'Name', startAt: searchTerm, limitToLast: 20})"/>
 
 <ul class="table-list striped padded">
   <li class="table-list-header">

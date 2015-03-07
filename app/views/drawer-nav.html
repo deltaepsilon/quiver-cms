@@ -44,12 +44,12 @@
     </ul>
   </li>
 
-  <li class="has-popout click" ng-if="user.private.commerce.subscriptions">
+  <li class="has-popout click" ng-if="subscriptions">
     <input id="subscriptions-toggle" class="popout-toggle" type="checkbox" name="left-nav" qv-exclusive>
     <label for="subscriptions-toggle"><i class="fa fa-university"></i> &nbsp;Subscriptions</label>
     <ul class="popout">
-      <li ng-repeat="(key, subscription) in user.private.commerce.subscriptions">
-        <a ui-sref="authenticated.master.nav.subscription.page({subscriptionKey: key, pageNumber: $storage['bookmark-' + key] || 0})">{{ subscription.title }}</a>
+      <li ng-repeat="subscription in subscriptions">
+        <a ui-sref="authenticated.master.nav.subscription.page({subscriptionKey: subscription.$id, pageNumber: $storage['bookmark-' + subscription.$id] || 0})">{{ subscription.title }}</a>
       </li>
     </ul>
   </li>

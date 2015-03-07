@@ -81,7 +81,7 @@
       </div>
 
       <div>
-        <ul class="text-small">
+        <ul class="text-small" ng-hide="transaction.charge.free">
           <li>
             <span ng-show="transaction.charge.success" class="text-success">Charged on {{ transaction.charge.transaction.created | moment:"MMM DD, YYYY" }}</span>
             <span ng-hide="transaction.charge.success" class="text-warning">Not Charged</span>
@@ -89,6 +89,8 @@
           <li>Last 4 of Card: {{ transaction.charge.transaction.creditCard.last4 }}</li>
           <li>Charge: {{ transaction.charge.transaction.amount }}{{ transaction.charge.transaction.currencyIsoCode }}</li>
         </ul>
+
+        <h5 class="font-flair text-success" ng-show="transaction.charge.free">Free Checkout</h5>
 
       </div>
 

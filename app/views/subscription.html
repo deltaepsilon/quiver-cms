@@ -7,17 +7,27 @@
   <div qv-pinned>
     <h5 class="font-flair" style="padding-left: 0.875rem;">Table of Contents</h5>
     <ul class="side-nav margin-zero" style="padding-top: 7px;">
-      <li ng-repeat="(key, page) in pages" ng-class="{active: $index == pageNumber}">
+      <li ng-repeat="page in pages" ng-class="{active: $index == pageNumber}">
         <a ui-sref="authenticated.master.nav.subscription.page({subscriptionKey: subscription.$id, pageNumber: $index})" ng-disabled="$index == pageNumber">{{ page.title }}</a>
       </li>
     </ul>
 
-    <div ng-show="assignments">
+    <div ng-if="assignments && !subscription.expiration">
       <div style="padding-left: 0.875rem;">
-        <h5 class="font-flair">Assignments</h5>
-        <span ng-if="isExpired(subscription)">
-          <strong>Expired:</strong> {{ subscription.expiration | moment:"MM/DD/YYYY" }}
-        </span>
+        <h5 class="font-flair">Unlimited Assignments</h5>
+      </div>
+
+      <div class="relative">
+        <ul class="side-nav margin-zero" style="padding-top: 7px;">
+          <li ng-repeat="assignment in doesNotStartSubscription" ng-class="{active: assignment.$id == assignmentKey}">
+            <a ui-sref="authenticated.master.nav.subscription.assignment({subscriptionKey: subscription.$id, assignmentKey: assignment.$id})" ng-disabled="assignment.$id == assignmentKey">{{ assignment.title }}</a>
+          </li>
+        </ul>
+        
+      </div>
+
+      <div style="padding-left: 0.875rem;">
+        <h5 class="font-flair">Limited Assignments</h5>
       </div>
       
       <div class="relative">
@@ -26,8 +36,27 @@
         </div>
         
         <ul class="side-nav margin-zero" style="padding-top: 7px;">
-          <li ng-repeat="(key, assignment) in assignments" ng-class="{active: key == assignmentKey}">
-            <a ui-sref="authenticated.master.nav.subscription.assignment({subscriptionKey: subscription.$id, assignmentKey: key})" ng-disabled="key == assignmentKey">{{ assignment.title }}</a>
+          <li ng-repeat="assignment in startsSubscription" ng-class="{active: assignment.$id == assignmentKey}">
+            <a ui-sref="authenticated.master.nav.subscription.assignment({subscriptionKey: subscription.$id, assignmentKey: assignment.$id})" ng-disabled="assignment.$id == assignmentKey">{{ assignment.title }}</a>
+          </li>
+        </ul>
+        
+      </div>
+
+    </div>
+
+    <div ng-if="assignments && subscription.expiration">
+      <div style="padding-left: 0.875rem;">
+        <h5 class="font-flair">Assignments</h5>
+        <span ng-if="isExpired(subscription)">
+          <strong>Expired:</strong> {{ subscription.expiration | moment:"MM/DD/YYYY" }}
+        </span>
+      </div>
+      
+      <div class="relative">       
+        <ul class="side-nav margin-zero" style="padding-top: 7px;">
+          <li ng-repeat="assignment in assignments" ng-class="{active: assignment.$id == assignmentKey}">
+            <a ui-sref="authenticated.master.nav.subscription.assignment({subscriptionKey: subscription.$id, assignmentKey: assignment.$id})" ng-disabled="assignment.$id == assignmentKey || (assignment.startsSubscription && isExpired(subscription))">{{ assignment.title }}</a>
           </li>
         </ul>
         

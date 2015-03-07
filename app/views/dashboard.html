@@ -1,6 +1,6 @@
 <div class="column small-12 medium-3">
     <ul class="side-nav padding-vertical-zero-important background-white0" style="z-index: 1;" qv-pinned>
-        <li><a href="#messages" qv-highlight="text-secondary0" selector="#messages .transition-color">Messages</a></li>
+        <li><a href="#messages" qv-highlight="text-secondary0" selector="#messages .transition-color">Assignment Feedback</a></li>
         <li ng-show="subscriptions.length"><a href="#subscriptions" qv-highlight="text-secondary0" selector="#subscriptions .transition-color">Subscriptions</a></li>
         <li ng-show="shipments.length"><a href="#shipping" qv-highlight="text-secondary0" selector="#shipping .transition-color">Shipping</a></li>
         <li ng-show="gifts.length"><a href="#gifts" qv-highlight="text-secondary0" selector="#gifts .transition-color">Gifts</a></li>
@@ -60,7 +60,7 @@
                 </div>
             </li> -->
             <li class="padding-small" ng-hide="messages.length">
-                <h5 class="font-flair">No user assigment feedback found.</h5>
+                <h5 class="font-flair">No assigment feedback found.</h5>
             </li>
         </ul>
 
@@ -72,8 +72,8 @@
         </div>
 
         <ul class="table-list striped hover link-padded text-x-medium">
-            <li ng-repeat="(key, subscription) in subscriptions | orderBy:'expiration'" ng-disabled="subscription.subscriptionType == 'content' && expired(subscription)" ng-class="{disabled: subscription.subscriptionType == 'content' && isExpired(subscription)}">
-                <a ui-sref="authenticated.master.nav.subscription.page({subscriptionKey: key, pageNumber: $storage['bookmark-' + key] || 0})">
+            <li ng-repeat="subscription in subscriptions | orderBy:'expiration'" ng-disabled="subscription.subscriptionType == 'content' && expired(subscription)" ng-class="{disabled: subscription.subscriptionType == 'content' && isExpired(subscription)}">
+                <a ui-sref="authenticated.master.nav.subscription.page({subscriptionKey: subscription.$id, pageNumber: $storage['bookmark-' + subscription.$id] || 0})">
                     <div class="column small-12 medium-3">{{ subscription.title }}</div>
                     <div class="column small-12 medium-3">{{ subscription.subscriptionDays }} Days</div>
                     <div class="column small-12 medium-6 medium-text-right">

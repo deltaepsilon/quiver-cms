@@ -283,7 +283,13 @@ angular.module('quiverCmsApp', [
         abstract: true,
         views: {
           nav: {
-            templateUrl: 'views/drawer-nav.html'
+            templateUrl: 'views/drawer-nav.html',
+            controller: 'NavCtrl',
+            resolve: {
+              subscriptionsRef: function (UserService, user) {
+                return UserService.getSubscriptions(user.$id);
+              }
+            }
           },
           body: {
             templateUrl: 'views/body.html'
@@ -426,8 +432,7 @@ angular.module('quiverCmsApp', [
         controller: 'PageCtrl',
         resolve: {
           wordRef: function (AdminService, $stateParams, pages, $localStorage, $rootScope) {
-            var keys = Object.keys(pages.pages),
-              key = keys[$stateParams.pageNumber];
+            var key = pages[$stateParams.pageNumber].$id;
 
             $rootScope.assignmentKey = undefined;
             $rootScope.pageNumber = parseInt($stateParams.pageNumber);

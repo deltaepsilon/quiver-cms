@@ -4186,7 +4186,7 @@ a.disabled, a[disabled] {
 }
 
 /* line 100, theme/_global.scss */
-video, img {
+video, img, iframe {
   max-width: 100%;
 }
 
@@ -4215,6 +4215,11 @@ video, img {
 /* line 126, theme/_global.scss */
 .transition-background, [flow-drop] {
   transition: background 300ms ease;
+}
+
+/* line 141, theme/_global.scss */
+.markdown ul, .markdown li {
+  list-style-type: initial;
 }
 
 /* line 347, ../lib/foundation/scss/foundation/components/_global.scss */

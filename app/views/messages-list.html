@@ -10,7 +10,7 @@
         <a ui-sref="authenticated.master.nav.subscription.assignment({subscriptionKey: message.subscriptionKey, assignmentKey: message.assignmentKey })">See assignment</a>
       </span>
       <div>
-        <div ng-model="message.text" markdown-editable style="max-width: 640px; word-break: break-word;">{{ message.text }}</div>
+        <div class="markdown" ng-model="message.text" markdown-editable style="max-width: 640px; word-break: break-word;">{{ message.text }}</div>
       </div>
     </div>
     
