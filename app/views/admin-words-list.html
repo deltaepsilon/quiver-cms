@@ -68,8 +68,8 @@
           </div>
         </div>
         <div class="column small-12 medium-3 medium-text-right">
-          <button class="tiny margin-zero" style="min-width: 7rem;" ng-show="word.edited" ng-click="saveWord(word)">Save</button>
-          <button class="tiny alert margin-zero" style="min-width: 7rem;" ng-hide="word.edited" qv-confirm="removeWord(word)" confirmations="['Really???', 'Last chance!']" qv-confirm>Delete</button>  
+          <button class="tiny margin-zero" style="min-width: 7rem;" ng-show="word.edited" ng-click="saveItem(saveWord(word));">Save</button>
+          <button class="tiny alert margin-zero" style="min-width: 7rem;" ng-hide="word.edited" qv-confirm="removeItem(word)" confirmations="['Really???', 'Last chance!']" qv-confirm>Delete</button>  
         </div>
        
       </div>
@@ -89,11 +89,11 @@
           </select>
         </div>
         <div class="column small-12 medium-2">
-          <input class="margin-zero-important" type="text" placeholder="Hashtag..." ng-model="newHashtag" qv-enter="addHashtag(word, newHashtag); newHashtag = null;" qv-type-ahead include="hashtags" exclude="word.hashtags" prepopulate="true" top-offset="-1"/>
+          <input class="margin-zero-important" type="text" placeholder="Hashtag..." ng-model="newHashtag" qv-enter="saveItem(addHashtag(word, newHashtag)); newHashtag = null;" qv-type-ahead include="hashtags" exclude="word.hashtags" prepopulate="true" top-offset="-1"/>
         </div>
         <div class="column small-12 medium-5">
           <ul class="inline-list margin-zero-important text-x-small">
-              <li class="cursor-pointer" ng-repeat="hashtag in word.hashtags" ng-click="removeHashtag(word, hashtag.key)">#{{ hashtag.value }}</li>
+              <li class="cursor-pointer" ng-repeat="hashtag in word.hashtags" ng-click="saveItem(removeHashtag(word, hashtag.key));">#{{ hashtag.value }}</li>
           </ul>
           &nbsp;
         </div>

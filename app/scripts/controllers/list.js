@@ -158,6 +158,14 @@ angular.module('quiverCmsApp')
       return promise;
     };
 
+    $scope.saveItem = function (item) {
+      return $scope.items.$save(item);
+    };
+
+    $scope.removeItem = function (item) {
+      return $scope.items.$remove(item);
+    };
+
     items.$loaded().then(function () {
       if ($stateParams.search) {
         var term = $stateParams.search,

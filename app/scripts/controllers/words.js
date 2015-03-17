@@ -130,7 +130,13 @@ angular.module('quiverCmsApp')
         word.hashtags = hashtags;
       }
 
-      words.$save(word);
+      return word;
+
+      // words.$save(word).then(function (ref) {
+      //   NotificationService.success('Saved', word.title);
+      // }, function (error) {
+      //   NotificationService.error('Save Error', error);
+      // });
 
 
       // AdminService.getWord(word.$id).$set(_.omit(word, ['$$hashKey', '$id'])).then(function () {
@@ -165,26 +171,23 @@ angular.module('quiverCmsApp')
     $scope.hashtags = hashtagsRef.$asArray();
 
     $scope.addHashtag = function (word, newHashtag) {
-      $timeout(function () {
-        var hashtag;
+      var hashtag;
 
-        if (!word.hashtags) {
-          word.hashtags = [];
-        }
+      if (!word.hashtags) {
+        word.hashtags = [];
+      }
 
-        if (typeof newHashtag === 'string') {
-          hashtag = newHashtag.replace(/(#|\s)/g, '');
-          word.hashtags.push({
-            key: Slug.slugify(hashtag),
-            value: hashtag
-          });
-          $scope.saveWord(word);
-        } else if (newHashtag && newHashtag.key) {
-          word.hashtags.push(word.newHashtag);
-          $scope.saveWord(word);
-        }
-
-      });
+      if (typeof newHashtag === 'string') {
+        hashtag = newHashtag.replace(/(#|\s)/g, '');
+        word.hashtags.push({
+          key: Slug.slugify(hashtag),
+          value: hashtag
+        });
+        return $scope.saveWord(word);
+      } else if (newHashtag && newHashtag.key) {
+        word.hashtags.push(word.newHashtag);
+        return $scope.saveWord(word);
+      }
 
 
 
