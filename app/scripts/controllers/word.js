@@ -126,19 +126,31 @@ angular.module('quiverCmsApp')
         suffix = (matches && matches.length > 0) ? matches[1].toLowerCase() : null,
         isImg = !!~imgList.indexOf(suffix),
         isVideo = !!~videoList.indexOf(suffix),
-        markdown = "\n\n";
+        markdown = "\n\n",
+        html = "\n\n";
 
-      if (isImg) {
-        markdown += '![' + $filter('filename')(key) + '](' + url + ')';
-      } else if (isVideo) {
-        markdown += '!![' + $filter('filename')(key) + '](' + url + ')';
+      if ($scope.useHtml) {
+        if (isImg) {
+          html += '<a title="' + $filter('filename')(key) + '" href="' + url + '" target="_blank"><img alt="' + $filter('filename')(key) + '" src="' + url + '"/></a>';
+        } else if (isVideo) {
+          html += '<a title="' + $filter('filename')(key) + '" href="' + url + '" target="_blank"><video alt="' + $filter('filename')(key) + '" src="' + url + '"/></a>';
+        } else {
+          html += '<a title="' + $filter('filename')(key) + '" href="' + url + '" target="_blank">' + $filter('filename')(key) + '</a>';
+        }  
+        $scope.$storage.activeDraft.html +=  html;  
+        NotificationService.success('Html added');
       } else {
-        markdown += '[' + $filter('filename')(key) + '](' + url + ')';
+        if (isImg) {
+          markdown += '![' + $filter('filename')(key) + '](' + url + ')';
+        } else if (isVideo) {
+          markdown += '!![' + $filter('filename')(key) + '](' + url + ')';
+        } else {
+          markdown += '[' + $filter('filename')(key) + '](' + url + ')';
+        }  
+        $scope.$storage.activeDraft.markdown +=  markdown;
+        NotificationService.success('Markdown added');
       }
-
-      $scope.$storage.activeDraft.markdown +=  markdown;
-
-      NotificationService.success('Markdown Added');
+      
     };
 
     /*

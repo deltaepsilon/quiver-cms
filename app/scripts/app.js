@@ -593,8 +593,8 @@ angular.module('quiverCmsApp', [
           bucket: function (AdminService) {
             return AdminService.getBucket();
           },
-          notificationsRef: function (AdminService, currentUser) {
-            return AdminService.getNotifications(currentUser.uid);
+          notificationsRef: function (AdminService, user) {
+            return AdminService.getNotifications(user.$id);
           }
         }
       })
@@ -604,13 +604,13 @@ angular.module('quiverCmsApp', [
         controller: 'ListCtrl',
         resolve: {
           limit: function () {
-            return 20;
+            return 5;
           },
           getRef: function (AdminService) {
             return AdminService.getOriginals;
           },
           ref: function (AdminService, limit) {
-            return AdminService.getOriginals({orderByKey: true, limitToLast: limit});
+            return AdminService.getOriginals({orderByPriority: true, limitToFirst: limit});
           }
         }
       })

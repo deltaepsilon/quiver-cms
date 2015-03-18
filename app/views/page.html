@@ -4,6 +4,11 @@
 
 
 
-<div class="small-12">
+<div class="small-12" ng-if="!word.published.html">
   <div markdown-editable class="markdown" ng-model="word.published.markdown" extensions="video, iframe"></div>
 </div>
+
+<div class="small-12" ng-if="word.published.html">
+  <div class="markdown" ng-bind-html="word.published.html"></div>
+</div>
+

@@ -6,7 +6,8 @@
 </div>
 
 <div class="column small-12">
-    <form name="filesForm" flow-init="{target: uploadTarget}" flow-name="flow">
+    <!-- <form name="filesForm" flow-init="{target: uploadTarget}" flow-name="flow"> -->
+    <form name="filesForm" flow-init="{target: uploadTarget, simultaneousUploads: 1}" flow-name="flow">
         <fieldset>
             <div class="column small-12 medium-6">
                 <label class="button tiny small-12" for="upload-file">Select Files</label>
