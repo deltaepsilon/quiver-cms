@@ -11,8 +11,8 @@ angular.module('quiverCmsApp')
   .service('SurveyService', function ($q, qvAuth, AdminService, UserService, Restangular, moment, Slug) {
     return {
       getSurvey: function (userId) {
-        var surveys = AdminService.getSurveys().$asArray(),
-          surveyLog = UserService.getSurveyLog(userId).$asArray();
+        var surveys = AdminService.getSurveys(),
+          surveyLog = UserService.getSurveyLog(userId);
 
         return $q.all([surveys.$loaded(), surveyLog.$loaded()]).then(function () {
           // Find the highest priority survey that has not been answered in the last month
@@ -47,7 +47,7 @@ angular.module('quiverCmsApp')
 
       setResponse: function (userId, surveySlug, response) {
 
-        return UserService.getSurveyLog(userId).$asArray().$loaded().then(function (surveyLog) {
+        return UserService.getSurveyLog(userId).$loaded().then(function (surveyLog) {
           var now = moment(),
           unix = now.unix(),
           responseWindow = 60 * 60 * 12, // 12-hour response window

@@ -103,7 +103,7 @@
             </li>
             <li class="no-stripe no-hover padding-small">
               <div class="column small-12">
-                <button ng-click="createAddress(unverifiedAddress)" ng-disabled="addressForm.$invalid">Verify</button>
+                <button ng-click="createAddress(unverifiedAddress)" ng-disabled="addressForm.$invalid || verifying">Verify</button>
               </div>
             </li>
           </ul>

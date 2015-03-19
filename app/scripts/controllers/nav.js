@@ -8,6 +8,6 @@
  * Controller of the quiverCmsApp
  */
 angular.module('quiverCmsApp')
-  .controller('NavCtrl', function ($scope, subscriptionsRef) {
-    $scope.subscriptions = subscriptionsRef.$asArray();
+  .controller('NavCtrl', function ($scope, subscriptions) {
+    $scope.subscriptions = subscriptions;
   });

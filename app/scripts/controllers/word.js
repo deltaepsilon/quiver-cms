@@ -1,15 +1,13 @@
 'use strict';
 
 angular.module('quiverCmsApp')
-  .controller('WordCtrl', function ($scope, $timeout, moment, wordRef, draftsRef, filesRef, NotificationService, $filter, $localStorage, _, ClipboardService, LocationService, env) {
+  .controller('WordCtrl', function ($scope, $timeout, moment, word, drafts, files, NotificationService, $filter, $localStorage, _, ClipboardService, LocationService, env) {
 
     $scope.$storage = $localStorage;
 
     /*
      * Word
     */
-    var word = wordRef.$asObject();
-
     word.$bindTo($scope, 'word');
 
     word.$loaded().then(function () {
@@ -50,7 +48,7 @@ angular.module('quiverCmsApp')
     /*
      * Drafts
     */
-    $scope.drafts = draftsRef.$asArray();
+    $scope.drafts = drafts;
 
     $scope.saveDraft = function (draft) {
       draft.edited = moment().format();
@@ -102,7 +100,7 @@ angular.module('quiverCmsApp')
     /*
      * Files
     */
-    $scope.files = filesRef.$asObject();
+    $scope.files = files;
 
     $scope.removeFromClipboard = function (file) {
       var fileName = $filter('filename')(file.Key);

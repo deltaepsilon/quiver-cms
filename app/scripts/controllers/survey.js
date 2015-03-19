@@ -8,18 +8,15 @@
  * Controller of the quiverCmsApp
  */
 angular.module('quiverCmsApp')
-  .controller('SurveyCtrl', function ($scope, surveyRef, answersRef, Slug, moment) {
+  .controller('SurveyCtrl', function ($scope, survey, answers, Slug, moment) {
     /*
      * Survey
      */
-    var survey = surveyRef.$asObject();
-
     survey.$bindTo($scope, 'survey');
 
     /*
      * Answers
      */
-    var answers = answersRef.$asArray();
     $scope.answers = answers;
 
 

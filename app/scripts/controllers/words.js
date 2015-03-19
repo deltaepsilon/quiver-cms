@@ -1,18 +1,18 @@
 'use strict';
 
 angular.module('quiverCmsApp')
-  .controller('WordsCtrl', function ($scope, wordsRef, hashtagsRef, moment, NotificationService, Slug, $timeout, AdminService) {
+  .controller('WordsCtrl', function ($scope, words, hashtags, moment, NotificationService, Slug, $timeout, AdminService) {
     /*
      * Words
     */
     // $scope.limit = limit;
-    var words = wordsRef.$asArray();
+    var words = words;
 
     // $scope.loadMore = function (increment) {
     //   $scope.limit += (increment || limit);
 
-    //   wordsRef = AdminService.getWords({orderByPriority: true, limitToFirst: $scope.limit});
-    //   wordsRef.$asArray().$loaded().then(function (words) {
+    //   words = AdminService.getWords({orderByPriority: true, limitToFirst: $scope.limit});
+    //   words.$loaded().then(function (words) {
     //     words = words;
     //   });
 
@@ -28,8 +28,8 @@ angular.module('quiverCmsApp')
     //     options = {orderByPriority: true, limitToFirst: $scope.limit}; 
     //   }
 
-    //   wordsRef = AdminService.getWords(options);
-    //   wordsRef.$asArray().$loaded().then(function (words) {
+    //   words = AdminService.getWords(options);
+    //   words.$loaded().then(function (words) {
     //     words = words;
     //   });
       
@@ -168,7 +168,7 @@ angular.module('quiverCmsApp')
     /*
      * Hashtags
     */
-    $scope.hashtags = hashtagsRef.$asArray();
+    $scope.hashtags = hashtags;
 
     $scope.addHashtag = function (word, newHashtag) {
       var hashtag;

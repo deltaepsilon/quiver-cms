@@ -8,12 +8,12 @@
  * Controller of the quiverCmsApp
  */
 angular.module('quiverCmsApp')
-  .controller('MessagesCtrl', function ($scope, $q, messageableRef, sentMessagesRef, receivedMessagesRef, UserService, NotificationService, _) {
+  .controller('MessagesCtrl', function ($scope, $q, messageable, sentMessages, receivedMessages, UserService, NotificationService, _) {
 
     /*
      * Users
      */
-    $scope.users = messageableRef.$asArray();
+    $scope.users = messageable;
  
     $scope.addUser = function (user) {
       if (user && !_.findWhere($scope.uniqueUsers, {id: user.userKey})) {
@@ -42,8 +42,8 @@ angular.module('quiverCmsApp')
     /*
      * Messages
      */
-    $scope.sentMessages = sentMessagesRef.$asArray();
-    $scope.receivedMessages = receivedMessagesRef.$asArray();
+    $scope.sentMessages = sentMessages;
+    $scope.receivedMessages = receivedMessages;
 
     
 

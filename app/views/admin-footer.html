@@ -15,7 +15,7 @@
 <!-- <div qv-modal=".open-image-gallery" open="true"> -->
 <div qv-modal=".open-image-gallery">
   <!-- <div class="modal-content" qv-list ref="filesRef" get-ref="getOriginals" limit="limit" locals="{bucket: bucket, getPrev: getPrev, getNext: getNext}"> -->
-  <div class="modal-content" qv-list ref="filesRef" get-ref="getOriginals" limit="limit" locals="{bucket: bucket}">
+  <div class="modal-content" qv-list ref="files" get-ref="getOriginals" limit="limit" locals="{bucket: bucket}">
     <div style="position: absolute; right: 1rem; top: 1rem; z-index: 1;">
       <button class="tiny secondary" ng-click="listView = !listView">
         <span ng-hide="listView">List View</span>

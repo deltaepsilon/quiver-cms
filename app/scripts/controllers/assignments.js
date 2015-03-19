@@ -8,8 +8,8 @@
  * Controller of the quiverCmsApp
  */
 angular.module('quiverCmsApp')
-  .controller('AssignmentsCtrl', function ($scope, assignmentsRef, NotificationService, moment, Slug) {
-    $scope.assignments = assignmentsRef.$asArray();
+  .controller('AssignmentsCtrl', function ($scope, assignments, NotificationService, moment, Slug) {
+    $scope.assignments = assignments;
 
     $scope.createAssignment = function (title) {
       $scope.assignments.$add({

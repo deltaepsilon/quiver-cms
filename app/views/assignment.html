@@ -45,7 +45,7 @@
 
         <button id="upload-button" class="left" ng-click="upload($flow)" ng-hide="!$flow.files.length" ng-disabled="uploading">
           <span>Upload Files</span>
-          <span class="hidden backdrop background-highlight9" qv-loading target="#upload-button"><img src="/images/ajax-loader.gif" style="margin-top: 1rem;"></span>
+          <span class="hidden backdrop background-highlight9" qv-loading loaded="!uploading" target="#upload-button"><img src="/images/ajax-loader.gif" style="margin-top: 1rem;"></span>
         </button>
         <!-- <button class="left" ng-click="fakeUpload($flow)" ng-hide="!$flow.files.length" ng-disabled="uploading">Fake</button> -->
       </div>

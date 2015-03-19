@@ -8,7 +8,7 @@
  * Controller of the quiverCmsApp
  */
 angular.module('quiverCmsApp')
-  .controller('CartCtrl', function ($scope, $localStorage, $state, _, moment, products, countriesStatus, statesStatus, shippingRef, clientToken, CommerceService, NotificationService, braintree, ObjectService, Analytics, user, env) {
+  .controller('CartCtrl', function ($scope, $localStorage, $state, _, moment, products, countriesStatus, statesStatus, shipping, clientToken, CommerceService, NotificationService, braintree, ObjectService, Analytics, user, env) {
     /*
      * Storage
     */
@@ -22,8 +22,6 @@ angular.module('quiverCmsApp')
     /*
      * Commerce
     */
-
-    var shipping = shippingRef.$asObject(); // Shipping gets assigned to $scope later...
 
     $scope.countries = _.filter(CommerceService.getCountries(), function (country) {
       return countriesStatus[country['alpha-2']] ? countriesStatus[country['alpha-2']].enabled : false;

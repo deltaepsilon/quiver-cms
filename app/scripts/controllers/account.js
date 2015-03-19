@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('quiverCmsApp')
-  .controller('AccountCtrl', function ($scope, qvAuth, NotificationService, CommerceService, moment) {
-    $scope.user.$bindTo($scope, 'user'); // $scope.user is defined up the scope chain by AuthenticatedCtrl
+  .controller('AccountCtrl', function ($scope, userPublic, qvAuth, NotificationService, CommerceService, moment) {
+    userPublic.$bindTo($scope, 'public');
 
     $scope.changePassword = function (email, oldPassword, newPassword) {
       delete $scope.oldPassword;
@@ -23,7 +23,7 @@ angular.module('quiverCmsApp')
     });
 
     $scope.setBirthdate = function (birthdate) {
-      $scope.user.public.birthdate = moment(birthdate).format();
+      $scope.public.birthdate = moment(birthdate).format();
     };
 
 

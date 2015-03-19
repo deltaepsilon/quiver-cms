@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('quiverCmsApp')
-  .controller('FilesCtrl', function ($scope, $q, FileService, NotificationService, bucket, notificationsRef, $filter, $localStorage, _, ClipboardService, Slug, env, $interval, AdminService, $stateParams) {
+  .controller('FilesCtrl', function ($scope, $q, FileService, NotificationService, bucket, notifications, $filter, $localStorage, _, ClipboardService, Slug, env, $interval, AdminService, $stateParams) {
 
     /*
      * localStorage
@@ -14,7 +14,7 @@ angular.module('quiverCmsApp')
     /*
      * Notifications
     */
-    $scope.notifications = notificationsRef.$asObject();
+    $scope.notifications = notifications;
 
     $scope.getSlug = function (name) {
       var filename = $filter('filename')(name, {'[\\.]': '-'});
@@ -153,7 +153,7 @@ angular.module('quiverCmsApp')
 
         promises.push(fileDeferred.promise);
 
-        file.notification = fileRef.$asObject();
+        file.notification = fileRef;
 
         file.notification.$loaded().then(fileHandler(i, fileDeferred));
 
