@@ -8,7 +8,7 @@
  * Controller of the quiverCmsApp
  */
 angular.module('quiverCmsApp')
-  .controller('CommerceCtrl', function ($scope, commerceRef, countries, states, ShipmentService, $localStorage) {
+  .controller('CommerceCtrl', function ($scope, commerce, countries, states, ShipmentService, $localStorage) {
 
     /*
      * localStorge
@@ -18,8 +18,6 @@ angular.module('quiverCmsApp')
     /*
      * Commerce
     */
-    var commerce = commerceRef.$asObject();
-
     commerce.$bindTo($scope, 'commerce');
 
     /*
@@ -92,7 +90,11 @@ angular.module('quiverCmsApp')
      * From Address
      */
     $scope.createAddress = function (address) {
+      $scope.verifying = true;
+
       return ShipmentService.createAddress(address).then(function (response) {
+        $scope.verifying = false;
+        
         if (response.message) {
           NotificationService.notify(response.message);
         }

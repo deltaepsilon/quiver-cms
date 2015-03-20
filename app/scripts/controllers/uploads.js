@@ -13,7 +13,7 @@ angular.module('quiverCmsApp')
      * Uploads
      */
     $scope.save = function (upload) {
-      AdminService.getUpload(upload.$id).$asObject().$loaded().then(function (serverUpload) {
+      AdminService.getUpload(upload.$id).$loaded().then(function (serverUpload) {
         serverUpload.comment = upload.comment;
         serverUpload.flag = upload.flag;
         

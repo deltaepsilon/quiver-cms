@@ -8,18 +8,18 @@
  * Controller of the quiverCmsApp
  */
 angular.module('quiverCmsApp')
-  .controller('AssignmentCtrl', function ($scope, productsRef, assignmentRef) {
+  .controller('AssignmentCtrl', function ($scope, products, assignment) {
     /*
      * Assignment
      */
-    var assignment = assignmentRef.$asObject();
+    var assignment = assignment;
 
     assignment.$bindTo($scope, 'assignment');
 
     /*
      * Products
      */
-    $scope.products = productsRef.$asArray();
+    $scope.products = products;
 
     $scope.setProduct = function (product, checked) {
       if (!checked) {

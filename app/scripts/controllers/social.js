@@ -1,16 +1,16 @@
 'use strict';
 
 angular.module('quiverCmsApp')
-  .controller('SocialCtrl', function ($scope, socialRef, instagramTermsRef, NotificationService, AdminService) {
+  .controller('SocialCtrl', function ($scope, social, instagramTerms, NotificationService, AdminService) {
     /*
      * Social
     */
-    socialRef.$asObject().$bindTo($scope, 'social');
+    social.$bindTo($scope, 'social');
 
     /*
      * Instagram
     */
-    $scope.instagramTerms = instagramTermsRef.$asArray();
+    $scope.instagramTerms = instagramTerms;
 
     $scope.instagramAddTerm = function (term) {
       if (!term) {

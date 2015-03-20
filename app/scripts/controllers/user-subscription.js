@@ -8,11 +8,11 @@
  * Controller of the quiverCmsApp
  */
 angular.module('quiverCmsApp')
-  .controller('UserSubscriptionCtrl', function ($scope, subscriptionRef, pages, assignments, $stateParams, $localStorage, moment, NotificationService, _) {
+  .controller('UserSubscriptionCtrl', function ($scope, subscription, pages, assignments, $stateParams, $localStorage, moment, NotificationService, _) {
     /*
      * Subscription
      */
-    $scope.subscription = subscriptionRef.$asObject();
+    $scope.subscription = subscription;
 
     $scope.isExpired = function (subscription) {
       return moment().unix() > moment(subscription.expiration).unix();

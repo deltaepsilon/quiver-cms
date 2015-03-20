@@ -1,6 +1,23 @@
 <input type="text" ng-show="searching || items.length" ng-model="searchTerm" ng-focus="searchTerm = ''" placeholder="Search: Click ENTER to search server filename..." qv-enter="search({orderByChild: 'Name', startAt: searchTerm, limitToLast: 20})"/>
 
 <ul class="table-list striped padded">
+  <li class="no-stripe no-hover">
+    <div ng-hide="searching">
+      <div class="column small-3">
+        <button class="secondary small-12" ng-click="loadPrev()" ng-disabled="disablePrev">Prev</button>&nbsp;
+      </div>
+      <div class="column small-3">
+        <button class="secondary small-12" ng-click="loadMore()" ng-disabled="disableMore">Load More +</button>
+      </div>
+      <div class="column small-3">
+        <button class="secondary small-12" ng-click="reset({orderByPriority: true, limitToFirst: limit})" ng-disabled="disableReset">Reset</button>
+      </div>
+      <div class="column small-3">
+        <button class="secondary small-12" ng-click="loadNext()" ng-disabled="disableNext">Next</button>
+      </div>
+    </div>
+  </li>
+
   <li class="table-list-header">
     <div class="column small-12 medium-3">Preview</div>
     <div class="column small-12 medium-3">Details</div>
@@ -38,20 +55,5 @@
     </div>
     
   </li>
-  <li class="no-stripe no-hover">
-    <div ng-hide="searching">
-      <div class="column small-3">
-        <button class="secondary small-12" ng-click="loadPrev(undefined, getPrev(items))" ng-disabled="disablePrev">Prev</button>&nbsp;
-      </div>
-      <div class="column small-3">
-        <button class="secondary small-12" ng-click="loadMore()" ng-disabled="disableMore">Load More +</button>
-      </div>
-      <div class="column small-3">
-        <button class="secondary small-12" ng-click="reset()" ng-disabled="disableReset">Reset</button>
-      </div>
-      <div class="column small-3">
-        <button class="secondary small-12" ng-click="loadNext(undefined, getNext(items))" ng-disabled="disableNext">Next</button>
-      </div>
-    </div>
-  </li>
+  
 </ul>

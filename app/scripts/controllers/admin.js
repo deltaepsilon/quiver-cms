@@ -1,9 +1,7 @@
 'use strict';
 
 angular.module('quiverCmsApp')
-  .controller('AdminCtrl', function ($scope, themeRef, settingsRef, AdminService, ObjectService, NotificationService) {
-    var theme = themeRef.$asObject(),
-      settings = settingsRef.$asObject();
+  .controller('AdminCtrl', function ($scope, theme, settings, AdminService, ObjectService, NotificationService) {
 
     /*
      * Theme

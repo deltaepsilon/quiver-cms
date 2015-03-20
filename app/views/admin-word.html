@@ -7,9 +7,13 @@
 </div>
 
 <div class="column small-12 medium-4 large-2">
-    <button class="text-x-small padding-small small-12 margin-vertical-xx-small" ng-click="useTextarea = !useTextarea">
+    <button class="text-x-small padding-small small-12 margin-vertical-xx-small" ng-click="useTextarea = !useTextarea" ng-show="!useHtml">
         <span ng-show="useTextarea">Preview Mode</span>
         <span ng-hide="useTextarea">Text Mode</span>
+    </button>
+    <button class="text-x-small padding-small small-12 margin-vertical-xx-small" ng-click="useHtml = !useHtml">
+        <span ng-show="useHtml">Markdown Mode</span>
+        <span ng-hide="useHtml">Html Mode</span>
     </button>
     <button class="text-x-small padding-small small-12 margin-vertical-xx-small" ng-click="saveDraft($storage.activeDraft)">Save As Draft</button>
     <button class="text-x-small padding-small small-12 margin-vertical-xx-small" ng-click="setPublishedDraft($storage.activeDraft)" ng-disabled="!$storage.activeDraft">Publish</button>
@@ -117,12 +121,16 @@
         <textarea class="small-12" ng-model="word.excerpt" ng-model-options="{debounce: {'default': 500, 'blur': 0}}" placeholder="Once upon a time..."></textarea>
     </div>
 
-    <div ng-if="!useTextarea">
+    <div ng-if="!useTextarea && !useHtml">
         <div ng-if="showDraft" class="small-12 background-secondary4 padding-small markdown" style="height: 50rem; overflow: auto;" delay="300" contenteditable="true" ng-model="$storage.activeDraft.markdown" markdown-editable ng-change="handleActiveDraftChange($storage.activeDraft)" extensions="video, iframe"></div>
     </div>
 
-    <div ng-if="useTextarea">
+    <div ng-if="useTextarea && !useHtml">
         <textarea class="small-12 background-secondary4 padding-small" style="min-height: 40rem;" ng-model="$storage.activeDraft.markdown">{{ $storage.activeDraft.markdown }}</textarea>
+    </div>
+
+    <div ng-if="useHtml">
+        <textarea class="small-12 background-secondary4 padding-small" style="min-height: 40rem;" ng-model="$storage.activeDraft.html" placeholder="HTML...">{{ $storage.activeDraft.html }}</textarea>
     </div>
 
 </div>

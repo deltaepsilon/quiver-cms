@@ -123,16 +123,10 @@ angular.module('quiverCmsApp', [
           currentUser: function (qvAuth) {
             return qvAuth.getCurrentUser();
           },
-          settingsRef: function ($q, AdminService) {
-            var deferred = $q.defer(),
-             settingsRef = AdminService.getSettings();
-             settingsRef.$asObject().$loaded(function () {
-               deferred.resolve(settingsRef);
-             });
-
-            return deferred.promise
+          settings: function ($q, AdminService) {
+            return AdminService.getSettings().$loaded();
           },
-          filesRef: function (AdminService) {
+          files: function (AdminService) {
             return AdminService.getFiles();
           },
           user: function ($q, $state, qvAuth, AdminService) {
@@ -194,33 +188,15 @@ angular.module('quiverCmsApp', [
         controller: 'CartCtrl',
         resolve: {
           products: function (AdminService, $q) {
-            var deferred = $q.defer();
-
-            AdminService.getProducts().$asArray().$loaded(function (products) {
-              deferred.resolve(products);
-            });
-
-            return deferred.promise;
+            return AdminService.getProducts().$loaded();
           },
           countriesStatus: function (AdminService, $q) {
-            var deferred = $q.defer();
-
-            AdminService.getCountries().$asObject().$loaded().then(function (countriesStatus) {
-              deferred.resolve(countriesStatus);
-            }, deferred.reject);
-
-            return deferred.promise;
+            return AdminService.getCountries().$loaded();
           },
           statesStatus: function (AdminService, $q) {
-            var deferred = $q.defer();
-
-            AdminService.getStates().$asObject().$loaded().then(function (statesStatus) {
-              deferred.resolve(statesStatus);
-            }, deferred.reject);
-
-            return deferred.promise;
+            return AdminService.getStates().$loaded();
           },
-          shippingRef: function (AdminService) {
+          shipping: function (AdminService) {
             return AdminService.getShipping();
           },
           clientToken: function () {
@@ -271,10 +247,10 @@ angular.module('quiverCmsApp', [
           currentUser: function (qvAuth) {
             return qvAuth.getCurrentUser();
           },
-          settingsRef: function (AdminService) {
-            return AdminService.getSettings();
+          settings: function (AdminService) {
+            return AdminService.getSettings().$loaded();
           },
-          filesRef: function (AdminService) {
+          files: function (AdminService) {
             return AdminService.getFiles();
           }
         }
@@ -286,7 +262,7 @@ angular.module('quiverCmsApp', [
             templateUrl: 'views/drawer-nav.html',
             controller: 'NavCtrl',
             resolve: {
-              subscriptionsRef: function (UserService, user) {
+              subscriptions: function (UserService, user) {
                 return UserService.getSubscriptions(user.$id);
               }
             }
@@ -307,22 +283,22 @@ angular.module('quiverCmsApp', [
           limit: function () {
             return 5;
           },
-          assignmentsRef: function (UserService, user, limit) {
+          assignments: function (UserService, user, limit) {
             return UserService.getSubmittedAssignments(user.$id, {orderByPriority: true, limitToLast: limit});
           },
-          subscriptionsRef: function (UserService, user) {
+          subscriptions: function (UserService, user) {
             return UserService.getSubscriptions(user.$id);
           },
-          shipmentsRef: function (UserService, user) {
+          shipments: function (UserService, user) {
             return UserService.getShipments(user.$id);
           },
-          giftsRef: function (UserService, user) {
+          gifts: function (UserService, user) {
             return UserService.getGifts(user.$id);
           },
-          downloadsRef: function (UserService, user) {
+          downloads: function (UserService, user) {
             return UserService.getDownloads(user.$id);
           },
-          transactionsRef: function (UserService, user) {
+          transactions: function (UserService, user) {
             return UserService.getTransactions(user.$id);
           },
         }
@@ -330,7 +306,12 @@ angular.module('quiverCmsApp', [
       .state('authenticated.master.nav.account', { // ******************************  Account **************************
         url: "/account",
         templateUrl: 'views/account.html',
-        controller: 'AccountCtrl'
+        controller: 'AccountCtrl',
+        resolve: {
+          userPublic: function (UserService, user) {
+            return UserService.getPublic(user.$id);
+          }
+        }
       })
       .state('authenticated.master.nav.checkout', { // *****************************  Checkout *************************
         url: "/checkout",
@@ -338,33 +319,15 @@ angular.module('quiverCmsApp', [
         controller: 'CartCtrl',
         resolve: {
           products: function (AdminService, $q) {
-            var deferred = $q.defer();
-
-            AdminService.getProducts().$asArray().$loaded(function (products) {
-              deferred.resolve(products);
-            });
-
-            return deferred.promise;
+            return AdminService.getProducts().$loaded();
           },
           countriesStatus: function (AdminService, $q) {
-            var deferred = $q.defer();
-
-            AdminService.getCountries().$asObject().$loaded().then(function (countriesStatus) {
-              deferred.resolve(countriesStatus);
-            }, deferred.reject);
-
-            return deferred.promise;
+            return AdminService.getCountries().$loaded();
           },
           statesStatus: function (AdminService, $q) {
-            var deferred = $q.defer();
-
-            AdminService.getStates().$asObject().$loaded().then(function (statesStatus) {
-              deferred.resolve(statesStatus);
-            }, deferred.reject);
-
-            return deferred.promise;
+            return AdminService.getStates().$loaded();
           },
-          shippingRef: function (AdminService) {
+          shipping: function (AdminService) {
             return AdminService.getShipping();
           },
           clientToken: function (CommerceService, user) {
@@ -378,9 +341,8 @@ angular.module('quiverCmsApp', [
         templateUrl: 'views/transaction.html',
         controller: 'UserTransactionCtrl',
         resolve: {
-          transactionRef: function (UserService, $stateParams) {
-            return UserService.getTransaction($stateParams.userId, $stateParams.key);            
-            
+          transaction: function (UserService, $stateParams) {
+            return UserService.getTransaction($stateParams.userId, $stateParams.key);
           }
         }
       })
@@ -389,7 +351,7 @@ angular.module('quiverCmsApp', [
         templateUrl: 'views/messages.html',
         controller: 'MessagesCtrl',
         resolve: {
-          messageableRef: function (AdminService, user) {
+          messageable: function (AdminService, user) {
             if (user && user.private && user.private.isAdmin) {
               return AdminService.getUsers({orderByChild: 'email'});
             } else {
@@ -397,10 +359,10 @@ angular.module('quiverCmsApp', [
             }
             
           },
-          sentMessagesRef: function (UserService, user) {
+          sentMessages: function (UserService, user) {
             return UserService.getSentMessages(user.$id);
           },
-          receivedMessagesRef: function (UserService, user) {
+          receivedMessages: function (UserService, user) {
             return UserService.getReceivedMessages(user.$id);
           }
         }  
@@ -415,7 +377,7 @@ angular.module('quiverCmsApp', [
         controller: 'UserSubscriptionCtrl',
         templateUrl: 'views/subscription.html',
         resolve: {
-          subscriptionRef: function (UserService, user, $stateParams) {
+          subscription: function (UserService, user, $stateParams) {
             return UserService.getSubscription(user.public.id, $stateParams.subscriptionKey);
           },
           pages: function(user, UserService, $stateParams) {
@@ -431,7 +393,7 @@ angular.module('quiverCmsApp', [
         templateUrl: '/views/page.html',
         controller: 'PageCtrl',
         resolve: {
-          wordRef: function (AdminService, $stateParams, pages, $localStorage, $rootScope) {
+          word: function (AdminService, $stateParams, pages, $localStorage, $rootScope) {
             var key = pages[$stateParams.pageNumber].$id;
 
             $rootScope.assignmentKey = undefined;
@@ -446,23 +408,23 @@ angular.module('quiverCmsApp', [
         templateUrl: '/views/assignment.html',
         controller: 'UserAssignmentCtrl',
         resolve: {
-          assignmentRef: function (AdminService, $stateParams, $localStorage, $rootScope) {
+          assignment: function (AdminService, $stateParams, $localStorage, $rootScope) {
 
             $rootScope.pageNumber = undefined;
             $rootScope.assignmentKey = $stateParams.assignmentKey;
             $localStorage['assignment-' + $stateParams.assignmentKey] = $stateParams.assignmentKey;
             return AdminService.getAssignment($stateParams.assignmentKey);
           },
-          userAssignmentRef: function (UserService, user, $stateParams) {
+          userAssignment: function (UserService, user, $stateParams) {
             return UserService.getAssignment(user.public.id, $stateParams.assignmentKey);
           },
-          userAssignmentUploadsRef: function (UserService, user, $stateParams) {
+          userAssignmentUploads: function (UserService, user, $stateParams) {
             return UserService.getAssignmentUploads(user.public.id, $stateParams.assignmentKey);
           },
-          userAssignmentMessagesRef: function (UserService, user, $stateParams) {
+          userAssignmentMessages: function (UserService, user, $stateParams) {
             return UserService.getAssignmentMessages(user.public.id, $stateParams.assignmentKey);
           },
-          notificationsRef: function (AdminService, currentUser) {
+          notifications: function (AdminService, currentUser) {
             return AdminService.getNotifications(currentUser.uid);
           }
         }
@@ -488,10 +450,10 @@ angular.module('quiverCmsApp', [
                   return true;
                 }
               },
-              themeRef: function (AdminService) {
+              theme: function (AdminService) {
                 return AdminService.getTheme();
               },
-              settingsRef: function (AdminService) {
+              settings: function (AdminService) {
                 return AdminService.getSettings();
               }
             }
@@ -503,7 +465,7 @@ angular.module('quiverCmsApp', [
               limit: function () {
                 return 12;
               },
-              filesRef: function (AdminService, limit) {
+              files: function (AdminService, limit) {
                 return AdminService.getOriginals({orderByPriority: true, limitToLast: limit});
               }
             }
@@ -515,10 +477,10 @@ angular.module('quiverCmsApp', [
         templateUrl: 'views/admin-words.html',
         controller: 'WordsCtrl',
         resolve: {
-          wordsRef: function (AdminService) {
+          words: function (AdminService) {
             return AdminService.getWords();
           },
-          hashtagsRef: function (AdminService) {
+          hashtags: function (AdminService) {
             return AdminService.getHashtags();
           }
         }
@@ -544,21 +506,14 @@ angular.module('quiverCmsApp', [
         templateUrl: 'views/admin-word.html',
         controller: 'WordCtrl',
         resolve: {
-          wordRef: function (AdminService, $stateParams) {
+          word: function (AdminService, $stateParams) {
             return AdminService.getWord($stateParams.key);
           },
-          draftsRef: function (AdminService, $stateParams) {
+          drafts: function (AdminService, $stateParams) {
             return AdminService.getDrafts($stateParams.key);
           },
-          filesRef: function ($q, AdminService) {
-            var deferred = $q.defer(),
-              filesRef = AdminService.getFiles();
-
-            filesRef.$asObject().$loaded(function () {
-              deferred.resolve(filesRef);
-            });
-
-            return deferred.promise;
+          files: function (AdminService) {
+            return AdminService.getFiles().$loaded();
           }
         }
       })
@@ -567,7 +522,7 @@ angular.module('quiverCmsApp', [
         templateUrl: 'views/admin-assignments.html',
         controller: 'AssignmentsCtrl',
         resolve: {
-          assignmentsRef: function (AdminService) {
+          assignments: function (AdminService) {
             return AdminService.getAssignments();
           }
         }
@@ -577,10 +532,10 @@ angular.module('quiverCmsApp', [
         templateUrl: 'views/admin-assignment.html',
         controller: 'AssignmentCtrl',
         resolve: {
-          productsRef: function (AdminService) {
+          products: function (AdminService) {
             return AdminService.getProducts({orderByChild: 'type', equalTo: 'subscription'});
           },
-          assignmentRef: function (AdminService, $stateParams) {
+          assignment: function (AdminService, $stateParams) {
             return AdminService.getAssignment($stateParams.key);
           }
         }
@@ -593,8 +548,8 @@ angular.module('quiverCmsApp', [
           bucket: function (AdminService) {
             return AdminService.getBucket();
           },
-          notificationsRef: function (AdminService, currentUser) {
-            return AdminService.getNotifications(currentUser.uid);
+          notifications: function (AdminService, user) {
+            return AdminService.getNotifications(user.$id);
           }
         }
       })
@@ -604,13 +559,13 @@ angular.module('quiverCmsApp', [
         controller: 'ListCtrl',
         resolve: {
           limit: function () {
-            return 20;
+            return 5;
           },
           getRef: function (AdminService) {
             return AdminService.getOriginals;
           },
           ref: function (AdminService, limit) {
-            return AdminService.getOriginals({orderByKey: true, limitToLast: limit});
+            return AdminService.getOriginals({orderByPriority: true, limitToFirst: limit});
           }
         }
       })
@@ -619,10 +574,10 @@ angular.module('quiverCmsApp', [
         templateUrl: 'views/admin-products.html',
         controller: 'ProductsCtrl',
         resolve: {
-          productsRef: function (AdminService) {
+          products: function (AdminService) {
             return AdminService.getProducts();
           },
-          filesRef: function (AdminService) {
+          files: function (AdminService) {
             return AdminService.getFiles();
           }
         }
@@ -632,22 +587,22 @@ angular.module('quiverCmsApp', [
         templateUrl: 'views/admin-product.html',
         controller: 'ProductCtrl',
         resolve: {
-          productRef: function (AdminService, $stateParams) {
+          product: function (AdminService, $stateParams) {
             return AdminService.getProduct($stateParams.key);
           },
-          productImagesRef: function (AdminService, $stateParams) {
+          productImages: function (AdminService, $stateParams) {
             return AdminService.getProductImages($stateParams.key);
           },
-          productOptionGroupsRef: function (AdminService, $stateParams) {
+          productOptionGroups: function (AdminService, $stateParams) {
             return AdminService.getProductOptionGroups($stateParams.key);
           },
-          productOptionsMatrixRef: function (AdminService, $stateParams) {
+          productOptionsMatrix: function (AdminService, $stateParams) {
             return AdminService.getProductOptionsMatrix($stateParams.key);
           },
-          filesRef: function (AdminService) {
+          files: function (AdminService) {
             return AdminService.getFiles();
           },
-          hashtagsRef: function (AdminService) {
+          hashtags: function (AdminService) {
             return AdminService.getHashtags();
           }
 
@@ -658,7 +613,7 @@ angular.module('quiverCmsApp', [
         templateUrl: 'views/admin-users.html',
         controller: 'UsersCtrl',
         resolve: {
-          messageableRef: function (AdminService) {
+          messageable: function (AdminService) {
             return AdminService.getMessageable();
           }
         }
@@ -684,7 +639,7 @@ angular.module('quiverCmsApp', [
         templateUrl: 'views/admin-user.html',
         controller: 'UserCtrl',
         resolve: {
-          userRef: function (AdminService, $stateParams) {
+          user: function (AdminService, $stateParams) {
             return AdminService.getUser($stateParams.key);
           }
         }
@@ -699,7 +654,7 @@ angular.module('quiverCmsApp', [
         templateUrl: 'views/admin-commerce.html',
         controller: 'CommerceCtrl',
         resolve: {
-          commerceRef: function (AdminService) {
+          commerce: function (AdminService) {
             return AdminService.getCommerce();
           },
           countries: function (CommerceService) {
@@ -715,7 +670,7 @@ angular.module('quiverCmsApp', [
         templateUrl: 'views/admin-surveys.html',
         controller: 'SurveysCtrl',
         resolve: {
-          surveysRef: function (AdminService) {
+          surveys: function (AdminService) {
             return AdminService.getSurveys();
           }
         }
@@ -741,10 +696,10 @@ angular.module('quiverCmsApp', [
         templateUrl: 'views/admin-survey.html',
         controller: 'SurveyCtrl',
         resolve: {
-          surveyRef: function (AdminService, $stateParams) {
+          survey: function (AdminService, $stateParams) {
             return AdminService.getSurvey($stateParams.key);
           },
-          answersRef: function (AdminService, $stateParams) {
+          answers: function (AdminService, $stateParams) {
             return AdminService.getSurveyAnswers($stateParams.key);
           }
         }
@@ -775,10 +730,10 @@ angular.module('quiverCmsApp', [
         templateUrl: 'views/admin-social.html',
         controller: 'SocialCtrl',
         resolve: {
-          socialRef: function (AdminService) {
+          social: function (AdminService) {
             return AdminService.getSocial();
           },
-          instagramTermsRef: function (AdminService) {
+          instagramTerms: function (AdminService) {
             return AdminService.getInstagramTerms();
           }
         }
@@ -788,7 +743,7 @@ angular.module('quiverCmsApp', [
         templateUrl: 'views/admin-hashtags.html',
         controller: 'HashtagsCtrl',
         resolve: {
-          hashtagsRef: function (AdminService) {
+          hashtags: function (AdminService) {
             return AdminService.getHashtags();
           }
         }
@@ -819,10 +774,10 @@ angular.module('quiverCmsApp', [
         templateUrl: 'views/admin-transaction.html',
         controller: 'TransactionCtrl',
         resolve: {
-          transactionRef: function (AdminService, $stateParams) {
+          transaction: function (AdminService, $stateParams) {
             return AdminService.getTransaction($stateParams.key);
           },
-          userTransactionRef: function (UserService, $stateParams) {
+          userTransaction: function (UserService, $stateParams) {
             return UserService.getTransaction($stateParams.userId, $stateParams.key);
           }
         }
@@ -853,11 +808,11 @@ angular.module('quiverCmsApp', [
         templateUrl: 'views/admin-subscription.html',
         controller: 'SubscriptionCtrl',
         resolve: {
-          subscriptionRef: function(AdminService, $stateParams) {
+          subscription: function(AdminService, $stateParams) {
             return AdminService.getSubscription($stateParams.key);
           },
-          userSubscriptionRef: function (UserService, subscriptionRef, $q) {
-            return subscriptionRef.$asObject().$loaded().then(function (subscription) {
+          userSubscription: function (UserService, subscription, $q) {
+            return subscription.$loaded().then(function (subscription) {
               return UserService.getSubscription(subscription.user.public.id, subscription.keys.user);
             });
           }
@@ -951,19 +906,19 @@ angular.module('quiverCmsApp', [
         templateUrl: 'views/admin-feedback.html',
         controller: 'FeedbackCtrl',
         resolve: {
-          clientRef: function (AdminService, $stateParams) {
+          client: function (AdminService, $stateParams) {
             return AdminService.getUser($stateParams.userId);
           },
-          assignmentRef: function (AdminService, $stateParams) {
+          assignment: function (AdminService, $stateParams) {
             return AdminService.getAssignment($stateParams.assignmentKey);
           },
-          userAssignmentRef: function (UserService, $stateParams) {
+          userAssignment: function (UserService, $stateParams) {
             return UserService.getAssignment($stateParams.userId, $stateParams.assignmentKey);
           },
-          assignmentUploadsRef: function (UserService, $stateParams) {
+          assignmentUploads: function (UserService, $stateParams) {
             return UserService.getAssignmentUploads($stateParams.userId, $stateParams.assignmentKey);
           },
-          assignmentMessagesRef: function (UserService, $stateParams) {
+          assignmentMessages: function (UserService, $stateParams) {
             return UserService.getAssignmentMessages($stateParams.userId, $stateParams.assignmentKey);
           }
         }

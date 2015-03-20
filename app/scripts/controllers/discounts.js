@@ -12,31 +12,6 @@ angular.module('quiverCmsApp')
     /*
      * Discounts
     */
-    // var mapDiscounts = function (discounts) {
-    //     return _.map(discounts, function (discount, key) {
-    //       discount.key = key;
-    //       return discount;
-    //     });
-    //   },
-    //   firebaseDiscounts = discountsRef.$asArray();
-    
-    // $scope.discounts = mapDiscounts(discounts.discounts);
-
-
-    // NotificationService.notify('Discounts Loading...');
-    // firebaseDiscounts.$loaded().then(function () {
-    //   NotificationService.notify('Discounts Loaded.');
-    //   $scope.discounts = firebaseDiscounts;
-    //   $scope.firebaseLoaded = true;
-
-    //   // _.each($scope.discounts, function (discount) {
-    //   //   discount.$priority = moment(discount.created).unix();
-    //   //   $scope.discounts.$save(discount).then(function (ref) {
-    //   //     console.log('discount ref', ref);
-    //   //   });
-    //   // });
-
-    // });
 
     var generateCode = function () {
         var possibles = "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
@@ -124,7 +99,7 @@ angular.module('quiverCmsApp')
       discount.useCount = 0;
       discount.expiration = moment(discount.expiration).format();
 
-      AdminService.getDiscounts().$asArray().$add(discount);
+      AdminService.getDiscounts().$add(discount);
       setNewDiscount();
     };
 

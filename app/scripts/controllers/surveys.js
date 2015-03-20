@@ -8,8 +8,8 @@
  * Controller of the quiverCmsApp
  */
 angular.module('quiverCmsApp')
-  .controller('SurveysCtrl', function ($scope, $q, surveysRef, moment, _, Slug, AdminService) {
-    $scope.surveys = surveysRef.$asArray();
+  .controller('SurveysCtrl', function ($scope, $q, surveys, moment, _, Slug, AdminService) {
+    $scope.surveys = surveys;
 
     $scope.addAnswer = function (answer) {
       if (!$scope.newSurvey) {
@@ -58,9 +58,8 @@ angular.module('quiverCmsApp')
         delete $scope.newAnswer;
         return AdminService.getSurveyAnswers(surveyRef.key());
         
-      }).then(function (answersRef) {
-        var promises = [],
-          answersArray = answersRef.$asArray();
+      }).then(function (answersArray) {
+        var promises = [];
         
         _.each(answers, function (answer) {
           promises.push(answersArray.$add({
