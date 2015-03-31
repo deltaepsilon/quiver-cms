@@ -1,3 +1,70 @@
+<md-card>
+  {{#if keyImage }}
+    <a href="/{{ slug }}">
+        {{#if keyImage.Versions.small.Key }}
+          <img src="{{s3 keyImage.Versions.small.Key }}" alt="{{deSlug keyImage.Name }}"/>
+        {{ else }}
+            <img src="{{s3 keyImage.Key }}" alt="{{deSlug keyImage.Name }}"/>
+        {{/if }}
+    </a>
+  {{/if }}
+
+  <md-card-content>
+    <section class="margin-vertical-medium" layout="column" layout-align="start start" layout-wrap>
+      <h2 class="headline uppercase tight text-x-large" layout-align="left" style="margin-bottom: 1rem;">
+        <a class="undecorated" href="/{{ slug }}">{{ title }}</a>
+      </h2>
+
+      <div layout="column" layout-fill>
+        <div layout="row">
+          <div layout="column" layout-align="end start">
+            <span class="headline uppercase text-secondary0">{{ author.name }}</span>
+            <span class="text-small">{{calendar published.published}}</span>
+          </div>
+
+          <div flex></div>
+          
+          <div class="social-buttons" layout-align="right" layout="row">
+            <md-button class="md-fab md-primary" ng-href="/{{ slug }}">
+              <span data-disqus-identifier="{{ slug }}"></span>
+              <i class="mdi-editor-mode-comment"></i>
+            </md-button>
+            <md-button class="md-fab twitter" ng-href="https://twitter.com/{{ author.twitter }}" target="_blank">
+              <i class="qv qv-twitter"></i>
+            </md-button>
+            <md-button class="md-fab instagram" href="https://instagram.com/{{ author.instagram }}" target="_blank">
+              <i class="qv qv-instagram"></i>
+            </md-button>
+            <md-button class="md-fab md-secondary" ng-href="mailto:{{ author.email }}">
+              <i class="mdi-communication-email"></i>
+            </md-button>
+          </div>
+        </div>
+        
+      </div>
+    </section>
+    
+
+    <md-divider></md-divider>
+    
+    <div class="margin-vertical-large">
+        {{#if excerpt }}
+          {{markdown excerpt }}
+        {{/if }}
+    </div>
+
+    <div layout="row" layout-align="end start" layout-wrap layout-margin>
+      {{#each hashtags }}
+        <a class="undecorated" href="/search/{{ this.key }}">
+          #{{ this.value }}
+        </a>
+      {{/each }}
+    </div>
+
+  </md-card-content>
+
+</md-card>
+{{!-- 
 <div class="post-left">
     {{#if keyImage }}
       <a href="/{{ slug }}">
@@ -67,3 +134,4 @@
 
 
 </div>
+ --}}

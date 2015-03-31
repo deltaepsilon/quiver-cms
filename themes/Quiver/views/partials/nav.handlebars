@@ -1,0 +1,37 @@
+<button ng-click="toggleSidenav('left')" hide-gt-sm class="md-button" tabindex="0">
+  <i class="mdi-action-subject"></i>
+</button>
+<div class="md-toolbar-tools">
+  <div layout="row" flex class="fill-height">
+    <h1 layout-align="left" class="headline">
+      <a href="/">{{ settings.siteTitle }}</a>
+    </h1>
+
+    <span flex></span>
+
+    <div layout-align="right" class="md-toolbar-item" ng-show="$storage.cart.productCount">
+      <a class="md-button" href="/app/cart">
+        <span class="headline" ng-bind="$storage.cart.productCount"></span>
+        <i class="mdi-action-shopping-cart" style="position: relative; top: 1px;"></i>
+      </a>
+    </div>
+
+    <div layout-align="right" class="md-toolbar-item" ng-show="!currentUser">
+      <a class="md-button" href="/app/login">
+        <i class="mdi-action-input"></i> &nbsp;Login        
+      </a>
+      <a class="md-button" href="/app/register">
+        </i> &nbsp;Register
+      </a>
+    </div>
+
+    {{!-- <div layout-align="right" class="md-toolbar-item" ng-show="currentUser">
+      <button class="md-button" ng-click="toggleSidenav('right')">
+        <i class="mdi-action-settings"></i>
+      </button>
+      
+    </div> --}}
+
+  </div>
+
+</div>

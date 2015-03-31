@@ -1,5 +1,7 @@
 .inline-list {
-  &> li {
+  &> * {
+    margin-left: 1rem;
+
     &> button {
       margin-top: 4px;
     }
@@ -7,16 +9,16 @@
   }
 
   &.no-margin {
-    &>li:first-child {
+    &> *:first-child {
       margin-left: 0;
     }
   }
 
   &.slashes {
-    li {
+    &> * {
       position: relative;
 
-      &:last-of-type:after {
+      &:last-child:after {
         content: "";
       }
       &:after {
@@ -31,10 +33,10 @@
   }
 
   &.dots {
-    li {
+    &> * {
       position: relative;
 
-      &:last-of-type:after {
+      &:last-child:after {
         content: "";
       }
       &:after {
@@ -49,17 +51,36 @@
   }
 
   &.commas {
-    li {
+    &> * {
       position: relative;
       
-      &:last-of-type:after {
+      &:last-child:after {
         content: "";
       }
       &:after {
         content: ",";
         position: absolute;
-        right: 0;
+        right: -0.25rem;
         top: 0;
+      }
+
+    }
+  }
+
+  &.arrows {
+    &> * {
+      position: relative;
+      
+      &:last-child:after {
+        content: "";
+      }
+      &:after {
+        content: ">";
+        position: absolute;
+        right: -1.25rem;
+        top: 0;
+        width: 1rem;
+        height: 1rem;
       }
 
     }

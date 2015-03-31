@@ -1,36 +1,30 @@
 {{#if title }}
-  <div class="row">
-    <div class="column small-12">
-      <ul class="inline-list slashes no-margin margin-horizontal-zero-important margin-vertical-small-important">
-        {{#if breadcrumbs}}
-          {{#each breadcrumbs}}
-            <li><a href="{{ href }}">{{ text }}</a></li>
-          {{/each }}
-        {{/if }}
-        {{#if title}}
-          <li>
-            <strong>{{ title }}</strong>
-          </li>
-        {{/if }}
-      </ul>
-    </div>
-    
-  </div>
+  <section class="constrained" layout="row" layout-fill style="margin-bottom: 1rem;">
+    {{#if breadcrumbs}}
+      {{#each breadcrumbs}}
+        <md-button ng-href="{{ href }}">{{ text }}</md-button>
+      {{/each }}
+    {{/if }}
+    {{#if title}}
+      <md-button ng-disabled="true">{{ title }}</md-button>
+    {{/if }}
+  </section>
 {{/if }}
 
 {{#if products }}
-  <div id="products" class="posts row">
-    <ul class="column small-12 table-list striped margin-horizontal-zero-important padding-horizontal-zero-important">
-      {{#each products }}
+  <section id="products" class="constrained">
+    {{#each products }}
         {{#if active }}
-          <li class="product product-{{ @index }}">
-            {{> inline-product }}
-          </li>
+          <div class="product product-{{ @index }}" itemscope itemtype="http://schema.org/Product">
+            <md-whiteframe class="md-whiteframe-z1" layout-sm="column" layout-gt-sm="row" layout-margin>
+              {{> inline-product }}              
+            </md-whiteframe>
+            
+          </div>
         {{/if }}
       {{/each }}
-    </ul>
 
-  </div>
+  </section>
 
 {{ else }}
 

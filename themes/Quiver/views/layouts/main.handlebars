@@ -8,33 +8,36 @@
     <meta name="viewport" content="width=device-width">
     <script type="text/javascript" src="//use.typekit.net/bmk8cii.js"></script>
     <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+    <script src="//use.fonticons.com/18aa8882.js"></script>
     <link rel="icon" type="image/x-icon" href="/static/favicon.ico"/>
+    <link rel="stylesheet" href="/static/lib/angular-material/angular-material.css">
     <link rel="stylesheet" href="/static/styles/style.css">
     <link rel="stylesheet" href="/static/lib/rainbow/themes/github.css">
     <script src="/env.js"></script>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1" />
 
 </head>
-<body ng-app="QuiverCMS" ng-controller="MasterCtrl">
+<body layout="column" ng-app="QuiverCMS" ng-controller="MasterCtrl" ng-cloak>
+  <md-toolbar layout="row">
+    {{> nav}}
+  </md-toolbar>
+  <div layout="row" flex>
+    
+        <md-sidenav layout="column" class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')">
+          {{> sidenav-left}}
+        </md-sidenav>
+        <md-sidenav layout="column" class="md-sidenav-right md-whiteframe-z2" md-component-id="right">
+          {{> sidenav-right}}
+        </md-sidenav>
+        <div layout="column" flex id="content" layout-align="start center">
+            <md-content flex class="md-padding" layout="column" layout-align="start center" layout-fill>
+              {{{body}}}          
+            </md-content>
 
-  <input id="off-canvas-checkbox" class="off-canvas-checkbox" type="checkbox"/>
-  <div class="off-canvas-wrap checkbox-move-left">
-      <div class="inner-wrap">
-          <section class="clearfix hidden-for-small">
-            {{> nav-medium }}
-          </section>
-          <section class="clearfix show-for-small-down">
-            {{> nav-small }}
-          </section>
-          <section id="body-container" style="min-height: 10rem;">
-            {{{body}}}
-          </section>
-
-      </div>
-
-
+          </div>
 
   </div>
-
+  
   {{#if env.liveReload }}
     {{> livereload}}
   {{/if  }}
@@ -46,9 +49,12 @@
   {{> disqus-comment-count }}
 
   <script src="/static/lib/rainbow/js/rainbow.js"></script>
-  <script src="/static/lib/jquery/jquery.min.js"></script>
+  <script src="/static/lib/jquery/dist/jquery.min.js"></script>
   <script src="/static/lib/jquery.finger/dist/jquery.finger.js"></script>
   <script src="/static/lib/angular/angular.js"></script>
+  <script src="/static/lib/angular-animate/angular-animate.js"></script>
+  <script src="/static/lib/angular-aria/angular-aria.js"></script>
+  <script src="/static/lib/angular-material/angular-material.js"></script>
   <script src="/static/lib/ngstorage/ngStorage.js"></script>
   <script src="/static/lib/moment/min/moment.min.js"></script>
   <script src="/static/lib/underscore/underscore-min.js"></script>

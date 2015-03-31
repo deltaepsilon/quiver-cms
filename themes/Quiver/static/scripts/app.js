@@ -1,6 +1,6 @@
-angular.module('QuiverCMS', ['ngStorage', 'quiver.angular-utilities', 'quiver.angularfire-authentication', 'angular-md5', 'angular-google-analytics'])
+angular.module('QuiverCMS', ['ngStorage', 'quiver.angular-utilities', 'quiver.angularfire-authentication', 'angular-md5', 'angular-google-analytics', 'ngMaterial'])
 
-  .config(function (quiverUtilitiesProvider, AngularFireAuthenticationProvider, AnalyticsProvider) {
+  .config(function (quiverUtilitiesProvider, AngularFireAuthenticationProvider, AnalyticsProvider, $mdThemingProvider) {
 
     /*
      * Configure Notifications
@@ -27,6 +27,13 @@ angular.module('QuiverCMS', ['ngStorage', 'quiver.angular-utilities', 'quiver.an
       AnalyticsProvider.useECommerce(true, true);
       AnalyticsProvider.useEnhancedLinkAttribution(true);
     }
+
+    /*
+     * Angular Material
+     */
+    $mdThemingProvider.theme('default').primaryPalette('blue-grey', {
+      'default': '900'
+    }).accentPalette('pink',{});
 
   })
   // .run()
@@ -56,7 +63,15 @@ angular.module('QuiverCMS', ['ngStorage', 'quiver.angular-utilities', 'quiver.an
     };
     
   })
-  .controller('MasterCtrl', function ($scope, $http, $timeout, $localStorage, ProductService, moment, _, qvAuth, md5, Analytics, $location) {
+  .controller('MasterCtrl', function ($scope, $http, $timeout, $localStorage, ProductService, moment, _, qvAuth, md5, Analytics, $location, $mdSidenav) {
+    /*
+     * Angular Material
+     */
+
+    $scope.toggleSidenav = function (menuId) {
+      $mdSidenav(menuId).toggle();  
+    };
+
     /*
      * User
     */
@@ -85,10 +100,14 @@ angular.module('QuiverCMS', ['ngStorage', 'quiver.angular-utilities', 'quiver.an
 
     });
 
-    $scope.logOut = function () {
+    $scope.logOut = function (menuId) {
       qvAuth.logOut().then(function () {
         delete $scope.currentUser;
         delete $scope.user;
+        if (menuId) {
+          $mdSidenav(menuId).close();  
+        }
+        
       });
     };
 
@@ -281,6 +300,9 @@ angular.module('QuiverCMS', ['ngStorage', 'quiver.angular-utilities', 'quiver.an
       } else {
         delete product.priceAdjusted;
       }
+
+      $scope.optionsMatrixSelected = product.optionsMatrixSelected;
+      console.log('optionsMatrixSelected', $scope.optionsMatrixSelected);
 
       ProductService.setProduct(slug, product);
       $scope.logProductImpression(ProductService.getProduct(slug));

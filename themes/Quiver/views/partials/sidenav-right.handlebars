@@ -1,0 +1,38 @@
+<md-content role="navigation">
+  <section>
+    <div layout="column" layout-padding>
+      <span layout="row" flex ng-if="user.private.isAdmin">
+        <md-button class="text-left" layout-fill ng-href="/app/admin" flex>
+          <i class="mdi-action-settings-applications"></i> Admin
+        </md-button>
+      </span>
+
+      <span layout="row" flex>
+        <md-button class="text-left" layout-fill ng-href="/app/" flex>
+          <i class="mdi-action-dashboard"></i> Dashboard
+        </md-button>
+      </span>
+
+      <span layout="row" flex>
+        <md-button class="text-left" layout-fill ng-href="/app/messages" flex>
+          <i class="mdi-communication-message"></i> Messages
+        </md-button>
+      </span>
+
+      <span layout="row" flex>
+        <md-button class="text-left" layout-fill ng-href="/app/account" flex>
+          <i class="mdi-action-account-box"></i> Account
+        </md-button>
+      </span>
+
+      <span layout="row" flex>
+        <md-button class="text-left" layout-fill ng-click="logOut('right');" flex>
+          <i class="mdi-action-exit-to-app"></i> Log Out
+        </md-button>
+      </span>
+      
+    </div>
+    
+  </section>
+
+</md-content>

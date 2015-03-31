@@ -1,43 +1,35 @@
-<div class="column small-12 medium-8">
-  {{#if featuredImage }}
-    <div class="margin-vertical-medium">
-      <a href="/product/{{ slug }}">
-          {{#if featuredImage.Versions.small.Key }}
-            <img src="{{s3 featuredImage.Versions.small.Key }}" alt="{{deSlug featuredImage.Name }}"/>
-          {{ else }}
-              <img src="{{s3 featuredImage.Key }}" alt="{{deSlug featuredImage.Name }}"/>
-          {{/if }}
-      </a>
-    </div>
-  {{/if }}
-</div>
+{{#if featuredImage }}
+  <div flex>
+    <a href="/product/{{ slug }}">
+        {{#if featuredImage.Versions.small.Key }}
+          <img src="{{s3 featuredImage.Versions.small.Key }}" alt="{{deSlug featuredImage.Name }}"/>
+        {{ else }}
+            <img src="{{s3 featuredImage.Key }}" alt="{{deSlug featuredImage.Name }}"/>
+        {{/if }}
+    </a>
+  </div>
+{{/if }}
 
-
-
-<div class="column small-12 medium-4">
-  <div class="margin-vertical-medium">
-    <h5 class="font-flair clearfix margin-vertical-zero-important">
-      <div class="left link-secondary0">
-        <a href="/product/{{ slug }}">{{ title }}</a>
-      </div>
-      <div class="right">${{ price }}</div>
+<div flex layout="column">
+  <div layout="row" layout-align="space-between" layout-padding>
+    <h5 class="headline uppercase">
+      <a class="undecorated" href="/product/{{ slug }}">{{ title }}</a>
     </h5>
+    <strong class="headline">${{ price }}</strong>
+  </div>
+  
 
-    <hr class="margin-vertical-x-small">
+  <md-divider></md-divider>
 
-    <ul class="inline-list clearfix">
-      {{#each hashtags }}
-          <li>
-              <a href="/products/{{ this.key }}">#{{ this.value }}</a>
-          </li>
-      {{/each }}
-    </ul>
-
+  <div flex layout="column" layout-align="space-between" layout-padding>
     <div class="markdown">
       {{markdown description.excerpt }}
     </div>
-
+    <div class="inline-list commas" layout="row" layout-align="end" layout-wrap>
+      {{#each hashtags }}
+        <a class="undecorated" href="/products/{{ this.key }}">#{{ this.value }}</a>
+      {{/each }}  
+    </div>
   </div>
-
 
 </div>

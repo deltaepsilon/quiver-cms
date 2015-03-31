@@ -4,14 +4,46 @@
   </div>
 {{/if }}
 
-<div id="posts" class="posts row">
+<div id="posts" class="posts constrained">
+  <section class="posts-primary" layout="column">
     {{#each postBlocks.primary }}
-      <div class="post column small-12 post-{{ @index }}">
+      <div class="post column post-{{ @index }}" flex>
+          {{> inline-post }}
+      </div>
+    {{/each }}
+  </section>
+
+  <section class="posts-secondary" layout-sm="column" layout-md="column" layout-gt-md="row">
+    {{#each postBlocks.secondary }}
+      <div class="post column post-{{ @index }}" flex>
+          {{> inline-post }}
+      </div>
+    {{/each }}
+  </section>
+
+  <section class="posts-tertiary" layout="column">
+    {{#each postBlocks.tertiary }}
+      <div class="post column post-{{ @index }}" flex>
+          {{> inline-post }}
+      </div>
+    {{/each }}
+  </section>
+
+  
+
+
+
+
+</div>
+
+{{!-- <div id="posts" class="posts row">
+    {{#each postBlocks.primary }}
+      <div class="post column small-12 post-{{ @index }}" layout="column">
           {{> inline-post }}
       </div>
     {{/each }}
 
-  <ul class="column medium-block-grid-{{ settings.secondaryPostCount }} post-block-secondary">
+  <ul class="post-block-secondary" layout="row">
     {{#each postBlocks.secondary }}
         <li class="post post-{{ @index }}">
           {{> inline-post }}
@@ -46,7 +78,7 @@
 
   </div>
 {{/if }}  
-  <ul class="post-block-tertiary column small-12 medium-8">
+  <ul class="post-block-tertiary column small-12 medium-8" layout="column">
     {{#each postBlocks.tertiary }}
         <li class="post post-{{ @index }}">
           {{> inline-post }}
@@ -57,3 +89,4 @@
   {{> prev-next }}
 
 </div>
+ --}}

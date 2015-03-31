@@ -1,0 +1,65 @@
+// Weights
+
+.headline {
+  @extend .font-secondary;
+
+  font-weight: 700;
+
+  &.tight {
+    letter-spacing: -3px;
+  }
+}
+
+.lightest {
+  font-weight: 100;
+}
+
+.light {
+  font-weight: 300;
+}
+
+.book {
+  font-weight: 500;
+}
+
+.bold, strong {
+  font-weight: 700;
+}
+
+// Transforms
+
+.uppercase {
+  text-transform: uppercase;
+}
+
+.lowercase {
+  text-transform: lowercase;
+}
+
+.capitalize {
+  text-transform: capitalize;
+}
+
+.undecorated {
+  text-decoration: none;
+  color: inherit;
+}
+
+// Alignments
+
+.text-left {
+  text-align: left;
+}
+
+.text-left-important {
+  text-align: left !important;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.text-right-important {
+  text-align: right !important;
+}
+

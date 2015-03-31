@@ -24,6 +24,22 @@ $colors:
   facebook #3b5998,
   google-plus #dd4B39,
 
+  facebook #3b5998,
+  twitter #4099ff,
+  google-plus #dd4B39,
+  youtube #bb0000,
+  linkedin #007bb6,
+  instagram #517fa4,
+  pinterest #cb2027,
+  vine #00bf8f,
+  snapchat #fffc00,
+  quora #a82400,
+  flickr #ff0084,
+  tumblr #32506d,
+  vk #34558e,
+  vimeo #aad450,
+  foursquare #0072b1,
+
   notify #076391,
   error #A00934,
   success #4A910A,
@@ -42,6 +58,7 @@ $colors:
   .background-#{nth($color, 1)}-important {
     background-color : nth($color, 2) !important;
   }
+
 }
 
 // Text colors.

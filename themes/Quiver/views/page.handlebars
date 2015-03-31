@@ -1,9 +1,95 @@
-{{#if post.keyImage }}
-  <div class="full-bleed blurred">
-    <img src="{{s3 post.keyImage.Key }}"/>
+<div id="page" class="constrained">
+  <section class="margin-vertical-medium" layout="column" layout-align="start start">
+    <div layout-sm="column" layout-gt-sm="row" layout-fill layout-padding style="min-height: 6rem;">
+      <div flex="65" layout="column" layout-align="space-between">
+        <h2 class="headline uppercase tight text-x-large" flex>
+          <a class="undecorated" href="/{{ post.slug }}">{{ post.title }}</a>
+        </h2>
+        
+        <div flex layout="column">
+          <div layout="row">
+            <div layout="column" layout-align="space-between" style="min-height: 2rem;">
+              <span class="headline uppercase text-secondary0">{{ post.author.name }}</span>
+              <span class="text-small">{{calendar post.published.published}}</span>
+            </div>
+            
+            <div class="social-buttons padding-horizontal-large" layout="row" layout-align="left">
+              <md-button class="md-fab md-primary" flex ng-href="/{{ post.slug }}">
+                <span data-disqus-identifier="{{ post.slug }}"></span>
+                <i class="mdi-editor-mode-comment"></i>
+              </md-button>
+              <md-button class="md-fab twitter" flex ng-href="https://twitter.com/{{ post.author.twitter }}" target="_blank">
+                <i class="qv qv-twitter"></i>
+              </md-button>
+              <md-button class="md-fab instagram" flex href="https://instagram.com/{{ post.author.instagram }}" target="_blank">
+                <i class="qv qv-instagram"></i>
+              </md-button>
+              <md-button class="md-fab md-secondary" flex ng-href="mailto:{{ post.author.email }}">
+                <i class="mdi-communication-email"></i>
+              </md-button>
+            </div>
+
+          </div>
+          
+        </div>
+
+      </div>
+      
+
+      <div flex layout-align="right">
+        <md-card class="margin-zero">
+          <md-card-content>
+            <h6 class="headline" style="margin-bottom: 1rem;">Share</h6>
+            <div class="social-buttons" layout="row" layout-align="space-between" layout-wrap>
+              <md-button class="md-fab twitter" ng-href="http://twitter.com/share?text={{ post.title }}&url={{ post.url }}">
+                <i class="qv qv-twitter"></i>
+              </md-button>
+              <md-button class="md-fab facebook" ng-href="https://www.facebook.com/sharer/sharer.php?u={{ post.url }}">
+                <i class="qv qv-instagram"></i>
+              </md-button>
+              <md-button class="md-fab google-plus" ng-href="https://plus.google.com/share?url={{ post.url }}">
+                <i class="qv qv-google-plus"></i>
+              </md-button>
+              <md-button class="md-fab md-secondary" ng-href="mailto:?subject={{ post.title }}&body={{ post.url }}">
+                <i class="mdi-communication-email"></i>
+              </md-button>
+            </div>
+
+          </md-card-content>
+
+        </md-card>
+
+      </div>
+    </div>
+        
+  </section>
+
+  <md-divider style="margin-top: 1rem;"></md-divider>
+
+  <div>
+    <section layout="column" layout-padding>
+      <div class="markdown" flex>
+        {{markdown post.published.markdown }}
+      </div>
+      
+    </section>
   </div>
-{{/if}}
-<div id="page" class="row">
+
+
+  <section>
+    {{#if env.disqus.shortname }}
+      <md-card>
+        <md-card-content>
+          {{> disqus }}
+        </md-card-content>
+      </md-card>
+    {{/if }}
+
+  </section>
+
+</div>
+
+{{!-- <div id="page" class="row">
   <div class="post column small-12">
       <h3 class="post-title font-flair">
           <a class="link-primary0" href="/{{ post.slug }}">{{ post.title }}</a>
@@ -80,3 +166,4 @@
     </div>
 
 {{/if }}
+ --}}

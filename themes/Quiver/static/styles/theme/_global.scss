@@ -1,20 +1,13 @@
-.font-flair {
-  @extend .font-secondary;
-
-  font-weight: 700;
+button, select, html, textarea, input {
+  @extend .font-primary;
 }
 
-// Text Transforms
-.uppercase {
-  text-transform: uppercase;
+a {
+  color: inherit;
 }
 
-.lowercase {
-  text-transform: lowercase;
-}
-
-.capitalize {
-  text-transform: capitalize;
+.clearfix {
+  @include clearfix;
 }
 
 .cursor-pointer {
@@ -98,5 +91,14 @@ video, img {
 .markdown {
   ul, li {
     list-style-type: initial;
+    margin: 0 0 1rem 1rem;
   }
+
+  a, a:visited {
+    color: inherit;
+  }
+}
+
+figure img {
+  max-width: 100px;
 }

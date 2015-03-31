@@ -1,4 +1,233 @@
-<div class="row padding-large" itemscope itemtype="http://schema.org/Product">
+<section class="constrained" layout="row" layout-align="start center" layout-fill style="margin-bottom: 1rem;">
+  {{#if breadcrumbs}}
+    {{#each breadcrumbs}}
+      <md-button ng-href="{{ href }}">{{ text }}</md-button>
+    {{/each }}
+  {{/if }}
+  {{#if title}}
+    <md-button ng-disabled="true">{{ title }}</md-button>
+  {{/if }}
+</section>
+
+<section class="constrained">
+  <div>
+    <md-card>
+      <div layout="row" layout-wrap layout-fill>
+        {{#if product.featuredImage }}
+          
+          <div flex="100">
+            {{#if product.featuredImage.Versions.small.Key }}
+              <img src="{{s3 product.featuredImage.Versions.medium.Key }}" alt="{{deSlug product.featuredImage.Name }}"/>
+
+            {{ else }}
+              <img src="{{s3 product.featuredImage.Key }}" alt="{{deSlug product.featuredImage.Name }}"/>
+              
+            {{/if }}
+          </div>
+        {{/if }}
+
+        {{#if product.images }}
+          {{#each product.images }}
+            <div flex="33">
+              <img src="{{s3 this.Versions.small.Key }}" alt="{{deSlug this.Name  }}"/>
+            </div>
+          {{/each }}
+        {{/if }}
+      </div>
+
+      <md-card-content>
+        <div layout="row" layout-align="start center" layout-padding style="min-height: 5rem;">
+          <h5 class="headline uppercase margin-horizontal-x-small">
+            {{ product.title }}
+          </h5>
+          <strong class="headline margin-horizontal-small md-hue-2">
+            $<span ng-show="getPriceAdjusted('{{ product.slug }}')" ng-bind="getPriceAdjusted('{{ product.slug }}')"></span><span ng-hide="getPriceAdjusted('{{ product.slug }}')">{{ product.price }}</span>
+          </strong>
+
+          <span flex></span>
+
+          <md-button class="md-fab md-hue-2" ng-show="$storage.cart.productCount">
+            <a class="undecorated" href="/app/cart">
+              <span class="headline" ng-bind="$storage.cart.productCount"></span>
+              <i class="mdi-action-shopping-cart" style="position: relative; top: 1px;"></i>
+            </a>
+          </md-button>
+        </div>
+        <md-divider class="margin-vertical-medium"></md-divider>
+        <div layout layout-align="space-between start">
+          {{#if useInventoryMatrix }}
+            {{#if product.optionsMatrix }}
+              <form name="optionsForm" layout="row" layout-fill layout-padding layout-wrap>
+                {{#each product.optionGroups }}
+                  <md-select class="margin-zero" flex placeholder="{{ this.name }}" ng-model="options['{{ @key }}']" ng-change="updateOptions('{{ ../product.slug }}', options)" required>
+                      {{#each this.options}}
+                        <md-option value="{{ @index }}">
+                          {{ this.name }}
+                        </md-option>
+                      {{/each }}
+
+                  </md-select>
+                {{/each }}
+                <div flex layout layout-align="start center">
+                  <div ng-if="optionsMatrixSelected">
+                    <div ng-show="optionsMatrixSelected.inStock">
+                      <span>In Stock</span>
+                      <span ng-show="optionsMatrixSelected.inventory">
+                        : <span ng-bind="optionsMatrixSelected.inventory"></span>
+                      </span>
+                    </div>
+                    <div ng-show="!optionsMatrixSelected.inStock">
+                      <span>Out of Stock</span>
+                    </div>
+                  </div>
+                  <div ng-if="!optionsMatrixSelected">
+                    Please select options
+                  </div>
+                </div>
+                <md-button class="md-raised md-primary" flex ng-hide="inCart('{{ product.slug }}')" ng-click="addToCart('{{ product.slug }}')" ng-disabled="optionsForm.$invalid && optionsMatrixSelected.inStock" style="max-width: 10rem;">Add to Cart</md-button>
+                <md-button class="md-raised md-warn" flex ng-show="inCart('{{ product.slug }}')" ng-click="removeFromCart('{{ product.slug }}')" style="max-width: 10rem;">Remove from Cart</md-button>
+              </form>
+              
+            {{ else }}
+              {{!-- This block should never be hit... but I wrote it at one point, so maybe there's a reason for it??? --}}
+              <div flex flex-order="2" layout="column" layout-align="start end" layout-padding layout-wrap>
+
+                {{#if inStock }}
+                  <div flex class="bold">
+                    In Stock: {{ product.inventory }}
+                  </div>
+
+                  <md-button class="md-raised md-primary" flex ng-hide="inCart('{{ product.slug }}')" ng-click="addToCart('{{ product.slug }}')">Add to Cart</md-button>
+                  <md-button class="md-raised" flex ng-show="inCart('{{ product.slug }}')" ng-click="removeFromCart('{{ product.slug }}')">Remove from Cart</md-button>  
+                {{ else }}
+                  <md-button class="md-raised" flex disabled="true">Out of Stock</md-button>
+                {{/if }}
+
+              </div>
+            {{/if }}
+          {{ else }}
+            <div flex flex-order="2" layout="column" layout-align="start end" layout-padding layout-wrap>
+
+              {{#if inStock }}
+                <div flex class="bold">
+                  In Stock: {{ product.inventory }}
+                </div>
+
+                <md-button class="md-raised md-primary" flex ng-hide="inCart('{{ product.slug }}')" ng-click="addToCart('{{ product.slug }}')">Add to Cart</md-button>
+                <md-button class="md-raised" flex ng-show="inCart('{{ product.slug }}')" ng-click="removeFromCart('{{ product.slug }}')">Remove from Cart</md-button>  
+              {{ else }}
+                <md-button class="md-raised" flex disabled="true">Out of Stock</md-button>
+              {{/if }}
+
+            </div>
+          {{/if }}
+
+          {{#if product.shipped }}
+
+            <div flex flex-order="1" layout="column" layout-align="start start" layout-padding layout-wrap>
+              <strong class="bold" flex>Shipping Details</strong>
+              <div flex>
+                Domestic: 
+                {{#if product.shipping.domesticBase }}
+                  {{#if product.shipping.domesticIncremental}}
+                    ${{ product.shipping.domesticBase }} + ${{ product.shipping.domesticIncremental }} per unit
+                  {{ else }}
+                    ${{ product.shipping.domesticBase }}
+                  {{/if }}
+
+                {{ else }}
+                  {{#if product.shipping.domesticIncremental}}
+                    ${{ product.shipping.domesticIncremental }} per unit
+                  {{ else }}
+                  free
+                  {{/if }}
+                {{/if }}
+              </div>
+              <div flex>
+                International: 
+                {{#if product.shipping.internationalAllowed}}
+                  {{#if product.shipping.internationalBase }}
+                    {{#if product.shipping.internationalIncremental}}
+                      ${{ product.shipping.internationalBase }} + ${{ product.shipping.internationalIncremental }} per unit
+                    {{ else }}
+                      ${{ product.shipping.internationalBase }}
+                    {{/if }}
+
+                  {{ else }}
+                    {{#if product.shipping.internationalIncremental}}
+                      ${{ product.shipping.internationalIncremental }} per unit
+                    {{ else }}
+                      free
+                    {{/if }}
+                  {{/if }}
+
+                {{ else }}
+                  No international shipping
+                {{/if }}
+              </div>
+            </div>
+            
+          {{/if }}
+        </div>
+
+      
+      </md-card-content>
+    </md-card>
+    
+  </div>
+  
+  <div class="padding-vertical-large">
+    <div class="markdown">
+      {{markdown product.description.markdown }}
+    </div>
+
+    <md-divider class="margin-vertical-x-large"></md-divider>
+
+    <div class="inline-list commas" layout="row" layout-align="end center" layout-padding layout-wrap>
+      {{#each product.hashtags }}
+        <a href="/products/{{ this.key }}">#{{ this.value }}</a>
+      {{/each }}
+    </div>
+    
+    
+  </div>
+  
+
+
+  {{!-- <md-grid-list md-cols-sm="1" md-cols-md="2" md-cols="4" md-row-height="fit">
+    {{#if product.featuredImage }}
+      <md-grid-tile md-colspan-sm="1" md-colspan-md="2" md-colspan-lg="4">
+        {{#if product.featuredImage.Versions.small.Key }}
+          <div style="height: 100px; width: 100px;">
+            <img src="{{s3 product.featuredImage.Versions.medium.Key }}" alt="{{deSlug product.featuredImage.Name }}"/>
+          </div>
+
+        {{ else }}
+          <div style="height: 100px; width: 100px;">
+            test
+            <img src="{{s3 product.featuredImage.Key }}" alt="{{deSlug product.featuredImage.Name }}"/>
+          </div>
+          
+        {{/if }}
+      </md-grid-tile>
+    {{/if }}
+
+    {{#if product.images }}
+      {{#each product.images }}
+        <md-grid-tile md-colspan="1">
+          <div>
+            <img src="{{s3 this.Versions.small.Key }}" alt="{{deSlug this.Name  }}"/>
+          </div>
+          
+        </md-grid-tile>
+      {{/each }}
+      
+    {{/if }}
+  </md-grid-list> --}}
+  
+</section>
+
+{{!-- <div class="row padding-large" itemscope itemtype="http://schema.org/Product">
   <div class="column small-12">
     <ul class="inline-list slashes no-margin margin-horizontal-zero-important margin-vertical-small-important">
       {{#if breadcrumbs}}
@@ -168,7 +397,7 @@
 
   </div>
 
-</div>
+</div> --}}
 
 <script>
   (function () {
@@ -178,7 +407,7 @@
     localStorage.setItem(name, JSON.stringify(product));
     setTimeout(function () {
       angular.element($(document.body)).scope().logProductImpression(product);  
-    });
+    }, 500);
     
   })();
 
