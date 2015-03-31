@@ -105,8 +105,6 @@ angular.module('quiverCmsApp')
     /*
      * Product Options Matrix
     */
-    var productOptionsMatrix = productOptionsMatrix;
-
     productOptionsMatrix.$bindTo($scope, 'productOptionsMatrix');
 
     var updateMatrix = function (optionGroups) {
@@ -184,6 +182,7 @@ angular.module('quiverCmsApp')
           $scope.productOptionsMatrix[keys[j]].slug = matrix[keys[j]].slug;
           $scope.productOptionsMatrix[keys[j]].shipped = matrix[keys[j]].shipped;
           $scope.productOptionsMatrix[keys[j]].priceDifference = matrix[keys[j]].priceDifference;
+          $scope.productOptionsMatrix[keys[j]].inStock = typeof $scope.productOptionsMatrix[keys[j]].inventory !== 'number' || $scope.productOptionsMatrix[keys[j]].inventory > 0;
         }
 
       }
@@ -276,7 +275,7 @@ angular.module('quiverCmsApp')
       $scope.productOptionGroups.$save(index).then(function () {
         updateMatrix($scope.productOptionGroups);
       });
-    }
+    };
 
     /*
      * localStorage
