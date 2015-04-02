@@ -26,6 +26,10 @@ a {
   display: none;
 }
 
+.invisible {
+  visibility: hidden;
+}
+
 .disabled, [disabled] {
   cursor: default;
   pointer-events: none;

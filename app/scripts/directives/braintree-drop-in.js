@@ -8,7 +8,7 @@
  */
 angular.module('quiverCmsApp')
   .directive('braintreeDropIn', function (CommerceService, NotificationService, $compile) {
-  	var template = '<form id="checkout" name="braintreeDropIn"><div id="dropin"></div><button class="small small-12 text-x-medium-important margin-zero-important" ng-disabled="disabled">Add Payment Method</button></form>';
+  	var template = '<form id="checkout" class="text-left" name="braintreeDropIn"><div id="dropin"></div><md-button class="md-raised md-primary" ng-disabled="disabled">Add Payment Method</md-button></form>';
     return {
       restrict: 'EA',
       scope: {

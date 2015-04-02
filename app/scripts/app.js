@@ -13,7 +13,8 @@ angular.module('quiverCmsApp', [
   'ngStorage',
   'flow',
   'angular-google-analytics',
-  'wu.packery'
+  'wu.packery',
+  'ngMaterial'
 ]).run(function ($rootScope, $state, Restangular, NotificationService, env, Analytics, qvAuth, AdminService, $localStorage, $timeout) {
     var stateChangeSuccessOff,
     handleStateChangeSuccess = function () {
@@ -58,7 +59,7 @@ angular.module('quiverCmsApp', [
       NotificationService.error('Server Unresponsive', 'The server could not be reached at ' + env.api + '. Try reloading the page or come back later.');
     });
 
-}).config(function ($locationProvider, $stateProvider, $urlRouterProvider, AngularFireAuthenticationProvider, quiverUtilitiesProvider, RestangularProvider, flowFactoryProvider, AnalyticsProvider) {
+}).config(function ($locationProvider, $stateProvider, $urlRouterProvider, AngularFireAuthenticationProvider, quiverUtilitiesProvider, RestangularProvider, flowFactoryProvider, AnalyticsProvider, $mdThemingProvider) {
     /*
      * HTML5 Mode
     */
@@ -74,7 +75,7 @@ angular.module('quiverCmsApp', [
     /*
      * Configure Notifications
     */
-    quiverUtilitiesProvider.setNotificationConfig({duration: 4000, enabled: true});
+    quiverUtilitiesProvider.setNotificationConfig(window.envVars.notification);
 
     /*
      * Configure Environment
@@ -104,6 +105,13 @@ angular.module('quiverCmsApp', [
       AnalyticsProvider.delayScriptTag(true);
       AnalyticsProvider.useEnhancedLinkAttribution(true);
     }
+
+    /*
+     * Angular Material
+     */
+    _.each(window.envVars.themes, function (theme) {
+      $mdThemingProvider.theme(theme.name).primaryPalette(theme.primaryPalette.name, theme.primaryPalette.options).accentPalette(theme.accentPalette.name, theme.accentPalette.options);  
+    });
 
 
     /*
@@ -156,8 +164,8 @@ angular.module('quiverCmsApp', [
       .state('master.nav', {
         abstract: true,
         views: {
-          nav: {
-            templateUrl: 'views/drawer-nav.html'
+          sidenavLeft: {
+            templateUrl: 'views/sidenav-left.html'
           },
           body: {
             templateUrl: 'views/body.html'
@@ -258,8 +266,8 @@ angular.module('quiverCmsApp', [
       .state('authenticated.master.nav', {
         abstract: true,
         views: {
-          nav: {
-            templateUrl: 'views/drawer-nav.html',
+          sidenavLeft: {
+            templateUrl: 'views/sidenav-left.html',
             controller: 'NavCtrl',
             resolve: {
               subscriptions: function (UserService, user) {
@@ -435,8 +443,8 @@ angular.module('quiverCmsApp', [
       .state('authenticated.master.admin', { // ************************************  Admin ****************************
         url: '/admin',
         views: {
-          nav: {
-            templateUrl: 'views/drawer-admin-nav.html'
+          sidenavLeft: {
+            templateUrl: 'views/sidenav-left-admin.html'
           },
           body: {
             templateUrl: 'views/body.html',

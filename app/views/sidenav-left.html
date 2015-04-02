@@ -1,0 +1,116 @@
+<md-content role="navigation">
+  <section ng-show="currentUser">
+    <md-toolbar>
+      <h5 class="md-toolbar-tools">
+        {{ user.public.name || user.public.email || user.email }}
+      </h5>
+    </md-toolbar>
+    <div layout="column" layout-padding>
+      
+      <span layout="row" flex qv-active ng-show="user.private.isAdmin">
+        <md-button class="text-left" flex layout-fill ui-sref="authenticated.master.admin">
+          <i class="mdi-action-settings-applications"></i> Admin
+        </md-button>
+      </span>
+
+      <span layout="row" flex>
+        <md-button class="text-left" flex ui-sref="authenticated.master.nav.dashboard">
+          <i class="mdi-action-dashboard"></i> Dashboard
+        </md-button>
+      </span>
+
+      <span layout="row" flex>
+        <md-button class="text-left" flex ui-sref="authenticated.master.nav.messages.list">
+          <i class="mdi-communication-message"></i> Messages
+        </md-button>
+      </span>      
+
+      <span layout="row" flex qv-active>
+        <md-button class="text-left" flex layout-fill ui-sref="authenticated.master.nav.account">
+          <i class="mdi-action-account-box"></i> Account
+        </md-button>
+      </span>
+
+      <span layout="row" flex qv-active>
+        <md-button class="text-left" flex layout-fill ng-click="logOut()" ui-sref="authenticated.master.nav.dashboard">
+          <i class="mdi-action-exit-to-app"></i> Log Out
+        </md-button>
+      </span>
+
+    </div>
+    
+    
+  </section>
+
+  <section ng-if="subscriptions">
+    <md-toolbar>
+      <h5 class="md-toolbar-tools">
+        Subscriptions
+      </h5>
+    </md-toolbar>
+    <div layout="column" layout-padding>
+
+      <span layout="row" flex qv-active ng-repeat="subscription in subscriptions">
+        <md-button class="text-left" flex layout-fill ui-sref="authenticated.master.nav.subscription.page({subscriptionKey: subscription.$id, pageNumber: $storage['bookmark-' + subscription.$id] || 0})">
+          {{ subscription.title }}
+        </md-button>
+      </span>
+
+    </div>
+  </section>
+
+  <section ng-if="settings.app1">
+    <md-toolbar ng-if="settings.app1Title">
+      <h5 class="md-toolbar-tools">
+        {{ settings.app1Title }}
+      </h5>
+    </md-toolbar>
+    <div layout="column" layout-padding>
+
+      <span layout="row" flex qv-active ng-repeat="link in settings.app1">
+        <md-button class="text-left" flex layout-fill ng-href="{{ link.href }}" qv-to-static>
+          {{ link.text }}
+        </md-button>
+      </span>
+
+    </div>
+
+  </section>
+
+  <section ng-if="settings.app2">
+    <md-toolbar ng-if="settings.app2Title">
+      <h5 class="md-toolbar-tools">
+        {{ settings.app2Title }}
+      </h5>
+    </md-toolbar>
+    <div layout="column" layout-padding>
+
+      <span layout="row" flex qv-active ng-repeat="link in settings.app2">
+        <md-button class="text-left" flex layout-fill ng-href="{{ link.href }}" qv-to-static>
+          {{ link.text }}
+        </md-button>
+      </span>
+
+    </div>
+
+  </section>
+
+  <section ng-if="settings.app3">
+    <md-toolbar ng-if="settings.app3Title">
+      <h5 class="md-toolbar-tools">
+        {{ settings.app3Title }}
+      </h5>
+    </md-toolbar>
+    <div layout="column" layout-padding>
+
+      <span layout="row" flex qv-active ng-repeat="link in settings.app3">
+        <md-button class="text-left" flex layout-fill ng-href="{{ link.href }}" qv-to-static>
+          {{ link.text }}
+        </md-button>
+      </span>
+
+    </div>
+
+  </section>
+
+</md-content>

@@ -46,7 +46,7 @@
 
           <span flex></span>
 
-          <md-button class="md-fab md-hue-2" ng-show="$storage.cart.productCount">
+          <md-button class="md-fab md-hue-2" ng-show="$storage.cart.productCount" aria-label="shopping cart">
             <a class="undecorated" href="/app/cart">
               <span class="headline" ng-bind="$storage.cart.productCount"></span>
               <i class="mdi-action-shopping-cart" style="position: relative; top: 1px;"></i>
@@ -84,8 +84,8 @@
                     Please select options
                   </div>
                 </div>
-                <md-button class="md-raised md-primary" flex ng-hide="inCart('{{ product.slug }}')" ng-click="addToCart('{{ product.slug }}')" ng-disabled="optionsForm.$invalid && optionsMatrixSelected.inStock" style="max-width: 10rem;">Add to Cart</md-button>
-                <md-button class="md-raised md-warn" flex ng-show="inCart('{{ product.slug }}')" ng-click="removeFromCart('{{ product.slug }}')" style="max-width: 10rem;">Remove from Cart</md-button>
+                <md-button class="md-raised md-primary" flex ng-hide="inCart('{{ product.slug }}')" ng-click="addToCart('{{ product.slug }}')" ng-disabled="optionsForm.$invalid || optionsMatrixSelected.inStock < 1" style="max-width: 10rem;">Add to Cart</md-button>
+                <md-button class="md-raised" flex ng-show="inCart('{{ product.slug }}')" ng-click="removeFromCart('{{ product.slug }}')" style="max-width: 10rem;">Remove from Cart</md-button>
               </form>
               
             {{ else }}

@@ -1,3 +1,11 @@
+ul, ol {
+  &.padded {
+    > li {
+      padding: .5rem 1rem;
+    }
+  }
+}
+
 .inline-list {
   &> * {
     margin-left: 1rem;

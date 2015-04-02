@@ -177,7 +177,7 @@ module.exports = function (grunt) {
       app: {
         src: '<%= yeoman.app %>/index.html',
         ignorePath: '<%= yeoman.app %>/',
-        exclude: ['lib/foundation', 'lib/font-awesome'],
+        exclude: ['lib/foundation', 'lib/font-awesome', 'lib/materialize'],
         fileTypes: {
           html: {
             replace: {

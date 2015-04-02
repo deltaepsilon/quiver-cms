@@ -1,0 +1,14 @@
+.constrained {
+  max-width: 50rem;
+}
+
+.absolute {
+  position: absolute;
+
+  &.cornered {
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
+}

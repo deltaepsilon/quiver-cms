@@ -1,4 +1,42 @@
-<input id="top-drawer-toggle" class="drawer-toggle" type="checkbox">
-<nav id="drawer" class="drawer-nav left-nav" ui-view="nav"></nav>
-<div id="drawer-body" class="drawer-nav-body left-nav" ui-view="body" style="visibility: none;" qv-background-image="settings.loginImage" states="['master.nav.login', 'master.nav.register', 'master.nav.reset']" qv-full-page="0"></div>
-<div id="drawer-footer" class="drawer-nav-footer left-nav" ui-view="footer" qv-display style="opacity: 0;"></div>
+<md-toolbar layout="row">
+  <button ng-click="toggleSidenav('left')" hide-gt-md class="md-button" tabindex="0">
+    <i class="mdi-action-subject"></i>
+  </button>
+  <div class="md-toolbar-tools">
+    <div layout="row" flex class="fill-height">
+      <h1 layout-align="left" class="headline">
+        <a href="{{ env.root }}" qv-to-static ng-show="settings">{{ settings.siteTitle || 'Quiver CMS' }}</a>
+      </h1>
+
+      <span flex></span>
+
+      <div layout-align="right" class="md-toolbar-item" ng-show="$storage.cart.productCount">
+        <a class="md-button" href="/app/cart">
+          <span class="headline" ng-bind="$storage.cart.productCount"></span>
+          <i class="mdi-action-shopping-cart" style="position: relative; top: 1px;"></i>
+        </a>
+      </div>
+
+      <div layout-align="right" class="md-toolbar-item" ng-show="!currentUser">
+        <a class="md-button" ui-sref="master.nav.login">
+          <i class="mdi-action-input"></i> &nbsp;Login        
+        </a>
+        <a class="md-button" ui-sref="master.nav.register">
+          &nbsp;Register
+        </a>
+      </div>
+
+    </div>
+
+  </div>
+</md-toolbar>
+
+<div layout="row" flex>
+  
+  <md-sidenav layout="column" class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')" ui-view="sidenavLeft"></md-sidenav>
+  <div layout="column" flex id="content" layout-align="start center">
+    <md-content flex class="md-padding" layout="row" layout-align="center start" layout-fill ui-view="body" qv-background-image="settings.loginImage" states="['master.nav.login', 'master.nav.register', 'master.nav.reset']"></md-content>
+
+  </div>
+
+</div>

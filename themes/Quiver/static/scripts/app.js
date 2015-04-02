@@ -5,7 +5,7 @@ angular.module('QuiverCMS', ['ngStorage', 'quiver.angular-utilities', 'quiver.an
     /*
      * Configure Notifications
     */
-    quiverUtilitiesProvider.setNotificationConfig({duration: 4000, enabled: true});
+    quiverUtilitiesProvider.setNotificationConfig(window.envVars.notification);
 
     /*
      * Configure Environment
@@ -31,9 +31,10 @@ angular.module('QuiverCMS', ['ngStorage', 'quiver.angular-utilities', 'quiver.an
     /*
      * Angular Material
      */
-    $mdThemingProvider.theme('default').primaryPalette('blue-grey', {
-      'default': '900'
-    }).accentPalette('pink',{});
+    _.each(window.envVars.themes, function (theme) {
+      $mdThemingProvider.theme(theme.name).primaryPalette(theme.primaryPalette.name, theme.primaryPalette.options).accentPalette(theme.accentPalette.name, theme.accentPalette.options);  
+    });
+    
 
   })
   // .run()
@@ -300,6 +301,11 @@ angular.module('QuiverCMS', ['ngStorage', 'quiver.angular-utilities', 'quiver.an
       } else {
         delete product.priceAdjusted;
       }
+
+      if (product.optionsMatrixSelected) {
+        product.optionsMatrixSelected.inStock = typeof product.optionsMatrixSelected.inventory === 'number' ? product.optionsMatrixSelected.inventory > 0 : true;  
+      }
+      
 
       $scope.optionsMatrixSelected = product.optionsMatrixSelected;
       console.log('optionsMatrixSelected', $scope.optionsMatrixSelected);

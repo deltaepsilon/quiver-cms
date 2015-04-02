@@ -25,17 +25,17 @@
           <div flex></div>
           
           <div class="social-buttons" layout-align="right" layout="row">
-            <md-button class="md-fab md-primary" ng-href="/{{ slug }}">
+            <md-button class="md-fab md-primary" ng-href="/{{ slug }}" aria-label="post comments">
               <span data-disqus-identifier="{{ slug }}"></span>
               <i class="mdi-editor-mode-comment"></i>
             </md-button>
-            <md-button class="md-fab twitter" ng-href="https://twitter.com/{{ author.twitter }}" target="_blank">
+            <md-button class="md-fab twitter" ng-href="https://twitter.com/{{ author.twitter }}" target="_blank" aria-label="author twitter">
               <i class="qv qv-twitter"></i>
             </md-button>
-            <md-button class="md-fab instagram" href="https://instagram.com/{{ author.instagram }}" target="_blank">
+            <md-button class="md-fab instagram" href="https://instagram.com/{{ author.instagram }}" target="_blank" aria-label="author instagram">
               <i class="qv qv-instagram"></i>
             </md-button>
-            <md-button class="md-fab md-secondary" ng-href="mailto:{{ author.email }}">
+            <md-button class="md-fab md-secondary" ng-href="mailto:{{ author.email }}" aria-label="author email">
               <i class="mdi-communication-email"></i>
             </md-button>
           </div>

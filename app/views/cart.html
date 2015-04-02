@@ -1,209 +1,177 @@
-<div class="column small-12">
-  <h3 class="font-flair padding-large" style="padding-bottom: 0;">Items In Your Cart</h3>
-</div>
+<div layout="column">
+  <h3 class="headline">Items In Your Cart</h3>
 
-<div class="column small-12">
   <form name="cartForm">
-    <fieldset class="border-zero margin-vertical-zero padding-vertical-zero">
-      <ul class="table-list">
-        <li ng-show="!$storage.cart.items.length">
-          <h3 class="font-flair left">Your cart is empty. <span class="text-medium">Add some <a href="/products" qv-to-static>products</a> to check out.</span></h3>
+    <fieldset>
+      <md-whiteframe class="md-whiteframe-z1" layout>
+        <md-list flex ng-if="$storage.cart.items.length">
+          <md-item ng-repeat="product in $storage.cart.items | orderBy:'title'">
+            <md-item-content layout="row" layout-margin>
+              <md-tile-left flex style="max-width: 10rem;">
+                <a flex href="/product/{{ product.slug }}">
+                  <img ng-if="product.featuredImage.Versions.small.Key" ng-src="{{ product.featuredImage.Versions.small.Key | s3Link:files.Name }}" />
+                </a>
 
-        </li>
-        <li class="clearfix" ng-repeat="product in $storage.cart.items | orderBy:'title'">
+              </md-tile-left>
+              <md-tile-content flex layout="row" layout-align="end" layout-wrap>
+                <div flex="100" layout="row" layout-align="start space-between">
+                  <div flex>
+                    <h4 class="headline uppercase">
+                      <a href="/product/{{ product.slug }}" qv-to-static>{{ product.title }}</a>
+                    </h4>
+                    <strong ng-if="product.optionsMatrixSelected">
+                      {{ product.optionsMatrixSelected.name }}
+                    </strong>
+                  </div>
 
-          <!-- <div class="column small-12 padding-zero-important" ng-hide="$index === 0">
-            <hr class="margin-zero">
-          </div> -->
+                  <md-button class="md-raised md-warn" flex ng-click="removeFromCart(product)" style="max-width: 3rem; max-height: 2rem;">
+                    <i class="mdi-action-delete" aria-label="Remove from cart"></i>
+                  </md-button>
+                </div>
 
+                <!-- <div style="height: 2rem; overflow: auto;">
+                  <div class="markdown" markdown-editable ng-model="product.description.excerpt">{{ product.description.excerpt }}</div>
+                </div> -->
 
+                <div flex="100" flex-gt-sm="50" layout="row" layout-align="start center" layout-wrap layout-padding>
+                  
+                  <span flex="25" flex-gt-sm="50">
+                    <span>Quantity</span>
+                    <span class="text-x-small" ng-if="product.optionsMatrixSelected.inventory">({{ product.optionsMatrixSelected.inventory }} available)</span>
+                  </span>
+                  <span flex="75" flex-gt-sm="50" layout="row" layout-align="space-between center">
+                    <md-button class="md-raised margin-horizontal-x-small" hide-sm flex ng-click="product.quantity = product.quantity + 1; updateCart();" ng-disabled="product.maxQuantity && product.quantity >= product.maxQuantity;" style="max-width: 3rem">
+                      <i class="mdi-image-exposure-plus-1" aria-label="Add to quantity"></i>
+                    </md-button>
+                    <md-button class="md-raised margin-horizontal-x-small" hide-sm flex ng-click="product.quantity = product.quantity - 1; updateCart();" ng-disabled="product.quantity < 1" style="max-width: 3rem">
+                      <i class="mdi-image-exposure-minus-1" aria-label="Remove from quantity"></i>
+                    </md-button>
 
-          <hr>
-          
-          <div class="column small-12 medium-2 padding-vertical-medium">
-            <a href="/product/{{ product.slug }}">
-              <img ng-if="product.featuredImage.Versions.small.Key" ng-src="{{ product.featuredImage.Versions.small.Key | s3Link:files.Name }}" />
-            </a>
-          </div>
-          
-          <div class="column small-12 medium-10">
+                    <md-input-container flex class="padding-zero">
+                      <input id="product-{{$index}}" class="text-right" flex type="number" ng-model="product.quantity" min="1" max="{{ product.maxQuantity }}" ng-blur="updateCart()" qv-select-text="#product-{{$index}}" placeholder="#">
+                    </md-input-container>
 
-            <div class="column small-12 medium-6">
-              <h5 class="font-flair">
-                <a class="left padding-vertical-small link-secondary0" href="/product/{{ product.slug }}" qv-to-static>{{ product.title }}</a>
-              </h5>
+                  </span>
 
-            </div>
-            <div class="column small-12 medium-6">
-              <div class="left padding-vertical-small">{{ product.priceAdjusted || product.price | currency }}</div>
-              <input id="product-{{$index}}" class="left margin-vertical-zero-important margin-horizontal-small-important text-small-important" style="height: 2.1rem; width: 3rem; position: relative; top: 7px;" type="number" ng-model="product.quantity" min="1" max="{{ product.maxQuantity }}" ng-blur="updateCart()" qv-select-text="#product-{{$index}}" placeholder="#">
-              <div class="right padding-vertical-small"><strong>{{ (product.priceAdjusted || product.price) * product.quantity | currency }}</strong></div>
-            </div>
+                  <span flex="50">Price</span>
+                  <span flex="50" class="text-right padding-horizontal-small">
+                    {{ product.priceAdjusted || product.price | currency }}
+                  </span>
 
+                  <span flex="50">Total</span>
+                  <span flex="50" class="text-right padding-horizontal-small">
+                    <strong>{{ (product.priceAdjusted || product.price) * product.quantity | currency }}</strong>
+                  </span>
 
+                </div>
 
-            <hr class="margin-zero">
+              </md-tile-content>
+            </md-item-content>
+            <md-divider ng-if="!$last"></md-divider>
+          </md-item>
+        </md-list>
 
-          </div>
+        <div class="text-center" flex layout="row" layout-align="center center" ng-if="!$storage.cart.items.length">
+          <h3 class="Headline">Your cart is empty. <span class="text-medium">Add some <a href="/products" qv-to-static>products</a> to check out.</span></h3>
+        </div>
+        
 
-
-          <div class="column small-12 medium-10 padding-vertical-small">
-
-            <div class="column small-12 text-small left"  ng-show="product.optionsMatrixSelected">
-
-                <ul class="text-small inline-list dots left strong">
-                  <li>{{ product.optionsMatrixSelected.name }}</li>
-                  <!-- <li ng-show="product.optionsMatrixSelected.priceDifference">
-                    Price Difference: {{ product.optionsMatrixSelected.priceDifference | currency }}
-                  </li> -->
-                  <li ng-if="product.optionsMatrixSelected.inventory">{{ product.optionsMatrixSelected.inventory }} Available</li>
-                </ul>
-
-                <a class="text-small right" ng-click="removeFromCart(product)">Remove</a>
-
-            </div>
-
-            <div class="column small-12 medium-8 padding-vertical-small">
-              <div class="markdown text-x-small" markdown-editable ng-model="product.description.excerpt">{{ product.description.excerpt }}</div>
-            </div>
-
-            <div class="column small-12 medium-4 padding-vertical-small" ng-hide="product.optionsMatrixSelected">
-              <a class="text-small right" ng-click="removeFromCart(product)">Remove</a>
-            </div>
-
-
-
-          </div>
-
-
-
-        </li>
-      </ul>
+      </md-whiteframe>
 
     </fieldset>
 
   </form>
 
+</div>
+
+<div class="column small-12">
+  <h3 class="headline">Calculate Shipping and Tax</h3>
+  
   <form name="checkoutForm" ng-show="$storage.cart.items.length">
     <fieldset>
+      <md-whiteframe class="md-whiteframe-z0" layout>
+        <div layout="row" layout-padding layout-align="start start">
+          <md-whiteframe class="md-whiteframe-z2" flex layout="column" layout-align="center center" layout-padding layout-margin>
+            <md-select id="address-country" flex="50" ng-model="$storage.address.country" ng-change="updateAddress()" placeholder="Select country...">
+              <md-option value="{{ country['alpha-2'] }}" ng-repeat="country in countries">{{ country.name }}</md-option>
+            </md-select>
 
-      <div class="column small-12 medium-4 medium-offset-2">
-        <div class="column small-12">
-          <h5 class="font-flair text-secondary0">Calculate Shipping and Tax</h5>
-        </div>
+            <md-select id="address-state" flex="50" ng-model="$storage.address.state" ng-change="updateAddress()" placeholder="Select state...">
+              <md-option value="{{ state.abbreviation }}" ng-repeat="state in states">{{ state.name }}</md-option>
+            </md-select>
 
-        <div>
-          <div class="column small-12">
-            <label for="address-country">Country</label>
-            <select id="address-country" ng-model="$storage.address.country" ng-options="country['alpha-2'] as country.name for country in countries" ng-change="updateAddress()">
-              <option value="">Select Country</option>
-            </select>
+          </md-whiteframe>
 
-            <div ng-show="$storage.address.country === 'US'">
-              <label for="address-state">State</label>
-              <select id="address-state" ng-model="$storage.address.state" ng-options="state.abbreviation as state.name for state in states" ng-change="updateAddress()">
-                <option value="">Select State</option>
-              </select>
-            </div>
+          <div flex layout="row" layout-align="space-between center" layout-padding layout-wrap>
 
+            <span flex="100" layout="row" layout-align="space-between center" layout-wrap ng-repeat="code in $storage.cart.codes">
+              <span flex="50">{{ code.code }}</span>
+              <span class="text-right" flex>
+                <md-button ng-show="code.type === 'value'" qv-confirm="removeCode(code.code)" confirmations="['Click to Remove']">{{ code.value | currency }}</md-button>
+                <md-button ng-show="code.type === 'percentage'" qv-confirm="removeCode(code.code)" confirmations="['Click to Remove']">{{ code.percentage }}%</md-button>
+              </span>
+            </span>
+            
+
+            <span flex="50">Subtotal</span>
+            <span class="text-right" flex>{{ $storage.cart.subtotal | currency }}</span>
+
+            <span flex="50" ng-show="$storage.cart.codes.length">Discount</span>
+            <span class="text-right" flex ng-show="$storage.cart.codes.length">{{ -1 * $storage.cart.discount | currency }}</span>
+
+            <span flex="50" ng-show="$storage.cart.shipping">Shipping</span>
+            <span flex="50" ng-show="!$storage.cart.shipping">Free Shipping</span>
+            <span class="text-right" flex>
+              <span ng-show="$storage.address.domestic || $storage.address.international">{{ $storage.cart.shipping | currency }}</span>
+              <a class="text-x-small" qv-focus="#address-country" ng-hide="$storage.address.domestic || $storage.address.international">+ Address</a>
+            </span>
+
+            <span flex="50">Tax</span>
+            <span class="text-right" flex>
+              <span ng-show="$storage.address.tax !== false">{{ $storage.cart.tax | currency }}</span>
+              <a class="text-x-small" qv-focus="#address-country" ng-show="$storage.address.tax === false">+ Address</a>
+            </span>
+
+            <md-divider flex="100"></md-divider>
+
+            <span flex="50">Total</span>
+            <span class="text-right" flex><strong>{{ $storage.cart.total | currency }}</strong></span>
+
+            <span class="padding-zero-important" flex="50">
+              <md-input-container class="padding-zero-important" ng-show="addingCode" style="margin-bottom: -1px;">
+                <label for="discount-code">Discount or gift code</label>
+                <input id="discount-code" class="" type="text" ng-model="discountCode" placeholder="Discount or gift code...">
+              </md-input-container>
+            </span>
+            <span class="padding-zero-important text-right" flex style="padding-top: 17px !important; padding-bottom: 0 !important;">
+              <md-button ng-click="addingCode = true" ng-hide="addingCode">Add Code</md-button>
+              
+              <md-button ng-click="addingCode = false" ng-show="addingCode">X</md-button>
+              <md-button ng-click="addCode(discountCode)" ng-show="addingCode">Add Code</md-button>
+            </span>
+            
+            <span class="text-right" flex="100">
+              <p class="text-x-small text-center" ng-hide="user" style="margin: 1.5rem 0 0;">
+                <a ui-sref="master.nav.login">Log In</a> or <a ui-sref="master.nav.register">Register</a> to check out.
+              </p>
+            </span>
+
+            <span class="text-right" flex="100" layout="row" layout-align="space-between center">
+              <div flex>
+                <md-progress-circular class="invisible" md-mode="indeterminate" qv-loading target="#checkout-button"></md-progress-circular>
+              </div>
+              <md-button id="checkout-button" flex class="md-raised md-primary" ui-sref="authenticated.master.nav.checkout" ng-disabled="checkingOut">
+                To Check Out <i class="mdi-navigation-arrow-forward" style="position: relative; margin-top: 1px;"></i>
+              </md-button>
+              
+            </span>
+            
           </div>
 
         </div>
-
-      </div>
-
-      <div class="column small-12 medium-4">
-        <div class="panel small-12 right background-secondary4 padding-small" style="border: 0;">
-          <ul class="table-list text-small text-right clearfix">
-            <li class="clearfix" ng-show="$storage.cart.codes.length">
-              <ul class="margin-zero-important">
-                <li class="text-x-small" ng-repeat="code in $storage.cart.codes">
-                  <div class="column small-6">{{ code.code }}</div>
-                  <div class="column small-6">
-                    <a ng-show="code.type === 'value'" qv-confirm="removeCode(code.code)" confirmations="['Click to Remove']">{{ code.value | currency }}</a>
-                    <a ng-show="code.type === 'percentage'" qv-confirm="removeCode(code.code)" confirmations="['Click to Remove']">{{ code.percentage }}%</a>
-                  </div>
-                </li>
-
-              </ul>
-
-              
-            </li>
-            <li>
-              <div class="column small-6">Subtotal</div>
-              <div class="column small-6">{{ $storage.cart.subtotal | currency }}</div>
-            </li>
-            <li class="clearfix" ng-show="$storage.cart.codes.length">
-              <div class="column small-6">Discount</div>
-              <div class="column small-6">{{ -1 * $storage.cart.discount | currency }}</div>
-            </li>
-            <li>
-              <div class="column small-6">
-                <span ng-show="$storage.cart.shipping">Shipping</span>
-                <span class="text-secondary0" ng-hide="$storage.cart.shipping">Free Shipping</span>
-              </div>
-              <div class="column small-6">
-                <span ng-show="$storage.address.domestic || $storage.address.international">{{ $storage.cart.shipping | currency }}</span>
-                <a class="text-x-small" qv-focus="#address-country" ng-hide="$storage.address.domestic || $storage.address.international">+ Address</a>
-              </div>
-            </li>
-            <li>
-              <div class="column small-6">Tax</div>
-              <div class="column small-6">
-                <span ng-show="$storage.address.tax !== false">{{ $storage.cart.tax | currency }}</span>
-                <a class="text-x-small" qv-focus="#address-country" ng-show="$storage.address.tax === false">+ Address</a>
-              </div>
-            </li>
-            <li>
-              <hr class="margin-vertical-small">
-            </li>
-            <li class="text-x-medium">
-              <div class="column small-6"><strong>Total</strong></div>
-              <div class="column small-6"><strong>{{ $storage.cart.total | currency }}</strong></div>
-            </li>
-            <li class="clearfix">
-              <div class="column small-12">
-                <a class="text-x-small" ng-click="addingCode = true" ng-hide="addingCode">Add Code</a>
-                <div ng-show="addingCode" style="margin-top: 1rem;">
-                  <input class="" type="text" ng-model="discountCode" placeholder="Discount/Gift code...">
-                  <button class="tiny right" ng-click="addCode(discountCode)">Add</button>
-                  
-                </div>
-              </div>
-              
-            </li>
-
-          </ul>
-
-          <p class="text-x-small text-center" ng-hide="user" style="margin: 1.5rem 0 0;">
-            <a ui-sref="master.nav.login">Log In</a> or <a ui-sref="master.nav.register">Register</a> to check out.
-          </p>
-
-          <div class="margin-vertical-x-medium">
-            <a id="checkout-button" class="button small success small-12 text-x-medium-important margin-zero-important" ui-sref="authenticated.master.nav.checkout" ng-disabled="checkingOut">
-              Check Out
-              <span class="hidden backdrop background-highlight9" qv-loading target="#checkout-button"><img src="/images/ajax-loader.gif" style="margin-top: 1rem;"></span>
-            </a>
-          </div>
-
-          
-
-        </div>
-
-      </div>
-
-
-
-
-
+      <md-whiteframe>
     </fieldset>
 
   </form>
-
-
-
-</div>
-
-<div class="column small-12">
 
 </div>

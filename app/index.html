@@ -14,8 +14,10 @@
       <link rel="icon" type="image/x-icon" href="static/favicon.ico"/>
       <script type="text/javascript" src="//use.typekit.net/bmk8cii.js"></script>
       <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+      <script src="//use.fonticons.com/18aa8882.js"></script>
 
     <!-- bower:css -->
+    <link rel="stylesheet" href="/lib/angular-material/angular-material.css" />
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css({.tmp,app}) styles/main.css -->
@@ -23,8 +25,8 @@
     <!-- endbuild -->
 
   </head>
-  <body style="height: auto; min-height: 100%;" ng-app="quiverCmsApp" flow-prevent-drop>
-    <!--[if lt IE 7]>
+  <body style="height: auto; min-height: 100%;" ng-app="quiverCmsApp" flow-prevent-drop layout="column">
+    <!--[if lt IE 10]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
 
@@ -37,7 +39,7 @@
         <div type-ahead></div>
     </aside>
 
-    <div class="container" ui-view></div>
+    <div flex layout="column" ui-view></div>
 
     <!--Environment Variables-->
     <script src="/api/env.js"></script>
@@ -56,6 +58,9 @@
     <script src="/lib/json3/lib/json3.min.js"></script>
     <script src="/lib/angular-notifications/notification.js"></script>
     <script src="/lib/moment/moment.js"></script>
+    <script src="/lib/angular-animate/angular-animate.js"></script>
+    <script src="/lib/angular-aria/angular-aria.js"></script>
+    <script src="/lib/angular-material/angular-material.js"></script>
     <script src="/lib/quiver-angular-utilities/utilities.js"></script>
     <script src="/lib/fastclick/lib/fastclick.js"></script>
     <script src="/lib/jquery.cookie/jquery.cookie.js"></script>

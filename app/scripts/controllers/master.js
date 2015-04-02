@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('quiverCmsApp')
-  .controller('MasterCtrl', function ($scope, currentUser, env, qvAuth, ObjectService, NotificationService, $state, md5, settings, files, user, AdminService, _, $localStorage, $timeout, moment) {
+  .controller('MasterCtrl', function ($scope, currentUser, env, qvAuth, ObjectService, NotificationService, $state, md5, settings, files, user, AdminService, _, $localStorage, $timeout, moment, $mdSidenav) {
     var loggedOutStates = AdminService.loggedOutStates,
       handleStateChange = function (event, toState, fromState, fromParams) {
         if ($scope.currentUser && ~loggedOutStates.indexOf(toState.name)) { //Protect login/register/reset states from logged-in users
@@ -29,7 +29,12 @@ angular.module('quiverCmsApp')
 
     $scope.setCurrentUser(currentUser);
 
-    
+    /*
+     * Angular Material
+     */
+    $scope.toggleSidenav = function (menuId) {
+      $mdSidenav(menuId).toggle();  
+    };
 
     /*
      * Settings

@@ -112,6 +112,7 @@ angular.module('quiverCmsApp')
         if (item.optionsMatrixSelected) {
           product.optionsMatrixSelected = product.optionsMatrix[item.optionsMatrixSelected.slug];
           product.priceAdjusted = product.price + (product.optionsMatrixSelected.priceDifference || 0);
+          product.optionsMatrixSelected.inStock = typeof product.optionsMatrixSelected.inventory === 'number' ? product.optionsMatrixSelected.inventory > 0 : true;
         }
 
         product.quantity = item.quantity || 0;
@@ -317,7 +318,7 @@ angular.module('quiverCmsApp')
         formattedAddress = {
           recipient: address.recipient,
           email: address.email,
-          phone: address.countryCode + " " + address.phone.replace(/[^\d]/g, ""),
+          phone: (typeof address.countryCodeIndex !== 'undefined' ? $scope.countryCodes[address.countryCodeIndex].key : "") + " " + (address && address.phone ? address.phone.replace(/[^\d]/g, "") : ""),
           sms: address.sms || false,
           street1: address.street1 && address.street1.length ? address.street1 : null,
           street2: address.street2 && address.street2.length ? address.street2 : null,
@@ -475,7 +476,6 @@ angular.module('quiverCmsApp')
 
     $scope.emptyCart = function () {
       delete $scope.$storage.cart;
-
     };
 
     /*
@@ -497,6 +497,15 @@ angular.module('quiverCmsApp')
       }, function (err) {
         NotificationService.error('Card Error', err);
       });
+    };
+
+    $scope.selectFirstPaymentToken = function () {
+      if (user.private.customer.creditCards.length) {
+        $scope.$storage.cart.paymentToken =  user.private.customer.creditCards[0].token;
+      } else if (user.private.customer.paypalAccounts.length) {
+        $scope.$storage.cart.paymentToken = user.private.customer.paypalAccounts[0].token;
+      }
+      
     };
 
     
