@@ -4410,42 +4410,47 @@ a {
 }
 
 /* line 29, ../../../../app/styles/material/_global.scss */
+.invisible {
+  visibility: hidden;
+}
+
+/* line 33, ../../../../app/styles/material/_global.scss */
 .disabled, [disabled] {
   cursor: default;
   pointer-events: none;
 }
-/* line 33, ../../../../app/styles/material/_global.scss */
+/* line 37, ../../../../app/styles/material/_global.scss */
 .disabled a, [disabled] a {
   cursor: default;
   pointer-events: none;
 }
 
-/* line 39, ../../../../app/styles/material/_global.scss */
+/* line 43, ../../../../app/styles/material/_global.scss */
 .disabled {
   opacity: .5;
 }
-/* line 42, ../../../../app/styles/material/_global.scss */
+/* line 46, ../../../../app/styles/material/_global.scss */
 .disabled a {
   opacity: .5;
 }
 
-/* line 48, ../../../../app/styles/material/_global.scss */
+/* line 52, ../../../../app/styles/material/_global.scss */
 a.disabled, a[disabled] {
   cursor: default;
   pointer-events: none;
 }
 
-/* line 54, ../../../../app/styles/material/_global.scss */
+/* line 58, ../../../../app/styles/material/_global.scss */
 .relative {
   position: relative;
 }
 
-/* line 58, ../../../../app/styles/material/_global.scss */
+/* line 62, ../../../../app/styles/material/_global.scss */
 .circle, .delete-button, .social-button {
   border-radius: 50%;
 }
 
-/* line 62, ../../../../app/styles/material/_global.scss */
+/* line 66, ../../../../app/styles/material/_global.scss */
 .delete-button {
   position: absolute;
   top: -0.5rem;
@@ -4455,38 +4460,38 @@ a.disabled, a[disabled] {
   display: block;
   padding: 0rem .5rem;
 }
-/* line 70, ../../../../app/styles/material/_global.scss */
+/* line 74, ../../../../app/styles/material/_global.scss */
 .delete-button .left {
   left: -.5rem;
   right: initial;
 }
 
-/* line 77, ../../../../app/styles/material/_global.scss */
+/* line 81, ../../../../app/styles/material/_global.scss */
 video, img {
   max-width: 100%;
 }
 
-/* line 81, ../../../../app/styles/material/_global.scss */
+/* line 85, ../../../../app/styles/material/_global.scss */
 .social-button {
   padding: .25rem .6rem;
 }
-/* line 85, ../../../../app/styles/material/_global.scss */
+/* line 89, ../../../../app/styles/material/_global.scss */
 .social-button i {
   min-width: 1rem;
   text-align: center;
 }
 
-/* line 92, ../../../../app/styles/material/_global.scss */
+/* line 96, ../../../../app/styles/material/_global.scss */
 .markdown ul, .markdown li {
   list-style-type: initial;
   margin: 0 0 1rem 1rem;
 }
-/* line 97, ../../../../app/styles/material/_global.scss */
+/* line 101, ../../../../app/styles/material/_global.scss */
 .markdown a, .markdown a:visited {
   color: inherit;
 }
 
-/* line 102, ../../../../app/styles/material/_global.scss */
+/* line 106, ../../../../app/styles/material/_global.scss */
 figure img {
   max-width: 100px;
 }
@@ -8286,18 +8291,51 @@ figure img {
   text-align: right !important;
 }
 
-/* line 6, ../../../../app/styles/material/_buttons.scss */
+/* line 11, ../../../../app/styles/material/_buttons.scss */
+.md-button.twitter, .md-fab.twitter {
+  background-color: #4099ff !important;
+}
+/* line 4, ../../../../app/styles/material/_buttons.scss */
+.md-button.twitter:not([disabled]):hover, .md-fab.twitter:not([disabled]):hover {
+  background-color: #0065d9 !important;
+}
+/* line 15, ../../../../app/styles/material/_buttons.scss */
+.md-button.instagram, .md-fab.instagram {
+  background-color: #517fa4 !important;
+}
+/* line 4, ../../../../app/styles/material/_buttons.scss */
+.md-button.instagram:not([disabled]):hover, .md-fab.instagram:not([disabled]):hover {
+  background-color: #2f4a60 !important;
+}
+/* line 19, ../../../../app/styles/material/_buttons.scss */
+.md-button.google-plus, .md-fab.google-plus {
+  background-color: #dd4B39 !important;
+}
+/* line 4, ../../../../app/styles/material/_buttons.scss */
+.md-button.google-plus:not([disabled]):hover, .md-fab.google-plus:not([disabled]):hover {
+  background-color: #96271a !important;
+}
+/* line 23, ../../../../app/styles/material/_buttons.scss */
+.md-button.facebook, .md-fab.facebook {
+  background-color: #3b5998 !important;
+}
+/* line 4, ../../../../app/styles/material/_buttons.scss */
+.md-button.facebook:not([disabled]):hover, .md-fab.facebook:not([disabled]):hover {
+  background-color: #1e2e4f !important;
+}
+
+/* line 39, ../../../../app/styles/material/_buttons.scss */
 .social-buttons {
   font-size: 3rem;
 }
-/* line 9, ../../../../app/styles/material/_buttons.scss */
+/* line 42, ../../../../app/styles/material/_buttons.scss */
 .social-buttons > * {
   color: #fff !important;
   margin: 0 .25rem;
   font-size: 1.875rem;
   padding: 0.8125rem;
 }
-/* line 18, ../../../../app/styles/material/_buttons.scss */
+/* line 51, ../../../../app/styles/material/_buttons.scss */
 .social-buttons .md-fab {
   width: 2rem;
   height: 2rem;
@@ -8305,65 +8343,50 @@ figure img {
   text-align: center;
   padding: 0.4375rem 0 0;
 }
-/* line 34, ../../../../app/styles/material/_buttons.scss */
-.social-buttons .twitter {
-  background-color: #4099ff !important;
-}
-/* line 29, ../../../../app/styles/material/_buttons.scss */
-.social-buttons .twitter:not([disabled]):hover {
-  background-color: #0065d9 !important;
-}
-/* line 38, ../../../../app/styles/material/_buttons.scss */
-.social-buttons .instagram {
-  background-color: #517fa4 !important;
-}
-/* line 29, ../../../../app/styles/material/_buttons.scss */
-.social-buttons .instagram:not([disabled]):hover {
-  background-color: #2f4a60 !important;
-}
-/* line 42, ../../../../app/styles/material/_buttons.scss */
-.social-buttons .google-plus {
-  background-color: #dd4B39 !important;
-}
-/* line 29, ../../../../app/styles/material/_buttons.scss */
-.social-buttons .google-plus:not([disabled]):hover {
-  background-color: #96271a !important;
-}
-/* line 46, ../../../../app/styles/material/_buttons.scss */
-.social-buttons .facebook {
-  background-color: #3b5998 !important;
-}
-/* line 29, ../../../../app/styles/material/_buttons.scss */
-.social-buttons .facebook:not([disabled]):hover {
-  background-color: #1e2e4f !important;
-}
 
 /* line 1, ../../../../app/styles/material/_layout.scss */
 .constrained {
   max-width: 50rem;
 }
 
-/* line 2, ../../../../app/styles/material/_inline-list.scss */
+/* line 5, ../../../../app/styles/material/_layout.scss */
+.absolute {
+  position: absolute;
+}
+/* line 8, ../../../../app/styles/material/_layout.scss */
+.absolute.cornered {
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+/* line 3, ../../../../app/styles/material/_list.scss */
+ul.padded > li, ol.padded > li {
+  padding: .5rem;
+}
+
+/* line 10, ../../../../app/styles/material/_list.scss */
 .inline-list > * {
   margin-left: 1rem;
 }
-/* line 5, ../../../../app/styles/material/_inline-list.scss */
+/* line 13, ../../../../app/styles/material/_list.scss */
 .inline-list > * > button {
   margin-top: 4px;
 }
-/* line 12, ../../../../app/styles/material/_inline-list.scss */
+/* line 20, ../../../../app/styles/material/_list.scss */
 .inline-list.no-margin > *:first-child {
   margin-left: 0;
 }
-/* line 18, ../../../../app/styles/material/_inline-list.scss */
+/* line 26, ../../../../app/styles/material/_list.scss */
 .inline-list.slashes > * {
   position: relative;
 }
-/* line 21, ../../../../app/styles/material/_inline-list.scss */
+/* line 29, ../../../../app/styles/material/_list.scss */
 .inline-list.slashes > *:last-child:after {
   content: "";
 }
-/* line 24, ../../../../app/styles/material/_inline-list.scss */
+/* line 32, ../../../../app/styles/material/_list.scss */
 .inline-list.slashes > *:after {
   content: "/";
   margin-left: 1rem;
@@ -8371,15 +8394,15 @@ figure img {
   right: -1rem;
   top: 0;
 }
-/* line 36, ../../../../app/styles/material/_inline-list.scss */
+/* line 44, ../../../../app/styles/material/_list.scss */
 .inline-list.dots > * {
   position: relative;
 }
-/* line 39, ../../../../app/styles/material/_inline-list.scss */
+/* line 47, ../../../../app/styles/material/_list.scss */
 .inline-list.dots > *:last-child:after {
   content: "";
 }
-/* line 42, ../../../../app/styles/material/_inline-list.scss */
+/* line 50, ../../../../app/styles/material/_list.scss */
 .inline-list.dots > *:after {
   content: "•";
   margin-left: 1rem;
@@ -8387,30 +8410,30 @@ figure img {
   right: -1rem;
   top: 0;
 }
-/* line 54, ../../../../app/styles/material/_inline-list.scss */
+/* line 62, ../../../../app/styles/material/_list.scss */
 .inline-list.commas > * {
   position: relative;
 }
-/* line 57, ../../../../app/styles/material/_inline-list.scss */
+/* line 65, ../../../../app/styles/material/_list.scss */
 .inline-list.commas > *:last-child:after {
   content: "";
 }
-/* line 60, ../../../../app/styles/material/_inline-list.scss */
+/* line 68, ../../../../app/styles/material/_list.scss */
 .inline-list.commas > *:after {
   content: ",";
   position: absolute;
   right: -0.25rem;
   top: 0;
 }
-/* line 71, ../../../../app/styles/material/_inline-list.scss */
+/* line 79, ../../../../app/styles/material/_list.scss */
 .inline-list.arrows > * {
   position: relative;
 }
-/* line 74, ../../../../app/styles/material/_inline-list.scss */
+/* line 82, ../../../../app/styles/material/_list.scss */
 .inline-list.arrows > *:last-child:after {
   content: "";
 }
-/* line 77, ../../../../app/styles/material/_inline-list.scss */
+/* line 85, ../../../../app/styles/material/_list.scss */
 .inline-list.arrows > *:after {
   content: ">";
   position: absolute;

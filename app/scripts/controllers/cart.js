@@ -49,24 +49,6 @@ angular.module('quiverCmsApp')
       return parseInt(code.key.replace(COUNTRY_CODE_REGEX, ""));
     });
 
-    if (!$scope.$storage.address) {
-      $scope.$storage.address = {
-        email: user.public.email
-      };
-    }
-
-    if (!$scope.$storage.address.country) {
-      $scope.$storage.address.country = 'US';
-    }
-
-    if (!$scope.$storage.address.state && $scope.$storage.address.country === 'US') {
-      $scope.$storage.address.state = 'AL';
-    }
-
-    if (!$scope.$storage.address.countryCode) {
-      $scope.$storage.address.countryCode = "+1"
-    }
-
     /*
      * Cart
     */
@@ -274,10 +256,6 @@ angular.module('quiverCmsApp')
     /*
      * Address
     */
-    $scope.editAddress = function () {
-      $scope.validateAddress($scope.$storage.address);
-      $scope.editingAddress = true;
-    };
 
     $scope.removeAddress = function () {
       $scope.$storage.address = false;
@@ -382,6 +360,33 @@ angular.module('quiverCmsApp')
     } else {
       $scope.editingAddress = false;
     }
+
+    $scope.editAddress = function () {
+      if (!$scope.$storage.address) {
+        $scope.$storage.address = {
+          email: user.public.email
+        };
+      }
+
+      if (!$scope.$storage.address.country) {
+        $scope.$storage.address.country = 'US';
+      }
+
+      if (!$scope.$storage.address.state && $scope.$storage.address.country === 'US') {
+        $scope.$storage.address.state = 'AL';
+      }
+
+      if (!$scope.$storage.address.countryCode) {
+        $scope.$storage.address.countryCodeIndex = 1;
+      }
+
+    
+      $scope.validateAddress($scope.$storage.address);
+      $scope.editingAddress = true;
+
+    };
+
+    $scope.editAddress();
 
     $scope.saveAddress = function (address) {
       var address = $scope.validateAddress(address);

@@ -1,6 +1,6 @@
-<button ng-click="toggleSidenav('left')" hide-gt-sm class="md-button" tabindex="0">
+<md-button ng-click="toggleSidenav('left')" hide-gt-md tabindex="0">
   <i class="mdi-action-subject"></i>
-</button>
+</md-button>
 <div class="md-toolbar-tools">
   <div layout="row" flex class="fill-height">
     <h1 layout-align="left" class="headline">
@@ -10,19 +10,19 @@
     <span flex></span>
 
     <div layout-align="right" class="md-toolbar-item" ng-show="$storage.cart.productCount">
-      <a class="md-button" href="/app/cart">
+      <md-button href="/app/cart">
         <span class="headline" ng-bind="$storage.cart.productCount"></span>
         <i class="mdi-action-shopping-cart" style="position: relative; top: 1px;"></i>
-      </a>
+      </md-button>
     </div>
 
     <div layout-align="right" class="md-toolbar-item" ng-show="!currentUser">
-      <a class="md-button" href="/app/login">
+      <md-button class="margin-horizontal-small" href="/app/login">
         <i class="mdi-action-input"></i> &nbsp;Login        
-      </a>
-      <a class="md-button" href="/app/register">
+      </md-button>
+      <md-button href="/app/register">
         &nbsp;Register
-      </a>
+      </md-button>
     </div>
 
     {{!-- <div layout-align="right" class="md-toolbar-item" ng-show="currentUser">

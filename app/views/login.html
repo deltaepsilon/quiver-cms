@@ -1,50 +1,48 @@
-<div class="flex align-items-center">
-    <form name="loginForm" class="column small-12 medium-10 medium-centered top-offset" ng-class="{'dark-form': settings.loginImage}">
-      <div class="dark-wrapper">
-        <fieldset>
-            <div class="column small-12 medium-6 margin-vertical-medium">
-                <div class="text-white0 padding-medium text-medium text-center cursor-pointer background-google" ng-click="google()">
-                    <i class="fa fa-google-plus"></i> &nbsp; Sign in with Google
+<section flex layout="column" layout-align="center center">
+    <md-whiteframe class="md-whiteframe-z1" layout="row" layout-align="space-between center" layout-margin layout-padding layout-wrap>
+        <md-button class="md-raised min-14 google-plus login-button" flex ng-click="google()">
+            <i class="qv qv-google-plus"></i> &nbsp; Sign in with Google
+        </md-button>
+
+        <md-button class="md-raised min-14 facebook login-button" flex ng-click="facebook()">
+            <i class="qv qv-facebook"></i> &nbsp; Sign in with Facebook
+        </md-button>
+
+        <h3 class="headline" flex="100">Sign in with email</h3>
+
+        <form class="no-margin-or-padding" flex="100" name="loginForm">
+            <fieldset>
+                <div class="no-margin-or-padding" layout="row" layout-align="center center" layout-margin layout-padding layout-wrap>
+                    <md-input-container flex="50" flex-sm="100">
+                        <label for="email">Email</label>
+                        <input type="email" ng-model="email" placeholder="Email..." required/>
+                    </md-input-container>
+
+                    <md-input-container flex flex-sm="100">
+                        <label for="password">Password</label>
+                        <input type="password" ng-model="password" placeholder="Password..." required/>
+                    </md-input-container>
+
+                    <span class="margin-zero-important padding-zero-important" flex="100"></span>
+
+                    <div flex flex-sm="50" layout="row" layout-align="center center">
+                        <md-progress-circular class="invisible"  md-mode="indeterminate" qv-loading target=".login-button"></md-progress-circular>
+                    </div>
+
+                    <md-button class="min-10" id="login-button" class="md-primary login-button" ng-click="logIn(email, password)" ng-disabled="loginForm.$invalid">Sign in</md-button>
+
+                    <md-button class="min-10" flex ui-sref="master.nav.register">Register</md-button>
+
+                    <md-button class="min-10" flex ui-sref="master.nav.reset">Reset Password</md-button>
                 </div>
-            </div>
-            <div class="column small-12 medium-6 margin-vertical-medium">
-                <div class="text-white0 padding-medium text-medium text-center cursor-pointer background-facebook" ng-click="facebook()">
-                    <i class="fa fa-facebook"></i> &nbsp; Sign in with Facebook
-                </div>
-            </div>
+                
 
-            <div class="column small-12">
-                <h3 class="title padding-horizontal-zero-important">Sign in with email</h3>
-            </div>
+            </fieldset>
+        </form>
 
-            <div class="column small-12 medium-6">
-                <input type="email" ng-model="email" placeholder="Email..." required/>
-            </div>
-            <div class="column small-12 medium-6">
-                <input type="password" ng-model="password" placeholder="Password..." required/>
-            </div>
-            
-            <div class="column small-12">
-                <ul class="inline-list">
-                    <li>
-                        <button id="login-button" ng-click="logIn(email, password)" ng-disabled="loginForm.$invalid">
-                        <span>Sign in</span>
-                        <span class="hidden backdrop background-highlight9" qv-loading target="#login-button" loaded="loaded"><img src="/images/ajax-loader.gif" style="margin-top: 1rem;"></span>
-                    </button>
-                    </li>
-                    <li>
-                        <a ui-sref="master.nav.register">Register</a>
-                    </li>
-                    <li>
-                        <a ui-sref="master.nav.reset">Reset Password</a>
-                    </li>
-                </ul>
-            </div>
-            
+        
 
-            
-        </fieldset>
-      </div>
-    </form>
+        
 
-</div>
+    </md-whiteframe>
+</section>

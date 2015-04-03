@@ -33,7 +33,7 @@
                   <div class="markdown" markdown-editable ng-model="product.description.excerpt">{{ product.description.excerpt }}</div>
                 </div> -->
 
-                <div flex="50" layout="row" layout-align="start center" layout-wrap layout-padding>
+                <div flex="50" flex-sm="100" layout="row" layout-align="start center" layout-wrap layout-padding>
                   
                   <span flex="50">
                     <span>Quantity</span>
@@ -180,7 +180,7 @@
               <span>State</span>
               <strong class="text-small text-error margin-horizontal-small">{{ errorMessages.territory }}</strong>
             </label> -->
-            <md-select id="state" ng-model="$storage.address.state" ng-blur="validateAddress($storage.address)" ng-change="updateAddress()" placeholder="State...">
+            <md-select id="state" ng-model="$storage.address.state" ng-blur="validateAddress($storage.address)" ng-change="updateAddress()" placeholder="State..." style="margin-top: 4px;">
               <md-option value="">Select State</md-option>
               <md-option ng-repeat="state in states" value="{{ state.abbreviation }}">{{ state.name }}</md-option>
             </md-select>
@@ -231,7 +231,7 @@
             <md-button class="md-raised" flex ng-click="editAddress()">
               <i class="mdi-editor-mode-edit"></i> Edit Address
             </md-button>
-            <md-button class="md-warn" flex ng-click="removeAddress()" style="max-width: 3rem;">
+            <md-button class="md-warn" flex ng-click="removeAddress(); editAddress();" style="max-width: 3rem;">
               <i class="mdi-action-delete"></i>
             </md-button>
           </li>
@@ -270,7 +270,7 @@
             <md-radio-button ng-value="card.token"></md-radio-button>
             <img style="max-width: 2rem;" ng-src="{{ card.imageUrl }}" alt="{{ card.cardType }}" /> 
             <span>****{{ card.last4 }}</span>
-            <md-button class="md-raised md-warn" ng-click="card.disabled = true; removePaymentMethod(card.token);">
+            <md-button class="md-warn" ng-click="card.disabled = true; removePaymentMethod(card.token);">
               <i class="mdi-action-delete"></i>
             </md-button>
           </div>
@@ -284,7 +284,7 @@
             <md-radio-button ng-value="account.token"></md-radio-button>
             <img style="max-width: 2rem;" ng-src="{{ account.imageUrl }}" alt="PayPal" /> 
             <span>{{ account.email }}</span>
-            <md-button class="md-raised md-warn" ng-click="account.disabled = true; removePaymentMethod(account.token)">
+            <md-button class="md-warn" ng-click="account.disabled = true; removePaymentMethod(account.token)">
               <i class="mdi-action-delete"></i>
             </md-button>
           </div>
@@ -321,14 +321,14 @@
 
       <span flex></span>
 
-      <md-button id="checkout-button" flex="100" class="md-raised md-primary" ng-click="checkingOut = true; checkout($storage.cart);" ng-disabled="!user || (!$storage.cart.paymentToken && $storage.cart.total) || ($storage.cart.shipped && !$storage.cart.address) || checkingOut">
+      <md-button id="checkout-button" flex="100" class="md-raised md-primary" ng-click="checkingOut = true; checkout($storage.cart);" ng-disabled="!user || (!$storage.cart.paymentToken && $storage.cart.total) || ($storage.cart.shipped && !$storage.cart.address) || checkingOut" style="margin-left: 0.5rem;">
         <span ng-show="$storage.cart.total">Complete Purchase</span>
         <span ng-hide="$storage.cart.total">Free Checkout</span>
       </md-button>
 
     </div>
 
-    <md-whiteframe class="md-whiteframe-z0" flex-sm="100" flex-gt-sm="50" layout="row" layout-align="space-between center" layout-padding layout-wrap>
+    <md-whiteframe class="md-whiteframe-z0" flex-sm="100" flex-gt-sm="50" layout="row" layout-align="space-between end" layout-padding layout-wrap>
 
       <span flex="100" layout="row" layout-align="space-between center" layout-wrap ng-repeat="code in $storage.cart.codes">
         <span flex="50">{{ code.code }}</span>
@@ -363,8 +363,10 @@
       <span flex="50">Total</span>
       <span class="text-right" flex><strong>{{ $storage.cart.total | currency }}</strong></span>
 
-      <span class="text-right" flex="100">
-        <md-button class="md-raised" ui-sref="master.nav.cart">Back to Cart</md-button>
+      <span class="text-right" flex="100" style="padding-bottom: 0px;">
+        <md-button class="md-raised" ui-sref="master.nav.cart">
+          <i class="mdi-navigation-arrow-back"></i> Back to Cart
+        </md-button>
         <md-button class="md-raised" ng-click="emptyCart(); toLanding();">Empty Cart</md-button>  
       </span>
 

@@ -4379,6 +4379,12 @@ a.link-hover-black0-important:hover {
   margin-right: 1.75rem !important;
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_spacing\.scss}line{font-family:\0000370}}
+.no-margin-or-padding {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_global\.scss}line{font-family:\000035}}
 a {
   color: inherit;
@@ -4566,56 +4572,86 @@ figure img {
   text-align: right !important;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_buttons\.scss}line{font-family:\000036}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_buttons\.scss}line{font-family:\0000312}}
+.md-button.twitter, .md-fab.twitter {
+  color: #fff !important;
+  background-color: #4099ff !important;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_buttons\.scss}line{font-family:\000035}}
+.md-button.twitter:not([disabled]):hover, .md-fab.twitter:not([disabled]):hover {
+  background-color: #0065d9 !important;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_buttons\.scss}line{font-family:\0000316}}
+.md-button.instagram, .md-fab.instagram {
+  color: #fff !important;
+  background-color: #517fa4 !important;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_buttons\.scss}line{font-family:\000035}}
+.md-button.instagram:not([disabled]):hover, .md-fab.instagram:not([disabled]):hover {
+  background-color: #2f4a60 !important;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_buttons\.scss}line{font-family:\0000320}}
+.md-button.google-plus, .md-fab.google-plus {
+  color: #fff !important;
+  background-color: #dd4B39 !important;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_buttons\.scss}line{font-family:\000035}}
+.md-button.google-plus:not([disabled]):hover, .md-fab.google-plus:not([disabled]):hover {
+  background-color: #96271a !important;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_buttons\.scss}line{font-family:\0000324}}
+.md-button.facebook, .md-fab.facebook {
+  color: #fff !important;
+  background-color: #3b5998 !important;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_buttons\.scss}line{font-family:\000035}}
+.md-button.facebook:not([disabled]):hover, .md-fab.facebook:not([disabled]):hover {
+  background-color: #1e2e4f !important;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_buttons\.scss}line{font-family:\0000336}}
+.md-button.min-10 {
+  min-width: 10rem;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_buttons\.scss}line{font-family:\0000339}}
+.md-button.min-12 {
+  min-width: 12rem;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_buttons\.scss}line{font-family:\0000342}}
+.md-button.min-14 {
+  min-width: 14rem;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_buttons\.scss}line{font-family:\0000345}}
+.md-button.min-16 {
+  min-width: 16rem;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_buttons\.scss}line{font-family:\0000348}}
+.md-button.min-18 {
+  min-width: 18rem;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_buttons\.scss}line{font-family:\0000351}}
+.md-button.min-20 {
+  min-width: 20rem;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_buttons\.scss}line{font-family:\0000356}}
 .social-buttons {
   font-size: 3rem;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_buttons\.scss}line{font-family:\000039}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_buttons\.scss}line{font-family:\0000359}}
 .social-buttons > * {
   color: #fff !important;
   margin: 0 .25rem;
   font-size: rem-calc(30);
   padding: rem-calc(13);
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_buttons\.scss}line{font-family:\0000318}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_buttons\.scss}line{font-family:\0000368}}
 .social-buttons .md-fab {
   width: 2rem;
   height: 2rem;
   font-size: rem-calc(17);
   text-align: center;
   padding: rem-calc(7) 0 0;
-}
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_buttons\.scss}line{font-family:\0000334}}
-.social-buttons .twitter {
-  background-color: #4099ff !important;
-}
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_buttons\.scss}line{font-family:\0000329}}
-.social-buttons .twitter:not([disabled]):hover {
-  background-color: #0065d9 !important;
-}
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_buttons\.scss}line{font-family:\0000338}}
-.social-buttons .instagram {
-  background-color: #517fa4 !important;
-}
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_buttons\.scss}line{font-family:\0000329}}
-.social-buttons .instagram:not([disabled]):hover {
-  background-color: #2f4a60 !important;
-}
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_buttons\.scss}line{font-family:\0000342}}
-.social-buttons .google-plus {
-  background-color: #dd4B39 !important;
-}
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_buttons\.scss}line{font-family:\0000329}}
-.social-buttons .google-plus:not([disabled]):hover {
-  background-color: #96271a !important;
-}
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_buttons\.scss}line{font-family:\0000346}}
-.social-buttons .facebook {
-  background-color: #3b5998 !important;
-}
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_buttons\.scss}line{font-family:\0000329}}
-.social-buttons .facebook:not([disabled]):hover {
-  background-color: #1e2e4f !important;
 }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_layout\.scss}line{font-family:\000031}}
@@ -4637,7 +4673,7 @@ figure img {
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_list\.scss}line{font-family:\000033}}
 ul.padded > li, ol.padded > li {
-  padding: .5rem 1rem;
+  padding: .5rem;
 }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_list\.scss}line{font-family:\0000310}}

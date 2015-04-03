@@ -1,7 +1,7 @@
 <md-toolbar layout="row">
-  <button ng-click="toggleSidenav('left')" hide-gt-md class="md-button" tabindex="0">
+  <md-button ng-click="toggleSidenav('left')" hide-gt-md tabindex="0" aria-label="toggle side nav">
     <i class="mdi-action-subject"></i>
-  </button>
+  </md-button>
   <div class="md-toolbar-tools">
     <div layout="row" flex class="fill-height">
       <h1 layout-align="left" class="headline">
@@ -10,20 +10,26 @@
 
       <span flex></span>
 
-      <div layout-align="right" class="md-toolbar-item" ng-show="$storage.cart.productCount">
-        <a class="md-button" href="/app/cart">
+      <div layout-align="right" class="md-toolbar-item" ng-show="$storage.cart.productCount" qv-active>
+        <md-button ui-sref="master.nav.cart" aria-label="shopping cart">
           <span class="headline" ng-bind="$storage.cart.productCount"></span>
           <i class="mdi-action-shopping-cart" style="position: relative; top: 1px;"></i>
-        </a>
+        </md-button>
       </div>
 
       <div layout-align="right" class="md-toolbar-item" ng-show="!currentUser">
-        <a class="md-button" ui-sref="master.nav.login">
-          <i class="mdi-action-input"></i> &nbsp;Login        
-        </a>
-        <a class="md-button" ui-sref="master.nav.register">
-          &nbsp;Register
-        </a>
+        <span class="margin-horizontal-small" qv-active>
+          <md-button class="md-button" ui-sref="master.nav.login">
+            <i class="mdi-action-input"></i> &nbsp;Login        
+          </md-button>
+        </span>
+        <span qv-active>
+          <md-button ui-sref="master.nav.register">
+            &nbsp;Register
+          </md-button>
+        </span>
+        
+        
       </div>
 
     </div>
@@ -35,7 +41,7 @@
   
   <md-sidenav layout="column" class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')" ui-view="sidenavLeft"></md-sidenav>
   <div layout="column" flex id="content" layout-align="start center">
-    <md-content flex class="md-padding" layout="row" layout-align="center start" layout-fill ui-view="body" qv-background-image="settings.loginImage" states="['master.nav.login', 'master.nav.register', 'master.nav.reset']"></md-content>
+    <md-content flex class="md-padding" layout="column" layout-align="center center" layout-fill ui-view="body" qv-background-image="settings.loginImage" states="['master.nav.login', 'master.nav.register', 'master.nav.reset']"></md-content>
 
   </div>
 

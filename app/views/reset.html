@@ -1,23 +1,29 @@
-<div class="flex align-items-center">
-    <form name="resetForm" class="column small-12 medium-10 large-6 medium-centered top-offset" ng-class="{'dark-form': settings.loginImage}">
-      <div class="dark-wrapper">
-        <h3 class="title">Reset Password</h3>
+<section flex layout="column" layout-align="center center">
+    <md-whiteframe class="md-whiteframe-z1" layout="row" layout-align="space-between center" layout-margin layout-padding layout-wrap>
+        <h3 class="headline" flex="100">Reset password</h3>
 
-        <fieldset>
-            <input type="email" ng-model="email" placeholder="Email..." required/>
+        <form class="no-margin-or-padding" flex="100" name="loginForm">
+            <fieldset>
+                <div class="no-margin-or-padding" layout="row" layout-align="center center" layout-margin layout-padding layout-wrap>
+                    <md-input-container flex="100">
+                        <label for="email">Email</label>
+                        <input type="email" ng-model="email" placeholder="Email..." required/>
+                    </md-input-container>
 
-            <ul class="inline-list">
-                <li>
-                    <button ng-click="resetPassword(email)" ng-disabled="resetForm.$invalid">Send Reset Email</button>
-                </li>
-                <li>
-                    <a ui-sref="master.nav.login">Log In</a>
-                </li>
-                <li>
-                    <a ui-sref="master.nav.register">Register</a>
-                </li>
-            </ul>
-        </fieldset>
-      </div>
-    </form>
-</div>
+                    <div flex flex-sm="50" layout="row" layout-align="center center">
+                        <md-progress-circular class="invisible"  md-mode="indeterminate" qv-loading target=".login-button"></md-progress-circular>
+                    </div>
+
+                    <md-button class="min-10" id="login-button" class="md-primary login-button" ng-click="resetPassword(email)" ng-disabled="loginForm.$invalid">Send reset email</md-button>
+
+                    <md-button class="min-10" flex ui-sref="master.nav.login">Login</md-button>
+
+                    <md-button class="min-10" flex ui-sref="master.nav.register">Register</md-button>
+                </div>
+                
+
+            </fieldset>
+        </form>
+
+    </md-whiteframe>
+</section>
