@@ -77,7 +77,7 @@
 
             <!-- Shipping Address -->
       <form name="addressForm" ng-if="!$storage.cart.address || editingAddress">
-        <div layout="row" layout-align="end start" layout-wrap>
+        <div layout="row" layout-align="start start" layout-wrap>
           <md-input-container flex="50">
             <label for="name">
               <span>Recipient Name</span>
@@ -203,7 +203,7 @@
 
           </md-input-container>
 
-          <md-button class="md-raised md-primary" flex-sm="100" flex-gt-sm="30" ng-click="saveAddress($storage.address)">Save Address</md-button>
+          <md-button class="md-raised md-primary min-16" flex-sm="100" flex-gt-sm="30" ng-click="saveAddress($storage.address)">Save Address</md-button>
 
         </div>
 
@@ -245,7 +245,7 @@
 
   <h3 id="add-payment-method" class="headline transition-color" flex="100">Add Payment Method</h3>
 
-  <md-whiteframe class="md-whiteframe-z1 padding-small" flex-sm="100" flex-gt-sm="50" layout="row" layout-wrap>
+  <md-whiteframe class="md-whiteframe-z1" flex-sm="100" flex-gt-sm="50" layout="row" layout-padding layout-wrap>
     <!-- Braintree Drop-In Form -->
     <div flex="100" ng-if="$storage.cart.total">
       <style>#dropin {min-height: 196px;}</style>
@@ -261,7 +261,7 @@
 
   <md-whiteframe class="md-whiteframe-z2" layout-sm="column" layout-gt-sm="row" layout-align="space-between space-between" layout-padding layout-wrap>
 
-    <div flex-sm="100" flex-gt-sm="50" layout="row" layout-align="space-between center" layout-padding layout-wrap>     
+    <div flex-sm="100" flex-gt-sm="50" layout="row" layout-align="start center" layout-padding layout-wrap>     
 
       <span flex="100" ng-if="user.private.customer.creditCards">
         <h4 class="padding-horizontal-medium">Credit Cards</h4>
@@ -292,6 +292,8 @@
         
       </span>
 
+      <span flex="100" style="min-height: 49px;" ng-if="!user.private.customer.paypalAccounts && !user.private.customer.creditCards"></span>
+
       <span class="relative" flex="100" layout="row" layout-align="center center" style="min-height: 6.5rem;">
         <md-progress-circular class="invisible" md-mode="indeterminate" qv-loading target="#checkout-button"></md-progress-circular>
         <span class="absolute cornered text-left" ng-if="$storage.cart.total">
@@ -319,9 +321,8 @@
         
       </span>
 
-      <span flex></span>
-
-      <md-button id="checkout-button" flex="100" class="md-raised md-primary" ng-click="checkingOut = true; checkout($storage.cart);" ng-disabled="!user || (!$storage.cart.paymentToken && $storage.cart.total) || ($storage.cart.shipped && !$storage.cart.address) || checkingOut" style="margin-left: 0.5rem;">
+      <md-button id="checkout-button" flex="100" class="md-raised md-primary max-16" ng-click="checkingOut = true; checkout($storage.cart);" ng-disabled="!user || (!$storage.cart.paymentToken && $storage.cart.total) || ($storage.cart.shipped && !$storage.cart.address) || checkingOut">
+        <i class="mdi-action-done-all"></i>
         <span ng-show="$storage.cart.total">Complete Purchase</span>
         <span ng-hide="$storage.cart.total">Free Checkout</span>
       </md-button>
@@ -364,10 +365,12 @@
       <span class="text-right" flex><strong>{{ $storage.cart.total | currency }}</strong></span>
 
       <span class="text-right" flex="100" style="padding-bottom: 0px;">
-        <md-button class="md-raised" ui-sref="master.nav.cart">
+        <md-button class="md-raised" ui-sref="master.nav.cart" style="min-height: 33px;">
           <i class="mdi-navigation-arrow-back"></i> Back to Cart
         </md-button>
-        <md-button class="md-raised" ng-click="emptyCart(); toLanding();">Empty Cart</md-button>  
+        <md-button class="md-raised" ng-click="emptyCart(); toLanding();" style="min-height: 33px;">
+          <i class="mdi-action-delete"></i> Empty Cart
+        </md-button>  
       </span>
 
       

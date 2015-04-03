@@ -1,146 +1,130 @@
-<div class="column small-12">
-  <div>
-    <h3 class="font-flair padding-medium">Transaction #{{ transaction.transactionCount }}</h3>
-  </div>
+<section layout="row" layout-align="space-between center" layout-wrap>
+  <h3 class="headline" flex="100">Transaction #{{ transaction.transactionCount }} Items</h3>
 
-  <ul class="table-list">
-    <li class="clearfix" ng-repeat="product in transaction.items | orderBy:'title'">
-
-      <div class="column small-12 padding-zero-important">
-        <hr class="margin-zero">
-      </div>
-
-      <div class="column small-12">
-
-        <div class="column small-12 medium-4">
-          <h5 class="font-flair margin-zero clearfix">
-            <a class="left padding-vertical-small link-secondary0" style="padding-bottom: 0;" href="/product/{{ product.slug }}" qv-to-static>{{ product.title }}</a>
-          </h5>
-          <ul ng-if="product.optionsMatrixSelected" class="text-small inline-list dots left strong margin-vertical-xx-small-important">
-            <li>{{ product.optionsMatrixSelected.name }}</li>
-            <!-- <li ng-show="product.optionsMatrixSelected.priceDifference">
-              Price Difference: {{ product.optionsMatrixSelected.priceDifference | currency }}
-            </li> -->
-            <li ng-if="product.optionsMatrixSelected.inventory">{{ product.optionsMatrixSelected.inventory }} Available</li>
-          </ul>
-        </div>
-
-        <div class="column small-12 medium-8">
-          <ul class="right inline-list">
-            <li>
-              <div class="padding-vertical-small right" style="min-width: 4rem;">{{ product.priceAdjusted || product.price | currency }}</div>
-            </li>
-            <li>
-              <div class="padding-vertical-small right">x {{ product.quantity }}</div>
-            </li>
-            <li>
-              <div class="padding-vertical-small right" style="min-width: 5rem;"><strong>{{ (product.priceAdjusted || product.price) * product.quantity | currency }}</strong></div>
-            </li>
-
-          </ul>
-          
-
-        </div>
-
-      </div>
-
-    </li>
-  </ul>
-
-  <fieldset>
-    <div class="column small-12 medium-4">
-      <div>
-        <h5 class="font-flair text-secondary0">Shipping Address</h5>
-      </div>
-    
-      <div>
-        <ul class="text-small">
-          <li>{{ transaction.address.recipient }}</li>
-          <li>{{ transaction.address.street1 }}</li>
-          <li>{{ transaction.address.street2 }}</li>
-          <li>{{ transaction.address.street3 }}</li>
-          <li>{{ transaction.address.city }}<span ng-show="transaction.address.city && (transaction.address.territory)">,</span> {{ transaction.address.territory }} {{ transaction.address.postalCode }}</li>
-          <li>{{ transaction.address.countryName }}</li>
-          <li ng-show="transaction.address.instructions" class="margin-vertical-small">
-            <strong>Shipping Instructions:</strong>
-            <p class="text-small padding-horizontal-x-small">
-              {{ transaction.address.instructions }}
-            </p>
-
-          </li>
-
-        </ul>
-
-      </div>
-
-    </div>
-
-    <div class="column small-12 medium-4">
-      <div>
-        <h5 class="font-flair text-secondary0">Charge</h5>
-      </div>
-
-      <div>
-        <ul class="text-small" ng-hide="transaction.charge.free">
-          <li>
-            <span ng-show="transaction.charge.success" class="text-success">Charged on {{ transaction.charge.transaction.created | moment:"MMM DD, YYYY" }}</span>
-            <span ng-hide="transaction.charge.success" class="text-warning">Not Charged</span>
-          </li>
-          <li>Last 4 of Card: {{ transaction.charge.transaction.creditCard.last4 }}</li>
-          <li>Charge: {{ transaction.charge.transaction.amount }}{{ transaction.charge.transaction.currencyIsoCode }}</li>
-        </ul>
-
-        <h5 class="font-flair text-success" ng-show="transaction.charge.free">Free Checkout</h5>
-
-      </div>
-
-    </div>
-
-    <div class="column small-12 medium-4">
-      <div class="panel small-12 right background-secondary4 padding-small" style="border: 0;">
-        <ul class="table-list text-small text-right clearfix">
-          <li ng-show="transaction.codes && transaction.codes.length">
-            <ul class="margin-zero-important">
-              <li class="text-x-small" ng-repeat="code in transaction.codes">
-                <div class="column small-6">{{ code.code }}</div>
-                <div class="column small-6">
-                  <span ng-show="code.type === 'value'">{{ code.value | currency }}</span>
-                  <span ng-show="code.type === 'percentage'">{{ code.percentage }}%</span>
+  <md-whiteframe class="md-whiteframe-z1" flex="100" layout layout-wrap>
+    <md-list flex>
+      <md-item-content layout="row" layout-wrap>
+        <md-item flex="100" ng-repeat="product in transaction.items | orderBy:'title'">
+          <md-item-content layout="row" layout-margin layout-wrap>
+            <md-tile-content flex layout="row" layout-align="end" layout-wrap>
+              <div flex="100" flex-gt-sm="50" layout="row" layout-align="start space-between">
+                <div flex>
+                  <h4 class="headline uppercase">
+                    <a href="/product/{{ product.slug }}" qv-to-static>{{ product.title }}</a>
+                  </h4>
+                  <strong ng-if="product.optionsMatrixSelected">
+                    {{ product.optionsMatrixSelected.name }}
+                  </strong>
                 </div>
-                
-              </li>
-            </ul>
-          </li>
-          <li>
-            <div class="column small-6">Discount</div>
-            <div class="column small-6">{{ -1 * transaction.discount | currency }}</div>
-          </li>
-          <li>
-            <div class="column small-6">Subtotal</div>
-            <div class="column small-6">{{ transaction.subtotal | currency }}</div>
-          </li>
-          <li>
-            <div class="column small-6">Shipping</div>
-            <div class="column small-6">{{ transaction.shipping | currency }}</div>
-          </li>
-          <li>
-            <div class="column small-6">Tax</div>
-            <div class="column small-6">{{ transaction.tax | currency }}</div>
-          </li>
-          <li>
-            <hr class="margin-vertical-small">
-          </li>
-          <li class="text-x-medium">
-            <div class="column small-6"><strong>Total</strong></div>
-            <div class="column small-6"><strong>{{ transaction.total | currency }}</strong></div>
-          </li>
-          
-        </ul>
 
-      </div>
+              </div>
+
+              <div flex="50" flex-sm="100" layout="row" layout-align="start center" layout-wrap layout-padding>
+                
+                <span flex="50">
+                  <span>Quantity</span>
+                  <span class="text-x-small" ng-if="product.optionsMatrixSelected.inventory">({{ product.optionsMatrixSelected.inventory }} available)</span>
+                </span>
+                <span flex="50" class="text-right padding-horizontal-small">{{ product.quantity }}</span>
+
+                <span flex="50">Price</span>
+                <span flex="50" class="text-right padding-horizontal-small">
+                  {{ product.priceAdjusted || product.price | currency }}
+                </span>
+
+                <span flex="50">Total</span>
+                <span flex="50" class="text-right padding-horizontal-small">
+                  <strong>{{ (product.priceAdjusted || product.price) * product.quantity | currency }}</strong>
+                </span>
+
+              </div>
+
+            </md-tile-content>
+          </md-item-content>
+          <md-divider ng-if="!$last"></md-divider>
+        </md-item>
+      </md-item-content>
+    </md-list>
+  </md-whiteframe>
+
+  <h3 class="headline" flex="100">Transaction #{{ transaction.transactionCount }} Details</h3>
+
+  <md-whiteframe class="md-whiteframe-z1" flex layout layout-padding layout-wrap ng-if="transaction.address">
+    <div flex flex-sm="100" layout="column" layout-wrap>
+      <h3 class="headline">Shipping Address</h3>
+
+      <ul class="padded">
+        <li>{{ transaction.address.recipient }}</li>
+        <li>{{ transaction.address.street1 }}</li>
+        <li ng-if="transaction.address.street2">{{ transaction.address.street2 }}</li>
+        <li ng-if="transaction.address.street3">{{ transaction.address.street3 }}</li>
+        <li>{{ transaction.address.city }}<span ng-show="transaction.address.city && (transaction.address.territory)">,</span> {{ transaction.address.territory }} {{ transaction.address.postalCode }}</li>
+        <li>{{ transaction.address.countryName }}</li>
+        <li ng-show="transaction.address.instructions" class="margin-vertical-small">
+          <strong>Shipping Instructions:</strong>
+          <p class="text-small padding-horizontal-x-small">
+            {{ transaction.address.instructions }}
+          </p>
+
+        </li>
+
+      </ul>
 
     </div>
 
-  </fieldset>
+    <div flex flex-sm="100" layout="column" layout-wrap>
+      <h3 class="headline" ng-show="!transaction.charge.free">Charge</h3>
+      <h3 class="headline" ng-show="transaction.charge.free">Free Checkout</h3>
 
-</div>
+      <ul class="padded" ng-hide="transaction.charge.free">
+        <li>
+          <span ng-show="transaction.charge.success" class="text-success">Charged on {{ transaction.charge.transaction.created | moment:"MMM DD, YYYY" }}</span>
+          <span ng-hide="transaction.charge.success" class="text-warning">Not Charged</span>
+        </li>
+        <li ng-show="transaction.charge.transaction.creditCard.last4">Last 4 of Card: {{ transaction.charge.transaction.creditCard.last4 }}</li>
+        <li ng-show="transaction.charge.transaction.paypalAccount.payerEmail">PayPal Email: {{ transaction.charge.transaction.paypalAccount.payerEmail }}</li>
+        <li>Charge: {{ transaction.charge.transaction.amount }}{{ transaction.charge.transaction.currencyIsoCode }}</li>
+      </ul>
+
+    </div>
+
+    <div flex flex-sm="100" layout="row" layout-align="space-between end" layout-padding layout-wrap>
+      <h3 class="headline" flex="100" style="margin: 11px 0;">Summary</h3>
+
+      <span flex="100" layout="row" layout-align="space-between center" layout-wrap ng-repeat="code in transaction.codes">
+        <span flex="50">{{ code.code }}</span>
+        <span class="text-right" flex>
+          <span ng-show="code.type === 'value'">{{ code.value | currency }}</span>
+          <span ng-show="code.type === 'percentage'">{{ code.percentage }}%</span>
+        </span>
+      </span>
+      
+
+      <span flex="50">Subtotal</span>
+      <span class="text-right" flex>{{ transaction.subtotal | currency }}</span>
+
+      <span flex="50" ng-show="transaction.codes.length">Discount</span>
+      <span class="text-right" flex ng-show="transaction.codes.length">{{ -1 * transaction.discount | currency }}</span>
+
+      <span flex="50" ng-show="transaction.shipping">Shipping</span>
+      <span flex="50" ng-show="!transaction.shipping">Free Shipping</span>
+      <span class="text-right" flex>
+        <span>{{ transaction.shipping | currency }}</span>
+      </span>
+
+      <span flex="50">Tax</span>
+      <span class="text-right" flex>
+        {{ transaction.tax | currency }}
+      </span>
+
+      <md-divider flex="100"></md-divider>
+
+      <span flex="50">Total</span>
+      <span class="text-right" flex><strong>{{ transaction.total | currency }}</strong></span>
+
+    </div>
+    
+  </md-whiteframe>
+
+
+</section>

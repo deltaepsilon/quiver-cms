@@ -505,9 +505,9 @@ angular.module('quiverCmsApp')
     };
 
     $scope.selectFirstPaymentToken = function () {
-      if (user.private.customer.creditCards.length) {
+      if (user.private.customer.creditCards && user.private.customer.creditCards.length) {
         $scope.$storage.cart.paymentToken =  user.private.customer.creditCards[0].token;
-      } else if (user.private.customer.paypalAccounts.length) {
+      } else if (user.private.customer.paypalAccounts && user.private.customer.paypalAccounts.length) {
         $scope.$storage.cart.paymentToken = user.private.customer.paypalAccounts[0].token;
       }
       

@@ -4633,19 +4633,43 @@ figure img {
 .md-button.min-20 {
   min-width: 20rem;
 }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_buttons\.scss}line{font-family:\0000355}}
+.md-button.max-10 {
+  max-width: 10rem;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_buttons\.scss}line{font-family:\0000358}}
+.md-button.max-12 {
+  max-width: 12rem;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_buttons\.scss}line{font-family:\0000361}}
+.md-button.max-14 {
+  max-width: 14rem;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_buttons\.scss}line{font-family:\0000364}}
+.md-button.max-16 {
+  max-width: 16rem;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_buttons\.scss}line{font-family:\0000367}}
+.md-button.max-18 {
+  max-width: 18rem;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_buttons\.scss}line{font-family:\0000370}}
+.md-button.max-20 {
+  max-width: 20rem;
+}
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_buttons\.scss}line{font-family:\0000356}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_buttons\.scss}line{font-family:\0000375}}
 .social-buttons {
   font-size: 3rem;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_buttons\.scss}line{font-family:\0000359}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_buttons\.scss}line{font-family:\0000378}}
 .social-buttons > * {
   color: #fff !important;
   margin: 0 .25rem;
   font-size: rem-calc(30);
   padding: rem-calc(13);
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_buttons\.scss}line{font-family:\0000368}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_buttons\.scss}line{font-family:\0000387}}
 .social-buttons .md-fab {
   width: 2rem;
   height: 2rem;

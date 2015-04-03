@@ -150,18 +150,15 @@
               <md-button ng-click="addCode(discountCode)" ng-show="addingCode">Add Code</md-button>
             </span>
             
-            <span class="text-right" flex="100">
-              <p class="text-x-small text-center" ng-hide="user" style="margin: 1.5rem 0 0;">
-                <a ui-sref="master.nav.login">Log In</a> or <a ui-sref="master.nav.register">Register</a> to check out.
-              </p>
-            </span>
-
             <span class="text-right" flex="100" layout="row" layout-align="space-between center">
               <div flex>
-                <md-progress-circular class="invisible" md-mode="indeterminate" qv-loading target="#checkout-button"></md-progress-circular>
+                <md-progress-circular class="invisible" md-mode="indeterminate" qv-loading target=".checkout-button"></md-progress-circular>
               </div>
-              <md-button id="checkout-button" flex class="md-raised md-primary" ui-sref="authenticated.master.nav.checkout" ng-disabled="checkingOut">
-                To Check Out <i class="mdi-navigation-arrow-forward" style="position: relative; margin-top: 1px;"></i>
+
+              <md-button flex class="checkout-button md-raised md-primary" ui-sref="authenticated.master.nav.checkout" ng-disabled="checkingOut">
+                <span ng-show="!user">Log in or register</span>
+                <span ng-show="user">To Check Out</span>
+                <i class="mdi-navigation-arrow-forward" style="position: relative; margin-top: 1px;"></i>
               </md-button>
               
             </span>

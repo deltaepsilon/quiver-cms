@@ -85,7 +85,14 @@ angular.module('quiverCmsApp')
         $scope.toLanding();
       }
 
-    }
+    };
+
+    /*
+     * Reload state. Forces evaluation of auth.
+     */
+    $scope.reload = function () {
+      $state.go($state.current, $state.params, {reload: true});
+    };
 
     /*
      * Log out user and forward to landing page
@@ -94,7 +101,9 @@ angular.module('quiverCmsApp')
       qvAuth.logOut().then(function () {
         delete $scope.currentUser;
         delete $scope.user;
-        $scope.toLanding();
+        $scope.toggleSidenav('left');
+        NotificationService.success('Log Out Success');
+        $scope.reload();
       });
     };
 
