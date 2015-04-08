@@ -1,189 +1,236 @@
-<div class="column small-12 medium-3">
-    <ul class="side-nav padding-vertical-zero-important background-white0" style="z-index: 1;" qv-pinned>
-        <li><a href="#messages" qv-highlight="text-secondary0" selector="#messages .transition-color">Assignment Feedback</a></li>
-        <li ng-show="subscriptions.length"><a href="#subscriptions" qv-highlight="text-secondary0" selector="#subscriptions .transition-color">Subscriptions</a></li>
-        <li ng-show="shipments.length"><a href="#shipping" qv-highlight="text-secondary0" selector="#shipping .transition-color">Shipping</a></li>
-        <li ng-show="gifts.length"><a href="#gifts" qv-highlight="text-secondary0" selector="#gifts .transition-color">Gifts</a></li>
-        <li ng-show="downloads.length"><a href="#downloads" qv-highlight="text-secondary0" selector="#downloads .transition-color">Downloads</a></li>
-        <li ng-show="transactions.length"><a href="#transactions" qv-highlight="text-secondary0" selector="#transactions .transition-color">Transactions</a></li>
-    </ul>
-    
-</div>
+<!-- START Messages -->
+<section id="messages" class="padding-vertical-medium" ng-if="groupedMessages">
+    <h3 class="headline transition-color">Assignment Feedback</h3>
 
-<div class="column small-12 medium-9">
-    <div id="messages" class="small-12">
-        <div>
-            <h3 class="font-flair transition-color">Assignment Feedback</h3>
-        </div>
+    <md-whiteframe class="md-whiteframe-z1 relative" layout="column" layout-fill flex>
+        <md-content style="max-height: 500px;">
+            <md-list class="hover" layout="column" ng-if="!groupedMessages">
+                <md-item>
+                    <md-item-content class="text-center" layout="row" layout-align="center center" layout-padding layout-wrap>
+                        <h3 class="Headline">No feedback quite yet!</h3>
+                    </md-item-content>
+                </md-item>
+            </md-list>
+                
+            <section ng-repeat="(dateAndAssignment, messages) in groupedMessages">
+                <md-subheader>
+                    {{ dateAndAssignment }}
+                </md-subheader>
+                <md-list class="hover" layout="column">
+                    <md-item ng-repeat="message in messages">
+                        <md-item-content layout="row">
+                            <a class="undecorated" flex layout="row" layout-align="start start" layout-padding layout-wrap ui-sref="authenticated.master.subscription.assignment({subscriptionKey: message.subscriptionKey, assignmentKey: message.assignmentKey })">
+                                <h4 flex="100" flex-gt-sm="30">{{ message.userName }}</h4>
+                                <div flex>{{ message.text }}</div>
+                            </a>
+                            
+                        </md-item-content>
+                        <md-divider ng-if="!$last"></md-divider>
+                    </md-item>
+                </md-list>
+            </section>
+        </md-content>    
+    </md-whiteframe>
+</section>
+<!-- END Messages -->
 
-        <ul class="table-list striped hover link-padded text-x-medium" style="max-height: 500px; overflow: auto;">
-            <li class="table-list-header padding-small" ng-show="messages.length">
-                <div class="column small-2">
-                    Assignment
-                </div>
-                <div class="column small-3">
-                    User
-                </div>
-                <div class="column small-5">
-                    Text
-                </div>
-                <div class="column small-2 medium-text-right">
-                    Date
-                </div>
-            </li>
-            <li ng-repeat="message in messages">
-                <a class="clearfix block" ui-sref="authenticated.master.nav.subscription.assignment({subscriptionKey: message.subscriptionKey, assignmentKey: message.assignmentKey })">
-                    <div class="column small-12 medium-2 truncate">
-                        {{ message.assignmentTitle }}&nbsp;
-                    </div>
-                    <div class="column small-12 medium-3 truncate">
-                        {{ message.userName }}&nbsp;
-                    </div>
-                    <div class="column small-12 medium-5 truncate">
-                        {{ message.text }}&nbsp;
-                    </div>
-                    <div class="column small-12 medium-2 medium-text-right truncate">
-                        <span>{{ message.created | moment:"MM/DD/YYYY" }}</span>&nbsp;
+<!-- START subscriptions -->
+<section id="subscription" class="padding-vertical-medium" ng-if="subscriptions.length">
+    <h3 class="headline transition-color">Subscriptions</h3>
 
-                    </div>
-                </a>
-            </li>
-            <!-- <li class="no-stripe no-hover padding-small" ng-show="messages.length || paginating">
-                <div class="column small-4">
-                  <button class="secondary small-12 tiny" ng-click="loadNext()" ng-disabled="disableNext">Previous {{ limit }}</button>&nbsp;
-                </div>
-                <div class="column small-4">
-                  <button class="secondary small-12 tiny" ng-click="reset()" ng-disabled="!paginating">Reset</button>
-                </div>
-                <div class="column small-4">
-                  <button class="secondary small-12 tiny" ng-click="loadPrev()" ng-disabled="disablePrev">Next {{ limit }}</button>
-                </div>
-            </li> -->
-            <li class="padding-small" ng-hide="messages.length">
-                <h5 class="font-flair">No assigment feedback found.</h5>
-            </li>
-        </ul>
-
-    </div>
-
-    <div id="subscriptions" class="small-12" ng-if="subscriptions.length">
-        <div>
-            <h3 class="font-flair transition-color">Subscriptions</h3>
-        </div>
-
-        <ul class="table-list striped hover link-padded text-x-medium">
-            <li ng-repeat="subscription in subscriptions | orderBy:'expiration'" ng-disabled="subscription.subscriptionType == 'content' && expired(subscription)" ng-class="{disabled: subscription.subscriptionType == 'content' && isExpired(subscription)}">
-                <a ui-sref="authenticated.master.nav.subscription.page({subscriptionKey: subscription.$id, pageNumber: $storage['bookmark-' + subscription.$id] || 0})">
-                    <div class="column small-12 medium-3">{{ subscription.title }}</div>
-                    <div class="column small-12 medium-3">{{ subscription.subscriptionDays }} Days</div>
-                    <div class="column small-12 medium-6 medium-text-right">
-                        <span ng-show="subscription.subscriptionType === 'interaction'">
-                            <span ng-show="isExpired(subscription)">
-                                <strong>Assignments Expired</strong>: {{ subscription.expiration | moment:"MM/DD/YYYY" }}
-                            </span>
-                            <span ng-hide="isExpired(subscription)">
-                                <span ng-show="subscription.expiration">Assignments Expiration: {{ subscription.expiration | moment:"MM/DD/YYYY" }}</span>
-                                <span ng-hide="subscription.expiration">Assignments not started</span>
-                            </span>
-                        </span>
-                        <span ng-show="subscription.subscriptionType === 'content'">
-                            <span ng-show="isExpired(subscription)">
-                                <strong>Expired</strong>: {{ subscription.expiration | moment:"MM/DD/YYYY" }}
-                            </span>
-                            <span ng-hide="isExpired(subscription)">
-                                <span ng-show="subscription.expiration">Expiration: {{ subscription.expiration | moment:"MM/DD/YYYY" }}</span>
-                                <strong ng-hide="subscription.expiration">Click to start subscription</strong>
+    <md-whiteframe class="md-whiteframe-z1 relative" layout="column" layout-fill flex>
+        <md-content>
+            <md-list layout="column">
+                <md-item ng-if="!subscriptions.length">
+                    <md-item-content class="text-center" layout="row" layout-align="center center" layout-padding layout-wrap>
+                        <h3 class="Headline">You haven't signed up for any subscriptions.</h3>
+                    </md-item-content>
+                </md-item>
+                <md-item ng-repeat="subscription in subscriptions | orderBy:'expiration'" ng-disabled="subscription.subscriptionType == 'content' && expired(subscription)" ng-class="{disabled: subscription.subscriptionType == 'content' && isExpired(subscription)}">
+                    <md-item-content layout="row" layout-padding layout-wrap>
+                        <h4 flex="100" flex-gt-sm="30">{{ subscription.title }}</h4>
+                        <h4 flex="100" flex-gt-sm="30">{{ subscription.subscriptionDays }} Days</h4>
+                        <md-button class="md-primary md-raised" flex ui-sref="authenticated.master.subscription.page({subscriptionKey: subscription.$id, pageNumber: $storage['bookmark-' + subscription.$id] || 0})" aria-label="Subscription {{ subscription.title }}">
+                            
+                            <span layout="row" layout-align="space-between" ng-if="subscription.subscriptionType === 'interaction' && isExpired(subscription)">
+                                <span class="text-left" flex>Assignments expired</span>
+                                <span class="text-right" flex>{{ subscription.expiration | moment:"MM/DD/YYYY" }}</span>
                             </span>
                             
-                        </span>
+                            <span layout="row" layout-align="space-between" ng-if="subscription.subscriptionType === 'interaction' && !isExpired(subscription) && subscription.expiration">
+                                <span class="text-left" flex>Assignments expiration</span>
+                                <span class="text-right" flex>{{ subscription.expiration | moment:"MM/DD/YYYY" }}</span>
+                            </span>
+                            
+                            <span layout="row" layout-align="space-between" ng-if="subscription.subscriptionType === 'interaction' && !isExpired(subscription) && !subscription.expiration">
+                                <span flex>Assignment not started</span>
+                            </span>
+
+                            <span layout="row" layout-align="space-between" ng-if="subscription.subscriptionType === 'content' && isExpired(subscription)">
+                                <span class="text-left" flex>Expired</span>
+                                <span class="text-right" flex>{{ subscription.expiration | moment:"MM/DD/YYYY" }}</span>
+                            </span>
+
+                            <span layout="row" layout-align="space-between" ng-if="subscription.subscriptionType === 'content' && !isExpired(subscription) && subscription.expiration">
+                                <span class="text-left" flex>Expiration</span>
+                                <span class="text-right" flex>{{ subscription.expiration | moment:"MM/DD/YYYY" }}</span>
+                            </span>
+
+                            <span layout="row" layout-align="space-between" ng-if="subscription.subscriptionType === 'content' && !isExpired(subscription) && !subscription.expiration">
+                                <span flex>Click to start subscription</span>
+                            </span>
+                            
+                        </md-button>
                         
-                    </div>
-                    
-                    
-                </a>
-            </li>
-        </ul>
+                    </md-item-content>
+                    <md-divider ng-if="!$last"></md-divider>
 
-    </div>
+                </md-item>
 
-    <div id="shipping" class="small-12" ng-if="shipments.length">
-        <div>
-            <h3 class="font-flair transition-color">Shipping</h3>
-        </div>
+            </md-list>
 
-        <ul class="table-list striped hover padded text-x-medium">
-            <li ng-repeat="shipment in shipments">
-                <div class="column small-12 medium-3">{{ shipment.item.title }}</div>
-                <div class="column small-12 medium-3">{{ shipment.item.adjusted || shipment.item.price | currency }} x {{ shipment.item.quantity }}</div>
-                <div class="column small-12 medium-3">
-                    <a ng-show="shipment.tracking" href="{{ shipment.tracking.href }}">{{ shipment.tracking.number }}</a>
-                </div>
-                <div class="column small-12 medium-3 text-right">{{ shipment.created | moment:"MM/DD/YYYY" }}</div>
-            </li>
-        </ul>
+        </md-content>    
 
-    </div>
+    </md-whiteframe>
+</section>
+<!-- END Subscriptions -->
 
-    <div id="gifts" class="small-12" ng-if="gifts.length">
-        <div>
-            <h3 class="font-flair transition-color">Gift Codes</h3>
-        </div>
+<!-- START Shipping -->
+<section id="shipping" class="padding-vertical-medium" ng-if="shipments.length">
+    <h3 class="headline transition-color">Shipping</h3>
 
-        <ul class="table-list striped hover padded text-x-medium">
-            <li ng-repeat="gift in gifts" ng-class="{disabled: gift.useCount == gift.uses}">
-                <div class="column small-12 medium-6">Code: <strong>{{ gift.code }}</strong></div>
-                <div class="column small-12 medium-6 medium-text-right">Value: {{ gift.value | currency }}</div>
-            </li>
-        </ul>
+    <md-whiteframe class="md-whiteframe-z1 relative" layout="column" layout-fill flex>
+        <md-content>
+            <md-list layout="column">
+                <md-item ng-if="!shipments.length">
+                    <md-item-content class="text-center" layout="row" layout-align="center center" layout-padding layout-wrap>
+                        <h3 class="Headline">You don't have any shipments.</h3>
+                    </md-item-content>
+                </md-item>
+                <md-item ng-repeat="shipment in shipments">
+                    <md-item-content layout="row" layout-padding layout-wrap>
+                        <div flex="100" flex-gt-sm="30">{{ shipment.item.title }}</div>
+                        <div flex="100" flex-gt-sm="20">{{ shipment.item.adjusted || shipment.item.price | currency }} x {{ shipment.item.quantity }}</div>
+                        <div flex="100" flex-gt-sm="20" flex>{{ shipment.created | moment:"MM/DD/YYYY" }}</div>
+                        <md-button flex ng-href="{{ shipment.tracking.href }}">
+                            <span ng-show="shipment.tracking">{{ shipment.tracking.number }}</span>
+                            <span ng-show="!shipment.tracking">Not yet shipped</span>
+                        </md-button>
+                        
+                    </md-item-content>
+                    <md-divider ng-if="!$last"></md-divider>
 
-    </div>
+                </md-item>
 
-    <div id="downloads" class="small-12" ng-if="downloads.length">
-        <div>
-            <h3 class="font-flair transition-color">Downloads</h3>
-        </div>
+            </md-list>
 
-        <ul class="table-list striped hover link-padded text-x-medium">
-            <li ng-repeat="download in downloads">
-                <a href="/resource/{{ download.resource.keys.resource }}" target="_blank">
-                    <div class="column small-12 medium-6">{{ download.title }}</div>
-                    <div class="column small-12 medium-6 medium-text-right">{{ env.root }}/resource/{{ download.resource.key }}</div>
-                </a>
-            </li>
-        </ul>
+        </md-content>    
 
-    </div>
+    </md-whiteframe>
+</section>
+<!-- END Shipping -->
 
-    <div id="transactions" class="small-12" ng-if="transactions.length">
-        <div>
-            <h3 class="font-flair transition-color">Transactions</h3>
-        </div>
+<!-- START Gift codes -->
+<section id="gifts" class="padding-vertical-medium" ng-if="gifts.length">
+    <h3 class="headline transition-color">Gift Codes</h3>
 
-        <ul class="table-list striped hover link-padded">
-            <li class="text-x-medium" ng-repeat="transaction in transactions">
-                <a ui-sref="authenticated.master.nav.transaction({userId: transaction.userId, key: transaction.keys.user })">
-                    <div class="column small-12 medium-8">
-                        <span>Items</span>
-                        <hr>
-                        <ul class="inline-list commas text-small">                        
-                            <li ng-repeat="item in transaction.items">{{ item.title }}</li>
-                        </ul>
-                    </div>
-                    <div class="column small-12 medium-2 medium-text-right">
-                        {{ transaction.date | moment:"MM/DD/YYYY" }}
-                    </div>
-                    <div class="column small-12 medium-2 medium-text-right">
-                        <strong ng-class="{'text-error': transaction.total && !transaction.charge.success}">{{ transaction.total | currency }}</strong>
-                        <div class="text-error text-xx-small" ng-show="transaction.total && !transaction.charge.success">{{ transaction.charge.message }}</div>
-                    </div>
-                    
-                </a>
-            </li>
-        </ul>
+    <md-whiteframe class="md-whiteframe-z1 relative" layout="column" layout-fill flex>
+        <md-content>
+            <md-list layout="column">
+                <md-item ng-if="!gifts.length">
+                    <md-item-content class="text-center" layout="row" layout-align="center center" layout-padding layout-wrap>
+                        <h3 class="Headline">You don't have any gift codes quite yet.</h3>
+                    </md-item-content>
+                </md-item>
+                <md-item ng-repeat="gift in gifts" ng-class="{disabled: gift.useCount == gift.uses}">
+                    <md-item-content layout="row" layout-padding layout-wrap>
+                        <div flex flex-sm="100">{{ gift.code }}</div>
+                        <div flex style="max-width: 8rem;">Value: {{ gift.value | currency }}</div>
+                        
+                    </md-item-content>
+                    <md-divider ng-if="!$last"></md-divider>
 
-    </div>
+                </md-item>
 
+            </md-list>
 
-</div>
+        </md-content>    
 
+    </md-whiteframe>
+</section>
+<!-- END Gift codes -->
 
+<!-- START Downloads -->
+<section id="downloads" class="padding-vertical-medium" ng-if="downloads.length">
+    <h3 class="headline transition-color">Downloads</h3>
+
+    <md-whiteframe class="md-whiteframe-z1 relative" layout="column" layout-fill flex>
+        <md-content>
+            <md-list class="hover" layout="column">
+                <md-item ng-if="!downloads.length">
+                    <md-item-content class="text-center" layout="row" layout-align="center center" layout-padding layout-wrap>
+                        <h3 class="Headline">You have nothing to download.</h3>
+                    </md-item-content>
+                </md-item>
+                <md-item ng-repeat="download in downloads">
+                    <md-item-content layout="row" layout-wrap>
+                        <a class="undecorated" flex layout="row" layout-padding ng-href="/resource/{{ download.resource.keys.resource }}" target="_blank">
+                            <div flex="100" flex-gt-sm="30">{{ download.title }}</div>
+                            <div flex>{{ env.root }}/resource/{{ download.resource.key }}</div>
+                        </a>
+                        
+                    </md-item-content>
+                    <md-divider ng-if="!$last"></md-divider>
+
+                </md-item>
+
+            </md-list>
+
+        </md-content>    
+
+    </md-whiteframe>
+</section>
+<!-- END Downloads -->
+
+<!-- START Transactions -->
+<section id="transactions" class="padding-vertical-medium" ng-if="transactions.length">
+    <h3 class="headline transition-color">Transactions</h3>
+
+    <md-whiteframe class="md-whiteframe-z1 relative" layout="column" layout-fill flex>
+        <md-content>
+            <md-list class="hover" layout="column">
+                <md-item ng-if="!transactions.length">
+                    <md-item-content class="text-center" layout="row" layout-align="center center" layout-padding layout-wrap>
+                        <h3 class="Headline">No transactions!</h3>
+                    </md-item-content>
+                </md-item>
+                <md-item ng-repeat="transaction in transactions">
+                    <md-item-content layout="row" layout-wrap>
+                        <a class="undecorated" flex layout="row" layout-padding layout-wrap ui-sref="authenticated.master.nav.transaction({userId: transaction.userId, key: transaction.keys.user })">
+                            <div flex="30" flex-sm="100">
+                                #{{ transaction.transactionCount }}: {{ transaction.date | moment:"MM/DD/YYYY" }}        
+                            </div>
+                            <div flex flex-sm="100">
+                                <ul class="inline-list">
+                                    <li ng-repeat="item in transaction.items">{{ item.title }}</li>
+                                </ul>        
+                            </div>
+                            <div flex style="max-width: 8rem;">
+                                <strong ng-class="{'text-error': transaction.total && !transaction.charge.success}">{{ transaction.total | currency }}</strong>
+                                <div class="text-error" ng-show="transaction.total && !transaction.charge.success">{{ transaction.charge.message }}</div>        
+                            </div>
+
+                        </a>
+                        
+                    </md-item-content>
+                    <md-divider ng-if="!$last"></md-divider>
+
+                </md-item>
+
+            </md-list>
+
+        </md-content>    
+
+    </md-whiteframe>
+</section>
+<!-- END Transactions -->

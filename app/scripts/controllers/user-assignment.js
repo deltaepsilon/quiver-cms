@@ -93,10 +93,8 @@ angular.module('quiverCmsApp')
 
       while (i--) {
         if (file.name === flow.files[i].file.name) {
-          return $scope.$apply(function () {
-            flow.files.splice(i, 1);
-            NotificationService.success('File Deleted', file.name + ' was deleted.');
-          });
+          flow.files.splice(i, 1);
+          return NotificationService.success('File Deleted', file.name + ' was deleted.');
 
         }
       }
@@ -105,31 +103,33 @@ angular.module('quiverCmsApp')
 
     };
 
-    // var fakePromises = [];
-    // $scope.fakeUpload = function (Flow) {
-    //   console.info('Using $scope.fakeUpload. Switch to $scope.upload to make this work for realsies.');
+    var fakePromises = [];
+    $scope.fakeUpload = function (Flow) {
+      console.info('Using $scope.fakeUpload. Switch to $scope.upload to make this work for realsies.');
 
-    //   var i = Flow.files.length,
-    //     handleInterval = function (j) {
-    //       var promise = $interval(function () {
-    //         var percent = Flow.files[j].percentComplete;
-    //         Flow.files[j].percentComplete = !percent || percent >= 1 ? .1 : percent + .1;
-    //       }, 300);
-    //       fakePromises.push(promise);
-    //     };
+      $scope.uploading = true;
 
-    //   if (!fakePromises.length) {
-    //     while (i--) {
-    //       handleInterval(i);
-    //     }
-    //   } else {
-    //     i = fakePromises.length;
-    //     while (i--) {
-    //       $interval.cancel(fakePromises[i]);
-    //     }
-    //   }
+      var i = Flow.files.length,
+        handleInterval = function (j) {
+          var promise = $interval(function () {
+            var percent = Math.round(Flow.files[j].percentComplete || 0);
+            Flow.files[j].percentComplete = percent >= 100 ? 0 : percent + 10;
+          }, 300);
+          fakePromises.push(promise);
+        };
+
+      if (!fakePromises.length) {
+        while (i--) {
+          handleInterval(i);
+        }
+      } else {
+        i = fakePromises.length;
+        while (i--) {
+          $interval.cancel(fakePromises[i]);
+        }
+      }
       
-    // };
+    };
 
     $scope.upload = function (Flow) {
       $scope.uploading = true;
@@ -155,10 +155,10 @@ angular.module('quiverCmsApp')
             return function () {
               var unwatch = file.notification.$watch(function () {
                 if (Flow.files[j].notification) {
-                  var percent = Flow.files[j].notification.loaded / Flow.files[j].notification.total;
+                  var percent = Math.round(100 * (Flow.files[j].notification.loaded / Flow.files[j].notification.total));
 
                   Flow.files[j].percentComplete = isNaN(percent) ? 0 : percent;
-                  if (percent === 1) { // The .notification object will get erased at this point, so let's leave the percentComplete at 1 and walk away
+                  if (percent >= 100) { // The .notification object will get erased at this point, so let's leave the percentComplete at 100 and walk away
                     unwatch();
                   }
                 }
@@ -239,7 +239,7 @@ angular.module('quiverCmsApp')
 
       while (i--) {
         if (filename === flow.files[i].file.name) {
-          return $scope.$apply(handleSplice(i));
+          return $scope.$apply();
         }
       }
 

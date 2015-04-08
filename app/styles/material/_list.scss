@@ -6,6 +6,19 @@ ul, ol {
   }
 }
 
+ul, ol, md-list {
+  &.hover {
+    > li, > md-item {
+      &:hover {
+        @extend .background-primary0;
+        @extend .text-white0;
+        @extend .link-white0;
+
+      }
+    }
+  }
+}
+
 .inline-list {
   &> * {
     margin-left: 1rem;

@@ -19,6 +19,39 @@
         </md-button>
       </span>
 
+      <div flex layout="column" ng-if="$state.current.name == 'authenticated.master.nav.dashboard'" style="padding-left: 27px; padding-top: 0;" qv-anchor-links>
+        <md-button class="text-left adjust-mdi" ng-href="#messages" qv-highlight="text-secondary0" selector="#messages .transition-color" style="display: none;">
+          Assignment Feedback
+          <i class="mdi-image-navigate-next"></i>
+        </md-button>
+
+        <md-button class="text-left adjust-mdi" ng-href="#subscriptions" qv-highlight="text-secondary0" selector="#subscriptions .transition-color" style="display: none;">
+          Subscriptions
+          <i class="mdi-image-navigate-next"></i>
+        </md-button>
+
+        <md-button class="text-left adjust-mdi" ng-href="#shipping" qv-highlight="text-secondary0" selector="#shipping .transition-color" style="display: none;">
+          Shipping
+          <i class="mdi-image-navigate-next"></i>
+        </md-button>
+
+        <md-button class="text-left adjust-mdi" ng-href="#gifts" qv-highlight="text-secondary0" selector="#gifts .transition-color" style="display: none;">
+          Gifts
+          <i class="mdi-image-navigate-next"></i>
+        </md-button>
+
+        <md-button class="text-left adjust-mdi" ng-href="#downloads" qv-highlight="text-secondary0" selector="#downloads .transition-color" style="display: none;">
+          Downloads
+          <i class="mdi-image-navigate-next"></i>
+        </md-button>
+
+        <md-button class="text-left adjust-mdi" ng-href="#transactions" qv-highlight="text-secondary0" selector="#transactions .transition-color" style="display: none;">
+          Transactions
+          <i class="mdi-image-navigate-next"></i>
+        </md-button>
+        
+      </div>
+
       <span layout="row" flex>
         <md-button class="text-left" flex ui-sref="authenticated.master.nav.messages.list">
           <i class="mdi-communication-message"></i> Messages
@@ -51,7 +84,7 @@
     <div layout="column" layout-padding>
 
       <span layout="row" flex qv-active ng-repeat="subscription in subscriptions">
-        <md-button class="text-left" flex layout-fill ui-sref="authenticated.master.nav.subscription.page({subscriptionKey: subscription.$id, pageNumber: $storage['bookmark-' + subscription.$id] || 0})">
+        <md-button class="text-left" flex layout-fill ui-sref="authenticated.master.subscription.page({subscriptionKey: subscription.$id, pageNumber: $storage['bookmark-' + subscription.$id] || 0})" aria-label="Subscription: {{ subscription.title }}">
           {{ subscription.title }}
         </md-button>
       </span>

@@ -110,7 +110,10 @@
 
               {{#if inStock }}
                 <div flex class="bold">
-                  In Stock: {{ product.inventory }}
+                  In Stock
+                  {{#if product.inventory}} 
+                    : {{ product.inventory }}                  
+                  {{/if }}
                 </div>
 
                 <md-button class="md-raised md-primary" flex ng-hide="inCart('{{ product.slug }}')" ng-click="addToCart('{{ product.slug }}')">Add to Cart</md-button>

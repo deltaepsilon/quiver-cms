@@ -39,6 +39,13 @@ angular.module('quiverCmsApp', [
       $state.fromState = fromState;
       $state.fromParams = fromParams;
     });
+
+    $rootScope.$on('$stateChangeSuccess', function (e, toState, toParams, fromState, fromParams) {
+      $timeout(function () {
+        $rootScope.$emit('$stateChangeRender');
+      });
+      
+    });
      
     qvAuth.auth.$onAuth(function (authData) {
 
@@ -229,7 +236,7 @@ angular.module('quiverCmsApp', [
                   toState: $state.toState,
                   toParams: $state.toParams
                 };
-                return $state.go('master.nav.login');  
+                return $state.go('master.nav.login');
               }
 
               var headers = qvAuth.getHeaders(currentUser);
@@ -240,7 +247,7 @@ angular.module('quiverCmsApp', [
               return AdminService.getApiUser(headers);
 
             }).then(function (data) {
-              return !data ? qvAuth.getRejectedPromise() : qvAuth.getUser(data.key);
+              return data && data.key ? qvAuth.getUser(data.key) : qvAuth.getRejectedPromise();
             });
 
           }
@@ -259,6 +266,7 @@ angular.module('quiverCmsApp', [
             return AdminService.getSettings().$loaded();
           },
           files: function (AdminService) {
+            console.warn('Rework files system... these files should not be queried in authenticated.master');
             return AdminService.getFiles();
           }
         }
@@ -292,22 +300,22 @@ angular.module('quiverCmsApp', [
             return 5;
           },
           assignments: function (UserService, user, limit) {
-            return UserService.getSubmittedAssignments(user.$id, {orderByPriority: true, limitToLast: limit});
+            return UserService.getSubmittedAssignments(user.$id, {orderByPriority: true, limitToLast: limit}).$loaded();
           },
           subscriptions: function (UserService, user) {
-            return UserService.getSubscriptions(user.$id);
+            return UserService.getSubscriptions(user.$id).$loaded();
           },
           shipments: function (UserService, user) {
-            return UserService.getShipments(user.$id);
+            return UserService.getShipments(user.$id).$loaded();
           },
           gifts: function (UserService, user) {
-            return UserService.getGifts(user.$id);
+            return UserService.getGifts(user.$id).$loaded();
           },
           downloads: function (UserService, user) {
-            return UserService.getDownloads(user.$id);
+            return UserService.getDownloads(user.$id).$loaded();
           },
           transactions: function (UserService, user) {
-            return UserService.getTransactions(user.$id);
+            return UserService.getTransactions(user.$id).$loaded();
           },
         }
       })
@@ -379,39 +387,81 @@ angular.module('quiverCmsApp', [
         url: '/messages',
         templateUrl: 'views/messages-list.html'
       })
-      .state('authenticated.master.nav.subscription', { // *************************  User Subscription ****************
+      .state('authenticated.master.subscription', { // **********************************  Table of Contents ****************
         abstract: true,
         url: "/subscription/:subscriptionKey",
-        controller: 'UserSubscriptionCtrl',
-        templateUrl: 'views/subscription.html',
-        resolve: {
-          subscription: function (UserService, user, $stateParams) {
-            return UserService.getSubscription(user.public.id, $stateParams.subscriptionKey);
+        views: {
+          sidenavLeft: {
+            templateUrl: 'views/sidenav-left.html',
+            controller: 'NavCtrl',
+            resolve: {
+              subscriptions: function (UserService, user) {
+                return UserService.getSubscriptions(user.$id);
+              }
+            }
           },
-          pages: function(user, UserService, $stateParams) {
-            return UserService.getPages(user.public.id, $stateParams.subscriptionKey);
+          sidenavRight: {
+            templateUrl: 'views/sidenav-subscription.html',
+            controller: 'UserSubscriptionCtrl',
+            resolve: {
+              subscription: function (UserService, user, $stateParams) {
+                return UserService.getSubscription(user.public.id, $stateParams.subscriptionKey);
+              },
+              pages: function(user, UserService, $stateParams) {
+                return UserService.getPages(user.public.id, $stateParams.subscriptionKey);
+              },
+              assignments: function (UserService, user, $stateParams) {
+                return UserService.getAssignments(user.public.id, $stateParams.subscriptionKey);
+              }
+            }
           },
-          assignments: function (UserService, user, $stateParams) {
-            return UserService.getAssignments(user.public.id, $stateParams.subscriptionKey);
+          body: {
+            templateUrl: 'views/body.html'
+          },
+          footer: {
+            templateUrl: 'views/footer.html'
           }
         }
       })
-      .state('authenticated.master.nav.subscription.page', {
+      .state('authenticated.master.subscription.page', { // *********************  User Subscription ****************
         url: "/page/:pageNumber",
         templateUrl: '/views/page.html',
         controller: 'PageCtrl',
         resolve: {
-          word: function (AdminService, $stateParams, pages, $localStorage, $rootScope) {
-            var key = pages[$stateParams.pageNumber].$id;
+          isActive: function (UserService, user, $stateParams, $q, NotificationService, $state) {
+            var deferred = $q.defer();
 
-            $rootScope.assignmentKey = undefined;
-            $rootScope.pageNumber = parseInt($stateParams.pageNumber);
-            $localStorage['bookmark-' + $stateParams.subscriptionKey] = parseInt($stateParams.pageNumber);
-            return AdminService.getWord(key);
+            UserService.getSubscription(user.public.id, $stateParams.subscriptionKey).$loaded()
+              .then(function (subscription) {
+                return UserService.subscriptionIsExpired(subscription, true);
+              })
+              .then(function (isExpired) {
+                if (isExpired) {
+                  NotificationService.notify('Subscription Expired');
+                  return $state.go('authenticated.master.nav.dashboard');
+                } else {
+                  deferred.resolve(true);
+                }
+              });
+
+            return deferred.promise;
+            
+          },
+          word: function (AdminService, UserService, user, $stateParams, $localStorage, $rootScope) {
+            return UserService.getPages(user.public.id, $stateParams.subscriptionKey).then(function (pages) {
+              var key = pages[$stateParams.pageNumber].$id;
+
+              $rootScope.assignmentKey = undefined;
+              $rootScope.pageNumber = parseInt($stateParams.pageNumber);
+              $localStorage['bookmark-' + $stateParams.subscriptionKey] = parseInt($stateParams.pageNumber);
+              return AdminService.getWord(key);
+              
+            });
+            
           }
         }
       })
-      .state('authenticated.master.nav.subscription.assignment', {
+      .state('authenticated.master.subscription.assignment', {
         url: "/assignment/:assignmentKey",
         templateUrl: '/views/assignment.html',
         controller: 'UserAssignmentCtrl',
@@ -931,7 +981,7 @@ angular.module('quiverCmsApp', [
           }
         }
       })
-      .state('authenticated.master.admin.email', { // ******************************  Email Queue***********************
+      .state('authenticated.master.admin.email', { // ******************************  Email Queue **********************
         abstract: true,
         templateUrl: 'views/admin-email.html',
         controller: 'EmailCtrl'

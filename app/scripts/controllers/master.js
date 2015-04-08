@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('quiverCmsApp')
-  .controller('MasterCtrl', function ($scope, currentUser, env, qvAuth, ObjectService, NotificationService, $state, md5, settings, files, user, AdminService, _, $localStorage, $timeout, moment, $mdSidenav) {
+  .controller('MasterCtrl', function ($scope, currentUser, env, qvAuth, ObjectService, NotificationService, $state, md5, settings, files, user, AdminService, _, $localStorage, $timeout, moment, $mdSidenav, FirebaseService) {
     var loggedOutStates = AdminService.loggedOutStates,
       handleStateChange = function (event, toState, fromState, fromParams) {
         if ($scope.currentUser && ~loggedOutStates.indexOf(toState.name)) { //Protect login/register/reset states from logged-in users
@@ -32,8 +32,27 @@ angular.module('quiverCmsApp')
     /*
      * Angular Material
      */
+    $scope.getSidenav = function (menuId) {
+      $mdSidenav(menuId);
+    };
+
     $scope.toggleSidenav = function (menuId) {
-      $mdSidenav(menuId).toggle();  
+      $mdSidenav(menuId).toggle();
+    };
+
+    $scope.openSidenav = function (menuId) {
+      $mdSidenav(menuId).open();
+    };
+
+    $scope.closeSidenav = function (menuId) {
+      $mdSidenav(menuId).close();
+    };
+
+    /*
+     * Top Nav
+     */
+    $scope.showTOC = function () {
+      return !!$state.current.name.match(/authenticated\.master\.subscription/);
     };
 
     /*
@@ -98,13 +117,15 @@ angular.module('quiverCmsApp')
      * Log out user and forward to landing page
     */
     $scope.logOut = function () {
-      qvAuth.logOut().then(function () {
-        delete $scope.currentUser;
-        delete $scope.user;
-        $scope.toggleSidenav('left');
-        NotificationService.success('Log Out Success');
-        $scope.reload();
-      });
+      FirebaseService.destroySecureRefs()
+        .then(qvAuth.logOut)
+        .then(function () {
+          delete $scope.currentUser;
+          delete $scope.user;
+          $scope.closeSidenav('left');
+          NotificationService.success('Log Out Success');
+          $scope.reload();
+        });
     };
 
     var deregister = qvAuth.auth.$onAuth(function (authData) {
@@ -145,7 +166,7 @@ angular.module('quiverCmsApp')
      * Subscriptions
      */
      $scope.isExpired = function(subscription) {
-      return subscription.expiration && moment().unix() > moment(subscription.expiration).unix();
+      return !!subscription && subscription.expiration && moment().unix() > moment(subscription.expiration).unix();
      };
 
 

@@ -8,7 +8,9 @@
  * Service in the quiverCmsApp.
  */
 angular.module('quiverCmsApp')
-  .service('FirebaseService', function () {
+  .service('FirebaseService', function ($q, $timeout) {
+    var secureRefs = [];
+
     return {
       query: function (ref, query) {
         if (!query) {
@@ -48,6 +50,29 @@ angular.module('quiverCmsApp')
 
         return ref;
         
+      },
+
+      registerSecureRef: function (ref) {
+        secureRefs.push(ref);
+        return ref;
+      },
+
+      destroySecureRefs: function () {
+        var deferred = $q.defer(),
+          i = secureRefs.length;
+
+        while (i--) {
+          if (typeof secureRefs[i].$destroy === 'function') {
+            secureRefs[i].$destroy();
+          }
+        }
+
+        secureRefs = [];
+
+        $timeout(deferred.resolve);
+
+        return deferred.promise;
+
       }
 
     };

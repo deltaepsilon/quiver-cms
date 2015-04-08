@@ -11,4 +11,24 @@
     bottom: 0;
     left: 0;
   }
+
+  &.bottom {
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
+
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
+}
+
+img, video, iframe {
+  max-width: 100%;
 }

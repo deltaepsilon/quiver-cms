@@ -1,111 +1,134 @@
-<div class="small-12">
-  <h5 class="font-flair">{{ assignment.title }}</h5>
-</div>
+<h3 class="headline">Assignment: {{ assignment.title }}</h5>
+
+<md-whiteframe class="md-whiteframe-z1" layout layout-padding>
+  <div markdown-editable class="markdown padding-vertical-medium" ng-model="assignment.description" extensions="video"></div>
+</md-whiteframe>
 
 
-
-<div class="small-12">
-  <div markdown-editable class="markdown" ng-model="assignment.description" extensions="video"></div>
-</div>
-
-<div class="small-12" ng-show="assignment.supportsUpload">
-  <h5 class="font-flair">Uploads</h5>
+<section class="padding-vertical-medium" ng-show="assignment.supportsUpload">
+  <h3 class="headline">Uploads an image</h5>
 
   <form name="filesForm" flow-init="{target: uploadTarget}" flow-file-added="handleFileAdded($event, $flow, $file)" flow-name="flow" ng-hide="isExpired(subscription)">
     <fieldset>
-      <div class="column small-12 medium-6">
-        <label class="button small-12" for="upload-file">Select Files</label>
-        <input id="upload-file" class="hidden" type="file" flow-btn/>
+      <md-whiteframe class="md-whiteframe-z1" layout="row" layout-align="center center" layout-fill layout-margin layout-padding layout-wrap>
 
-        <label class="button small-12" for="upload-directory">Select Directory</label>
+        <md-whiteframe class="md-whiteframe-z3 background-highlight4 text-white0 text-center" flex="100" layout="row" layout-align="center center" style="padding: 2.8rem;" flow-drop ng-class="{'drag-over': dragOver}" flow-drag-enter="dragOver = true;" flow-drag-leave="dragOver = false;">
+          <strong class="headline uppercase text-x-large text-center" flex style="color: inherit;">File Drop</strong>
+        </md-whiteframe>
+
+        <label class="md-button md-default-theme md-primary md-raised" flex="40" for="upload-file">
+          Select Files
+        </label>
+        <input id="upload-file" class="hidden" type="file" flow-btn/>  
+
+        <span flex></span>
+
+        <label class="md-button md-default-theme md-primary md-raised" flex="40" for="upload-directory">
+          Select Directory
+        </label>
         <input id="upload-directory" class="hidden" type="file" flow-btn flow-directory/>
-      </div>
 
-      <!-- <div class="column small-12 medium-6">
-        <label class="button small-12" for="upload-directory">Select Directory</label>
-        <input id="upload-directory" class="hidden" type="file" flow-btn flow-directory/>
-      </div> -->
+        <md-divider flex="100" ng-if="$flow.files.length"></md-divider>
 
-      <div class="column small-12 medium-6">
-        <div class="panel callout text-center margin-zero-important" style="padding: 2.8rem;" flow-drop ng-class="{'drag-over': dragOver}" flow-drag-enter="dragOver = true;" flow-drag-leave="dragOver = false;">
-          <strong class="text-x-large" style="color: inherit;">File Drop</strong>
-        </div>      
-      </div>
+        <div flex="100" ng-if="$flow.files.length">
+          <div flex layout="row" layout-align="center center" layout-padding layout-wrap ng-repeat="file in $flow.files">
+            <span class="meter-text" flex>{{ file.name }} &nbsp; — &nbsp; {{ file.size / 1000 | number:0 }}kb</span>
+            <span class="max-10" flex>{{ file.percentComplete || 0 }}% Complete</span>
+            <md-button class="md-icon-button md-warn min-2 max-2" flex ng-click="deleteFlowFile($flow, file)">
+              <i class="mdi-action-delete"></i>
+            </md-button>
+            <md-progress-linear flex="100" md-mode="determinate" value="{{ file.percentComplete }}"></md-progress-linear>
+          </div>
+        </div>
 
-      <div class="column small-12">
-        <ul class="table-list striped hover link-padded" ng-if="$flow.files.length">
-          <li ng-repeat="file in $flow.files">
-            <a class="qv-progress success clearfix block" qv-confirm="deleteFlowFile($flow, file)" confirmations="['Click to Delete']">
-              <span class="meter-text">{{ file.name }} {{ file.size / 1000 | number:0 }}kb</span>
-              <span class="meter" qv-meter="file.percentComplete"></span>
-            </a>
+        <div flex layout="row" layout-align="center center" ng-if="$flow.files.length">
+            <md-progress-circular class="invisible"  md-mode="indeterminate" qv-loading loaded="!uploading" target=".upload-button"></md-progress-circular>
+        </div>
 
-          </li>
-        </ul>
-
-        <button id="upload-button" class="left" ng-click="upload($flow)" ng-hide="!$flow.files.length" ng-disabled="uploading">
-          <span>Upload Files</span>
-          <span class="hidden backdrop background-highlight9" qv-loading loaded="!uploading" target="#upload-button"><img src="/images/ajax-loader.gif" style="margin-top: 1rem;"></span>
-        </button>
-        <!-- <button class="left" ng-click="fakeUpload($flow)" ng-hide="!$flow.files.length" ng-disabled="uploading">Fake</button> -->
-      </div>
+        <md-button class="upload-button md-accent md-raised max-10" flex flex-sm="40" ng-click="upload($flow)" ng-if="$flow.files.length" ng-disabled="uploading">Upload Files</md-button>
+        <!-- <md-button class="upload-button max-10" flex flex-sm="40" ng-click="fakeUpload($flow)" ng-if="$flow.files.length" ng-disabled="uploading">Fake Upload</md-button> -->
+        
+      </md-whiteframe>
 
     </fieldset>
 
   </form>
+</section>
 
-  <div class="small-12">
-    <ul class="table-list striped padded">
-      <li class="table-list-header" ng-show="uploads.length">
-        <div class="column small-12 medium-4">
-          Image
-        </div>
-        <div class="column small-12 medium-4">
-          Details
-        </div>
-        <div class="column small-12 medium-4">
-          Action
-        </div>
-      </li>
-      <li ng-repeat="(key, image) in uploads" ng-class="{'disabled': image.disabled}">
-        <div class="column small-12 medium-4">
-          <a href="{{ image.url }}" target="_blank">
-            <img ng-src="{{ image.url }}" alt="{{ image.name }}">
-          </a>
-        </div>
-        <div class="column small-12 medium-4">
-          {{ image.Name }} ({{ image.Size / 1000 | number:0 }}kb)
-        </div>
-        <div class="column small-12 medium-4">
-          <button class="alert small small-12 margin-zero" qv-confirm="remove(image); image.disabled = true;" confirmations="['Are you sure?']" ng-disabled="image.disabled">Remove</button>
-        </div>
+<section class="padding-vertical-medium" ng-show="uploads">
+  <h3 class="headline">Uploads</h5>
 
-      </li>
-      <li class="no-stripe" ng-show="!uploads.length">
-        <h5 class="font-flair">No uploads found.</h5>
-      </li>
-    </ul>
-  </div>
+  <md-whiteframe class="md-whiteframe-z1" layout="row" layout-align="space-between center" layout-align-sm="center center" layout-padding layout-wrap>
+    <div class="relative undecorated" flex="30" flex-sm="95" ng-repeat="(key, image) in uploads" ng-class="{'disabled': image.disabled}">
+      <a ng-href="{{ image.url }}" target="_blank">
+        <img ng-src="{{ image.url }}" alt="{{ image.name }}">
+      </a>
+      
+      <div class="absolute bottom background-highlight4 text-white0 text-center margin-horizontal-x-small margin-vertical-x-small" layout="row" layout-align="space-between center" layout-padding>
+        <span>{{ image.Name }} ({{ image.Size / 1000 | number:0 }}kb)</span>
 
-</div>
+        <md-button class="md-icon-button md-warn md-raised min-2 max-2" ng-click="remove(image); image.disabled = true;" ng-disabled="image.disabled">
+          <i class="mdi-action-delete"></i>
+        </md-button>
 
-<div class="small-12">
-  <h5 class="font-flair">Messages</h5>
-  <ul class="table-list striped padded">
-    <li ng-repeat="message in messages">
-      <div class="column small-4 medium-3"><strong>{{ message.userName }}</strong></div>
-      <div class="column small-8 medium-9">
-        <div class="markdown" markdown-editable ng-model="message.text"></div>
       </div>
-    </li>
-    <li class="no-stripe" ng-show="!messages.length">
-        <h5 class="font-flair">No messages found.</h5>
-    </li>
-    <li class="no-stripe">
-      <span ng-if="!isExpired(subscription)">
-        <textarea id="new-message" ng-model="text" placeholder="Message..."></textarea>
-        <button ng-click="sendMessage(text); text = undefined;" qv-focus="#new-message" ng-disabled="!text || !text.length|| !loaded">Send</button>
-      </span>      
-    </li>
-  </ul>
-</div>
+
+    </div>
+
+    <span flex></span>
+    
+  </md-whiteframe>
+
+</section>
+
+<!-- START Messages -->
+<section class="padding-vertical-medium" ng-if="messages">
+    <h3 class="headline">Assignment Feedback</h3>
+
+    <md-whiteframe class="md-whiteframe-z1" layout="column" layout-fill flex>
+        <md-content style="max-height: 500px;">
+            <md-list class="hover" layout="column" ng-if="!messages">
+                <md-item>
+                    <md-item-content class="text-center" layout="row" layout-align="center center" layout-padding layout-wrap>
+                        <h3 class="Headline">No messages quite yet...</h3>
+                    </md-item-content>
+                </md-item>
+            </md-list>
+                
+            <section>
+                <md-list layout="column">
+                    <md-item ng-repeat="message in messages">
+                        <md-item-content layout="row" layout-align="start start" layout-padding layout-wrap>
+                            <h4 flex="100" flex-gt-sm="30">{{ message.userName }}</h4>
+                            <div flex>{{ message.text }}</div>
+                            
+                        </md-item-content>
+                        <md-divider ng-if="!$last"></md-divider>
+                    </md-item>
+                </md-list>
+            </section>
+        </md-content>    
+    </md-whiteframe>
+
+</section>
+<!-- END Messages -->
+
+<section class="padding-vertical-medium">
+  <h3 class="headline">Send a message</h3>
+
+  <form>
+    <fieldset>
+      <md-whiteframe class="md-whiteframe-z1" layout="row" layout-align="space-between center" layout-padding layout-wrap>
+        <md-input-container flex>
+          <label for="new-message">Message...</label>
+          <textarea id="new-message" ng-model="text" placeholder="Message..."></textarea>  
+        </md-input-container>
+        <md-button flex class="md-raised md-primary max-10" ng-click="sendMessage(text); text = undefined;" qv-focus="#new-message" ng-disabled="!text || !text.length|| !loaded">
+          Send
+        </md-button>
+      </md-whiteframe>
+      
+    </fieldset>
+  </form>
+
+</section>

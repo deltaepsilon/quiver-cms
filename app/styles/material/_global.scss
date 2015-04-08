@@ -101,6 +101,12 @@ video, img {
   a, a:visited {
     color: inherit;
   }
+
+  img {
+    display: block;
+    margin: 1rem auto;
+  }
+
 }
 
 figure img {

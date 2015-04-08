@@ -10,6 +10,15 @@
 angular.module('quiverCmsApp')
   .controller('UserSubscriptionCtrl', function ($scope, subscription, pages, assignments, $stateParams, $localStorage, moment, NotificationService, _) {
     /*
+     * Right nav must stay closed when leaving this state.
+     */
+    var off = $scope.$on('$stateChangeStart', function () {
+      $scope.closeSidenav('right');
+      return !$scope.showTOC() ? off() : false;
+
+    });
+
+    /*
      * Subscription
      */
     $scope.subscription = subscription;
@@ -22,23 +31,6 @@ angular.module('quiverCmsApp')
       subscription.expiration = moment().add(subscription.subscriptionDays, 'days').format();
       subscription.$save();
     };
-
-    $scope.checkSubscription = function (subscription) {
-      if (subscription.subscriptionType === 'content') {
-        if (!subscription.expiration) {
-          subscription.expiration = moment().add(subscription.subscriptionDays, 'days').format();
-          subscription.$save();
-        } else if ($scope.isExpired(subscription)) {
-          NotificationService.notify('Subscription Expired');
-          return $scope.redirect();
-        }
-      }
-        
-    };
-
-    $scope.subscription.$loaded().then(function(subscription) {
-      $scope.checkSubscription(subscription);    	
-    });
 
     /*
      * Pages
@@ -54,6 +46,7 @@ angular.module('quiverCmsApp')
     $scope.doesNotStartSubscription = _.filter(assignments, function (assignment) {
       return !assignment.startsSubscription;
     });
+
     // if (Object.keys(assignments.assignments).length) {
     //   $scope.assignments = assignments.assignments;
     //   $scope.startsSubscription = 

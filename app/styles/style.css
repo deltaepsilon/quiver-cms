@@ -65,7 +65,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
 }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_color\.scss}line{font-family:\0000354}}
-.background-primary0 {
+.background-primary0, ul.hover > li:hover, ul.hover > md-item:hover, ol.hover > li:hover, ol.hover > md-item:hover, md-list.hover > li:hover, md-list.hover > md-item:hover {
   background-color: #333;
 }
 
@@ -2665,7 +2665,7 @@ a.link-hover-gray0-important:hover {
 }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_color\.scss}line{font-family:\0000366}}
-.text-white0, .active > .md-button {
+.text-white0, .active > .md-button, ul.hover > li:hover, ul.hover > md-item:hover, ol.hover > li:hover, ol.hover > md-item:hover, md-list.hover > li:hover, md-list.hover > md-item:hover {
   color: #fff;
 }
 
@@ -2675,7 +2675,7 @@ a.link-white0 {
 }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_color\.scss}line{font-family:\0000375}}
-.link-white0 a {
+.link-white0 a, ul.hover > li:hover a, ul.hover > md-item:hover a, ol.hover > li:hover a, ol.hover > md-item:hover a, md-list.hover > li:hover a, md-list.hover > md-item:hover a {
   color: #fff;
 }
 
@@ -4496,8 +4496,13 @@ video, img {
 .markdown a, .markdown a:visited {
   color: inherit;
 }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_global\.scss}line{font-family:\00003105}}
+.markdown img {
+  display: block;
+  margin: 1rem auto;
+}
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_global\.scss}line{font-family:\00003106}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_global\.scss}line{font-family:\00003112}}
 figure img {
   max-width: 100px;
 }
@@ -4572,6 +4577,16 @@ figure img {
   text-align: right !important;
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_type\.scss}line{font-family:\0000366}}
+.text-center {
+  text-align: center;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_type\.scss}line{font-family:\0000370}}
+.text-center-important {
+  text-align: center !important;
+}
+
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_buttons\.scss}line{font-family:\0000312}}
 .md-button.twitter, .md-fab.twitter {
   color: #fff !important;
@@ -4609,67 +4624,80 @@ figure img {
   background-color: #1e2e4f !important;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_buttons\.scss}line{font-family:\0000336}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_buttons\.scss}line{font-family:\0000337}}
+.md-button.adjust-mdi [class^="mdi-"], .md-button.adjust-mdi [class*=" mdi-"] {
+  top: 1px;
+  position: relative;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_buttons\.scss}line{font-family:\0000343}}
+.md-button.min-2 {
+  min-width: 2rem;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_buttons\.scss}line{font-family:\0000346}}
 .md-button.min-10 {
   min-width: 10rem;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_buttons\.scss}line{font-family:\0000339}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_buttons\.scss}line{font-family:\0000349}}
 .md-button.min-12 {
   min-width: 12rem;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_buttons\.scss}line{font-family:\0000342}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_buttons\.scss}line{font-family:\0000352}}
 .md-button.min-14 {
   min-width: 14rem;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_buttons\.scss}line{font-family:\0000345}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_buttons\.scss}line{font-family:\0000355}}
 .md-button.min-16 {
   min-width: 16rem;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_buttons\.scss}line{font-family:\0000348}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_buttons\.scss}line{font-family:\0000358}}
 .md-button.min-18 {
   min-width: 18rem;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_buttons\.scss}line{font-family:\0000351}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_buttons\.scss}line{font-family:\0000361}}
 .md-button.min-20 {
   min-width: 20rem;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_buttons\.scss}line{font-family:\0000355}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_buttons\.scss}line{font-family:\0000365}}
+.md-button.max-2 {
+  max-width: 2rem;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_buttons\.scss}line{font-family:\0000368}}
 .md-button.max-10 {
   max-width: 10rem;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_buttons\.scss}line{font-family:\0000358}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_buttons\.scss}line{font-family:\0000371}}
 .md-button.max-12 {
   max-width: 12rem;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_buttons\.scss}line{font-family:\0000361}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_buttons\.scss}line{font-family:\0000374}}
 .md-button.max-14 {
   max-width: 14rem;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_buttons\.scss}line{font-family:\0000364}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_buttons\.scss}line{font-family:\0000377}}
 .md-button.max-16 {
   max-width: 16rem;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_buttons\.scss}line{font-family:\0000367}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_buttons\.scss}line{font-family:\0000380}}
 .md-button.max-18 {
   max-width: 18rem;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_buttons\.scss}line{font-family:\0000370}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_buttons\.scss}line{font-family:\0000383}}
 .md-button.max-20 {
   max-width: 20rem;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_buttons\.scss}line{font-family:\0000375}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_buttons\.scss}line{font-family:\0000388}}
 .social-buttons {
   font-size: 3rem;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_buttons\.scss}line{font-family:\0000378}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_buttons\.scss}line{font-family:\0000391}}
 .social-buttons > * {
   color: #fff !important;
   margin: 0 .25rem;
   font-size: rem-calc(30);
   padding: rem-calc(13);
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_buttons\.scss}line{font-family:\0000387}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_buttons\.scss}line{font-family:\00003100}}
 .social-buttons .md-fab {
   width: 2rem;
   height: 2rem;
@@ -4694,33 +4722,54 @@ figure img {
   bottom: 0;
   left: 0;
 }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_layout\.scss}line{font-family:\0000315}}
+.absolute.bottom {
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_layout\.scss}line{font-family:\0000323}}
+.overlay {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_layout\.scss}line{font-family:\0000332}}
+img, video, iframe {
+  max-width: 100%;
+}
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_list\.scss}line{font-family:\000033}}
 ul.padded > li, ol.padded > li {
   padding: .5rem;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_list\.scss}line{font-family:\0000310}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_list\.scss}line{font-family:\0000323}}
 .inline-list > * {
   margin-left: 1rem;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_list\.scss}line{font-family:\0000313}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_list\.scss}line{font-family:\0000326}}
 .inline-list > * > button {
   margin-top: 4px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_list\.scss}line{font-family:\0000320}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_list\.scss}line{font-family:\0000333}}
 .inline-list.no-margin > *:first-child {
   margin-left: 0;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_list\.scss}line{font-family:\0000326}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_list\.scss}line{font-family:\0000339}}
 .inline-list.slashes > * {
   position: relative;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_list\.scss}line{font-family:\0000329}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_list\.scss}line{font-family:\0000342}}
 .inline-list.slashes > *:last-child:after {
   content: "";
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_list\.scss}line{font-family:\0000332}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_list\.scss}line{font-family:\0000345}}
 .inline-list.slashes > *:after {
   content: "/";
   margin-left: 1rem;
@@ -4728,15 +4777,15 @@ ul.padded > li, ol.padded > li {
   right: -1rem;
   top: 0;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_list\.scss}line{font-family:\0000344}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_list\.scss}line{font-family:\0000357}}
 .inline-list.dots > * {
   position: relative;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_list\.scss}line{font-family:\0000347}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_list\.scss}line{font-family:\0000360}}
 .inline-list.dots > *:last-child:after {
   content: "";
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_list\.scss}line{font-family:\0000350}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_list\.scss}line{font-family:\0000363}}
 .inline-list.dots > *:after {
   content: "•";
   margin-left: 1rem;
@@ -4744,30 +4793,30 @@ ul.padded > li, ol.padded > li {
   right: -1rem;
   top: 0;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_list\.scss}line{font-family:\0000362}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_list\.scss}line{font-family:\0000375}}
 .inline-list.commas > * {
   position: relative;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_list\.scss}line{font-family:\0000365}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_list\.scss}line{font-family:\0000378}}
 .inline-list.commas > *:last-child:after {
   content: "";
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_list\.scss}line{font-family:\0000368}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_list\.scss}line{font-family:\0000381}}
 .inline-list.commas > *:after {
   content: ",";
   position: absolute;
   right: -0.25rem;
   top: 0;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_list\.scss}line{font-family:\0000379}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_list\.scss}line{font-family:\0000392}}
 .inline-list.arrows > * {
   position: relative;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_list\.scss}line{font-family:\0000382}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_list\.scss}line{font-family:\0000395}}
 .inline-list.arrows > *:last-child:after {
   content: "";
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_list\.scss}line{font-family:\0000385}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_list\.scss}line{font-family:\0000398}}
 .inline-list.arrows > *:after {
   content: ">";
   position: absolute;
