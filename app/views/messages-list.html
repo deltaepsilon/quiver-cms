@@ -1,33 +1,38 @@
-<ul class="striped hover padded margin-zero-important" ng-if="loaded && selectedUser">
-  <li class="clearfix" ng-repeat="message in getMessages(selectedUser.id)" ng-class="{disabled: disabled}">
-    <div class="column small-2 medium-1">
-      <img class="border-radius-small" style="max-width: 2rem;" ng-src="{{ message.senderEmail | gravatar }}">
-    </div>
-    <div class="column small-10 medium-11">
-      <strong>{{ message.senderName || message.senderEmail }}</strong>
-      <span class="text-small text-secondary5">{{ message.date | timeago }}</span>
-      <span ng-show="message.type === 'assignment'">
-        <a ui-sref="authenticated.master.nav.subscription.assignment({subscriptionKey: message.subscriptionKey, assignmentKey: message.assignmentKey })">See assignment</a>
-      </span>
-      <div>
-        <div class="markdown" ng-model="message.text" markdown-editable style="max-width: 640px; word-break: break-word;">{{ message.text }}</div>
-      </div>
-    </div>
+<md-whiteframe class="md-whiteframe-z1" layout="column" layout-padding>
+  <md-content flex style="max-height: 500px;">
+    <section>
+      <md-list class="hover" layout="column">
+        <md-list-item layout="row" layout-wrap ng-repeat="message in getMessages(selectedUser.id)" ng-class="{disabled: disabled}">
+          <img class="avatar" flex ng-src="{{ message.senderEmail | gravatar }}" alt="{{ message.senderEmail }}" style="margin-right: 1rem;">
+          <div class="md-list-item-text" flex>
+            <h4 class="headline">{{ message.senderName || message.senderEmail }}</h4>
+            <span class="text-small text-secondary5">{{ message.date | timeago }}</span>
+            <span ng-show="message.type === 'assignment'">
+              <a ui-sref="authenticated.master.nav.subscription.assignment({subscriptionKey: message.subscriptionKey, assignmentKey: message.assignmentKey })">See assignment</a>
+            </span>
+            <div>
+              <div class="markdown" ng-model="message.text" markdown-editable style="max-width: 640px; word-break: break-word;">{{ message.text }}</div>
+            </div>
+          </div>
+          
+          <md-divider class="margin-vertical-small" flex="100" ng-if="!$last"></md-divider>
+          <span ng-if="$last && loaded" qv-autoscroll></span>
+
+        </md-list-item>
+      </md-list>
+    </section>
+  </md-content>
+
+  <form class="padding-vertical-small" layout="row" layout-align="space-between center" layout-wrap name="messageForm">
+    <h4 class="headline" flex="100">Send a message</h4>
+    <md-input-container flex style="margin-right: 1rem;">
+      <label for="new-message">Message</label>
+      <input id="new-message" type="text" ng-model="newMessage" ng-disabled="!selectedUser" required/>
+    </md-input-container>
+    <md-button class="md-primary md-raised md-icon-button min-2 max-2" flex qv-focus="#new-message" ng-click="sendMessage(user.$id, selectedUser.id, newMessage); newMessage = '';" ng-disabled="messageForm.$invalid || !selectedUser" aria-label="send message">
+      <i class="mdi-content-send"></i>
+    </md-button>
     
-  </li>
-  <li>
+  </form>
 
-  </li>
-
-</ul>
-
-<form name="messageForm">
-  <div class="column small-12 medium-9">
-    <input id="new-message" type="text" ng-model="newMessage" placeholder="{{ selectedUser.name || 'Message'}}..." ng-disabled="!selectedUser" required/>
-  </div>
-  <div class="column small-12 medium-3">
-    <button class="tiny" style="height: 2.3rem;" qv-focus="#new-message" ng-click="sendMessage(user.$id, selectedUser.id, newMessage); newMessage = '';" ng-disabled="messageForm.$invalid || !selectedUser">Send</button>
-  </div>
-  <div ng-if="loaded" qv-autoscroll></div>
-
-</form>
+</md-whiteframe>

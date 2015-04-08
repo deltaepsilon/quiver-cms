@@ -109,6 +109,9 @@ video, img {
 
 }
 
-figure img {
-  max-width: 100px;
+.avatar {
+  @extend .circle;
+  max-width: 2rem;
+  max-height: 2rem;
+  
 }

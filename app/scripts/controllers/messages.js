@@ -15,7 +15,9 @@ angular.module('quiverCmsApp')
      */
     $scope.users = messageable;
  
-    $scope.addUser = function (user) {
+    $scope.addUser = function (userId) {
+      var user = _.findWhere($scope.newRecipients, {"$id": userId});
+      
       if (user && !_.findWhere($scope.uniqueUsers, {id: user.userKey})) {
         $scope.uniqueUsers = getUniqueUsers($scope.sentMessages.concat($scope.receivedMessages)).concat({
           id: user.userKey || user.$id,

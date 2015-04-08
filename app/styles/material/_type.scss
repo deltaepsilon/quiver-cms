@@ -45,6 +45,12 @@
   color: inherit;
 }
 
+.truncate {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
 // Alignments
 
 .text-left {

@@ -9,7 +9,7 @@ ul, ol {
 ul, ol, md-list {
   &.hover {
     > li, > md-item {
-      &:hover {
+      &:hover, &.active {
         @extend .background-primary0;
         @extend .text-white0;
         @extend .link-white0;
@@ -17,6 +17,22 @@ ul, ol, md-list {
       }
     }
   }
+
+  &.pointer {
+    > li, > md-item {
+      &:hover {
+        cursor: pointer;
+
+      }
+
+      &.active {
+        cursor: default !important;
+
+      }
+      
+    }
+  }
+
 }
 
 .inline-list {

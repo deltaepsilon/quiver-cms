@@ -1,17 +1,30 @@
 <div>
-  <div class="column small-12 medium-3" qv-pinned>
-    <select ng-model="newRecipient" ng-options="user as (user.userName || user.email) for user in newRecipients" ng-change="addUser(newRecipient)" ng-show="newRecipients.length">
-      <option value="">Find a user</option>
-    </select>
-    <ul class="table-list hover padded">
-      <li class="cursor-pointer" ng-click="selectUser(user)" ng-repeat="user in uniqueUsers" ng-class="{'background-secondary5 text-white0': user.active}">
-        {{ user.name }}
-      </li>
-    </ul>
+  <h3 class="headline">Users</h3>
 
-    <hr>
-  </div>
+  <md-whiteframe class="md-whiteframe-z1" layout="column" layout-padding>
+    <md-select class="margin-x-small" flex ng-model="newRecipientId" ng-change="addUser(newRecipientId)" ng-show="newRecipients.length" placeholder="Find a user...">
+      <md-option ng-repeat="user in newRecipients" value="{{ user.$id }}">{{ user.userName || user.email }}</md-option>
+    </md-select>
 
-  <div class="column small-12 medium-9 flex flex-direction-column justify-content-flex-end" ui-view></div>
+    <md-content flex style="max-height: 500px;">          
+      <section>
+        <md-list class="hover pointer" layout="column">
+          <md-item ng-repeat="user in uniqueUsers" ng-class="{active: user.id === selectedUser.id}">
+            <md-item-content layout="row" layout-align="space-between center" ng-click="selectUser(user)">
 
+              <h4 class="truncate padding-x-small" flex>{{ user.name }}</h4>
+              <i class="mdi-communication-chat md-button min-2 max-2" flex ng-class="{invisible: user.id != selectedUser.id}"></i>
+            </md-item-content>
+          </md-item>
+        </md-list>
+      </section>
+    </md-content>    
+  </md-whiteframe>
+
+</div>
+
+<div class="padding-vertical-small">
+  <h3 class="headline" ng-if="loaded && selectedUser">Messages</h3>
+
+  <section ng-if="loaded && selectedUser" ui-view></section>  
 </div>
