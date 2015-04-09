@@ -14,17 +14,17 @@
             </div>
             
             <div class="social-buttons padding-horizontal-large" layout="row" layout-align="left">
-              <md-button class="md-fab md-primary" flex ng-href="/{{ post.slug }}">
+              <md-button class="md-fab md-primary" flex ng-href="/{{ post.slug }}" aria-label="View page comments">
                 <span data-disqus-identifier="{{ post.slug }}"></span>
                 <i class="mdi-editor-mode-comment"></i>
               </md-button>
-              <md-button class="md-fab twitter" flex ng-href="https://twitter.com/{{ post.author.twitter }}" target="_blank">
+              <md-button class="md-fab twitter" flex ng-href="https://twitter.com/{{ post.author.twitter }}" target="_blank"  aria-label="Author's Twitter feed">
                 <i class="qv qv-twitter"></i>
               </md-button>
-              <md-button class="md-fab instagram" flex href="https://instagram.com/{{ post.author.instagram }}" target="_blank">
+              <md-button class="md-fab instagram" flex href="https://instagram.com/{{ post.author.instagram }}" target="_blank"  aria-label="Author's Instagram feed">
                 <i class="qv qv-instagram"></i>
               </md-button>
-              <md-button class="md-fab md-secondary" flex ng-href="mailto:{{ post.author.email }}">
+              <md-button class="md-fab md-secondary" flex ng-href="mailto:{{ post.author.email }}"  aria-label="Author's email">
                 <i class="mdi-communication-email"></i>
               </md-button>
             </div>
@@ -41,16 +41,16 @@
           <md-card-content>
             <h6 class="headline" style="margin-bottom: 1rem;">Share</h6>
             <div class="social-buttons" layout="row" layout-align="space-between" layout-wrap>
-              <md-button class="md-fab twitter" ng-href="http://twitter.com/share?text={{ post.title }}&url={{ post.url }}">
+              <md-button class="md-fab twitter" ng-href="http://twitter.com/share?text={{ post.title }}&url={{ post.url }}"  aria-label="Share page to Twitter">
                 <i class="qv qv-twitter"></i>
               </md-button>
-              <md-button class="md-fab facebook" ng-href="https://www.facebook.com/sharer/sharer.php?u={{ post.url }}">
+              <md-button class="md-fab facebook" ng-href="https://www.facebook.com/sharer/sharer.php?u={{ post.url }}" aria-label="Share page to Facebook">
                 <i class="qv qv-instagram"></i>
               </md-button>
-              <md-button class="md-fab google-plus" ng-href="https://plus.google.com/share?url={{ post.url }}">
+              <md-button class="md-fab google-plus" ng-href="https://plus.google.com/share?url={{ post.url }}" aria-label="Share page to Google Plus">
                 <i class="qv qv-google-plus"></i>
               </md-button>
-              <md-button class="md-fab md-secondary" ng-href="mailto:?subject={{ post.title }}&body={{ post.url }}">
+              <md-button class="md-fab md-secondary" ng-href="mailto:?subject={{ post.title }}&body={{ post.url }}" aria-label="Share via email">
                 <i class="mdi-communication-email"></i>
               </md-button>
             </div>

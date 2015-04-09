@@ -30,6 +30,7 @@
 .active > .md-button {
   @extend .background-primary2;
   @extend .text-white0;
+  cursor: not-allowed;
 }
 
 .md-button {

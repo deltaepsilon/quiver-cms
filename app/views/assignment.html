@@ -55,7 +55,7 @@
   </form>
 </section>
 
-<section class="padding-vertical-medium" ng-show="uploads">
+<section class="padding-vertical-medium" ng-show="uploads.length">
   <h3 class="headline">Uploads</h5>
 
   <md-whiteframe class="md-whiteframe-z1" layout="row" layout-align="space-between center" layout-align-sm="center center" layout-padding layout-wrap>
@@ -67,7 +67,7 @@
       <div class="absolute bottom background-highlight4 text-white0 text-center margin-horizontal-x-small margin-vertical-x-small" layout="row" layout-align="space-between center" layout-padding>
         <span>{{ image.Name }} ({{ image.Size / 1000 | number:0 }}kb)</span>
 
-        <md-button class="md-icon-button md-warn md-raised min-2 max-2" ng-click="remove(image); image.disabled = true;" ng-disabled="image.disabled">
+        <md-button class="md-icon-button md-warn md-raised min-2 max-2" ng-click="remove(image); image.disabled = true;" ng-disabled="image.disabled" aria-label="Remove uploaded image">
           <i class="mdi-action-delete"></i>
         </md-button>
 
@@ -82,7 +82,7 @@
 </section>
 
 <!-- START Messages -->
-<section class="padding-vertical-medium" ng-if="messages">
+<section class="padding-vertical-medium" ng-if="messages.length">
     <h3 class="headline">Assignment Feedback</h3>
 
     <md-whiteframe class="md-whiteframe-z1" layout="column" layout-fill flex>

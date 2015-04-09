@@ -7,8 +7,8 @@
     </md-toolbar>
     <div layout="column" layout-padding>
 
-      <span layout="row" flex qv-active ng-repeat="page in pages" ng-class="{active: $index == pageNumber}">
-        <md-button class="text-left" flex layout-fill ui-sref="authenticated.master.subscription.page({subscriptionKey: subscription.$id, pageNumber: $index})" ng-disabled="$index == pageNumber">
+      <span layout="row" flex ng-repeat="page in pages" ng-class="{active: $index == pageNumber}">
+        <md-button class="text-left" flex layout-fill ui-sref="authenticated.master.subscription.page({subscriptionKey: subscription.$id, pageNumber: $index})">
           {{ page.title }}
         </md-button>
       </span>
@@ -24,8 +24,8 @@
     </md-toolbar>
     <div layout="column" layout-padding>
 
-      <span layout="row" flex qv-active ng-repeat="assignment in doesNotStartSubscription" ng-class="{active: assignment.$id == assignmentKey}">
-        <md-button class="text-left" flex layout-fill ui-sref="authenticated.master.subscription.assignment({subscriptionKey: subscription.$id, assignmentKey: assignment.$id})" ng-disabled="assignment.$id == assignmentKey">
+      <span layout="row" flex ng-repeat="assignment in doesNotStartSubscription" ng-class="{active: assignment.$id == assignmentKey}">
+        <md-button class="text-left" flex layout-fill ui-sref="authenticated.master.subscription.assignment({subscriptionKey: subscription.$id, assignmentKey: assignment.$id})">
           {{ assignment.title }}
         </md-button>
       </span>
@@ -42,8 +42,8 @@
         <md-button class="md-primary md-raised" ng-click="startSubscription(subscription)">Start Subscription</md-button>
       </div>
 
-      <span layout="row" flex qv-active ng-repeat="assignment in startsSubscription" ng-class="{active: assignment.$id == assignmentKey}">
-        <md-button class="text-left" flex layout-fill ui-sref="authenticated.master.subscription.assignment({subscriptionKey: subscription.$id, assignmentKey: assignment.$id})" ng-disabled="assignment.$id == assignmentKey">
+      <span layout="row" flex ng-repeat="assignment in startsSubscription" ng-class="{active: assignment.$id == assignmentKey}">
+        <md-button class="text-left" flex layout-fill ui-sref="authenticated.master.subscription.assignment({subscriptionKey: subscription.$id, assignmentKey: assignment.$id})">
           {{ assignment.title }}
         </md-button>
       </span>
@@ -64,8 +64,8 @@
         <md-button class="md-primary md-raised" ng-click="startSubscription(subscription)">Start Subscription</md-button>
       </div>
 
-      <span layout="row" flex qv-active ng-repeat="assignment in assignments" ng-class="{active: assignment.$id == assignmentKey}">
-        <md-button class="text-left" flex layout-fill ui-sref="authenticated.master.subscription.assignment({subscriptionKey: subscription.$id, assignmentKey: assignment.$id})" ng-disabled="assignment.$id == assignmentKey">
+      <span layout="row" flex ng-repeat="assignment in assignments" ng-class="{active: assignment.$id == assignmentKey}">
+        <md-button class="text-left" flex layout-fill ui-sref="authenticated.master.subscription.assignment({subscriptionKey: subscription.$id, assignmentKey: assignment.$id})">
           {{ assignment.title }}
         </md-button>
       </span>
