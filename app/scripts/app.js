@@ -37,7 +37,7 @@ angular.module('quiverCmsApp', [
       $state.toState = toState;
       $state.toParams = toParams;
       $state.fromState = fromState;
-      $state.fromParams = fromParams;
+      $state.fromParams = fromParams;      
     });
 
     $rootScope.$on('$stateChangeSuccess', function (e, toState, toParams, fromState, fromParams) {

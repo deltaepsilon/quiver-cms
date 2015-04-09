@@ -10,15 +10,6 @@
 angular.module('quiverCmsApp')
   .controller('UserSubscriptionCtrl', function ($scope, subscription, pages, assignments, $stateParams, $localStorage, moment, NotificationService, _) {
     /*
-     * Right nav must stay closed when leaving this state.
-     */
-    var off = $scope.$on('$stateChangeStart', function () {
-      $scope.closeSidenav('right');
-      return !$scope.showTOC() ? off() : false;
-
-    });
-
-    /*
      * Subscription
      */
     $scope.subscription = subscription;

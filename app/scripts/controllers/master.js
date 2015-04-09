@@ -32,15 +32,35 @@ angular.module('quiverCmsApp')
     /*
      * Angular Material
      */
+    var sidenavs = [],
+      registerSidenav = function (menuId) {
+        if (!~sidenavs.indexOf(menuId)) {
+          sidenavs.push(menuId);
+        }
+      },
+      closeAllSidenavs = function () {
+        _.each(sidenavs, function (menuId) {
+          $mdSidenav(menuId).close();
+        });
+
+      };
+
+    $scope.$on('$stateChangeStart', function (e, toState, toParams, fromState, fromParams) {
+      closeAllSidenavs();
+
+    });
+
     $scope.getSidenav = function (menuId) {
       $mdSidenav(menuId);
     };
 
     $scope.toggleSidenav = function (menuId) {
+      registerSidenav(menuId);
       $mdSidenav(menuId).toggle();
     };
 
     $scope.openSidenav = function (menuId) {
+      registerSidenav(menuId);
       $mdSidenav(menuId).open();
     };
 
