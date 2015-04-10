@@ -41,6 +41,10 @@ angular.module('quiverCmsApp')
 
       $scope.groupedMessages = _.groupBy(messages, "dateAndAssignment");
 
+      if (!Object.keys($scope.groupedMessages).length) {
+        $scope.groupedMessages = false;
+      }
+
       // var sortedMessages = _.sortBy(messages, function (message) {
       //   return -1 * (message.$priority || moment(message.created).unix());
       // });

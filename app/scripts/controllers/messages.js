@@ -127,6 +127,7 @@ angular.module('quiverCmsApp')
 
     $scope.sendMessage = function (userId, recipientId, message) {
       UserService.sendMessage(userId, recipientId, message).then(function () {
+        $scope.$broadcast('messageSent');
         // NotificationService.success('Message sent');
       }, function (err) {
         NotificationService.error('Message failed', err);

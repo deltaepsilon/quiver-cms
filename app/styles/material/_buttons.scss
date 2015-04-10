@@ -44,6 +44,12 @@
   &.min-2 {
     min-width: 2rem;
   }
+  &.min-3 {
+    min-width: 3rem;
+  }
+  &.min-4 {
+    min-width: 4rem;
+  }
   &.min-10 {
     min-width: 10rem;
   }
@@ -66,6 +72,12 @@
   &.max-2 {
     max-width: 2rem;
   }
+  &.max-3 {
+    max-width: 3rem;
+  }
+  &.max-4 {
+    max-width: 4rem;
+  }
   &.max-10 {
     max-width: 10rem;
   }
@@ -84,6 +96,11 @@
   &.max-20 {
     max-width: 20rem;
   }
+}
+
+.md-icon-button {
+  min-width: 2rem;
+  max-width: 2rem;
 }
 
 .social-buttons {

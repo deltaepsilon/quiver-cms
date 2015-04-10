@@ -143,6 +143,10 @@ angular.module('quiverCmsApp')
       query(_.defaults(q, {limitToLast: $scope.limit, noReset: true}));
     };
 
+    $scope.setSearch = function (searchTerm) {
+      $scope.searchTerm = searchTerm;
+    };
+
     $scope.reset = function (q) {
       $scope.limit = limit;
       return query(q).then(function (items) {

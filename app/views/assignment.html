@@ -34,7 +34,7 @@
           <div flex layout="row" layout-align="center center" layout-padding layout-wrap ng-repeat="file in $flow.files">
             <span class="meter-text" flex>{{ file.name }} &nbsp; — &nbsp; {{ file.size / 1000 | number:0 }}kb</span>
             <span class="max-10" flex>{{ file.percentComplete || 0 }}% Complete</span>
-            <md-button class="md-icon-button md-warn min-2 max-2" flex ng-click="deleteFlowFile($flow, file)">
+            <md-button class="md-icon-button md-warn" flex ng-click="deleteFlowFile($flow, file)">
               <i class="mdi-action-delete"></i>
             </md-button>
             <md-progress-linear flex="100" md-mode="determinate" value="{{ file.percentComplete }}"></md-progress-linear>
@@ -67,7 +67,7 @@
       <div class="absolute bottom background-highlight4 text-white0 text-center margin-horizontal-x-small margin-vertical-x-small" layout="row" layout-align="space-between center" layout-padding>
         <span>{{ image.Name }} ({{ image.Size / 1000 | number:0 }}kb)</span>
 
-        <md-button class="md-icon-button md-warn md-raised min-2 max-2" ng-click="remove(image); image.disabled = true;" ng-disabled="image.disabled" aria-label="Remove uploaded image">
+        <md-button class="md-icon-button md-warn md-raised" ng-click="remove(image); image.disabled = true;" ng-disabled="image.disabled" aria-label="Remove uploaded image">
           <i class="mdi-action-delete"></i>
         </md-button>
 
@@ -86,7 +86,7 @@
     <h3 class="headline">Assignment Feedback</h3>
 
     <md-whiteframe class="md-whiteframe-z1" layout="column" layout-fill flex>
-        <md-content style="max-height: 500px;">
+        <md-content style="height: 500px;">
             <md-list class="hover" layout="column" ng-if="!messages">
                 <md-item>
                     <md-item-content class="text-center" layout="row" layout-align="center center" layout-padding layout-wrap>
@@ -100,10 +100,11 @@
                     <md-item ng-repeat="message in messages">
                         <md-item-content layout="row" layout-align="start start" layout-padding layout-wrap>
                             <h4 flex="100" flex-gt-sm="30">{{ message.userName }}</h4>
-                            <div flex>{{ message.text }}</div>
+                            <div class="markdown" flex markdown-editable ng-model="message.text"></div>
                             
                         </md-item-content>
                         <md-divider ng-if="!$last"></md-divider>
+                        <span ng-if="$last && loaded" qv-autoscroll></span>
                     </md-item>
                 </md-list>
             </section>
@@ -119,7 +120,7 @@
   <form>
     <fieldset>
       <md-whiteframe class="md-whiteframe-z1" layout="row" layout-align="space-between center" layout-padding layout-wrap>
-        <md-input-container flex>
+        <md-input-container flex="100">
           <label for="new-message">Message...</label>
           <textarea id="new-message" ng-model="text" placeholder="Message..."></textarea>  
         </md-input-container>

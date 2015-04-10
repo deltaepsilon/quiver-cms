@@ -29,7 +29,7 @@
       <label for="new-message">Message</label>
       <input id="new-message" type="text" ng-model="newMessage" ng-disabled="!selectedUser" required/>
     </md-input-container>
-    <md-button class="md-primary md-raised md-icon-button min-2 max-2" flex qv-focus="#new-message" ng-click="sendMessage(user.$id, selectedUser.id, newMessage); newMessage = '';" ng-disabled="messageForm.$invalid || !selectedUser" aria-label="send message">
+    <md-button class="md-primary md-raised md-icon-button" flex qv-focus="#new-message" ng-click="sendMessage(user.$id, selectedUser.id, newMessage); newMessage = '';" ng-disabled="messageForm.$invalid || !selectedUser" aria-label="send message">
       <i class="mdi-content-send"></i>
     </md-button>
     

@@ -357,8 +357,14 @@ angular.module('quiverCmsApp', [
         templateUrl: 'views/transaction.html',
         controller: 'UserTransactionCtrl',
         resolve: {
-          transaction: function (UserService, $stateParams) {
-            return UserService.getTransaction($stateParams.userId, $stateParams.key);
+          transaction: function (UserService, $stateParams, $state, qvAuth, user) {
+            if (!qvAuth.verifyUser($stateParams.userId, user)) {
+              $state.go('authenticated.master.nav.dashboard');
+
+            } else {
+              return  UserService.getTransaction($stateParams.userId, $stateParams.key);
+            }
+             
           }
         }
       })

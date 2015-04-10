@@ -14,6 +14,10 @@ angular.module('quiverCmsApp')
     */
     $scope.$storage = $localStorage;
 
+    if ($scope.$storage.cart && $scope.$storage.cart.paymentToken) {
+      delete $scope.$storage.cart.paymentToken;
+    }
+
     /*
      * Products
     */

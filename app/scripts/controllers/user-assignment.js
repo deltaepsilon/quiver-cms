@@ -8,7 +8,7 @@
  * Controller of the quiverCmsApp
  */
 angular.module('quiverCmsApp')
-  .controller('UserAssignmentCtrl', function ($scope, $q, $filter, Slug, $stateParams, assignment, userAssignment, userAssignmentUploads, userAssignmentMessages, notifications, user, UserService, NotificationService, moment, env, FileService, $timeout, $interval) {
+  .controller('UserAssignmentCtrl', function ($scope, $q, $filter, Slug, $stateParams, assignment, userAssignment, userAssignmentUploads, userAssignmentMessages, notifications, user, UserService, NotificationService, UtilityService, moment, env, FileService, $timeout, $interval) {
     /*
      * Assignment
      */
@@ -24,7 +24,9 @@ angular.module('quiverCmsApp')
         $scope.userAssignment.subscriptionKey = $stateParams.subscriptionKey;
         $scope.userAssignment.assignmentKey = $stateParams.assignmentKey;
         $scope.userAssignment.title = assignment.title;
-        $scope.userAssignment.$save();
+        return $scope.userAssignment.$save();
+      } else {
+        return UtilityService.getResolvedPromise();
       }
     };
 
@@ -48,12 +50,23 @@ angular.module('quiverCmsApp')
           $priority: now.unix(),
         };
 
-      $scope.messages.$add(message).then(function (ref) {
-        setSubscriptionKey();
-        message.key = ref.key();
-        
-        return UserService.logMessage(user.public.id, assignment.$ref().key(), 'comment', message);
+      setSubscriptionKey()
+        .then(function () {
+          return $scope.messages.$add(message);  
+        })
+        .then(function (ref) {
+          $scope.$broadcast('scrollToBottom');
+          message.key = ref.key();
+          
+          return UserService.logMessage(user.public.id, assignment.$ref().key(), 'comment', message);
+        });
+    };
+
+    $scope.scrollToBottom = function () {
+      $timeout(function () {
+        $scope.$emit('scrollToBottom');  
       });
+      
     };
 
     /*

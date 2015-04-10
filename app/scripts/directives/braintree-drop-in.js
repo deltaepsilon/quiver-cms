@@ -23,7 +23,12 @@ angular.module('quiverCmsApp')
 		        	scope.disabled = true;
 		          CommerceService.createPaymentMethod(nonce).then(function (response) {
 		            if (response.error) {
-		              NotificationService.error('Card Error', response.error);
+                  if (typeof response.error === 'object') {
+                    NotificationService.error('Card Error', JSON.stringify(response.error));  
+                  } else {
+                    NotificationService.error('Card Error', response.error);  
+                  }
+		              
 		            } else {
 		              NotificationService.success('Card Added');
 		              setupForm();

@@ -1,3 +1,22 @@
+<!-- START Empty state -->
+<section ng-if="!groupedMessages && !subscriptions.length && !shipments.length && !gifts.length && !downloads.length && !transactions.length">
+
+
+    <md-whiteframe class="md-whiteframe-z1 relative padding-large" layout="column" layout-fill flex>
+        <h3 class="headline">Welcome to your dashboard!</h3>
+
+        <h4 class="headline">
+            There's not much to see quite yet... check out our <a href="/products" qv-to-static>Products</a> page to get started.
+        </h4>
+
+        <p class="margin-vertical-large">
+            Start taking a course, give a gift certificate or download something fun to get more out of Calligraphy.org!
+        </p>
+        
+    </md-whiteframe>
+</section>
+<!-- END Empty state -->
+
 <!-- START Messages -->
 <section id="messages" class="padding-vertical-medium" ng-if="groupedMessages">
     <h3 class="headline transition-color">Assignment Feedback</h3>
@@ -35,7 +54,7 @@
 <!-- END Messages -->
 
 <!-- START subscriptions -->
-<section id="subscription" class="padding-vertical-medium" ng-if="subscriptions.length">
+<section id="subscriptions" class="padding-vertical-medium" ng-if="subscriptions.length">
     <h3 class="headline transition-color">Subscriptions</h3>
 
     <md-whiteframe class="md-whiteframe-z1 relative" layout="column" layout-fill flex>
@@ -233,4 +252,4 @@
 
     </md-whiteframe>
 </section>
-<!-- END Transactions -->
+<!-- END Transactions

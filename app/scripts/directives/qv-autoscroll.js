@@ -11,9 +11,19 @@ angular.module('quiverCmsApp')
     return {
       restrict: 'A',
       link: function postLink(scope, element, attrs) {
-        $timeout(function () {
-          $uiViewScroll(element);  
-        });
+        var scroll = function () {
+          $timeout(function () {
+            $uiViewScroll(element);  
+          });
+          
+        };
+
+        if (attrs.scrollOn) {
+          scope.$on(attrs.scrollOn, scroll);
+        } else {
+          scroll();
+        }
+        
         
       }
     };
