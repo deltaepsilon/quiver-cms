@@ -140,7 +140,18 @@ angular.module('quiverCmsApp')
     };
 
     $scope.search = function (q) {
-      query(_.defaults(q, {limitToLast: $scope.limit, noReset: true}));
+      var q = _.defaults(q, {limitToLast: $scope.limit, noReset: true});
+      
+      if (q.equalTo) {
+        delete q.limitToLast;
+      }
+
+      if (!q.startAt && !q.endAt && !q.equalTo) {
+        $scope.reset();
+      } else {
+        query(q);  
+      }
+      
     };
 
     $scope.setSearch = function (searchTerm) {

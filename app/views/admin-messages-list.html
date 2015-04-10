@@ -1,8 +1,8 @@
 <md-whiteframe class="md-whiteframe-z1 relative" layout="column" layout-fill flex>
   <div layout="row" layout-align="start center" layout-padding>
     <md-input-container flex="33">
-      <label for="list-search">Search</label>
-      <input id="list-search" type="text" ng-model="searchTerm" qv-enter="search({orderByChild: 'userEmail', equalTo: searchTerm})" placeholder="Click ENTER to search by email...">
+      <label for="list-search">Search by email address</label>
+      <input id="list-search" type="text" ng-model="searchTerm" qv-enter="search({orderByChild: 'userEmail', equalTo: searchTerm})">
     </md-input-container>
 
     <span flex></span>
@@ -40,9 +40,9 @@
           <md-item-content layout="row" layout-align="space-between center" layout-padding layout-wrap>
             <span class="bold" flex flex-order="1" style="max-width: 7rem;">{{ message.created | moment:"MMM DD, hh:mm" }}</span>
 
-            <span flex flex-order="2">{{ message.userEmail }}</span>
+            <span class="truncate" flex flex-order="2">{{ message.userEmail }}</span>
 
-            <span flex flex-order="2">{{ message.assignmentTitle }}</span>
+            <span class="truncate" flex flex-order="2">{{ message.assignmentTitle }}</span>
             
             <a class="undecorated" flex="33" flex-sm="100" flex-order="3" flex-order-sm="9" ui-sref="authenticated.master.admin.feedback({userId: message.recipientId || message.userId, assignmentKey: message.assignmentKey })">{{ message.text | truncate:30 }}</a>            
 
