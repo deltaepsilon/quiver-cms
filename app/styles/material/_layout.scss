@@ -1,5 +1,5 @@
 .constrained {
-  max-width: 50rem;
+  max-width: 80rem;
 }
 
 .absolute {
@@ -12,8 +12,46 @@
     left: 0;
   }
 
-  &.bottom {
+  &.top {
+    top: 0;
     right: 0;
+    left: 0;
+  }
+
+  &.right {
+    top: 0;
+    bottom: 0;
+    right: 0;
+  }
+
+  &.bottom {
+    bottom: 0;
+    right: 0;
+    left: 0;
+  }
+
+  &.left {
+    top: 0;
+    bottom: 0;
+    left: 0;
+  }
+
+  &.top-left {
+    top: 0;
+    left: 0;
+  }
+
+  &.top-right {
+    top: 0;
+    right: 0;
+  }
+
+  &.bottom-right {
+    bottom: 0;
+    right: 0;
+  }
+
+  &.bottom-left {
     bottom: 0;
     left: 0;
   }

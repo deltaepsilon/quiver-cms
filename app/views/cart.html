@@ -9,14 +9,14 @@
             <md-item-content layout="row" layout-margin>
               <md-tile-left flex style="max-width: 10rem;">
                 <a flex href="/product/{{ product.slug }}">
-                  <img ng-if="product.featuredImage.Versions.small.Key" ng-src="{{ product.featuredImage.Versions.small.Key | s3Link:files.Name }}" />
+                  <img ng-if="product.featuredImage.Versions.small.Key" ng-src="{{ product.featuredImage.Versions.small.Key | s3Link:bucket }}" />
                 </a>
 
               </md-tile-left>
               <md-tile-content flex layout="row" layout-align="end" layout-wrap>
                 <div flex="100" layout="row" layout-align="start space-between">
                   <div flex>
-                    <h4 class="headline uppercase">
+                    <h4 class="headline uppercase margin-zero">
                       <a href="/product/{{ product.slug }}" qv-to-static>{{ product.title }}</a>
                     </h4>
                     <strong ng-if="product.optionsMatrixSelected">
@@ -24,7 +24,7 @@
                     </strong>
                   </div>
 
-                  <md-button class="md-raised md-warn" flex ng-click="removeFromCart(product)" style="max-width: 3rem; max-height: 2rem;">
+                  <md-button class="md-raised md-warn md-icon-button" flex ng-click="removeFromCart(product)">
                     <i class="mdi-action-delete" aria-label="Remove from cart"></i>
                   </md-button>
                 </div>
@@ -33,17 +33,18 @@
                   <div class="markdown" markdown-editable ng-model="product.description.excerpt">{{ product.description.excerpt }}</div>
                 </div> -->
 
-                <div flex="100" flex-gt-sm="50" layout="row" layout-align="start center" layout-wrap layout-padding>
+                <div flex="100" flex-gt-sm="66" layout="row" layout-align="start center" layout-wrap layout-padding>
                   
                   <span flex="25" flex-gt-sm="50">
                     <span>Quantity</span>
                     <span class="text-x-small" ng-if="product.optionsMatrixSelected.inventory">({{ product.optionsMatrixSelected.inventory }} available)</span>
                   </span>
                   <span flex="75" flex-gt-sm="50" layout="row" layout-align="space-between center">
-                    <md-button class="md-raised margin-horizontal-x-small" hide-sm flex ng-click="product.quantity = product.quantity + 1; updateCart();" ng-disabled="product.maxQuantity && product.quantity >= product.maxQuantity;" style="max-width: 3rem">
+                    <md-button class="md-raised md-icon-button margin-horizontal-x-small" hide-sm flex ng-click="product.quantity = product.quantity + 1; updateCart();" ng-disabled="product.maxQuantity && product.quantity >= product.maxQuantity;">
                       <i class="mdi-image-exposure-plus-1" aria-label="Add to quantity"></i>
                     </md-button>
-                    <md-button class="md-raised margin-horizontal-x-small" hide-sm flex ng-click="product.quantity = product.quantity - 1; updateCart();" ng-disabled="product.quantity < 1" style="max-width: 3rem">
+
+                    <md-button class="md-raised md-icon-button margin-horizontal-x-small" hide-sm flex ng-click="product.quantity = product.quantity - 1; updateCart();" ng-disabled="product.quantity < 1">
                       <i class="mdi-image-exposure-minus-1" aria-label="Remove from quantity"></i>
                     </md-button>
 
@@ -105,10 +106,16 @@
           <div flex layout="row" layout-align="space-between center" layout-padding layout-wrap>
 
             <span flex="100" layout="row" layout-align="space-between center" layout-wrap ng-repeat="code in $storage.cart.codes">
-              <span flex="50">{{ code.code }}</span>
+              <span flex="50">
+                <span>{{ code.code }}</span>
+                <md-button class="md-icon-button" ng-click="removeCode(code.code)" aria-label="Remove code {{ code.code }}">
+                  <i class="mdi-action-delete"></i>
+                </md-button>
+              </span>
               <span class="text-right" flex>
-                <md-button ng-show="code.type === 'value'" qv-confirm="removeCode(code.code)" confirmations="['Click to Remove']">{{ code.value | currency }}</md-button>
-                <md-button ng-show="code.type === 'percentage'" qv-confirm="removeCode(code.code)" confirmations="['Click to Remove']">{{ code.percentage }}%</md-button>
+                
+                <span ng-show="code.type === 'value'">{{ code.value | currency }}</span>
+                <span ng-show="code.type === 'percentage'">{{ code.percentage }}%</span>
               </span>
             </span>
             
@@ -144,10 +151,10 @@
               </md-input-container>
             </span>
             <span class="padding-zero-important text-right" flex style="padding-top: 17px !important; padding-bottom: 0 !important;">
-              <md-button ng-click="addingCode = true" ng-hide="addingCode">Add Code</md-button>
+              <md-button ng-click="addingCode = true" ng-hide="addingCode" aria-label="Open add code field">Add Code</md-button>
               
-              <md-button ng-click="addingCode = false" ng-show="addingCode">X</md-button>
-              <md-button ng-click="addCode(discountCode)" ng-show="addingCode">Add Code</md-button>
+              <md-button class="md-icon-button" ng-click="addingCode = false" ng-show="addingCode" aria-label="Close add code field">X</md-button>
+              <md-button class="md-primary md-raised" ng-click="addCode(discountCode)" ng-show="addingCode" aria-label="Add code">Add Code</md-button>
             </span>
             
             <span class="text-right" flex="100" layout="row" layout-align="space-between center">
@@ -155,7 +162,7 @@
                 <md-progress-circular class="invisible" md-mode="indeterminate" qv-loading target=".checkout-button"></md-progress-circular>
               </div>
 
-              <md-button flex class="checkout-button md-raised md-primary" ui-sref="authenticated.master.nav.checkout" ng-disabled="checkingOut">
+              <md-button flex class="checkout-button adjust-mdi md-raised md-primary" ui-sref="authenticated.master.nav.checkout" ng-disabled="checkingOut">
                 <span ng-show="!user">Log in or register</span>
                 <span ng-show="user">To Check Out</span>
                 <i class="mdi-navigation-arrow-forward" style="position: relative; margin-top: 1px;"></i>

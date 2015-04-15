@@ -4,49 +4,49 @@
   
   <div id="content" layout="column" flex layout-align="start center" layout-fill>
     
-    <md-toolbar md-scroll-shrink layout="row">
-      <md-button ng-click="toggleSidenav('left')" hide-gt-md tabindex="0" aria-label="toggle left nav">
+    <md-toolbar md-scroll-shrink layout="row" layout-align="start center">
+      <md-button ng-click="toggleSidenav('left')" hide-gt-md tabindex="0" aria-label="toggle left nav" style="font-size: 2rem; min-width: 5rem;">
         <i class="mdi-action-subject"></i>
       </md-button>
-      <div class="md-toolbar-tools">
-        <div layout="row" flex class="fill-height">
-          <h1 layout-align="left" class="headline">
-            <a href="{{ env.root }}" qv-to-static ng-show="settings">{{ settings.siteTitle || 'Quiver CMS' }}</a>
-          </h1>
+      
+      <div layout="row" flex class="fill-height">
+        <h2 class="headline tight margin-zero" flex style="margin: 0.5rem 0 0 2rem;">
+          <a class="undecorated" href="{{ env.root }}" qv-to-static ng-show="settings">{{ settings.siteTitle || 'Quiver CMS' }}</a>
+        </h2>
 
-          <span flex></span>
+        <span flex></span>
 
-          <div layout-align="right" class="md-toolbar-item" ng-show="$storage.cart.productCount" qv-active>
-            <md-button ui-sref="master.nav.cart" aria-label="shopping cart">
-              <span class="headline" ng-bind="$storage.cart.productCount"></span>
-              <i class="mdi-action-shopping-cart" style="position: relative; top: 1px;"></i>
-            </md-button>
-          </div>
-
-          <div layout-align="right" class="md-toolbar-item" ng-show="!currentUser">
-            <span class="margin-horizontal-small" qv-active>
-              <md-button class="md-button" ui-sref="master.nav.login">
-                <i class="mdi-action-input"></i> &nbsp;Login        
-              </md-button>
-            </span>
-            <span qv-active>
-              <md-button ui-sref="master.nav.register">
-                &nbsp;Register
-              </md-button>
-            </span>
-            
-            
-          </div>
-
-          <div layout-align="right" class="md-toolbar-item" ng-if="showTOC()">
-            <md-button class="adjust-mdi" ng-click="toggleSidenav('right')" tabindex="0" aria-label="toggle right nav">
-              <i class="mdi-action-book"></i>
-              <span hide-sm>Table of Contents</span>
-              <span hide-gt-sm>TOC</span>
-            </md-button>
-          </div>
-
+        <div class="line-height-1" ng-if="$storage.cart.productCount" qv-active>
+          <md-button class="adjust-mdi min-5" ui-sref="master.nav.cart" aria-label="shopping cart">
+            <span class="headline" ng-bind="$storage.cart.productCount"></span>
+            <i class="mdi-action-shopping-cart"></i>
+          </md-button>
         </div>
+        
+
+        <div flex ng-if="!currentUser" qv-active style="max-width: 11rem;">
+          <md-button ui-sref="master.nav.login">
+            <i class="mdi-action-input"></i> &nbsp;Login
+          </md-button>
+        </div>
+
+        <div flex ng-if="!currentUser" qv-active style="max-width: 11rem;">
+          <md-button ng-if="!currentUser" ui-sref="master.nav.register">
+            Register
+          </md-button>
+        </div>
+        
+        
+
+        <md-button class="adjust-mdi max-16" flex ng-click="toggleSidenav('right')" ng-if="showTOC()" tabindex="0" aria-label="Toggle right nav">
+          <i class="mdi-action-book"></i>
+          <span hide-sm>Table of Contents</span>
+          <span hide-gt-sm>TOC</span>
+        </md-button>
+
+        <md-button class="min-5" ng-click="toggleSidenav('right')" ng-if="isAdminView()" tabindex="0" aria-label="Toggle right nav">
+          <i class="mdi-image-camera-alt"></i>
+        </md-button>
 
       </div>
     </md-toolbar>

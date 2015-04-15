@@ -1,11 +1,23 @@
-<div class="column small-12">
-    <h3 class="font-flair left">Words</h3>
+<section id="feedback-messages">
+    <h3 class="headline">Words</h3>
+
     <form name="newWordForm">
-        <input id="new-word-title" type="text" ng-model="newWordTitle" placeholder="New Title..." required/>
-        <button ng-click="createWord(newWordTitle)" ng-disabled="newWordForm.$invalid" qv-focus="#new-word-title">Create</button>
+      <fieldset>
+        <div layout="row" layout-align="start center" layout-padding>
+          <md-input-container flex>
+            <label for="new-word-title">New Word Title</label>
+            <input id="new-word-title" flex type="text" ng-model="newWordTitle" placeholder="New word title..." required/>
+          </md-input-container>
+          <div flex="10" flex-sm="20">
+            <md-button class="md-raised md-primary" ng-click="createWord(newWordTitle)" ng-disabled="newWordForm.$invalid" qv-focus="#new-word-title">Create</md-button>
+          </div>
+
+          
+        </div>
+        
+      </fieldset>
     </form>
 
-    <hr ng-show="words.length">
-</div>
+    <div ui-view></div>
 
-<div class="column small-12" ui-view></div>
+</section>

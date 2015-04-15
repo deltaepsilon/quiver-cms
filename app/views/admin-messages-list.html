@@ -38,7 +38,7 @@
       <md-list layout="column">
         <md-item ng-repeat="message in items | orderBy:'$priority':'desc'">
           <md-item-content layout="row" layout-align="space-between center" layout-padding layout-wrap>
-            <span class="bold" flex flex-order="1" style="max-width: 7rem;">{{ message.created | moment:"MMM DD, hh:mm" }}</span>
+            <span class="bold" flex flex-order="1" style="max-width: 10rem;">{{ message.created | moment:"MMM DD, hh:mm" }}</span>
 
             <span class="truncate" flex flex-order="2">{{ message.userEmail }}</span>
 
@@ -46,11 +46,15 @@
             
             <a class="undecorated" flex="33" flex-sm="100" flex-order="3" flex-order-sm="9" ui-sref="authenticated.master.admin.feedback({userId: message.recipientId || message.userId, assignmentKey: message.assignmentKey })">{{ message.text | truncate:30 }}</a>            
 
-            <md-button class="md-icon-button md-primary" flex flex-order="4" ng-click="setSearch(message.userEmail)" aria-label="Search by user: {{ message.userEmail }}">
+            <md-button class="md-icon-button" flag="{{ message.flag || 0 }}" flex flex-order="4" ng-click="incrementMessageFlag(message.$id)" aria-label="Increment flag for {{ message.assignmentTitle }}">
+              <i class="mdi-content-flag"></i>
+            </md-button>
+
+            <md-button class="md-icon-button md-primary" flex flex-order="5" ng-click="setSearch(message.userEmail)" aria-label="Search by user: {{ message.userEmail }}">
               <i class="mdi-action-search"></i>
             </md-button>
 
-            <md-button class="md-icon-button md-primary" flex flex-order="5" ui-sref="authenticated.master.admin.feedback({userId: message.recipientId || message.userId, assignmentKey: message.assignmentKey })" aria-label="Go to {{ message.userEmail }} assignment {{ message.assignmentTitle }}">
+            <md-button class="md-icon-button md-primary" flex flex-order="6" ui-sref="authenticated.master.admin.feedback({userId: message.recipientId || message.userId, assignmentKey: message.assignmentKey })" aria-label="Go to {{ message.userEmail }} assignment {{ message.assignmentTitle }}">
               <i class="mdi-navigation-arrow-forward"></i>
             </md-button>
 

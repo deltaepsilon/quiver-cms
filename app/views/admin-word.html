@@ -1,10 +1,48 @@
-<div class="column small-12">
-    <div class="column small-12 medium-8 large-10 medium-offset-4 large-offset-2">
-        <h3 class="font-flair left" contenteditable="true" ng-model="word.title"></h3>
-        <button class="tiny right" ng-click="clearCache()">Clear Cache</button>
-    </div>
-    <hr>
-</div>
+<section>
+    <form>
+        <fieldset>
+            <div layout="row" layout-align="space-between end" layout-padding layout-wrap>
+                <md-input-container flex>
+                    <label for="title">Title</label>
+                    <input id="title" type="text" ng-model="word.title" ng-model-options="{debounce: {'default': 500}}">
+                </md-input-container>
+
+                <md-input-container flex>
+                    <label for="slug">Slug</label>
+                    <input id="slug" type="text" ng-model="word.slug" ng-model-options="{debounce: {'default': 500}}">
+                </md-input-container>
+
+                <div class="md-select-wrapper" flex>
+                    <md-select class="margin-zero" flex="20" ng-model="word.type">
+                      <md-option value="">Select Type</md-option>
+                      <md-option value="post">Post</md-option>
+                      <md-option value="page">Page</md-option>
+                      <md-option value="subscription">Subscription</md-option>
+                    </md-select>
+                </div>
+
+                <md-chips flex="100" ng-model="wordHashtags" md-on-append="addHashtag($chip)">
+                  <md-autocomplete
+                    md-selected-item="selectedHashtag" 
+                    md-search-text="searchText" 
+                    md-no-cache="true"
+                    md-items="hashtag in searchHashtags(searchText)" 
+                    md-item-text="hashtag.value"
+                    placeholder="Add hashtag..."
+                  >
+                    
+                    <span md-highlight-text="searchText" md-highlight-flags="^i">{{ hashtag.value }}</span>
+                  </md-autocomplete>
+                  <md-chip-template>
+                    <strong>{{ $chip.value }}</strong>
+                  </md-chip-template>
+                </md-chips>
+
+            </div>
+        </fieldset>
+    </form>
+</section>
+
 
 <div class="column small-12 medium-4 large-2">
     <button class="text-x-small padding-small small-12 margin-vertical-xx-small" ng-click="useTextarea = !useTextarea" ng-show="!useHtml">

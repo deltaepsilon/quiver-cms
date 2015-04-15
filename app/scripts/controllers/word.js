@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('quiverCmsApp')
-  .controller('WordCtrl', function ($scope, $timeout, moment, word, drafts, files, NotificationService, $filter, $localStorage, _, ClipboardService, LocationService, env) {
+  .controller('WordCtrl', function ($scope, $q, $timeout, moment, word, drafts, files, hashtags, wordHashtags, Slug, NotificationService, $filter, $localStorage, _, ClipboardService, LocationService, env) {
 
     $scope.$storage = $localStorage;
 
@@ -180,5 +180,87 @@ angular.module('quiverCmsApp')
     $scope.resetPublishedDate = function (word) {
       $scope.publishedDate = moment(word.published.published).toDate();
     };
+
+    /*
+     * Hashtags
+     */
+    $scope.hashtags = hashtags;
+    $scope.wordHashtags = _.toArray(wordHashtags);
+    $scope.searchText = null;
+    $scope.selectedHashtag = null;
+
+    $scope.searchHashtags = function (searchText) {
+      return _.filter($scope.hashtags, function (hashtag) {
+        return !!hashtag.key.match(new RegExp(searchText, 'i')) && !_.findWhere(wordHashtags, {key: hashtag.key});
+      });
+
+    };
+
+    $scope.handleHashtagChange = function (word) {
+      console.log('handleHashtagChange', word);
+    };
+
+    $scope.addHashtag = function (chip) {
+      var promise;
+
+      if (typeof chip === 'string' && !_.findWhere(wordHashtags, {key: chip.toLowerCase()})) {
+        promise = wordHashtags.$add({
+          key: Slug.slugify(chip),
+          value: chip
+        });
+
+      } else if (typeof chip === 'object'  && !_.findWhere(wordHashtags, {key: chip.key})) {
+        promise = wordHashtags.$add({
+          key: chip.key,
+          value: chip.value
+        });
+
+      }
+
+      if (promise) {
+        promise.then(function () {
+          NotificationService.success('Hashtag added', chip.key || chip);
+        }, function (err) {
+          NotificationService.error('Hashtag failed', chip.key || chip + ' ' + err);
+        });
+      }
+      
+    };
+
+    $scope.$watch('wordHashtags', function () {
+      console.log('wordHashtags changed', $scope.wordHashtags, wordHashtags);
+      var i = wordHashtags.length,
+        deletePromises = [],
+        dupePromises = [],
+        deferred = $q.defer();
+
+      while (i--) {
+        if (!_.findWhere($scope.wordHashtags, {key: wordHashtags[i].key})) {
+          deletePromises.push(wordHashtags.$remove(wordHashtags[i]));
+        }
+      }
+
+      $q.all(deletePromises).then(function () {
+        var grouped = _.groupBy(wordHashtags, function (hashtag) {
+          return hashtag.key;
+        });
+        _.each(grouped, function (group) {
+          var j = group.length - 1;
+          while (j--) {
+            dupePromises.push(wordHashtags.$remove(wordHashtags.$indexFor(group[j].$id)));
+          }
+        });
+
+        $q.all(dupePromises).then(deferred.resolve, deferred.reject);
+
+      });
+
+      return deferred.promise;
+      
+    }, true);
+
+    wordHashtags.$watch(function (e) {
+      $scope.wordHashtags = _.toArray(wordHashtags);
+    });
 
   });

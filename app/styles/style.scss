@@ -3,7 +3,6 @@
 
 // Core.
 @import "compass",
-"compass/reset",
 "compass/css3/box-shadow",
 "compass/css3/opacity",
 "compass/css3/transform",
@@ -24,13 +23,17 @@
 "material/global";
 
 // Modules
-@import "material/type";
+
 @import "material/buttons";
+@import "material/dialog";
+@import "material/form";
 @import "material/layout";
 @import "material/list";
-@import "material/form";
+@import "material/markdown";
 @import "material/toast";
+@import "material/toolbar";
 @import "material/transition";
+@import "material/type";
 
 // Materialize
 $icons-font-path: "../lib/materialize/font/material-design-icons/";

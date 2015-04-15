@@ -13,7 +13,6 @@ angular.module('quiverCmsApp', [
   'ngStorage',
   'flow',
   'angular-google-analytics',
-  'wu.packery',
   'ngMaterial'
 ]).run(function ($rootScope, $state, Restangular, NotificationService, env, Analytics, qvAuth, AdminService, $localStorage, $timeout) {
     var stateChangeSuccessOff,
@@ -502,6 +501,21 @@ angular.module('quiverCmsApp', [
           sidenavLeft: {
             templateUrl: 'views/sidenav-left-admin.html'
           },
+          sidenavRight: {
+            templateUrl: 'views/sidenav-gallery.html',
+            controller: 'ListCtrl',
+            resolve: {
+              limit: function () {
+                return 5;
+              },
+              getRef: function (AdminService) {
+                return AdminService.getOriginals;
+              },
+              ref: function (AdminService, limit) {
+                return AdminService.getOriginals({orderByPriority: true, limitToLast: limit});
+              }
+            }
+          },
           body: {
             templateUrl: 'views/body.html',
             controller: "AdminCtrl",
@@ -542,10 +556,7 @@ angular.module('quiverCmsApp', [
         controller: 'WordsCtrl',
         resolve: {
           words: function (AdminService) {
-            return AdminService.getWords();
-          },
-          hashtags: function (AdminService) {
-            return AdminService.getHashtags();
+            return AdminService.getWords({orderByPriority: true, limitToLast: 1});
           }
         }
       })
@@ -578,6 +589,12 @@ angular.module('quiverCmsApp', [
           },
           files: function (AdminService) {
             return AdminService.getFiles().$loaded();
+          },
+          hashtags: function (AdminService) {
+            return AdminService.getHashtags();
+          },
+          wordHashtags: function (AdminService, $stateParams) {
+            return AdminService.getWordHashtags($stateParams.key);
           }
         }
       })
@@ -926,7 +943,8 @@ angular.module('quiverCmsApp', [
       })
       .state('authenticated.master.admin.messages', { // ***************************  Messages *************************
         abstract: true,
-        templateUrl: 'views/admin-messages.html'
+        templateUrl: 'views/admin-messages.html',
+        controller: 'MessagesListCtrl'
       })
       .state('authenticated.master.admin.messages.list', {
         url: '/messages/:search',
@@ -955,7 +973,7 @@ angular.module('quiverCmsApp', [
         controller: 'ListCtrl',
         resolve: {
           limit: function () {
-            return 5;
+            return 10;
           },
           getRef: function (AdminService) {
             return AdminService.getUploads;

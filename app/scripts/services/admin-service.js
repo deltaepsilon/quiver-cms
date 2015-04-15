@@ -34,8 +34,64 @@ angular.module('quiverCmsApp')
         return $firebaseArray(FirebaseService.query(new Firebase(firebaseEndpoint + '/content/words'), query));
       },
 
+      getDecoratedWords: function (query) {
+        var hashtagHandler = function (words) {
+            return function (hashtags) {
+              if (!hashtags) {
+                return this.hashtags;
+              } else {
+                var keys = _.uniq(_.pluck(hashtags, 'key')),
+                  i = keys.length,
+                  hashtag;
+
+                if (i) {
+                  this.hashtags = [];
+                }
+
+                while (i--) {
+                  if (keys[i]) {
+                    hashtag = _.findWhere(hashtags, {key: keys[i]});
+                    this.hashtags.push({
+                      key: hashtag.key,
+                      value: hashtag.value
+                    });  
+                  }
+                  
+                }
+
+                if (!this.hashtags.length) {
+                  delete this.hashtags;
+                }
+
+                new Firebase(firebaseEndpoint + '/content/words/' + this.$id).child('hashtags').set(this.hashtags);
+                
+              }
+              
+            };
+            
+
+          };
+
+        return $firebaseArray(FirebaseService.query(new Firebase(firebaseEndpoint + '/content/words'), query)).$loaded().then(function (words) {
+          var i = words.length;
+          while (i--) {
+            words[i].getSetHashtags = hashtagHandler(words);
+            if (!words[i].hashtags || !words[i].hashtags.length) {
+              words[i].hashtags = [];
+            }
+          }
+
+          return words;
+          
+        });
+      },
+
       getWord: function (key) {
         return $firebaseObject(new Firebase(firebaseEndpoint + '/content/words/' + key));
+      },
+
+      getWordHashtags: function (key) {
+        return $firebaseArray(new Firebase(firebaseEndpoint + '/content/words/' + key + '/hashtags'));
       },
 
       getDrafts: function (key) {
@@ -242,6 +298,26 @@ angular.module('quiverCmsApp')
 
       getMessageable: function (query) {
         return $firebaseArray(FirebaseService.query(new Firebase(firebaseEndpoint + '/messageable'), query));
+      },
+
+      incrementMessageFlag: function (key) {
+        return $firebaseObject(new Firebase(firebaseEndpoint + '/logs/messages/' + key)).$loaded().then(function (message) {
+          message.flag = (message.flag || 0) + 1
+          if (message.flag > 3) {
+            message.flag = 0;
+          }
+          return message.$save();
+        });
+      },
+
+      incrementUploadFlag: function (key) {
+        return $firebaseObject(new Firebase(firebaseEndpoint + '/logs/uploads/' + key)).$loaded().then(function (upload) {
+          upload.flag = (upload.flag || 0) + 1
+          if (upload.flag > 3) {
+            upload.flag = 0;
+          }
+          return upload.$save();
+        });
       }
 
     }

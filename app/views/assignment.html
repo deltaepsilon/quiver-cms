@@ -8,7 +8,7 @@
 <section class="padding-vertical-medium" ng-show="assignment.supportsUpload">
   <h3 class="headline">Upload images</h5>
 
-  <form name="filesForm" flow-init="{target: uploadTarget}" flow-file-added="handleFileAdded($event, $flow, $file)" flow-name="flow" ng-hide="isExpired(subscription)">
+  <form name="filesForm" flow-init="{target: uploadTarget, query: {'assignmentTitle': assignment.title}}" flow-file-added="handleFileAdded($event, $flow, $file)" flow-name="flow" ng-hide="isExpired(subscription)">
     <fieldset>
       <md-whiteframe class="md-whiteframe-z1" layout="row" layout-align="center center" layout-fill layout-margin layout-padding layout-wrap>
 
@@ -99,7 +99,7 @@
                 <md-list layout="column">
                     <md-item ng-repeat="message in messages">
                         <md-item-content layout="row" layout-align="start start" layout-padding layout-wrap>
-                            <h4 flex="100" flex-gt-sm="30">{{ message.userName }}</h4>
+                            <h4 class="margin-zero" flex="100" flex-gt-sm="30">{{ message.userName }}</h4>
                             <div class="markdown" flex markdown-editable ng-model="message.text"></div>
                             
                         </md-item-content>

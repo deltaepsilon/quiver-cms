@@ -9,7 +9,7 @@
             <md-tile-content flex layout="row" layout-align="end" layout-wrap>
               <div flex="100" flex-gt-sm="50" layout="row" layout-align="start space-between">
                 <div flex>
-                  <h4 class="headline uppercase">
+                  <h4 class="headline uppercase margin-zero">
                     <a href="/product/{{ product.slug }}" qv-to-static>{{ product.title }}</a>
                   </h4>
                   <strong ng-if="product.optionsMatrixSelected">
@@ -53,7 +53,7 @@
     <div flex flex-sm="100" layout="column" layout-wrap ng-if="transaction.address">
       <h3 class="headline">Shipping Address</h3>
 
-      <ul class="padded">
+      <ul class="padded padding-zero">
         <li>{{ transaction.address.recipient }}</li>
         <li>{{ transaction.address.street1 }}</li>
         <li ng-if="transaction.address.street2">{{ transaction.address.street2 }}</li>
@@ -76,7 +76,7 @@
       <h3 class="headline" ng-show="!transaction.charge.free">Charge</h3>
       <h3 class="headline" ng-show="transaction.charge.free">Free Checkout</h3>
 
-      <ul class="padded" ng-hide="transaction.charge.free">
+      <ul class="padded padding-zero" ng-hide="transaction.charge.free">
         <li>
           <span ng-show="transaction.charge.success" class="text-success">Charged on {{ transaction.charge.transaction.created | moment:"MMM DD, YYYY" }}</span>
           <span ng-hide="transaction.charge.success" class="text-warning">Not Charged</span>

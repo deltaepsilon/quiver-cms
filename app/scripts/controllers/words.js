@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('quiverCmsApp')
-  .controller('WordsCtrl', function ($scope, words, hashtags, moment, NotificationService, Slug, $timeout, AdminService) {
+  .controller('WordsCtrl', function ($scope, words, moment, NotificationService, Slug, $timeout, AdminService, $mdDialog) {
     /*
      * Words
     */
@@ -78,14 +78,30 @@ angular.module('quiverCmsApp')
       return slug ? {orderByChild: 'slug', startAt: slug} : {orderByPriority: true};
     };
 
-    $scope.removeWord = function (word) {
-      var title = word.title;
+    $scope.confirmDelete = function (e, word) {
+      var confirm = $mdDialog.confirm()
+        .title(word.title)
+        .content('Are you sure you want to eliminate me?')
+        .ariaLabel('Delete ' + word.title)
+        .ok('Please do it!')
+        .cancel("Naah. Let's keep it.")
+        .targetEvent(e);
 
-      AdminService.getWord(word.$id).$remove().then(function () {
-        NotificationService.success('Deleted', 'Bye bye ' + title + '!');
-      }, function (error) {
-        NotificationService.error('Delete Failed', error);
+      $mdDialog.show(confirm).then(function() {
+        $scope.removeWord(word).then(function () {
+          NotificationService.success('Eliminated', word.title);
+        }, function (error) {
+          NotificationService.error('Something went wrong', error);
+        });
+      
+      }, function() {
+        NotificationService.notify('Not eliminated', 'You decided to save ' + word.title + '. How kind!');
+
       });
+    };
+
+    $scope.removeWord = function (word) {
+      return AdminService.getWord(word.$id).$remove();
     };
 
     $scope.createWord = function (title) {
@@ -111,110 +127,8 @@ angular.module('quiverCmsApp')
 
     };
 
-    $scope.unpublishWord = function (word) {
-      delete word.published;
-      word.edited = true;
-
-    };
-
-    $scope.saveWord = function (word) {
-      delete word.edited;
-
-      word.slug = Slug.slugify(word.slug);
-      
-      var hashtags = [];
-      _.each(word.hashtags, function (hashtag) {
-        hashtags.push(_.omit(hashtag, ['$$hashKey']));
-      });
-      if (hashtags.length) {
-        word.hashtags = hashtags;
-      }
-
-      return word;
-
-      // words.$save(word).then(function (ref) {
-      //   NotificationService.success('Saved', word.title);
-      // }, function (error) {
-      //   NotificationService.error('Save Error', error);
-      // });
-
-
-      // AdminService.getWord(word.$id).$set(_.omit(word, ['$$hashKey', '$id'])).then(function () {
-      //   NotificationService.success('Saved', word.title);
-      // }, function (error) {
-      //   NotificationService.error('Save Error', error);
-      // });
-
-    };
-
-    $scope.makeAuthor = function (word, user) {
-      word.edited = true;
-      word.author = user.public;
-      word.author.id = user.$id;
-    };
-
-    var authorAttributes = ['birthdate', 'email', 'gender', 'instagram', 'name', 'twitter', 'instagram', 'website'];
-    $scope.isAuthor = function (author, user) {
-      var i = authorAttributes.length;
-
-      while (i--) {
-        if (author && author[authorAttributes[i]] !== user[authorAttributes[i]]) {
-          return false;
-        }
-      }
-      return true;
-    };
-
-    /*
-     * Hashtags
-    */
-    $scope.hashtags = hashtags;
-
-    $scope.addHashtag = function (word, newHashtag) {
-      var hashtag;
-
-      if (!word.hashtags) {
-        word.hashtags = [];
-      }
-
-      if (typeof newHashtag === 'string') {
-        hashtag = newHashtag.replace(/(#|\s)/g, '');
-        word.hashtags.push({
-          key: Slug.slugify(hashtag),
-          value: hashtag
-        });
-        return $scope.saveWord(word);
-      } else if (newHashtag && newHashtag.key) {
-        word.hashtags.push(word.newHashtag);
-        return $scope.saveWord(word);
-      }
-
-
-
-//      $scope.hashtags.$add({
-//        name: hashtag,
-//        slug: Slug.slugify(hashtag),
-//        creator: $scope.currentUser.email
-//      }).then(function () {
-//          NotificationService.success('Hashtag Added');
-//      });
-    };
-
-    $scope.removeHashtag = function (word, slug) {
-      var i = word.hashtags.length
-
-      while (i--) {
-        if (word.hashtags[i].key === slug) {
-          word.hashtags.splice(i, 1);
-          return $scope.saveWord(word);
-        }
-      }
-
-    };
-
     $scope.setPriority = function (key, priority) {
       AdminService.getWord(key).$ref().setPriority(priority);      
     };
-
 
   });

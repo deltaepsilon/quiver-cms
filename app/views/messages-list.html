@@ -2,10 +2,10 @@
   <md-content flex style="max-height: 500px;">
     <section>
       <md-list class="hover" layout="column">
-        <md-list-item layout="row" layout-wrap ng-repeat="message in getMessages(selectedUser.id)" ng-class="{disabled: disabled}">
+        <md-list-item class="margin-vertical-small" layout="row" layout-align="start start" layout-wrap ng-repeat="message in getMessages(selectedUser.id)" ng-class="{disabled: disabled}">
           <img class="avatar" flex ng-src="{{ message.senderEmail | gravatar }}" alt="{{ message.senderEmail }}" style="margin-right: 1rem;">
           <div class="md-list-item-text" flex>
-            <h4 class="headline">{{ message.senderName || message.senderEmail }}</h4>
+            <strong class="headline">{{ message.senderName || message.senderEmail }}</strong>
             <span class="text-small text-secondary5">{{ message.date | timeago }}</span>
             <span ng-show="message.type === 'assignment'">
               <a ui-sref="authenticated.master.nav.subscription.assignment({subscriptionKey: message.subscriptionKey, assignmentKey: message.assignmentKey })">See assignment</a>
@@ -24,7 +24,7 @@
   </md-content>
 
   <form class="padding-vertical-small" layout="row" layout-align="space-between center" layout-wrap name="messageForm">
-    <h4 class="headline" flex="100">Send a message</h4>
+    <strong class="headline" flex="100">Send a message</strong>
     <md-input-container flex style="margin-right: 1rem;">
       <label for="new-message">Message</label>
       <input id="new-message" type="text" ng-model="newMessage" ng-disabled="!selectedUser" required/>

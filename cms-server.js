@@ -46,7 +46,8 @@ if (ConfigService.get('private.cms.staticEnabled')) {
   });
 
 
-  app.use('/app/admin/words/*', Middleware.redirect('/app/admin/words'));
+  // app.use('/app/admin/words/*', Middleware.redirect('/app/admin/words'));
+  app.use('/app/admin/words/*', StaticController.getHandler('index.html', true));
 
   app.use('/app/transaction/*', StaticController.getHandler('index.html', true));
 
@@ -152,7 +153,7 @@ app.get('/user/:userId/subscription/:subscriptionKey/assignments', SubscriptionC
 app.post('/user/:userId/assignment/:assignmentKey/log/*', FormController.body);
 app.post('/user/:userId/assignment/:assignmentKey/log/:type', MessageController.log);
 
-app.post('/user/:userId/assignment/:assignmentKey/upload', FormController.flow); // Use formidable body parser... the Flow variety
+app.post('/user/:userId/assignment/:assignmentKey/upload', FormController.flow); // ... and the Flow variety
 app.post('/user/:userId/assignment/:assignmentKey/upload', MessageController.upload);
 
 app.post('/user/:userId/upload/remove', FormController.body);

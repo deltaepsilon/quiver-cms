@@ -5,9 +5,9 @@
     <md-whiteframe class="md-whiteframe-z1 relative padding-large" layout="column" layout-fill flex>
         <h3 class="headline">Welcome to your dashboard!</h3>
 
-        <h4 class="headline">
+        <strong class="headline">
             There's not much to see quite yet... check out our <a href="/products" qv-to-static>Products</a> page to get started.
-        </h4>
+        </strong>
 
         <p class="margin-vertical-large">
             Start taking a course, give a gift certificate or download something fun to get more out of Calligraphy.org!
@@ -39,7 +39,7 @@
                     <md-item ng-repeat="message in messages">
                         <md-item-content layout="row">
                             <a class="undecorated" flex layout="row" layout-align="start start" layout-padding layout-wrap ui-sref="authenticated.master.subscription.assignment({subscriptionKey: message.subscriptionKey, assignmentKey: message.assignmentKey })">
-                                <h4 flex="100" flex-gt-sm="30">{{ message.userName }}</h4>
+                                <strong flex="100" flex-gt-sm="30">{{ message.userName }}</strong>
                                 <div flex>{{ message.text }}</div>
                             </a>
                             
@@ -66,9 +66,9 @@
                     </md-item-content>
                 </md-item>
                 <md-item ng-repeat="subscription in subscriptions | orderBy:'expiration'" ng-disabled="subscription.subscriptionType == 'content' && expired(subscription)" ng-class="{disabled: subscription.subscriptionType == 'content' && isExpired(subscription)}">
-                    <md-item-content layout="row" layout-padding layout-wrap>
-                        <h4 flex="100" flex-gt-sm="30">{{ subscription.title }}</h4>
-                        <h4 flex="100" flex-gt-sm="30">{{ subscription.subscriptionDays }} Days</h4>
+                    <md-item-content layout="row" layout-align="start center" layout-padding layout-wrap>
+                        <strong flex="100" flex-gt-sm="30">{{ subscription.title }}</strong>
+                        <strong flex="100" flex-gt-sm="30">{{ subscription.subscriptionDays }} Days</strong>
                         <md-button class="md-primary md-raised" flex ui-sref="authenticated.master.subscription.page({subscriptionKey: subscription.$id, pageNumber: $storage['bookmark-' + subscription.$id] || 0})" aria-label="Subscription {{ subscription.title }}">
                             
                             <span layout="row" layout-align="space-between" ng-if="subscription.subscriptionType === 'interaction' && isExpired(subscription)">
@@ -127,7 +127,7 @@
                     </md-item-content>
                 </md-item>
                 <md-item ng-repeat="shipment in shipments">
-                    <md-item-content layout="row" layout-padding layout-wrap>
+                    <md-item-content layout="row" layout-align="start center" layout-padding layout-wrap>
                         <div flex="100" flex-gt-sm="30">{{ shipment.item.title }}</div>
                         <div flex="100" flex-gt-sm="20">{{ shipment.item.adjusted || shipment.item.price | currency }} x {{ shipment.item.quantity }}</div>
                         <div flex="100" flex-gt-sm="20" flex>{{ shipment.created | moment:"MM/DD/YYYY" }}</div>
@@ -162,7 +162,7 @@
                     </md-item-content>
                 </md-item>
                 <md-item ng-repeat="gift in gifts" ng-class="{disabled: gift.useCount == gift.uses}">
-                    <md-item-content layout="row" layout-padding layout-wrap>
+                    <md-item-content layout="row" layout-align="start center" layout-padding layout-wrap>
                         <div flex flex-sm="100">{{ gift.code }}</div>
                         <div flex style="max-width: 8rem;">Value: {{ gift.value | currency }}</div>
                         
@@ -192,7 +192,7 @@
                     </md-item-content>
                 </md-item>
                 <md-item ng-repeat="download in downloads">
-                    <md-item-content layout="row" layout-wrap>
+                    <md-item-content layout="row" layout-align="start center" layout-padding layout-wrap>
                         <a class="undecorated" flex layout="row" layout-padding ng-href="/resource/{{ download.resource.keys.resource }}" target="_blank">
                             <div flex="100" flex-gt-sm="30">{{ download.title }}</div>
                             <div flex>{{ env.root }}/resource/{{ download.resource.key }}</div>
@@ -224,7 +224,7 @@
                     </md-item-content>
                 </md-item>
                 <md-item ng-repeat="transaction in transactions">
-                    <md-item-content layout="row" layout-wrap>
+                    <md-item-content layout="row" layout-align="start center" layout-wrap>
                         <a class="undecorated" flex layout="row" layout-padding layout-wrap ui-sref="authenticated.master.nav.transaction({userId: transaction.userId, key: transaction.keys.user })">
                             <div flex="30" flex-sm="100">
                                 #{{ transaction.transactionCount }}: {{ transaction.date | moment:"MM/DD/YYYY" }}        

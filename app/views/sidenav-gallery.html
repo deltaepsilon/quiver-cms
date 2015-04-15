@@ -1,0 +1,63 @@
+<md-content role="navigation">
+  <section>
+    <md-toolbar>
+      <h5 class="md-toolbar-tools">
+        File Gallery
+      </h5>
+    </md-toolbar>
+    <div layout="row" layout-align="end center" layout-padding layout-wrap>
+      <md-input-container flex="100">
+        <label for="list-search">Search by filename</label>
+        <input id="list-search" type="text" ng-model="searchTerm" qv-enter="search({orderByChild: 'Name', startAt: searchTerm})">
+      </md-input-container>
+      
+      <md-button class="md-icon-button" flex ng-click="loadNext()" ng-disabled="disablePrev" aria-label="list back">
+        <i class="mdi-navigation-arrow-back"></i>
+      </md-button>
+      
+      <md-button class="md-icon-button" flex ng-click="loadPrev()" ng-disabled="disableNext" aria-label="list forward">
+        <i class="mdi-navigation-arrow-forward"></i>
+      </md-button>
+      
+      <md-button class="md-icon-button" flex ng-click="loadMore()" ng-disabled="disableMore" aria-label="list load more">
+        <i class="mdi-navigation-expand-more"></i>
+      </md-button>
+      
+      <md-button class="md-icon-button" flex ng-click="reset()" ng-disabled="disableReset" aria-label="list reload">
+        <i class="mdi-navigation-refresh"></i>
+      </md-button>
+
+    </div>
+
+    <md-content>
+      <md-list layout="column" ng-if="!items">
+        <md-item>
+          <md-item-content class="text-center" layout="row" layout-align="center center" layout-padding layout-wrap>
+            <h3 class="Headline">There are no more files to display.</h3>
+          </md-item-content>
+        </md-item>
+      </md-list>
+          
+      <section>
+        <md-list layout="row" layout-wrap>
+          <md-item flex="50" ng-repeat="file in items | orderBy:'$priority':'desc'">
+            <md-item-content class="relative" layout="row" layout-align="space-between center" layout-padding layout-wrap>
+              <md-button ng-click="showGalleryDialog($event, file)" target="_blank" aria-label="{{ file.Name }}">
+                <img ng-src="{{ file.Versions.small.Key || file.Key | s3Link:bucket | forceImage }}">
+              </md-button>
+              <!-- <div class="absolute bottom">
+                <strong>{{ file.Name }}</strong>
+                <span>{{ file.Size | filesize}}</span>
+                <input type="text" value="{{ file.Key | s3Link:bucket }}">
+                <input type="text" value="[{{ file.Name }}]({{ file.Key | s3Link:bucket }})">
+              </div> -->
+              
+
+            </md-item-content>
+          </md-item>
+        </md-list>
+      </section>
+    </md-content>
+  </section>
+
+</md-content>

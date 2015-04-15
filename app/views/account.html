@@ -59,7 +59,7 @@
                     <md-option value="m">Male</md-option>
                 </md-select>
                 
-                <md-input-container flex="33" flex-sm="100">
+                <md-input-container class="next-to-select" flex="33" flex-sm="100">
                     <label for="birthday">Birthday</label>
                     <input id="birthday" type="date" ng-model="birthdate" ng-blur="setBirthdate(birthdate)" placeholder="birthday"/>
                 </md-input-container>
@@ -103,7 +103,7 @@
                     <input id="new-password" type="password" ng-model="newPassword" placeholder="New password..." required/>
                 </md-input-container>
 
-                <md-button class="md-primary md-raised max-10" flex flex-sm="100" ng-click="changePassword(user.email, oldPassword, newPassword)" ng-disabled="passwordForm.$invalid">Change Password</md-button>
+                <md-button class="md-primary md-raised max-14" flex flex-sm="100" ng-click="changePassword(user.email, oldPassword, newPassword)" ng-disabled="passwordForm.$invalid">Change Password</md-button>
 
             </md-whiteframe>
 
@@ -149,13 +149,13 @@
             <md-whiteframe class="md-whiteframe-z1" layout="row" layout-align="start center" layout-padding layout-wrap>
                 <md-list flex>
                     <md-list-item ng-repeat="method in user.private.customer.creditCards">
-                        <md-item-content layout="row" layout-align="space-between center" layout-padding ng-class="{disabled: method.disabled}">
+                        <md-item-content flex layout="row" layout-align="space-between center" layout-padding ng-class="{disabled: method.disabled}">
                             <span flex flex-gt-sm="33">
                                 <img flex ng-src="{{ method.imageUrl }}" alt="{{ method.cardType }}" />     
                             </span>
                             
                             <span flex>****{{ method.last4 }}</span>
-                            <md-button class="md-raised md-warn min-2 max-2" ng-click="method.disabled = true; removePaymentMethod(method.token);" ng-disabled="method.disabled" aria-label="Remove credit card payment method">
+                            <md-button class="md-raised md-warn md-icon-button" ng-click="method.disabled = true; removePaymentMethod(method.token);" ng-disabled="method.disabled" aria-label="Remove credit card payment method">
                                 <i class="mdi-action-delete"></i>
                             </md-button>
                             
@@ -181,12 +181,12 @@
             <md-whiteframe class="md-whiteframe-z1" layout="row" layout-align="start center" layout-padding layout-wrap>
                 <md-list flex>
                     <md-list-item ng-repeat="method in user.private.customer.paypalAccounts" ng-class="{disabled: method.disabled}">
-                        <md-item-content layout="row" layout-align="space-between center" layout-padding>
+                        <md-item-content flex layout="row" layout-align="space-between center" layout-padding>
                             <span flex flex-gt-sm="33">
                                 <img flex ng-src="{{ method.imageUrl }}" alt="{{ method.email }}" />
                             </span>
                             <span flex>{{ method.email }}</span>
-                            <md-button class="md-raised md-warn min-2 max-2" ng-click="method.disabled = true; removePaymentMethod(method.token);" ng-disabled="method.disabled" aria-label="Remove PayPal payment method">
+                            <md-button class="md-raised md-warn md-icon-button" ng-click="method.disabled = true; removePaymentMethod(method.token);" ng-disabled="method.disabled" aria-label="Remove PayPal payment method">
                                 <i class="mdi-action-delete"></i>
                             </md-button>
                             

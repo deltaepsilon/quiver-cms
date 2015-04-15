@@ -10,6 +10,11 @@
 angular.module('quiverCmsApp')
   .controller('UploadsCtrl', function ($scope, AdminService) {
     /*
+     * Flags
+     */
+    $scope.incrementUploadFlag = AdminService.incrementUploadFlag;
+    
+    /*
      * Uploads
      */
     $scope.save = function (upload) {
@@ -34,12 +39,7 @@ angular.module('quiverCmsApp')
       AdminService.getUpload(upload.$id).$remove();
     };
 
-    $scope.flag = function (upload) {
-      var flag = (upload.flag || 0) + 1;
-
-      upload.flag = flag <= 3 ? flag : 0;
-      $scope.save(upload);
-    };
+    $scope.incrementUploadFlag = AdminService.incrementUploadFlag;
 
 
     $scope.searchField = 'userEmail';

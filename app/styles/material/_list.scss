@@ -1,4 +1,6 @@
 ul, ol {
+  list-style: none;
+  
   &.padded {
     > li {
       padding: .5rem;

@@ -462,7 +462,7 @@ angular.module('quiverCmsApp')
         }
         
       }, function (err) {
-        NotificationService.error(code, err && err.data ? err.data : 'Code not found.');
+        NotificationService.error(code, err && err.data && err.status !== 502 ? err.data : 'Code not found.');
       });
     };
 
@@ -476,10 +476,8 @@ angular.module('quiverCmsApp')
           codes.splice(i, 1);
         };
       }
-      $scope.$apply(function() {
-        $scope.$storage.cart = cart;
-        updateCart();
-      });
+      $scope.$storage.cart = cart;
+      updateCart();
       
     };
 

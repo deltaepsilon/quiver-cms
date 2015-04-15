@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('quiverCmsApp')
-  .controller('MasterCtrl', function ($scope, currentUser, env, qvAuth, ObjectService, NotificationService, $state, md5, settings, files, user, AdminService, _, $localStorage, $timeout, moment, $mdSidenav, FirebaseService) {
+  .controller('MasterCtrl', function ($scope, $filter, currentUser, env, qvAuth, ObjectService, NotificationService, $state, md5, settings, user, AdminService, _, $localStorage, $timeout, moment, $mdSidenav, $mdDialog, FirebaseService) {
     var loggedOutStates = AdminService.loggedOutStates,
       handleStateChange = function (event, toState, fromState, fromParams) {
         if ($scope.currentUser && ~loggedOutStates.indexOf(toState.name)) { //Protect login/register/reset states from logged-in users
@@ -14,6 +14,7 @@ angular.module('quiverCmsApp')
     */
     $scope.environment = env.environment;
     $scope.env = env;
+    $scope.bucket = env.amazon.publicBucket;
 
     $scope.toLanding = AdminService.toLanding;
     $scope.redirect = AdminService.redirect;
@@ -75,6 +76,10 @@ angular.module('quiverCmsApp')
       return !!$state.current.name.match(/authenticated\.master\.subscription/);
     };
 
+    $scope.isAdminView = function () {
+      return !!$state.current.name.match(/authenticated\.master\.admin/);
+    };
+
     /*
      * Settings
     */
@@ -83,7 +88,23 @@ angular.module('quiverCmsApp')
     /*
      * Files
     */
-    $scope.files = files;
+    $scope.showGalleryDialog = function (e, file) {
+      $mdDialog.show({
+        controller: function ($scope, $mdDialog) {
+          var bucket = env.amazon.publicBucket,
+            imgLink = $filter('s3Link')(file.Version && file.Versions.small ? file.Versions.small.Key : file.Key, bucket);
+
+          $scope.file = file;
+          $scope.imgLink = $filter('forceImage')(imgLink);
+          $scope.fileLink = $filter('s3Link')(file.Key, bucket);
+          $scope.mdLink = "[" + file.Name + "](" + $scope.fileLink + ")";
+          
+          $scope.cancel = $mdDialog.cancel;
+        },
+        templateUrl: "views/gallery-dialog.html",
+        targetEvent: e
+      });
+    };
 
     /*
      * User

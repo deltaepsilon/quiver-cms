@@ -12,7 +12,7 @@
           <md-item ng-repeat="user in uniqueUsers" ng-class="{active: user.id === selectedUser.id}">
             <md-item-content layout="row" layout-align="space-between center" ng-click="selectUser(user)">
 
-              <h4 class="truncate padding-x-small" flex>{{ user.name }}</h4>
+              <strong class="truncate padding-x-small" flex>{{ user.name }}</strong>
               <i class="mdi-communication-chat md-button min-2 max-2" flex ng-class="{invisible: user.id != selectedUser.id}"></i>
             </md-item-content>
           </md-item>
