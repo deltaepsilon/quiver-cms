@@ -45,9 +45,7 @@ if (ConfigService.get('private.cms.staticEnabled')) {
 
   });
 
-
-  // app.use('/app/admin/words/*', Middleware.redirect('/app/admin/words'));
-  app.use('/app/admin/words/*', StaticController.getHandler('index.html', true));
+  app.use('/app/admin/words/*', StaticController.getHandler('index.html', true)); // app.use('/app/admin/words/*', Middleware.redirect('/app/admin/words'));
 
   app.use('/app/transaction/*', StaticController.getHandler('index.html', true));
 

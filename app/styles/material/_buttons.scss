@@ -41,6 +41,10 @@
     }
   }
 
+  &.align-left {
+    margin-left: 0;
+  }
+
   &.min-2 {
     min-width: 2rem;
   }

@@ -1,18 +1,27 @@
 <section>
-    <form>
+    <div layout="row" layout-align="start center">
+        <h3 class="headline" flex ng-class="{'disabled': $storage.hideWordDetails}">Word Details</h3>
+
+        <md-button class="md-primary md-raised md-icon-button" flex ng-click="$storage.hideWordDetails = !$storage.hideWordDetails" aria-label="Hide word details">
+            <i ng-class="{'mdi-navigation-expand-less': $storage.hideWordDetails, 'mdi-navigation-expand-more': !$storage.hideWordDetails}"></i>
+        </md-button>
+
+    </div>
+
+    <form ng-if="!$storage.hideWordDetails">
         <fieldset>
-            <div layout="row" layout-align="space-between end" layout-padding layout-wrap>
-                <md-input-container flex>
+            <md-whiteframe class="md-whiteframe-z1" layout="row" layout-align="space-between start" layout-padding layout-wrap>
+                <md-input-container flex="33" flex-sm="100">
                     <label for="title">Title</label>
                     <input id="title" type="text" ng-model="word.title" ng-model-options="{debounce: {'default': 500}}">
                 </md-input-container>
 
-                <md-input-container flex>
+                <md-input-container flex="33" flex-sm="100">
                     <label for="slug">Slug</label>
                     <input id="slug" type="text" ng-model="word.slug" ng-model-options="{debounce: {'default': 500}}">
                 </md-input-container>
 
-                <div class="md-select-wrapper" flex>
+                <div class="md-select-wrapper" flex="33" flex-sm="100" style="margin-top: 22px;">
                     <md-select class="margin-zero" flex="20" ng-model="word.type">
                       <md-option value="">Select Type</md-option>
                       <md-option value="post">Post</md-option>
@@ -21,154 +30,251 @@
                     </md-select>
                 </div>
 
-                <md-chips flex="100" ng-model="wordHashtags" md-on-append="addHashtag($chip)">
-                  <md-autocomplete
-                    md-selected-item="selectedHashtag" 
-                    md-search-text="searchText" 
-                    md-no-cache="true"
-                    md-items="hashtag in searchHashtags(searchText)" 
-                    md-item-text="hashtag.value"
-                    placeholder="Add hashtag..."
-                  >
-                    
-                    <span md-highlight-text="searchText" md-highlight-flags="^i">{{ hashtag.value }}</span>
-                  </md-autocomplete>
-                  <md-chip-template>
-                    <strong>{{ $chip.value }}</strong>
-                  </md-chip-template>
-                </md-chips>
+                <md-whiteframe class="md-whiteframe-z0" flex layout="row" layout-padding layout-wrap>
+                    <h4 class="margin-zero-important" flex>Hashtags</h4>
 
-            </div>
+                    <div flex="100">
+                        <md-chips flex ng-model="wordHashtags" md-on-append="addHashtag($chip)">
+                            <md-autocomplete
+                                md-selected-item="selectedHashtag" 
+                                md-search-text="searchText" 
+                                md-no-cache="true"
+                                md-items="hashtag in searchHashtags(searchText)" 
+                                md-item-text="hashtag.value"
+                                placeholder="Add hashtag..."
+                            >
+                                <span md-highlight-text="searchText" md-highlight-flags="^i">{{ hashtag.value }}</span>
+                            </md-autocomplete>
+
+                            <md-chip-template>
+                                <strong>{{ $chip.value }}</strong>
+                            </md-chip-template>
+
+                        </md-chips>
+
+                    </div>
+                    
+                </md-whiteframe>
+
+                <md-whiteframe class="md-whiteframe-z2 relative" flex="33" flex-sm="100" layout="row" layout-padding layout-wrap ng-if="word.keyImage">
+                    <h4 class="margin-zero-important" flex>Featured Image</h5>
+
+                    <md-button class="md-warn md-raised md-icon-button" flex ng-click="clearKeyImage()" style="margin-top: 5px;" aria-label="Clear featured image">
+                        <i class="mdi-action-delete"></i>
+                    </md-button>
+                    
+                    <div flex="100">
+                        <img ng-src="{{ word.keyImage.Versions.small.Key || word.keyImage.Key | s3Link:files.Name}}" alt="word.keyImage.Name"/>
+                    </div>
+
+                </md-whiteframe>    
+
+            </md-whiteframe>
         </fieldset>
     </form>
 </section>
 
+<section class="padding-vertical-medium">
+    <div layout="row" layout-align="start center">
+        <h3 class="headline" flex ng-class="{'disabled': $storage.hidePublishing}">Publishing</h3>
 
-<div class="column small-12 medium-4 large-2">
-    <button class="text-x-small padding-small small-12 margin-vertical-xx-small" ng-click="useTextarea = !useTextarea" ng-show="!useHtml">
-        <span ng-show="useTextarea">Preview Mode</span>
-        <span ng-hide="useTextarea">Text Mode</span>
-    </button>
-    <button class="text-x-small padding-small small-12 margin-vertical-xx-small" ng-click="useHtml = !useHtml">
-        <span ng-show="useHtml">Markdown Mode</span>
-        <span ng-hide="useHtml">Html Mode</span>
-    </button>
-    <button class="text-x-small padding-small small-12 margin-vertical-xx-small" ng-click="saveDraft($storage.activeDraft)">Save As Draft</button>
-    <button class="text-x-small padding-small small-12 margin-vertical-xx-small" ng-click="setPublishedDraft($storage.activeDraft)" ng-disabled="!$storage.activeDraft">Publish</button>
-    <hr>
-    <h5>Active Draft</h5>
-    <div ng-show="$storage.activeDraft.edited" class="text-x-small">Edited: {{ $storage.activeDraft.edited | moment:'MM/DD/YY HH:mm' }}</div>
-    <div ng-show="$storage.activeDraft.created" class="text-x-small">Created: {{ $storage.activeDraft.created | moment:'MM/DD/YY HH:mm' }}</div>
+        <md-button class="md-primary md-raised md-icon-button" flex ng-click="$storage.hidePublishing = !$storage.hidePublishing" aria-label="Hide publishing">
+            <i ng-class="{'mdi-navigation-expand-less': $storage.hidePublishing, 'mdi-navigation-expand-more': !$storage.hidePublishing}"></i>
+        </md-button>
 
-    <hr>
+    </div>
 
-    <div ng-if="word.published">
-        <h5>Published</h5>
-        <ul class="margin-zero-important">
-            <li class="text-x-small-important">
+    <md-whiteframe class="md-whiteframe-z1" layout="row" layout-padding ng-if="!$storage.hidePublishing">
+        <div flex>
+            <h4 class="headline margin-zero" flex>Active Draft</h4>
+            <div class="margin-vertical-x-large" flex ng-show="$storage.activeDraft.edited" style="padding-bottom: 1px;">Edited: {{ $storage.activeDraft.edited | moment:'MM/DD/YY HH:mm' }}</div>
+            <div class="margin-vertical-x-large" flex ng-show="$storage.activeDraft.created">Created: {{ $storage.activeDraft.created | moment:'MM/DD/YY HH:mm' }}</div>    
+        </div>
+
+        <div flex layout="row" layout-wrap>
+            <h4 class="headline margin-zero" flex="100">Drafts</h4>
+
+            <md-content flex="100" style="height: 15rem;">
+                <md-list>
+                    <md-item ng-repeat="draft in drafts">
+                        <md-item-content class="padding-vertical-x-small" layout="row" layout-align="start center" layout-wrap>
+                            <span flex>{{ draft.created | moment:'MM/DD/YY HH:mm' }}</span>
+
+                            <md-button class="md-raised md-primary md-icon-button" flex ng-click="makeActiveDraft(draft)" aria-label="Make active draft">
+                                <i class="mdi-editor-publish"></i>
+                            </md-button>
+
+                            <md-button class="md-raised md-warn md-icon-button" flex ng-click="removeDraft($event, draft)" aria-label="Remove draft">
+                                <i class="mdi-action-delete"></i>
+                            </md-button>
+
+                        </md-item-content>
+                        <md-divider ng-if="!$last"></md-divider>
+                    </md-item>
+                </md-list>
+            </md-content>
+
+            <md-button class="md-primary md-raised align-left" flex="100" ng-click="saveDraft($storage.activeDraft)" aria-label="Save draft">
+                Save As Draft
+            </md-button>
+            
+            <md-button class="md-primary md-raised align-left" flex="100" ng-click="setPublishedDraft($storage.activeDraft)" ng-disabled="!$storage.activeDraft" aria-label="Publish">
+                Publish
+            </md-button>
+            
+        </div>
+
+        <div flex layout="row" layout-wrap>
+            <h4 class="headline margin-zero" flex="100">Published</h4>
+
+            <div class="padding-vertical-x-large" style="margin-top: -1px;">
                 Edited: {{ word.published.edited | moment:'MM/DD/YY HH:mm' }}
-            </li>
-            <li class="text-x-small-important">
-                <div class="cursor-pointer" style="margin-bottom: 44px;" ng-hide="editWord" ng-click="editWord = true">
-                    <label class="text-x-small" for="published-date">Published: {{ word.published.published |  moment:'MM/DD/YY' }}</label>
-                </div>
-                <div ng-show="editWord">
-                    <label class="text-x-small" for="published-date">Published:</label>
-                    <input id="published-date" class="margin-zero-important" type="date" ng-model="publishedDate" ng-blur="editWord = false; resetPublishedDate(word)" ng-change="setPublishedDate(word, publishedDate)"/>
-                </div>
-
-            </li>
-            <li class="text-x-small-important" ng-class="{'active': $storage.activeDraft.edited == word.published.edited}">
-                <button class="text-x-small padding-small small-12" ng-click="makeActiveDraft(word.published)" ng-disabled="$storage.activeDraft.edited == word.published.edited">Make Active Draft</button>
-            </li>
-            <li class="text-x-small-important">
-                <button class="alert text-x-small padding-small small-12" qv-confirm="unpublish()" confirmations="['Click to Confirm']">Unpublish</button>
-            </li>
-        </ul>
-
-        <hr/>
-    </div>
-
-
-    <div ng-show="drafts.length">
-        <h5>Drafts</h5>
-        <ul class="side-nav">
-            <li class="text-x-small" ng-repeat="draft in drafts" ng-class="{'active': $storage.activeDraft.edited == draft.edited}">
-                <a ng-if="$storage.activeDraft.edited != draft.edited" ng-click="makeActiveDraft(draft)">{{ draft.created | moment:'MM/DD/YY HH:mm' }}</a>
-                <a ng-if="$storage.activeDraft.edited == draft.edited" qv-confirm="removeDraft(draft)" confirmations="['Click to Delete', 'Confirm Deletion']">{{ draft.created | moment:'MM/DD/YY HH:mm' }}</a>
-            </li>
-        </ul>
-
-        <hr/>
-    </div>
-
-    <div ng-show="word.keyImage">
-        <h5 class="left">Featured Image</h5>
-        <a class="right" ng-click="clearKeyImage()">x</a>
-        <img ng-if="word.keyImage" ng-src="{{ word.keyImage.Versions.small.Key || word.keyImage.Key | s3Link:files.Name}}" alt="word.keyImage.Name"/>
-
-        <hr>
-    </div>
-
-    <div>
-        <h5>Location</h5>
-
-        <div ng-show="word.location">
-            <div class="text-small">
-                <a href="https://www.google.com/maps/preview?q=loc:{{ word.location.key.lat }},{{ word.location.key.lng }}" target="_blank">{{ word.location.value }}</a>
             </div>
 
+            <md-input-container style="margin-bottom: 12px;">
+                <label for="published-date">Published Date</label>
+                <input id="published-date" type="date" ng-model="getSetPublishedDate" ng-model-options="{ getterSetter: true, debounce: {'default': 500} }"/>
+            </md-input-container>
 
-            <button class="tiny alert margin-vertical-small" ng-click="removeLocation()">Remove</button>
+            <md-button class="md-primary md-raised align-left" flex="100" ng-click="makeActiveDraft(word.published)" ng-disabled="$storage.activeDraft.edited == word.published.edited" aria-label="Make active draft">
+                Make active draft
+            </md-button>
+
+            <md-button class="md-primary md-raised align-left" flex="100" ng-click="unpublish($event)" ng-disabled="!word.published" aria-label="Unpublish">
+                Unpublish
+            </md-button>
+            
+        </div>
+        
+    </md-whiteframe>
+
+</section>
+
+<section class="padding-vertical-medium" ng-if="$storage.clipboard.length">
+    <div layout="row" layout-align="start center">
+        <h3 class="headline" flex ng-class="{'disabled': $storage.hideClipboard}">Clipboard</h3>
+
+        <md-button class="md-primary md-raised md-icon-button" flex ng-click="$storage.hideClipboard = !$storage.hideClipboard" aria-label="Hide clipboard">
+            <i ng-class="{'mdi-navigation-expand-less': $storage.hideClipboard, 'mdi-navigation-expand-more': !$storage.hideClipboard}"></i>
+        </md-button>
+
+    </div>
+
+    <md-whiteframe class="md-whiteframe-z1" layout="row" layout-align="start center" layout-padding layout-wrap ng-if="!$storage.hideClipboard">
+        <div class="relative" flex="33" flex-sm="100" ng-repeat="file in $storage.clipboard">
+            <div qv-media="https://s3.amazonaws.com/{{ files.Name }}/{{ file.Versions.small.Key || file.Key }}" alt="{{ file.Key | filename }}"></div>
+
+            <div class="background-highlight8 padding-small text-right absolute top" style="padding-top: 1.5rem;">
+                <md-button class="md-raised md-primary md-icon-button" ng-click="addFromClipboard(file)" aria-label="Add image to post">
+                    <i class="mdi-content-add"></i>
+                </md-button>
+
+                <md-button class="md-raised md-accent md-icon-button" ng-click="makeKeyImage(file)" ng-disabled="file.Key == word.keyImage.Key" aria-label="Make featured image">
+                    <i class="mdi-action-favorite"></i>
+                </md-button>
+
+                <md-button class="md-raised md-warn md-icon-button" ng-click="removeFromClipboard(file)" aria-label="Remove image from clipboard">
+                    <i class="mdi-action-delete"></i>
+                </md-button>
+
+            </div>
+
+        </div>
+        
+    </md-whiteframe>
+
+
+
+</section>
+
+<!-- <div>
+    <h5>Location</h5>
+
+    <div ng-show="word.location">
+        <div class="text-small">
+            <a href="https://www.google.com/maps/preview?q=loc:{{ word.location.key.lat }},{{ word.location.key.lng }}" target="_blank">{{ word.location.value }}</a>
         </div>
 
-        <div ng-hide="word.location">
-            <input type="text" ng-model="locationSearch" ng-change="getLocations(locationSearch)" placeholder="Search addresses..."/>
-            <ul class="side-nav">
-                <li ng-repeat="location in locations" >
-                    <a ng-click="addLocation(location)">{{ location.value }}</a>
-                </li>
-            </ul>
-        </div>
 
+        <button class="tiny alert margin-vertical-small" ng-click="removeLocation()">Remove</button>
+    </div>
+
+    <div ng-hide="word.location">
+        <input type="text" ng-model="locationSearch" ng-change="getLocations(locationSearch)" placeholder="Search addresses..."/>
+        <ul class="side-nav">
+            <li ng-repeat="location in locations" >
+                <a ng-click="addLocation(location)">{{ location.value }}</a>
+            </li>
+        </ul>
     </div>
 
 </div>
+ -->
+
+ <section class="padding-vertical-medium">
+    <div layout="row" layout-align="start center">
+        <h3 class="headline" flex ng-class="{'disabled': $storage.hideDraft}">Draft</h3>
+
+        <md-button class="md-primary md-raised md-icon-button min-10" flex ng-click="useHtml = !useHtml" aria-label="Toggle HTML mode" ng-hide="$storage.hideDraft">
+            <span ng-show="!useHtml">Edit HTML</span>
+            <span ng-show="useHtml">Hide HTML</span>
+        </md-button>
+
+        <md-button class="md-primary md-raised md-icon-button min-10" flex ng-click="useTextarea = !useTextarea" ng-disabled="useHtml" aria-label="Toggle textarea" ng-hide="$storage.hideDraft">
+            <span ng-show="!useTextarea">Use Textarea</span>
+            <span ng-show="useTextarea">Hide Textarea</span>
+        </md-button>
+
+        <md-button class="md-primary md-raised md-icon-button" flex ng-click="$storage.hideDraft = !$storage.hideDraft" aria-label="Hide draft">
+            <i ng-class="{'mdi-navigation-expand-less': $storage.hideDraft, 'mdi-navigation-expand-more': !$storage.hideDraft}"></i>
+        </md-button>
+
+    </div>
+
+    <md-whiteframe class="md-whiteframe-z1" layout="row" layout-align="start center" layout-padding layout-wrap ng-if="!$storage.hideDraft">
+
+        <md-input-container flex>
+            <label for="excerpt">Excerpt</label>
+            <textarea ng-model="word.excerpt" ng-model-options="{debounce: {'default': 500, 'blur': 0}}" placeholder="Once upon a time..."></textarea>
+        </md-input-container>
+
+        <md-button class="md-raised md-warn md-icon-button" ng-click="clearExcerpt()" ng-disabled="!word.excerpt" aria-label="Clear excerpt">
+            <i class="mdi-content-clear"></i>
+        </md-button>
+
+        <div flex="100" layout="row" ng-if="!useTextarea && !useHtml">
+            <div ng-if="showDraft" class="background-secondary4 padding-small markdown" flex style="height: 100rem; overflow: auto;" delay="300" contenteditable="true" ng-model="$storage.activeDraft.markdown" markdown-editable ng-change="handleActiveDraftChange($storage.activeDraft)" extensions="video, iframe"></div>
+        </div>
+
+        <div flex="100" ng-if="useTextarea && !useHtml">
+            <md-input-container flex>
+                <label for="markdown">Markdown</label>
+                <textarea id="markdown" class="background-secondary4 padding-small" style="min-height: 100rem;" ng-model="$storage.activeDraft.markdown">{{ $storage.activeDraft.markdown }}</textarea>
+            </md-input-container>
+
+            
+        </div>
+
+        <div flex="100" layout="row" ng-if="useHtml">
+            <md-input-container flex>
+                <label for="html">HTML</label>
+                <textarea id="html" class="background-secondary4 padding-small" style="min-height: 100rem;" ng-model="$storage.activeDraft.html" placeholder="HTML...">{{ $storage.activeDraft.html }}</textarea>
+            </md-input-container>
+            
+        </div>
+
+
+
+    </md-whiteframe>
+
+    
+ </section>
+
+
+
 <div class="column small-12 medium-8 large-10">
-    <div class="panel" ng-show="$storage.clipboard.length">
-        <h5>Clipboard</h5>
-        <hr>
-        <ul class="small-block-grid-2 medium-block-grid-4 large-block-grid-8">
-            <li class="relative" ng-repeat="file in $storage.clipboard">
-                <div class="relative">
-                    <div class="cursor-pointer" ng-click="addFromClipboard(file)" qv-media="https://s3.amazonaws.com/{{ files.Name }}/{{ file.Versions.small.Key || file.Key }}" alt="{{ file.Key | filename }}" attributes="{embed: {width: '100px', height: '100px'}, img: {'style': 'min-width: 100%;'}, video: {'style': 'max-width: 100%;'}}" alt="Click to Add"></div>
-                    <a class="delete-button text-small background-highlight1 link-white0 link-hover-secondary0" ng-click="removeFromClipboard(file)">x</a>
-                    <div class="overlay bottom padding-xx-small text-center background-highlight1 text-xx-small link-white0 link-hover-secondary2" ng-hide="word.keyImage.Key == file.Key">
-                        <a ng-click="makeKeyImage(file)">+ Featured</a>
-                    </div>
-                </div>
 
-            </li>
-        </ul>
-    </div>
 
-    <div class="excerpt panel">
-        <h5 class="left">Excerpt</h5>
-        <a class="right" ng-click="clearExcerpt()" ng-show="word.excerpt">Clear</a>
-        <hr>
-        <textarea class="small-12" ng-model="word.excerpt" ng-model-options="{debounce: {'default': 500, 'blur': 0}}" placeholder="Once upon a time..."></textarea>
-    </div>
-
-    <div ng-if="!useTextarea && !useHtml">
-        <div ng-if="showDraft" class="small-12 background-secondary4 padding-small markdown" style="height: 50rem; overflow: auto;" delay="300" contenteditable="true" ng-model="$storage.activeDraft.markdown" markdown-editable ng-change="handleActiveDraftChange($storage.activeDraft)" extensions="video, iframe"></div>
-    </div>
-
-    <div ng-if="useTextarea && !useHtml">
-        <textarea class="small-12 background-secondary4 padding-small" style="min-height: 40rem;" ng-model="$storage.activeDraft.markdown">{{ $storage.activeDraft.markdown }}</textarea>
-    </div>
-
-    <div ng-if="useHtml">
-        <textarea class="small-12 background-secondary4 padding-small" style="min-height: 40rem;" ng-model="$storage.activeDraft.html" placeholder="HTML...">{{ $storage.activeDraft.html }}</textarea>
-    </div>
+    
 
 </div>

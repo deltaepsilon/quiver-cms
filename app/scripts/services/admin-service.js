@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('quiverCmsApp')
-  .service('AdminService', function AdminService($firebaseObject, $firebaseArray, env, Restangular, FirebaseService, $localStorage, $state) {
+  .service('AdminService', function AdminService($firebaseObject, $firebaseArray, env, Restangular, FirebaseService, $localStorage, $state, moment) {
     var firebaseEndpoint = env.firebase.endpoint,
       toLanding = function () {
         location.replace('/');        
@@ -34,60 +34,45 @@ angular.module('quiverCmsApp')
         return $firebaseArray(FirebaseService.query(new Firebase(firebaseEndpoint + '/content/words'), query));
       },
 
-      getDecoratedWords: function (query) {
-        var hashtagHandler = function (words) {
-            return function (hashtags) {
-              if (!hashtags) {
-                return this.hashtags;
-              } else {
-                var keys = _.uniq(_.pluck(hashtags, 'key')),
-                  i = keys.length,
-                  hashtag;
-
-                if (i) {
-                  this.hashtags = [];
-                }
-
-                while (i--) {
-                  if (keys[i]) {
-                    hashtag = _.findWhere(hashtags, {key: keys[i]});
-                    this.hashtags.push({
-                      key: hashtag.key,
-                      value: hashtag.value
-                    });  
-                  }
-                  
-                }
-
-                if (!this.hashtags.length) {
-                  delete this.hashtags;
-                }
-
-                new Firebase(firebaseEndpoint + '/content/words/' + this.$id).child('hashtags').set(this.hashtags);
-                
-              }
-              
-            };
-            
-
-          };
-
-        return $firebaseArray(FirebaseService.query(new Firebase(firebaseEndpoint + '/content/words'), query)).$loaded().then(function (words) {
-          var i = words.length;
-          while (i--) {
-            words[i].getSetHashtags = hashtagHandler(words);
-            if (!words[i].hashtags || !words[i].hashtags.length) {
-              words[i].hashtags = [];
-            }
-          }
-
-          return words;
-          
-        });
-      },
-
       getWord: function (key) {
-        return $firebaseObject(new Firebase(firebaseEndpoint + '/content/words/' + key));
+        var cachedDate = moment(),
+          cached = false,
+          cache = function (dateString) {
+            var current = moment(dateString);
+
+            cachedDate.millisecond(current.millisecond());
+            cachedDate.seconds(current.seconds());
+            cachedDate.minute(current.minute());
+            cachedDate.hour(current.hour());
+            cachedDate.year(current.year());
+            cachedDate.dayOfYear(current.dayOfYear());
+            cached = true;
+            
+          },
+          Word = $firebaseObject.$extend({
+            getSetPublishedDate: function (date) {
+              if (!date) {
+                if (!this.published || !this.published.published) {
+                  return undefined;
+                } else if (!cached) {
+                  cache(this.published.published);
+                }
+
+              } else {
+                if (!this.published) {
+                  this.published = {};
+                }
+                this.published.published = moment(date).format();
+                cache(this.published.published);  
+
+              }
+
+              return cachedDate.toDate();
+
+            }
+          });
+
+        return new Word(new Firebase(firebaseEndpoint + '/content/words/' + key));
       },
 
       getWordHashtags: function (key) {

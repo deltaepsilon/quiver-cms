@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('quiverCmsApp')
-  .controller('WordCtrl', function ($scope, $q, $timeout, moment, word, drafts, files, hashtags, wordHashtags, Slug, NotificationService, $filter, $localStorage, _, ClipboardService, LocationService, env) {
+  .controller('WordCtrl', function ($scope, $q, $timeout, moment, word, drafts, files, hashtags, wordHashtags, Slug, NotificationService, $filter, $localStorage, _, ClipboardService, env, $mdDialog) {
 
     $scope.$storage = $localStorage;
 
@@ -58,10 +58,25 @@ angular.module('quiverCmsApp')
       });
     };
 
-    $scope.removeDraft = function (draft) {
-      $scope.drafts.$remove(draft).then(function () {
-        NotificationService.success('Draft Deleted');
+    $scope.removeDraft = function (e, draft) {
+      var confirm = $mdDialog.confirm()
+        .title(draft.created)
+        .content('Are you sure you want to destroy me?')
+        .ariaLabel('Delete Draft' + draft.created)
+        .ok('Bye bye draft!')
+        .cancel("Maybe I'll need you later?")
+        .targetEvent(e);
+
+      $mdDialog.show(confirm).then(function() {
+        $scope.drafts.$remove(draft).then(function () {
+          NotificationService.success('Draft Deleted');
+        });
+      
+      }, function() {
+        NotificationService.notify('Not destroyed!');
+
       });
+
     };
 
     $scope.makeActiveDraft = function (draft) {
@@ -85,8 +100,32 @@ angular.module('quiverCmsApp')
 
     };
 
-    $scope.unpublish = function () {
-      delete $scope.word.published;
+    $scope.unpublish = function (e) {
+      var confirm = $mdDialog.confirm()
+        .title($scope.word.published.created)
+        .content('Are you sure you want to unpublish me?')
+        .ariaLabel('Unpublish' + $scope.word.published.created)
+        .ok('Bye bye draft!')
+        .cancel("Maybe I'll need you later?")
+        .targetEvent(e);
+
+      $mdDialog.show(confirm).then(function() {
+        delete $scope.word.published;
+        NotificationService.success('Published no more.');
+      
+      });
+      
+    };
+
+    $scope.getSetPublishedDate = function (date) {
+      var result = word.getSetPublishedDate(date);
+
+      if (date) {
+        word.$save();  
+      } 
+
+      return result;
+      
     };
 
     $scope.setEditedDatetime = function (draft) {
@@ -154,32 +193,24 @@ angular.module('quiverCmsApp')
     /*
      * Location
     */
-    $scope.getLocations = _.debounce(function (location) {
-      var promise = LocationService.getLocations(location);
+    // $scope.getLocations = _.debounce(function (location) {
+    //   var promise = LocationService.getLocations(location);
 
-      promise.then(function (locations) {
-        $scope.locations = locations;
-      });
-      return promise;
-    }, 500);
+    //   promise.then(function (locations) {
+    //     $scope.locations = locations;
+    //   });
+    //   return promise;
+    // }, 500);
 
-    $scope.addLocation = function (location) {
-      $scope.word.location = location;
-    };
+    // $scope.addLocation = function (location) {
+    //   $scope.word.location = location;
+    // };
 
-    $scope.removeLocation = function () {
-      delete $scope.locationSearch;
-      delete $scope.locations;
-      delete $scope.word.location;
-    };
-
-    $scope.setPublishedDate = function (word, publishedDate) {
-      word.published.published = moment(publishedDate).format();
-    };
-
-    $scope.resetPublishedDate = function (word) {
-      $scope.publishedDate = moment(word.published.published).toDate();
-    };
+    // $scope.removeLocation = function () {
+    //   delete $scope.locationSearch;
+    //   delete $scope.locations;
+    //   delete $scope.word.location;
+    // };
 
     /*
      * Hashtags
@@ -194,10 +225,6 @@ angular.module('quiverCmsApp')
         return !!hashtag.key.match(new RegExp(searchText, 'i')) && !_.findWhere(wordHashtags, {key: hashtag.key});
       });
 
-    };
-
-    $scope.handleHashtagChange = function (word) {
-      console.log('handleHashtagChange', word);
     };
 
     $scope.addHashtag = function (chip) {
@@ -228,7 +255,6 @@ angular.module('quiverCmsApp')
     };
 
     $scope.$watch('wordHashtags', function () {
-      console.log('wordHashtags changed', $scope.wordHashtags, wordHashtags);
       var i = wordHashtags.length,
         deletePromises = [],
         dupePromises = [],
