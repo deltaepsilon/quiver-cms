@@ -1,87 +1,169 @@
-<div class="column small-12">
-  <h3 class="font-flair">{{ user.public.name || user.public.email }}</h3>
-</div>
+<section>
+  <h3 class="headline">{{ user.public.name || user.public.email }}</h3>
 
-<hr>
+  <md-whiteframe class="md-whiteframe-z1" layout="row" layout-wrap layout-padding>
+    <div flex flex-sm="100" layout="row" layout-align="start center" layout-wrap>
+      <h4 class="margin-zero" flex="100">Public</h4>
 
-<div class="column small-12">
-  <h5 class="font-flair">Public</h5>
-  <ul class="table-list striped hover padded">
-    <li>
-      <div class="column small-12 medium-3">ID</div>
-      <div class="column small-12 medium-9">{{ user.public.id }}</div>
-    </li>
-    <li class="link-hover-white0 padding-zero-important">
-      <a class="clearfix block padding-small" href="mailto:{{ user.public.email }}">
-        <div class="column small-12 medium-3">Email</div>
-        <div class="column small-12 medium-9">
-          {{ user.public.email }}  
-        </div>
-      </a>
-      
-    </li>
-    <li>
-      <div class="column small-12 medium-3">Name</div>
-      <div class="column small-12 medium-9">{{ user.public.name }}</div>
-    </li>
-    <li>
-      <div class="column small-12 medium-3">Birthdate</div>
-      <div class="column small-12 medium-9">{{ user.public.birthdate | moment:"MM/DD/YYYY" }}</div>
-    </li>
-    <li>
-      <div class="column small-12 medium-3">Gender</div>
-      <div class="column small-12 medium-9">{{ user.public.gender }}</div>
-    </li>
-    <li>
-      <div class="column small-12 medium-3">Twitter</div>
-      <div class="column small-12 medium-9">{{ user.public.twitter }}</div>
-    </li>
-    <li>
-      <div class="column small-12 medium-3">Website</div>
-      <div class="column small-12 medium-9">{{ user.public.website }}</div>
-    </li>
-    <li>
-      <div class="column small-12 medium-3">Preferences</div>
-      <div class="column small-12 medium-9">
-        <ul class="inline-list">
-          <li class="text-success" ng-repeat="(name, value) in user.public.preferences">
-            <span ng-class="{'text-error': !value}">{{ name }}</span>
-          </li>
-        </ul>
+      <span flex="25">ID</span>
+      <span class="text-right" flex="75">
+        <a ng-href="{{ env.firebase.endpoint }}/users/{{ user.public.id }}" target="_blank">{{ user.public.id }}</a>
+      </span>
+
+      <span flex="25">Email</span>
+      <span class="text-right" flex="75">
+        <a ng-href="mailto:{{ user.public.email }}">{{ user.public.email }}</a>
+      </span>
+
+      <span flex="25">Birthday</span>
+      <span class="text-right" flex="75">{{ user.public.birthdate | moment:"MM/DD/YYYY" }}</span>
+
+      <span flex="25">Gender</span>
+      <span class="text-right" flex="75">{{ user.public.gender || 'Not specified' }}</span>
+
+      <span flex="25">Twitter</span>
+      <span class="text-right" flex="75">
+        <a href="https://twitter.com/{{ user.public.twitter }}" ng-if="user.public.twitter">{{ user.public.twitter }}</a>
+      </span>
+
+      <span flex="25">Instagram</span>
+      <span class="text-right" flex="75">
+        <a href="https://instagram.com/{{ user.public.instagram }}" ng-if="user.public.instagram">{{ user.public.instagram }}</a>
+      </span>
+
+      <span flex="25">Web</span>
+      <span class="text-right" flex="75">
+        <a ng-href="{{ user.public.website }}" ng-if="user.public.website">{{ user.public.website }}</a>
+      </span>
+
+      <span flex="25">Marketing</span>
+      <span class="text-right" flex="75">
+        <md-checkbox ng-model="user.public.preferences.marketing" disabled="true">
+          Marketing
+        </md-checkbox>
+      </span>
+
+      <span flex="25">Tracking</span>
+      <span class="text-right" flex="75">
+        <md-checkbox ng-model="user.public.preferences.tracking" disabled="true">
+          Tracking
+        </md-checkbox>
+      </span>
+
+    </div>
+
+    <div flex flex-sm="100" layout="row" layout-align="start center" layout-wrap>
+      <h4 class="margin-zero" flex="100">Private</h4>
+
+      <span flex="25">Last Login</span>
+      <span class="text-right" flex="75">{{ user.lastLogin | moment:"MM/DD/YYYY hh:mm" }}</span>
+
+      <span flex="25">Created</span>
+      <span class="text-right" flex="75">{{ user.created | moment:"MM/DD/YYYY hh:mm" }}</span>
+
+      <span flex="25">Password</span>
+      <span class="text-right" flex="75">{{ user.password || 'n/a' }}</span>
+
+      <span flex="10">
+        <i class="qv qv-google-plus"></i>
+      </span>
+      <span class="text-right" flex="90">{{ user.google || 'n/a' }}</span>
+
+      <span flex="10">
+        <i class="qv qv-facebook"></i>
+      </span>
+      <span class="text-right" flex="90">{{ user.facebook || 'n/a' }}</span>
+
+      <span class="text-right" flex="100">
+        <md-checkbox ng-model="user.isAdmin">
+          Admin
+        </md-checkbox>
+      </span>
+
+      <span class="text-right" flex="100">
+        <md-checkbox ng-model="user.isModerator">
+          Moderator
+        </md-checkbox>
+      </span>
+
+      <span class="text-right" flex="100">
+        <md-checkbox ng-model="user.messageable">
+          Messageable
+        </md-checkbox>
+      </span>
+
+    </div>
+
+    <div flex flex-sm="100" layout="row" layout-align="start center" layout-wrap ng-if="user.private.customer">
+      <h4 class="margin-zero" flex="100">Customer</h4>
+
+      <span flex="25">ID</span>
+      <span class="text-right" flex="75">{{ user.private.customer.id }}</span>
+
+      <span flex="25">Email</span>
+      <span class="text-right" flex="75">{{ user.private.customer.email }}</span>
+
+      <span flex="25">Name</span>
+      <span class="text-right" flex="75">{{ user.private.customer.firstName }} {{ user.private.customer.lastName }}</span>
+
+      <span flex="25">Merchant ID</span>
+      <span class="text-right" flex="75">{{ user.private.customer.merchantId }}</span>
+
+      <span flex="25">Created</span>
+      <span class="text-right" flex="75">{{ user.private.customer.createdAt | moment:"MM/DD/YYYY hh:mm" }}</span>
+
+      <span flex="25">Updated</span>
+      <span class="text-right" flex="75">{{ user.private.customer.updatedAt | moment:"MM/DD/YYYY hh:mm" }}</span>
+
+      <span flex="25"></span>
+      <span class="text-right" flex="75"></span>
+
+    </div>
+  </md-whiteframe>
+
+</section>
+
+<section ng-if="user.private.customer.creditCards.length || user.private.customer.paypalAccounts.length">
+  <h3 class="headline">Payment Methods</h3>
+
+  <md-whiteframe class="md-whiteframe-z1" layout="row" layout-align="start start" layout-wrap layout-padding>
+    <div flex="50" flex-sm="100" layout="row" layout-align="start start" layout-wrap ng-if="user.private.customer.creditCards">
+      <h4 class="margin-zero" flex="100">Credit Cards</h4>
+
+      <div class="padding-x-small" flex="100" layout="row" layout-align="space-between center" layout-wrap ng-repeat="card in user.private.customer.creditCards">
+        <img style="max-width: 2rem;" ng-src="{{ card.imageUrl }}" alt="{{ card.cardType }}" /> 
+        <span>****{{ card.last4 }}</span>
+        <md-button class="md-warn" ng-click="card.disabled = true; removePaymentMethod(card.token);" aria-label="Remove credit card">
+          <i class="mdi-action-delete"></i>
+        </md-button>
+
       </div>
-    </li>
-    
-  </ul>
-  
-</div>
+
+    </div>
+
+    <div flex="50" flex-sm="100" layout="row" layout-align="start start" layout-wrap ng-if="user.private.customer.paypalAccounts">
+      <h4 class="margin-zero" flex="100">PayPal</h4>
+
+      <div class="padding-x-small" flex="100" layout="row" layout-align="space-between center" layout-wrap ng-repeat="account in user.private.customer.paypalAccounts">
+        <img style="max-width: 2rem;" ng-src="{{ account.imageUrl }}" alt="PayPal" /> 
+        <span>{{ account.email }}</span>
+        <md-button class="md-warn" ng-click="account.disabled = true; removePaymentMethod(account.token)" aria-label="Remove PayPal account">
+          <i class="mdi-action-delete"></i>
+        </md-button>
+
+      </div>
+      
+    </div>
+
+  </md-whiteframe>
+
+</section>
+
 
 <div class="column small-12" ng-show="user.private.customer">
   <h5 class="font-flair">Customer</h5>
   <ul class="table-list striped hover padded">
-    <li>
-      <div class="column medium-3">ID</div>
-      <div class="column medium-9">{{ user.private.customer.id }}</div>
-    </li>
-    <li>
-      <div class="column medium-3">Email</div>
-      <div class="column medium-9">{{ user.private.customer.email }}</div>
-    </li>
-    <li>
-      <div class="column medium-3">Name</div>
-      <div class="column medium-9">{{ user.private.customer.firstName }} {{ user.private.customer.lastName }}</div>
-    </li>
-    <li>
-      <div class="column medium-3">Merchant ID</div>
-      <div class="column medium-9">{{ user.private.customer.merchantId }}</div>
-    </li>
-    <li>
-      <div class="column medium-3">Created</div>
-      <div class="column medium-9">{{ user.private.customer.createdAt | moment:"MM/DD/YYYY hh:mm" }}</div>
-    </li>
-    <li>
-      <div class="column medium-3">Updated</div>
-      <div class="column medium-9">{{ user.private.customer.updatedAt | moment:"MM/DD/YYYY hh:mm" }}</div>
-    </li>
+    <
     <li>
       <div class="column small-12 medium-3">Credit Cards</div>
       <div class="column small-12 medium-9">

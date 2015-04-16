@@ -16,8 +16,16 @@ angular.module('quiverCmsApp')
       var serverUser = AdminService.getUser(user.$id);
 
       serverUser.$loaded().then(function () {
-        serverUser.private.isAdmin = user.private.isAdmin;
-        serverUser.private.isModerator = user.private.isModerator;
+        serverUser.isAdmin = user.isAdmin;
+        serverUser.isModerator = user.isModerator;
+
+        if (!serverUser.isAdmin) {
+          delete serverUser.isAdmin;
+        }
+        if (!serverUser.isModerator) {
+          delete serverUser.isModerator;
+        }
+
         return serverUser.$save();
       }).then(function () {
         NotificationService.success('User saved');

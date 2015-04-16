@@ -373,7 +373,7 @@ angular.module('quiverCmsApp', [
         controller: 'MessagesCtrl',
         resolve: {
           messageable: function (AdminService, user) {
-            if (user && user.private && user.private.isAdmin) {
+            if (user && user.isAdmin) {
               return AdminService.getUsers({orderByChild: 'email'});
             } else {
               return AdminService.getMessageable();  
@@ -521,7 +521,7 @@ angular.module('quiverCmsApp', [
             controller: "AdminCtrl",
             resolve: {
               isAdmin: function (user, $state) {
-                if (!user.private.isAdmin) {
+                if (!user.isAdmin) {
                   $state.go('authenticated.master.nav.dashboard');
                   return false;
                 } else {

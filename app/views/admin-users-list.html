@@ -1,62 +1,70 @@
-<input class="small-12" type="text" ng-model="searchTerm" placeholder="Search: Click Enter to search server by email..." qv-enter="search({orderByChild: 'email', startAt: searchTerm, limit: 10})">
 
-<ul class="table-list padded hover striped">
-  <li class="table-list-header padding-small">
-    <div class="column small-12 medium-5">
-      Email
-    </div>
-    <div class="column small-12 medium-2">
-      Created
-    </div>
-    <div class="column small-12 medium-2">
-      Last Login
-    </div>
-    <div class="column small-12 medium-1">
-      Admin
-    </div>
-    <div class="column small-12 medium-1">
-      Moderator
-    </div>
-    <div class="column small-12 medium-1">
-      Messageable
-    </div>
-  </li>
-  <li class="text-x-medium" ng-repeat="user in items | orderBy:'$priority':'asc'">
-      <div class="column small-12 medium-5 padding-small">
-        <a ui-sref="authenticated.master.admin.user({key: user.$id})">{{ user.public.email || user.email }}</a>
-      </div>
-      <div class="column small-12 medium-2 padding-small">
-        {{ user.created | moment:"MM/DD/YYYY" }}
-      </div>
-      <div class="column small-12 medium-2 padding-small">
-        {{ user.lastLogin | moment:"MM/DD/YYYY hh:mm" }}
-      </div>
-      <div class="column small-12 medium-1">    
-        <input id="user-admin-{{ user.$id }}" style="margin: 1.3rem auto 0;" type="checkbox" ng-model="user.private.isAdmin" ng-change="saveUserRoles(user)">
-      </div>
-      <div class="column small-12 medium-1">
-        <input id="user-moderator-{{ user.$id }}" style="margin: 1.3rem auto 0;" type="checkbox" ng-model="user.private.isModerator" ng-change="saveUserRoles(user)">
-      </div>
-      <div class="column small-12 medium-1">
-        <input id="user-message-enabled-{{ user.$id }}" style="margin: 1.3rem auto 0;" type="checkbox" ng-model="user.messageable" ng-change="saveUserMessageable(user)">
-      </div>
+<md-whiteframe class="md-whiteframe-z1 relative" layout="column" layout-fill flex>
+  <div layout="row" layout-align="start center" layout-padding>
+    <md-input-container flex>
+      <label for="email-search">Search by Email</label>
+      <input id="email-search" type="text" ng-model="searchTerm" qv-enter="search({orderByChild: 'email', startAt: searchTerm, limit: 10})">
+    </md-input-container>
 
+    <md-input-container flex>
+      <label for="name-search">Search by Name</label>
+      <input id="name-search" type="text" ng-model="name" qv-enter="search({orderByChild: 'name', startAt: name, limit: 10})">
+    </md-input-container>   
+
+    <span flex></span>
     
-  </li>
-  <li class="no-stripe no-hover">
-    <div ng-hide="searching">
-      <div class="column small-3">
-        <button class="secondary small-12" ng-click="loadNext()" ng-disabled="disablePrev">Previous</button>
-      </div>
-      <div class="column small-3">
-        <button class="secondary small-12" ng-click="loadMore()" ng-disabled="disableMore">Load More +</button>
-      </div>
-      <div class="column small-3">
-        <button class="secondary small-12" ng-click="reset()" ng-disabled="disableReset">Reset</button>
-      </div>
-      <div class="column small-3">
-        <button class="secondary small-12" ng-click="loadPrev()" ng-disabled="disableNext">Next</button>&nbsp;
-      </div>
-    </div>
-  </li>
-</ul>
+    <md-button class="md-icon-button" flex ng-click="loadNext()" ng-disabled="disablePrev" aria-label="list back">
+      <i class="mdi-navigation-arrow-back"></i>
+    </md-button>
+    
+    <md-button class="md-icon-button" flex ng-click="loadPrev()" ng-disabled="disableNext" aria-label="list forward">
+      <i class="mdi-navigation-arrow-forward"></i>
+    </md-button>
+    
+    <md-button class="md-icon-button" flex ng-click="loadMore()" ng-disabled="disableMore" aria-label="list load more">
+      <i class="mdi-navigation-expand-more"></i>
+    </md-button>
+    
+    <md-button class="md-icon-button" flex ng-click="reset()" ng-disabled="disableReset" aria-label="list reload">
+      <i class="mdi-navigation-refresh"></i>
+    </md-button>
+
+  </div>
+
+  <md-content>
+    <md-list layout="column" ng-if="!items">
+      <md-item>
+        <md-item-content class="text-center" layout="row" layout-align="center center" layout-padding layout-wrap>
+          <h3 class="Headline">There are no users to display.</h3>
+        </md-item-content>
+      </md-item>
+    </md-list>
+        
+    <section>
+      <md-list layout="column">
+        <md-item ng-repeat="user in items | filter:authorFilter | orderBy:'-$priority'">
+          <md-item-content layout="row" layout-align="space-between center" layout-padding layout-wrap style="padding-top: 23px;">
+
+            <a flex="25" flex-sm="100" ui-sref="authenticated.master.admin.user({key: user.$id})">{{ user.public.email || user.email }}</a>
+            <!-- <span flex="25" flex-sm="100">{{ user.created | moment:"MM/DD/YYYY" }}</span> -->
+            <span flex="25" flex-sm="100">Login: {{ user.lastLogin | moment:"MM/DD/YYYY hh:mm" }}</span>
+
+            <md-checkbox ng-model="user.isAdmin" ng-change="saveUserRoles(user)">
+              Admin
+            </md-checkbox>
+
+            <md-checkbox ng-model="user.isModerator" ng-change="saveUserRoles(user)">
+              Moderator
+            </md-checkbox>
+
+            <md-checkbox ng-model="user.messageable" ng-change="saveUserMessageable(user)">
+              Messageable
+            </md-checkbox>
+
+          </md-item-content>
+          <md-divider ng-if="!$last"></md-divider>
+        </md-item>
+      </md-list>
+    </section>
+  </md-content>
+</md-whiteframe>

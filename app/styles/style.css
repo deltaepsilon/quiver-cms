@@ -4940,6 +4940,11 @@ md-toast {
   line-height: 1rem;
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_type\.scss}line{font-family:\0000392}}
+.line-height-2 {
+  line-height: 2rem;
+}
+
 @font-face {
   font-family: "Material-Design-Icons";
   src: url("../lib/materialize/font/material-design-icons/Material-Design-Icons.eot?#iefix") format("embedded-opentype"), url("../lib/materialize/font/material-design-icons/Material-Design-Icons.woff2") format("woff2"), url("../lib/materialize/font/material-design-icons/Material-Design-Icons.woff") format("woff"), url("../lib/materialize/font/material-design-icons/Material-Design-Icons.ttf") format("truetype"), url("../lib/materialize/font/material-design-icons/Material-Design-Icons.svg#Material-Design-Icons") format("svg");

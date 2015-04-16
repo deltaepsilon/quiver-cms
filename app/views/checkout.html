@@ -210,7 +210,7 @@
       </form>
 
       <div ng-if="$storage.cart.address && !editingAddress">
-        <ul class="padded">
+        <ul class="padded padding-zero">
           <li>{{ $storage.cart.address.recipient }}</li>
           <li>{{ $storage.cart.address.street1 }}</li>
           <li ng-show="$storage.cart.address.street2">{{ $storage.cart.address.street2 }}</li>
@@ -227,8 +227,8 @@
             </p>
 
           </li>
-          <li layout="row" layout-align="space-between" style="max-width: 15rem;">
-            <md-button class="md-raised" flex ng-click="editAddress()">
+          <li class="padding-zero-important" layout="row" layout-align="start">
+            <md-button class="md-raised min-16 max-16" flex ng-click="editAddress()">
               <i class="mdi-editor-mode-edit"></i> Edit Address
             </md-button>
             <md-button class="md-warn" flex ng-click="removeAddress(); editAddress();" style="max-width: 3rem;">
@@ -259,15 +259,15 @@
   
   <h3 class="headline">Checkout</h3>
 
-  <md-whiteframe class="md-whiteframe-z2" layout-sm="column" layout-gt-sm="row" layout-align="space-between space-between" layout-padding layout-wrap>
+  <md-whiteframe class="md-whiteframe-z2" layout-sm="column" layout-gt-sm="row" layout-align="space-between end" layout-padding layout-wrap>
 
-    <div flex-sm="100" flex-gt-sm="50" layout="row" layout-align="start center" layout-padding layout-wrap>     
+    <md-whiteframe class="md-whiteframe-z0" flex="100" layout="row" layout-align="start start" layout-padding layout-wrap>     
 
-      <span flex="100" ng-if="user.private.customer.creditCards">
+      <span flex="50" flex-sm="100" ng-if="user.private.customer.creditCards">
         <h4 class="padding-horizontal-medium">Credit Cards</h4>
         <md-radio-group ng-model="$storage.cart.paymentToken">
           <div class="padding-x-small" layout="row" layout-align="space-between center" layout-wrap ng-repeat="card in user.private.customer.creditCards" ng-class="{disabled: card.disabled}">
-            <md-radio-button ng-value="card.token"></md-radio-button>
+            <md-radio-button ng-value="card.token" aria-label="Select card {{ card.last4 }}"></md-radio-button>
             <img style="max-width: 2rem;" ng-src="{{ card.imageUrl }}" alt="{{ card.cardType }}" /> 
             <span>****{{ card.last4 }}</span>
             <md-button class="md-warn" ng-click="card.disabled = true; removePaymentMethod(card.token);" aria-label="Remove credit card">
@@ -277,11 +277,11 @@
         </md-radio-group>
       </span>
 
-      <span flex="100" ng-if="user.private.customer.paypalAccounts">
+      <span flex="50" flex-sm="100" ng-if="user.private.customer.paypalAccounts">
         <h4 class="padding-horizontal-medium">PayPal Accounts</h4>
         <md-radio-group ng-model="$storage.cart.paymentToken">
           <div class="padding-x-small" layout="row" layout-align="space-between center" layout-wrap ng-repeat="account in user.private.customer.paypalAccounts" ng-class="{disabled: card.disabled}">
-            <md-radio-button ng-value="account.token"></md-radio-button>
+            <md-radio-button ng-value="account.token" aria-label="Select PayPal {{ account.email }}"></md-radio-button>
             <img style="max-width: 2rem;" ng-src="{{ account.imageUrl }}" alt="PayPal" /> 
             <span>{{ account.email }}</span>
             <md-button class="md-warn" ng-click="account.disabled = true; removePaymentMethod(account.token)" aria-label="Remove PayPal account">
@@ -292,50 +292,18 @@
         
       </span>
 
-      <span flex="100" style="min-height: 49px;" ng-if="!user.private.customer.paypalAccounts && !user.private.customer.creditCards"></span>
+    </md-whiteframe>
 
-      <span class="relative" flex="100" layout="row" layout-align="center center" style="min-height: 6.5rem;">
-        <md-progress-circular class="invisible" md-mode="indeterminate" qv-loading target="#checkout-button"></md-progress-circular>
-        <span class="absolute cornered text-left" ng-if="$storage.cart.total">
-          <div class="padding-small" ng-show="$storage.cart.total && !$storage.cart.paymentToken">
-            <span layout="row" layout-align="space-between center" ng-show="!user.private.customer.paypalAccounts.length && !user.private.customer.creditCards.length">
-              <span>Required <i class="mdi-navigation-arrow-forward"></i></span>
-              <md-button class="md-raised md-warn" ng-href="#add-payment-method" qv-focus="[name='braintree-dropin-frame']" qv-highlight="text-secondary0" selector="#add-payment-method">Add Payment Method</md-button>
-            </span>
-            <span layout="row" layout-align="space-between center" ng-show="user.private.customer.paypalAccounts.length || user.private.customer.creditCards.length">
-              <span>Required <i class="mdi-navigation-arrow-forward"></i></span>
-              <md-button class="md-raised md-warn" ng-click="selectFirstPaymentToken()">Select Payment Method</md-button>
-            </span>
-            
-            
-          </div>
-          <div class="padding-small" ng-show="$storage.cart.shipped && !$storage.cart.address">
-            <span layout="row" layout-align="space-between center">
-              <span>Required <i class="mdi-navigation-arrow-forward"></i></span>
-              <md-button class="md-raised md-warn" ng-href="#shipping-address" qv-focus="#name" ng-click="editAddress()" qv-highlight="text-secondary0" selector="#shipping-address">Add Address</md-button>
-            </span>
-            
-          </div>
-          
-        </span>
-        
-      </span>
-
-      <md-button id="checkout-button" flex="100" class="md-raised md-primary max-16" ng-click="checkingOut = true; checkout($storage.cart);" ng-disabled="!user || (!$storage.cart.paymentToken && $storage.cart.total) || ($storage.cart.shipped && !$storage.cart.address) || checkingOut">
-        <i class="mdi-action-done-all"></i>
-        <span ng-show="$storage.cart.total">Complete Purchase</span>
-        <span ng-hide="$storage.cart.total">Free Checkout</span>
-      </md-button>
-
-    </div>
-
-    <md-whiteframe class="md-whiteframe-z0" flex-sm="100" flex-gt-sm="50" layout="row" layout-align="space-between end" layout-padding layout-wrap>
+    <md-whiteframe class="md-whiteframe-z3" flex="100" layout="row" layout-align="space-between end" layout-padding layout-wrap>
 
       <span flex="100" layout="row" layout-align="space-between center" layout-wrap ng-repeat="code in $storage.cart.codes">
-        <span flex="50">{{ code.code }}</span>
+        <span flex="50">
+          <span>{{ code.code }}</span>
+        </span>
         <span class="text-right" flex>
-          <md-button ng-show="code.type === 'value'" qv-confirm="removeCode(code.code)" confirmations="['Click to Remove']">{{ code.value | currency }}</md-button>
-          <md-button ng-show="code.type === 'percentage'" qv-confirm="removeCode(code.code)" confirmations="['Click to Remove']">{{ code.percentage }}%</md-button>
+          
+          <span ng-show="code.type === 'value'">{{ code.value | currency }}</span>
+          <span ng-show="code.type === 'percentage'">{{ code.percentage }}%</span>
         </span>
       </span>
       
@@ -364,13 +332,46 @@
       <span flex="50">Total</span>
       <span class="text-right" flex><strong>{{ $storage.cart.total | currency }}</strong></span>
 
-      <span class="text-right" flex="100" layout="row" layout-align="end center" style="padding-bottom: 0px;">
-        <md-button class="md-raised" ui-sref="master.nav.cart" style="min-height: 33px;">
+      <span flex="50" flex-sm="100" style="min-height: 6.5rem;">
+
+        <div layout="row" layout-align="space-between center" ng-if="!user.private.customer.paypalAccounts.length && !user.private.customer.creditCards.length">
+          <span>Required <i class="mdi-navigation-arrow-forward"></i></span>
+          <md-button class="md-raised md-warn" ng-href="#add-payment-method" qv-focus="[name='braintree-dropin-frame']" qv-highlight="text-secondary0" selector="#add-payment-method" aria-label="Add payment method">Add Payment Method</md-button>
+        </div>
+
+        <div layout="row" layout-align="space-between center" ng-if="!$storage.cart.paymentToken && $storage.cart.total && (user.private.customer.paypalAccounts.length || user.private.customer.creditCards.length)">
+          <span>Required <i class="mdi-navigation-arrow-forward"></i></span>
+          <md-button class="md-raised md-warn" ng-click="selectFirstPaymentToken()" aria-label="Select payment method">Select Payment Method</md-button>
+        </div>
+
+        <div layout="row" layout-align="space-between center" ng-if="$storage.cart.shipped && !$storage.cart.address">
+          <span>Required <i class="mdi-navigation-arrow-forward"></i></span>
+          <md-button class="md-raised md-warn" ng-href="#shipping-address" qv-focus="#name" ng-click="editAddress()" qv-highlight="text-secondary0" selector="#shipping-address" aria-label="Address required">Add Address</md-button>
+        </div>
+
+        
+      </span>
+
+      <span class="text-right" flex="50" flex-sm="100" layout="row" layout-align="end center">
+        <md-button class="md-raised" ui-sref="master.nav.cart" style="min-height: 33px;" aria-label="Back to cart">
           <i class="mdi-navigation-arrow-back"></i> Back to Cart
         </md-button>
-        <md-button class="md-raised" ng-click="emptyCart(); toLanding();" style="min-height: 33px;">
+        <md-button class="md-raised" ng-click="emptyCart(); toLanding();" style="min-height: 33px;" aria-label="Empty cart">
           <i class="mdi-action-delete"></i> Empty Cart
         </md-button>  
+      </span>
+
+      <span flex="100" layout="row">
+        <md-button id="checkout-button" class="md-raised md-primary min-16 max-16" ng-click="checkingOut = true; checkout($storage.cart);" ng-disabled="!user || (!$storage.cart.paymentToken && $storage.cart.total) || ($storage.cart.shipped && !$storage.cart.address) || checkingOut" aria-label="Check out">
+          <i class="mdi-action-done-all"></i>
+          <span ng-show="$storage.cart.total">Complete Purchase</span>
+          <span ng-hide="$storage.cart.total">Free Checkout</span>
+        </md-button>
+
+        <div>
+          <md-progress-circular class="invisible" flex md-mode="indeterminate" qv-loading target="#checkout-button"></md-progress-circular>
+        </div>
+
       </span>
 
       
