@@ -533,6 +533,9 @@ angular.module('quiverCmsApp', [
               },
               settings: function (AdminService) {
                 return AdminService.getSettings();
+              },
+              adminSettings: function (AdminService) {
+                return AdminService.getAdminSettings();
               }
             }
           },
@@ -722,7 +725,23 @@ angular.module('quiverCmsApp', [
         resolve: {
           user: function (AdminService, $stateParams) {
             return AdminService.getUser($stateParams.key);
+          },
+          transactions: function (UserService, $stateParams) {
+            return UserService.getTransactions($stateParams.key);
+          },
+          subscriptions: function (UserService, $stateParams) {
+            return UserService.getSubscriptions($stateParams.key);
+          },
+          gifts: function (UserService, $stateParams) {
+            return UserService.getGifts($stateParams.key);
+          },
+          shipments: function (UserService, $stateParams) {
+            return UserService.getShipments($stateParams.key);
+          },
+          downloads: function (UserService, $stateParams) {
+            return UserService.getDownloads($stateParams.key);
           }
+
         }
       })
       .state('authenticated.master.admin.settings', { // ***************************  Settings *************************

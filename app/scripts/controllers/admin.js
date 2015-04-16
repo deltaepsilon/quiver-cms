@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('quiverCmsApp')
-  .controller('AdminCtrl', function ($scope, theme, settings, AdminService, ObjectService, NotificationService) {
+  .controller('AdminCtrl', function ($scope, theme, settings, adminSettings, AdminService, ObjectService, NotificationService) {
 
     /*
      * Theme
@@ -52,5 +52,10 @@ angular.module('quiverCmsApp')
       settings.$save();
 
     };
+
+    /*
+     * Admin Settings
+     */
+    adminSettings.$bindTo($scope, 'adminSettings');
 
   });

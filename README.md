@@ -96,29 +96,226 @@ Quiver-CMS relies on Node.js, NPM, Yeoman, Grunt, Bower, Firebase, Mandrill, Red
 
 ```
 {
-    "rules": {
-      "quiver-cms": {
-        "users": {
-          "$user": {
-            ".read": "$user == auth.id || auth.email == 'chris@quiver.is'",
-            ".write": "$user == auth.id || auth.email == 'chris@quiver.is'",
-            "notifications": {
-              ".read": true,
-              ".write": true
-            }
+  "rules": {
+    "$quiverCMS": {
+      ".read": "auth.email == 'chris@quiver.is'",
+      ".write": "auth.email == 'chris@quiver.is'",
+
+      "settings": {
+        ".read": true,
+        ".write": "root.child($quiverCMS).child('acl').child(auth.uid).child('isAdmin').val() == true"
+      },
+      
+      "admin": {
+        ".read": "root.child($quiverCMS).child('acl').child(auth.uid).child('isAdmin').val() == true",
+        ".write": "root.child($quiverCMS).child('acl').child(auth.uid).child('isAdmin').val() == true",
+      },
+      
+      "theme": {
+        ".read": true,
+        ".write": "root.child($quiverCMS).child('acl').child(auth.uid).child('isAdmin').val() == true"
+      },
+      
+      "commerce": {
+        ".read": true,
+        ".write": "root.child($quiverCMS).child('acl').child(auth.uid).child('isAdmin').val() == true"
+      },
+      
+      "discounts": {
+        ".read": "root.child($quiverCMS).child('acl').child(auth.uid).child('isAdmin').val() == true",
+        ".write": "root.child($quiverCMS).child('acl').child(auth.uid).child('isAdmin').val() == true",
+        ".indexOn": ["code"]
+      },
+      
+      "products": {
+        ".read": "true",
+        ".write": "root.child($quiverCMS).child('acl').child(auth.uid).child('isAdmin').val() == true"
+      },
+      
+      "resources": {
+        ".read": true,
+        ".write": "root.child($quiverCMS).child('acl').child(auth.uid).child('isAdmin').val() == true",
+        ".indexOn": ["ttl", "userEmail"]
+      },
+      
+      "queues": {
+        ".read": "root.child($quiverCMS).child('acl').child(auth.uid).child('isAdmin').val() == true",
+        ".write": "root.child($quiverCMS).child('acl').child(auth.uid).child('isAdmin').val() == true",
+        
+        "email": {
+          ".indexOn": ["type", "sent"]
+        }
+      },
+      
+      "logs": {
+        ".read": "root.child($quiverCMS).child('acl').child(auth.uid).child('isAdmin').val() == true",
+        ".write": "root.child($quiverCMS).child('acl').child(auth.uid).child('isAdmin').val() == true",
+        
+        "subscriptions": {
+          ".indexOn": ["email"]
+        },
+        
+        "transactions": {
+          ".indexOn": ["userEmail"]
+        },
+        
+        "shipments": {
+          ".indexOn": ["email"]
+        },
+        
+        "messages": {
+          ".indexOn": ["created", "userEmail"]
+        },
+        
+        "uploads": {
+          ".indexOn": ["created", "userEmail"]
+        }
+      },
+      
+      "content": {
+        "files": {
+          ".read": true,
+          ".write": "root.child($quiverCMS).child('acl').child(auth.uid).child('isAdmin').val() == true",
+          
+          "Originals": {
+            ".indexOn": ["Name"]
           }
         },
-        "admin": {
-          ".read": "auth.email == 'chris@quiver.is'",
-          ".write": "auth.email == 'chris@quiver.is'"
-        },
-        "content": {
+        
+        "products": {
           ".read": true,
-          ".write": "auth.email == 'chris@quiver.is'"
-
+          ".write": "root.child($quiverCMS).child('acl').child(auth.uid).child('isAdmin').val() == true",
+          ".indexOn": ["type"]
+        },
+        
+        "hashtags": {
+          ".read": true,
+          ".write": "root.child($quiverCMS).child('acl').child(auth.uid).child('isAdmin').val() == true"
+        },
+        
+        "social": {
+          ".read": true,
+          ".write": "root.child($quiverCMS).child('acl').child(auth.uid).child('isAdmin').val() == true"
+        },
+        
+        "words": {
+          ".read": "root.child($quiverCMS).child('acl').child(auth.uid).child('isAdmin').val() == true",
+          ".write": "root.child($quiverCMS).child('acl').child(auth.uid).child('isAdmin').val() == true",
+          ".indexOn": ["type", "slug", "title"],
+          "$word": {
+            ".read": "data.child('type').val() == 'subscription' || root.child($quiverCMS).child('acl').child(auth.uid).child('isAdmin').val() == true",
+          }
+        },
+        
+        "assignments": {
+          ".read": true,
+          ".write": "root.child($quiverCMS).child('acl').child(auth.uid).child('isAdmin').val() == true"
+        }
+      },
+      
+      "fit": {
+        "settings": {
+          ".read": true,
+          ".write": "root.child($quiverCMS).child('acl').child(auth.uid).child('isAdmin').val() == true"
+        },
+        "exercises": {
+          ".read": true,
+          ".write": "root.child($quiverCMS).child('acl').child(auth.uid).child('isAdmin').val() == true",
+          ".indexOn": ["slug", "type"]
+        },
+        "tips": {
+          ".read": true,
+          ".write": "root.child($quiverCMS).child('acl').child(auth.uid).child('isAdmin').val() == true"
+        }
+      },
+      
+      "messageable": {
+        ".read": "auth.uid != null",
+        ".write": "root.child($quiverCMS).child('acl').child(auth.uid).child('isAdmin').val() == true",
+      },
+      
+      "messages": {
+        ".read": "root.child($quiverCMS).child('acl').child(auth.uid).child('isAdmin').val() == true",
+        ".write": "root.child($quiverCMS).child('acl').child(auth.uid).child('isAdmin').val() == true",
+        
+        "$user": {
+          ".read": "$user == data.parent().parent().child('acl').child(auth.uid).child('userKey').val() || root.child($quiverCMS).child('acl').child(auth.uid).child('isAdmin').val() == true",
+          ".write": "$user == data.parent().parent().child('acl').child(auth.uid).child('userKey').val() || root.child($quiverCMS).child('acl').child(auth.uid).child('isAdmin').val() == true"
+        }
+      },
+      
+      "assignments": {
+        ".read": "root.child($quiverCMS).child('acl').child(auth.uid).child('isAdmin').val() == true",
+        ".write": "root.child($quiverCMS).child('acl').child(auth.uid).child('isAdmin').val() == true",
+        
+        "$user": {
+          ".read": "$user == root.child($quiverCMS).child('acl').child(auth.uid).child('userKey').val() || root.child($quiverCMS).child('acl').child(auth.uid).child('isAdmin').val() == true",
+          ".write": "$user == root.child($quiverCMS).child('acl').child(auth.uid).child('userKey').val() || root.child($quiverCMS).child('acl').child(auth.uid).child('isAdmin').val() == true"
+        }
+      },
+      
+      "subscriptions": {
+        ".read": "root.child($quiverCMS).child('acl').child(auth.uid).child('isAdmin').val() == true",
+        ".write": "root.child($quiverCMS).child('acl').child(auth.uid).child('isAdmin').val() == true",
+        
+        "$user": {
+          ".read": "$user == root.child($quiverCMS).child('acl').child(auth.uid).child('userKey').val() || root.child($quiverCMS).child('acl').child(auth.uid).child('isAdmin').val() == true",
+          ".write": "$user == root.child($quiverCMS).child('acl').child(auth.uid).child('userKey').val() || root.child($quiverCMS).child('acl').child(auth.uid).child('isAdmin').val() == true"
+        }
+      },
+      
+      "transactions": {
+        ".read": "root.child($quiverCMS).child('acl').child(auth.uid).child('isAdmin').val() == true",
+        ".write": "root.child($quiverCMS).child('acl').child(auth.uid).child('isAdmin').val() == true",
+        
+        "$user": {
+          ".read": "$user == root.child($quiverCMS).child('acl').child(auth.uid).child('userKey').val() || root.child($quiverCMS).child('acl').child(auth.uid).child('isAdmin').val() == true",
+          ".write": "$user == root.child($quiverCMS).child('acl').child(auth.uid).child('userKey').val() || root.child($quiverCMS).child('acl').child(auth.uid).child('isAdmin').val() == true"
+        }
+      },
+      
+      "shipments": {
+        ".read": "root.child($quiverCMS).child('acl').child(auth.uid).child('isAdmin').val() == true",
+        ".write": "root.child($quiverCMS).child('acl').child(auth.uid).child('isAdmin').val() == true",
+        
+        "$user": {
+          ".read": "$user == root.child($quiverCMS).child('acl').child(auth.uid).child('userKey').val() || root.child($quiverCMS).child('acl').child(auth.uid).child('isAdmin').val() == true",
+          ".write": "$user == root.child($quiverCMS).child('acl').child(auth.uid).child('userKey').val() || root.child($quiverCMS).child('acl').child(auth.uid).child('isAdmin').val() == true"
+        }
+      },
+      
+      "downloads": {
+        ".read": "root.child($quiverCMS).child('acl').child(auth.uid).child('isAdmin').val() == true",
+        ".write": "root.child($quiverCMS).child('acl').child(auth.uid).child('isAdmin').val() == true",
+        
+        "$user": {
+          ".read": "$user == root.child($quiverCMS).child('acl').child(auth.uid).child('userKey').val() || root.child($quiverCMS).child('acl').child(auth.uid).child('isAdmin').val() == true",
+          ".write": "$user == root.child($quiverCMS).child('acl').child(auth.uid).child('userKey').val() || root.child($quiverCMS).child('acl').child(auth.uid).child('isAdmin').val() == true"
+        }
+      },
+      
+      "gifts": {
+        ".read": "root.child($quiverCMS).child('acl').child(auth.uid).child('isAdmin').val() == true",
+        ".write": "root.child($quiverCMS).child('acl').child(auth.uid).child('isAdmin').val() == true",
+        
+        "$user": {
+          ".read": "$user == root.child($quiverCMS).child('acl').child(auth.uid).child('userKey').val() || root.child($quiverCMS).child('acl').child(auth.uid).child('isAdmin').val() == true",
+          ".write": "$user == root.child($quiverCMS).child('acl').child(auth.uid).child('userKey').val() || root.child($quiverCMS).child('acl').child(auth.uid).child('isAdmin').val() == true",
+          ".indexOn": ["code"]
+        }
+      },
+      
+      "files": {
+        ".read": "root.child($quiverCMS).child('acl').child(auth.uid).child('isAdmin').val() == true",
+        ".write": "root.child($quiverCMS).child('acl').child(auth.uid).child('isAdmin').val() == true",
+        
+        "$user": {
+          ".read": "$user == root.child($quiverCMS).child('acl').child(auth.uid).child('userKey').val() || root.child($quiverCMS).child('acl').child(auth.uid).child('isAdmin').val() == true",
+          ".write": "$user == root.child($quiverCMS).child('acl').child(auth.uid).child('userKey').val() || root.child($quiverCMS).child('acl').child(auth.uid).child('isAdmin').val() == true"
         }
       }
     }
+  }
 }
 ```
 

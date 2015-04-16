@@ -8,9 +8,15 @@
  * Controller of the quiverCmsApp
  */
 angular.module('quiverCmsApp')
-  .controller('UserCtrl', function ($scope, user, CommerceService, NotificationService) {
+  .controller('UserCtrl', function ($scope, user, transactions, subscriptions, gifts, shipments, downloads, CommerceService, NotificationService) {
 
-    user.$bindTo($scope, 'user');    
+    user.$bindTo($scope, 'user');
+
+    $scope.transactions = transactions;
+    $scope.subscriptions = subscriptions;
+    $scope.gifts = gifts;
+    $scope.shipments = shipments;
+    $scope.downloads = downloads;
 
     $scope.getAddress = CommerceService.getAddress;
 

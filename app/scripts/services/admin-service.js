@@ -127,6 +127,10 @@ angular.module('quiverCmsApp')
         return $firebaseObject(new Firebase(firebaseEndpoint + '/settings'));
       },
 
+      getAdminSettings: function () {
+        return $firebaseObject(new Firebase(firebaseEndpoint + '/admin/settings'));
+      },
+
       clearCache: function () {
         return Restangular.one('admin').one('clear-cache').get();
       },
