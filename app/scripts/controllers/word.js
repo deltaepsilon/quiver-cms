@@ -62,7 +62,7 @@ angular.module('quiverCmsApp')
       var confirm = $mdDialog.confirm()
         .title(draft.created)
         .content('Are you sure you want to destroy me?')
-        .ariaLabel('Delete Draft' + draft.created)
+        .ariaLabel('Delete Draft ' + draft.created)
         .ok('Bye bye draft!')
         .cancel("Maybe I'll need you later?")
         .targetEvent(e);

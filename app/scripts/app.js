@@ -325,6 +325,12 @@ angular.module('quiverCmsApp', [
         resolve: {
           userPublic: function (UserService, user) {
             return UserService.getPublic(user.$id);
+          },
+          userPreferredEmail: function (UserService, user) {
+            return UserService.getPreferredEmail(user.$id);
+          },
+          userName: function (UserService, user) {
+            return UserService.getName(user.$id);
           }
         }
       })
@@ -558,26 +564,18 @@ angular.module('quiverCmsApp', [
         templateUrl: 'views/admin-words.html',
         controller: 'WordsCtrl',
         resolve: {
-          words: function (AdminService) {
-            return AdminService.getWords({orderByPriority: true, limitToLast: 1});
+          items: function (AdminService) {
+            return AdminService.getWords().$orderByPriority().$limitToLast(10).$default().$get();
+          },
+          moderators: function (AdminService) {
+            return AdminService.getUsers().$orderByChild('isModerator').$equalTo(true).$default().$get();
           }
         }
       })
       .state('authenticated.master.admin.words.list', {
         url: '/words',
         templateUrl: 'views/admin-words-list.html',
-        controller: 'ListCtrl',
-        resolve: {
-          limit: function () {
-            return 5;
-          },
-          getRef: function (AdminService) {
-            return AdminService.getWords;
-          },
-          ref: function (AdminService, limit) {
-            return AdminService.getWords({orderByPriority: true, limitToLast: limit});
-          }
-        }
+        controller: 'ListCtrl'
       })
       .state('authenticated.master.admin.word', {
         url: '/words/:key',
@@ -602,14 +600,18 @@ angular.module('quiverCmsApp', [
         }
       })
       .state('authenticated.master.admin.assignments', { // ************************  Assignments **********************
-        url: '/assignments',
+        abstract: true,
         templateUrl: 'views/admin-assignments.html',
         controller: 'AssignmentsCtrl',
         resolve: {
-          assignments: function (AdminService) {
-            return AdminService.getAssignments();
+          items: function (AdminService) {
+            return AdminService.getAssignments().$orderByPriority().$limitToLast(10).$default().$get();
           }
         }
+      })
+      .state('authenticated.master.admin.assignments.list', {
+        url: '/assignments',
+        templateUrl: 'views/admin-assignments-list.html'
       })
       .state('authenticated.master.admin.assignment', {
         url: '/assignment/:key',
@@ -634,32 +636,23 @@ angular.module('quiverCmsApp', [
           },
           notifications: function (AdminService, user) {
             return AdminService.getNotifications(user.$id);
+          }, 
+          items: function (AdminService) {
+            return AdminService.getOriginals().$get(); 
           }
         }
       })
       .state('authenticated.master.admin.files.list', {
         url: '/files/:search',
-        templateUrl: 'views/admin-files-list.html',
-        controller: 'ListCtrl',
-        resolve: {
-          limit: function () {
-            return 5;
-          },
-          getRef: function (AdminService) {
-            return AdminService.getOriginals;
-          },
-          ref: function (AdminService, limit) {
-            return AdminService.getOriginals({orderByPriority: true, limitToFirst: limit});
-          }
-        }
+        templateUrl: 'views/admin-files-list.html'
       })
       .state('authenticated.master.admin.products', { // ***************************  Products *************************
         url: '/products',
         templateUrl: 'views/admin-products.html',
         controller: 'ProductsCtrl',
         resolve: {
-          products: function (AdminService) {
-            return AdminService.getProducts();
+          items: function (AdminService) {
+            return AdminService.getProducts().$get();
           },
           files: function (AdminService) {
             return AdminService.getFiles();
@@ -699,24 +692,15 @@ angular.module('quiverCmsApp', [
         resolve: {
           messageable: function (AdminService) {
             return AdminService.getMessageable();
+          },
+          items: function (AdminService) {
+            return AdminService.getUsers().$default().$get();
           }
         }
       })
       .state('authenticated.master.admin.users.list', {
         url: '/users/:search',
-        templateUrl: 'views/admin-users-list.html',
-        controller: 'ListCtrl',
-        resolve: {
-          limit: function () {
-            return 10;
-          },
-          getRef: function (AdminService) {
-            return AdminService.getUsers;
-          },
-          ref: function (AdminService, limit) {
-            return AdminService.getUsers({orderByPriority: true, limitToLast: limit});
-          }
-        }
+        templateUrl: 'views/admin-users-list.html'
       })
       .state('authenticated.master.admin.user', {
         url: '/user/:key',

@@ -31,6 +31,14 @@ angular.module('quiverCmsApp')
         return FirebaseService.registerSecureRef($firebaseObject(new Firebase(firebaseEndpoint + '/users/' + userId + '/public')));
       },
 
+      getPreferredEmail: function (userId) {
+        return FirebaseService.registerSecureRef($firebaseObject(new Firebase(firebaseEndpoint + '/users/' + userId + '/preferredEmail')));
+      },
+
+      getName: function (userId) {
+        return FirebaseService.registerSecureRef($firebaseObject(new Firebase(firebaseEndpoint + '/users/' + userId + '/name')));
+      },
+
       getTransactions: function (userId, query) {
         return FirebaseService.registerSecureRef($firebaseArray(FirebaseService.query(new Firebase(firebaseEndpoint + '/transactions/' + userId), query)));
       },

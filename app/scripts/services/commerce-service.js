@@ -93,7 +93,7 @@ angular.module('quiverCmsApp')
       getAddress: function (shipment) {
         var address = '';
 
-        address += (shipment.transaction.address.recipient || shipment.transaction.user.public.email) + "\n";
+        address += (shipment.transaction.address.recipient || shipment.transaction.user.preferredEmail || shipment.transaction.user.email) + "\n";
         address += shipment.transaction.address.street1 ? shipment.transaction.address.street1 + "\n" : '';
         address += shipment.transaction.address.street2 ? shipment.transaction.address.street2 + "\n" : '';
         address += shipment.transaction.address.street3 ? shipment.transaction.address.street3 + "\n" : '';
@@ -101,7 +101,7 @@ angular.module('quiverCmsApp')
         address += (shipment.transaction.address.territory || shipment.transaction.address.territoryName || '') + " ";
         address += shipment.transaction.address.postalCode + "\n";
         address += shipment.transaction.address.country ? shipment.transaction.address.country + "\n": '';
-        address += shipment.transaction.user.public.email + "\n";
+        address += shipment.transaction.user.preferredEmail || shipment.transaction.user.email + "\n";
 
         return address;
       },

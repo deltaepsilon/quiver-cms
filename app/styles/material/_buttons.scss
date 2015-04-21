@@ -34,6 +34,8 @@
 }
 
 .md-button {
+  font-size: 1rem;
+
   &.adjust-mdi {
     [class^="mdi-"], [class*=" mdi-"] {
       top: 1px;
@@ -43,68 +45,6 @@
 
   &.align-left {
     margin-left: 0;
-  }
-
-  &.min-2 {
-    min-width: 2rem;
-  }
-  &.min-3 {
-    min-width: 3rem;
-  }
-  &.min-4 {
-    min-width: 4rem;
-  }
-  &.min-5 {
-    min-width: 5rem;
-  }
-  &.min-10 {
-    min-width: 10rem;
-  }
-  &.min-12 {
-    min-width: 12rem;
-  }
-  &.min-14 {
-    min-width: 14rem;
-  }
-  &.min-16 {
-    min-width: 16rem;
-  }
-  &.min-18 {
-    min-width: 18rem;
-  }
-  &.min-20 {
-    min-width: 20rem;
-  }
-
-  &.max-2 {
-    max-width: 2rem;
-  }
-  &.max-3 {
-    max-width: 3rem;
-  }
-  &.max-4 {
-    max-width: 4rem;
-  }
-  &.max-5 {
-    max-width: 5rem;
-  }
-  &.max-10 {
-    max-width: 10rem;
-  }
-  &.max-12 {
-    max-width: 12rem;
-  }
-  &.max-14 {
-    max-width: 14rem;
-  }
-  &.max-16 {
-    max-width: 16rem;
-  }
-  &.max-18 {
-    max-width: 18rem;
-  }
-  &.max-20 {
-    max-width: 20rem;
   }
 
   &[flag="1"] {
@@ -119,11 +59,18 @@
 
 }
 
+.md-fab-tiny {
+  min-width: 2rem;
+  max-width: 2rem;
+  min-height: 2rem;
+  max-height: 2rem;
+}
+
 .md-icon-button {
-  min-width: 3rem;
-  max-width: 3rem;
+  min-width: 2rem;
+  max-width: 2rem;
   line-height: 1rem !important;
-  height: 3rem !important;
+  height: 2rem !important;
 }
 
 .md-button-padding {

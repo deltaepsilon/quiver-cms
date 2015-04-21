@@ -1,55 +1,20 @@
-<div class="column small-12">
-  <h3 class="font-flair left">Assignments</h3>
+<section id="feedback-assignments">
+    <h3 class="headline">Assignments</h3>
     <form name="newAssignmentForm">
-        <input id="new-assignment-title" type="text" ng-model="newAssignmentTitle" placeholder="New Title..." required/>
-        <button ng-click="createAssignment(newAssignmentTitle)" ng-disabled="newAssignmentForm.$invalid" qv-focus="#new-assignment-title">Create</button>
+      <fieldset>
+        <div layout="row" layout-align="start center" layout-padding>
+          <md-input-container flex>
+            <label for="new-assignment-title">New Assignment Title</label>
+            <input id="new-assignment-title" type="text" ng-model="newAssignmentTitle" placeholder="New Title..." required/>
+          </md-input-container>
+          <md-button class="md-raised md-primary min-10 max-10" flex ng-click="createAssignment(newAssignmentTitle)" ng-disabled="newAssignmentForm.$invalid" qv-focus="#new-assignment-title">Create</md-button>
+
+          
+        </div>
+        
+      </fieldset>
     </form>
 
-    <hr ng-show="assignments.length">
+    <div ui-view></div>
 
-    <ul class="table-list">
-      <li>
-        
-      </li>
-    </ul>
-
-    <ul class="table-list striped padded" ng-show="assignments.length">
-      <li class="table-list-header">
-        <div class="column small-12 medium-3">Title</div>
-        <div class="column small-12 medium-2">
-          Features
-        </div>
-        <div class="column small-12 medium-1">
-          Priority
-        </div>
-        <div class="column small-12 medium-3">
-          Subscription Slugs
-        </div>
-        <div class="column small-12 medium-3 medium-text-right"> 
-          Created
-        </div>
-      </li>
-      <li class="text-x-medium text-hover-white0 background-hover-primary2-important" ng-repeat="assignment in assignments">
-        <a class="clearfix text-primary0 text-hover-white0-important block" ui-sref="authenticated.master.admin.assignment({key: assignment.$id})">
-          <div class="column small-12 medium-3">{{ assignment.title }}</div>
-          <div class="column small-12 medium-2">
-            <div class="left padding-xx-small margin-horizontal-xx-small text-error circle"><i class="fa fa-clock-o" ng-class="{'text-success': assignment.startsSubscription}"></i></div>
-            <div class="left padding-xx-small margin-horizontal-xx-small text-error circle"><i class="fa fa-cloud-upload" ng-class="{'text-success': assignment.supportsUpload}"></i></div>
-            <span></span>
-          </div>
-          <div class="column small-12 medium-1">
-            {{ assignment.$priority }}
-          </div>
-          <div class="column small-12 medium-3">
-            <ul class="inline-list dotted margin-zero-important no-margin">
-              <li ng-repeat="(slug, value) in assignment.products">{{ slug }}</li>
-            </ul>
-          </div>
-          <div class="column small-12 medium-3 medium-text-right"> 
-            {{ assignment.created | moment:"MM/DD/YYYY" }}
-          </div>
-            
-        </a>
-      </li>
-    </ul>
-</div>
+</section>

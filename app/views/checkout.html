@@ -1,4 +1,4 @@
-<div layout="column">
+1<div layout="column">
   <h3 class="headline">Items For Checkout</h3>
 
   <form name="cartForm">
@@ -97,7 +97,7 @@
 
           </md-input-container>
           
-          <div class="md-select-wrapper" flex="100" flex-gt-md="20">
+          <div class="md-select-wrapper" flex="100" flex-gt-md="20" style="padding-top: 43px;">
             <md-select id="country-code" ng-model="$storage.address.countryCodeIndex" aria-label="Country telephone code" placeholder="Country code..." required>
               <md-option value="">Country code</md-option>
               <md-option ng-repeat="code in countryCodes" value="{{ $index }}">{{ code.value }}</md-option>
@@ -114,7 +114,7 @@
 
           </md-input-container>
          
-          <div flex="100" flex-gt-md="30" style="padding-top: 3rem;">
+          <div flex="100" flex-gt-md="30" style="padding-top: 1rem;">
             <md-switch ng-model="$storage.address.sms" aria-label="Enable SMS notifications">
               Enable SMS Notifications
             </md-switch>
@@ -228,10 +228,10 @@
 
           </li>
           <li class="padding-zero-important" layout="row" layout-align="start">
-            <md-button class="md-raised min-16 max-16" flex ng-click="editAddress()">
+            <md-button class="md-raised min-16 max-16" flex ng-click="editAddress()" aria-label="Edit address">
               <i class="mdi-editor-mode-edit"></i> Edit Address
             </md-button>
-            <md-button class="md-warn" flex ng-click="removeAddress(); editAddress();" style="max-width: 3rem;">
+            <md-button class="md-warn" flex ng-click="removeAddress(); editAddress();" style="max-width: 3rem;" aria-label="Delete address">
               <i class="mdi-action-delete"></i>
             </md-button>
           </li>
@@ -261,7 +261,7 @@
 
   <md-whiteframe class="md-whiteframe-z2" layout-sm="column" layout-gt-sm="row" layout-align="space-between end" layout-padding layout-wrap>
 
-    <md-whiteframe class="md-whiteframe-z0" flex="100" layout="row" layout-align="start start" layout-padding layout-wrap>     
+    <md-whiteframe class="md-whiteframe-z0" flex="100" layout="row" layout-align="start start" layout-padding layout-wrap ng-if="user.private.customer.paypalAccounts.length || user.private.customer.creditCards.length">     
 
       <span flex="50" flex-sm="100" ng-if="user.private.customer.creditCards">
         <h4 class="padding-horizontal-medium">Credit Cards</h4>
@@ -353,7 +353,7 @@
       </span>
 
       <span class="text-right" flex="50" flex-sm="100" layout="row" layout-align="end center">
-        <md-button class="md-raised" ui-sref="master.nav.cart" style="min-height: 33px;" aria-label="Back to cart">
+        <md-button class="md-raised margin-horizontal-small" ui-sref="master.nav.cart" style="min-height: 33px;" aria-label="Back to cart">
           <i class="mdi-navigation-arrow-back"></i> Back to Cart
         </md-button>
         <md-button class="md-raised" ng-click="emptyCart(); toLanding();" style="min-height: 33px;" aria-label="Empty cart">

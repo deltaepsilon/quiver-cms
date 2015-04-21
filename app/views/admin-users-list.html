@@ -3,29 +3,29 @@
   <div layout="row" layout-align="start center" layout-padding>
     <md-input-container flex>
       <label for="email-search">Search by Email</label>
-      <input id="email-search" type="text" ng-model="searchTerm" qv-enter="search({orderByChild: 'email', startAt: searchTerm, limit: 10})">
+      <input id="email-search" type="text" ng-model="searchTerm" qv-enter="items = items.$orderByChild('email').$startAt(searchTerm).$get();">
     </md-input-container>
 
     <md-input-container flex>
       <label for="name-search">Search by Name</label>
-      <input id="name-search" type="text" ng-model="name" qv-enter="search({orderByChild: 'name', startAt: name, limit: 10})">
+      <input id="name-search" type="text" ng-model="name" qv-enter="items = items.$orderByChild('name').$startAt(name).$get();">
     </md-input-container>   
 
     <span flex></span>
     
-    <md-button class="md-icon-button" flex ng-click="loadNext()" ng-disabled="disablePrev" aria-label="list back">
+    <md-button class="md-icon-button" flex ng-click="items = items.$prev()" ng-disabled="items.$prevDisabled" aria-label="list back">
       <i class="mdi-navigation-arrow-back"></i>
     </md-button>
     
-    <md-button class="md-icon-button" flex ng-click="loadPrev()" ng-disabled="disableNext" aria-label="list forward">
+    <md-button class="md-icon-button" flex ng-click="items = items.$next()" ng-disabled="items.$nextDisabled" aria-label="list forward">
       <i class="mdi-navigation-arrow-forward"></i>
     </md-button>
     
-    <md-button class="md-icon-button" flex ng-click="loadMore()" ng-disabled="disableMore" aria-label="list load more">
+    <md-button class="md-icon-button" flex ng-click="items = items.$more()" ng-disabled="items.$moreDisabled" aria-label="list load more">
       <i class="mdi-navigation-expand-more"></i>
     </md-button>
     
-    <md-button class="md-icon-button" flex ng-click="reset()" ng-disabled="disableReset" aria-label="list reload">
+    <md-button class="md-icon-button" flex ng-click="items = items.$reset()" ng-disabled="items.$resetDisabled" aria-label="list reload">
       <i class="mdi-navigation-refresh"></i>
     </md-button>
 
@@ -45,7 +45,7 @@
         <md-item ng-repeat="user in items | filter:authorFilter | orderBy:'-$priority'">
           <md-item-content layout="row" layout-align="space-between center" layout-padding layout-wrap style="padding-top: 23px;">
 
-            <a flex="25" flex-sm="100" ui-sref="authenticated.master.admin.user({key: user.$id})">{{ user.public.email || user.email }}</a>
+            <a flex="25" flex-sm="100" ui-sref="authenticated.master.admin.user({key: user.$id})">{{ user.preferredEmail || user.email }}</a>
             <!-- <span flex="25" flex-sm="100">{{ user.created | moment:"MM/DD/YYYY" }}</span> -->
             <span flex="25" flex-sm="100">Login: {{ user.lastLogin | moment:"MM/DD/YYYY hh:mm" }}</span>
 

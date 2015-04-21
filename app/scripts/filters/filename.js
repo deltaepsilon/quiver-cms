@@ -14,7 +14,14 @@ angular.module('quiverCmsApp')
 
       }
 
-      var matches = input.match(FILENAME_REGEX);
-      return (matches && matches.length) ? matches[0] : input;
+      if (!input) {
+        console.error('No input found.', map);
+        return "";
+      } else {
+        var matches = input.match(FILENAME_REGEX);
+        return (matches && matches.length) ? matches[0] : input;  
+      }
+
+      
     };
   });

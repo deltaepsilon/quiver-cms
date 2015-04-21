@@ -532,11 +532,11 @@
           <div class="column small-8 text-error">
             <a ui-sref="authenticated.master.admin.user({key: transaction.userId})">
               <i class="fa fa-user"></i>
-              <span ng-show="selectedShipment.transaction.user.public.name">{{ selectedShipment.transaction.user.public.name }}</span>
+              <span ng-show="selectedShipment.transaction.user.name">{{ selectedShipment.transaction.user.name }}</span>
             </a>
             &nbsp;
-            <a href="mailto:{{ selectedShipment.transaction.user.public.email || selectedShipment.transaction.user.email }}">
-              {{ selectedShipment.transaction.user.public.name || selectedShipment.transaction.user.public.email || selectedShipment.transaction.user.email }}
+            <a href="mailto:{{ selectedShipment.transaction.user.email || selectedShipment.transaction.user.email }}">
+              {{ selectedShipment.transaction.user.name || selectedShipment.transaction.user.preferredEmail || selectedShipment.transaction.user.email }}
             </a>
           </div>
         </li>

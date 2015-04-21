@@ -7,7 +7,7 @@
           <button class="show-shipment tiny left" style="margin: 7px 1rem 0 0" ng-click="selectShipment(shipment)">
             <i class="fa fa-truck"></i>
           </button>
-          <a href="mailto:{{ shipment.transaction.user.public.email }}">{{ shipment.transaction.user.public.email }}</a>
+          <a href="mailto:{{ shipment.transaction.user.preferredEmail || shipment.transaction.user.email }}">{{ shipment.transaction.user.preferredEmail || shipment.transaction.user.email }}</a>
           <div>{{ shipment.created | moment:"MM/DD/YYYY" }}</div>
         </div>
         <div class="column padding-horizontal-zero-important small-12 medium-6">

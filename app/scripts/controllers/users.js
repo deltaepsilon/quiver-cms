@@ -8,8 +8,10 @@
  * Controller of the quiverCmsApp
  */
 angular.module('quiverCmsApp')
-  .controller('UsersCtrl', function ($scope, messageable, AdminService, NotificationService, _) {
+  .controller('UsersCtrl', function ($scope, items, messageable, AdminService, NotificationService, _) {
 
+    $scope.items = items;
+    
     $scope.messageable = messageable;
 
     $scope.saveUserRoles = function (user) {

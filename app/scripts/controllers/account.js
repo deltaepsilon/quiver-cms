@@ -1,8 +1,12 @@
 'use strict';
 
 angular.module('quiverCmsApp')
-  .controller('AccountCtrl', function ($scope, userPublic, qvAuth, NotificationService, CommerceService, moment) {
+  .controller('AccountCtrl', function ($scope, userPublic, userPreferredEmail, userName, qvAuth, NotificationService, CommerceService, moment) {
     userPublic.$bindTo($scope, 'public');
+
+    userPreferredEmail.$bindTo($scope, 'userPreferredEmail');
+
+    userName.$bindTo($scope, 'userName');
 
     $scope.changePassword = function (email, oldPassword, newPassword) {
       delete $scope.oldPassword;

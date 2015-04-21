@@ -368,7 +368,7 @@ angular.module('quiverCmsApp')
     $scope.editAddress = function () {
       if (!$scope.$storage.address) {
         $scope.$storage.address = {
-          email: user.public.email
+          email: user.preferredEmail || user.email
         };
       }
 

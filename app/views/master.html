@@ -10,28 +10,28 @@
       </md-button>
       
       <div layout="row" flex class="fill-height">
-        <h2 class="headline tight margin-zero" flex style="margin: 0.5rem 0 0 2rem;">
+        <h2 class="headline tight margin-zero" flex style="margin: 0 0 0 2rem;">
           <a class="undecorated" href="{{ env.root }}" qv-to-static ng-show="settings">{{ settings.siteTitle || 'Quiver CMS' }}</a>
         </h2>
 
         <span flex></span>
 
         <div class="line-height-1" ng-if="$storage.cart.productCount" qv-active>
-          <md-button class="adjust-mdi min-5" ui-sref="master.nav.cart" aria-label="shopping cart">
+          <md-button class="adjust-mdi min-5" ui-sref="master.nav.cart" aria-label="shopping cart" style="margin-top: 3px">
             <span class="headline" ng-bind="$storage.cart.productCount"></span>
             <i class="mdi-action-shopping-cart"></i>
           </md-button>
         </div>
         
 
-        <div flex ng-if="!currentUser" qv-active style="max-width: 11rem;">
-          <md-button ui-sref="master.nav.login">
+        <div flex ng-if="!currentUser" qv-active style="max-width: 6rem;">
+          <md-button class="margin-horizontal-small" ui-sref="master.nav.login" style="margin-top: 3px">
             <i class="mdi-action-input"></i> &nbsp;Login
           </md-button>
         </div>
 
-        <div flex ng-if="!currentUser" qv-active style="max-width: 11rem;">
-          <md-button ng-if="!currentUser" ui-sref="master.nav.register">
+        <div flex ng-if="!currentUser" qv-active style="max-width: 6rem;">
+          <md-button class="margin-horizontal-small" ng-if="!currentUser" ui-sref="master.nav.register" style="margin-top: 3px">
             Register
           </md-button>
         </div>

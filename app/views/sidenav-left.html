@@ -2,7 +2,7 @@
   <section ng-show="currentUser">
     <md-toolbar>
       <h5 class="md-toolbar-tools">
-        {{ user.public.name || user.public.email || user.email }}
+        {{ user.name || user.preferredEmail || user.email }}
       </h5>
     </md-toolbar>
     <div layout="column" layout-padding>
@@ -75,7 +75,7 @@
     
   </section>
 
-  <section ng-if="subscriptions">
+  <section ng-if="showSubscriptions">
     <md-toolbar>
       <h5 class="md-toolbar-tools">
         Subscriptions
@@ -83,7 +83,7 @@
     </md-toolbar>
     <div layout="column" layout-padding>
 
-      <span layout="row" flex ng-repeat="subscription in subscriptions" ng-class="{active: subscription.$id == $state.params.subscriptionKey}">
+      <span layout="row" flex ng-repeat="subscription in currentSubscriptions(subscriptions)" ng-class="{active: subscription.$id == $state.params.subscriptionKey}">
         <md-button class="text-left" flex layout-fill ui-sref="authenticated.master.subscription.page({subscriptionKey: subscription.$id, pageNumber: $storage['bookmark-' + subscription.$id] || 0})" aria-label="Subscription: {{ subscription.title }}">
           {{ subscription.title }}
         </md-button>

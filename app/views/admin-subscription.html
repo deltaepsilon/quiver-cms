@@ -1,7 +1,7 @@
 <div class="column small-12">
   <h3 class="font-flair left">{{ subscription.title }}</h3>
   <h5 class="font-flair right margin-vertical-small">
-    <a ui-sref="authenticated.master.admin.user({key: subscription.user.public.id})">{{ subscription.user.public.email }}</a>
+    <a ui-sref="authenticated.master.admin.user({key: subscription.user.public.id})">{{ subscription.user.preferredEmail || subscription.user.email }}</a>
   </h5>
 </div>
 
@@ -15,7 +15,7 @@
   <li>
     <div class="column small-12 medium-6">Email</div>
     <div class="column small-12 medium-6">
-      <a href="mailto:{{ subscription.user.public.email }}">{{ subscription.user.public.email }}</a>
+      <a href="mailto:{{ subscription.user.preferredEmail || subscription.user.email }}">{{ subscription.user.preferredEmail || subscription.user.email }}</a>
     </div>
   </li>
   <li>

@@ -1,107 +1,40 @@
 'use strict';
 
 angular.module('quiverCmsApp')
-  .controller('WordsCtrl', function ($scope, words, moment, NotificationService, Slug, $timeout, AdminService, $mdDialog) {
+  .controller('WordsCtrl', function ($scope, items, moderators, moment, NotificationService, Slug, $timeout, AdminService, $mdDialog, _) {
+    $scope.items = items;
+
+    $scope.moderators = moderators;
+
+    $scope.moderators.$loaded().then(function(moderators) {
+      console.log('moderators', moderators);
+    });
+
+    $scope.orderBy = '-$priority'
+
     /*
      * Words
     */
-    // $scope.limit = limit;
-    var words = words;
-
-    // $scope.loadMore = function (increment) {
-    //   $scope.limit += (increment || limit);
-
-    //   words = AdminService.getWords({orderByPriority: true, limitToFirst: $scope.limit});
-    //   words.$loaded().then(function (words) {
-    //     words = words;
-    //   });
-
-    // };
-
-    // $scope.setQuery = function (field, query) {
-    //   var value = query[field], 
-    //     options = {orderByChild: field, startAt: value};
-
-    //   $scope.limit = limit;
-
-    //   if (!value || !value.length) {
-    //     options = {orderByPriority: true, limitToFirst: $scope.limit}; 
-    //   }
-
-    //   words = AdminService.getWords(options);
-    //   words.$loaded().then(function (words) {
-    //     words = words;
-    //   });
-      
-      
-    // };
-
-    // words.$loaded().then(function (words) {
-    //   var i = words.length;
-
-    //   while (i--) {
-    //     console.log('word', words[i].$id, words[i].$priority, moment(words[i].created).unix());
-    //     $scope.setPriority(words[i].$id, moment(words[i].created).unix());
-    //   }
-    // });
-
-    $scope.getPriority = function (word) {
-      if ($scope.searching !== true && word && word.$priority) {
-        // console.log('word.$priority', word.$priority);
-        return word.$priority;
-
-      } else if (!word.$id) {
-        return 'zzzz';
-      }
-      return -1;
-      
-    };
-
-    $scope.endAt = function (words) {
-      var firstItem = words[0];
-      $scope.searching = true;
-      return firstItem.$priority ? firstItem.$priority : undefined;
-    };
-
-    $scope.startAt = function (words) {
-      var lastItem = words[words.length - 1];
-      $scope.searching = true;
-      return lastItem.$priority ? lastItem.$priority + 1 : null;
-    };
-
-    $scope.getTypeQuery = function (type) {
-      return type ? {orderByChild: 'type', equalTo: type} : {orderByPriority: true};
-    };
-
-    $scope.getSlugQuery = function (slug) {
-      $scope.searching = true;
-      return slug ? {orderByChild: 'slug', startAt: slug} : {orderByPriority: true};
-    };
-
-    $scope.confirmDelete = function (e, word) {
+    $scope.confirmDelete = function (e, item, items) {
       var confirm = $mdDialog.confirm()
-        .title(word.title)
+        .title(item.title)
         .content('Are you sure you want to eliminate me?')
-        .ariaLabel('Delete ' + word.title)
+        .ariaLabel('Delete ' + item.title)
         .ok('Please do it!')
         .cancel("Naah. Let's keep it.")
         .targetEvent(e);
 
       $mdDialog.show(confirm).then(function() {
-        $scope.removeWord(word).then(function () {
-          NotificationService.success('Eliminated', word.title);
+        items.$remove(item).then(function () {
+          NotificationService.success('Eliminated', item.title);
         }, function (error) {
           NotificationService.error('Something went wrong', error);
         });
       
       }, function() {
-        NotificationService.notify('Not eliminated', 'You decided to save ' + word.title + '. How kind!');
+        NotificationService.notify('Not eliminated', 'You decided to save ' + item.title + '. How kind!');
 
       });
-    };
-
-    $scope.removeWord = function (word) {
-      return AdminService.getWord(word.$id).$remove();
     };
 
     $scope.createWord = function (title) {
@@ -113,7 +46,7 @@ angular.module('quiverCmsApp')
         email: $scope.user.email
       });
 
-      words.$add({
+      items.$add({
         $priority: moment().unix(),
         title: title,
         slug: Slug.slugify(title),
@@ -129,6 +62,18 @@ angular.module('quiverCmsApp')
 
     $scope.setPriority = function (key, priority) {
       AdminService.getWord(key).$ref().setPriority(priority);      
+    };
+
+    $scope.setAuthor = function (userId, word, words) {
+      var author = _.findWhere(moderators, {'$id': userId});
+      word.author = _.omit(author, ['preferences']);
+      word.author.id = author.$id;
+      words.$save(word).then(function () {
+        NotificationService.success('Set author');
+      }, function (error) {
+        NotificationService.error('Error setting author', error);
+      });
+
     };
 
   });

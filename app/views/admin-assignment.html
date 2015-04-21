@@ -1,49 +1,64 @@
-<div class="column small-12">
-    <div class="column small-12">
-        <h3 class="font-flair left" contenteditable="true" ng-model="assignment.title"></h3>
-    </div>
+<section>
+  <h3 class="headline">{{ assignment.title }}</h3>
+  
+  <form name="assigmentForm">
+    <fieldset>
+      <div layout="row" layout-align="start center" layout-padding layout-wrap>
 
-    <hr>
+        <h4 flex="100" style="margin-bottom: 0;">Assignment Details</h4>
 
-    <div class="column small-12">
-      <label>CommonMark Description</label>
-      <textarea ng-model="assignment.description" ng-model-options="{debounce: {'default': 500, 'blur': 0}}" style="height: 10rem;"></textarea>
-      <div class="margin-vertical-large padding-large background-secondary4">
-        <h5 class="font-flair">Preview</h5>
-        <div class="markdown" ng-model="assignment.description" markdown-editable></div>
+        <md-whiteframe class="md-whiteframe-z1 margin-vertical-medium" flex="100" layout="row" layout-padding layout-wrap>
+          
+
+          <md-input-container flex="100">
+            <label for="assignment-title">Assignment Title</label>
+            <input id="assignment-title" type="text" ng-model="assignment.title" required>
+          </md-input-container>
+
+          <md-checkbox flex ng-model="assignment.supportsUpload">
+            Supports File Upload
+          </md-checkbox>
+
+          <md-checkbox flex ng-model="assignment.startsSubscription">
+            Start Subscription
+          </md-checkbox>
+
+          <md-input-container flex>
+            <label for="priority">Priority</label>
+            <input id="priority" type="number" ng-model="assignment.$priority" required>
+          </md-input-container>
+
+          <h4 flex="100" style="margin-bottom: 0;">Apply to Subscription</h4>
+
+          <div flex="100" ng-repeat="product in products">
+            <md-checkbox ng-model="assignment.products[product.slug]" ng-change="setProduct(product, assignment.products[product.slug])">
+              {{ product.title }}
+            </md-checkbox>
+          </div>
+
+        </md-whiteframe>
+
+
+        <h4 flex="100" style="margin-bottom: 0;">Assignment Description</h4>
+
+        <md-whiteframe class="md-whiteframe-z1 margin-vertical-medium" flex="100" layout="row" layout-padding layout-wrap>
+          
+          <md-input-container flex="100">
+            <label for="description">Accepts CommonMark</label>
+            <textarea id="description" ng-model="assignment.description" ng-model-options="{debounce: {'default': 500, 'blur': 0}}" style="height: 10rem;" required></textarea>
+          </md-input-container>
+        </md-whiteframe>
+
+
+        <h4 flex="100" style="margin-bottom: 0;">Description Preview</h4>
+        
+        <md-whiteframe class="md-whiteframe-z1 margin-vertical-medium" flex="100" layout="row" layout-padding layout-wrap>
+          
+          <div class="markdown" flex="100" ng-model="assignment.description" markdown-editable></div>
+        </md-whiteframe>
+
       </div>
-      
-    </div>
 
-    <div class="column small-12 medium-4 padding-vertical-medium">
-      <input id="supports-upload" class="left margin-xx-small-important" type="checkbox" ng-model="assignment.supportsUpload">
-      <label class="left" for="supports-upload">Supports File Upload</label>
-    </div>
-
-    <div class="column small-12 medium-4 padding-vertical-medium">
-      <input id="starts-subscription" class="left margin-xx-small-important" type="checkbox" ng-model="assignment.startsSubscription">
-      <label class="left" for="starts-subscription">Starts Subscription</label>
-    </div>
-
-    <div class="column small-12 medium-4 padding-vertical-medium">
-      <label class="left" for="priority">Priority</label>
-      <input id="priority" type="number" ng-model="assignment.$priority">
-      
-    </div>
-
-    <hr>
-
-    <div class="column small-12">
-      <h5>Apply To Subscriptions</h5>
-      <ul>
-        <li ng-repeat="product in products">
-          <input id="{{ product.slug }}-{{ $index }}" class="left margin-xx-small-important" type="checkbox" ng-model="assignment.products[product.slug]" ng-change="setProduct(product, assignment.products[product.slug])">
-          <!-- <input id="{{ product.slug }}-{{ $index }}" class="left margin-xx-small-important" type="checkbox" ng-model="checked" ng-change="setProduct(product, checked)"> -->
-          <label class="left" for="{{ product.slug }}-{{ $index }}">{{ product.title }}</label>
-        </li>
-      </ul>
-    </div>
-
-
-</div>
-
+    </fieldset>
+  </form>
+</section>

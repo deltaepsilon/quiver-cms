@@ -31,7 +31,7 @@ angular.module('quiverCmsApp')
       },
 
       getWords: function (query) {
-        return $firebaseArray(FirebaseService.query(new Firebase(firebaseEndpoint + '/content/words'), query));
+        return FirebaseService.paginatingArray(new Firebase(firebaseEndpoint + '/content/words'), query);
       },
 
       getWord: function (key) {
@@ -92,7 +92,7 @@ angular.module('quiverCmsApp')
       },
 
       getOriginals: function (query) {
-        return $firebaseArray(FirebaseService.query(new Firebase(firebaseEndpoint + '/content/files/Originals'), query));
+        return FirebaseService.paginatingArray(new Firebase(firebaseEndpoint + '/content/files/Originals'), query);
       },
 
       getBucket: function () {
@@ -140,7 +140,7 @@ angular.module('quiverCmsApp')
       },
 
       getProducts: function (query) {
-        return $firebaseArray(FirebaseService.query(new Firebase(firebaseEndpoint + '/content/products'), query));
+        return FirebaseService.paginatingArray(new Firebase(firebaseEndpoint + '/content/products'), query);
       },
 
       getProduct: function (key) {
@@ -184,7 +184,7 @@ angular.module('quiverCmsApp')
       },
 
       getUsers: function (query) {
-        return $firebaseArray(FirebaseService.query(new Firebase(firebaseEndpoint + '/users'), query));
+        return FirebaseService.paginatingArray(new Firebase(firebaseEndpoint + '/users'), query);
       },
 
       getUser: function (key) {
@@ -214,7 +214,7 @@ angular.module('quiverCmsApp')
       },
 
       getAssignments: function (query) {
-        return $firebaseArray(FirebaseService.query(new Firebase(firebaseEndpoint + '/content/assignments'), query));
+        return FirebaseService.paginatingArray(new Firebase(firebaseEndpoint + '/content/assignments'), query);
       },
 
       getAssignment: function (key) {

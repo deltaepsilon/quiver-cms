@@ -9,11 +9,25 @@
  */
 angular.module('quiverCmsApp')
   .controller('NavCtrl', function ($scope, subscriptions, $state, UserService) {
-    subscriptions.$loaded().then(function (subscriptions) {
-      $scope.subscriptions = _.filter(subscriptions, function (subscription) {
+
+    $scope.subscriptions = subscriptions;
+
+    $scope.subscriptions.$loaded().then(function (subscriptions) {
+      var notExpired = _.filter(subscriptions, function (subscription) {
         return !UserService.subscriptionIsExpired(subscription);
       });
-    }) 
+
+      $scope.showSubscriptions = notExpired && notExpired.length;
+
+    });
+
+    $scope.currentSubscriptions = function (subscriptions) {
+      return _.filter(subscriptions, function (subscription) {
+        return !UserService.subscriptionIsExpired(subscription);
+      });
+
+    };
+
     $scope.$state = $state
 
     $scope.isExpired = UserService.isExpired;

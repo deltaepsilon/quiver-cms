@@ -1,5 +1,5 @@
 <section>
-  <h3 class="headline">{{ user.public.name || user.public.email }}</h3>
+  <h3 class="headline">{{ user.name || user.email }}</h3>
 
   <md-whiteframe class="md-whiteframe-z1" layout="row" layout-wrap layout-padding>
     <div flex="100" flex-sm="100" layout="row" layout-align="start center" layout-wrap>
@@ -12,7 +12,7 @@
 
       <span flex="25">Email</span>
       <span class="text-right" flex="75">
-        <a ng-href="mailto:{{ user.public.email }}">{{ user.public.email }}</a>
+        <a ng-href="mailto:{{ user.preferredEmail || user.email }}">{{ user.preferredEmail || user.email }}</a>
       </span>
 
       <span flex="25">Birthday</span>

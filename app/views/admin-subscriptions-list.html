@@ -10,7 +10,7 @@
   <li class="no-pad text-x-medium" ng-repeat="subscription in items | filter:searchTerm | orderBy:'$priority':'desc'">
     <a class="clearfix block" ui-sref="authenticated.master.admin.subscription({key: subscription.$id})">
       <div class="column small-12 medium-3">
-        {{ ::subscription.user.public.email }}
+        {{ ::subscription.user.email }}
       </div>
       <div class="column small-12 medium-3">
         {{ ::subscription.title }}

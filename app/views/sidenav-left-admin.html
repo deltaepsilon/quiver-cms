@@ -2,7 +2,7 @@
   <section ng-show="currentUser">
     <md-toolbar>
       <h5 class="md-toolbar-tools">
-        {{ user.public.name || user.public.email || user.email }}
+        {{ user.name || user.preferredEmail || user.email }}
       </h5>
     </md-toolbar>
     <div layout="column" layout-padding>
@@ -86,7 +86,7 @@
       </span>
 
       <span layout="row" flex qv-active>
-        <md-button class="text-left" flex layout-fill ui-sref="authenticated.master.admin.assignments">
+        <md-button class="text-left" flex layout-fill ui-sref="authenticated.master.admin.assignments.list">
           Assignments
         </md-button>
       </span>
