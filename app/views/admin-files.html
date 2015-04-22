@@ -16,12 +16,12 @@
                   <strong class="headline uppercase text-x-large text-center" flex style="color: inherit;">File Drop</strong>
                 </md-whiteframe>
 
-                <label class="md-button md-default-theme md-primary md-raised" flex="40" for="upload-file">
+                <label class="md-button md-default-theme md-primary md-raised adjust-line-height" flex="40" for="upload-file">
                   Select Files
                 </label>
                 <input id="upload-file" class="hidden" type="file" flow-btn/>  
 
-                <label class="md-button md-default-theme md-primary md-raised" flex="40" for="upload-directory">
+                <label class="md-button md-default-theme md-primary md-raised adjust-line-height" flex="40" for="upload-directory">
                   Select Directory
                 </label>
                 <input id="upload-directory" class="hidden" type="file" flow-btn flow-directory/>
@@ -43,9 +43,9 @@
                     <md-progress-circular class="invisible"  md-mode="indeterminate" qv-loading loaded="!uploading" target=".upload-button"></md-progress-circular>
                 </div>
 
-                <md-button class="upload-button md-accent md-raised max-10" flex flex-sm="40" ng-click="upload($flow)" ng-if="$flow.files.length && !resizing" ng-disabled="uploading">Upload Files</md-button>
+                <md-button class="upload-button md-accent md-raised adjust-line-height max-16" flex flex-sm="40" ng-click="upload($flow)" ng-if="$flow.files.length && !resizing" ng-disabled="uploading">Upload Files</md-button>
                 <!-- <md-button class="upload-button max-10" flex flex-sm="40" ng-click="fakeUpload($flow)" ng-if="$flow.files.length" ng-disabled="uploading">Fake Upload</md-button> -->
-                <md-button class="md-primary md-raised max-10" flex ng-click="resize()" ng-disabled="resizing" aria-label="Resize and update">Resize and Update</md-button>
+                <md-button class="md-primary md-raised adjust-line-height max-16" flex ng-click="resize()" ng-disabled="resizing" aria-label="Resize and update">Resize and Update</md-button>
                 
               </md-whiteframe>
 
@@ -69,7 +69,6 @@
 
 
     <md-whiteframe class="md-whiteframe-z1" layout="row" layout-padding layout-wrap ng-if="!$storage.hideFilesClipboard">
-        <h4>Clipboard</h5>
 
         <md-list flex="100" layout="column">
             <md-item ng-repeat="file in $storage.clipboard">

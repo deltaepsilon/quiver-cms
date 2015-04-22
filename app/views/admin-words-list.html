@@ -16,7 +16,7 @@
     </md-input-container>
 
     <div class="md-select-wrapper" flex>
-      <md-select class="" ng-model="query.type" ng-change="items = items.$orderByChild('type').$equalTo(query.type).$get(); orderBy = 'type';" placeholder="Filter by Type" style="margin-top: 17px;">
+      <md-select class="" ng-model="query.type" ng-change="items = items.$orderByChild('type').$equalTo(query.type).$get(); orderBy = 'type';" placeholder="Filter by Type" style="margin-top: 21px; margin-bottom: 0;">
         <md-option value="post">Post</md-option>
         <md-option value="page">Page</md-option>
         <md-option value="subscription">Subscription</md-option>
@@ -57,10 +57,10 @@
     <section>
       <md-list layout="column">
         <md-item ng-repeat="word in items | filter:authorFilter | orderBy:orderBy">
-          <md-item-content class="extra-padding" layout="row" layout-align="space-between center" layout-padding layout-wrap>
+          <md-item-content class="extra-padding" layout="row" layout-align="space-between center" layout-padding layout-wrap style="padding-top: 2rem;">
 
             <span class="md-select-wrapper" flex>
-              <md-select ng-model="word.author.id" ng-change="setAuthor(word.author.id, word, items)" placeholder="Set author...">
+              <md-select ng-model="word.author.id" ng-change="setAuthor(word.author.id, word, items)" placeholder="Set author..." style="margin-top: 11px; margin-bottom: 9px;">
                 <md-option ng-value="moderator.$id" ng-selected="word.author.id == moderator.$id" ng-repeat="moderator in moderators">
                   {{ moderator.name || moderator.preferredEmail || moderator.email }}
                 </md-option>
@@ -71,7 +71,7 @@
 
             <span flex="25">{{ word.type }}</span>
 
-            <md-input-container flex="20" flex-sm="100" style="margin-top: -23px;">
+            <md-input-container flex="20" flex-sm="100" style="margin-top: -21px;">
               <label for="priority-{{ $index }}">Priority</label>
               <input id="priority-{{ $index }}" type="number" ng-model="word.$priority" ng-change="setPriority(word.$id, word.$priority)" ng-model-options="{debounce: {'default': 500}}">
             </md-input-container>

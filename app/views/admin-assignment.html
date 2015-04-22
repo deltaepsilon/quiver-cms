@@ -10,23 +10,29 @@
         <md-whiteframe class="md-whiteframe-z1 margin-vertical-medium" flex="100" layout="row" layout-padding layout-wrap>
           
 
-          <md-input-container flex="100">
+          <md-input-container flex>
             <label for="assignment-title">Assignment Title</label>
             <input id="assignment-title" type="text" ng-model="assignment.title" required>
           </md-input-container>
 
-          <md-checkbox flex ng-model="assignment.supportsUpload">
-            Supports File Upload
-          </md-checkbox>
-
-          <md-checkbox flex ng-model="assignment.startsSubscription">
-            Start Subscription
-          </md-checkbox>
-
-          <md-input-container flex>
+          <md-input-container class="max-10" flex>
             <label for="priority">Priority</label>
             <input id="priority" type="number" ng-model="assignment.$priority" required>
           </md-input-container>
+
+          <div flex="100">
+            <md-checkbox flex ng-model="assignment.supportsUpload">
+              Supports File Upload
+            </md-checkbox>
+
+            <md-checkbox flex ng-model="assignment.startsSubscription">
+              Start Subscription
+            </md-checkbox>
+          </div>
+
+          
+
+          
 
           <h4 flex="100" style="margin-bottom: 0;">Apply to Subscription</h4>
 

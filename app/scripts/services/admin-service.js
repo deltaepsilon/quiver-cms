@@ -147,6 +147,10 @@ angular.module('quiverCmsApp')
         return $firebaseObject(new Firebase(firebaseEndpoint + '/content/products/' + key));
       },
 
+      getProductHashtags: function (key) {
+        return $firebaseArray(new Firebase(firebaseEndpoint + '/content/products/' + key + '/hashtags'));
+      },
+
       getProductImages: function (key) {
         return $firebaseArray(new Firebase(firebaseEndpoint + '/content/products/' + key + '/images'));
       },

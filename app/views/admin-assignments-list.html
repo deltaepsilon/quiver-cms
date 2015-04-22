@@ -51,7 +51,7 @@
               </ul>
             </div>
 
-            <md-input-container class="max-10" flex flex-sm="50">
+            <md-input-container class="max-10" flex flex-sm="50" style="margin-top: -22px;">
               <label for="priority-{{ $index }}">Priority</label>
               <input id="priority-{{ $index }}" type="number" ng-model="assignment.$priority" ng-change="items.$save(assignment)" ng-model-options="{updateOn: 'blur'}">
             </md-input-container>

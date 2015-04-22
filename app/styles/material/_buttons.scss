@@ -34,13 +34,16 @@
 }
 
 .md-button {
-  font-size: 1rem;
 
   &.adjust-mdi {
     [class^="mdi-"], [class*=" mdi-"] {
       top: 1px;
       position: relative;
     }
+  }
+
+  &.adjust-line-height {
+    line-height: 2.5rem;
   }
 
   &.align-left {
@@ -60,17 +63,23 @@
 }
 
 .md-fab-tiny {
-  min-width: 2rem;
-  max-width: 2rem;
-  min-height: 2rem;
-  max-height: 2rem;
+  min-width: 3rem !important;
+  max-width: 3rem !important;
+  min-height: 3rem !important;
+  max-height: 3rem !important;
+  line-height: 1rem !important;
 }
 
 .md-icon-button {
-  min-width: 2rem;
-  max-width: 2rem;
-  line-height: 1rem !important;
-  height: 2rem !important;
+  min-width: 3rem !important;
+  max-width: 3rem !important;
+  line-height: .75rem !important;
+  height: 3rem !important;
+  font-size: 1.5rem;
+}
+
+a.md-icon-button {
+  padding-top: 10px;
 }
 
 .md-button-padding {

@@ -681,6 +681,9 @@ angular.module('quiverCmsApp', [
           },
           hashtags: function (AdminService) {
             return AdminService.getHashtags();
+          },
+          productHashtags: function (AdminService, $stateParams) {
+            return AdminService.getProductHashtags($stateParams.key);
           }
 
         }

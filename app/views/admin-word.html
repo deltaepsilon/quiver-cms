@@ -64,7 +64,7 @@
                     </md-button>
                     
                     <div flex="100">
-                        <img ng-src="{{ word.keyImage.Versions.small.Key || word.keyImage.Key | s3Link:files.Name}}" alt="word.keyImage.Name"/>
+                        <img ng-src="{{ word.keyImage.Versions.small.Key || word.keyImage.Key | s3Link:files.Name}}" alt="{{ word.keyImage.Name }}"/>
                     </div>
 
                 </md-whiteframe>    
@@ -87,11 +87,11 @@
     <md-whiteframe class="md-whiteframe-z1" layout="row" layout-padding ng-if="!$storage.hidePublishing">
         <div flex>
             <h4 class="headline margin-zero" flex>Active Draft</h4>
-            <div class="margin-vertical-x-large" flex ng-show="$storage.activeDraft.edited" style="padding-bottom: 1px;">Edited: {{ $storage.activeDraft.edited | moment:'MM/DD/YY HH:mm' }}</div>
-            <div class="margin-vertical-x-large" flex ng-show="$storage.activeDraft.created">Created: {{ $storage.activeDraft.created | moment:'MM/DD/YY HH:mm' }}</div>    
+            <div class="padding-vertical-medium" flex ng-show="$storage.activeDraft.edited" style="margin-top: 7px;">Edited: {{ $storage.activeDraft.edited | moment:'MM/DD/YY HH:mm' }}</div>
+            <div class="padding-vertical-medium" flex ng-show="$storage.activeDraft.created" style="margin-top: 7px;">Created: {{ $storage.activeDraft.created | moment:'MM/DD/YY HH:mm' }}</div>    
         </div>
 
-        <div flex layout="row" layout-wrap>
+        <div flex layout="row" layout-align="space-between start" layout-wrap>
             <h4 class="headline margin-zero" flex="100">Drafts</h4>
 
             <md-content flex="100" style="height: 15rem;">
@@ -100,7 +100,7 @@
                         <md-item-content class="padding-vertical-x-small" layout="row" layout-align="start center" layout-wrap>
                             <span flex>{{ draft.created | moment:'MM/DD/YY HH:mm' }}</span>
 
-                            <md-button class="md-raised md-primary md-icon-button" flex ng-click="makeActiveDraft(draft)" aria-label="Make active draft">
+                            <md-button class="md-raised md-primary md-icon-button margin-horizontal-small" flex ng-click="makeActiveDraft(draft)" aria-label="Make active draft">
                                 <i class="mdi-editor-publish"></i>
                             </md-button>
 
@@ -114,33 +114,33 @@
                 </md-list>
             </md-content>
 
-            <md-button class="md-primary md-raised align-left" flex="100" ng-click="saveDraft($storage.activeDraft)" aria-label="Save draft">
+            <md-button class="md-primary md-raised align-left" flex="45" ng-click="saveDraft($storage.activeDraft)" aria-label="Save draft">
                 Save As Draft
             </md-button>
             
-            <md-button class="md-primary md-raised align-left" flex="100" ng-click="setPublishedDraft($storage.activeDraft)" ng-disabled="!$storage.activeDraft" aria-label="Publish">
+            <md-button class="md-primary md-raised align-left" flex="45" ng-click="setPublishedDraft($storage.activeDraft)" ng-disabled="!$storage.activeDraft" aria-label="Publish">
                 Publish
             </md-button>
             
         </div>
 
-        <div flex layout="row" layout-wrap>
+        <div flex layout="row" layout-align="space-between start" layout-wrap>
             <h4 class="headline margin-zero" flex="100">Published</h4>
 
-            <div class="padding-vertical-x-large" style="margin-top: -1px;">
+            <div flex="100" style="margin-top: 17px;">
                 Edited: {{ word.published.edited | moment:'MM/DD/YY HH:mm' }}
             </div>
 
-            <md-input-container style="margin-bottom: 12px;">
+            <md-input-container flex="100" style="margin-bottom: 30px;">
                 <label for="published-date">Published Date</label>
                 <input id="published-date" type="date" ng-model="getSetPublishedDate" ng-model-options="{ getterSetter: true, debounce: {'default': 500} }"/>
             </md-input-container>
 
-            <md-button class="md-primary md-raised align-left" flex="100" ng-click="makeActiveDraft(word.published)" ng-disabled="$storage.activeDraft.edited == word.published.edited" aria-label="Make active draft">
+            <md-button class="md-primary md-raised align-left" flex="45" ng-click="makeActiveDraft(word.published)" ng-disabled="$storage.activeDraft.edited == word.published.edited" aria-label="Make active draft">
                 Make active draft
             </md-button>
 
-            <md-button class="md-primary md-raised align-left" flex="100" ng-click="unpublish($event)" ng-disabled="!word.published" aria-label="Unpublish">
+            <md-button class="md-primary md-raised align-left" flex="45" ng-click="unpublish($event)" ng-disabled="!word.published" aria-label="Unpublish">
                 Unpublish
             </md-button>
             
@@ -160,7 +160,7 @@
 
     </div>
 
-    <md-whiteframe class="md-whiteframe-z1" layout="row" layout-align="start center" layout-padding layout-wrap ng-if="!$storage.hideClipboard">
+    <md-whiteframe class="md-whiteframe-z1" layout="row" layout-align="start start" layout-padding layout-wrap ng-if="!$storage.hideClipboard">
         <div class="relative" flex="33" flex-sm="100" ng-repeat="file in $storage.clipboard">
             <div qv-media="https://s3.amazonaws.com/{{ files.Name }}/{{ file.Versions.small.Key || file.Key }}" alt="{{ file.Key | filename }}"></div>
 
@@ -215,12 +215,12 @@
     <div layout="row" layout-align="start center">
         <h3 class="headline" flex ng-class="{'disabled': $storage.hideDraft}">Draft</h3>
 
-        <md-button class="md-primary md-raised md-icon-button min-10" flex ng-click="useHtml = !useHtml" aria-label="Toggle HTML mode" ng-hide="$storage.hideDraft">
+        <md-button class="md-primary md-raised md-icon-button min-10" flex ng-click="useHtml = !useHtml" aria-label="Toggle HTML mode" ng-hide="$storage.hideDraft" style="min-width: 10rem;">
             <span ng-show="!useHtml">Edit HTML</span>
             <span ng-show="useHtml">Hide HTML</span>
         </md-button>
 
-        <md-button class="md-primary md-raised md-icon-button min-10 margin-horizontal-small" flex ng-click="useTextarea = !useTextarea" ng-disabled="useHtml" aria-label="Toggle textarea" ng-hide="$storage.hideDraft">
+        <md-button class="md-primary md-raised md-icon-button min-10 margin-horizontal-small" flex ng-click="useTextarea = !useTextarea" ng-disabled="useHtml" aria-label="Toggle textarea" ng-hide="$storage.hideDraft" style="min-width: 10rem;">
             <span ng-show="!useTextarea">Use Textarea</span>
             <span ng-show="useTextarea">Hide Textarea</span>
         </md-button>

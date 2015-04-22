@@ -8,7 +8,7 @@
  * Controller of the quiverCmsApp
  */
 angular.module('quiverCmsApp')
-  .controller('ProductCtrl', function ($scope, product, productImages, productOptionGroups, productOptionsMatrix, files, hashtags, NotificationService, ClipboardService, CommerceService, $localStorage, env, $filter, $timeout, Slug, _) {
+  .controller('ProductCtrl', function ($scope, $q, product, productImages, productOptionGroups, productOptionsMatrix, files, hashtags, productHashtags, NotificationService, ClipboardService, CommerceService, $localStorage, env, $filter, $timeout, Slug, _) {
 
     /*
      * Product
@@ -314,39 +314,78 @@ angular.module('quiverCmsApp')
      * Hashtags
     */
     $scope.hashtags = hashtags;
+    $scope.productHashtags = _.toArray(productHashtags);
+    $scope.searchText = null;
+    $scope.selectedHashtag = null;
 
-    $scope.addHashtag = function (product, newHashtag) {
-      $timeout(function () {
-        var hashtag;
-
-        if (!product.hashtags) {
-          product.hashtags = [];
-        }
-
-        if (typeof newHashtag === 'string') {
-          hashtag = newHashtag.replace(/(#|\s)/g, '');
-          product.hashtags.push({
-            key: Slug.slugify(hashtag),
-            value: hashtag
-          });
-        } else if (newHashtag && newHashtag.key) {
-          product.hashtags.push(word.newHashtag);
-        }
-
+    $scope.searchHashtags = function (searchText) {
+      return _.filter($scope.hashtags, function (hashtag) {
+        return !!hashtag.key.match(new RegExp(searchText, 'i')) && !_.findWhere(productHashtags, {key: hashtag.key});
       });
 
     };
 
-    $scope.removeHashtag = function (product, slug) {
-      var i = product.hashtags.length
+    $scope.addHashtag = function (chip) {
+      var promise;
 
-      while (i--) {
-        if (product.hashtags[i].key === slug) {
-          product.hashtags.splice(i, 1);
-        }
+      if (typeof chip === 'string' && !_.findWhere(productHashtags, {key: chip.toLowerCase()})) {
+        promise = productHashtags.$add({
+          key: Slug.slugify(chip),
+          value: chip
+        });
+
+      } else if (typeof chip === 'object'  && !_.findWhere(productHashtags, {key: chip.key})) {
+        promise = productHashtags.$add({
+          key: chip.key,
+          value: chip.value
+        });
+
+      }
+
+      if (promise) {
+        promise.then(function () {
+          NotificationService.success('Hashtag added', chip.key || chip);
+        }, function (err) {
+          NotificationService.error('Hashtag failed', chip.key || chip + ' ' + err);
+        });
       }
 
     };
+
+    $scope.$watch('productHashtags', function () {
+      var i = productHashtags.length,
+        deletePromises = [],
+        dupePromises = [],
+        deferred = $q.defer();
+
+      while (i--) {
+        if (!_.findWhere($scope.productHashtags, {key: productHashtags[i].key})) {
+          deletePromises.push(productHashtags.$remove(productHashtags[i]));
+        }
+      }
+
+      $q.all(deletePromises).then(function () {
+        var grouped = _.groupBy(productHashtags, function (hashtag) {
+          return hashtag.key;
+        });
+        _.each(grouped, function (group) {
+          var j = group.length - 1;
+          while (j--) {
+            dupePromises.push(productHashtags.$remove(productHashtags.$indexFor(group[j].$id)));
+          }
+        });
+
+        $q.all(dupePromises).then(deferred.resolve, deferred.reject);
+
+      });
+
+      return deferred.promise;
+      
+    }, true);
+
+    productHashtags.$watch(function (e) {
+      $scope.productHashtags = _.toArray(productHashtags);
+    });
 
     /*
      * Shipping
