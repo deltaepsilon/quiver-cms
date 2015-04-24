@@ -1,79 +1,67 @@
-<div class="column small-12">
-	<h3 class="font-flair left">
-		<span>Date: {{ transaction.date | moment:"MM/DD/YY" }}</span>
+<section>
+	<h3 class="headline">{{ transaction.date | moment:"MM/DD/YY" }}</h3>
 
-	</h3>
-	<h5 class="font-flair margin-small left" ng-show="transaction.updated">
-		<span>Updated: {{ transaction.updated | moment:"MM/DD/YY hh:mm:ss" }}</span>
-	</h5>
-	<h5 class="font-flair right margin-vertical-small">
-		<a ui-sref="authenticated.master.admin.user({key: transaction.userId})">{{ transaction.userEmail }}</a>
-	</h5>
-</div>
+	<md-whiteframe class="md-whiteframe-z1" layout="row" layout-padding layout-wrap>
+		<a flex flex-sm="50" ui-sref="authenticated.master.admin.user({key: transaction.userId})">{{ transaction.userEmail }}</a>
 
-	
-<hr>
+		<span flex flex-sm="50" ng-if="transaction.updated">Updated: {{ transaction.updated | moment:"MM/DD/YY hh:mm:ss" }}</span>
 
-<div class="column small-12 margin-vertical-large">
-		<div class="left" ng-show="transaction.total && !transaction.charge.success">
+		
+		<md-button class="md-primary md-raised" ui-sref="authenticated.master.nav.transaction({userId: transaction.userId, key: transaction.keys.user })">User View</md-button>
+		<md-button class="md-primary md-raised" ng-href="/transaction/{{ transaction.$id }}/email/html" qv-to-static target="_blank">View Email</md-button>
+		<md-button class="md-primary md-raised" ng-click="sendTransactionEmail(transaction.$id, transaction)">Send Email</md-button>
+		<md-button class="md-warn md-raised" ng-click="chargeCard(transaction)">Charge Card</md-button>
+
+		<div class="text-right" flex="100" ng-if="transaction.total && !transaction.charge.success">
 			<h5 class="text-error">
 				<span>Transaction Not Charged!</span>
 				<span>{{ transaction.charge.message }}</span>
 			</h5>
 		</div>
-		<a class="button right small secondary" ui-sref="authenticated.master.nav.transaction({userId: transaction.userId, key: transaction.keys.user })">User View</a>
-		<a class="button right small secondary" href="/transaction/{{ transaction.$id }}/email/html" qv-to-static>View Email</a>
-		<button class="right small" ng-click="sendTransactionEmail(transaction.$id, transaction)">Send Email</button>
-		<button class="right small alert" ng-click="chargeCard(transaction)">Charge Card</button>
-</div>
 
-<div class="column small-12">
-	<ul class="table-list padded striped">
-		<li class="table-list-header">
-			<div class="column small-12 medium-2">
-        Type
+	</md-whiteframe>
 
-			</div>
-			<div class="column small-12 medium-4">
-				Product
+</section>
 
-			</div>
-			<div class="column small-12 medium-4">
-				Details
+<section>
+	<h3 class="headline">Products</h3>
 
-			</div>
-			<div class="column small-12 medium-2">
-				Shipping/Tax
-			</div>
+	<md-whiteframe class="md-whiteframe-z1 margin-vertical-medium" layout="row" layout-padding layout-wrap>
+		<md-list flex layout="column">
+	    <md-item ng-repeat="item in transaction.items">
+	      <md-item-content class="extra-padding" layout="row" layout-align="space-between center" layout-padding layout-wrap style="padding-top: 2rem;">
+	      	<strong class="max-14" flex>{{ item.type }}</strong>
 
-		</li>
-		<li ng-repeat="item in transaction.items">
-			<div class="column small-12 medium-2">
-        <strong>{{ item.type }}</strong>
+					<div flex>
+						<a ui-sref="authenticated.master.admin.product({key: item.key})">{{ item.title }} x {{ item.quantity }} @ {{ item.priceAdjusted || item.price | currency }}</a>
+						<div>
+							<strong>{{ item.optionsMatrixSelected.name || '&nbsp;' }}</strong>
+						</div>
 
-			</div>
-			<div class="column small-12 medium-4">
-				<a ui-sref="authenticated.master.admin.product({key: item.$id})">{{ item.title }} x {{ item.quantity }} @ {{ item.priceAdjusted || item.price | currency }}</a>
-				<div>
-					<strong>{{ item.optionsMatrixSelected.name || '&nbsp;' }}</strong>
-				</div>
+					</div>
 
-			</div>
-			<div class="column small-12 medium-4">
-				<ul class="text-small margin-zero">
-					<li ng-if="item.type == 'digital'"><strong><a href="{{ ::item.downloadUri }}">{{ ::item.downloadUri }}</a></strong></li>
-					<li ng-if="item.type == 'gift'" ng-repeat="discount in item.discounts">Code: <strong>{{ ::discount.code }}</strong> for <strong>{{ ::discount.value | currency }}</strong></li>
-					<li ng-if="item.type == 'subscription'">Subscription: <strong>{{ ::item.subscriptionType }}</strong> for <strong>{{ ::item.subscriptionDays }} days</strong></li>
-				</ul>
+					<div flex>
+						<ul class="margin-zero">
+							<li ng-if="item.type == 'digital'"><strong><a href="{{ ::item.downloadUri }}">{{ ::item.downloadUri }}</a></strong></li>
+							<li ng-if="item.type == 'gift'" ng-repeat="discount in item.discounts">Code: <strong>{{ ::discount.code }}</strong> for <strong>{{ ::discount.value | currency }}</strong></li>
+							<li ng-if="item.type == 'subscription'">Subscription: <strong>{{ ::item.subscriptionType }}</strong> for <strong>{{ ::item.subscriptionDays }} days</strong></li>
+						</ul>
 
-			</div>
-			<div class="column small-12 medium-2">
-				<ul class="text-small margin-zero">
-					<li>Shipped: <strong ng-class="{'text-success': item.shipped}">{{ item.shipped || 'false' }}</strong></li>
-					<li>Taxable: <strong ng-class="{'text-success': item.taxable}">{{ item.taxable || 'false' }}</strong></li>
-				</ul>
-			</div>
+					</div>
+					<div class="max-14" flex>
+						<ul class="margin-zero">
+							<li>Shipped: <strong ng-class="{'text-success': item.shipped}">{{ item.shipped || 'false' }}</strong></li>
+							<li>Taxable: <strong ng-class="{'text-success': item.taxable}">{{ item.taxable || 'false' }}</strong></li>
+						</ul>
+					</div>  
 
-		</li>
-	</ul>
-</div>
+	      </md-item-content>
+	      <md-divider ng-if="!$last"></md-divider>
+	    </md-item>
+	  </md-list>
+	    
+	</md-whiteframe>
+
+	
+
+</section>

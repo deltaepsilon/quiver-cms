@@ -8,6 +8,8 @@
  * Controller of the quiverCmsApp
  */
 angular.module('quiverCmsApp')
-  .controller('TransactionsCtrl', function ($scope) {
-    
+  .controller('TransactionsCtrl', function ($scope, items) {
+    $scope.items = items;
+
+    $scope.orderBy = '-$priority';
   });

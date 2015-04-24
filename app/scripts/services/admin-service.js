@@ -200,7 +200,7 @@ angular.module('quiverCmsApp')
       },
 
       getTransactions: function (query) {
-        return $firebaseArray(FirebaseService.query(new Firebase(firebaseEndpoint + '/logs/transactions'), query));
+        return FirebaseService.paginatingArray(new Firebase(firebaseEndpoint + '/logs/transactions'), query);
       },
 
       getTransaction: function (key) {

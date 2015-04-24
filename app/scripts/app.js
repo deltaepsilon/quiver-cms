@@ -838,23 +838,16 @@ angular.module('quiverCmsApp', [
       .state('authenticated.master.admin.transactions', { // ***********************  Transactions *********************
         abstract: true,
         templateUrl: 'views/admin-transactions.html',
-        controller: 'TransactionsCtrl'
+        controller: 'TransactionsCtrl',
+        resolve: {
+          items: function (AdminService) {
+            return AdminService.getTransactions().$get();
+          }
+        }
       })
       .state('authenticated.master.admin.transactions.list', {
         url: '/transactions/:search',
-        templateUrl: 'views/admin-transactions-list.html',
-        controller: 'ListCtrl',
-        resolve: {
-          limit: function () {
-            return 10;
-          },
-          getRef: function (AdminService) {
-            return AdminService.getTransactions;
-          },
-          ref: function (AdminService, limit) {
-            return AdminService.getTransactions({orderByPriority: true, limitToLast: limit});
-          }
-        }
+        templateUrl: 'views/admin-transactions-list.html'
       })
       .state('authenticated.master.admin.transaction', {
         url: '/transaction/:key/user/:userId',
