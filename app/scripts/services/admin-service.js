@@ -119,6 +119,10 @@ angular.module('quiverCmsApp')
         return Restangular.one('admin').one('instagram').get();
       },
 
+      getInstagramResults: function (term) {
+        return $firebaseArray(new Firebase(firebaseEndpoint + '/content/social/instagram/results/' + term + '/data'));
+      },
+
       getTheme: function () {
         return $firebaseObject(new Firebase(firebaseEndpoint + '/theme'));
       },

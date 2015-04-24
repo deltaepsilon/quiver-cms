@@ -1,43 +1,49 @@
-<div class="column small-12">
-    <h3 class="font-flair">Hashtags</h3>
+<section>
+    <h3 class="headline">Hashtags</h3>
+
     <form name="newHashtagForm">
-        <input id="new-hashtag" type="text" ng-model="newHashtag" placeholder="New Hashtag..." required/>
-        <button ng-click="createHashtag(newHashtag)" ng-disabled="newHashtagForm.$invalid" qv-focus="#new-hashtag">Create</button>
+        <fieldset>
+            <div layout="row" layout-align="space-between center" layout-padding>
+                <md-input-container flex>
+                    <label for="new-hashtag">New Hashtag</label>
+                    <input id="new-hashtag" type="text" ng-model="newHashtag" placeholder="New Hashtag..." required/>
+                </md-input-container>
+
+                <md-button class="md-primary md-raised max-10 adjust-line-height" flex ng-click="createHashtag(newHashtag)" ng-disabled="newHashtagForm.$invalid" qv-focus="#new-hashtag">
+                    Create
+                </md-button>
+
+            </div>
+        </fieldset>
+        
     </form>
 
-    <hr>
+    <md-whiteframe class="md-whiteframe-z1" layout="row" layout-padding layout-wrap>
+        <md-input-container flex="100">
+          <label for="list-search">Filter</label>
+          <input id="list-search" type="text" ng-model="hashtagFilter" ng-focus="hashtagFilter = undefined;">
+        </md-input-container>
 
-    <input type="text" ng-model="hashtagFilter" ng-focus="hashtagFilter = ''" placeholder="Search..."/>
+        <md-list flex="100">
+            <md-item ng-repeat="hashtag in hashtags | filter:hashtagFilter">
+                <md-item-content layout="row" layout-align="space-between center" layout-padding layoutwrap>
+                    <span flex>
+                        #{{ hashtag.value }}
+                    </span>
+                    <span flex>
+                        {{ hashtag.key }}
+                    </span>
+                    <span flex>
+                        {{ hashtag.creator }}
+                    </span>
+                    <md-button class="md-warn md-raised md-icon-button" ng-click="confirmRemoveHashtag($event, hashtag, hashtags)" aria-label="Remove hashtag {{ hashtag.value }}">
+                        <i class="mdi-action-delete"></i>
+                    </md-button>
+                
+                </md-item-content>
+                <md-divider ng-if="!$last"></md-divider>
+            </md-item>
+        </md-list>
+    </md-whiteframe>
 
-    <ul class="table-list padded hover striped">
-        <li class="table-list-header">
-            <div class="column small-12 medium-3">
-                Tag
-            </div>
-            <div class="column small-12 medium-3">
-                Slug
-            </div>
-            <div class="column small-12 medium-3">
-                Creator
-            </div>
-            <div class="column small-12 medium-3 medium-text-right">
-                Action
-            </div>
-        </li>
-        <li ng-repeat="hashtag in hashtags | filter:hashtagFilter">
-            <div class="column small-12 medium-3">
-                #{{ hashtag.value }}
-            </div>
-            <div class="column small-12 medium-3">
-                {{ hashtag.key }}
-            </div>
-            <div class="column small-12 medium-3">
-                {{ hashtag.creator }}
-            </div>
-            <div class="column small-12 medium-3 medium-text-right">
-                <button class="tiny alert margin-zero" qv-confirm="removeHashtag(hashtag)" confirmations="['Really???', 'Last chance!']" qv-confirm>Delete</button>
-            </div>
-        </li>
-    </ul>
-
-</div>
+</section>

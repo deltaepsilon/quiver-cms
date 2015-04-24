@@ -1,35 +1,103 @@
-<div class="column small-12">
-    <h3 class="font-flair">Social Media</h3>
-    <hr>
+<section>    
+    <div layout="row" layout-align="start center">
+        <h3 class="headline" flex ng-class="{'disabled': $storage.hideInstagramDetails}">Instagram Details</h3>
 
-    <form name="socialForm">
-        <fieldset>
-            <div class="column small-12 medium-3" ng-class="{disabled: !social.instagram.clientId}">
-                <h4 class="font-flair">Instagram</h4>
-                <span class="background-instagram-icon" ng-click="instagramToggleActive()"></span>
-            </div>
-            <div class="column small-12 medium-9">
-                <label class="left" for="instagram-client-id">Instagram Client ID (required)</label>
-                <a class="right text-small" href="http://instagram.com/developer/" target="_blank">Get Instagram API keys</a>
-                <input id="instagram-client-id" type="text" ng-model="social.instagram.clientId" placeholder="Instagram client id..."/>
+        <md-button class="md-primary md-raised md-icon-button" flex ng-click="$storage.hideInstagramDetails = !$storage.hideInstagramDetails" aria-label="Hide Instagram details">
+            <i ng-class="{'mdi-navigation-expand-less': $storage.hideInstagramDetails, 'mdi-navigation-expand-more': !$storage.hideInstagramDetails}"></i>
+        </md-button>
 
-                <div ng-class="{disabled: !social.instagram.clientId}">
-                    <label for="instagram-search-term">Add Instagram Search Terms</label>
-                    <input id="instagram-search-term" type="text" ng-model="instagramNewTerm" placeholder="Instagram search term..." qv-enter="instagramAddTerm(instagramNewTerm)" ng-disabled="!social.instagram.clientId"/>
+    </div>
 
-                    <div ng-show="social.instagram.terms">
-                        <h5 class="left">Search Terms</h5>
-                        <button class="tiny right" ng-click="updateInstagram()">Update Instagram Feed</button>
-                        <ul class="inline-list small-12">
-                            <li class="cursor-pointer" ng-repeat="term in social.instagram.terms" ng-click="instagramRemoveTerm($index)" ng-disabled="!social.instagram.clientId">#{{ term }}</li>
-                        </ul>
-                    </div>
+    <md-whiteframe class="md-whiteframe-z1" layout="row" layout-padding layout-wrap ng-if="!$storage.hideInstagramDetails">
+        <i class="qv qv-instagram md-icon-button md-icon-padding" flex ng-class="{disabled: !social.instagram.clientId}" style="margin-top: 8px;"></i>
+
+        <a flex href="http://instagram.com/developer/" target="_blank">Get Instagram API keys</a>
+
+        <form flex="100" name="instagramForm">
+            <fieldset>
+                <div layout="row" layout-align="start center" layout-wrap>
+                    <md-input-container flex="100">
+                        <label for="instagram-client-id">Instagram Client ID</label>
+                        <input id="instagram-client-id" type="text" ng-model="social.instagram.clientId">
+                    </md-input-container>
+
+                    <h4 class="margin-zero-important" flex="100">Instagram Search Terms</h4>
+
+                    <md-input-container flex ng-class="{disabled: !social.instagram.clientId}">
+                        <label for="instagram-new-search-term">New Search Term</label>
+                        <input id="instagram-new-search-term" type="text" ng-model="instagramNewTerm">
+                    </md-input-container>
+
+                    <md-button class="md-primary md-raised md-icon-button" flex ng-click="instagramAddTerm(instagramNewTerm)" ng-disabled="!social.instagram.clientId" aria-label="Add Instagram term">
+                        <i class="mdi-content-add-box"></i>
+                    </md-button>
+
+                    <span class="padding-zero-important" flex="100"></span>
+
+                    <md-button class="md-primary md-raised min-18 max-18 adjust-line-height" flex ng-click="updateInstagram()" ng-disabled="instagramUpdating">
+                        Update Instagram Feed
+                    </md-button>
+
+                    <span ng-if="social.instagram.results.created"> Last updated: {{ social.instagram.results.created | moment:"MM/DD/YY HH:mm" }}</span>
+                </div>
+                
+
+            </fieldset>
+
+        </form>
+
+        <md-list flex="100" ng-class="{disabled: !social.instagram.clientId}">
+            <md-item ng-repeat="term in social.instagram.terms">
+              <md-item-content layout="row" layout-align="space-between center" layout-padding layout-wrap>
+                  <span flex>#{{ term }}</span>
+                  <md-button class="md-warn md-icon-button" ng-click="instagramRemoveTerm($index)" aria-label="Remove instagram search term {{ term }}">
+                      <i class="mdi-action-delete"></i>
+                  </md-button>
+
+              </md-item-content>
+              <md-divider ng-if="!$last"></md-divider>
+            </md-item>
+        </md-list>
+
+    </md-whiteframe>
+
+</section>
+
+<section>
+    <div layout="row" layout-align="start center">
+        <h3 class="headline" flex ng-class="{'disabled': $storage.hideInstagramResults}">Instagram Results</h3>
+
+        <md-button class="md-primary md-raised md-icon-button" flex ng-click="$storage.hideInstagramResults = !$storage.hideInstagramResults" aria-label="Hide Instagram results">
+            <i ng-class="{'mdi-navigation-expand-less': $storage.hideInstagramResults, 'mdi-navigation-expand-more': !$storage.hideInstagramResults}"></i>
+        </md-button>
+
+    </div>
+
+    <div ng-if="!$storage.hideInstagramResults">
+        <md-whiteframe class="md-whiteframe-z1 margin-vertical-medium" layout="row" layout-padding layout-wrap ng-repeat="term in terms">
+            <h3 flex="100">{{ term.term }}</h3>
+
+            <h3 class="text-center" flex="100" ng-if="!term.data.length">
+                No Results
+            </h3>
+
+            <div class="relative" flex="33" flex-sm="100" ng-repeat="post in term.data">
+                <a ng-href="{{ post.link }}" target="_blank">
+                    <img ng-src="{{ post.images.standard_resolution.url }}">
+                </a>
+                <div>
+                    <strong>{{ post.caption.from.full_name }} ({{ post.caption.from.username }}) at {{ post.caption.created_time | integer | moment:'MM/DD/YY HH:mm' }}:</strong>
+                    <br>
+                    <span>{{ post.caption.text }}</span>
                 </div>
 
+                <md-button class="md-warn md-raised md-icon-button absolute top-right" ng-click="removeInstagramResult(post, term.data)" style="margin: 1rem;" aria-label="Remove Instagram result">
+                    <i class="mdi-action-delete"></i>
+                </md-button>
+                    
             </div>
+        </md-whiteframe>
+    </div>
 
-        </fieldset>
+</section>
 
-    </form>
-
-</div>
