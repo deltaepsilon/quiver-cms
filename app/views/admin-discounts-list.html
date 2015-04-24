@@ -1,67 +1,61 @@
-<input type="text" ng-show="searching || items.length" ng-model="searchTerm" ng-focus="searchTerm = ''" placeholder="Search: Click ENTER to search server..." qv-enter="search({orderByChild: 'code', limitToLast: 3, startAt: searchTerm})"/>
-
-<ul class="small-12 table-list striped hover padded">
-  <li class="table-list-header">
-    <div class="column small-3 medium-1">Active</div>
-    <div class="column small-3 medium-1">Type</div>
-    <div class="column small-3 medium-1">Value</div>
-    <div class="column small-3 medium-1">Code</div>
-    <div class="column small-3 medium-1">Expiration</div>
-    <div class="column small-3 medium-1">Uses/Used</div>
-    <div class="column small-3 medium-1">Product</div>
-    <div class="column small-3 medium-1">Min/Max</div>
-    <div class="column small-3 medium-1">Shipping</div>
-    <div class="column small-3 medium-1">Created</div>
-    <div class="column small-6 medium-2 text-center">Action</div>
-  </li>
-  <li ng-repeat="discount in items | orderBy:'$priority':'desc'" ng-class="{disabled: disabled}">
-    <div class="column small-3 medium-1">
-      <input class="margin-xx-small-important" type="checkbox" ng-model="discount.active" ng-change="saveDiscount(discount)"/>
+<md-whiteframe class="md-whiteframe-z1" layout="row" layout-padding layout-wrap>
+    <div flex="100" layout="row" layout-align="start center" layout-padding>
+        <md-input-container flex>
+            <label for="list-search">Search by Code</label>
+            <input id="list-search" type="text" ng-model="searchTerm" qv-enter="items = items.$orderByChild('code').$startAt(searchTerm).$get(); orderBy = 'code'" ng-focus="searchTerm = undefined;">
+        </md-input-container>
+        <span flex></span>
+        <md-button class="md-icon-button" flex ng-click="items = items.$prev(); orderBy = '-$priority'; searchTerm = undefined;" ng-disabled="items.$prevDisabled" aria-label="list back">
+            <i class="mdi-navigation-arrow-back"></i>
+        </md-button>
+        <md-button class="md-icon-button" flex ng-click="items = items.$next(); orderBy = '-$priority'; searchTerm = undefined;" ng-disabled="items.$nextDisabled" aria-label="list forward">
+            <i class="mdi-navigation-arrow-forward"></i>
+        </md-button>
+        <md-button class="md-icon-button" flex ng-click="items = items.$more(); orderBy = '-$priority'; searchTerm = undefined;" ng-disabled="items.$moreDisabled" aria-label="list load more">
+            <i class="mdi-navigation-expand-more"></i>
+        </md-button>
+        <md-button class="md-icon-button" flex ng-click="items = items.$reset(); orderBy = '-$priority'; searchTerm = undefined;" ng-disabled="items.$resetDisabled" aria-label="list reload">
+            <i class="mdi-navigation-refresh"></i>
+        </md-button>
     </div>
-    <div class="column small-3 medium-1">
-      {{ ::discount.type }}
-    </div>
-    <div class="column small-3 medium-1">
-      <span ng-show="discount.type === 'percentage'">{{ ::discount.percentage }}%</span>
-      <span ng-show="discount.type === 'value'">{{ ::discount.value | currency }}</span>
-    </div>
-    <div class="column small-3 medium-1">
-      <span style="word-wrap: break-word;">{{ ::discount.code }}</span>
-    </div>
-    <div class="column small-3 medium-1">
-      {{ ::discount.expiration | moment:"MM/DD/YY" }}
-    </div>
-    <div class="column small-3 medium-1">
-      {{ ::discount.useCount || 0 }}/{{ ::discount.uses }}
-    </div>
-    <div class="column small-3 medium-1">
-      {{ ::discount.productSlug  || 'All' }}
-    </div>
-    <div class="column small-3 medium-1">
-      {{ ::discount.minSubtotal }}/{{ ::discount.maxSubtotal || 'none'}}
-    </div>
-    <div class="column small-3 medium-1">
-      <span class="text-success"><i class="fa fa-truck" ng-class="{'text-error': !discount.freeShipping}"></i></span>
-    </div>
-    <div class="column small-3 medium-1">
-      {{ ::discount.created | moment:"MM/DD/YY" }}
-    </div>
-    <div class="column small-6 medium-2">
-      <button class="alert tiny centered-block" style="min-width: 8rem;" qv-confirm="disabled = true; removeDiscount(discount);" ng-disabled="disabled">Delete</button>
-    </div>
-  </li>
-  <li class="no-stripe no-hover padding-small" ng-show="items.length || paginating">
-    <div class="column small-3">
-      <button class="secondary small-12 tiny" ng-click="loadNext()" ng-disabled="disablePrev">Previous</button>&nbsp;
-    </div>
-    <div class="column small-3">
-      <button class="secondary small-12 tiny" ng-click="reset()" ng-disabled="disableReset">Reset</button>
-    </div>
-    <div class="column small-3">
-      <button class="secondary small-12 tiny" ng-click="loadMore()" ng-disabled="disableMore">Load More +</button>
-    </div>
-    <div class="column small-3">
-      <button class="secondary small-12 tiny" ng-click="loadPrev()" ng-disabled="disableNext">Next</button>
-    </div>
-  </li>
-</ul>
+    <md-content flex="100">
+        <md-list layout="column" ng-if="!items">
+            <md-item>
+                <md-item-content class="text-center" layout="row" layout-align="center center" layout-padding layout-wrap>
+                    <h3 class="Headline">There are no discounts to display.</h3>
+                </md-item-content>
+            </md-item>
+        </md-list>
+        <section>
+            <md-list layout="column">
+                <md-item ng-repeat="discount in items | orderBy:orderBy">
+                    <md-item-content class="extra-padding" layout="row" layout-align="space-between center" layout-padding layout-wrap style="padding-top: 2rem;">
+                        <div flex="20" flex-sm="33">
+                            <md-checkbox ng-model="discount.active" ng-change="saveDiscount(discount)">
+                                Active
+                            </md-checkbox>
+                        </div>
+                        <div flex="20" flex-sm="33">
+                            <span class="capitalize">{{ ::discount.type }}:</span>
+                            <span ng-if="discount.type === 'percentage'">{{ ::discount.percentage }}%</span>
+                            <span ng-if="discount.type === 'value'">{{ ::discount.value | currency }}</span>
+                        </div>
+                        <span flex="40" flex-sm="33">{{ ::discount.code }}</span>
+                        <span class="text-right" flex="20" flex-sm="33">
+                            <md-button class="md-warn md-icon-button" ng-click="confirmRemoveDiscount($event, discount, items)" ng-disabled="discount.disabled" aria-label="Delete discount {{ discount.code }}">
+                                <i class="mdi-action-delete"></i>
+                            </md-button>
+                        </span>
+                        <span flex="20" flex-sm="33">Uses: {{ ::discount.useCount || 0 }}/{{ ::discount.uses }}</span>
+                        <span flex="20" flex-sm="33">Product: {{ ::discount.productSlug || 'All' }}</span>
+                        <span flex="20" flex-sm="33">Min/Max: {{ ::discount.minSubtotal }}/{{ ::discount.maxSubtotal || '∞'}}</span>
+                        <span flex="20" flex-sm="33">Expires: {{ ::discount.expiration | moment:"MM/DD/YY" }}</span>
+                        <span flex>Created: {{ ::discount.created | moment:"MM/DD/YY" }}</span>
+                        <span class="text-success max-5" flex><i class="mdi-maps-local-shipping" ng-class="{'text-error': !discount.freeShipping}"></i></span>
+                    </md-item-content>
+                    <md-divider ng-if="!$last"></md-divider>
+                </md-item>
+            </md-list>
+        </section>
+    </md-content>
+</md-whiteframe>

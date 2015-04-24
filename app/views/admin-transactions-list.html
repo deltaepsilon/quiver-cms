@@ -1,65 +1,53 @@
 <md-whiteframe class="md-whiteframe-z1 relative" layout="column" layout-fill flex>
-  <div layout="row" layout-align="start center" layout-padding>
-    <md-input-container flex>
-      <label for="list-search">Search by Email</label>
-      <input id="list-search" type="text" ng-model="searchTerm" qv-enter="items = items.$orderByChild('userEmail').$startAt(searchTerm).$get(); orderBy = 'userEmail'" ng-focus="searchTerm = undefined;">
-    </md-input-container>    
-
-    <span flex></span>
-    
-    <md-button class="md-icon-button" flex ng-click="items = items.$prev(); orderBy = '-$priority'; query = undefined;" ng-disabled="items.$prevDisabled" aria-label="list back">
-      <i class="mdi-navigation-arrow-back"></i>
-    </md-button>
-    
-    <md-button class="md-icon-button" flex ng-click="items = items.$next(); orderBy = '-$priority'; query = undefined;" ng-disabled="items.$nextDisabled" aria-label="list forward">
-      <i class="mdi-navigation-arrow-forward"></i>
-    </md-button>
-    
-    <md-button class="md-icon-button" flex ng-click="items = items.$more(); orderBy = '-$priority'; query = undefined;" ng-disabled="items.$moreDisabled" aria-label="list load more">
-      <i class="mdi-navigation-expand-more"></i>
-    </md-button>
-    
-    <md-button class="md-icon-button" flex ng-click="items = items.$reset(); orderBy = '-$priority'; query = undefined;" ng-disabled="items.$resetDisabled" aria-label="list reload">
-      <i class="mdi-navigation-refresh"></i>
-    </md-button>
-
-  </div>
-
-  <md-content>
-    <md-list layout="column" ng-if="!items">
-      <md-item>
-        <md-item-content class="text-center" layout="row" layout-align="center center" layout-padding layout-wrap>
-          <h3 class="Headline">There are no transactions to display.</h3>
-        </md-item-content>
-      </md-item>
-    </md-list>
-        
-    <section>
-      <md-list layout="column">
-        <md-item ng-repeat="transaction in items | orderBy:orderBy">
-          <md-item-content class="extra-padding" layout="row" layout-align="space-between center" layout-padding layout-wrap style="padding-top: 2rem;">
-            <md-button class="md-primary md-raised md-icon-button" ui-sref="authenticated.master.admin.transaction({key: transaction.$id, userId: transaction.userId})">
-                <i class="mdi-content-forward"></i>
-            </md-button>
-
-            <a flex ng-href="mailto:{{ ::transaction.userEmail }}">
-                {{ ::transaction.userEmail }}
-            </a>
-            <div flex>
-                <span ng-class="{'text-error': transaction.total && !transaction.charge.success}">{{ ::transaction.total | currency }}</span>
-                <div class="text-error text-xx-small" ng-show="transaction.total && !transaction.charge.success">{{ transaction.charge.message }}</div>
-            </div>
-            <div flex>
-                {{ ::transaction.productCount }} item(s)
-            </div>
-            <div flex>
-                {{ ::transaction.date | moment:"MM/DD/YY hh:mm:ss" }}
-            </div>
-
-          </md-item-content>
-          <md-divider ng-if="!$last"></md-divider>
-        </md-item>
-      </md-list>
-    </section>
-  </md-content>
+    <div layout="row" layout-align="start center" layout-padding>
+        <md-input-container flex>
+            <label for="list-search">Search by Email</label>
+            <input id="list-search" type="text" ng-model="searchTerm" qv-enter="items = items.$orderByChild('userEmail').$startAt(searchTerm).$get(); orderBy = 'userEmail'" ng-focus="searchTerm = undefined;">
+        </md-input-container>
+        <span flex></span>
+        <md-button class="md-icon-button" flex ng-click="items = items.$prev(); orderBy = '-$priority'; query = undefined;" ng-disabled="items.$prevDisabled" aria-label="list back">
+            <i class="mdi-navigation-arrow-back"></i>
+        </md-button>
+        <md-button class="md-icon-button" flex ng-click="items = items.$next(); orderBy = '-$priority'; query = undefined;" ng-disabled="items.$nextDisabled" aria-label="list forward">
+            <i class="mdi-navigation-arrow-forward"></i>
+        </md-button>
+        <md-button class="md-icon-button" flex ng-click="items = items.$more(); orderBy = '-$priority'; query = undefined;" ng-disabled="items.$moreDisabled" aria-label="list load more">
+            <i class="mdi-navigation-expand-more"></i>
+        </md-button>
+        <md-button class="md-icon-button" flex ng-click="items = items.$reset(); orderBy = '-$priority'; query = undefined;" ng-disabled="items.$resetDisabled" aria-label="list reload">
+            <i class="mdi-navigation-refresh"></i>
+        </md-button>
+    </div>
+    <md-content>
+        <md-list layout="column" ng-if="!items">
+            <md-item>
+                <md-item-content class="text-center" layout="row" layout-align="center center" layout-padding layout-wrap>
+                    <h3 class="Headline">There are no transactions to display.</h3>
+                </md-item-content>
+            </md-item>
+        </md-list>
+        <section>
+            <md-list layout="column">
+                <md-item ng-repeat="transaction in items | orderBy:orderBy">
+                    <md-item-content class="extra-padding" layout="row" layout-align="space-between center" layout-padding layout-wrap style="padding-top: 2rem;">
+                        <md-button class="md-primary md-raised md-icon-button" ui-sref="authenticated.master.admin.transaction({key: transaction.$id, userId: transaction.userId})">
+                            <i class="mdi-content-forward"></i>
+                        </md-button>
+                        <a flex ng-href="mailto:{{ ::transaction.userEmail }}">{{ ::transaction.userEmail }}</a>
+                        <div flex>
+                            <span ng-class="{'text-error': transaction.total && !transaction.charge.success}">{{ ::transaction.total | currency }}</span>
+                            <div class="text-error text-xx-small" ng-show="transaction.total && !transaction.charge.success">{{ transaction.charge.message }}</div>
+                        </div>
+                        <div flex>
+                            {{ ::transaction.productCount }} item(s)
+                        </div>
+                        <div flex>
+                            {{ ::transaction.date | moment:"MM/DD/YY hh:mm:ss" }}
+                        </div>
+                    </md-item-content>
+                    <md-divider ng-if="!$last"></md-divider>
+                </md-item>
+            </md-list>
+        </section>
+    </md-content>
 </md-whiteframe>

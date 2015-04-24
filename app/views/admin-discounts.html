@@ -1,73 +1,58 @@
-<div class="column small-12">
-    <h3 class="font-flair">Discounts</h3>
-    <form name="newDiscountForm">
-      <fieldset>
-
-        <div class="column small-12 medium-4">
-          <label for="discount-type">Type</label>
-          <select id="discount-type" ng-model="newDiscount.type" ng-blur="validateNewDiscount()">
-            <option value="percentage">Percentage</option>
-            <option value="value">Value</option>
-          </select>
-        </div>
-
-        <div class="column small-12 medium-4">
-          <div ng-show="newDiscount.type === 'percentage'">
-            <label for="discount-percentage">Percentage</label>
-            <input id="discount-percentage" type="number" min="0" max="100" ng-model="newDiscount.percentage" ng-blur="validateNewDiscount()" placeholder="0-100...">
-          </div>
-          <div ng-show="newDiscount.type === 'value'">
-            <label for="discount-value">Value</label>
-            <input id="discount-value" type="number" ng-model="newDiscount.value" ng-blur="validateNewDiscount()" placeholder="USD...">
-          </div>
-        </div>
-
-        <div class="column small-12 medium-4">
-          <label for="discount-code">Code</label>
-          <input id="discount-code" type="text" ng-model="newDiscount.code" placeholder="Code...">
-        </div>
-
-        <div class="column small-12 medium-4">
-          <label for="discount-expiration">Expiration</label>
-          <input id="discount-expiration" type="date" ng-model="newDiscount.expiration" ng-blur="validateNewDiscount()">
-        </div>
-
-        <div class="column small-12 medium-4">
-          <label for="discount-uses">Uses</label>
-          <input id="discount-uses" type="number" min="1" ng-model="newDiscount.uses" ng-blur="validateNewDiscount()">
-        </div>
-
-        <div class="column small-12 medium-4">
-          <label for="discount-product-slug">Product Slug</label>
-          <input id="discount-product-slug" type="text" ng-model="newDiscount.productSlug" ng-blur="validateNewDiscount()" placeholder="Product slug...">
-        </div>
-
-        <div class="column small-12 medium-4">
-          <label for="discount-min-subtotal">Min Subtotal</label>
-          <input id="discount-min-subtotal" type="number" min="0" ng-model="newDiscount.minSubtotal" ng-blur="validateNewDiscount()" placeholder="Min subtotal...">
-        </div>
-
-        <div class="column small-12 medium-4">
-          <label for="discount-max-subtotal">Max Subtotal</label>
-          <input id="discount-max-subtotal" type="number" min="0" ng-model="newDiscount.maxSubtotal" ng-blur="validateNewDiscount()" placeholder="Max subtotal...">
-        </div>
-
-        <div class="column small-12 medium-4 padding-vertical-x-medium">
-          <label class="left" for="discount-free-shipping">Free Shipping</label>
-          <input id="discount-free-shipping" class="margin-horizontal-small-important" type="checkbox" ng-model="newDiscount.freeShipping" ng-blur="validateNewDiscount()">
-        </div>
-
-        <div class="column small-12">
-          <button ng-click="createDiscount(newDiscount)" ng-disabled="newDiscountForm.$invalid" qv-focus="#discount-type">Create</button>
-        </div>
-
-
-      </fieldset>
-
-    </form>
-
-    <hr ng-show="discounts.length">
-
-</div>
-
-<div class="column small-12" ui-view></div>
+<section>
+    <h3 class="headline">Discounts</h3>
+    <md-whiteframe class="md-whiteframe-z1" layout="row" layout-padding layout-wrap>
+        <form>
+            <fieldset>
+                <div layout="row" layout-align="start start" layout-padding layout-wrap>
+                    <div class="select-wrapper" flex="33" flex-sm="100" style="margin-top: -2px;">
+                        <md-select ng-model="newDiscount.type" ng-blur="validateNewDiscount()" placeholder="Discount Type">
+                            <md-option value="percentage">Percentage</md-option>
+                            <md-option value="value">Value</md-option>
+                            </md-input-container>
+                    </div>
+                    <md-input-container flex="33" flex-sm="100" ng-if="newDiscount.type == 'percentage'">
+                        <label for="discount-percentage">Discount Percentage</label>
+                        <input id="discount-percentage" type="number" min="0" max="100" ng-model="newDiscount.percentage" ng-blur="validateNewDiscount()" placeholder="0-100...">
+                    </md-input-container>
+                    <md-input-container flex="33" flex-sm="100" ng-if="newDiscount.type === 'value'">
+                        <label for="discount-value">Discount Value</label>
+                        <input id="discount-value" type="number" ng-model="newDiscount.value" ng-blur="validateNewDiscount()" placeholder="USD...">
+                    </md-input-container>
+                    <md-input-container flex="33" flex-sm="100">
+                        <label for="discount-code">Code</label>
+                        <input id="discount-code" type="text" ng-model="newDiscount.code" placeholder="Code...">
+                    </md-input-container>
+                    <md-input-container flex="33" flex-sm="100" style="margin-top: -2px;">
+                        <label for="discount-expiration">Expiration</label>
+                        <input id="discount-expiration" type="date" ng-model="newDiscount.expiration" ng-blur="validateNewDiscount()">
+                    </md-input-container>
+                    <md-input-container flex="33" flex-sm="100">
+                        <label for="discount-uses">Uses</label>
+                        <input id="discount-uses" type="number" min="1" ng-model="newDiscount.uses" ng-blur="validateNewDiscount()">
+                    </md-input-container>
+                    <md-input-container flex="33" flex-sm="100">
+                        <label for="discount-product-slug">Required Product Slug</label>
+                        <input id="discount-product-slug" type="text" ng-model="newDiscount.productSlug" ng-blur="validateNewDiscount()" placeholder="Product slug...">
+                    </md-input-container>
+                    <md-input-container flex="33" flex-sm="100">
+                        <label for="discount-min-subtotal">Minimum Subtotal</label>
+                        <input id="discount-min-subtotal" type="number" min="0" ng-model="newDiscount.minSubtotal" ng-blur="validateNewDiscount()" placeholder="Min subtotal...">
+                    </md-input-container>
+                    <md-input-container flex="33" flex-sm="100">
+                        <label for="discount-max-subtotal">Maximum Subtotal</label>
+                        <input id="discount-max-subtotal" type="number" min="0" ng-model="newDiscount.maxSubtotal" ng-blur="validateNewDiscount()" placeholder="Max subtotal...">
+                    </md-input-container>
+                    <div flex="33" flex-sm="100">
+                        <md-checkbox ng-model="newDiscount.freeShipping" ng-blur="validateNewDiscount()" style="margin-top: 19px; margin-bottom: 0px;">
+                            Free Shipping
+                        </md-checkbox>
+                    </div>
+                    <md-button class="md-primary md-raised adjust-line-height max-10" flex ng-click="createDiscount(newDiscount)" ng-disabled="newDiscountForm.$invalid" qv-focus="#discount-type">
+                        Create
+                    </md-button>
+                </div>
+            </fieldset>
+        </form>
+    </md-whiteframe>
+</section>
+<section class="margin-vertical-medium" ui-view></section>

@@ -1,19 +1,18 @@
 .md-select-wrapper {
-  md-select {
-    margin-top: 0px;  
-    margin-bottom: 0px;
-  }
-  
+    md-select {
+        margin-top: 0px;
+        margin-bottom: 0px;
+    }
 }
 
 fieldset {
-  border: 0;
-  padding: 0;
-  margin: 0;
+    border: 0;
+    padding: 0;
+    margin: 0;
 }
 
 md-input-container {
-  &.next-to-select {
-    margin-bottom: 26px;
-  }  
+    &.next-to-select {
+        margin-bottom: 26px;
+    }
 }
