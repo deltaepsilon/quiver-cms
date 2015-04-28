@@ -1,15 +1,12 @@
 <section flex layout="column" layout-align="center center">
     <md-whiteframe class="md-whiteframe-z1" layout="row" layout-align="space-between center" layout-margin layout-padding layout-wrap>
-        <md-button class="md-raised min-14 google-plus login-button" flex ng-click="google()">
+        <md-button class="md-raised min-14 google-plus login-button adjust-line-height" flex ng-click="google()">
             <i class="qv qv-google-plus"></i> &nbsp; Sign in with Google
         </md-button>
-
-        <md-button class="md-raised min-14 facebook login-button" flex ng-click="facebook()">
+        <md-button class="md-raised min-14 facebook login-button adjust-line-height" flex ng-click="facebook()">
             <i class="qv qv-facebook"></i> &nbsp; Sign in with Facebook
         </md-button>
-
         <h3 class="headline" flex="100">Sign in with email</h3>
-
         <form class="no-margin-or-padding" flex="100" name="loginForm">
             <fieldset>
                 <div class="no-margin-or-padding" layout="row" layout-align="center center" layout-margin layout-padding layout-wrap>
@@ -17,32 +14,19 @@
                         <label for="email">Email</label>
                         <input type="email" ng-model="email" placeholder="Email..." required/>
                     </md-input-container>
-
                     <md-input-container flex flex-sm="100">
                         <label for="password">Password</label>
                         <input type="password" ng-model="password" placeholder="Password..." required/>
                     </md-input-container>
-
                     <span class="margin-zero-important padding-zero-important" flex="100"></span>
-
                     <div flex flex-sm="50" layout="row" layout-align="center center">
-                        <md-progress-circular class="invisible"  md-mode="indeterminate" qv-loading target=".login-button"></md-progress-circular>
+                        <md-progress-circular class="invisible" md-mode="indeterminate" qv-loading target=".login-button"></md-progress-circular>
                     </div>
-
                     <md-button class="min-10" id="login-button" class="md-primary login-button" ng-click="logIn(email, password)" ng-disabled="loginForm.$invalid">Sign in</md-button>
-
                     <md-button class="min-10" flex ui-sref="master.nav.register">Register</md-button>
-
                     <md-button class="min-10" flex ui-sref="master.nav.reset">Reset Password</md-button>
                 </div>
-                
-
             </fieldset>
         </form>
-
-        
-
-        
-
     </md-whiteframe>
 </section>

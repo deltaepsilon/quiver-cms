@@ -230,7 +230,7 @@ angular.module('quiverCmsApp')
             },
 
             getSubscriptions: function(query) {
-                return $firebaseArray(FirebaseService.query(new Firebase(firebaseEndpoint + '/logs/subscriptions'), query));
+                return FirebaseService.paginatingArray(new Firebase(firebaseEndpoint + '/logs/subscriptions'), query);
             },
 
             getSubscription: function(key) {
@@ -238,7 +238,7 @@ angular.module('quiverCmsApp')
             },
 
             getShipments: function(query) {
-                return $firebaseArray(FirebaseService.query(new Firebase(firebaseEndpoint + '/logs/shipments'), query));
+                return FirebaseService.paginatingArray(new Firebase(firebaseEndpoint + '/logs/shipments'), query);
             },
 
             getShipment: function(key) {

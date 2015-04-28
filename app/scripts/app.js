@@ -524,17 +524,8 @@ angular.module('quiverCmsApp', [
                     templateUrl: 'views/sidenav-gallery.html',
                     controller: 'ListCtrl',
                     resolve: {
-                        limit: function() {
-                            return 5;
-                        },
-                        getRef: function(AdminService) {
-                            return AdminService.getOriginals;
-                        },
-                        ref: function(AdminService, limit) {
-                            return AdminService.getOriginals({
-                                orderByPriority: true,
-                                limitToLast: limit
-                            });
+                        items: function(AdminService) {
+                            return AdminService.getOriginals().$limit(5).$default().$get();
                         }
                     }
                 },
@@ -884,26 +875,17 @@ angular.module('quiverCmsApp', [
         .state('authenticated.master.admin.subscriptions', { // ***********************  Subscriptions *******************
             abstract: true,
             templateUrl: 'views/admin-subscriptions.html',
-            controller: 'SubscriptionsCtrl'
+            controller: 'SubscriptionsCtrl',
+            resolve: {
+                items: function(AdminService) {
+                    return AdminService.getSubscriptions().$get();
+                }
+            }
         })
         .state('authenticated.master.admin.subscriptions.list', {
             url: '/subscriptions/:search',
             templateUrl: 'views/admin-subscriptions-list.html',
-            controller: 'ListCtrl',
-            resolve: {
-                limit: function() {
-                    return 2;
-                },
-                getRef: function(AdminService) {
-                    return AdminService.getSubscriptions;
-                },
-                ref: function(AdminService, limit) {
-                    return AdminService.getSubscriptions({
-                        orderByPriority: true,
-                        limitToLast: limit
-                    });
-                }
-            }
+            controller: 'ListCtrl'
         })
         .state('authenticated.master.admin.subscription', { // ***********************  Subscriptions *******************
             url: '/subscription/:key',
@@ -923,26 +905,16 @@ angular.module('quiverCmsApp', [
         .state('authenticated.master.admin.shipments', { // **************************  Shipments ************************
             abstract: true,
             templateUrl: 'views/admin-shipments.html',
-            controller: 'ShipmentsCtrl'
+            controller: 'ShipmentsCtrl',
+            resolve: {
+                items: function(AdminService) {
+                    return AdminService.getShipments().$get();
+                }
+            }
         })
         .state('authenticated.master.admin.shipments.list', {
             url: '/shipments/:search',
-            templateUrl: 'views/admin-shipments-list.html',
-            controller: 'ListCtrl',
-            resolve: {
-                limit: function() {
-                    return 10;
-                },
-                getRef: function(AdminService) {
-                    return AdminService.getShipments;
-                },
-                ref: function(AdminService, limit) {
-                    return AdminService.getShipments({
-                        orderByPriority: true,
-                        limitToLast: limit
-                    });
-                }
-            }
+            templateUrl: 'views/admin-shipments-list.html'
         })
         .state('authenticated.master.admin.resources', { // **************************  Resources ************************
             abstract: true,

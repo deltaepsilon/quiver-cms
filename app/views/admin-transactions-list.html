@@ -30,7 +30,7 @@
             <md-list layout="column">
                 <md-item ng-repeat="transaction in items | orderBy:orderBy">
                     <md-item-content class="extra-padding" layout="row" layout-align="space-between center" layout-padding layout-wrap style="padding-top: 2rem;">
-                        <md-button class="md-primary md-raised md-icon-button" ui-sref="authenticated.master.admin.transaction({key: transaction.$id, userId: transaction.userId})">
+                        <md-button class="md-primary md-raised md-icon-button" ui-sref="authenticated.master.admin.transaction({key: transaction.$id, userId: transaction.userId})" aria-label="Go to transaction by {{ transactions.userEmail }}">
                             <i class="mdi-content-forward"></i>
                         </md-button>
                         <a flex ng-href="mailto:{{ ::transaction.userEmail }}">{{ ::transaction.userEmail }}</a>

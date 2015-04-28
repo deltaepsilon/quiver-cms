@@ -1,63 +1,45 @@
 <div layout="row" flex>
-  
-  <md-sidenav layout="column" class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')" ui-view="sidenavLeft"></md-sidenav>
-  
-  <div id="content" layout="column" flex layout-align="start center" layout-fill>
-    
-    <md-toolbar md-scroll-shrink layout="row" layout-align="start center">
-      <md-button ng-click="toggleSidenav('left')" hide-gt-md tabindex="0" aria-label="toggle left nav" style="font-size: 2rem; min-width: 5rem;">
-        <i class="mdi-action-subject"></i>
-      </md-button>
-      
-      <div layout="row" flex class="fill-height">
-        <h2 class="headline tight margin-zero" flex style="margin: 0 0 0 2rem;">
+    <md-sidenav layout="column" class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')" ui-view="sidenavLeft" style="max-height: 100vh;"></md-sidenav>
+    <div id="content" layout="column" flex layout-align="start center" layout-fill>
+        <md-toolbar md-scroll-shrink layout="row" layout-align="start center">
+            <md-button ng-click="toggleSidenav('left')" hide-gt-md tabindex="0" aria-label="toggle left nav" style="font-size: 2rem; min-width: 5rem;">
+                <i class="mdi-action-subject"></i>
+            </md-button>
+            <div layout="row" flex class="fill-height">
+                <h2 class="headline tight margin-zero" flex style="margin: 0 0 0 2rem;">
           <a class="undecorated" href="{{ env.root }}" qv-to-static ng-show="settings">{{ settings.siteTitle || 'Quiver CMS' }}</a>
         </h2>
-
-        <span flex></span>
-
-        <div class="line-height-1" ng-if="$storage.cart.productCount" qv-active>
-          <md-button class="adjust-mdi min-5" ui-sref="master.nav.cart" aria-label="shopping cart" style="margin-top: 3px">
-            <span class="headline" ng-bind="$storage.cart.productCount"></span>
-            <i class="mdi-action-shopping-cart"></i>
-          </md-button>
-        </div>
-        
-
-        <div flex ng-if="!currentUser" qv-active style="max-width: 6rem;">
-          <md-button class="margin-horizontal-small" ui-sref="master.nav.login" style="margin-top: 3px">
-            <i class="mdi-action-input"></i> &nbsp;Login
-          </md-button>
-        </div>
-
-        <div flex ng-if="!currentUser" qv-active style="max-width: 6rem;">
-          <md-button class="margin-horizontal-small" ng-if="!currentUser" ui-sref="master.nav.register" style="margin-top: 3px">
-            Register
-          </md-button>
-        </div>
-        
-        
-
-        <md-button class="adjust-mdi max-16" flex ng-click="toggleSidenav('right')" ng-if="showTOC()" tabindex="0" aria-label="Toggle right nav">
-          <i class="mdi-action-book"></i>
-          <span hide-sm>Table of Contents</span>
-          <span hide-gt-sm>TOC</span>
-        </md-button>
-
-        <md-button class="min-5" ng-click="toggleSidenav('right')" ng-if="isAdminView()" tabindex="0" aria-label="Toggle right nav">
-          <i class="mdi-image-camera-alt"></i>
-        </md-button>
-
-      </div>
-    </md-toolbar>
-
-    <md-content class="md-padding" flex layout-fill qv-background-image="settings.loginImage" states="['master.nav.login', 'master.nav.register', 'master.nav.reset']" style="height: 100vh;">
-      <div flex layout="column" layout-align="center center" layout-fill ui-view="body" autoscroll></div>
-      <span qv-autoscroll scroll-on="scrollToBottom"></span>
-    </md-content>
-
-  </div>
-
-  <md-sidenav layout="column" class="md-sidenav-right md-whiteframe-z2" md-component-id="right" ui-view="sidenavRight"></md-sidenav>
-
+                <span flex></span>
+                <div class="line-height-1" ng-if="$storage.cart.productCount" qv-active>
+                    <md-button class="adjust-mdi min-5" ui-sref="master.nav.cart" aria-label="shopping cart" style="margin-top: 3px">
+                        <span class="headline" ng-bind="$storage.cart.productCount"></span>
+                        <i class="mdi-action-shopping-cart"></i>
+                    </md-button>
+                </div>
+                <div flex ng-if="!currentUser" qv-active style="max-width: 6rem;">
+                    <md-button class="margin-horizontal-small" ui-sref="master.nav.login" style="margin-top: 3px">
+                        <i class="mdi-action-input"></i> &nbsp;Login
+                    </md-button>
+                </div>
+                <div flex ng-if="!currentUser" qv-active style="max-width: 6rem;">
+                    <md-button class="margin-horizontal-small" ng-if="!currentUser" ui-sref="master.nav.register" style="margin-top: 3px">
+                        Register
+                    </md-button>
+                </div>
+                <md-button class="adjust-mdi max-16" flex ng-click="toggleSidenav('right')" ng-if="showTOC()" tabindex="0" aria-label="Toggle right nav">
+                    <i class="mdi-action-book"></i>
+                    <span hide-sm>Table of Contents</span>
+                    <span hide-gt-sm>TOC</span>
+                </md-button>
+                <md-button class="min-5" ng-click="toggleSidenav('right')" ng-if="isAdminView()" tabindex="0" aria-label="Toggle right nav">
+                    <i class="mdi-image-camera-alt"></i>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-content class="md-padding" flex layout-fill qv-background-image="settings.loginImage" states="['master.nav.login', 'master.nav.register', 'master.nav.reset']" style="height: 100vh;">
+            <div flex layout="column" layout-align="center center" layout-fill ui-view="body" autoscroll></div>
+            <span qv-autoscroll scroll-on="scrollToBottom"></span>
+        </md-content>
+    </div>
+    <md-sidenav layout="column" class="md-sidenav-right md-whiteframe-z2" md-component-id="right" ui-view="sidenavRight"></md-sidenav>
 </div>

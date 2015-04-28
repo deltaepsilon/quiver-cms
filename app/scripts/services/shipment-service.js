@@ -8,49 +8,60 @@
  * Service in the quiverCmsApp.
  */
 angular.module('quiverCmsApp')
-  .service('ShipmentService', function (Restangular, env, $firebaseObject, $firebaseArray) {
-    var easypost = env.easypost,
-      firebaseEndpoint = env.firebase.endpoint;
+    .service('ShipmentService', function(Restangular, env, $firebaseObject, $firebaseArray) {
+        var easypost = env.easypost,
+            firebaseEndpoint = env.firebase.endpoint;
 
-    return {
-      getPredefinedParcel: function () {
-        return easypost.predefinedPackages;  
-      },
+        return {
+            getPredefinedParcel: function() {
+                return easypost.predefinedPackages;
+            },
 
-      getDefaultParcel: function () {
-        return easypost.predefinedDefault;
-      },
+            getDefaultParcel: function() {
+                return easypost.predefinedDefault;
+            },
 
-      createAddress: function (address) {
-        return Restangular.one('admin').one('shipment').one('address').post('create', address);
-      },
+            createAddress: function(address) {
+                return Restangular.one('admin').one('shipment').one('address').post('create', address);
+            },
 
-      createShipment: function (shipment) {
-        return Restangular.one('admin').one('shipment').post('create', shipment);
-      },
+            createShipment: function(shipment) {
+                return Restangular.one('admin').one('shipment').post('create', shipment);
+            },
 
-      buyShipment: function (shipmentKey, quoteId, rateId) {
-        return Restangular.one('admin').one('shipment').one(shipmentKey).one('quote').one(quoteId).one('rate').one(rateId).post('buy');
-      },
+            buyShipment: function(shipmentKey, quoteId, rateId) {
+                return Restangular.one('admin').one('shipment').one(shipmentKey).one('quote').one(quoteId).one('rate').one(rateId).post('buy');
+            },
 
-      saveQuote: function (shipmentKey, quote) {
-        var quoteObj = $firebaseObject(new Firebase(firebaseEndpoint + '/logs/shipments/' + shipmentKey + '/quote'));
-        quoteObj = quote;
-        return quoteObj.$save();
-      },
+            saveQuote: function(shipmentKey, quote) {
+                var keys = Object.keys(quote),
+                    i = keys.length,
+                    quoteObj = $firebaseObject(new Firebase(firebaseEndpoint + '/logs/shipments/' + shipmentKey + '/quote'));
 
-      removeQuote: function (shipmentKey) {
-        return $firebaseObject(new Firebase(firebaseEndpoint + '/logs/shipments/' + shipmentKey + '/quote')).$remove();
-      },
+                while (i--) {
+                    if (quote[keys[i]] || quote[keys[i]] === false) {
+                        quoteObj[keys[i]] = quote[keys[i]];
+                    }
+                }
+                return quoteObj.$save();
+            },
 
-      refundShipment: function (shipmentKey, labelKey) {
-        return Restangular.one('admin').one('shipment').one(shipmentKey).one('label').one(labelKey).post('refund');
-      },
+            removeQuote: function(shipmentKey) {
+                return $firebaseObject(new Firebase(firebaseEndpoint + '/logs/shipments/' + shipmentKey + '/quote')).$remove();
+            },
 
-      updateTracking: function (shipmentKey, labelKey, tracking, email, smsEnabled) {
-        return Restangular.one('admin').one('shipment').one(shipmentKey).one('label').one(labelKey).post('tracking', {tracking: tracking, email: email, sms: smsEnabled || false});
-      }
+            refundShipment: function(shipmentKey, labelKey) {
+                return Restangular.one('admin').one('shipment').one(shipmentKey).one('label').one(labelKey).post('refund');
+            },
+
+            updateTracking: function(shipmentKey, labelKey, tracking, email, smsEnabled) {
+                return Restangular.one('admin').one('shipment').one(shipmentKey).one('label').one(labelKey).post('tracking', {
+                    tracking: tracking,
+                    email: email,
+                    sms: smsEnabled || false
+                });
+            }
 
 
-    }
-  });
+        }
+    });

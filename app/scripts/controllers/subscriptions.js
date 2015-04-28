@@ -8,6 +8,6 @@
  * Controller of the quiverCmsApp
  */
 angular.module('quiverCmsApp')
-  .controller('SubscriptionsCtrl', function ($scope) {
-
-  });
+    .controller('SubscriptionsCtrl', function($scope, items) {
+        $scope.items = items;
+    });

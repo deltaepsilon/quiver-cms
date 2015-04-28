@@ -1,80 +1,55 @@
-<div class="column small-12">
-  <h3 class="font-flair left">{{ subscription.title }}</h3>
-  <h5 class="font-flair right margin-vertical-small">
-    <a ui-sref="authenticated.master.admin.user({key: subscription.user.public.id})">{{ subscription.user.preferredEmail || subscription.user.email }}</a>
-  </h5>
-</div>
-
-<hr>
-
-<ul class="column small-12 table-list striped hover padded">
-  <li>
-    <div class="column small-12 medium-6">Date</div>
-    <div class="column small-12 medium-6">{{ subscription.date | moment:"MM/DD/YYYY" }}</div>
-  </li>
-  <li>
-    <div class="column small-12 medium-6">Email</div>
-    <div class="column small-12 medium-6">
-      <a href="mailto:{{ subscription.user.preferredEmail || subscription.user.email }}">{{ subscription.user.preferredEmail || subscription.user.email }}</a>
-    </div>
-  </li>
-  <li>
-    <div class="column small-12 medium-6">Expiration</div>
-    <div class="column small-12 medium-6">
-      <span ng-show="userSubscription.expiration">{{ userSubscription.expiration | moment:"MM/DD/YYYY" }}</span>
-      <span ng-show="!userSubscription.expiration">Subscription Not Started</span>
-    </div>
-  </li>
-  <li>
-    <div class="column small-12 medium-6">Original Expiration</div>
-    <div class="column small-12 medium-6">
-      <span ng-show="userSubscription.originalExpiration">{{ userSubscription.originalExpiration | moment:"MM/DD/YYYY" }}</span>
-      <span ng-show="!userSubscription.originalExpiration">Not edited...</span>
-    </div>
-  </li>
-  <li>
-    <div class="column small-12 medium-6">Days</div>
-    <div class="column small-12 medium-6">{{ subscription.subscriptionDays }}</div>
-  </li>
-  <li>
-    <div class="column small-12 medium-6">Price</div>
-    <div class="column small-12 medium-6">{{ subscription.price | currency }}</div>
-  </li>
-  <li>
-    <div class="column small-12 medium-6">Hashtags</div>
-    <div class="column small-12 medium-6">
-      <ul class="inline-list">
-        <li ng-repeat="hashtag in subscription.hashtags">{{ hashtag.value }}</li>
-      </ul>
-    </div>
-  </li>
-  
-  
-  <li>
-    <div class="column small-12 medium-6"></div>
-    <div class="column small-12 medium-6"></div>
-  </li>
-</ul>
-
-<hr>
-
-
-
-<ul class="column small-12 table-list">
-  <li>
-    <h5 class="font-flair">Actions</h5>
-  </li>
-  <li class="padding-vertical-small" ng-show="userSubscription.expiration">
-    <input id="extra-days" ng-show="userSubscription.expiration" type="number" ng-model="extraDays" placeholder="Add or substract days...">
-    <button class="small" ng-click="addDays(userSubscription, extraDays); extraDays = undefined;" ng-disabled="!extraDays" qv-focus="#extra-days">Add Days</button>
-
-  </li>
-  <li class="padding-vertical-small" ng-show="userSubscription.expiration">
-    <button class="small small-12" ng-click="resetSubscription(userSubscription)">Reset Subscription</button>
-
-  </li>
-  <li class="padding-vertical-small">
-    <button class="small alert small-12" qv-confirm="removeSubscription()" confirmations="['Are you sure?', 'This is not recoverable!', 'Ok. I will take care of it.']">Delete Subscription</button>
-
-  </li>
-</ul>
+<section>
+    <h3 class="headline">{{ subscription.title }}</h3>
+    <md-whiteframe class="md-whiteframe-z1" layout="row" layout-align="start start" layout-padding layout-wrap>
+        <a class="bold" flex ui-sref="authenticated.master.admin.user({key: subscription.user.public.id})">{{ subscription.user.preferredEmail || subscription.user.email }}</a>
+        <md-button class="md-warn md-raised md-icon-button" ng-click="confirmRemoveSubscription($event)">
+            <i class="mdi-action-delete"></i>
+        </md-button>
+        <span class="padding-zero-important" flex="100"></span>
+        <div flex="50" flex-sm="100" layout="row" layout-align="start start" layout-padding layout-wrap>
+            <span flex="50">Date:</span>
+            <span class="text-right" flex>{{ subscription.date | moment:"MM/DD/YYYY" }}</span>
+            <span flex="50">Email</span>
+            <div class="text-right" flex>
+                <a href="mailto:{{ subscription.user.preferredEmail || subscription.user.email }}">{{ subscription.user.preferredEmail || subscription.user.email }}</a>
+            </div>
+            <span flex="50">Expiration</span>
+            <div class="text-right" flex>
+                <span ng-show="userSubscription.expiration">{{ userSubscription.expiration | moment:"MM/DD/YYYY" }}</span>
+                <span ng-show="!userSubscription.expiration">Subscription Not Started</span>
+            </div>
+            <span flex="50">Original Expiration</span>
+            <div class="text-right" flex>
+                <span ng-show="userSubscription.originalExpiration">{{ userSubscription.originalExpiration | moment:"MM/DD/YYYY" }}</span>
+                <span ng-show="!userSubscription.originalExpiration">Not edited...</span>
+            </div>
+            <span flex="50">Price</span>
+            <span class="text-right" flex>{{ subscription.price | currency }}</span>
+            <span flex="50">Days</span>
+            <span class="text-right" flex>{{ subscription.subscriptionDays }}</span>
+            <span flex="50">Slugs</span>
+            <div class="text-right" flex>
+                <ul class="padding-zero margin-zero">
+                    <li ng-repeat="hashtag in subscription.hashtags">{{ hashtag.value }}</li>
+                </ul>
+            </div>
+            <span flex="50"></span>
+            <span class="text-right" flex></span>
+            <span flex="50"></span>
+            <span class="text-right" flex></span>
+        </div>
+        <form name="subscriptionForm" flex="50" flex-sm="100" layout="row" layout-align="start start" layout-padding layout-wrap>
+            <md-input-container flex ng-if="userSubscription.expiration">
+                <label for="extra-days">+/- Subscription Days</label>
+                <input id="extra-days" type="number" ng-model="userSubscription.extraDays" required>
+            </md-input-container>
+            <md-button class="md-primary md-raised md-icon-button" flex ng-if="userSubscription.expiration" ng-click="addDays(userSubscription);" ng-disabled="subscriptionForm.$invalid" qv-focus="#extra-days" style="margin: 2rem -1px 0 2rem;" aria-label="Add or substract subscription days">
+                <i class="mdi-content-add-box"></i>
+            </md-button>
+            <span flex="100"></span>
+            <md-button class="md-primary md-raised adjust-line-height max-18" flex ng-click="confirmResetSubscription($event, userSubscription)" ng-if="userSubscription.expiration">
+                Reset Subscription
+            </md-button>
+        </form>
+    </md-whiteframe>
+</section>
