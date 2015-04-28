@@ -1,7 +1,21 @@
-<div class="column small-12">
-  <h3 class="font-flair">Resources</h3>
-
-  <hr>
-</div>
-
-<div class="column small-12" ui-view></div>
+<section>
+    <h3 class="headline">Resources</h3>
+    <form name="newResourceForm">
+        <fieldset>
+            <md-whiteframe class="md-whiteframe-z1" layout="row" layout-align="start center" layout-padding layout-wrap>
+                <md-input-container flex>
+                    <label for="uri">New URI</label>
+                    <input id="uri" type="text" ng-model="newResource.uri" required>
+                </md-input-container>
+                <md-input-container class="max-20" flex>
+                    <label for="ttl">Time To Live (days)</label>
+                    <input id="ttl" type="number" ng-model="newResource.ttl">
+                </md-input-container>
+                <md-button class="md-primary md-raised md-icon-button" flex ng-click="createResource(newResource, user.$id, user.email, items); newResource = undefined;" ng-disabled="newResourceForm.$invalid" qv-focus="#uri" aria-label="Create resource">
+                    <i class="mdi-content-add-box"></i>
+                </md-button>
+            </md-whiteframe>
+        </fieldset>
+    </form>
+    <div ui-view></div>
+</section>

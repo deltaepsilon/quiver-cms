@@ -919,26 +919,16 @@ angular.module('quiverCmsApp', [
         .state('authenticated.master.admin.resources', { // **************************  Resources ************************
             abstract: true,
             templateUrl: 'views/admin-resources.html',
-            controller: 'ResourcesCtrl'
+            controller: 'ResourcesCtrl',
+            resolve: {
+                items: function(AdminService) {
+                    return AdminService.getResources().$get();
+                }
+            }
         })
         .state('authenticated.master.admin.resources.list', {
             url: '/resources/:search',
-            templateUrl: 'views/admin-resources-list.html',
-            controller: 'ListCtrl',
-            resolve: {
-                limit: function() {
-                    return 10;
-                },
-                getRef: function(AdminService) {
-                    return AdminService.getResources;
-                },
-                ref: function(AdminService, limit) {
-                    return AdminService.getResources({
-                        orderByPriority: true,
-                        limitToLast: limit
-                    });
-                }
-            }
+            templateUrl: 'views/admin-resources-list.html'
         })
         .state('authenticated.master.admin.messages', { // ***************************  Messages *************************
             abstract: true,

@@ -1,52 +1,54 @@
-<input type="text" ng-model="searchTerm" ng-focus="searchTerm = '';" placeholder="Search: Click ENTER to search server by email..." qv-enter="search({orderByChild: 'userEmail', limitToFirst: 100, startAt: searchTerm})"/>
-
-<ul class="table-list padded hover striped">
-  <li ng-repeat="resource in items | orderBy:'$priority':'desc'" ng-class="{disabled: resource.disabled}">
-    <div class="column small-12 medium-3">
-      {{ resource.userEmail }}
+<md-whiteframe class="md-whiteframe-z1" layout="row" layout-padding layout-wrap>
+    <div flex="100" layout="row" layout-align="start center" layout-padding>
+        <md-input-container flex>
+            <label for="list-search">Search by Email</label>
+            <input id="list-search" type="text" ng-model="searchTerm" qv-enter="items = items.$orderByChild('userEmail').$limit(100).$startAt(searchTerm).$get(); orderBy = 'userEmail'" ng-focus="searchTerm = undefined;">
+        </md-input-container>
+        <span flex></span>
+        <md-button class="md-icon-button" flex ng-click="items = items.$prev(); orderBy = '-$priority'; searchTerm = undefined;" ng-disabled="items.$prevDisabled" aria-label="list back">
+            <i class="mdi-navigation-arrow-back"></i>
+        </md-button>
+        <md-button class="md-icon-button" flex ng-click="items = items.$next(); orderBy = '-$priority'; searchTerm = undefined;" ng-disabled="items.$nextDisabled" aria-label="list forward">
+            <i class="mdi-navigation-arrow-forward"></i>
+        </md-button>
+        <md-button class="md-icon-button" flex ng-click="items = items.$more(); orderBy = '-$priority'; searchTerm = undefined;" ng-disabled="items.$moreDisabled" aria-label="list load more">
+            <i class="mdi-navigation-expand-more"></i>
+        </md-button>
+        <md-button class="md-icon-button" flex ng-click="items = items.$reset(); orderBy = '-$priority'; searchTerm = undefined;" ng-disabled="items.$resetDisabled" aria-label="list reload">
+            <i class="mdi-navigation-refresh"></i>
+        </md-button>
     </div>
-    <div class="column small-12 medium-3">
-      <a href="/resource/{{ resource.$id }}" target="_blank" ng-disabled="resource.disabled">{{ resource.$id }}</a>
-    </div>
-    <div class="column small-12 medium-3">
-      <span ng-show="resource.ttl">ttl: {{ resource.ttl }}</span>
-      &nbsp;
-    </div>
-    <div class="column small-12 medium-3 medium-text-right">
-      <button class="tiny alert" style="min-width: 6rem;" qv-confirm="resource.disabled; remove(resource);">Delete</button>
-    </div>
-    <div class="column small-12">
-      <hr>
-    </div>
-    <div ng-repeat="log in resource.logs">
-      <div class="column small-12 medium-2">
-        {{ log.date | moment:"MM/DD/YYYY hh:mm:ss" }}
-      </div>
-      <div class="column small-12 medium-2">
-        {{ log.ip }}
-      </div>
-      <div class="column small-12 medium-3">
-        {{ log.ga }}
-      </div>
-      <div class="column small-12 medium-5">
-        {{ log.fingerprint }}
-      </div>
-
-    </div>
-    
-  </li>
-  <li class="no-stripe no-hover padding-small" ng-show="items.length || paginating">
-      <div class="column small-3">
-        <button class="secondary small-12 tiny" ng-click="loadNext()" ng-disabled="disablePrev">Previous</button>&nbsp;
-      </div>
-      <div class="column small-3">
-        <button class="secondary small-12 tiny" ng-click="reset()" ng-disabled="disableReset">Reset</button>
-      </div>
-      <div class="column small-3">
-        <button class="secondary small-12 tiny" ng-click="loadMore()" ng-disabled="disableMore">Load More +</button>
-      </div>
-      <div class="column small-3">
-        <button class="secondary small-12 tiny" ng-click="loadPrev()" ng-disabled="disableNext">Next</button>
-      </div>
-    </li>
-</ul>
+    <md-content flex="100">
+        <md-list layout="column" ng-if="!items">
+            <md-item>
+                <md-item-content class="text-center" layout="row" layout-align="center center" layout-padding layout-wrap>
+                    <h3 class="Headline">There are no resources to display.</h3>
+                </md-item-content>
+            </md-item>
+        </md-list>
+        <section>
+            <md-list layout="column">
+                <md-item ng-repeat="resource in items | orderBy:orderBy" ng-class="{disabled: resource.disabled}">
+                    <md-item-content class="extra-padding" layout="row" layout-align="space-between center" layout-padding layout-wrap style="padding-top: 2rem;">
+                        <span flex>{{ resource.userEmail }}</span>
+                        <span flex>{{ resource.uri }}</span>
+                        <div flex>
+                            <span ng-if="resource.ttl">ttl: {{ resource.ttl }}</span>
+                        </div>
+                        <a class="max-20" flex ng-href="/resource/{{ resource.$id }}" target="_blank" ng-disabled="resource.disabled">{{ resource.$id }}</a>
+                        <md-button class="md-warn md-icon-button" ng-click="confirmRemoveResource($event, resource);" aria-label="Delete resource {{ resource.uri }}">
+                            <i class="mdi-action-delete"></i>
+                        </md-button>
+                        <div flex="100" ng-repeat="log in resource.logs" layout="row" layout-padding layout-wrap>
+                            <span class="max-16" flex>{{ log.date | moment:"MM/DD/YYYY hh:mm:ss" }}</span>
+                            <span class="max-10" flex>{{ log.ip }}</span>
+                            <span class="max-22" flex>{{ log.ga }}</span>
+                            <span class="text-right" flex>{{ log.fingerprint }}</span>
+                        </div>
+                    </md-item-content>
+                    <md-divider ng-if="!$last"></md-divider>
+                </md-item>
+            </md-list>
+        </section>
+    </md-content>
+</md-whiteframe>

@@ -1,13 +1,10 @@
 <section>
-  <div layout="row" layout-align="start center">
-    <h3 class="headline" flex ng-class="{'disabled': $storage.hideProductDetails}">Product Details</h3>
-
-    <md-button class="md-primary md-raised md-icon-button" flex ng-click="$storage.hideProductDetails = !$storage.hideProductDetails" aria-label="Hide product details">
-        <i ng-class="{'mdi-navigation-expand-less': $storage.hideProductDetails, 'mdi-navigation-expand-more': !$storage.hideProductDetails}"></i>
-    </md-button>
-
-  </div>
-
+    <div layout="row" layout-align="start center">
+        <h3 class="headline" flex ng-class="{'disabled': $storage.hideProductDetails}">Product Details</h3>
+        <md-button class="md-primary md-raised md-icon-button" flex ng-click="$storage.hideProductDetails = !$storage.hideProductDetails" aria-label="Hide product details">
+            <i ng-class="{'mdi-navigation-expand-less': $storage.hideProductDetails, 'mdi-navigation-expand-more': !$storage.hideProductDetails}"></i>
+        </md-button>
+    </div>
     <form ng-if="!$storage.hideProductDetails">
         <fieldset>
             <md-whiteframe class="md-whiteframe-z1" layout="row" layout-align="space-between start" layout-padding layout-wrap>
@@ -15,19 +12,15 @@
                     <label for="title">Title</label>
                     <input id="title" type="text" ng-model="product.title" ng-model-options="{debounce: {'default': 500}}">
                 </md-input-container>
-
                 <md-button class="md-primary md-raised min-12 max-12 adjust-line-height" flex ng-show="product.active && product.isValid" ng-click="product.active = false">Active</md-button>
                 <md-button class="md-warn md-raised min-12 max-12 adjust-line-height" flex ng-show="product.active && !product.isValid" ng-click="product.active = false">Product Invalid!</md-button>
                 <md-button class="md-secondary md-raised min-12 max-12 adjust-line-height" flex ng-show="!product.active && product.isValid" ng-click="product.active = true">Activate?</md-button>
                 <md-button class="md-raised min-12 max-12 adjust-line-height" flex ng-show="!product.active && !product.isValid">Inactive</md-button>
-
                 <span class="padding-zero-important" flex="100"></span>
-
                 <md-input-container flex flex-sm="100">
                     <label for="slug">Slug</label>
                     <input id="slug" type="text" ng-model="product.slug" ng-change="slugify(); checkValidity()" ng-model-options="{debounce: {'default': 500}}">
                 </md-input-container>
-
                 <div class="md-select-wrapper" flex flex-sm="100" style="margin-top: 22px;">
                     <md-select id="product-type" name="product-type" class="margin-zero" flex="20" ng-model="product.type" ng-change="checkValidity()">
                         <md-option value="">Product Type...</md-option>
@@ -37,76 +30,52 @@
                         <md-option value="gift">Gift</md-option>
                     </md-select>
                 </div>
-
                 <md-input-container flex flex-sm="100">
                     <label for="product-price">Price</label>
                     <input id="product-price" type="number" name="product-price" ng-model="product.price" placeholder="Price in USD..." ng-change="checkValidity()">
                 </md-input-container>
-
                 <md-input-container flex flex-sm="100">
                     <label for="product-inventory">Inventory</label>
                     <input id="product-inventory" type="number" placeholder="Total inventory..." ng-model="product.inventory">
                 </md-input-container>
-                
                 <div flex>
                     <md-checkbox flex ng-model="product.taxable">
                         Taxable?
                     </md-checkbox>
                 </div>
-
                 <md-whiteframe class="md-whiteframe-z0 relative" flex="100" layout="row" ng-if="product.type && product.type !== 'physical'">
-
                     <md-input-container flex ng-if="product.type === 'digital'">
-                      <label for="product-uri">Download URI</label>
-                      <input id="product-uri" type="text" name="product-uri" ng-model="product.downloadUri" placeholder="Download link..." ng-change="checkValidity()">
+                        <label for="product-uri">Download URI</label>
+                        <input id="product-uri" type="text" name="product-uri" ng-model="product.downloadUri" placeholder="Download link..." ng-change="checkValidity()">
                     </md-input-container>
-
                     <md-input-container flex ng-if="product.type === 'subscription'">
-                      <label for="product-subscription-days">Subscription Days (0 = no time limit)</label>
-                      <input id="product-subscription-days" type="number" name="product-subscription-days" ng-model="product.subscriptionDays" placeholder="Subscription days..." ng-change="checkValidity()">                      
+                        <label for="product-subscription-days">Subscription Days (0 = no time limit)</label>
+                        <input id="product-subscription-days" type="number" name="product-subscription-days" ng-model="product.subscriptionDays" placeholder="Subscription days..." ng-change="checkValidity()">
                     </md-input-container>
-
                     <md-select id="product-subscription-type" class="max-16" flex ng-model="product.subscriptionType" ng-if="product.type === 'subscription'" placeholder="Subscription Type" required>
                         <md-option value="">Subscription type...</md-option>
                         <md-option value="content">Content Limited</md-option>
                         <md-option value="interaction">Interaction Limited</md-option>
                     </md-select>
-
                     <md-input-container flex ng-if="product.type === 'gift'">
-                      <label for="product-discount">Gift Value</label>
-                      <input id="product-discount" type="number" name="product-discount" ng-model="product.discount" placeholder="Discount in USD..." ng-change="checkValidity()">
+                        <label for="product-discount">Gift Value</label>
+                        <input id="product-discount" type="number" name="product-discount" ng-model="product.discount" placeholder="Discount in USD..." ng-change="checkValidity()">
                     </md-input-container>
-
                 </md-whiteframe>
-
                 <md-whiteframe class="md-whiteframe-z2 margin-vertical-medium" flex="50" flex-sm="100" layout="row" layout-padding layout-wrap>
                     <h4 class="margin-zero-important" flex>Hashtags</h4>
-
                     <div flex="100">
                         <md-chips flex ng-model="productHashtags" md-on-append="addHashtag($chip)">
-                            <md-autocomplete
-                                md-selected-item="selectedHashtag" 
-                                md-search-text="searchText" 
-                                md-no-cache="true"
-                                md-items="hashtag in searchHashtags(searchText)" 
-                                md-item-text="hashtag.value"
-                                placeholder="Add hashtag..."
-                            >
+                            <md-autocomplete md-selected-item="selectedHashtag" md-search-text="searchText" md-no-cache="true" md-items="hashtag in searchHashtags(searchText)" md-item-text="hashtag.value" placeholder="Add hashtag...">
                                 <span md-highlight-text="searchText" md-highlight-flags="^i">{{ hashtag.value }}</span>
                             </md-autocomplete>
-
                             <md-chip-template>
                                 <strong>{{ $chip.value }}</strong>
                             </md-chip-template>
-
                         </md-chips>
-
                     </div>
-                      
                 </md-whiteframe>
-
                 <span flex="5" flex-sm="100"></span>
-
                 <md-whiteframe class="md-whiteframe-z2 relative margin-vertical-medium" flex layout="row" layout-padding layout-wrap ng-if="product.featuredImage">
                     <h4 class="margin-zero-important" flex>Featured Image</h5>
 
@@ -115,7 +84,7 @@
                     </md-button>
                   
                     <div flex="100">
-                        <img ng-src="{{ product.featuredImage.Versions.small.Key || product.featuredImage.Key | s3Link:files.Name}}" alt="{{ product.featuredImage.Name }}"/>
+                        <img ng-src="{{ product.featuredImage.Versions.small.Key || product.featuredImage.Key | s3Link:bucket}}" alt="{{ product.featuredImage.Name }}"/>
                     </div>
 
                 </md-whiteframe>   
@@ -206,193 +175,136 @@
     <md-whiteframe class="md-whiteframe-z2 relative margin-vertical-medium" flex="100" layout="row" layout-padding layout-wrap ng-if="!$storage.hideProductOptions">
 
         <h4 flex>Options</h4>
-
-        <md-button class="md-primary md-raised adjust-line-height max-12" flex ng-click="addOptionGroup()">
-            <i class="mdi-content-add"></i> Option Group
-        </md-button>
-
-        <md-list flex="100">
-            <md-item ng-repeat="group in productOptionGroups">
-                <md-item-content class="padding-vertical-x-small" layout="row" layout-align="start center" layout-wrap>
-                    <md-input-container flex>
-                        <label for="option-group-name-{{ $index }}">Option Group #{{ $index }} Name</label>
-                        <input id="option-group-name-{{ $index }}" type="text" ng-model="group.name">
-                    </md-input-container>
-
-                    <md-button class="md-warn md-raised md-icon-button" ng-click="removeOptionGroup(group)" aria-label="Remove option group">
-                        <i class="mdi-action-delete"></i>
+                    <md-button class="md-primary md-raised adjust-line-height max-12" flex ng-click="addOptionGroup()">
+                        <i class="mdi-content-add"></i> Option Group
                     </md-button>
-
-                    <md-input-container flex="100">
-                        <label for="option-group-new-name-{{ $index }}">New Option Name</label>
-                        <input id="option-group-new-name-{{ $index }}" type="text" placeholder="Click ENTER to submit..." ng-model="newOptionName" qv-enter="addOption(group, newOptionName); newOptionName = undefined;">
-                    </md-input-container>
-
-                    <div flex="100">
-                        <div layout="row" layout-align="space-between center" layout-padding layout-wrap ng-repeat="option in group.options">
-                            <strong flex>{{ option.name }}</strong>
-
-                            <md-input-container flex>
-                                <label for="option-price-difference-{{ $index }}-{{ $parent.$index }}">Price Difference</label>
-                                <input id="option-price-difference-{{ $index }}-{{ $parent.$index }}" type="number" ng-model="option.priceDifference" ng-change="saveOption(group, option)" ng-model-options="{'debounce': {'default': 300}}" title="Option Price Difference">
-                            </md-input-container>
-
-                            <div flex>
-                                <md-checkbox ng-model="option.shipped" ng-change="saveOption(group, option)">
-                                    Shipped?
-                                </md-checkbox>
-                            </div>
-
-                            <md-button class="md-warn md-icon-button" flex ng-click="removeOption(group, option)" aria-label="Remove option">
-                                <i class="mdi-action-delete"></i>
-                            </md-button>
-
-
-
-                        </div>
-                    </div>
-
-                </md-item-content>
-                <md-divider ng-if="!$last"></md-divider>
-            </md-item>
-        </md-list>
-
-    </md-whiteframe>
-
-
+                    <md-list flex="100">
+                        <md-item ng-repeat="group in productOptionGroups">
+                            <md-item-content class="padding-vertical-x-small" layout="row" layout-align="start center" layout-wrap>
+                                <md-input-container flex>
+                                    <label for="option-group-name-{{ $index }}">Option Group #{{ $index }} Name</label>
+                                    <input id="option-group-name-{{ $index }}" type="text" ng-model="group.name">
+                                </md-input-container>
+                                <md-button class="md-warn md-raised md-icon-button" ng-click="removeOptionGroup(group)" aria-label="Remove option group">
+                                    <i class="mdi-action-delete"></i>
+                                </md-button>
+                                <md-input-container flex="100">
+                                    <label for="option-group-new-name-{{ $index }}">New Option Name</label>
+                                    <input id="option-group-new-name-{{ $index }}" type="text" placeholder="Click ENTER to submit..." ng-model="newOptionName" qv-enter="addOption(group, newOptionName); newOptionName = undefined;">
+                                </md-input-container>
+                                <div flex="100">
+                                    <div layout="row" layout-align="space-between center" layout-padding layout-wrap ng-repeat="option in group.options">
+                                        <strong flex>{{ option.name }}</strong>
+                                        <md-input-container flex>
+                                            <label for="option-price-difference-{{ $index }}-{{ $parent.$index }}">Price Difference</label>
+                                            <input id="option-price-difference-{{ $index }}-{{ $parent.$index }}" type="number" ng-model="option.priceDifference" ng-change="saveOption(group, option)" ng-model-options="{'debounce': {'default': 300}}" title="Option Price Difference">
+                                        </md-input-container>
+                                        <div flex>
+                                            <md-checkbox ng-model="option.shipped" ng-change="saveOption(group, option)">
+                                                Shipped?
+                                            </md-checkbox>
+                                        </div>
+                                        <md-button class="md-warn md-icon-button" flex ng-click="removeOption(group, option)" aria-label="Remove option">
+                                            <i class="mdi-action-delete"></i>
+                                        </md-button>
+                                    </div>
+                                </div>
+                            </md-item-content>
+                            <md-divider ng-if="!$last"></md-divider>
+                        </md-item>
+                    </md-list>
+                </md-whiteframe>
 </section>
-
 <section class="margin-vertical-medium" ng-if="usingMatrix()">
     <div layout="row" layout-align="start center">
         <h3 class="headline" flex ng-class="{'disabled': $storage.hideInventoryMatrix}">Inventory Matrix</h3>
-
         <md-button class="md-primary md-raised md-icon-button" flex ng-click="$storage.hideInventoryMatrix = !$storage.hideInventoryMatrix" aria-label="Hide inventory matrix">
             <i ng-class="{'mdi-navigation-expand-less': $storage.hideInventoryMatrix, 'mdi-navigation-expand-more': !$storage.hideInventoryMatrix}"></i>
         </md-button>
-
     </div>
-
     <md-whiteframe class="md-whiteframe-z2" flex="100" layout="row" layout-padding ng-if="!$storage.hideInventoryMatrix">
         <fieldset flex>
-
             <h4>Inventory Matrix</h4>
-
             <md-list>
                 <md-item ng-repeat="item in productOptionsMatrix">
                     <md-item-content layout="row" layout-align="space-between center" layout-padding layoutwrap>
-
-                    <span flex>{{ item.name }}</span>
-
-                    <md-input-container flex ng-show="product.inventory !== 0 && !product.inventory">
-                        <label for="item-inventory-{{ $index }}">Item Inventory</label>
-                        <input id="item-inventory-{{ $index }}" type="number" ng-model="item.inventory">
-                    </md-input-container>
-
-                    <span flex>
+                        <span flex>{{ item.name }}</span>
+                        <md-input-container flex ng-show="product.inventory !== 0 && !product.inventory">
+                            <label for="item-inventory-{{ $index }}">Item Inventory</label>
+                            <input id="item-inventory-{{ $index }}" type="number" ng-model="item.inventory">
+                        </md-input-container>
+                        <span flex>
                         <span ng-hide="item.inventory === 0">{{ item.inventory || '∞' }}</span>
-                          <span ng-show="item.inventory === 0">0</span>
-                          <span> @ {{ product.price + item.priceDifference || 0 | currency }}</span>      
-                    </span>
-
-
-
+                        <span ng-show="item.inventory === 0">0</span>
+                        <span> @ {{ product.price + item.priceDifference || 0 | currency }}</span>
+                        </span>
                     </md-item-content>
                     <md-divider ng-if="!$last"></md-divider>
-
                 </md-item>
-
             </md-list>
-
         </fieldset>
     </md-whiteframe>
-
 </section>
-
 <section class="margin-vertical-medium" ng-if="productImages.length">
     <div layout="row" layout-align="start center">
         <h3 class="headline" flex ng-class="{'disabled': $storage.hideProductImages}">Product Images</h3>
-
         <md-button class="md-primary md-raised md-icon-button" flex ng-click="$storage.hideProductImages = !$storage.hideProductImages" aria-label="Hide product images">
             <i ng-class="{'mdi-navigation-expand-less': $storage.hideProductImages, 'mdi-navigation-expand-more': !$storage.hideProductImages}"></i>
         </md-button>
-
     </div>
-
     <md-whiteframe class="md-whiteframe-z1" layout="row" layout-align="start start" layout-padding layout-wrap ng-if="!$storage.hideProductImages">
         <div flex="33" flex-sm="100" ng-repeat="image in productImages">
             <img class="cursor-pointer" ng-click="removeImage(image)" ng-src="{{ image.Versions.small.Key | s3Link:files.Name }}" alt="{{ image.Name | deSlug }}" />
         </div>
-
     </md-whiteframe>
-
 </section>
-
 <section class="margin-vertical-medium" ng-if="$storage.clipboard.length">
     <div layout="row" layout-align="start center">
         <h3 class="headline" flex ng-class="{'disabled': $storage.hideProductClipboard}">Clipboard</h3>
-
         <md-button class="md-primary md-raised md-icon-button" flex ng-click="$storage.hideProductClipboard = !$storage.hideProductClipboard" aria-label="Hide product clipboard">
             <i ng-class="{'mdi-navigation-expand-less': $storage.hideProductClipboard, 'mdi-navigation-expand-more': !$storage.hideProductClipboard}"></i>
         </md-button>
-
     </div>
-
     <md-whiteframe class="md-whiteframe-z1" layout="row" layout-align="start start" layout-padding layout-wrap ng-if="!$storage.hideProductClipboard">
         <div class="relative" flex="33" flex-sm="100" ng-repeat="file in $storage.clipboard">
             <div qv-media="https://s3.amazonaws.com/{{ files.Name }}/{{ file.Versions.small.Key || file.Key }}" alt="{{ file.Key | filename }}"></div>
-
             <div class="background-highlight8 padding-small text-right absolute top" style="padding-top: 1.5rem;">
                 <md-button class="md-raised md-primary md-icon-button" ng-click="addFromClipboard(file)" aria-label="Add image to post">
                     <i class="mdi-content-add"></i>
                 </md-button>
-
                 <md-button class="md-raised md-accent md-icon-button" ng-click="makeFeaturedImage(file)" ng-disabled="file.Key == product.featuredImage.Key" aria-label="Make featured image">
                     <i class="mdi-action-favorite"></i>
                 </md-button>
-
                 <md-button class="md-raised md-warn md-icon-button" ng-click="removeFromClipboard(file)" aria-label="Remove image from clipboard">
                     <i class="mdi-action-delete"></i>
                 </md-button>
-
             </div>
-
         </div>
-        
     </md-whiteframe>
-
 </section>
-
 <section class="margin-vertical-medium">
     <div layout="row" layout-align="start center">
         <h3 class="headline" flex ng-class="{'disabled': $storage.hideProductDescription}">
             <span>Description</span>
             <span class="text-xx-small">(<a href="http://commonmark.org/" target="_blank">CommonMark compatible</a>)</span>
         </h3>
-
         <md-button class="md-primary md-raised md-icon-button margin-horizontal-small" flex ng-click="textMode = !textMode" ng-if="!$storage.hideProductDescription" aria-label="Toggle text mode" style="min-width: 10rem !important;">
             <span ng-show="textMode">Preview Mode</span>
-          <span ng-hide="textMode">Text Mode</span>
+            <span ng-hide="textMode">Text Mode</span>
         </md-button>
-
         <md-button class="md-primary md-raised md-icon-button" flex ng-click="$storage.hideProductDescription = !$storage.hideProductDescription" aria-label="Hide product description">
             <i ng-class="{'mdi-navigation-expand-less': $storage.hideProductDescription, 'mdi-navigation-expand-more': !$storage.hideProductDescription}"></i>
         </md-button>
-
     </div>
-
     <md-whiteframe class="md-whiteframe-z1" layout="row" layout-align="start start" layout-padding layout-wrap ng-if="!$storage.hideProductDescription">
         <md-input-container flex="100">
             <label for="product-excerpt">Product Excerpt</label>
             <textarea id="product-excerpt" style="min-height: 5rem;" ng-model="product.description.excerpt" ng-model-options="{debounce: {'default': 500, 'blur': 0}}" placeholder="Product excerpt..."></textarea>
-        </md-input-container> 
-
+        </md-input-container>
         <md-input-container flex="100" ng-if="textMode">
             <label for="product-description">Product Description</label>
             <textarea id="product-description" class="small-12 background-secondary4 padding-small" style="min-height: 40rem;" delay="300" ng-model="product.description.markdown"></textarea>
         </md-input-container>
-
         <div flex="100" ng-if="!textMode" class="background-secondary4 padding-small markdown" style="height: 40rem; overflow: auto;" delay="300" contenteditable="true" ng-model="product.description.markdown" markdown-editable extensions="video"></div>
-        
     </md-whiteframe>
-
 </section>

@@ -1,95 +1,70 @@
 <section>
     <div layout="row" layout-align="start center">
         <h3 class="headline" flex ng-class="{'disabled': $storage.hideFileUpload}">File Upload</h3>
-
         <md-button class="md-primary md-raised md-icon-button" flex ng-click="$storage.hideFileUpload = !$storage.hideFileUpload" aria-label="Hide file upload">
             <i ng-class="{'mdi-navigation-expand-less': $storage.hideFileUpload, 'mdi-navigation-expand-more': !$storage.hideFileUpload}"></i>
         </md-button>
-
     </div>
-
     <form name="filesForm" flow-init="{target: uploadTarget, simultaneousUploads: 1}" flow-name="flow" ng-if="!$storage.hideFileUpload">
         <fieldset>
             <md-whiteframe class="md-whiteframe-z1" layout="row" layout-align="center center" layout-fill layout-margin layout-padding layout-wrap>
-
                 <md-whiteframe class="md-whiteframe-z3 background-highlight4 text-white0 text-center" flex="100" layout="row" layout-align="center center" style="padding: 2.8rem;" flow-drop ng-class="{'drag-over': dragOver}" flow-drag-enter="dragOver = true;" flow-drag-leave="dragOver = false;">
-                  <strong class="headline uppercase text-x-large text-center" flex style="color: inherit;">File Drop</strong>
+                    <strong class="headline uppercase text-x-large text-center" flex style="color: inherit;">File Drop</strong>
                 </md-whiteframe>
-
                 <label class="md-button md-default-theme md-primary md-raised" flex="40" for="upload-file">
-                  Select Files
+                    Select Files
                 </label>
-                <input id="upload-file" class="hidden" type="file" flow-btn/>  
-
+                <input id="upload-file" class="hidden" type="file" flow-btn/>
                 <label class="md-button md-default-theme md-primary md-raised adjust-line-height" flex="40" for="upload-directory">
-                  Select Directory
+                    Select Directory
                 </label>
                 <input id="upload-directory" class="hidden" type="file" flow-btn flow-directory/>
-
                 <md-divider flex="100" ng-if="$flow.files.length"></md-divider>
-
                 <div flex="100" ng-if="$flow.files.length">
-                  <div flex layout="row" layout-align="center center" layout-padding layout-wrap ng-repeat="file in $flow.files">
-                    <span class="meter-text" flex>{{ file.name }} &nbsp; — &nbsp; {{ file.size / 1000 | number:0 }}kb</span>
-                    <span class="max-10" flex>{{ file.percentComplete || 0 }}% Complete</span>
-                    <md-button class="md-icon-button md-warn" flex ng-click="deleteFlowFile($flow, file)" aria-label="Delete file upload {{ file.name }}">
-                      <i class="mdi-action-delete"></i>
-                    </md-button>
-                    <md-progress-linear flex="100" md-mode="determinate" value="{{ file.percentComplete }}"></md-progress-linear>
-                  </div>
+                    <div flex layout="row" layout-align="center center" layout-padding layout-wrap ng-repeat="file in $flow.files">
+                        <span class="meter-text" flex>{{ file.name }} &nbsp; — &nbsp; {{ file.size / 1000 | number:0 }}kb</span>
+                        <span class="max-10" flex>{{ file.percentComplete || 0 }}% Complete</span>
+                        <md-button class="md-icon-button md-warn" flex ng-click="deleteFlowFile($flow, file)" aria-label="Delete file upload {{ file.name }}">
+                            <i class="mdi-action-delete"></i>
+                        </md-button>
+                        <md-progress-linear flex="100" md-mode="determinate" value="{{ file.percentComplete }}"></md-progress-linear>
+                    </div>
                 </div>
-
                 <div flex layout="row" layout-align="center center" ng-if="$flow.files.length">
-                    <md-progress-circular class="invisible"  md-mode="indeterminate" qv-loading loaded="!uploading" target=".upload-button"></md-progress-circular>
+                    <md-progress-circular class="invisible" md-mode="indeterminate" qv-loading loaded="!uploading" target=".upload-button"></md-progress-circular>
                 </div>
-
                 <md-button class="upload-button md-accent md-raised adjust-line-height max-16" flex flex-sm="40" ng-click="upload($flow)" ng-if="$flow.files.length && !resizing" ng-disabled="uploading">Upload Files</md-button>
                 <!-- <md-button class="upload-button max-10" flex flex-sm="40" ng-click="fakeUpload($flow)" ng-if="$flow.files.length" ng-disabled="uploading">Fake Upload</md-button> -->
                 <md-button class="md-primary md-raised adjust-line-height max-16" flex ng-click="resize()" ng-disabled="resizing" aria-label="Resize and update">Resize and Update</md-button>
-                
-              </md-whiteframe>
-
+            </md-whiteframe>
         </fieldset>
-
     </form>
-
-    
-
 </section>
-
 <section class="padding-vertical-medium" ng-if="$storage.clipboard.length">
     <div layout="row" layout-align="start center">
         <h3 class="headline" flex ng-class="{'disabled': $storage.hideFilesClipboard}">Clipboard</h3>
-
         <md-button class="md-primary md-raised md-icon-button" flex ng-click="$storage.hideFilesClipboard = !$storage.hideFilesClipboard" aria-label="Hide files clipboard">
             <i ng-class="{'mdi-navigation-expand-less': $storage.hideFilesClipboard, 'mdi-navigation-expand-more': !$storage.hideFilesClipboard}"></i>
         </md-button>
-
     </div>
-
-
     <md-whiteframe class="md-whiteframe-z1" layout="row" layout-padding layout-wrap ng-if="!$storage.hideFilesClipboard">
-
-        <md-list flex="100" layout="column">
-            <md-item ng-repeat="file in $storage.clipboard">
-                <md-item-content layout="row" layout-align="start start" layout-padding layout-wrap>
-                    <span flex>{{ file.Key | filename }}</span>
-                    <md-button class="md-warn md-raised md-icon-button" ng-click="removeFromClipboard(file)" aria-label="Remove from clipboard: {{ file.Key }}">
-                        <i class="mdi-action-delete"></i>
-                    </md-button>
-                    
-                </md-item-content>
-                <md-divider ng-if="!$last"></md-divider>
-                <span ng-if="$last && loaded" qv-autoscroll></span>
-            </md-item>
-        </md-list>
-        
-    </md-whiteframe>    
-
+        <md-content flex="100" layout style="height: 30rem;">
+            <md-list flex="100" layout="row" layout-wrap>
+                <md-item flex="100" ng-repeat="file in $storage.clipboard">
+                    <md-item-content layout="row" layout-align="start start" layout-padding layout-wrap>
+                        <span flex>{{ file.Key | filename }}</span>
+                        <md-button class="md-warn md-raised md-icon-button" ng-click="removeFromClipboard(file)" aria-label="Remove from clipboard: {{ file.Key }}">
+                            <i class="mdi-action-delete"></i>
+                        </md-button>
+                    </md-item-content>
+                    <md-divider ng-if="!$last"></md-divider>
+                    <span ng-if="$last && loaded" qv-autoscroll></span>
+                </md-item>
+            </md-list>
+        </md-content>
+    </md-whiteframe>
 </section>
-
 <section class="margin-vertical-medium">
     <h3 class="headline">Files</h3>
-
     <div ui-view></div>
 </section>

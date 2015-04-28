@@ -274,7 +274,7 @@ angular.module('quiverCmsApp')
             },
 
             getResources: function(query) {
-                return $firebaseArray(FirebaseService.query(new Firebase(firebaseEndpoint + '/resources'), query));
+                return FirebaseService.paginatingArray(new Firebase(firebaseEndpoint + '/resources'), query);
             },
 
             getResource: function(key) {
