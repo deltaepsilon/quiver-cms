@@ -1,10 +1,10 @@
 <section>
-    <h3 class="headline">Email Queue</h3>
+    <div layout="row" layout-align="start center">
+        <h3 class="headline" flex>Email Queue</h3>
+        <div class="max-7" flex>
+            <md-progress-circular md-mode="indeterminate" ng-class="{invisible: !loading}"></md-progress-circular>
+        </div>
+        <md-button id="send-feedback" class="md-primary md-raised max-14" flex ng-click="sendFeedback()" ng-disabled="loading">Send All Feedback</md-button>
+    </div>
+    <div ui-view></div>
 </section>
-<div class="column small-12">
-    <button id="send-feedback" class="right tiny margin-vertical-small" ng-click="sendFeedback()">
-        <span>Send All Feedback</span>
-        <span class="hidden backdrop background-highlight9" qv-loading target="#send-feedback" loaded="loaded"><img src="/images/ajax-loader.gif" style="margin-top: .5rem;"></span>
-    </button>
-</div>
-<div class="column small-12" ui-view></div>

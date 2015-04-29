@@ -1,65 +1,85 @@
-<ul class="table-list hover padded striped">
-  <li class="table-list-header">
-    <div class="column small-12 medium-3">
-      Email
+<md-whiteframe class="md-whiteframe-z1" layout="row" layout-padding layout-wrap>
+    <div flex="100" layout="row" layout-align="start center" layout-padding>
+        <span flex></span>
+        <md-button class="md-icon-button" flex ng-click="items = items.$prev(); orderBy = '-$priority'; searchTerm = undefined;" ng-disabled="items.$prevDisabled" aria-label="list back">
+            <i class="mdi-navigation-arrow-back"></i>
+        </md-button>
+        <md-button class="md-icon-button" flex ng-click="items = items.$next(); orderBy = '-$priority'; searchTerm = undefined;" ng-disabled="items.$nextDisabled" aria-label="list forward">
+            <i class="mdi-navigation-arrow-forward"></i>
+        </md-button>
+        <md-button class="md-icon-button" flex ng-click="items = items.$more(); orderBy = '-$priority'; searchTerm = undefined;" ng-disabled="items.$moreDisabled" aria-label="list load more">
+            <i class="mdi-navigation-expand-more"></i>
+        </md-button>
+        <md-button class="md-icon-button" flex ng-click="items = items.$reset(); orderBy = '-$priority'; searchTerm = undefined;" ng-disabled="items.$resetDisabled" aria-label="list reload">
+            <i class="mdi-navigation-refresh"></i>
+        </md-button>
     </div>
-    <div class="column small-12 medium-4">
-      Subject
-    </div>
-    <div class="column small-12 medium-3">
-      Created
-    </div>
-    <div class="column small-12 medium-2 medium-text-right">
-      Action/Sent
-    </div>
-  </li>
-  <li ng-repeat="email in items" ng-class="{disabled: email.disabled}">
-    <div class="column small-12 medium-3">
-      {{ email.context.to[0].email }}&nbsp;
-    </div>
-    <div class="column small-12 medium-4 truncate">
-      <span id="modal-open-{{ $index }}" class="cursor-pointer">{{ email.context.subject }}</span>
-    </div>
-    <div class="column small-12 medium-3">
-      <span ng-show="email.created">{{ email.created | moment:"MM/DD/YYYY hh:mm" }}</span>
-    </div>
-    <div class="column small-12 medium-2 medium-text-right">
-      <span ng-show="email.created">
-        <button class="tiny margin-zero" ng-hide="email.sent" ng-click="send(email); email.disabled = true;" ng-disabled="email.disabled">Send</button>
-        <span class="cursor-pointer text-success" ng-show="email.sent" qv-confirm="send(email); email.disabled = true;" confirmations="['Resend?']">{{ email.sent | moment:"MM/DD/YYYY" }}</span>
-      </span>
-      
-    </div>
-  </li>
-  <li class="no-stripe no-hover">
-    <div ng-hide="searching">
-      <div class="column small-3">
-        <button class="secondary small-12" ng-click="loadNext()" ng-disabled="disablePrev">Previous</button>
-      </div>
-      <div class="column small-3">
-        <button class="secondary small-12" ng-click="loadMore()" ng-disabled="disableMore">Load More +</button>
-      </div>
-      <div class="column small-3">
-        <button class="secondary small-12" ng-click="reset()" ng-disabled="disableReset">Reset</button>
-      </div>
-      <div class="column small-3">
-        <button class="secondary small-12" ng-click="loadPrev()" ng-disabled="disableNext">Next</button>&nbsp;
-      </div>
-    </div>
-  </li>
-  <li class="no-stripe no-hover" ng-show="!items.length">
-      <h5 class="font-flair">The queue is empty!</h5>
-  </li>
-</ul>
-
-<div qv-modal="#modal-open-{{ $index }}" ng-repeat="email in items">
-  <div class="modal-content">
-    <div class="column small-12" style="height: 80%; overflow: scroll;">
-      <div class="background-white0 padding-medium" ng-bind-html="trustHtml(email.context.html)"></div>
-    </div>
-    <div class="column small-12" style="height: 20%;">
-      <textarea style="height: 100%;">{{ email.context.text }}</textarea>
-    </div>
-  </div>
-  
+    <md-content flex="100">
+        <md-list layout="column" ng-if="!items">
+            <md-item>
+                <md-item-content class="text-center" layout="row" layout-align="center center" layout-padding layout-wrap>
+                    <h3 class="Headline">There are no emails to display.</h3>
+                </md-item-content>
+            </md-item>
+        </md-list>
+        <section>
+            <md-list layout="column">
+                <md-item ng-repeat="email in items | orderBy:orderBy">
+                    <md-item-content class="extra-padding" layout="row" layout-align="space-between center" layout-padding layout-wrap style="padding-top: 2rem;">
+                        <a flex ng-href="mailto:{{ email.context.to[0].email }}">{{ email.context.to[0].email }}</a>
+                        <span class="truncate" flex>{{ email.context.subject }}</span>
+                        <span flex ng-show="email.created">Created: {{ email.created | moment:"MM/DD/YYYY hh:mm" }}</span>
+                        <div flex>
+                            <span ng-if="email.sent">Sent: {{ email.sent | moment:"MM/DD/YYYY" }}</span>
+                        </div>
+                        <md-button class="md-primary md-raised md-icon-button" ng-click="viewEmail($event, email)" aria-label="View email {{ email.context.to[0].email }}">
+                            <i class="mdi-action-open-with"></i>
+                        </md-button>
+                        <md-button class="md-warn md-raised adjust-line-height" flex ng-click="send(email)" ng-disabled="email.disabled" aria-label="Send email {{ email.context.to[0].email }}">
+                            <span ng-if="!email.sent">Send</span>
+                            <span ng-if="email.sent">Resend</span>
+                        </md-button>
+                    </md-item-content>
+                    <md-divider ng-if="!$last"></md-divider>
+                </md-item>
+            </md-list>
+        </section>
+    </md-content>
+</md-whiteframe>
+<!-- <ul class="table-list hover padded striped">
+    <li class="table-list-header">
+        <div class="column small-12 medium-3">
+            Email
+        </div>
+        <div class="column small-12 medium-4">
+            Subject
+        </div>
+        <div class="column small-12 medium-3">
+            Created
+        </div>
+        <div class="column small-12 medium-2 medium-text-right">
+            Action/Sent
+        </div>
+    </li>
+    <li ng-repeat="email in items" ng-class="{disabled: email.disabled}">
+    </li>
+    <li class="no-stripe no-hover">
+        <div ng-hide="searching">
+         <div class="column small-3">
+    <button class="secondary small-12" ng-click="loadNext()" ng-disabled="disablePrev">Previous</button>
 </div>
+<div class="column small-3">
+    <button class="secondary small-12" ng-click="loadMore()" ng-disabled="disableMore">Load More +</button>
+</div>
+<div class="column small-3">
+    <button class="secondary small-12" ng-click="reset()" ng-disabled="disableReset">Reset</button>
+</div>
+<div class="column small-3">
+    <button class="secondary small-12" ng-click="loadPrev()" ng-disabled="disableNext">Next</button>&nbsp;
+</div>
+</div>
+</li>
+<li class="no-stripe no-hover" ng-show="!items.length">
+    <h5 class="font-flair">The queue is empty!</h5>
+</li>
+</ul> -->

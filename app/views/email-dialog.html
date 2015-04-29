@@ -1,0 +1,9 @@
+<md-dialog class="padding-large" layout="row" layout-padding layout-wrap style="min-width: 90vw; min-height: 90vh;">
+    <md-button class="md-icon-button md-warn md-raised absolute" ng-click="cancel()" style="top: .5rem; right: .5rem;" aria-label="Close image dialog">
+        <i class="mdi-content-clear"></i>
+    </md-button>
+    <div class="background-white0 padding-large" flex="75" flex-sm="100" ng-bind-html="trustHtml(email.context.html)"></div>
+    <textarea flex="25" flex-sm="100">
+        {{ email.context.text }}
+    </textarea>
+</md-dialog>

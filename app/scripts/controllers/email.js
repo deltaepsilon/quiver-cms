@@ -8,23 +8,56 @@
  * Controller of the quiverCmsApp
  */
 angular.module('quiverCmsApp')
-  .controller('EmailCtrl', function ($scope, AdminService, $sce, NotificationService) {
-    $scope.send = function (email) {
-      return AdminService.sendQueuedEmail(email);
-    };
+    .controller('EmailCtrl', function($scope, AdminService, items, $sce, NotificationService, $mdDialog) {
+        /*
+         * Items
+         */
+        $scope.items = items;
 
-    $scope.sendFeedback = function () {
-      $scope.loaded = false;
-      return AdminService.sendQueuedFeedback().then(function () {
-        $scope.loaded = true;
-      }, function (err) {
-        NotificationService.error('Send Feedback', err);
-        $scope.loaded = true;
-      });
-    };
+        /*
+         * Methods
+         */
+        $scope.send = function(email) {
+            email.disabled = true;
+            return AdminService.sendQueuedEmail(email).then(function() {
+                NotificationService.success('Email sent');
+                delete email.disabled;
+            }, function(error) {
+                var message;
+                if (typeof error === 'string') {
+                    message = error;
+                } else if (typeof error === 'object' && error.statusText) {
+                    message = error.statusText;
+                }
 
-    $scope.trustHtml = function (html) {
-      return $sce.trustAsHtml(html); 
-    };
+                NotificationService.error('Email error', message);
+                delete email.disabled;
+            });
+        };
 
-  });
+        $scope.sendFeedback = function() {
+            $scope.loading = true;
+
+            return AdminService.sendQueuedFeedback().then(function() {
+                $scope.loading = false;
+            }, function(error) {
+                NotificationService.error('Send feedback error', error);
+                $scope.loading = false;
+            });
+        };
+
+        $scope.viewEmail = function(e, email) {
+            $mdDialog.show({
+                controller: function($scope, $mdDialog) {
+                    $scope.cancel = $mdDialog.cancel;
+                    $scope.email = email;
+                    $scope.trustHtml = function(html) {
+                        return $sce.trustAsHtml(html);
+                    };
+                },
+                templateUrl: "views/email-dialog.html",
+                targetEvent: e
+            });
+        };
+
+    });
