@@ -1,95 +1,74 @@
 <md-whiteframe class="md-whiteframe-z1 relative" layout="column" layout-fill flex>
-  <div layout="row" layout-align="start center" layout-padding>
-    <md-input-container flex>
-      <label for="list-search">Search by Title</label>
-      <input id="list-search" type="text" ng-model="query.title" qv-enter="items = items.$orderByChild('title').$startAt(query.title).$get(); orderBy = 'title'" ng-focus="query = undefined;">
-    </md-input-container>
-
-    <md-input-container flex>
-        <label for="slug">Search by Slug</label>
-        <input id="slug" type="text" ng-model="query.slug" qv-enter="items = items.$orderByChild('slug').$startAt(query.slug).$get(); orderBy = 'slug';" ng-focus="query = undefined;">
-    </md-input-container>  
-
-    <md-input-container flex>
-        <label for="filter">Filter</label>
-        <input id="filter" type="text" ng-show="items.length" ng-model="authorFilter" ng-focus="authorFilter = ''" placeholder="Search..."/>
-    </md-input-container>
-
-    <div class="md-select-wrapper" flex>
-      <md-select class="" ng-model="query.type" ng-change="items = items.$orderByChild('type').$equalTo(query.type).$get(); orderBy = 'type';" placeholder="Filter by Type" style="margin-top: 21px; margin-bottom: 0;">
-        <md-option value="post">Post</md-option>
-        <md-option value="page">Page</md-option>
-        <md-option value="subscription">Subscription</md-option>
-      </md-select>
+    <div layout="row" layout-align="start center" layout-padding>
+        <md-input-container flex>
+            <label for="list-search">Search by Title</label>
+            <input id="list-search" type="text" ng-model="query.title" qv-enter="items = items.$orderByChild('title').$startAt(query.title).$get(); orderBy = 'title'" ng-focus="query = undefined;">
+        </md-input-container>
+        <md-input-container flex>
+            <label for="slug">Search by Slug</label>
+            <input id="slug" type="text" ng-model="query.slug" qv-enter="items = items.$orderByChild('slug').$startAt(query.slug).$get(); orderBy = 'slug';" ng-focus="query = undefined;">
+        </md-input-container>
+        <md-input-container flex>
+            <label for="filter">Filter</label>
+            <input id="filter" type="text" ng-show="items.length" ng-model="authorFilter" ng-focus="authorFilter = ''" placeholder="Search..." />
+        </md-input-container>
+        <div class="md-select-wrapper" flex>
+            <md-select class="" ng-model="query.type" ng-change="items = items.$orderByChild('type').$equalTo(query.type).$get(); orderBy = 'type';" placeholder="Filter by Type" style="margin-top: 21px; margin-bottom: 0;">
+                <md-option value="post">Post</md-option>
+                <md-option value="page">Page</md-option>
+                <md-option value="subscription">Subscription</md-option>
+            </md-select>
+        </div>
+        <span flex></span>
+        <md-button class="md-icon-button" flex ng-click="items = items.$prev(); orderBy = '-$priority'; query = undefined;" ng-disabled="items.$prevDisabled" aria-label="list back">
+            <i class="mdi-navigation-arrow-back"></i>
+        </md-button>
+        <md-button class="md-icon-button" flex ng-click="items = items.$next(); orderBy = '-$priority'; query = undefined;" ng-disabled="items.$nextDisabled" aria-label="list forward">
+            <i class="mdi-navigation-arrow-forward"></i>
+        </md-button>
+        <md-button class="md-icon-button" flex ng-click="items = items.$more(); orderBy = '-$priority'; query = undefined;" ng-disabled="items.$moreDisabled" aria-label="list load more">
+            <i class="mdi-navigation-expand-more"></i>
+        </md-button>
+        <md-button class="md-icon-button" flex ng-click="items = items.$reset(); orderBy = '-$priority'; query = undefined;" ng-disabled="items.$resetDisabled" aria-label="list reload">
+            <i class="mdi-navigation-refresh"></i>
+        </md-button>
     </div>
-
-    
-
-    <span flex></span>
-    
-    <md-button class="md-icon-button" flex ng-click="items = items.$prev(); orderBy = '-$priority'; query = undefined;" ng-disabled="items.$prevDisabled" aria-label="list back">
-      <i class="mdi-navigation-arrow-back"></i>
-    </md-button>
-    
-    <md-button class="md-icon-button" flex ng-click="items = items.$next(); orderBy = '-$priority'; query = undefined;" ng-disabled="items.$nextDisabled" aria-label="list forward">
-      <i class="mdi-navigation-arrow-forward"></i>
-    </md-button>
-    
-    <md-button class="md-icon-button" flex ng-click="items = items.$more(); orderBy = '-$priority'; query = undefined;" ng-disabled="items.$moreDisabled" aria-label="list load more">
-      <i class="mdi-navigation-expand-more"></i>
-    </md-button>
-    
-    <md-button class="md-icon-button" flex ng-click="items = items.$reset(); orderBy = '-$priority'; query = undefined;" ng-disabled="items.$resetDisabled" aria-label="list reload">
-      <i class="mdi-navigation-refresh"></i>
-    </md-button>
-
-  </div>
-
-  <md-content>
-    <md-list layout="column" ng-if="!items">
-      <md-item>
-        <md-item-content class="text-center" layout="row" layout-align="center center" layout-padding layout-wrap>
-          <h3 class="Headline">There are no more words to display.</h3>
-        </md-item-content>
-      </md-item>
-    </md-list>
-        
-    <section>
-      <md-list layout="column">
-        <md-item ng-repeat="word in items | filter:authorFilter | orderBy:orderBy">
-          <md-item-content class="extra-padding" layout="row" layout-align="space-between center" layout-padding layout-wrap style="padding-top: 2rem;">
-
-            <span class="md-select-wrapper" flex>
+    <md-content>
+        <md-list layout="column" ng-if="!items">
+            <md-item>
+                <md-item-content class="text-center" layout="row" layout-align="center center" layout-padding layout-wrap>
+                    <h3 class="Headline">There are no more words to display.</h3>
+                </md-item-content>
+            </md-item>
+        </md-list>
+        <section>
+            <md-list layout="column">
+                <md-item ng-repeat="word in items | filter:authorFilter | orderBy:orderBy">
+                    <md-item-content class="extra-padding" layout="row" layout-align="space-between center" layout-padding layout-wrap style="padding-top: 2rem;">
+                        <span class="md-select-wrapper" flex>
               <md-select ng-model="word.author.id" ng-change="setAuthor(word.author.id, word, items)" placeholder="Set author..." style="margin-top: 11px; margin-bottom: 9px;">
                 <md-option ng-value="moderator.$id" ng-selected="word.author.id == moderator.$id" ng-repeat="moderator in moderators">
                   {{ moderator.name || moderator.preferredEmail || moderator.email }}
                 </md-option>
               </md-select>
             </span>
-
-            <span flex="20" flex-sm="100">{{ word.title }}</span>
-
-            <span flex="25">{{ word.type }}</span>
-
-            <md-input-container flex="20" flex-sm="100" style="margin-top: -21px;">
-              <label for="priority-{{ $index }}">Priority</label>
-              <input id="priority-{{ $index }}" type="number" ng-model="word.$priority" ng-change="setPriority(word.$id, word.$priority)" ng-model-options="{debounce: {'default': 500}}">
-            </md-input-container>
-
-            <i class="mdi-editor-publish md-button-padding md-icon-button" flex ng-class="{'text-success': word.published}"></i>
-
-            <md-button class="md-raised md-primary md-icon-button adjust-mdi margin-horizontal-small" ui-sref="authenticated.master.admin.word({key: word.$id})" aria-label="Edit {{ word.title }}">
-              <i class="mdi-editor-mode-edit"></i>
-            </md-button>            
-
-            <md-button class="md-raised md-warn md-icon-button" flex ng-hide="word.edited" ng-click="confirmDelete($event, word, items)" aria-label="Delete {{ word.title }}">
-              <i class="mdi-action-delete"></i>
-            </md-button>
-
-          </md-item-content>
-          <md-divider ng-if="!$last"></md-divider>
-        </md-item>
-      </md-list>
-    </section>
-  </md-content>
+                        <span flex="20" flex-sm="100">{{ word.title }}</span>
+                        <span flex="25">{{ word.type }}</span>
+                        <md-input-container flex="20" flex-sm="100" style="margin-top: -21px;">
+                            <label for="priority-{{ $index }}">Priority</label>
+                            <input id="priority-{{ $index }}" type="number" ng-model="word.$priority" ng-change="setPriority(word.$id, word.$priority)" ng-model-options="{debounce: {'default': 500}}">
+                        </md-input-container>
+                        <i class="mdi-editor-publish md-button-padding md-icon-button" flex ng-class="{'text-success': word.published}"></i>
+                        <md-button class="md-raised md-primary md-icon-button adjust-mdi margin-horizontal-small" ui-sref="authenticated.master.admin.word({key: word.$id})" aria-label="Edit {{ word.title }}">
+                            <i class="mdi-editor-mode-edit"></i>
+                        </md-button>
+                        <md-button class="md-raised md-warn md-icon-button" flex ng-hide="word.edited" ng-click="confirmDelete($event, word, items)" aria-label="Delete {{ word.title }}">
+                            <i class="mdi-action-delete"></i>
+                        </md-button>
+                    </md-item-content>
+                    <md-divider ng-if="!$last"></md-divider>
+                </md-item>
+            </md-list>
+        </section>
+    </md-content>
 </md-whiteframe>

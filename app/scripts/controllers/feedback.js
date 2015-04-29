@@ -8,65 +8,80 @@
  * Controller of the quiverCmsApp
  */
 angular.module('quiverCmsApp')
-  .controller('FeedbackCtrl', function ($scope, client, assignment, userAssignment, assignmentUploads, assignmentMessages, UserService, AdminService, NotificationService) {
-    /*
-     * Client
-     */
-    client.$bindTo($scope, 'client');
-    
-    /*
-     * Assignment
-     */
-    $scope.assignment = assignment;
+    .controller('FeedbackCtrl', function($scope, env, client, assignment, userAssignment, assignmentUploads, assignmentMessages, UserService, AdminService, NotificationService, $mdDialog) {
+        /*
+         * Client
+         */
+        client.$bindTo($scope, 'client');
 
-    /*
-     * User Assignment
-     */
-    userAssignment.$bindTo($scope, 'userAssignment');
+        /*
+         * Assignment
+         */
+        $scope.assignment = assignment;
 
-    /*
-     * Messages
-     */
-    $scope.messages = assignmentMessages;
+        /*
+         * User Assignment
+         */
+        userAssignment.$bindTo($scope, 'userAssignment');
 
-    $scope.sendMessage = function (text) {
-      var user = $scope.user,
-        now = moment(),
-        message = {
-          userName: user.name || user.preferredEmail || user.email,
-          assignmentTitle: $scope.assignment.title,
-          text: text,
-          created: now.format(),
-          $priority: now.unix(),
+        /*
+         * Messages
+         */
+        $scope.messages = assignmentMessages;
+
+        $scope.sendMessage = function(text) {
+            var user = $scope.user,
+                now = moment(),
+                message = {
+                    userName: user.name || user.preferredEmail || user.email,
+                    assignmentTitle: $scope.assignment.title,
+                    text: text,
+                    created: now.format(),
+                    $priority: now.unix(),
+                };
+
+            $scope.messages.$add(message).then(function(ref) {
+                message.key = ref.key();
+                message.isAdmin = true;
+                message.recipientId = client.$ref().key();
+
+                UserService.logMessage(user.public.id, assignment.$ref().key(), 'comment', message);
+            });
         };
 
-      $scope.messages.$add(message).then(function (ref) {
-        message.key = ref.key();
-        message.isAdmin = true;
-        message.recipientId = client.$ref().key();
+        /*
+         * Uploads
+         */
+        $scope.uploads = assignmentUploads;
 
-        UserService.logMessage(user.public.id, assignment.$ref().key(), 'comment', message);
-      });
-    };
+        $scope.openGallery = function(e, image, uploads) {
+            $mdDialog.show({
+                controller: function($scope, $mdDialog) {
+                    $scope.cancel = $mdDialog.cancel;
+                    $scope.image = image;
+                    $scope.uploads = uploads;
+                    $scope.selectImage = function(image) {
+                        $scope.image = image;
+                    };
+                },
+                templateUrl: "views/uploads-dialog.html",
+                targetEvent: e
+            });
+        };
 
-    /*
-     * Uploads
-     */
-    $scope.uploads = assignmentUploads;
+        // $scope.saveUpload = function (upload) {
+        //   $scope.uploads.$save(upload);
+        // };
 
-    // $scope.saveUpload = function (upload) {
-    //   $scope.uploads.$save(upload);
-    // };
+        /*
+         * Email Alerts
+         */
+        $scope.queueFeedbackEmail = function(clientId, userAssignmentKey) {
+            AdminService.queueFeedbackEmail(clientId, userAssignmentKey).then(function() {
+                NotificationService.success('Email Queued.');
+            }, function(err) {
+                NotificationService.error('Email Queue Failed', err);
+            });
+        };
 
-    /*
-     * Email Alerts
-     */
-    $scope.queueFeedbackEmail = function (clientId, userAssignmentKey) {
-      AdminService.queueFeedbackEmail(clientId, userAssignmentKey).then(function () {
-        NotificationService.success('Email Queued.');
-      }, function (err) {
-        NotificationService.error('Email Queue Failed', err);
-      });
-    };
-
-  });
+    });

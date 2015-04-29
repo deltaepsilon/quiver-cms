@@ -8,9 +8,14 @@
  * Controller of the quiverCmsApp
  */
 angular.module('quiverCmsApp')
-  .controller('MessagesListCtrl', function ($scope, AdminService) {
-    /*
-     * Flags
-     */
-    $scope.incrementMessageFlag = AdminService.incrementMessageFlag;
-  });
+    .controller('MessagesListCtrl', function($scope, AdminService, items) {
+        /*
+         * Items
+         */
+        $scope.items = items;
+
+        /*
+         * Flags
+         */
+        $scope.incrementMessageFlag = AdminService.incrementMessageFlag;
+    });

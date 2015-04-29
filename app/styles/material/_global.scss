@@ -1,117 +1,97 @@
-button, select, html, textarea, input {
-  @extend .font-primary;
+button,
+select,
+html,
+textarea,
+input {
+    @extend .font-primary;
 }
 
 a {
-  color: inherit;
+    color: inherit;
 }
 
 .clearfix {
-  @include clearfix;
+    @include clearfix;
 }
 
 .cursor-pointer {
-  cursor: pointer;
+    cursor: pointer;
 }
 
 .cursor-default {
-  cursor: default;
-
-  &:hover {
     cursor: default;
-  }
+    &:hover {
+        cursor: default;
+    }
 }
 
 .hidden {
-  display: none;
+    display: none;
 }
 
 .invisible {
-  visibility: hidden;
+    visibility: hidden;
 }
 
-.disabled, [disabled] {
-  cursor: default;
-  pointer-events: none;
-
-  a {
+.disabled,
+[disabled] {
     cursor: default;
     pointer-events: none;
-  }
+    a {
+        cursor: default;
+        pointer-events: none;
+    }
 }
 
 .disabled {
-  opacity: .5;
-
-  a {
     opacity: .5;
-  }
+    a {
+        opacity: .5;
+    }
 }
 
 a {
-  &.disabled, &[disabled] {
-    cursor: default;
-    pointer-events: none;
-  }
+    &.disabled, &[disabled] {
+        cursor: default;
+        pointer-events: none;
+    }
 }
 
 .relative {
-  position: relative;
+    position: relative;
 }
 
 .circle {
-  border-radius: 50%;
+    border-radius: 50%;
 }
 
 .delete-button {
-  @extend .circle;
-
-  @include absolute(-.5rem, -.5rem, initial, initial);
-
-  display: block;
-  padding: 0rem .5rem;
-
-  .left {
-    left: -.5rem;
-    right: initial;
-  }
-
+    @extend .circle;
+    @include absolute(-.5rem, -.5rem, initial, initial);
+    display: block;
+    padding: 0rem .5rem;
+    .left {
+        left: -.5rem;
+        right: initial;
+    }
 }
 
-video, img {
-  max-width: 100%;
+video,
+img {
+    max-width: 100%;
 }
 
 .social-button {
-  @extend .circle;
-  padding: .25rem .6rem;
-
-  i {
-    min-width: 1rem;
-    text-align: center;
-  }
-}
-
-.markdown {
-  ul, li {
-    list-style-type: initial;
-    margin: 0 0 1rem 1rem;
-  }
-
-  a, a:visited {
-    color: inherit;
-  }
-
-  img {
-    display: block;
-    margin: 1rem auto;
-  }
-
+    @extend .circle;
+    padding: .25rem .6rem;
+    i {
+        min-width: 1rem;
+        text-align: center;
+    }
 }
 
 .avatar {
-  @extend .circle;
-  max-width: 4rem;
-  max-height: 4rem;
-  
+    @extend .circle;
+    max-width: 4rem;
+    max-height: 4rem;
 }

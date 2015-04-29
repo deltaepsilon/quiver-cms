@@ -1,24 +1,26 @@
 .markdown {
-  ul, li {
-    list-style-type: initial;
-  }
-
-  p:first-of-type {
-    margin-top: 0;
-  }
-  
-
-  &.text-small {
-    p, li {
-      @extend .text-small;
+    p:first-of-type {
+        margin-top: 0;
     }
-  }
-
-  &.text-x-small {
-    p, li {
-      @extend .text-x-small;
+    &.text-small {
+        p, li {
+            @extend .text-small;
+        }
     }
-  }
-
-
+    &.text-x-small {
+        p, li {
+            @extend .text-x-small;
+        }
+    }
+    ul {
+        list-style-type: initial;
+    }
+    a,
+    a:visited {
+        color: inherit;
+    }
+    img {
+        display: block;
+        margin: 1rem auto;
+    }
 }

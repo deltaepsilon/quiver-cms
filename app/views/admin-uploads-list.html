@@ -1,71 +1,55 @@
 <md-whiteframe class="md-whiteframe-z1 relative" layout="column" layout-fill flex>
-  <div layout="row" layout-align="start center" layout-padding>
-    <md-input-container flex="33">
-      <label for="list-search">Search by email address</label>
-      <input id="list-search" type="text" ng-model="searchTerm" qv-enter="search({orderByChild: 'userEmail', equalTo: searchTerm})">
-    </md-input-container>
-
-    <span flex></span>
-    
-    <md-button class="md-icon-button" flex ng-click="loadNext()" ng-disabled="disablePrev" aria-label="list back">
-      <i class="mdi-navigation-arrow-back"></i>
-    </md-button>
-    
-    <md-button class="md-icon-button" flex ng-click="loadPrev()" ng-disabled="disableNext" aria-label="list forward">
-      <i class="mdi-navigation-arrow-forward"></i>
-    </md-button>
-    
-    <md-button class="md-icon-button" flex ng-click="loadMore()" ng-disabled="disableMore" aria-label="list load more">
-      <i class="mdi-navigation-expand-more"></i>
-    </md-button>
-    
-    <md-button class="md-icon-button" flex ng-click="reset()" ng-disabled="disableReset" aria-label="list reload">
-      <i class="mdi-navigation-refresh"></i>
-    </md-button>
-
-  </div>
-
-  <md-content>
-    <md-list layout="column" ng-if="!items">
-      <md-item>
-        <md-item-content class="text-center" layout="row" layout-align="center center" layout-padding layout-wrap>
-          <h3 class="Headline">There are no more uploads to display.</h3>
-        </md-item-content>
-      </md-item>
-    </md-list>
-        
-    <section>
-      <md-list layout="column">
-        <md-item ng-repeat="upload in items | orderBy:'$priority':'desc'">
-          <md-item-content layout="row" layout-align="space-between center" layout-padding layout-wrap>
-            <span class="bold" flex flex-order="1" style="max-width: 10rem;">{{ upload.date | moment:"MMM DD, hh:mm" }}</span>
-
-            <span class="truncate" flex flex-order="2">{{ upload.userEmail }}</span>
-
-            <span class="truncate" flex flex-order="2">{{ upload.assignmentTitle }}</span>
-            
-            <a class="undecorated" flex="33" flex-sm="100" flex-order="3" flex-order-sm="9" ui-sref="authenticated.master.admin.feedback({userId: upload.recipientId || upload.userId, assignmentKey: upload.assignmentKey })">{{ upload.upload.Name | truncate:30 }}</a>            
-
-            <md-button class="md-icon-button" flag="{{ upload.flag || 0 }}" flex flex-order="4" ng-click="incrementUploadFlag(upload.$id)" aria-label="Increment flag for {{ upload.assignmentTitle }}">
-              <i class="mdi-content-flag"></i>
-            </md-button>
-
-            <md-button class="md-icon-button md-primary" flex flex-order="5" ng-click="setSearch(upload.userEmail)" aria-label="Search by user: {{ upload.userEmail }}">
-              <i class="mdi-action-search"></i>
-            </md-button>
-
-            <md-button class="md-icon-button md-primary" flex flex-order="6" ui-sref="authenticated.master.admin.feedback({userId: upload.recipientId || upload.userId, assignmentKey: upload.assignmentKey })" aria-label="Go to {{ upload.userEmail }} assignment {{ upload.assignmentTitle }}">
-              <i class="mdi-navigation-arrow-forward"></i>
-            </md-button>
-
-          </md-item-content>
-          <md-divider ng-if="!$last"></md-divider>
-        </md-item>
-      </md-list>
-    </section>
-  </md-content>
+    <div layout="row" layout-align="start center" layout-padding>
+        <md-input-container flex="33">
+            <label for="list-search">Search by email address</label>
+            <input id="list-search" type="text" ng-model="searchTerm" qv-enter="search({orderByChild: 'userEmail', equalTo: searchTerm})" qv-enter="items = items.$orderByChild('userEmail').$startAt(searchTerm).$get(); orderBy = 'userEmail'" ng-focus="searchTerm = undefined;">
+        </md-input-container>
+        <span flex></span>
+        <md-button class="md-icon-button" flex ng-click="items = items.$prev(); orderBy = '-$priority'; searchTerm = undefined;" ng-disabled="items.$prevDisabled" aria-label="list back">
+            <i class="mdi-navigation-arrow-back"></i>
+        </md-button>
+        <md-button class="md-icon-button" flex ng-click="items = items.$next(); orderBy = '-$priority'; searchTerm = undefined;" ng-disabled="items.$nextDisabled" aria-label="list forward">
+            <i class="mdi-navigation-arrow-forward"></i>
+        </md-button>
+        <md-button class="md-icon-button" flex ng-click="items = items.$more(); orderBy = '-$priority'; searchTerm = undefined;" ng-disabled="items.$moreDisabled" aria-label="list load more">
+            <i class="mdi-navigation-expand-more"></i>
+        </md-button>
+        <md-button class="md-icon-button" flex ng-click="items = items.$reset(); orderBy = '-$priority'; searchTerm = undefined;" ng-disabled="items.$resetDisabled" aria-label="list reload">
+            <i class="mdi-navigation-refresh"></i>
+        </md-button>
+    </div>
+    <md-content>
+        <md-list layout="column" ng-if="!items">
+            <md-item>
+                <md-item-content class="text-center" layout="row" layout-align="center center" layout-padding layout-wrap>
+                    <h3 class="Headline">There are no more uploads to display.</h3>
+                </md-item-content>
+            </md-item>
+        </md-list>
+        <section>
+            <md-list layout="column">
+                <md-item ng-repeat="upload in items | orderBy:'$priority':'desc'">
+                    <md-item-content layout="row" layout-align="space-between center" layout-padding layout-wrap>
+                        <span class="bold" flex flex-order="1" style="max-width: 10rem;">{{ upload.date | moment:"MMM DD, hh:mm" }}</span>
+                        <span class="truncate" flex flex-order="2">{{ upload.userEmail }}</span>
+                        <span class="truncate" flex flex-order="2">{{ upload.assignmentTitle }}</span>
+                        <a class="undecorated" flex="33" flex-sm="100" flex-order="3" flex-order-sm="9" ui-sref="authenticated.master.admin.feedback({userId: upload.recipientId || upload.userId, assignmentKey: upload.assignmentKey })">{{ upload.upload.Name | truncate:30 }}</a>
+                        <md-button class="md-icon-button" flag="{{ upload.flag || 0 }}" flex flex-order="4" ng-click="incrementUploadFlag(upload.$id)" aria-label="Increment flag for {{ upload.assignmentTitle }}">
+                            <i class="mdi-content-flag"></i>
+                        </md-button>
+                        <md-button class="md-icon-button md-primary" flex flex-order="5" ng-click="setSearch(upload.userEmail)" aria-label="Search by user: {{ upload.userEmail }}">
+                            <i class="mdi-action-search"></i>
+                        </md-button>
+                        <md-button class="md-icon-button md-primary" flex flex-order="6" ui-sref="authenticated.master.admin.feedback({userId: upload.recipientId || upload.userId, assignmentKey: upload.assignmentKey })" aria-label="Go to {{ upload.userEmail }} assignment {{ upload.assignmentTitle }}">
+                            <i class="mdi-navigation-arrow-forward"></i>
+                        </md-button>
+                    </md-item-content>
+                    <md-divider ng-if="!$last"></md-divider>
+                </md-item>
+            </md-list>
+        </section>
+    </md-content>
 </md-whiteframe>
-
 <!-- 
 
 <ul class="table-list padded hover striped">

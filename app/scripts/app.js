@@ -933,50 +933,30 @@ angular.module('quiverCmsApp', [
         .state('authenticated.master.admin.messages', { // ***************************  Messages *************************
             abstract: true,
             templateUrl: 'views/admin-messages.html',
-            controller: 'MessagesListCtrl'
+            controller: 'MessagesListCtrl',
+            resolve: {
+                items: function(AdminService) {
+                    return AdminService.getMessages().$get();
+                }
+            }
         })
         .state('authenticated.master.admin.messages.list', {
             url: '/messages/:search',
-            templateUrl: 'views/admin-messages-list.html',
-            controller: 'ListCtrl',
-            resolve: {
-                limit: function() {
-                    return 10;
-                },
-                getRef: function(AdminService) {
-                    return AdminService.getMessages;
-                },
-                ref: function(AdminService, limit) {
-                    return AdminService.getMessages({
-                        orderByPriority: true,
-                        limitToLast: limit
-                    });
-                }
-            }
+            templateUrl: 'views/admin-messages-list.html'
         })
         .state('authenticated.master.admin.uploads', { // ****************************  Uploads **************************
             abstract: true,
             templateUrl: 'views/admin-uploads.html',
-            controller: 'UploadsCtrl'
+            controller: 'UploadsCtrl',
+            resolve: {
+                items: function(AdminService) {
+                    return AdminService.getUploads().$get();
+                }
+            }
         })
         .state('authenticated.master.admin.uploads.list', {
             url: '/uploads/:search',
-            templateUrl: 'views/admin-uploads-list.html',
-            controller: 'ListCtrl',
-            resolve: {
-                limit: function() {
-                    return 10;
-                },
-                getRef: function(AdminService) {
-                    return AdminService.getUploads;
-                },
-                ref: function(AdminService, limit) {
-                    return AdminService.getUploads({
-                        orderByPriority: true,
-                        limitToLast: limit
-                    });
-                }
-            }
+            templateUrl: 'views/admin-uploads-list.html'
         })
         .state('authenticated.master.admin.feedback', { // ***************************  Assignment ***********************
             url: '/user/:userId/feedback/:assignmentKey',
@@ -1003,26 +983,16 @@ angular.module('quiverCmsApp', [
         .state('authenticated.master.admin.email', { // ******************************  Email Queue **********************
             abstract: true,
             templateUrl: 'views/admin-email.html',
-            controller: 'EmailCtrl'
+            controller: 'EmailCtrl',
+            resolve: {
+                items: function(AdminService) {
+                    return AdminService.getEmailQueue().$get();
+                }
+            }
         })
         .state('authenticated.master.admin.email.list', {
             url: '/email',
-            templateUrl: 'views/admin-email-list.html',
-            controller: 'ListCtrl',
-            resolve: {
-                limit: function() {
-                    return 10;
-                },
-                getRef: function(AdminService) {
-                    return AdminService.getEmailQueue;
-                },
-                ref: function(AdminService, limit) {
-                    return AdminService.getEmailQueue({
-                        orderByPriority: true,
-                        limitToLast: limit
-                    });
-                }
-            }
+            templateUrl: 'views/admin-email-list.html'
         });
 
 

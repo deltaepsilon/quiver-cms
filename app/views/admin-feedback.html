@@ -1,64 +1,58 @@
-<div class="column small-12">
-  <h3 class="font-flair left">{{ assignment.title }}</h3>
-  <h5 class="font-flair right margin-vertical-small">
-    <a ui-sref="authenticated.master.admin.messages.list({search: client.email})">{{ client.email }}</a>
-  </h5>
-</div>
-
-<div class="column small-12" ng-show="assignment.supportsUpload">
-  <h5 class="font-flair">Uploads</h5>
-
-  <div class="small-12" ng-show="uploads.length">
-    <div qv-lightbox>
-      <ul class="small-block-grid-1 medium-block-grid-3">
-        <li ng-repeat="(key, image) in uploads" ng-class="{'disabled': image.disabled}">
-          <img ng-src="{{ image.url }}" alt="{{ image.name }}" title="{{ image.Name }} ({{ image.Size / 1000 | number:0 }}kb)">
-        </li>
-      </ul>
-    </div>
-  </div>
-
-</div>
-
-<div class="column small-12">
-  <h5 class="font-flair">Messages</h5>
-  <ul class="table-list striped padded">
-    <li ng-repeat="message in messages">
-      <div class="column small-2"><strong>{{ message.userName }}</strong></div>
-      <div class="column small-8">
-        <div class="markdown" markdown-editable ng-model="message.text"></div>
-      </div>
-      <div class="column small-2">
-        <span ng-show="message.queued"><i class="fa fa-envelope" ng-class="{'text-success': message.alerted}"></i>&nbsp; {{ message.alerted || message.queued | moment:"MM/DD/YYYY" }}</span>
-      </div>
-    </li>
-    <li class="no-stripe">
-      <textarea id="new-message" ng-model="text" placeholder="Message..."></textarea>
-      <button class="left" ng-click="sendMessage(text); text = undefined;" qv-focus="#new-message" ng-disabled="!text || !text.length">Send</button>
-      <button class="right alert" ng-click="queueFeedbackEmail(client.$id, userAssignment.$id); disableEmail = true;" ng-disabled="disableEmail">Email Assignment Update</button>
-    </li>
-  </ul>
-</div>
-
-<div class="column small-12">
-  <h5 class="font-flair">Instructor's-Eyes-Only</h5>
-
-  <div>
-    <a href="/user/{{ client.$id }}/assignment/{{ userAssignment.$id }}/feedback-email/html" target="_blank">Preview HTML Email</a>
-  </div>
-  <div>
-    <a href="/user/{{ client.$id }}/assignment/{{ userAssignment.$id }}/feedback-email/text" target="_blank">Preview Text Email</a>
-  </div>
-  
-</div>
-
-<div class="column small-12 medium-6">
-  <label>Client</label>
-  <textarea class="small-12" style="min-height: 10rem;" ng-model="client.comment" ng-model-options="{debounce: {'default': 1000}}" placeholder="Client comments..."></textarea>
-</div>
-
-<div class="column small-12 medium-6">
-  <label>Assignment</label>
-  <textarea class="small-12" style="min-height: 10rem;" ng-model="userAssignment.comment" ng-model-options="{debounce: {'default': 1000}}" placeholder="Assignment comments..."></textarea>
-</div>
-
+<section>
+    <h3 class="headline left">{{ assignment.title }} by <a ui-sref="authenticated.master.admin.messages.list({search: client.email})">{{ client.email }}</a></h3>
+    <md-whiteframe class="md-whiteframe-z1" layout="row" layout-align="start end" layout-padding layout-wrap ng-if="uploads.length">
+        <md-button class="margin-zero-important" flex="33" flex-sm="100" ng-click="openGallery($event, image, uploads)" ng-repeat="(key, image) in uploads" style="height: inherit;" aria-label="Open image in gallery {{ image.name }}">
+            <img ng-class="{'disabled': image.disabled}" ng-src="{{ image.url }}" alt="{{ image.Name }}" title="{{ image.Name }} ({{ image.Size / 1000 | number:0 }}kb)">
+        </md-button>
+    </md-whiteframe>
+</section>
+<section>
+    <h3 class="headline">Messages</h3>
+    <md-whiteframe class="md-whiteframe-z1" layout="row" layout-padding layout-wrap>
+        <md-list flex>
+            <md-item ng-repeat="message in messages">
+                <md-item-content layout="row" layout-align="space-between center" layout-padding layout-wrap>
+                    <strong class="max-20" flex>{{ message.userName }}</strong>
+                    <div class="markdown relative" flex markdown-editable ng-model="message.text" style="top: 8px;"></div>
+                    <div class="text-right max-12" flex ng-if="message.queued">
+                        <i class="mdi-communication-email" ng-class="{'text-success': message.alerted}"></i>
+                        <span>&nbsp; {{ message.alerted || message.queued | moment:"MM/DD/YYYY" }}</span>
+                    </div>
+                </md-item-content>
+                <md-divider ng-if="!$last"></md-divider>
+            </md-item>
+        </md-list>
+        <md-whiteframe class="md-whiteframe-z2" flex="100" layout="row" layout-align="start center" layout-padding layout-wrap>
+            <md-input-container flex>
+                <label for="new-message">New Message</label>
+                <textarea id="new-message" ng-model="text" placeholder="Message..."></textarea>
+            </md-input-container>
+            <md-button class="md-primary md-raised max-10 adjust-line-height" flex ng-click="sendMessage(text); text = undefined;" qv-focus="#new-message" ng-disabled="!text || !text.length">
+                Send
+            </md-button>
+        </md-whiteframe>
+    </md-whiteframe>
+</section>
+<section>
+    <h3 class="headline">Instructor's Eyes Only</h3>
+    <md-whiteframe class="md-whiteframe-z1" layout="row" layout-padding layout-wrap>
+        <md-button class="md-primary md-raised max-20 adjust-line-height" flex ng-href="/user/{{ client.$id }}/assignment/{{ userAssignment.$id }}/feedback-email/html" target="_blank">
+            Preview HTML Email
+        </md-button>
+        <md-button class="md-primary md-raised max-20 adjust-line-height" flex ng-href="/user/{{ client.$id }}/assignment/{{ userAssignment.$id }}/feedback-email/text" target="_blank">
+            Preview Text Email
+        </md-button>
+        <md-button class="md-primary md-raised max-20 adjust-line-height" flex ng-click="queueFeedbackEmail(client.$id, userAssignment.$id); disableEmail = true;" ng-disabled="disableEmail">
+            Email Assignment Update
+        </md-button>
+        <span class="padding-zero-important" flex="100"></span>
+        <md-input-container flex="50" flex-sm="100">
+            <label for="client-comments">Client Comments</label>
+            <textarea id="client-comments" style="min-height: 10rem;" ng-model="client.comment" ng-model-options="{debounce: {'default': 1000}}"></textarea>
+        </md-input-container>
+        <md-input-container flex="50" flex-sm="100">
+            <label for="assignment-comments">Assignment Comments</label>
+            <textarea id="assignment-comments" style="min-height: 10rem;" ng-model="userAssignment.comment" ng-model-options="{debounce: {'default': 1000}}"></textarea>
+        </md-input-container>
+    </md-whiteframe>
+</section>

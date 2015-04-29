@@ -8,43 +8,48 @@
  * Controller of the quiverCmsApp
  */
 angular.module('quiverCmsApp')
-  .controller('UploadsCtrl', function ($scope, AdminService) {
-    /*
-     * Flags
-     */
-    $scope.incrementUploadFlag = AdminService.incrementUploadFlag;
-    
-    /*
-     * Uploads
-     */
-    $scope.save = function (upload) {
-      AdminService.getUpload(upload.$id).$loaded().then(function (serverUpload) {
-        serverUpload.comment = upload.comment;
-        serverUpload.flag = upload.flag;
-        
-        if (!serverUpload.comment) {
-          delete serverUpload.comment;
-        }
+    .controller('UploadsCtrl', function($scope, AdminService, items) {
+        /*
+         * Items
+         */
+        $scope.items = items;
 
-        if (!serverUpload.flag) {
-          delete serverUpload.flag;
-        }
+        /*
+         * Flags
+         */
+        $scope.incrementUploadFlag = AdminService.incrementUploadFlag;
 
-        serverUpload.$save();
+        /*
+         * Uploads
+         */
+        $scope.save = function(upload) {
+            AdminService.getUpload(upload.$id).$loaded().then(function(serverUpload) {
+                serverUpload.comment = upload.comment;
+                serverUpload.flag = upload.flag;
 
-      });
-    };
+                if (!serverUpload.comment) {
+                    delete serverUpload.comment;
+                }
 
-    $scope.remove = function (upload) {
-      AdminService.getUpload(upload.$id).$remove();
-    };
+                if (!serverUpload.flag) {
+                    delete serverUpload.flag;
+                }
 
-    $scope.incrementUploadFlag = AdminService.incrementUploadFlag;
+                serverUpload.$save();
+
+            });
+        };
+
+        $scope.remove = function(upload) {
+            AdminService.getUpload(upload.$id).$remove();
+        };
+
+        $scope.incrementUploadFlag = AdminService.incrementUploadFlag;
 
 
-    $scope.searchField = 'userEmail';
-    $scope.setSearch = function (term) {
-      $scope.searchTerm = term;
-    };
+        $scope.searchField = 'userEmail';
+        $scope.setSearch = function(term) {
+            $scope.searchTerm = term;
+        };
 
-  });
+    });

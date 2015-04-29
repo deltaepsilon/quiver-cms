@@ -246,11 +246,11 @@ angular.module('quiverCmsApp')
             },
 
             getMessages: function(query) {
-                return $firebaseArray(FirebaseService.query(new Firebase(firebaseEndpoint + '/logs/messages'), query));
+                return FirebaseService.paginatingArray(new Firebase(firebaseEndpoint + '/logs/messages'), query);
             },
 
             getUploads: function(query) {
-                return $firebaseArray(FirebaseService.query(new Firebase(firebaseEndpoint + '/logs/uploads'), query));
+                return FirebaseService.paginatingArray(new Firebase(firebaseEndpoint + '/logs/uploads'), query);
             },
 
             getUpload: function(key) {
@@ -262,7 +262,7 @@ angular.module('quiverCmsApp')
             },
 
             getEmailQueue: function(query) {
-                return $firebaseArray(FirebaseService.query(new Firebase(firebaseEndpoint + '/queues/email'), query));
+                return FirebaseService.paginatingArray(new Firebase(firebaseEndpoint + '/queues/email'), query);
             },
 
             sendQueuedEmail: function(email) {
