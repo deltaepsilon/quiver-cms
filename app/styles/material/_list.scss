@@ -1,128 +1,110 @@
-ul, ol {
-  list-style: none;
-  
-  &.padded {
-    > li {
-      padding: .5rem;
+ul,
+ol {
+    list-style: none;
+    &.padded {
+        > li {
+            padding: .5rem;
+        }
     }
-  }
 }
 
-ul, ol, md-list {
-  &.hover {
-    > li, > md-item {
-      &:hover, &.active {
-        @extend .background-primary0;
-        @extend .text-white0;
-        @extend .link-white0;
-
-      }
+ul,
+ol,
+md-list {
+    &.hover {
+        > li, > md-item {
+            &:hover, &.active {
+                @extend .background-primary0;
+                @extend .text-white0;
+                @extend .link-white0;
+            }
+        }
     }
-  }
-
-  &.pointer {
-    > li, > md-item {
-      &:hover {
-        cursor: pointer;
-
-      }
-
-      &.active {
-        cursor: default !important;
-
-      }
-      
+    &.pointer {
+        > li, > md-item {
+            &:hover {
+                cursor: pointer;
+            }
+            &.active {
+                cursor: default !important;
+            }
+        }
     }
-  }
-
 }
 
 .inline-list {
-  &> * {
-    margin-left: 1rem;
-
-    &> button {
-      margin-top: 4px;
+    li {
+        float: left;
     }
-
-  }
-
-  &.no-margin {
-    &> *:first-child {
-      margin-left: 0;
-    }
-  }
-
-  &.slashes {
     &> * {
-      position: relative;
-
-      &:last-child:after {
-        content: "";
-      }
-      &:after {
-        content: "/";
         margin-left: 1rem;
-        position: absolute;
-        right: -1rem;
-        top: 0;
-      }
-
+        &> button {
+            margin-top: 4px;
+        }
     }
-  }
-
-  &.dots {
-    &> * {
-      position: relative;
-
-      &:last-child:after {
-        content: "";
-      }
-      &:after {
-        content: "•";
-        margin-left: 1rem;
-        position: absolute;
-        right: -1rem;
-        top: 0;
-      }
-
+    &.no-margin {
+        &> *:first-child {
+            margin-left: 0;
+        }
     }
-  }
-
-  &.commas {
-    &> * {
-      position: relative;
-      
-      &:last-child:after {
-        content: "";
-      }
-      &:after {
-        content: ",";
-        position: absolute;
-        right: -0.25rem;
-        top: 0;
-      }
-
+    &.slashes {
+        &> * {
+            position: relative;
+            &:last-child:after {
+                content: "";
+            }
+            &:after {
+                content: "/";
+                margin-left: 1rem;
+                position: absolute;
+                right: -1rem;
+                top: 0;
+            }
+        }
     }
-  }
-
-  &.arrows {
-    &> * {
-      position: relative;
-      
-      &:last-child:after {
-        content: "";
-      }
-      &:after {
-        content: ">";
-        position: absolute;
-        right: -1.25rem;
-        top: 0;
-        width: 1rem;
-        height: 1rem;
-      }
-
+    &.dots {
+        &> * {
+            position: relative;
+            &:last-child:after {
+                content: "";
+            }
+            &:after {
+                content: "•";
+                margin-left: 1rem;
+                position: absolute;
+                right: -1rem;
+                top: 0;
+            }
+        }
     }
-  }
-
+    &.commas {
+        &> * {
+            position: relative;
+            &:last-child:after {
+                content: "";
+            }
+            &:after {
+                content: ",";
+                position: absolute;
+                right: -0.25rem;
+                top: 0;
+            }
+        }
+    }
+    &.arrows {
+        &> * {
+            position: relative;
+            &:last-child:after {
+                content: "";
+            }
+            &:after {
+                content: ">";
+                position: absolute;
+                right: -1.25rem;
+                top: 0;
+                width: 1rem;
+                height: 1rem;
+            }
+        }
+    }
 }
