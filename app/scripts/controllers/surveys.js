@@ -8,116 +8,127 @@
  * Controller of the quiverCmsApp
  */
 angular.module('quiverCmsApp')
-  .controller('SurveysCtrl', function ($scope, $q, surveys, moment, _, Slug, AdminService) {
-    $scope.surveys = surveys;
+    .controller('SurveysCtrl', function($scope, $q, items, moment, _, Slug, AdminService, NotificationService, $mdDialog) {
+        $scope.items = items;
 
-    $scope.addAnswer = function (answer) {
-      if (!$scope.newSurvey) {
-        $scope.newSurvey = {
-          answers: []
+        $scope.addAnswer = function(answer) {
+            if (!$scope.newSurvey) {
+                $scope.newSurvey = {
+                    answers: []
+                };
+            }
+
+            if (!$scope.newSurvey.answers || !Array.isArray($scope.newSurvey.answers)) {
+                $scope.newSurvey.answers = [];
+            }
+
+            if (!~$scope.newSurvey.answers.indexOf(answer)) {
+                $scope.newSurvey.answers.push(answer);
+            }
+
+
         };
-      }
 
-      if (!$scope.newSurvey.answers || !Array.isArray($scope.newSurvey.answers)) {
-        $scope.newSurvey.answers = [];
-      }
+        $scope.removeAnswer = function(index) {
+            $scope.newSurvey.answers.splice(index, 1);
+        };
 
-      if (!~$scope.newSurvey.answers.indexOf(answer)) {
-        $scope.newSurvey.answers.push(answer);  
-      }
-      
+        $scope.addSurvey = function(survey) {
+            var now = moment(),
+                answers = survey.answers;
 
-    };
+            if (survey.answers) {
+                delete survey.answers;
+            }
 
-    $scope.removeAnswer = function (index) {
-      $scope.$apply(function () {
-        $scope.newSurvey.answers.splice(index, 1);
-      });
-      
+            _.defaults(survey, {
+                $priority: now.unix(),
+                slug: Slug.slugify(survey.name),
+                active: true,
+                created: now.format(),
+                unix: now.unix()
+            });
 
-    };
+            $scope.items.$add(survey).then(function(surveyRef) {
+                delete $scope.newSurvey;
+                delete $scope.newAnswer;
+                return AdminService.getSurveyAnswers(surveyRef.key());
 
-    $scope.addSurvey = function (survey) {
-      var now = moment(),
-        answers = survey.answers;
+            }).then(function(answersArray) {
+                var promises = [];
 
-      if (survey.answers) {
-        delete survey.answers;
-      }
+                _.each(answers, function(answer) {
+                    promises.push(answersArray.$add({
+                        $priority: moment().unix(),
+                        slug: Slug.slugify(answer),
+                        text: answer
+                    }));
+                });
 
-      _.defaults(survey, {
-        $priority: now.unix(),
-        slug: Slug.slugify(survey.name),
-        active: true,
-        created: now.format(),
-        unix: now.unix()
-      });
+                return $q.all(promises);
+            });
 
-      $scope.surveys.$add(survey).then(function (surveyRef) {
-        delete $scope.newSurvey;
-        delete $scope.newAnswer;
-        return AdminService.getSurveyAnswers(surveyRef.key());
-        
-      }).then(function (answersArray) {
-        var promises = [];
-        
-        _.each(answers, function (answer) {
-          promises.push(answersArray.$add({
-            $priority: moment().unix(),
-            slug: Slug.slugify(answer),
-            text: answer
-          }));
-        });
+        };
 
-        return $q.all(promises);
-      });
+        $scope.confirmRemoveSurvey = function(e, survey, items) {
+            var confirm = $mdDialog.confirm()
+                .title(survey.name)
+                .content('Are you sure you want to destroy me?')
+                .ariaLabel('Delete survey ' + survey.name)
+                .ok('Bye bye survey!')
+                .cancel("Maybe I'll need you later?")
+                .targetEvent(e);
 
-    };
+            $mdDialog.show(confirm).then(function() {
+                return items.$remove(items.$indexFor(survey.$id));
+            }).then(function() {
+                NotificationService.success('Survey deleted');
+            }, function() {
+                NotificationService.notify('Not destroyed!');
+            });
 
-    $scope.removeSurvey = function (survey) {
-      $scope.surveys.$remove($scope.surveys.$indexFor(survey.$id));
-    };
+        };
 
-    $scope.setActive = function (survey, active) {
-      $scope.surveys[$scope.surveys.$indexFor(survey.$id)].active = active;
-      $scope.surveys.$save($scope.surveys.$indexFor(survey.$id));
-    };
+        $scope.setActive = function(survey, active) {
+            $scope.items[$scope.items.$indexFor(survey.$id)].active = active;
+            $scope.items.$save($scope.items.$indexFor(survey.$id));
+        };
 
-    $scope.prioritizeSurvey = function (survey) {
-      var surveys = _.sortBy($scope.surveys, function (survey) {
-          return -1 * survey.$priority;
-        }),
-        unix = moment().unix(),
-        current,
-        currentPriority,
-        next,
-        nextPriority,
-        i = surveys.length;
+        $scope.prioritizeSurvey = function(survey) {
+            var surveys = _.sortBy($scope.items, function(survey) {
+                    return -1 * survey.$priority;
+                }),
+                unix = moment().unix(),
+                current,
+                currentPriority,
+                next,
+                nextPriority,
+                i = surveys.length;
 
-      while (i--) {
-        if (surveys[i].$id === survey.$id) {
-          current = surveys[i];
-          next = surveys[i - 1];
-          break;
+            while (i--) {
+                if (surveys[i].$id === survey.$id) {
+                    current = surveys[i];
+                    next = surveys[i - 1];
+                    break;
+                }
+            }
+
+            nextPriority = next && next.$priority ? next.$priority : unix;
+            currentPriority = current && current.$priority ? current.$priority : nextPriority - 1;
+
+
+            if (next && next.$id) {
+                $scope.items[$scope.items.$indexFor(next.$id)].$priority = currentPriority;
+                $scope.items.$save($scope.items.$indexFor(next.$id));
+            }
+
+            if (current && current.$id) {
+                $scope.items[$scope.items.$indexFor(current.$id)].$priority = nextPriority;
+                $scope.items.$save($scope.items.$indexFor(current.$id));
+            }
+
+
         }
-      }
-
-      nextPriority = next && next.$priority ? next.$priority : unix;
-      currentPriority = current && current.$priority ? current.$priority : nextPriority - 1;
-      
-
-      if (next && next.$id) {
-        $scope.surveys[$scope.surveys.$indexFor(next.$id)].$priority = currentPriority;
-        $scope.surveys.$save($scope.surveys.$indexFor(next.$id));
-      }
-
-      if (current && current.$id) {
-        $scope.surveys[$scope.surveys.$indexFor(current.$id)].$priority = nextPriority;
-        $scope.surveys.$save($scope.surveys.$indexFor(current.$id));
-      }
-      
-      
-    }
 
 
-  });
+    });

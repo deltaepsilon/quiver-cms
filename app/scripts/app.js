@@ -703,7 +703,7 @@ angular.module('quiverCmsApp', [
         })
         .state('authenticated.master.admin.users', { // ******************************  Users ****************************
             abstract: true,
-            templateUrl: 'views/admin-use}rs.html',
+            templateUrl: 'views/admin-users.html',
             controller: 'UsersCtrl',
             resolve: {
                 messageable: function(AdminService) {
@@ -770,8 +770,8 @@ angular.module('quiverCmsApp', [
             templateUrl: 'views/admin-surveys.html',
             controller: 'SurveysCtrl',
             resolve: {
-                surveys: function(AdminService) {
-                    return AdminService.getSurveys();
+                items: function(AdminService) {
+                    return AdminService.getSurveys().$get();
                 }
             }
         })

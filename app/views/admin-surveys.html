@@ -1,46 +1,44 @@
-<div class="column small-12">
-    <h3 class="font-flair">Surveys</h3>
+<section>
+    <h3 class="headline">Surveys</h3>
     <form name="newSurveyForm">
-      <fieldset>
-
-        <div class="column small-12">
-          <label for="survey-value">Name</label>
-          <input id="survey-value" type="text" ng-model="newSurvey.name" placeholder="Name..." required>
-        </div>
-
-        <div class="column small-12">
-          <label for="survey-question">Question</label>
-          <textarea id="survey-question" type="text" ng-model="newSurvey.question" placeholder="Question..." required></textarea>
-        </div>
-
-        <div class="column small-12">
-          <label for="survey-message">Message</label>
-          <textarea id="survey-message" ng-model="newSurvey.message" placeholder="Message..."></textarea>
-        </div>
-
-        <div class="column small-12">
-          <label for="survey-answer">Answers</label>
-          <hr>
-        </div>
-
-        <div class="column small-12 medium-6">
-          <input id="survey-answer" type="text" ng-model="newAnswer" placeholder="New Answer...">
-          <button class="secondary left" ng-click="addAnswer(newAnswer); newAnswer = '';" qv-focus="#survey-answer">Add Answer</button>
-          <button class="right" ng-click="addSurvey(newSurvey)" ng-disabled="newSurveyForm.$invalid" qv-focus="#survey-name">Create</button>
-        </div>
-
-        <div class="column small-12 medium-6">
-          <ul class="margin-zero-important">
-            <li class="cursor-pointer" ng-repeat="answer in newSurvey.answers" qv-confirm="removeAnswer($index)" confirmations="['Click to Delete']">{{ answer }}</li>
-          </ul>
-        </div>
-
-      </fieldset>
-
+        <fieldset>
+            <md-whiteframe class="md-whiteframe-z1" layout="row" layout-align="start center" layout-padding layout-wrap>
+                <md-input-container flex="100">
+                    <label for="survey-value">Name</label>
+                    <input id="survey-value" type="text" ng-model="newSurvey.name" placeholder="Name..." required>
+                </md-input-container>
+                <md-input-container flex="50" flex-sm="100">
+                    <label for="survey-question">Question</label>
+                    <textarea id="survey-question" type="text" ng-model="newSurvey.question" placeholder="Question..." required></textarea>
+                </md-input-container>
+                <md-input-container flex="50" flex-sm="100">
+                    <label for="survey-message">Message</label>
+                    <textarea id="survey-message" ng-model="newSurvey.message" placeholder="Message..."></textarea>
+                </md-input-container>
+                <md-input-container flex>
+                    <label for="survey-answer">New Answer</label>
+                    <input id="survey-answer" type="text" ng-model="newAnswer">
+                </md-input-container>
+                <md-button class="md-primary md-raised adjust-line-height max-16" flex ng-click="addAnswer(newAnswer); newAnswer = '';" qv-focus="#survey-answer">
+                    Add Answer
+                </md-button>
+                <md-list flex="100" ng-if="newSurvey.answers.length">
+                    <md-item ng-repeat="answer in newSurvey.answers">
+                        <md-item-content layout="row" layout-align="space-between center" layout-padding layout-wrap>
+                            <span flex>{{ answer }}</span>
+                            <md-button class="md-warn md-icon-button" flex ng-click="removeAnswer($index)" aria-label="Remove answer {{ answer }}">
+                                <i class="mdi-action-delete"></i>
+                            </md-button>
+                        </md-item-content>
+                        <md-divider ng-if="!$last"></md-divider>
+                    </md-item>
+                </md-list>
+                <span class="padding-zero-important" flex="100"></span>
+                <md-button class="md-primary md-raised adjust-line-height max-16" flex ng-click="addSurvey(newSurvey)" ng-disabled="newSurveyForm.$invalid" qv-focus="#survey-name">
+                    Create Survey
+                </md-button>
+            </md-whiteframe>
+        </fieldset>
     </form>
-
-    <hr ng-show="surveys.length">
-
-</div>
-
-<div class="column small-12" ui-view></div>
+    <div ui-view></div>
+</section>

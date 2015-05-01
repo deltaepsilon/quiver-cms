@@ -1,42 +1,47 @@
-<div class="column small-12">
-  <h3 class="font-flair left">Survey</h3>
-  <div class="right text-white0">
-    <button class="tiny margin-vertical-xx-small secondary" ng-show="survey.active" ng-click="survey.active = false">Active</button>
-    <button class="tiny margin-vertical-xx-small alert" ng-show="!survey.active" ng-click="survey.active = true">Inactive</button>
-  </div>
-</div>
-
-<form class="column small-12" name="surveyForm">
-  <fieldset>
-    <div class="column small-12">
-    <label for="survey-name">Name</label>
-    <input id="survey-name" type="text" ng-model="survey.name" ng-model-options="{debounce: {'default': 500}}" placeholder="Name..." required>
+<section>
+    <div layout="row" layout-align="start center">
+        <h3 class="headline" flex>Survey</h3>
+        <md-button class="md-primary md-raised" ng-if="survey.active" ng-click="survey.active = false">
+            Active
+        </md-button>
+        <md-button class="md-warn md-raised" ng-if="!survey.active" ng-click="survey.active = true">
+            Inactive
+        </md-button>
     </div>
-
-    <div class="column small-12">
-      <label for="survey-question">Question</label>
-      <textarea id="survey-question" ng-model="survey.question" ng-model-options="{debounce: {'default': 500}}" placeholder="Question..." required></textarea>    
-    </div>
-
-    <div class="column small-12">
-      <label for="survey-message">Message</label>
-      <textarea id="survey-message" ng-model="survey.message" ng-model-options="{debounce: {'default': 500}}" placeholder="Message..."></textarea>
-    </div>
-
-    <div class="column small-12">
-      <label for="survey-answer">Answers</label>
-      <hr>
-    </div>
-
-    <div class="column small-12 medium-6">
-      <input id="survey-answer" type="text" ng-model="newAnswer" placeholder="New Answer (click ENTER to save)..." qv-enter="addAnswer(newAnswer); newAnswer = '';">
-    </div>
-
-    <div class="column small-12 medium-6">
-      <ul class="margin-zero-important">
-        <li class="cursor-pointer" ng-repeat="answer in survey.answers" qv-confirm="removeAnswer($index)" confirmations="['Click to Delete']">{{ answer.text }}</li>
-      </ul>    
-    </div>
-
-  </fieldset>
-</form>
+    <form class="column small-12" name="surveyForm">
+        <fieldset>
+            <md-whiteframe class="md-whiteframe-z1" layout="row" layout-sm="column" layout-align="start center" layout-padding layout-wrap>
+                <md-input-container flex="100">
+                    <label for="survey-name">Name</label>
+                    <input id="survey-name" type="text" ng-model="survey.name" ng-model-options="{debounce: {'default': 500}}" placeholder="Name..." required>
+                </md-input-container>
+                <md-input-container flex="50">
+                    <label for="survey-question">Question</label>
+                    <textarea id="survey-question" ng-model="survey.question" ng-model-options="{debounce: {'default': 500}}" placeholder="Question..." required></textarea>
+                </md-input-container>
+                <md-input-container flex="50">
+                    <label for="survey-message">Message</label>
+                    <textarea id="survey-message" ng-model="survey.message" ng-model-options="{debounce: {'default': 500}}" placeholder="Message..."></textarea>
+                </md-input-container>
+                <md-input-container flex>
+                    <label for="survey-answer">New Answer</label>
+                    <input id="survey-answer" type="text" ng-model="newAnswer">
+                </md-input-container>
+                <md-button class="md-primary md-raised md-icon-button" flex ng-click="addAnswer(newAnswer); newAnswer = '';">
+                    <i class="mdi-content-add-box"></i>
+                </md-button>
+                <md-list flex="100">
+                    <md-item ng-repeat="answer in survey.answers">
+                        <md-item-content layout="row" layout-align="space-between center" layout-padding layout-wrap>
+                            <span flex>{{ answer.text }}</span>
+                            <md-button class="md-warn md-icon-button" flex ng-click="removeAnswer($index)" aria-label="Remove answer {{ answer.text }}">
+                                <i class="mdi-action-delete"></i>
+                            </md-button>
+                        </md-item-content>
+                        <md-divider ng-if="!$last"></md-divider>
+                    </md-item>
+                </md-list>
+            </md-whiteframe>
+        </fieldset>
+    </form>
+</section>

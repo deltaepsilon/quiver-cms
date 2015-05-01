@@ -282,7 +282,7 @@ angular.module('quiverCmsApp')
             },
 
             getSurveys: function(query) {
-                return $firebaseArray(FirebaseService.query(new Firebase(firebaseEndpoint + '/settings/surveys'), query));
+                return FirebaseService.paginatingArray(new Firebase(firebaseEndpoint + '/settings/surveys'), query);
             },
 
             getSurvey: function(key) {
