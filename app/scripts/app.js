@@ -482,6 +482,9 @@ angular.module('quiverCmsApp', [
 
                     });
 
+                },
+                pages: function(user, UserService, $stateParams) {
+                    return UserService.getPages(user.public.id, $stateParams.subscriptionKey);
                 }
             }
         })
