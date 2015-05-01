@@ -315,6 +315,14 @@ angular.module('quiverCmsApp')
                     }
                     return upload.$save();
                 });
+            },
+
+            runReports: function() {
+                return Restangular.one('admin').one('report').post('run');
+            },
+
+            getReports: function() {
+                return $firebaseObject(new Firebase(firebaseEndpoint + '/reports'));
             }
 
         }

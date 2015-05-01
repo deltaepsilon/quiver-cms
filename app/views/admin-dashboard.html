@@ -1,0 +1,30 @@
+<section>
+    <div layout="row" layout-align="start center">
+        <h3 class="headline" flex ng-class="{'disabled': $storage.hideDashboardReports}">Reports</h3>
+        <div class="max-7" flex>
+            <md-progress-circular flex md-mode="indeterminate" qv-loading ng-class="{invisible: !runningReports}"></md-progress-circular>
+        </div>
+        <md-button class="md-warn md-raised max-10" flex ng-click="runReports()">
+            Run Reports
+        </md-button>
+        <md-button class="md-primary md-raised md-icon-button" flex ng-click="$storage.hideDashboardReports = !$storage.hideDashboardReports" aria-label="Hide dashboard reports">
+            <i ng-class="{'mdi-navigation-expand-less': $storage.hideDashboardReports, 'mdi-navigation-expand-more': !$storage.hideDashboardReports}"></i>
+        </md-button>
+    </div>
+    <div ng-if="!$storage.hideDashboardReports">
+        <h4>Discounts</h4>
+        <md-whiteframe class="md-whiteframe-z1" layout="row" layout-padding layout-wrap>
+            <md-list>
+                <md-item ng-repeat="(day, results) in reports.discounts.byDay">
+                    <md-item-content layout="row" layout-align="space-between center" layout-padding layout-wrap>
+                        <span flex>{{ day }}</span>
+                        <div flex>
+                            {{ results }}
+                        </div>
+                    </md-item-content>
+                    <md-divider ng-if="!$last"></md-divider>
+                </md-item>
+            </md-list>
+        </md-whiteframe>
+    </div>
+</section>

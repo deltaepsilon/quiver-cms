@@ -518,6 +518,7 @@ angular.module('quiverCmsApp', [
          * Admin routes
          */
         .state('authenticated.master.admin', { // ************************************  Admin ****************************
+            abstract: true,
             url: '/admin',
             views: {
                 sidenavLeft: {
@@ -569,6 +570,16 @@ angular.module('quiverCmsApp', [
                             });
                         }
                     }
+                }
+            }
+        })
+        .state('authenticated.master.admin.dashboard', {
+            url: '/dashboard',
+            templateUrl: 'views/admin-dashboard.html',
+            controller: 'AdminDashboardCtrl',
+            resolve: {
+                reports: function(AdminService) {
+                    return AdminService.getReports();
                 }
             }
         })
