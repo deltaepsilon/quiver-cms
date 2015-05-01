@@ -4694,131 +4694,146 @@ iframe {
 }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_layout\.scss}line{font-family:\0000375}}
+.block {
+  display: block;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_layout\.scss}line{font-family:\0000379}}
+.inline-block {
+  display: inline-block;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_layout\.scss}line{font-family:\0000383}}
+.inline {
+  display: inline;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_layout\.scss}line{font-family:\0000387}}
 .vh-100 {
   height: 100vh;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_layout\.scss}line{font-family:\0000379}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_layout\.scss}line{font-family:\0000391}}
 .vh-90 {
   height: 90vh;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_layout\.scss}line{font-family:\0000384}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_layout\.scss}line{font-family:\0000396}}
 .min-2 {
   min-width: 2rem;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_layout\.scss}line{font-family:\0000388}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_layout\.scss}line{font-family:\00003100}}
 .min-3 {
   min-width: 3rem;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_layout\.scss}line{font-family:\0000392}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_layout\.scss}line{font-family:\00003104}}
 .min-4 {
   min-width: 4rem;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_layout\.scss}line{font-family:\0000396}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_layout\.scss}line{font-family:\00003108}}
 .min-5 {
   min-width: 5rem;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_layout\.scss}line{font-family:\00003100}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_layout\.scss}line{font-family:\00003112}}
 .min-7 {
   min-width: 7rem;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_layout\.scss}line{font-family:\00003104}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_layout\.scss}line{font-family:\00003116}}
 .min-10 {
   min-width: 10rem;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_layout\.scss}line{font-family:\00003108}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_layout\.scss}line{font-family:\00003120}}
 .min.min-12 {
   min-width: 12rem;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_layout\.scss}line{font-family:\00003112}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_layout\.scss}line{font-family:\00003124}}
 .min-14 {
   min-width: 14rem;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_layout\.scss}line{font-family:\00003116}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_layout\.scss}line{font-family:\00003128}}
 .min-16 {
   min-width: 16rem;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_layout\.scss}line{font-family:\00003120}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_layout\.scss}line{font-family:\00003132}}
 .min-18 {
   min-width: 18rem;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_layout\.scss}line{font-family:\00003124}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_layout\.scss}line{font-family:\00003136}}
 .min-20 {
   min-width: 20rem;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_layout\.scss}line{font-family:\00003128}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_layout\.scss}line{font-family:\00003140}}
 .min-22 {
   min-width: 22rem;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_layout\.scss}line{font-family:\00003133}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_layout\.scss}line{font-family:\00003145}}
 .max-2 {
   max-width: 2rem;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_layout\.scss}line{font-family:\00003137}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_layout\.scss}line{font-family:\00003149}}
 .max-3 {
   max-width: 3rem;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_layout\.scss}line{font-family:\00003141}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_layout\.scss}line{font-family:\00003153}}
 .max-4 {
   max-width: 4rem;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_layout\.scss}line{font-family:\00003145}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_layout\.scss}line{font-family:\00003157}}
 .max-5 {
   max-width: 5rem;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_layout\.scss}line{font-family:\00003149}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_layout\.scss}line{font-family:\00003161}}
 .max-7 {
   max-width: 7rem;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_layout\.scss}line{font-family:\00003153}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_layout\.scss}line{font-family:\00003165}}
 .max-10 {
   max-width: 10rem;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_layout\.scss}line{font-family:\00003157}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_layout\.scss}line{font-family:\00003169}}
 .max-12 {
   max-width: 12rem;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_layout\.scss}line{font-family:\00003161}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_layout\.scss}line{font-family:\00003173}}
 .max-14 {
   max-width: 14rem;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_layout\.scss}line{font-family:\00003165}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_layout\.scss}line{font-family:\00003177}}
 .max-16 {
   max-width: 16rem;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_layout\.scss}line{font-family:\00003169}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_layout\.scss}line{font-family:\00003181}}
 .max-18 {
   max-width: 18rem;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_layout\.scss}line{font-family:\00003173}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_layout\.scss}line{font-family:\00003185}}
 .max-20 {
   max-width: 20rem;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_layout\.scss}line{font-family:\00003177}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_layout\.scss}line{font-family:\00003189}}
 .max-22 {
   max-width: 22rem;
 }

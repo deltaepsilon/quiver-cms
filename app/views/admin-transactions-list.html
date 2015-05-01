@@ -4,6 +4,10 @@
             <label for="list-search">Search by Email</label>
             <input id="list-search" type="text" ng-model="searchTerm" qv-enter="items = items.$orderByChild('userEmail').$startAt(searchTerm).$get(); orderBy = 'userEmail'" ng-focus="searchTerm = undefined;">
         </md-input-container>
+        <md-input-container flex>
+            <label for="referer-search">Search by Affiliate</label>
+            <input id="referer-search" type="text" ng-model="refererSearch" qv-enter="items = items.$orderByChild('referer').$startAt(refererSearch).$get(); orderBy = 'referer'" ng-focus="refererSearch = undefined;">
+        </md-input-container>
         <span flex></span>
         <md-button class="md-icon-button" flex ng-click="items = items.$prev(); orderBy = '-$priority'; query = undefined;" ng-disabled="items.$prevDisabled" aria-label="list back">
             <i class="mdi-navigation-arrow-back"></i>
@@ -38,12 +42,15 @@
                             <span ng-class="{'text-error': transaction.total && !transaction.charge.success}">{{ ::transaction.total | currency }}</span>
                             <div class="text-error text-xx-small" ng-show="transaction.total && !transaction.charge.success">{{ transaction.charge.message }}</div>
                         </div>
-                        <div flex>
+                        <span flex>
                             {{ ::transaction.productCount }} item(s)
-                        </div>
-                        <div flex>
+                        </span>
+                        <span flex>
+                            {{ ::transaction.referer }}
+                        </span>
+                        <span flex>
                             {{ ::transaction.date | moment:"MM/DD/YY hh:mm:ss" }}
-                        </div>
+                        </span>
                     </md-item-content>
                     <md-divider ng-if="!$last"></md-divider>
                 </md-item>
