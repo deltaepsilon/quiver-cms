@@ -8,7 +8,15 @@
  * Controller of the quiverCmsApp
  */
 angular.module('quiverCmsApp')
-    .controller('SettingsCtrl', function($scope, $timeout) {
+    .controller('SettingsCtrl', function($scope, landingPages, $timeout) {
+        /*
+         * Landing Pages
+         */
+        $scope.landingPages = landingPages;
+
+        /*
+         * Nav Lists
+         */
         $scope.navList = [{
                 name: "Nav #1",
                 slug: "nav1"

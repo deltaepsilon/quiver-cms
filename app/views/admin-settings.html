@@ -21,6 +21,7 @@
                     <md-select ng-model="theme.frontPage" placeholder="Front Page Template">
                         <md-option value="">Default Template</md-option>
                         <md-option ng-value="alternate.filename" ng-repeat="(key, alternate) in theme.alternates">{{ alternate.name }}</md-option>
+                        <md-option ng-value="page.slug" ng-repeat="page in landingPages">{{ page.title }}</md-option>
                     </md-select>
                 </div>
                 <span class="padding-zero-important" flex="100"></span>

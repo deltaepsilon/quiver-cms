@@ -1,178 +1,140 @@
 <section>
-  <h3 class="headline">Products</h3>
-
-  <form name="productForm">
-      <fieldset>
-        <md-whiteframe class="md-whiteframe-z1" layout="row" layout-padding layout-wrap>
-          <h4 flex="100">Create Product</h4>
-          <md-input-container flex>
-            <label for="new-product-title">New Product Title</label>
-            <input id="new-product-title" type="text" name="product-title" ng-model="newProduct.title" placeholder="Product title..." required>  
-          </md-input-container>
-          
-          <md-button class="md-primary md-raised max-5 min-5" flex name="button" ng-disabled="productForm.$invalid" ng-click="addProduct(newProduct, items)" qv-focus="#new-product-title">
-            Create
-          </md-button>
-        </div>
-      </md-whiteframe>
-  </form>
-
-</section>
-
-<section>
-  <md-whiteframe class="md-whiteframe-z1 relative" layout="column" layout-fill flex>
-    <div layout="row" layout-align="start center" layout-padding>
-      <md-input-container flex>
-        <label for="list-search">Search by Slug</label>
-        <input id="list-search" type="text" ng-model="query" qv-enter="items = items.$orderByChild('slug').$startAt(query).$get(); orderBy = 'slug'" ng-focus="query = undefined;">
-      </md-input-container>
-
-      <span flex></span>
-      
-      <md-button class="md-icon-button" flex ng-click="items = items.$prev(); orderBy = '-$priority'; query = undefined;" ng-disabled="items.$prevDisabled" aria-label="list back">
-        <i class="mdi-navigation-arrow-back"></i>
-      </md-button>
-      
-      <md-button class="md-icon-button" flex ng-click="items = items.$next(); orderBy = '-$priority'; query = undefined;" ng-disabled="items.$nextDisabled" aria-label="list forward">
-        <i class="mdi-navigation-arrow-forward"></i>
-      </md-button>
-      
-      <md-button class="md-icon-button" flex ng-click="items = items.$more(); orderBy = '-$priority'; query = undefined;" ng-disabled="items.$moreDisabled" aria-label="list load more">
-        <i class="mdi-navigation-expand-more"></i>
-      </md-button>
-      
-      <md-button class="md-icon-button" flex ng-click="items = items.$reset(); orderBy = '-$priority'; query = undefined;" ng-disabled="items.$resetDisabled" aria-label="list reload">
-        <i class="mdi-navigation-refresh"></i>
-      </md-button>
-
-    </div>
-
-    <md-content>
-      <md-list layout="column" ng-if="!items">
-        <md-item>
-          <md-item-content class="text-center" layout="row" layout-align="center center" layout-padding layout-wrap>
-            <h3 class="Headline">There are no products to display.</h3>
-          </md-item-content>
-        </md-item>
-      </md-list>
-          
-      <section>
-        <md-list layout="column">
-          <md-item ng-repeat="product in items | orderBy:orderBy">
-            <md-item-content class="extra-padding" layout="row" layout-align="space-between start" layout-padding layout-wrap>
-
-              <div class="max-7" flex>
-                <a ui-sref="authenticated.master.admin.product({key: product.$id})">
-                  <img ng-if="product.featuredImage.Versions.small.Key" ng-src="{{ product.featuredImage.Versions.small.Key | s3Link:files.Name }}" />
-                </a>
-              </div>
-
-              <div flex layout="row" layout-align="space-between top" layout-padding layout-wrap>
-                <a flex="25" flex-sm="100" ui-sref="authenticated.master.admin.product({key: product.$id})">{{ product.title }}</a>
-
-                <span class="md-button-icon md-button-padding text-success" flex><i class="fa fa-check-circle" ng-class="{'text-error': !product.active || !product.isValid}"></i></span>
-
-                <md-button class="md-warn md-raised md-icon-button" ng-click="confirmRemoveProduct($event, product, items)" aria-label="Remove product {{ product.title }}">
-                  <i class="mdi-action-delete"></i>
+    <h3 class="headline">Products</h3>
+    <form name="productForm">
+        <fieldset>
+            <md-whiteframe class="md-whiteframe-z1" layout="row" layout-padding layout-wrap>
+                <h4 flex="100">Create Product</h4>
+                <md-input-container flex>
+                    <label for="new-product-title">New Product Title</label>
+                    <input id="new-product-title" type="text" name="product-title" ng-model="newProduct.title" placeholder="Product title..." required>
+                </md-input-container>
+                <md-button class="md-primary md-raised md-icon-button" flex name="button" ng-disabled="productForm.$invalid" ng-click="addProduct(newProduct, items)" qv-focus="#new-product-title">
+                    <i class="mdi-content-add-box"></i>
                 </md-button>
-
-                <span class="padding-zero-important" flex="100"></span>
-
-                <div flex flex-sm="100">
-                  <h4 class="margin-zero" flex="100">Details</h4>
-
-                  <div class="padding-small" layout="row" layout-wrap>
-                    <span flex="50">
+                </div>
+            </md-whiteframe>
+    </form>
+</section>
+<section>
+    <md-whiteframe class="md-whiteframe-z1 relative" layout="column" layout-fill flex>
+        <div layout="row" layout-align="start center" layout-padding>
+            <md-input-container flex>
+                <label for="list-search">Search by Slug</label>
+                <input id="list-search" type="text" ng-model="query" qv-enter="items = items.$orderByChild('slug').$startAt(query).$get(); orderBy = 'slug'" ng-focus="query = undefined;">
+            </md-input-container>
+            <span flex></span>
+            <md-button class="md-icon-button" flex ng-click="items = items.$prev(); orderBy = '-$priority'; query = undefined;" ng-disabled="items.$prevDisabled" aria-label="list back">
+                <i class="mdi-navigation-arrow-back"></i>
+            </md-button>
+            <md-button class="md-icon-button" flex ng-click="items = items.$next(); orderBy = '-$priority'; query = undefined;" ng-disabled="items.$nextDisabled" aria-label="list forward">
+                <i class="mdi-navigation-arrow-forward"></i>
+            </md-button>
+            <md-button class="md-icon-button" flex ng-click="items = items.$more(); orderBy = '-$priority'; query = undefined;" ng-disabled="items.$moreDisabled" aria-label="list load more">
+                <i class="mdi-navigation-expand-more"></i>
+            </md-button>
+            <md-button class="md-icon-button" flex ng-click="items = items.$reset(); orderBy = '-$priority'; query = undefined;" ng-disabled="items.$resetDisabled" aria-label="list reload">
+                <i class="mdi-navigation-refresh"></i>
+            </md-button>
+        </div>
+        <md-content>
+            <md-list layout="column" ng-if="!items">
+                <md-item>
+                    <md-item-content class="text-center" layout="row" layout-align="center center" layout-padding layout-wrap>
+                        <h3 class="Headline">There are no products to display.</h3>
+                    </md-item-content>
+                </md-item>
+            </md-list>
+            <section>
+                <md-list layout="column">
+                    <md-item ng-repeat="product in items | orderBy:orderBy">
+                        <md-item-content class="extra-padding" layout="row" layout-align="space-between start" layout-padding layout-wrap>
+                            <div class="max-7" flex>
+                                <a ui-sref="authenticated.master.admin.product({key: product.$id})">
+                                    <img ng-if="product.featuredImage.Versions.small.Key" ng-src="{{ product.featuredImage.Versions.small.Key | s3Link:files.Name }}" />
+                                </a>
+                            </div>
+                            <div flex layout="row" layout-align="space-between top" layout-padding layout-wrap>
+                                <a flex="25" flex-sm="100" ui-sref="authenticated.master.admin.product({key: product.$id})">{{ product.title }}</a>
+                                <span class="md-button-icon md-button-padding text-success" flex><i class="fa fa-check-circle" ng-class="{'text-error': !product.active || !product.isValid}"></i></span>
+                                <md-button class="md-warn md-raised md-icon-button" ng-click="confirmRemoveProduct($event, product, items)" aria-label="Remove product {{ product.title }}">
+                                    <i class="mdi-action-delete"></i>
+                                </md-button>
+                                <span class="padding-zero-important" flex="100"></span>
+                                <div flex flex-sm="100">
+                                    <h4 class="margin-zero" flex="100">Details</h4>
+                                    <div class="padding-small" layout="row" layout-wrap>
+                                        <span flex="50">
                       Price
                     </span>
-                    <span class="text-right" flex="50">
+                                        <span class="text-right" flex="50">
                       {{ product.price | currency }}
                     </span>
-
-                    <span flex="50">
+                                        <span flex="50">
                       Taxable
                     </span>
-                    <span class="text-right" flex="50">
+                                        <span class="text-right" flex="50">
                       {{ product.taxable }}
                     </span>
-
-                    <span flex="50">
+                                        <span flex="50">
                       Type
                     </span>
-                    <span class="text-right" flex="50">
+                                        <span class="text-right" flex="50">
                       {{ product.type }}
                     </span>
-
-                    <span flex="50">
+                                        <span flex="50">
                       Type
                     </span>
-                    <span class="text-right" flex="50">
+                                        <span class="text-right" flex="50">
                       {{ product.type }}
                     </span>
-
-                    <span flex="50" ng-if="product.type == 'subscription'">
+                                        <span flex="50" ng-if="product.type == 'subscription'">
                       Subscription Type
                     </span>
-                    <span class="text-right" flex="50" ng-if="product.type == 'subscription'">
+                                        <span class="text-right" flex="50" ng-if="product.type == 'subscription'">
                       {{ product.subscriptionType }}
                     </span>
-
-                    <span flex="50">
+                                        <span flex="50">
                       Slug
                     </span>
-                    <span class="text-right" flex="50">
+                                        <span class="text-right" flex="50">
                       {{ product.slug }}
                     </span>
-
-                  </div>                  
-
-                </div>
-
-                <div flex flex-sm="100">
-                  <h4 class="margin-zero">Hashtags</h4>
-
-                  <div class="padding-small">
-                    <div ng-repeat="hashtag in product.hashtags">
-                      #{{ hashtag.key }}
-                    </div>
-                  </div>
-
-                  
-                </div>
-
-                <div flex flex-sm="100">
-                  <h4 class="margin-zero">Options Groups</h4>
-
-                  <div class="padding-small" flex="100" ng-repeat="group in product.optionGroups">
-                    <h5 class="margin-zero">{{ group.name }}</h5>
-
-                    <div ng-repeat="option in group.options">
-                      <span>
+                                    </div>
+                                </div>
+                                <div flex flex-sm="100">
+                                    <h4 class="margin-zero">Hashtags</h4>
+                                    <div class="padding-small">
+                                        <div ng-repeat="hashtag in product.hashtags">
+                                            #{{ hashtag.key }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div flex flex-sm="100">
+                                    <h4 class="margin-zero">Options Groups</h4>
+                                    <div class="padding-small" flex="100" ng-repeat="group in product.optionGroups">
+                                        <h5 class="margin-zero">{{ group.name }}</h5>
+                                        <div ng-repeat="option in group.options">
+                                            <span>
                         {{ ::option.name }}
                       </span>
-                      <span ng-if="option.inventory != 0">
+                                            <span ng-if="option.inventory != 0">
                         {{ ::option.inventory || '∞' }}
                       </span>
-                      <span ng-if="option.inventory == 0">
+                                            <span ng-if="option.inventory == 0">
                         {{ ::option.inventory || '∞' }}
                       </span>
-                      <span>
+                                            <span>
                         ± {{ ::option.priceDifference || 0 | currency }}
                       </span>
-
-                    </div>
-
-                  </div>
-                </div>
-
-              </div>
-              
-            </md-item-content>
-            <md-divider ng-if="!$last"></md-divider>
-          </md-item>
-        </md-list>
-      </section>
-    </md-content>
-  </md-whiteframe>
-
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </md-item-content>
+                        <md-divider ng-if="!$last"></md-divider>
+                    </md-item>
+                </md-list>
+            </section>
+        </md-content>
+    </md-whiteframe>
 </section>

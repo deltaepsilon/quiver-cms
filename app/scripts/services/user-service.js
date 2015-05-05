@@ -16,7 +16,7 @@ angular.module('quiverCmsApp')
                 if (!subscription) {
                     return true;
                 } else if (subscription.subscriptionType === 'content') {
-                    if (!subscription.expiration && save) { // Save new expiration if asked to
+                    if (!subscription.expiration && save && subscription.subscriptionDays) { // Save new expiration if asked to
                         subscription.expiration = moment().add(subscription.subscriptionDays, 'days').format();
                         subscription.$save();
                     } else if (moment().unix() > moment(subscription.expiration).unix()) {

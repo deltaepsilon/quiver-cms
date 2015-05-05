@@ -1,52 +1,52 @@
 var express = require('express'),
-  app = express(),
-  Q = require('q'),
-  _ = require('underscore'),
-  expressHandlebars = require('express-handlebars'),
-  helpers = require('./lib/extensions/helpers.js');
+    app = express(),
+    Q = require('q'),
+    _ = require('underscore'),
+    expressHandlebars = require('express-handlebars'),
+    helpers = require('./lib/extensions/helpers.js');
 
 /*
  * Services
  */
 var LogService = require('./lib/services/log-service'),
-  FirebaseService = require('./lib/services/firebase-service'),
-  SearchService = require('./lib/services/search-service'),
-  ConfigService = require('./lib/services/config-service'),
-  RedisService = require('./lib/services/redis-service'),
-  EmailService = require('./lib/services/email-service'),
-  ThemeService = require('./lib/services/theme-service'),
-  WordService = require('./lib/services/word-service');
+    FirebaseService = require('./lib/services/firebase-service'),
+    SearchService = require('./lib/services/search-service'),
+    ConfigService = require('./lib/services/config-service'),
+    RedisService = require('./lib/services/redis-service'),
+    EmailService = require('./lib/services/email-service'),
+    ThemeService = require('./lib/services/theme-service'),
+    WordService = require('./lib/services/word-service');
 
 /*
  * Controllers
  */
 var CacheController = require('./lib/controllers/cache'),
-  EnvironmentController = require('./lib/controllers/environment'),
-  FeedController = require('./lib/controllers/feed'),
-  ProductController = require('./lib/controllers/product'),
-  PageController = require('./lib/controllers/page'),
-  EmailController = require('./lib/controllers/email'),
-  ResourceController = require('./lib/controllers/resource'),
-  StaticController = require('./lib/controllers/static');
+    EnvironmentController = require('./lib/controllers/environment'),
+    FeedController = require('./lib/controllers/feed'),
+    ProductController = require('./lib/controllers/product'),
+    PageController = require('./lib/controllers/page'),
+    EmailController = require('./lib/controllers/email'),
+    ResourceController = require('./lib/controllers/resource'),
+    StaticController = require('./lib/controllers/static');
 
 /*
  * Templating
-*/
+ */
 app.set('view engine', 'handlebars');
 
 /*
  * Redis
-*/
+ */
 app.use(CacheController.pages);
 
 /*
  * Env.js
-*/
+ */
 app.get('/env.js', EnvironmentController.envJS);
 
 /*
  * Static
-*/
+ */
 app.use('/static', StaticController.content);
 
 app.use('/favicon.ico', StaticController.file('favicon.ico'));
@@ -60,7 +60,7 @@ app.get('/rss', FeedController.rss);
 
 /*
  * Product
-*/
+ */
 app.get('/products', ProductController.products);
 app.get('/products/:hashtag', ProductController.hashtag);
 app.get('/product/:slug', ProductController.product);
@@ -68,12 +68,12 @@ app.get('/product/:slug', ProductController.product);
 /*
  * Resource
  */
- app.get('/resource/:key', ResourceController.resource);
+app.get('/resource/:key', ResourceController.resource);
 
 
 /*
  * Posts
-*/
+ */
 app.get('/', PageController.frontPage);
 
 app.get('/blog', PageController.frontPage);
@@ -94,67 +94,66 @@ app.get('/user/:userId/assignment/:assignmentKey/feedback-email/:type', EmailCon
 
 /*
  * Auth & App Listen
-*/
+ */
 console.log('...Starting auth...');
-FirebaseService.isAuthenticated().then(function () {
-  console.log('...authenticated...');
-  console.log('...warming redis cache...');
-  var deferred = Q.defer();
+FirebaseService.isAuthenticated().then(function() {
+    console.log('...authenticated...');
+    console.log('...warming redis cache...');
+    var deferred = Q.defer();
 
-  Q.all([
-      ThemeService.setTheme(),
-      RedisService.setWords(),
-      RedisService.setProducts(),
-      RedisService.setSettings(),
-      RedisService.setHashtags()
-    ])
-    .spread(function (theme, words, products, settings, hashtags) {
-      var viewsDir;
+    Q.all([
+            ThemeService.setTheme(),
+            RedisService.setWords(),
+            RedisService.setProducts(),
+            RedisService.setSettings(),
+            RedisService.setHashtags()
+        ])
+        .spread(function(theme, words, products, settings, hashtags) {
+            var viewsDir;
 
-      if (!theme) {
-        theme = {
-          active: 'quiver',
-          options: {
-            quiver: 'quiver'
-          }
-        }
-      }
+            if (!theme) {
+                theme = {
+                    active: 'quiver',
+                    options: {
+                        quiver: 'quiver'
+                    }
+                }
+            }
 
+            theme.active = theme.options[theme.active || Object.keys(theme.options)[0]];
 
-      theme.active =  theme.options[theme.active || Object.keys(theme.options)[0]];
-      
-      viewsDir = './themes/' + theme.active + '/views';
+            viewsDir = './themes/' + theme.active + '/views';
 
-      handlebars = expressHandlebars.create({
-        defaultLayout: 'main',
-        layoutsDir: viewsDir + '/layouts',
-        partialsDir: viewsDir + '/partials',
-        helpers: helpers
-      });
+            handlebars = expressHandlebars.create({
+                defaultLayout: 'main',
+                layoutsDir: viewsDir + '/layouts',
+                partialsDir: viewsDir + '/partials',
+                helpers: helpers
+            });
 
-      app.engine('html', handlebars.engine);
-      app.engine('handlebars', handlebars.engine);
+            app.engine('html', handlebars.engine);
+            app.engine('handlebars', handlebars.engine);
 
-      app.set('views', viewsDir);
+            app.set('views', viewsDir);
 
-      WordService.setApp(app);
-      EmailService.setApp(app);
-      ProductController.setApp(app);
-      PageController.setApp(app);
+            WordService.setApp(app);
+            EmailService.setApp(app);
+            ProductController.setApp(app);
+            PageController.setApp(app);
 
-      SearchService.createIndex(words, function (err, result) {
-        return err ? deferred.reject(err) : deferred.resolve(result);
-      });
-      
+            SearchService.createIndex(words, function(err, result) {
+                return err ? deferred.reject(err) : deferred.resolve(result);
+            });
+
+        });
+
+    deferred.promise.then(function() {
+        var port = ConfigService.get('private.content.port');
+        LogService.info('Serving on port ' + port);
+        app.listen(port);
+
+    }, function(err) {
+        LogService.error('App not listening', err);
     });
 
-    deferred.promise.then(function () {
-      var port = ConfigService.get('private.content.port');
-      LogService.info('Serving on port ' + port);
-      app.listen(port);
-
-    }, function (err) {
-      LogService.error('App not listening', err);
-    });
-  
 });

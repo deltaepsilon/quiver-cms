@@ -16,12 +16,12 @@
                         <i class="mdi-action-shopping-cart"></i>
                     </md-button>
                 </div>
-                <div flex ng-if="!currentUser" qv-active style="max-width: 6rem;">
+                <div flex ng-if="!currentUser" qv-active style="max-width: 12rem;">
                     <md-button class="margin-horizontal-small" ui-sref="master.nav.login" style="margin-top: 3px">
                         <i class="mdi-action-input"></i> &nbsp;Login
                     </md-button>
                 </div>
-                <div flex ng-if="!currentUser" qv-active style="max-width: 6rem;">
+                <div flex ng-if="!currentUser" qv-active style="max-width: 12rem;">
                     <md-button class="margin-horizontal-small" ng-if="!currentUser" ui-sref="master.nav.register" style="margin-top: 3px">
                         Register
                     </md-button>
@@ -37,7 +37,7 @@
             </div>
         </md-toolbar>
         <md-content class="md-padding" flex layout-fill qv-background-image="settings.loginImage" states="['master.nav.login', 'master.nav.register', 'master.nav.reset']" style="height: 100vh;">
-            <div flex layout="column" layout-align="center center" layout-fill ui-view="body" autoscroll></div>
+            <div flex layout="column" layout-align="center center" layout-fill ui-view="body" autoscroll="false"></div>
             <span qv-autoscroll scroll-on="scrollToBottom"></span>
         </md-content>
     </div>

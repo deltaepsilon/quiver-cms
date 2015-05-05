@@ -1,0 +1,61 @@
+<section>
+    <h3 class="headline">Landing Pages</h3>
+    <form name="newLandingPageForm">
+        <fieldset>
+            <md-whiteframe class="md-whiteframe-z1" layout="row" layout-align="start center" layout-padding layout-wrap>
+                <md-input-container flex>
+                    <label for="landing-page-title">New Page Title</label>
+                    <input id="landing-page-title" type="text" ng-model="page.title" required>
+                </md-input-container>
+                <md-button class="md-primary md-raised md-icon-button" flex ng-click="createLandingPage(page, items); page = undefined;" ng-disabled="newLandingPageForm.$invalid" aria-label="Create page">
+                    <i class="mdi-content-add-box"></i>
+                </md-button>
+            </md-whiteframe>
+        </fieldset>
+    </form>
+    <md-whiteframe class="md-whiteframe-z1" layout="row" layout-padding layout-wrap>
+        <div flex="100" layout="row" layout-align="start center" layout-padding>
+            <md-input-container flex>
+                <label for="list-search">Search by Slug</label>
+                <input id="list-search" type="text" ng-model="searchTerm" qv-enter="items = items.$orderByChild('slug').$startAt(searchTerm).$get(); orderBy = 'slug'" ng-focus="searchTerm = undefined;">
+            </md-input-container>
+            <span flex></span>
+            <md-button class="md-icon-button" flex ng-click="items = items.$prev(); orderBy = '-$priority'; searchTerm = undefined;" ng-disabled="items.$prevDisabled" aria-label="list back">
+                <i class="mdi-navigation-arrow-back"></i>
+            </md-button>
+            <md-button class="md-icon-button" flex ng-click="items = items.$next(); orderBy = '-$priority'; searchTerm = undefined;" ng-disabled="items.$nextDisabled" aria-label="list forward">
+                <i class="mdi-navigation-arrow-forward"></i>
+            </md-button>
+            <md-button class="md-icon-button" flex ng-click="items = items.$more(); orderBy = '-$priority'; searchTerm = undefined;" ng-disabled="items.$moreDisabled" aria-label="list load more">
+                <i class="mdi-navigation-expand-more"></i>
+            </md-button>
+            <md-button class="md-icon-button" flex ng-click="items = items.$reset(); orderBy = '-$priority'; searchTerm = undefined;" ng-disabled="items.$resetDisabled" aria-label="list reload">
+                <i class="mdi-navigation-refresh"></i>
+            </md-button>
+        </div>
+        <md-content flex="100">
+            <md-list layout="column" ng-if="!items.length">
+                <md-item>
+                    <md-item-content class="text-center" layout="row" layout-align="center center" layout-padding layout-wrap>
+                        <h3 class="Headline">There are no landing pages to display.</h3>
+                    </md-item-content>
+                </md-item>
+            </md-list>
+            <section>
+                <md-list layout="column">
+                    <md-item ng-repeat="page in items | orderBy:orderBy">
+                        <md-item-content class="extra-padding" layout="row" layout-align="space-between center" layout-padding layout-wrap style="padding-top: 2rem;">
+                            <a flex ui-sref="authenticated.master.admin.landing-page({key: page.$id})">{{ page.title }}</a>
+                            <span flex>{{ page.slug }}</span>
+                            <span flex>{{ page.created | moment:"MM/DD/YY" }}</span>
+                            <md-button class="md-warn md-icon-button" ng-click="confirmRemoveLandingPage($event, page, items)" aria-label="Delete page {{ page.title }}">
+                                <i class="mdi-action-delete"></i>
+                            </md-button>
+                        </md-item-content>
+                        <md-divider ng-if="!$last"></md-divider>
+                    </md-item>
+                </md-list>
+            </section>
+        </md-content>
+    </md-whiteframe>
+</section>

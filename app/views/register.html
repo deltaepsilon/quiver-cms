@@ -1,7 +1,6 @@
 <section flex layout="column" layout-align="center center">
     <md-whiteframe class="md-whiteframe-z1" layout="row" layout-align="space-between center" layout-margin layout-padding layout-wrap>
         <h3 class="headline" flex="100">Register with email</h3>
-
         <form class="no-margin-or-padding" flex="100" name="loginForm">
             <fieldset>
                 <div class="no-margin-or-padding" layout="row" layout-align="center center" layout-margin layout-padding layout-wrap>
@@ -9,32 +8,19 @@
                         <label for="email">Email</label>
                         <input type="email" ng-model="email" placeholder="Email..." required/>
                     </md-input-container>
-
                     <md-input-container flex flex-sm="100">
                         <label for="password">Password</label>
                         <input type="password" ng-model="password" placeholder="Password..." required/>
                     </md-input-container>
-
                     <span class="margin-zero-important padding-zero-important" flex="100"></span>
-
                     <div flex flex-sm="50" layout="row" layout-align="center center">
-                        <md-progress-circular class="invisible"  md-mode="indeterminate" qv-loading target=".login-button"></md-progress-circular>
+                        <md-progress-circular class="invisible" md-mode="indeterminate" qv-loading target=".login-button"></md-progress-circular>
                     </div>
-
                     <md-button class="min-10" id="login-button" class="md-primary login-button" ng-click="register(email, password)" ng-disabled="loginForm.$invalid">Register</md-button>
-
-                    <md-button class="min-10" flex ui-sref="master.nav.login">Login</md-button>
-
-                    <md-button class="min-10" flex ui-sref="master.nav.reset">Reset Password</md-button>
+                    <md-button class="adjust-line-height min-10" flex ui-sref="master.nav.login">Login</md-button>
+                    <md-button class="adjust-line-height min-10" flex ui-sref="master.nav.reset">Reset Password</md-button>
                 </div>
-                
-
             </fieldset>
         </form>
-
-        
-
-        
-
     </md-whiteframe>
 </section>

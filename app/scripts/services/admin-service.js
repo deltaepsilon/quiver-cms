@@ -323,6 +323,18 @@ angular.module('quiverCmsApp')
 
             getReports: function() {
                 return $firebaseObject(new Firebase(firebaseEndpoint + '/reports'));
+            },
+
+            getLandingPage: function(key) {
+                return $firebaseObject(new Firebase(firebaseEndpoint + '/admin/landingPages/' + key));
+            },
+
+            getLandingPages: function(query) {
+                return FirebaseService.paginatingArray(new Firebase(firebaseEndpoint + '/admin/landingPages'), query);
+            },
+
+            saveLandingPage: function(slug) {
+                return Restangular.one('admin').one('template').one('reset-page').post(slug);
             }
 
         }

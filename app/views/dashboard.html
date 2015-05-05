@@ -57,7 +57,9 @@
                 <md-item ng-repeat="subscription in subscriptions | orderBy:'expiration'" ng-disabled="subscription.subscriptionType == 'content' && expired(subscription)" ng-class="{disabled: subscription.subscriptionType == 'content' && isExpired(subscription)}">
                     <md-item-content layout="row" layout-align="start center" layout-padding layout-wrap>
                         <strong flex="100" flex-gt-sm="30">{{ subscription.title }}</strong>
-                        <strong flex="100" flex-gt-sm="30">{{ subscription.subscriptionDays }} Days</strong>
+                        <div flex="100" flex-gt-sm="30">
+                            <strong ng-if="subscription.subscriptionDays">{{ subscription.subscriptionDays }} Days</strong>
+                        </div>
                         <md-button class="md-primary md-raised adjust-line-height" flex ui-sref="authenticated.master.subscription.page({subscriptionKey: subscription.$id, pageNumber: $storage['bookmark-' + subscription.$id] || 0})" aria-label="Subscription {{ subscription.title }}">
                             <span layout="row" layout-align="space-between" ng-if="subscription.subscriptionType === 'interaction' && isExpired(subscription)">
                                 <span class="text-left" flex>Assignments expired</span>
@@ -79,7 +81,8 @@
                             <span class="text-right" flex>{{ subscription.expiration | moment:"MM/DD/YYYY" }}</span>
                             </span>
                             <span layout="row" layout-align="space-between" ng-if="subscription.subscriptionType === 'content' && !isExpired(subscription) && !subscription.expiration">
-                                <span flex>Click to start subscription</span>
+                                <span flex ng-if="subscription.subscriptionDays">Click to start subscription</span>
+                            <span flex ng-if="!subscription.subscriptionDays">Click to view content</span>
                             </span>
                         </md-button>
                     </md-item-content>

@@ -74,6 +74,7 @@ app.get('/themes', TemplateController.themes);
  */
 TemplateService.setAlternates();
 app.get('alternates', TemplateController.alternates);
+app.post('/admin/template/reset-page/:slug', TemplateController.resetPage);
 
 /*
  * Env

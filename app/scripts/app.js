@@ -761,7 +761,12 @@ angular.module('quiverCmsApp', [
         .state('authenticated.master.admin.settings', { // ***************************  Settings *************************
             url: '/settings',
             templateUrl: 'views/admin-settings.html',
-            controller: 'SettingsCtrl'
+            controller: 'SettingsCtrl',
+            resolve: {
+                landingPages: function(AdminService) {
+                    return AdminService.getLandingPages().$limit(100000).$get();
+                }
+            }
         })
         .state('authenticated.master.admin.commerce', {
             url: '/commerce',
@@ -776,7 +781,7 @@ angular.module('quiverCmsApp', [
                 },
                 states: function(CommerceService) {
                     return CommerceService.getStates();
-                }
+                },
             }
         })
         .state('authenticated.master.admin.surveys', { // ****************************  Surveys **************************
@@ -1007,6 +1012,26 @@ angular.module('quiverCmsApp', [
         .state('authenticated.master.admin.email.list', {
             url: '/email',
             templateUrl: 'views/admin-email-list.html'
+        })
+        .state('authenticated.master.admin.landing-pages', { // ***********************  Landing Pages ********************
+            url: '/landing-pages',
+            templateUrl: 'views/admin-landing-pages.html',
+            controller: 'LandingPagesCtrl',
+            resolve: {
+                items: function(AdminService) {
+                    return AdminService.getLandingPages().$get();
+                }
+            }
+        })
+        .state('authenticated.master.admin.landing-page', {
+            url: '/landing-page/:key',
+            templateUrl: 'views/admin-landing-page.html',
+            controller: 'LandingPageCtrl',
+            resolve: {
+                page: function(AdminService, $stateParams) {
+                    return AdminService.getLandingPage($stateParams.key);
+                }
+            }
         });
 
 

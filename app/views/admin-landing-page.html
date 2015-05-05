@@ -1,0 +1,20 @@
+<section>
+    <h3 class="headline">Landing Page: {{ page.title }}</h3>
+    <form name="landingPageForm">
+        <fieldset>
+            <md-whiteframe class="md-whiteframe-z1" layout="row" layout-align="start center" layout-padding layout-wrap>
+                <md-input-container flex>
+                    <label for="page-title">Title</label>
+                    <input id="page-title" type="text" ng-model="page.title" ng-change="changed = true;">
+                </md-input-container>
+                <md-button class="md-primary md-raised max-10" ng-click="save(page);" ng-disabled="!changed">
+                    Save
+                </md-button>
+                <md-input-container flex="100">
+                    <label for="page-html">HTML</label>
+                    <textarea id="page-html" ng-model="page.html" ng-change="changed = true;" style="min-height: 75vh;"></textarea>
+                </md-input-container>
+            </md-whiteframe>
+        </fieldset>
+    </form>
+</section>

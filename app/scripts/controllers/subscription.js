@@ -14,6 +14,8 @@ angular.module('quiverCmsApp')
          */
         $scope.subscription = subscription;
 
+        $scope.orderBy = '-$priority';
+
         /*
          * User Subscription
          */

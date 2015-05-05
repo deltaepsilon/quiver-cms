@@ -62,7 +62,7 @@
                         <input id="product-discount" type="number" name="product-discount" ng-model="product.discount" placeholder="Discount in USD..." ng-change="checkValidity()">
                     </md-input-container>
                 </md-whiteframe>
-                <md-whiteframe class="md-whiteframe-z2 margin-vertical-medium" flex="50" flex-sm="100" layout="row" layout-padding layout-wrap>
+                <md-whiteframe class="md-whiteframe-z2 margin-vertical-medium" flex="100" layout="row" layout-padding layout-wrap>
                     <h4 class="margin-zero-important" flex>Hashtags</h4>
                     <div flex="100">
                         <md-chips flex ng-model="productHashtags" md-on-append="addHashtag($chip)">
@@ -288,9 +288,9 @@
             <span>Description</span>
             <span class="text-xx-small">(<a href="http://commonmark.org/" target="_blank">CommonMark compatible</a>)</span>
         </h3>
-        <md-button class="md-primary md-raised md-icon-button margin-horizontal-small" flex ng-click="textMode = !textMode" ng-if="!$storage.hideProductDescription" aria-label="Toggle text mode" style="min-width: 10rem !important;">
-            <span ng-show="textMode">Preview Mode</span>
-            <span ng-hide="textMode">Text Mode</span>
+        <md-button class="md-primary md-raised md-icon-button margin-horizontal-small" flex ng-click="$storage.textMode = !$storage.textMode" ng-if="!$storage.hideProductDescription" aria-label="Toggle text mode" style="min-width: 10rem !important;">
+            <span ng-show="$storage.textMode">Preview Mode</span>
+            <span ng-hide="$storage.textMode">Text Mode</span>
         </md-button>
         <md-button class="md-primary md-raised md-icon-button" flex ng-click="$storage.hideProductDescription = !$storage.hideProductDescription" aria-label="Hide product description">
             <i ng-class="{'mdi-navigation-expand-less': $storage.hideProductDescription, 'mdi-navigation-expand-more': !$storage.hideProductDescription}"></i>
@@ -301,10 +301,10 @@
             <label for="product-excerpt">Product Excerpt</label>
             <textarea id="product-excerpt" style="min-height: 5rem;" ng-model="product.description.excerpt" ng-model-options="{debounce: {'default': 500, 'blur': 0}}" placeholder="Product excerpt..."></textarea>
         </md-input-container>
-        <md-input-container flex="100" ng-if="textMode">
+        <md-input-container flex="100" ng-if="$storage.textMode">
             <label for="product-description">Product Description</label>
-            <textarea id="product-description" class="small-12 background-secondary4 padding-small" style="min-height: 40rem;" delay="300" ng-model="product.description.markdown"></textarea>
+            <textarea id="product-description" class="small-12 background-secondary4 padding-small" style="min-height: 80rem;" delay="300" ng-model="product.description.markdown"></textarea>
         </md-input-container>
-        <div flex="100" ng-if="!textMode" class="background-secondary4 padding-small markdown" style="height: 40rem; overflow: auto;" delay="300" contenteditable="true" ng-model="product.description.markdown" markdown-editable extensions="video"></div>
+        <div flex="100" ng-if="!$storage.textMode" class="background-secondary4 padding-small markdown" style="height: 80rem; overflow: auto;" delay="300" contenteditable="true" ng-model="product.description.markdown" markdown-editable extensions="video"></div>
     </md-whiteframe>
 </section>
