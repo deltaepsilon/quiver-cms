@@ -379,13 +379,14 @@ angular.module('quiverCmsApp', [
             controller: 'MessagesCtrl',
             resolve: {
                 messageable: function(AdminService, user) {
-                    if (user && user.isAdmin) {
-                        return AdminService.getUsers({
-                            orderByChild: 'email'
-                        });
-                    } else {
-                        return AdminService.getMessageable();
-                    }
+                    return AdminService.getMessageable();
+                    // if (user && user.isAdmin) {
+    //     return AdminService.getUsers({
+    //         orderByChild: 'email'
+    //     });
+    // } else {
+
+    // }
 
                 },
                 sentMessages: function(UserService, user) {

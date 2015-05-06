@@ -92,6 +92,12 @@ img {
 
 .avatar {
     @extend .circle;
+    display: block;
     max-width: 4rem;
     max-height: 4rem;
+    img {
+        @extend .circle;
+        max-width: 4rem;
+        max-height: 4rem;
+    }
 }

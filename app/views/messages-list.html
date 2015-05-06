@@ -1,37 +1,35 @@
-<md-whiteframe class="md-whiteframe-z1 extra-padding" layout="column" layout-padding> <md-content flex style="max-height: 500px;">
-    <section>
-      <md-list class="hover" layout="column">
-        <md-list-item class="margin-vertical-small" layout="row" layout-align="start start" layout-wrap ng-repeat="message in getMessages(selectedUser.id)" ng-class="{disabled: disabled}">
-          <img class="avatar" flex ng-src="{{ message.senderEmail | gravatar }}" alt="{{ message.senderEmail }}" style="margin-right: 1rem;">
-          <div class="md-list-item-text" flex>
-            <strong class="headline">{{ message.senderName || message.senderEmail }}</strong>
-            <span class="text-small text-secondary5">{{ message.date | timeago }}</span>
-            <span ng-show="message.type === 'assignment'">
+<md-whiteframe class="md-whiteframe-z1 extra-padding" layout="column" layout-padding>
+    <md-content flex style="max-height: 500px;">
+        <section>
+            <md-list class="hover" layout="column">
+                <md-list-item class="margin-vertical-small" layout="row" layout-align="start start" layout-wrap ng-repeat="message in getMessages(selectedUser.id)" ng-class="{disabled: disabled}">
+                    <a class="avatar" flex href="https://gravatar.com" target="_blank" style="margin-right: 1rem;">
+                        <img ng-src="{{ message.senderEmail | gravatar }}" alt="{{ message.senderEmail }}">
+                    </a>
+                    <div class="md-list-item-text" flex>
+                        <strong class="headline">{{ message.senderName || message.senderEmail }}</strong>
+                        <span class="text-small text-secondary5">{{ message.date | timeago }}</span>
+                        <span ng-show="message.type === 'assignment'">
               <a ui-sref="authenticated.master.nav.subscription.assignment({subscriptionKey: message.subscriptionKey, assignmentKey: message.assignmentKey })">See assignment</a>
             </span>
-            <div>
-              <div class="markdown" ng-model="message.text" markdown-editable style="max-width: 640px; word-break: break-word;">{{ message.text }}</div>
-            </div>
-          </div>
-          
-          <md-divider class="margin-vertical-small" flex="100" ng-if="!$last"></md-divider>
-          <span ng-if="$last && loaded" qv-autoscroll></span>
-
-        </md-list-item>
-      </md-list>
-    </section>
-  </md-content>
-
-  <form class="padding-vertical-small" layout="row" layout-align="space-between center" layout-wrap name="messageForm">
-    <strong class="headline" flex="100">Send a message</strong>
-    <md-input-container flex style="margin-right: 1rem;">
-      <label for="new-message">Message</label>
-      <input id="new-message" type="text" ng-model="newMessage" ng-disabled="!selectedUser" required/>
-    </md-input-container>
-    <md-button class="md-primary md-raised md-icon-button" flex qv-focus="#new-message" ng-click="sendMessage(user.$id, selectedUser.id, newMessage); newMessage = '';" ng-disabled="messageForm.$invalid || !selectedUser" aria-label="send message">
-      <i class="mdi-content-send"></i>
-    </md-button>
-    
-  </form>
-
+                        <div>
+                            <div class="markdown" ng-model="message.text" markdown-editable style="max-width: 640px; word-break: break-word;">{{ message.text }}</div>
+                        </div>
+                    </div>
+                    <md-divider class="margin-vertical-small" flex="100" ng-if="!$last"></md-divider>
+                    <span ng-if="$last && loaded" qv-autoscroll></span>
+                </md-list-item>
+            </md-list>
+        </section>
+    </md-content>
+    <form class="padding-vertical-small" layout="row" layout-align="space-between center" layout-wrap name="messageForm">
+        <strong class="headline" flex="100">Send a message</strong>
+        <md-input-container flex style="margin-right: 1rem;">
+            <label for="new-message">Message</label>
+            <input id="new-message" type="text" ng-model="newMessage" ng-disabled="!selectedUser" required/>
+        </md-input-container>
+        <md-button class="md-primary md-raised md-icon-button" flex qv-focus="#new-message" ng-click="sendMessage(user.$id, selectedUser.id, newMessage); newMessage = '';" ng-disabled="messageForm.$invalid || !selectedUser" aria-label="send message">
+            <i class="mdi-content-send"></i>
+        </md-button>
+    </form>
 </md-whiteframe>

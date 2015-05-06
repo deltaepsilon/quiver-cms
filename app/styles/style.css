@@ -4417,7 +4417,7 @@ a.disabled, a[disabled] {
 }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_global\.scss}line{font-family:\0000364}}
-.circle, .delete-button, .social-button, .avatar {
+.circle, .delete-button, .social-button, .avatar, .avatar img {
   border-radius: 50%;
 }
 
@@ -4455,6 +4455,12 @@ img {
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_global\.scss}line{font-family:\0000393}}
 .avatar {
+  display: block;
+  max-width: 4rem;
+  max-height: 4rem;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Development\/quiver-cms\/app\/styles\/material\/_global\.scss}line{font-family:\0000398}}
+.avatar img {
   max-width: 4rem;
   max-height: 4rem;
 }
