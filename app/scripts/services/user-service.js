@@ -15,7 +15,7 @@ angular.module('quiverCmsApp')
             subscriptionIsExpired: function(subscription, save) {
                 if (!subscription) {
                     return true;
-                } else if (subscription.subscriptionType === 'content') {
+                } else {
                     if (!subscription.expiration && save && subscription.subscriptionDays) { // Save new expiration if asked to
                         subscription.expiration = moment().add(subscription.subscriptionDays, 'days').format();
                         subscription.$save();

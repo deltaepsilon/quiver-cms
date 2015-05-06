@@ -1,62 +1,62 @@
 <md-content role="navigation">
     <section>
         <md-toolbar>
-            <h5 class="md-toolbar-tools">
-        {{ subscription.title }}
-      </h5>
+            <h5 class="md-toolbar-tools">{{ subscription.title }}</h5>
         </md-toolbar>
         <div layout="column" layout-padding>
-            <span layout="row" flex ng-repeat="page in pages" ng-class="{active: $index == pageNumber}">
-        <md-button class="text-left" flex layout-fill ui-sref="authenticated.master.subscription.page({subscriptionKey: subscription.$id, pageNumber: $index})">
-          {{ page.title }}
-        </md-button>
-      </span>
+            <div layout="row" flex ng-repeat="page in pages" ng-class="{active: $index == pageNumber}">
+                <md-button class="text-left" flex layout-fill ui-sref="authenticated.master.subscription.page({subscriptionKey: subscription.$id, pageNumber: $index})">
+                    {{ page.title }}
+                </md-button>
+            </div>
         </div>
     </section>
     <section ng-if="assignments && subscription.subscriptionType == 'interaction'">
         <md-toolbar>
-            <h5 class="md-toolbar-tools">
-        Unlimited Assignments
-      </h5>
+            <h5 class="md-toolbar-tools">Unlimited Assignments</h5>
         </md-toolbar>
         <div layout="column" layout-padding>
-            <span layout="row" flex ng-repeat="assignment in doesNotStartSubscription" ng-class="{active: assignment.$id == assignmentKey}">
-        <md-button class="text-left" flex layout-fill ui-sref="authenticated.master.subscription.assignment({subscriptionKey: subscription.$id, assignmentKey: assignment.$id})">
-          {{ assignment.title }}
-        </md-button>
-      </span>
+            <div layout="row" flex ng-repeat="assignment in doesNotStartSubscription" ng-class="{active: assignment.$id == assignmentKey}">
+                <md-button class="text-left" flex layout-fill ui-sref="authenticated.master.subscription.assignment({subscriptionKey: subscription.$id, assignmentKey: assignment.$id})">
+                    {{ assignment.title }}
+                </md-button>
+            </div>
         </div>
         <md-toolbar>
-            <h5 class="md-toolbar-tools">
-        Limited Assignments
-      </h5>
+            <h5 class="md-toolbar-tools" layout="row" layout-align="space-between center">
+                <div flex>Limited Assignments</div>
+                <div class="text-x-small text-right max-7" flex ng-if="subscription.expiration">
+                    <span ng-if="!isExpired(subscription)">Expires: </span>
+                    <span ng-if="isExpired(subscription)">Expired: </span>
+                    <span>{{ subscription.expiration | moment:"MM/DD/YY"  }}</span>
+                </div>
+            </h5>
         </md-toolbar>
         <div class="relative" layout="column" layout-padding>
-            <div class="overlay background-highlight10 text-center" ng-show="subscription.subscriptionType == 'interaction' && !subscription.expiration">
-                <md-button class="md-primary md-raised" ng-click="startSubscription(subscription)">Start Subscription</md-button>
+            <div class="overlay background-highlight10 text-center" ng-show="subscription.subscriptionType == 'interaction' && (!subscription.expiration || isExpired(subscription))">
+                <md-button class="md-primary md-raised" ng-if="isExpired(subscription)">Assignments Expired</md-button>
+                <md-button class="md-primary md-raised" ng-click="startSubscription($event, subscription)" ng-if="!isExpired(subscription)">Start Subscription</md-button>
             </div>
-            <span layout="row" flex ng-repeat="assignment in startsSubscription" ng-class="{active: assignment.$id == assignmentKey}">
-        <md-button class="text-left" flex layout-fill ui-sref="authenticated.master.subscription.assignment({subscriptionKey: subscription.$id, assignmentKey: assignment.$id})">
-          {{ assignment.title }}
-        </md-button>
-      </span>
+            <div layout="row" flex ng-repeat="assignment in startsSubscription" ng-class="{active: assignment.$id == assignmentKey}">
+                <md-button class="text-left" flex layout-fill ui-sref="authenticated.master.subscription.assignment({subscriptionKey: subscription.$id, assignmentKey: assignment.$id})">
+                    {{ assignment.title }}
+                </md-button>
+            </div>
         </div>
     </section>
     <section ng-if="assignments.length && subscription.subscriptionType == 'content'">
         <md-toolbar>
-            <h5 class="md-toolbar-tools">
-        Assignments
-      </h5>
+            <h5 class="md-toolbar-tools">Assignments</h5>
         </md-toolbar>
         <div class="relative" layout="column" layout-padding>
             <div class="overlay background-highlight10" layout="column" layout-align="center center" ng-show="subscription.subscriptionType == 'interaction' && !subscription.expiration">
                 <md-button class="md-primary md-raised" ng-click="startSubscription(subscription)">Start Subscription</md-button>
             </div>
-            <span layout="row" flex ng-repeat="assignment in assignments" ng-class="{active: assignment.$id == assignmentKey}">
-        <md-button class="text-left" flex layout-fill ui-sref="authenticated.master.subscription.assignment({subscriptionKey: subscription.$id, assignmentKey: assignment.$id})">
-          {{ assignment.title }}
-        </md-button>
-      </span>
+            <div layout="row" flex ng-repeat="assignment in assignments" ng-class="{active: assignment.$id == assignmentKey}">
+                <md-button class="text-left" flex layout-fill ui-sref="authenticated.master.subscription.assignment({subscriptionKey: subscription.$id, assignmentKey: assignment.$id})">
+                    {{ assignment.title }}
+                </md-button>
+            </div>
         </div>
     </section>
 </md-content>

@@ -142,9 +142,6 @@ angular.module('quiverCmsApp', [
                 settings: function($q, AdminService) {
                     return AdminService.getSettings().$loaded();
                 },
-                files: function(AdminService) {
-                    return AdminService.getFiles();
-                },
                 user: function($q, $state, qvAuth, AdminService) {
                     /*
                      * The user may be logged in, but hit the page without auth,
@@ -271,10 +268,6 @@ angular.module('quiverCmsApp', [
                 },
                 settings: function(AdminService) {
                     return AdminService.getSettings().$loaded();
-                },
-                files: function(AdminService) {
-                    console.warn('Rework files system... these files should not be queried in authenticated.master');
-                    return AdminService.getFiles();
                 }
             }
         })
@@ -453,9 +446,12 @@ angular.module('quiverCmsApp', [
 
                     UserService.getSubscription(user.public.id, $stateParams.subscriptionKey).$loaded()
                         .then(function(subscription) {
-                            return UserService.subscriptionIsExpired(subscription, true);
-                        })
-                        .then(function(isExpired) {
+                            if (subscription.subscriptionType === 'interaction') {
+                                return deferred.resolve(true);
+                            } else {
+                                return UserService.subscriptionIsExpired(subscription, true);
+                            }
+                        }).then(function(isExpired) {
                             if (isExpired) {
                                 NotificationService.notify('Subscription Expired');
                                 return $state.go('authenticated.master.nav.dashboard');
@@ -489,12 +485,34 @@ angular.module('quiverCmsApp', [
             templateUrl: '/views/assignment.html',
             controller: 'UserAssignmentCtrl',
             resolve: {
-                assignment: function(AdminService, $stateParams, $localStorage, $rootScope) {
+                assignment: function(AdminService, UserService, user, $stateParams, $localStorage, $rootScope, $q, NotificationService, $state) {
+                    var deferred = $q.defer(),
+                        assignment;
 
-                    $rootScope.pageNumber = undefined;
-                    $rootScope.assignmentKey = $stateParams.assignmentKey;
-                    $localStorage['assignment-' + $stateParams.assignmentKey] = $stateParams.assignmentKey;
-                    return AdminService.getAssignment($stateParams.assignmentKey);
+                    AdminService.getAssignment($stateParams.assignmentKey).$loaded()
+                        .then(function(serverAssignment) {
+                            assignment = serverAssignment;
+                            return UserService.getSubscription(user.public.id, $stateParams.subscriptionKey).$loaded();
+                        })
+                        .then(function(subscription) {
+                            return UserService.subscriptionIsExpired(subscription, false);
+                        })
+                        .then(function(isExpired) {
+                            if (isExpired && assignment.startsSubscription) {
+                                NotificationService.notify('Subscription Expired');
+                                return $state.go('authenticated.master.subscription.page', {
+                                    subscriptionKey: $stateParams.subscriptionKey,
+                                    pageNumber: 0
+                                });
+                            } else {
+                                $rootScope.pageNumber = undefined;
+                                $rootScope.assignmentKey = $stateParams.assignmentKey;
+                                $localStorage['assignment-' + $stateParams.assignmentKey] = $stateParams.assignmentKey;
+                                deferred.resolve(assignment);
+                            }
+                        });
+
+                    return deferred.promise;
                 },
                 userAssignment: function(UserService, user, $stateParams) {
                     return UserService.getAssignment(user.public.id, $stateParams.assignmentKey);
@@ -549,21 +567,6 @@ angular.module('quiverCmsApp', [
                         },
                         adminSettings: function(AdminService) {
                             return AdminService.getAdminSettings();
-                        }
-                    }
-                },
-                footer: {
-                    templateUrl: 'views/admin-footer.html',
-                    controller: 'FooterCtrl',
-                    resolve: {
-                        limit: function() {
-                            return 12;
-                        },
-                        files: function(AdminService, limit) {
-                            return AdminService.getOriginals({
-                                orderByPriority: true,
-                                limitToLast: limit
-                            });
                         }
                     }
                 }
