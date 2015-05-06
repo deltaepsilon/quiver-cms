@@ -70,7 +70,7 @@
                             <span class="text-right" flex>{{ subscription.expiration | moment:"MM/DD/YYYY" }}</span>
                             </span>
                             <span layout="row" layout-align="space-between" ng-if="subscription.subscriptionType === 'interaction' && !isExpired(subscription) && !subscription.expiration">
-                                <span flex>Assignment not started</span>
+                                <span flex>Assignments not started</span>
                             </span>
                             <span layout="row" layout-align="space-between" ng-if="subscription.subscriptionType === 'content' && isExpired(subscription)">
                                 <span class="text-left" flex>Expired</span>

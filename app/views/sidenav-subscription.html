@@ -32,7 +32,7 @@
       </h5>
         </md-toolbar>
         <div class="relative" layout="column" layout-padding>
-            <div class="overlay background-highlight10" layout="column" layout-align="center center" ng-show="subscription.subscriptionType == 'interaction' && !subscription.expiration">
+            <div class="overlay background-highlight10 text-center" ng-show="subscription.subscriptionType == 'interaction' && !subscription.expiration">
                 <md-button class="md-primary md-raised" ng-click="startSubscription(subscription)">Start Subscription</md-button>
             </div>
             <span layout="row" flex ng-repeat="assignment in startsSubscription" ng-class="{active: assignment.$id == assignmentKey}">

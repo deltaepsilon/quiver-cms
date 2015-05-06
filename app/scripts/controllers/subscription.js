@@ -64,26 +64,26 @@ angular.module('quiverCmsApp')
                 .targetEvent(e);
 
             $mdDialog.show(confirm).then(function() {
-                return $scope.removeSubscription;
+                return $scope.removeSubscription();
             }, function() {
                 NotificationService.notify('Not destroyed!');
             });
         };
 
         $scope.removeSubscription = function() {
-            userSubscriptionRef.$remove().then(function() {
+            userSubscription.$remove().then(function() {
                 NotificationService.success('Removed', 'User Subscription')
             }, function(err) {
                 NotificationService.error('Failed to Remove', err);
             });
 
-            subscriptionRef.$remove().then(function() {
+            subscription.$remove().then(function() {
                 NotificationService.success('Removed', 'Subscription Log')
             }, function(err) {
                 NotificationService.error('Failed to Remove', err);
             });
 
-            $state.go('authenticated.master.admin.subscriptions');
+            $state.go('authenticated.master.admin.subscriptions.list');
 
         };
 

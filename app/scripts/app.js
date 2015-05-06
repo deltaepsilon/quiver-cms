@@ -303,13 +303,9 @@ angular.module('quiverCmsApp', [
             templateUrl: 'views/dashboard.html',
             controller: 'DashboardCtrl',
             resolve: {
-                limit: function() {
-                    return 5;
-                },
-                assignments: function(UserService, user, limit) {
+                assignments: function(UserService, user) {
                     return UserService.getSubmittedAssignments(user.$id, {
-                        orderByPriority: true,
-                        limitToLast: limit
+                        orderByPriority: true
                     }).$loaded();
                 },
                 subscriptions: function(UserService, user) {
@@ -326,7 +322,7 @@ angular.module('quiverCmsApp', [
                 },
                 transactions: function(UserService, user) {
                     return UserService.getTransactions(user.$id).$loaded();
-                },
+                }
             }
         })
         .state('authenticated.master.nav.account', { // ******************************  Account **************************
