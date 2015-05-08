@@ -1,161 +1,79 @@
 <md-whiteframe class="md-whiteframe-z1 relative" layout="column" layout-fill flex>
-  <div layout="row" layout-align="start center" layout-padding>
-    <md-input-container flex>
-      <label for="list-search">Search by File Name</label>
-      <input id="list-search" type="text" ng-model="searchTerm" qv-enter="items = items.$orderByChild('Name').$startAt(searchTerm).$get(); searchTerm = undefined;">
-    </md-input-container>
-
-    <span flex></span>
-    
-    <md-button class="md-icon-button" flex ng-click="items = items.$prev()" ng-disabled="items.$prevDisabled" aria-label="list back">
-      <i class="mdi-navigation-arrow-back"></i>
-    </md-button>
-    
-    <md-button class="md-icon-button" flex ng-click="items = items.$next()" ng-disabled="items.$nextDisabled" aria-label="list forward">
-      <i class="mdi-navigation-arrow-forward"></i>
-    </md-button>
-    
-    <md-button class="md-icon-button" flex ng-click="items = items.$more()" ng-disabled="items.$moreDisabled" aria-label="list load more">
-      <i class="mdi-navigation-expand-more"></i>
-    </md-button>
-    
-    <md-button class="md-icon-button" flex ng-click="items = items.$reset()" ng-disabled="items.$resetDisabled" aria-label="list reload">
-      <i class="mdi-navigation-refresh"></i>
-    </md-button>
-
-  </div>
-
-  <md-content>
-    <md-list layout="column" ng-if="!items">
-      <md-item>
-        <md-item-content class="text-center" layout="row" layout-align="center center" layout-padding layout-wrap>
-          <h3 class="Headline">There are no files to display.</h3>
-        </md-item-content>
-      </md-item>
-    </md-list>
-        
-    <section>
-      <md-list layout="column">
-        <md-item ng-repeat="file in items | orderBy:'-$priority'" ng-class="{'disabled': file.disabled}">
-          <md-item-content layout="row" layout-align="space-between center" layout-wrap ng-if="file.Size">
-            <div class="max-10 min-10" flex flex-sm="100" style="margin-left: .5rem;">
-                <a flex ng-if='!fileVersion' ng-href="{{ file.Key | s3Link:bucket }}" target="_blank" qv-media="{{ file.Key | s3Link:bucket }}" alt="{{ file.Key | filename }}" attributes="{embed: {width: '100px', height: '100px'}, img: {'style': 'width: 200px; max-width: 100%;'}, video: {width: '200px'}}"></a>
-              
-              <a flex ng-if="fileVersion" ng-href="{{ file.Versions[fileVersion].Key | s3Link:bucket }}" target="_blank" qv-media="{{ file.Key | s3Link:bucket }}" alt="{{ file.Key | filename }}" attributes="{embed: {width: '100px', height: '100px'}, img: {'style': 'width: 200px; max-width: 100%;'}, video: {width: '200px'}}"></a>
-            </div>
-
-            <div flex layout="row" layout-align="space-between center" layout-padding layout-wrap>
-              <div class="md-select-wrapper max-16" flex>
-                <md-select ng-model="fileVersion">
-                  <md-option value="" selected>Original: ({{ file.Size / 1000 | number:0 }}kb)</md-option>
-                  <md-option ng-repeat="(key, version) in file.Versions" ng-value="key">{{ key }}: ({{ version.Size / 1000 | number:0 }}kb)</md-option>
-                </md-select>
-              </div>
-
-              <span flex>{{ file.Index }}: {{ file.Name }}</span>
-
-              <md-button class="md-primary md-raised md-icon-button" ng-click="addToClipboard(file)" ng-hide="inClipboard(file) || file.disabled" aria-label="Add file to clipboard {{ file.Key }}">
-                <i class="mdi-content-add-box"></i>
-              </md-button>
-              
-              <md-button class="md-warn md-raised md-icon-button margin-horizontal-small" ng-click="confirmRemoveFile($event, file); file.disabled = true;" ng-disabled="file.disabled" aria-label="Remove file {{ file.Key }}">
-                <i class="mdi-action-delete"></i>
-              </md-button>
-              
-
-              <span class="padding-zero-important" flex="100"></span>
-
-              <span id="file-link-{{ $index }}" class="cursor-pointer break-word text-x-small" flex="75" ng-if="fileVersion" qv-select-text>{{ file.Versions[fileVersion].Key | s3Link:bucket }}</span>
-              <span id="file-link-{{ $index }}" class="cursor-pointer break-word text-x-small" flex="75" ng-if="!fileVersion" qv-select-text>{{ file.Key | s3Link:bucket }}</span>
-              <div class="text-right" flex style="max-width: 5rem;">
-                <md-button class="md-primary md-fab md-fab-tiny" qv-select-text="file-link-{{ $index }}" events="click mouseenter" aria-label="Control + C to copy href.">
-                  <md-tooltip>
-                    Ctrl + C to copy
-                  </md-tooltip>
-                  <i class="mdi-content-content-copy"></i>
-                </md-button>
-              </div>
-
-
-              <span id="md-link-{{ $index }}" class="cursor-pointer break-word text-x-small" flex="75" ng-if="!fileVersion" qv-select-text>![{{ file.Key | filename }}]({{ file.Key | s3Link:bucket }})</span>
-              <span id="md-link-{{ $index }}" class="cursor-pointer break-word text-x-small" flex="75" ng-if="fileVersion" qv-select-text>![{{ file.Versions[fileVersion].Key | filename }}]({{ file.Versions[fileVersion].Key | s3Link:bucket }})</span>
-              <div class="text-right" flex style="max-width: 5rem;">
-                <md-button class="md-primary md-fab md-fab-tiny" qv-select-text="md-link-{{ $index }}" events="click mouseenter" aria-label="Control + C to copy CommonMark link.">
-                  <md-tooltip>
-                    Ctrl + C to copy
-                  </md-tooltip>
-                  <i class="mdi-content-content-copy"></i>
-                </md-button>
-              </div>
-            </div>
-            
-
-            
-
-          </md-item-content>
-          <md-divider ng-if="!$last"></md-divider>
-        </md-item>
-      </md-list>
-    </section>
-  </md-content>
+    <div layout="row" layout-align="start center" layout-padding>
+        <md-input-container flex>
+            <label for="list-search">Search by File Name</label>
+            <input id="list-search" type="text" ng-model="searchTerm" qv-enter="items = items.$orderByChild('Name').$startAt(searchTerm).$get();" auto-enter="searchTerm">
+        </md-input-container>
+        <span flex></span>
+        <md-button class="md-icon-button" flex ng-click="items = items.$prev()" ng-disabled="items.$prevDisabled" aria-label="list back">
+            <i class="mdi-navigation-arrow-back"></i>
+        </md-button>
+        <md-button class="md-icon-button" flex ng-click="items = items.$next()" ng-disabled="items.$nextDisabled" aria-label="list forward">
+            <i class="mdi-navigation-arrow-forward"></i>
+        </md-button>
+        <md-button class="md-icon-button" flex ng-click="items = items.$more()" ng-disabled="items.$moreDisabled" aria-label="list load more">
+            <i class="mdi-navigation-expand-more"></i>
+        </md-button>
+        <md-button class="md-icon-button" flex ng-click="items = items.$reset()" ng-disabled="items.$resetDisabled" aria-label="list reload">
+            <i class="mdi-navigation-refresh"></i>
+        </md-button>
+    </div>
+    <md-content>
+        <md-list layout="column" ng-if="!items">
+            <md-item>
+                <md-item-content class="text-center" layout="row" layout-align="center center" layout-padding layout-wrap>
+                    <h3 class="Headline">There are no files to display.</h3>
+                </md-item-content>
+            </md-item>
+        </md-list>
+        <section>
+            <md-list layout="column">
+                <md-item ng-repeat="file in items | orderBy:'-$priority'" ng-class="{'disabled': file.disabled}">
+                    <md-item-content layout="row" layout-align="space-between center" layout-wrap ng-if="file.Size">
+                        <div class="max-10 min-10" flex flex-sm="100" style="margin-left: .5rem;">
+                            <a flex ng-if='!fileVersion' ng-href="{{ file.Key | s3Link:bucket }}" target="_blank" qv-media="{{ file.Key | s3Link:bucket }}" alt="{{ file.Key | filename }}" attributes="{embed: {width: '100px', height: '100px'}, img: {'style': 'width: 200px; max-width: 100%;'}, video: {width: '200px'}}"></a>
+                            <a flex ng-if="fileVersion" ng-href="{{ file.Versions[fileVersion].Key | s3Link:bucket }}" target="_blank" qv-media="{{ file.Key | s3Link:bucket }}" alt="{{ file.Key | filename }}" attributes="{embed: {width: '100px', height: '100px'}, img: {'style': 'width: 200px; max-width: 100%;'}, video: {width: '200px'}}"></a>
+                        </div>
+                        <div flex layout="row" layout-align="space-between center" layout-padding layout-wrap>
+                            <div class="md-select-wrapper max-16" flex>
+                                <md-select ng-model="fileVersion">
+                                    <md-option value="" selected>Original: ({{ file.Size / 1000 | number:0 }}kb)</md-option>
+                                    <md-option ng-repeat="(key, version) in file.Versions" ng-value="key">{{ key }}: ({{ version.Size / 1000 | number:0 }}kb)</md-option>
+                                </md-select>
+                            </div>
+                            <span flex>{{ file.Index }}: {{ file.Name }}</span>
+                            <md-button class="md-primary md-raised md-icon-button" ng-click="addToClipboard(file)" ng-hide="inClipboard(file) || file.disabled" aria-label="Add file to clipboard {{ file.Key }}">
+                                <i class="mdi-content-add-box"></i>
+                            </md-button>
+                            <md-button class="md-warn md-raised md-icon-button margin-horizontal-small" ng-click="confirmRemoveFile($event, file); file.disabled = true;" ng-disabled="file.disabled" aria-label="Remove file {{ file.Key }}">
+                                <i class="mdi-action-delete"></i>
+                            </md-button>
+                            <span class="padding-zero-important" flex="100"></span>
+                            <span id="file-link-{{ $index }}" class="cursor-pointer break-word text-x-small" flex="75" ng-if="fileVersion" qv-select-text>{{ file.Versions[fileVersion].Key | s3Link:bucket }}</span>
+                            <span id="file-link-{{ $index }}" class="cursor-pointer break-word text-x-small" flex="75" ng-if="!fileVersion" qv-select-text>{{ file.Key | s3Link:bucket }}</span>
+                            <div class="text-right" flex style="max-width: 5rem;">
+                                <md-button class="md-primary md-fab md-fab-tiny" qv-select-text="file-link-{{ $index }}" events="click mouseenter" aria-label="Control + C to copy href.">
+                                    <md-tooltip>
+                                        Ctrl + C to copy
+                                    </md-tooltip>
+                                    <i class="mdi-content-content-copy"></i>
+                                </md-button>
+                            </div>
+                            <span id="md-link-{{ $index }}" class="cursor-pointer break-word text-x-small" flex="75" ng-if="!fileVersion" qv-select-text>![{{ file.Key | filename }}]({{ file.Key | s3Link:bucket }})</span>
+                            <span id="md-link-{{ $index }}" class="cursor-pointer break-word text-x-small" flex="75" ng-if="fileVersion" qv-select-text>![{{ file.Versions[fileVersion].Key | filename }}]({{ file.Versions[fileVersion].Key | s3Link:bucket }})</span>
+                            <div class="text-right" flex style="max-width: 5rem;">
+                                <md-button class="md-primary md-fab md-fab-tiny" qv-select-text="md-link-{{ $index }}" events="click mouseenter" aria-label="Control + C to copy CommonMark link.">
+                                    <md-tooltip>
+                                        Ctrl + C to copy
+                                    </md-tooltip>
+                                    <i class="mdi-content-content-copy"></i>
+                                </md-button>
+                            </div>
+                        </div>
+                    </md-item-content>
+                    <md-divider ng-if="!$last"></md-divider>
+                </md-item>
+            </md-list>
+        </section>
+    </md-content>
 </md-whiteframe>
-<!-- 
-<input type="text" ng-show="searching || items.length" ng-model="searchTerm" ng-focus="searchTerm = ''" placeholder="Search: Click ENTER to search server filename..." qv-enter="search({orderByChild: 'Name', startAt: searchTerm, limitToLast: 20})"/>
-
-<ul class="table-list striped padded">
-  <li class="no-stripe no-hover">
-    <div ng-hide="searching">
-      <div class="column small-3">
-        <button class="secondary small-12" ng-click="loadPrev()" ng-disabled="disablePrev">Prev</button>&nbsp;
-      </div>
-      <div class="column small-3">
-        <button class="secondary small-12" ng-click="loadMore()" ng-disabled="disableMore">Load More +</button>
-      </div>
-      <div class="column small-3">
-        <button class="secondary small-12" ng-click="reset({orderByPriority: true, limitToFirst: limit})" ng-disabled="disableReset">Reset</button>
-      </div>
-      <div class="column small-3">
-        <button class="secondary small-12" ng-click="loadNext()" ng-disabled="disableNext">Next</button>
-      </div>
-    </div>
-  </li>
-
-  <li class="table-list-header">
-    <div class="column small-12 medium-3">Preview</div>
-    <div class="column small-12 medium-3">Details</div>
-    <div class="column small-12 medium-3">Link/CommonMark</div>
-    <div class="column small-12 medium-3 medium-text-center">Actions</div>
-  </li>
-  <li ng-repeat="file in items | orderBy:'$id':'desc'" ng-class="{'disabled': file.disabled}">
-    <div ng-if="file.Size">
-      <div class="column small-12 medium-3">
-        <select ng-model="fileVersion">
-            <option value="" selected>Original: ({{ file.Size / 1000 | number:0 }}kb)</option>
-            <option ng-repeat="(key, version) in file.Versions" value="{{ key }}">{{ key }}: ({{ version.Size / 1000 | number:0 }}kb)</option>
-        </select>
-        <span class="text-x-small">{{ file.Index }}: {{ file.Name }}</span>
-
-      </div>
-      <div class="column small-12 medium-3">
-        <a ng-if='!fileVersion' href="{{ file.Key | s3Link:bucket }}" target="_blank" qv-media="{{ file.Key | s3Link:bucket }}" alt="{{ file.Key | filename }}" attributes="{embed: {width: '100px', height: '100px'}, img: {'style': 'width: 200px; max-width: 100%;'}, video: {width: '200px'}}"></a>
-        <a ng-if="fileVersion" href="{{ file.Versions[fileVersion].Key | s3Link:bucket }}" target="_blank" qv-media="{{ file.Key | s3Link:bucket }}" alt="{{ file.Key | filename }}" attributes="{embed: {width: '100px', height: '100px'}, img: {'style': 'width: 200px; max-width: 100%;'}, video: {width: '200px'}}"></a>
-
-      </div>
-      <div class="column small-12 medium-3">
-        <input ng-if="!fileVersion" type="text" qv-select-text value="{{ file.Key | s3Link:bucket }}"/>
-        <input ng-if="fileVersion" type="text" qv-select-text value="{{ file.Versions[fileVersion].Key | s3Link:bucket }}"/>
-
-        <input ng-if="!fileVersion" type="text" value="![{{ file.Key | filename }}]({{ file.Key | s3Link:bucket }})" qv-select-text/>
-        <input ng-if="fileVersion" type="text" value="![{{ file.Versions[fileVersion].Key | filename }}]({{ file.Versions[fileVersion].Key | s3Link:bucket }})" qv-select-text/>
-
-      </div>
-      <div class="column small-12 medium-3 medium-text-center">
-        <button class="alert tiny small-12" style="min-width: 75px;" qv-confirm="removeFile(file); file.disabled = true;" confirmations="['Confirm']" ng-disabled="file.disabled">Delete</button>
-        <button class="tiny secondary small-12" ng-click="addToClipboard(file)" ng-hide="inClipboard(file) || file.disabled">+ Clip</button>
-
-      </div>
-    </div>
-    
-  </li>
-  
-</ul> -->

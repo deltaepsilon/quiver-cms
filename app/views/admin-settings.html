@@ -112,5 +112,16 @@
         </fieldset>
     </form>
 </section>
-<div class="column small-12">
-</div>
+<section>
+    <h3 class="headline">Survey Settings</h3>
+    <form name="surveyForm">
+        <fieldset>
+            <md-whiteframe class="md-whiteframe-z1" layout="row" layout-padding layout-wrap>
+                <md-input-container flex="100">
+                    <label for="survey-interval">Survey Interval in Days</label>
+                    <input id="survey-interval" type="number" ng-model="settings.surveyInterval" ng-model-options="{'updateOn': 'blur'}">
+                </md-input-container>
+            </md-whiteframe>
+        </fieldset>
+    </form>
+</section>

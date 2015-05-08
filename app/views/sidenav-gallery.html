@@ -1,14 +1,12 @@
 <md-content role="navigation">
     <section>
         <md-toolbar>
-            <h5 class="md-toolbar-tools">
-        File Gallery
-      </h5>
+            <h5 class="md-toolbar-tools">File Gallery</h5>
         </md-toolbar>
         <div layout="row" layout-align="end center" layout-padding layout-wrap>
             <md-input-container flex="100">
                 <label for="list-search">Search by filename</label>
-                <input id="list-search" type="text" ng-model="searchTerm" qv-enter="search({orderByChild: 'Name', startAt: searchTerm})">
+                <input id="list-search" type="text" ng-model="searchTerm" qv-enter="items = items.$orderByChild('Name').$startAt(searchTerm).$get();">
             </md-input-container>
             <md-button class="md-icon-button" flex ng-click="loadNext()" ng-disabled="disablePrev" aria-label="list back">
                 <i class="mdi-navigation-arrow-back"></i>
@@ -38,12 +36,6 @@
                             <md-button ng-click="showGalleryDialog($event, file)" target="_blank" style="height: inherit;" aria-label="{{ file.Name }}">
                                 <img ng-src="{{ file.Versions.small.Key || file.Key | s3Link:bucket | forceImage }}">
                             </md-button>
-                            <!-- <div class="absolute bottom">
-                <strong>{{ file.Name }}</strong>
-                <span>{{ file.Size | filesize}}</span>
-                <input type="text" value="{{ file.Key | s3Link:bucket }}">
-                <input type="text" value="[{{ file.Name }}]({{ file.Key | s3Link:bucket }})">
-              </div> -->
                         </md-item-content>
                     </md-item>
                 </md-list>

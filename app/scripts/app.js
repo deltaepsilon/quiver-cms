@@ -315,6 +315,9 @@ angular.module('quiverCmsApp', [
                 },
                 transactions: function(UserService, user) {
                     return UserService.getTransactions(user.$id).$loaded();
+                },
+                surveyResponses: function(UserService, user) {
+                    return UserService.getSurveyResponses(user.$id);
                 }
             }
         })
@@ -381,12 +384,12 @@ angular.module('quiverCmsApp', [
                 messageable: function(AdminService, user) {
                     return AdminService.getMessageable();
                     // if (user && user.isAdmin) {
-    //     return AdminService.getUsers({
-    //         orderByChild: 'email'
-    //     });
-    // } else {
+                    //     return AdminService.getUsers({
+                    //         orderByChild: 'email'
+                    //     });
+                    // } else {
 
-    // }
+                    // }
 
                 },
                 sentMessages: function(UserService, user) {
@@ -671,7 +674,8 @@ angular.module('quiverCmsApp', [
         })
         .state('authenticated.master.admin.files.list', {
             url: '/files/:search',
-            templateUrl: 'views/admin-files-list.html'
+            templateUrl: 'views/admin-files-list.html',
+            controller: 'ListCtrl'
         })
         .state('authenticated.master.admin.products', { // ***************************  Products *************************
             url: '/products',
@@ -730,7 +734,8 @@ angular.module('quiverCmsApp', [
         })
         .state('authenticated.master.admin.users.list', {
             url: '/users/:search',
-            templateUrl: 'views/admin-users-list.html'
+            templateUrl: 'views/admin-users-list.html',
+            controller: 'ListCtrl'
         })
         .state('authenticated.master.admin.user', {
             url: '/user/:key',
@@ -876,7 +881,8 @@ angular.module('quiverCmsApp', [
         })
         .state('authenticated.master.admin.transactions.list', {
             url: '/transactions/:search',
-            templateUrl: 'views/admin-transactions-list.html'
+            templateUrl: 'views/admin-transactions-list.html',
+            controller: 'ListCtrl'
         })
         .state('authenticated.master.admin.transaction', {
             url: '/transaction/:key/user/:userId',
@@ -933,7 +939,8 @@ angular.module('quiverCmsApp', [
         })
         .state('authenticated.master.admin.shipments.list', {
             url: '/shipments/:search',
-            templateUrl: 'views/admin-shipments-list.html'
+            templateUrl: 'views/admin-shipments-list.html',
+            controller: 'ListCtrl'
         })
         .state('authenticated.master.admin.resources', { // **************************  Resources ************************
             abstract: true,
@@ -947,7 +954,8 @@ angular.module('quiverCmsApp', [
         })
         .state('authenticated.master.admin.resources.list', {
             url: '/resources/:search',
-            templateUrl: 'views/admin-resources-list.html'
+            templateUrl: 'views/admin-resources-list.html',
+            controller: 'ListCtrl'
         })
         .state('authenticated.master.admin.messages', { // ***************************  Messages *************************
             abstract: true,
@@ -961,7 +969,8 @@ angular.module('quiverCmsApp', [
         })
         .state('authenticated.master.admin.messages.list', {
             url: '/messages/:search',
-            templateUrl: 'views/admin-messages-list.html'
+            templateUrl: 'views/admin-messages-list.html',
+            controller: 'ListCtrl'
         })
         .state('authenticated.master.admin.uploads', { // ****************************  Uploads **************************
             abstract: true,
@@ -975,7 +984,8 @@ angular.module('quiverCmsApp', [
         })
         .state('authenticated.master.admin.uploads.list', {
             url: '/uploads/:search',
-            templateUrl: 'views/admin-uploads-list.html'
+            templateUrl: 'views/admin-uploads-list.html',
+            controller: 'ListCtrl'
         })
         .state('authenticated.master.admin.feedback', { // ***************************  Assignment ***********************
             url: '/user/:userId/feedback/:assignmentKey',

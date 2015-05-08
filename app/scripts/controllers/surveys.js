@@ -45,8 +45,7 @@ angular.module('quiverCmsApp')
                 $priority: now.unix(),
                 slug: Slug.slugify(survey.name),
                 active: true,
-                created: now.format(),
-                unix: now.unix()
+                created: now.format()
             });
 
             $scope.items.$add(survey).then(function(surveyRef) {

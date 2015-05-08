@@ -10,6 +10,34 @@
         </p>
     </md-whiteframe>
 </section>
+<!-- START Survey -->
+<section id="messages" class="padding-vertical-medium" ng-if="survey">
+    <h3 class="headline transition-color">Survey</h3>
+    <form name="surveyForm">
+        <fieldset>
+            <md-whiteframe class="md-whiteframe-z1 relative" layout="row" layout-align="start center" layout-padding layout-wrap>
+                <h4 class="margin-zero-important" flex="100">{{ survey.question }}</h4>
+                <span flex="100">{{ survey.message }}</span>
+                <md-input-container flex ng-if="!survey.answers">
+                    <label for="survey-response">Response</label>
+                    <textarea id="survey-response" ng-model="survey.response"></textarea>
+                </md-input-container>
+                <div class="md-select-wrapper" ng-if="survey.answers">
+                    <md-select class="min-20" ng-model="survey.response" placeholder="Answer...">
+                        <md-option ng-value="{{ answer.slug }}" ng-repeat="(key, answer) in survey.answers">{{ answer.text }}</md-option>
+                    </md-select>
+                </div>
+                <md-button class="md-primary md-raised adjust-line-height max-10" flex ng-click="saveSurveyResponse(survey)">
+                    Submit
+                </md-button>
+                <md-button class="md-warn md-raised adjust-line-height max-10" flex ng-click="ignoreSurvey(survey)">
+                    Ignore
+                </md-button>
+            </md-whiteframe>
+        </fieldset>
+    </form>
+</section>
+<!-- END Survey -->
 <!-- END Empty state -->
 <!-- START Messages -->
 <section id="messages" class="padding-vertical-medium" ng-if="groupedMessages">
@@ -159,7 +187,7 @@
                     <md-item-content layout="row" layout-align="start center" layout-padding layout-wrap>
                         <a class="undecorated" flex layout="row" layout-padding ng-href="/resource/{{ download.resource.keys.resource }}" target="_blank">
                             <div flex="100" flex-gt-sm="30">{{ download.title }}</div>
-                            <div flex>{{ env.root }}/resource/{{ download.resource.key }}</div>
+                            <div flex style="padding-left: 5px;">{{ env.root }}/resource/{{ download.resource.key }}</div>
                         </a>
                     </md-item-content>
                     <md-divider ng-if="!$last"></md-divider>
@@ -187,7 +215,7 @@
                                 #{{ transaction.transactionCount }}: {{ transaction.date | moment:"MM/DD/YYYY" }}
                             </div>
                             <div flex flex-sm="100">
-                                <ul class="inline-list">
+                                <ul class="inline-list padding-zero">
                                     <li ng-repeat="item in transaction.items">{{ item.title }}</li>
                                 </ul>
                             </div>

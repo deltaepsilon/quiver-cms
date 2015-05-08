@@ -1,30 +1,72 @@
-<section>
+<section layout="row" layout-align="start center">
+    <!-- <h3 class="headline" flex ng-class="{'disabled': $storage.hideDashboardReports}">Reports</h3> -->
+    <span flex></span>
+    <div class="max-7" flex>
+        <md-progress-circular flex md-mode="indeterminate" qv-loading ng-class="{invisible: !runningReports}"></md-progress-circular>
+    </div>
+    <md-button class="md-warn md-raised max-10" flex ng-click="runReports()">
+        Run Reports
+    </md-button>
+    <md-button class="md-primary md-raised md-icon-button" flex ng-click="$storage.hideDashboardReports = !$storage.hideDashboardReports" aria-label="Hide dashboard reports">
+        <i ng-class="{'mdi-navigation-expand-less': $storage.hideDashboardReports, 'mdi-navigation-expand-more': !$storage.hideDashboardReports}"></i>
+    </md-button>
+</section>
+<section ng-if="!$storage.hideDashboardReports">
     <div layout="row" layout-align="start center">
-        <h3 class="headline" flex ng-class="{'disabled': $storage.hideDashboardReports}">Reports</h3>
-        <div class="max-7" flex>
-            <md-progress-circular flex md-mode="indeterminate" qv-loading ng-class="{invisible: !runningReports}"></md-progress-circular>
-        </div>
-        <md-button class="md-warn md-raised max-10" flex ng-click="runReports()">
-            Run Reports
-        </md-button>
-        <md-button class="md-primary md-raised md-icon-button" flex ng-click="$storage.hideDashboardReports = !$storage.hideDashboardReports" aria-label="Hide dashboard reports">
-            <i ng-class="{'mdi-navigation-expand-less': $storage.hideDashboardReports, 'mdi-navigation-expand-more': !$storage.hideDashboardReports}"></i>
+        <h3 class="headline" flex ng-class="{'disabled': $storage.hideDiscountsReport}">Discounts</h3>
+        <md-button class="md-primary md-raised md-icon-button" flex ng-click="$storage.hideDiscountsReport = !$storage.hideDiscountsReport" aria-label="Hide discounts report">
+            <i ng-class="{'mdi-navigation-expand-less': $storage.hideDiscountsReport, 'mdi-navigation-expand-more': !$storage.hideDiscountsReport}"></i>
         </md-button>
     </div>
-    <div ng-if="!$storage.hideDashboardReports">
-        <h4>Discounts</h4>
-        <md-whiteframe class="md-whiteframe-z1" layout="row" layout-padding layout-wrap>
-            <md-list>
-                <md-item ng-repeat="(day, results) in reports.discounts.byDay">
-                    <md-item-content layout="row" layout-align="space-between center" layout-padding layout-wrap>
-                        <span flex>{{ day }}</span>
-                        <div flex>
-                            {{ results }}
-                        </div>
-                    </md-item-content>
-                    <md-divider ng-if="!$last"></md-divider>
-                </md-item>
-            </md-list>
-        </md-whiteframe>
+    <md-whiteframe class="md-whiteframe-z1" layout="row" layout-padding layout-wrap ng-if="!$storage.hideDiscountsReport">
+        <md-list flex>
+            <md-item ng-repeat="(day, results) in reports.discounts.byDay">
+                <md-item-content layout="row" layout-align="space-between center" layout-padding layout-wrap>
+                    <span class="max-10" flex>{{ ::day }}</span>
+                    <div flex>
+                        <ul>
+                            <li ng-repeat="use in results" layout="row">
+                                <span flex>{{ ::use.code }}</span>
+                                <a flex ui-sref="authenticated.master.admin.users.list({search: use.userEmail})">{{ ::use.userEmail }}</a>
+                                <span flex>Discount: {{ ::use.discount || use.value | currency }}</span>
+                                <span flex>Uses: {{ ::use.useCount }}/{{ ::use.uses }}</span>
+                            </li>
+                        </ul>
+                    </div>
+                </md-item-content>
+                <md-divider ng-if="!$last"></md-divider>
+            </md-item>
+        </md-list>
+    </md-whiteframe>
+</section>
+<section ng-if="!$storage.hideDashboardReports">
+    <div layout="row" layout-align="start center">
+        <h3 class="headline" flex ng-class="{'disabled': $storage.hideSurveysReport}">Surveys</h3>
+        <md-button class="md-primary md-raised md-icon-button" flex ng-click="$storage.hideSurveysReport = !$storage.hideSurveysReport" aria-label="Hide surveys report">
+            <i ng-class="{'mdi-navigation-expand-less': $storage.hideSurveysReport, 'mdi-navigation-expand-more': !$storage.hideSurveysReport}"></i>
+        </md-button>
     </div>
+    <md-whiteframe class="md-whiteframe-z1" layout="row" layout-padding layout-wrap ng-if="!$storage.hideSurveysReport">
+        <md-list flex>
+            <md-item ng-repeat="(key, survey) in reports.surveys.bySurvey">
+                <md-item-content layout="row" layout-align="space-between center" layout-padding layout-wrap>
+                    <span class="max-20" flex>{{ ::survey.question }}</span>
+                    <span class="max-7" flex>{{ ::survey.answered || 0 }}/{{ ::survey.asked || 0 }}</span>
+                    <ul flex>
+                        <li ng-repeat="response in survey.responses" layout="row">
+                            <span flex>{{ response.response }}</span>
+                            <span class="max-7" flex>Count: {{ response.count }}</span>
+                            <ul class="inline-list padding-zero-important" flex layout="column">
+                                <li ng-repeat="responder in response.responders" layout="row">
+                                    <a flex ui-sref="authenticated.master.admin.user({key: responder.userId})">{{ responder.userEmail }}</a>
+                                    <span class="max-7 text-right" flex>{{ responder.answered | moment:"MM/DD/YY" }}</span>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </md-item-content>
+                <md-divider ng-if="!$last"></md-divider>
+            </md-item>
+        </md-list>
+    </md-whiteframe>
 </section>

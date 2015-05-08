@@ -2,21 +2,21 @@
     <div layout="row" layout-align="start center" layout-padding>
         <md-input-container flex="33">
             <label for="list-search">Search by email address</label>
-            <input id="list-search" type="text" ng-model="searchTerm" qv-enter="search({orderByChild: 'userEmail', equalTo: searchTerm})" qv-enter="items = items.$orderByChild('userEmail').$startAt(searchTerm).$get(); orderBy = 'userEmail'" ng-focus="searchTerm = undefined;">
+            <input id="list-search" type="text" ng-model="searchTerm" qv-enter="items = items.$orderByChild('userEmail').$startAt(searchTerm).$get(); orderBy = 'userEmail'" ng-focus="searchTerm = undefined;" auto-enter="searchTerm">
         </md-input-container>
         <span flex></span>
         <md-button class="md-icon-button" flex ng-click="items = items.$prev(); orderBy = '-$priority'; searchTerm = undefined;" ng-disabled="items.$prevDisabled" aria-label="list back">
-    <i class="mdi-navigation-arrow-back"></i>
-</md-button>
-<md-button class="md-icon-button" flex ng-click="items = items.$next(); orderBy = '-$priority'; searchTerm = undefined;" ng-disabled="items.$nextDisabled" aria-label="list forward">
-    <i class="mdi-navigation-arrow-forward"></i>
-</md-button>
-<md-button class="md-icon-button" flex ng-click="items = items.$more(); orderBy = '-$priority'; searchTerm = undefined;" ng-disabled="items.$moreDisabled" aria-label="list load more">
-    <i class="mdi-navigation-expand-more"></i>
-</md-button>
-<md-button class="md-icon-button" flex ng-click="items = items.$reset(); orderBy = '-$priority'; searchTerm = undefined;" ng-disabled="items.$resetDisabled" aria-label="list reload">
-    <i class="mdi-navigation-refresh"></i>
-</md-button>
+            <i class="mdi-navigation-arrow-back"></i>
+        </md-button>
+        <md-button class="md-icon-button" flex ng-click="items = items.$next(); orderBy = '-$priority'; searchTerm = undefined;" ng-disabled="items.$nextDisabled" aria-label="list forward">
+            <i class="mdi-navigation-arrow-forward"></i>
+        </md-button>
+        <md-button class="md-icon-button" flex ng-click="items = items.$more(); orderBy = '-$priority'; searchTerm = undefined;" ng-disabled="items.$moreDisabled" aria-label="list load more">
+            <i class="mdi-navigation-expand-more"></i>
+        </md-button>
+        <md-button class="md-icon-button" flex ng-click="items = items.$reset(); orderBy = '-$priority'; searchTerm = undefined;" ng-disabled="items.$resetDisabled" aria-label="list reload">
+            <i class="mdi-navigation-refresh"></i>
+        </md-button>
     </div>
     <md-content>
         <md-list layout="column" ng-if="!items">

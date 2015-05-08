@@ -31,6 +31,7 @@ var UserController = require('./lib/controllers/user'),
     MessageController = require('./lib/controllers/message'),
     ShipmentController = require('./lib/controllers/shipment'),
     ReportController = require('./lib/controllers/report'),
+    SurveyController = require('./lib/controllers/survey'),
     Middleware = require('./lib/controllers/middleware');
 
 /*
@@ -183,6 +184,14 @@ app.post('/admin/shipment/:shipmentKey/label/:labelKey/tracking', ShipmentContro
  * Report
  */
 app.post('/admin/report/run', ReportController.run);
+
+/*
+ * Survey
+ */
+app.post('/user/:userId/survey/:key/asked', SurveyController.asked);
+
+app.post('/user/:userId/survey/:key/answered', FormController.body);
+app.post('/user/:userId/survey/:key/answered', SurveyController.answered);
 
 /*
  * Cron

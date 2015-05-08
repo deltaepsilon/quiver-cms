@@ -2,7 +2,7 @@
     <div flex="100" layout="row" layout-align="start center" layout-padding>
         <md-input-container flex>
             <label for="list-search">Search by Slug</label>
-            <input id="list-search" type="text" ng-model="searchTerm" qv-enter="items = items.$orderByChild('slug').$startAt(searchTerm).$get(); orderBy = 'slug'" ng-focus="searchTerm = undefined;">
+            <input id="list-search" type="text" ng-model="searchTerm" qv-enter="items = items.$orderByChild('slug').$startAt(searchTerm).$get(); orderBy = 'slug'" auto-enter="searchTerm" ng-focus="searchTerm = undefined;">
         </md-input-container>
         <span flex></span>
         <md-button class="md-icon-button" flex ng-click="items = items.$prev(); orderBy = '-$priority'; searchTerm = undefined;" ng-disabled="items.$prevDisabled" aria-label="list back">

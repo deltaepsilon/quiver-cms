@@ -19,6 +19,7 @@ angular.module('quiverCmsApp')
             AdminService.runReports().then(function() {
                 NotificationService.success('Reports Run!');
                 delete $scope.runningReports;
+                location.reload();
             }, function(error) {
                 NotificationService.error('Reports Error', error);
                 delete $scope.runningReports;

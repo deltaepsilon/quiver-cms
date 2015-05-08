@@ -131,6 +131,14 @@ angular.module('quiverCmsApp')
 
             getSurveyResponses: function(userId, query) {
                 return $firebaseArray(FirebaseService.query(new Firebase(firebaseEndpoint + '/userObjects/surveyResponses/' + userId), query));
+            },
+
+            askedSurvey: function(userId, key) {
+                return Restangular.one('user').one(userId).one('survey').one(key).post('asked');
+            },
+
+            logSurvey: function(userId, key, survey) {
+                return Restangular.one('user').one(userId).one('survey').one(key).post('answered', survey);
             }
 
         };
