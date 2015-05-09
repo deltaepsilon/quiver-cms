@@ -1,358 +1,298 @@
-1<div layout="column">
-  <h3 class="headline">Items For Checkout</h3>
-
-  <form name="cartForm">
-    <fieldset>
-      <md-whiteframe class="md-whiteframe-z1" layout>
-        <md-list flex ng-if="$storage.cart.items.length">
-          <md-item ng-repeat="product in $storage.cart.items | orderBy:'title'">
-            <md-item-content layout="row" layout-margin>
-              <md-tile-left flex style="max-width: 10rem;">
-                <a flex href="/product/{{ product.slug }}">
-                  <img ng-if="product.featuredImage.Versions.small.Key" ng-src="{{ product.featuredImage.Versions.small.Key | s3Link:bucket }}" />
-                </a>
-
-              </md-tile-left>
-              <md-tile-content flex layout="row" layout-align="end" layout-wrap>
-                <div flex="100" layout="row" layout-align="start space-between">
-                  <div flex>
-                    <h4 class="headline uppercase margin-zero">
+1
+<div layout="column">
+    <h3 class="headline">Items For Checkout</h3>
+    <form name="cartForm">
+        <fieldset>
+            <md-whiteframe class="md-whiteframe-z1" layout>
+                <md-list flex ng-if="$storage.cart.items.length">
+                    <md-item ng-repeat="product in $storage.cart.items | orderBy:'title'">
+                        <md-item-content layout="row" layout-margin>
+                            <md-tile-left flex style="max-width: 10rem;">
+                                <a flex href="/product/{{ product.slug }}">
+                                    <img ng-if="product.featuredImage.Versions.small.Key" ng-src="{{ product.featuredImage.Versions.small.Key | s3Link:bucket }}" />
+                                </a>
+                            </md-tile-left>
+                            <md-tile-content flex layout="row" layout-align="end" layout-wrap>
+                                <div flex="100" layout="row" layout-align="start space-between">
+                                    <div flex>
+                                        <h4 class="headline uppercase margin-zero">
                       <a href="/product/{{ product.slug }}" qv-to-static>{{ product.title }}</a>
                     </h4>
-                    <strong ng-if="product.optionsMatrixSelected">
+                                        <strong ng-if="product.optionsMatrixSelected">
                       {{ product.optionsMatrixSelected.name }}
                     </strong>
-                  </div>
-
-                  <md-button class="md-raised md-warn md-icon-button" flex ng-click="removeFromCart(product)">
-                    <i class="mdi-action-delete" aria-label="Remove from cart"></i>
-                  </md-button>
-                </div>
-
-                <!-- <div style="height: 2rem; overflow: auto;">
+                                    </div>
+                                    <md-button class="md-raised md-warn md-icon-button" flex ng-click="removeFromCart(product)">
+                                        <i class="mdi-action-delete" aria-label="Remove from cart"></i>
+                                    </md-button>
+                                </div>
+                                <!-- <div style="height: 2rem; overflow: auto;">
                   <div class="markdown" markdown-editable ng-model="product.description.excerpt">{{ product.description.excerpt }}</div>
                 </div> -->
-
-                <div flex="50" flex-sm="100" layout="row" layout-align="start center" layout-wrap layout-padding>
-                  
-                  <span flex="50">
+                                <div flex="50" flex-sm="100" layout="row" layout-align="start center" layout-wrap layout-padding>
+                                    <span flex="50">
                     <span>Quantity</span>
-                    <span class="text-x-small" ng-if="product.optionsMatrixSelected.inventory">({{ product.optionsMatrixSelected.inventory }} available)</span>
-                  </span>
-                  <span flex="50" class="text-right padding-horizontal-small">{{ product.quantity }}</span>
-
-                  <span flex="50">Price</span>
-                  <span flex="50" class="text-right padding-horizontal-small">
+                                    <span class="text-x-small" ng-if="product.optionsMatrixSelected.inventory">({{ product.optionsMatrixSelected.inventory }} available)</span>
+                                    </span>
+                                    <span flex="50" class="text-right padding-horizontal-small">{{ product.quantity }}</span>
+                                    <span flex="50">Price</span>
+                                    <span flex="50" class="text-right padding-horizontal-small">
                     {{ product.priceAdjusted || product.price | currency }}
                   </span>
-
-                  <span flex="50">Total</span>
-                  <span flex="50" class="text-right padding-horizontal-small">
+                                    <span flex="50">Total</span>
+                                    <span flex="50" class="text-right padding-horizontal-small">
                     <strong>{{ (product.priceAdjusted || product.price) * product.quantity | currency }}</strong>
                   </span>
-
+                                </div>
+                            </md-tile-content>
+                        </md-item-content>
+                        <md-divider ng-if="!$last"></md-divider>
+                    </md-item>
+                </md-list>
+                <div class="text-center" flex layout="row" layout-align="center center" ng-if="!$storage.cart.items.length">
+                    <h3 class="Headline">Your cart is empty. <span class="text-medium">Add some <a href="/products" qv-to-static>products</a> to check out.</span></h3>
                 </div>
-
-              </md-tile-content>
-            </md-item-content>
-            <md-divider ng-if="!$last"></md-divider>
-          </md-item>
-        </md-list>
-
-        <div class="text-center" flex layout="row" layout-align="center center" ng-if="!$storage.cart.items.length">
-          <h3 class="Headline">Your cart is empty. <span class="text-medium">Add some <a href="/products" qv-to-static>products</a> to check out.</span></h3>
-        </div>
-        
-
-      </md-whiteframe>
-
-    </fieldset>
-
-  </form>
-
-  <h3 id="shipping-address" class="headline transition-color">Shipping Address</h3>
-
-  <md-whiteframe class="md-whiteframe-z1" layout-sm="column" layout-gt-sm="row" layout-align="space-between start" layout-padding layout-wrap>
-    <div flex="100">
-
+            </md-whiteframe>
+        </fieldset>
+    </form>
+    <h3 id="shipping-address" class="headline transition-color">Shipping Address</h3>
+    <md-whiteframe class="md-whiteframe-z1" layout-sm="column" layout-gt-sm="row" layout-align="space-between start" layout-padding layout-wrap>
+        <div flex="100">
             <!-- Shipping Address -->
-      <form name="addressForm" ng-if="!$storage.cart.address || editingAddress">
-        <div layout="row" layout-align="start start" layout-wrap>
-          <md-input-container flex="50">
-            <label for="name">
-              <span>Recipient Name</span>
-              <!-- <strong class="text-small text-error margin-horizontal-small">{{ errorMessages.recipient }}</strong> -->
-            </label>
-            <input id="name" type="text" ng-model="$storage.address.recipient" ng-blur="validateAddress($storage.address)" placeholder="First and last name..." required>
-
-          </md-input-container>
-
-          
-          <md-input-container flex="50">
-            <label for="email">
-              <span>Notification Email</span>
-              <!-- <strong class="text-small text-error margin-horizontal-small">{{ errorMessages.email }}</strong> -->
-            </label>
-            <input id="email" type="text" ng-model="$storage.address.email" ng-blur="validateAddress($storage.address)" placeholder="Notification email..." required>
-
-          </md-input-container>
-          
-          <div class="md-select-wrapper" flex="100" flex-gt-md="20" style="padding-top: 43px;">
-            <md-select id="country-code" ng-model="$storage.address.countryCodeIndex" aria-label="Country telephone code" placeholder="Country code..." required>
-              <md-option value="">Country code</md-option>
-              <md-option ng-repeat="code in countryCodes" value="{{ $index }}">{{ code.value }}</md-option>
-            </md-select>
-          </div>
-
-          <md-input-container flex flex-sm="100">
-            <label for="address-phone">
-              <span>Notification Phone</span>
-              <strong class="text-small text-error margin-horizontal-small">{{ errorMessages.countryCode }}</strong>
-              <strong class="text-small text-error margin-horizontal-small">{{ errorMessages.phone }}</strong>
-            </label>
-            <input class="margin-zero-important" type="text" ng-model="$storage.address.phone" ng-blur="validateAddress($storage.address)" placeholder="202-555-0100..." style="padding-top: 20px;" required>
-
-          </md-input-container>
-         
-          <div flex="100" flex-gt-md="30" style="padding-top: 1rem;">
-            <md-switch ng-model="$storage.address.sms" aria-label="Enable SMS notifications">
-              Enable SMS Notifications
-            </md-switch>
-            
-          </div>
-          
-          
-          <md-input-container flex="100">
-            <label for="address-line-one">
-              <span>Street Address</span>
-              <!-- <strong class="text-small text-error margin-horizontal-small">{{ errorMessages.street }}</strong> -->
-            </label>
-            <input id="address-line-one" type="text" ng-model="$storage.address.street1" ng-blur="validateAddress($storage.address)" placeholder="Line 1 (required)..." required>
-
-          </md-input-container>
-
-          <md-input-container flex="100">
-            <label for="line-two">Line 2</label>
-            <input id="line-two" type="text" ng-model="$storage.address.street2" placeholder="Line 2...">
-
-          </md-input-container>
-
-          <md-input-container flex="100">
-            <label for="line-three">Line 3</label>
-            <input id="line-three" type="text" ng-model="$storage.address.street3" placeholder="Line 3...">
-
-          </md-input-container>
-          
-          
-          <md-input-container flex="60">
-            <label for="city">
-              <span>City</span>
-              <!-- <strong class="text-small text-error margin-horizontal-small">{{ errorMessages.city }}</strong> -->
-            </label>
-            <input id="city" type="text" ng-model="$storage.address.city" ng-blur="validateAddress($storage.address)" placeholder="City (required)..." required>
-
-          </md-input-container>
-
-          <md-input-container flex>
-            <label for="postal-code">
-              <span>Postal Code</span>
-              <!-- <strong class="text-small text-error margin-horizontal-small">{{ errorMessages.postalCode }}</strong> -->
-            </label>
-            <input id="postal-code" type="text" ng-model="$storage.address.postalCode" ng-blur="validateAddress($storage.address)" placeholder="Postal code (required)..." required>
-
-          </md-input-container>
-
-          <div class="md-select-wrapper text-right" flex="50">
-            <!-- <label for="country">
+            <form name="addressForm" ng-if="!$storage.cart.address || editingAddress">
+                <div layout="row" layout-align="start start" layout-wrap>
+                    <md-input-container flex="50">
+                        <label for="name">
+                            <span>Recipient Name</span>
+                            <!-- <strong class="text-small text-error margin-horizontal-small">{{ errorMessages.recipient }}</strong> -->
+                        </label>
+                        <input id="name" type="text" ng-model="$storage.address.recipient" ng-blur="validateAddress($storage.address)" placeholder="First and last name..." required>
+                    </md-input-container>
+                    <md-input-container flex="50">
+                        <label for="email">
+                            <span>Notification Email</span>
+                            <!-- <strong class="text-small text-error margin-horizontal-small">{{ errorMessages.email }}</strong> -->
+                        </label>
+                        <input id="email" type="text" ng-model="$storage.address.email" ng-blur="validateAddress($storage.address)" placeholder="Notification email..." required>
+                    </md-input-container>
+                    <div class="md-select-wrapper" flex="100" flex-gt-md="20" style="padding-top: 43px;">
+                        <md-select id="country-code" ng-model="$storage.address.countryCodeIndex" aria-label="Country telephone code" placeholder="Country code..." required>
+                            <md-option value="">Country code</md-option>
+                            <md-option ng-repeat="code in countryCodes" value="{{ $index }}">{{ code.value }}</md-option>
+                        </md-select>
+                    </div>
+                    <md-input-container flex flex-sm="100">
+                        <label for="address-phone">
+                            <span>Notification Phone</span>
+                            <strong class="text-small text-error margin-horizontal-small">{{ errorMessages.countryCode }}</strong>
+                            <strong class="text-small text-error margin-horizontal-small">{{ errorMessages.phone }}</strong>
+                        </label>
+                        <input class="margin-zero-important" type="text" ng-model="$storage.address.phone" ng-blur="validateAddress($storage.address)" placeholder="202-555-0100..." style="padding-top: 20px;" required>
+                    </md-input-container>
+                    <div flex="100" flex-gt-md="30" style="padding-top: 1rem;">
+                        <md-switch ng-model="$storage.address.sms" aria-label="Enable SMS notifications">
+                            Enable SMS Notifications
+                        </md-switch>
+                    </div>
+                    <md-input-container flex="100">
+                        <label for="address-line-one">
+                            <span>Street Address</span>
+                            <!-- <strong class="text-small text-error margin-horizontal-small">{{ errorMessages.street }}</strong> -->
+                        </label>
+                        <input id="address-line-one" type="text" ng-model="$storage.address.street1" ng-blur="validateAddress($storage.address)" placeholder="Line 1 (required)..." required>
+                    </md-input-container>
+                    <md-input-container flex="100">
+                        <label for="line-two">Line 2</label>
+                        <input id="line-two" type="text" ng-model="$storage.address.street2" placeholder="Line 2...">
+                    </md-input-container>
+                    <md-input-container flex="100">
+                        <label for="line-three">Line 3</label>
+                        <input id="line-three" type="text" ng-model="$storage.address.street3" placeholder="Line 3...">
+                    </md-input-container>
+                    <md-input-container flex="60">
+                        <label for="city">
+                            <span>City</span>
+                            <!-- <strong class="text-small text-error margin-horizontal-small">{{ errorMessages.city }}</strong> -->
+                        </label>
+                        <input id="city" type="text" ng-model="$storage.address.city" ng-blur="validateAddress($storage.address)" placeholder="City (required)..." required>
+                    </md-input-container>
+                    <md-input-container flex>
+                        <label for="postal-code">
+                            <span>Postal Code</span>
+                            <!-- <strong class="text-small text-error margin-horizontal-small">{{ errorMessages.postalCode }}</strong> -->
+                        </label>
+                        <input id="postal-code" type="text" ng-model="$storage.address.postalCode" ng-blur="validateAddress($storage.address)" placeholder="Postal code (required)..." required>
+                    </md-input-container>
+                    <div class="md-select-wrapper text-right" flex="50">
+                        <!-- <label for="country">
               <span>Country</span>
               <strong class="text-small text-error margin-horizontal-small">{{ errorMessages.country }}</strong>
             </label> -->
-            <md-select id="country" ng-model="$storage.address.country"  ng-blur="validateAddress($storage.address)" placeholder="Country..." style="margin-top: 4px;" required>
-              <md-option value="">Select Country</md-option>
-              <md-option ng-repeat="country in countries" value="{{ country['alpha-2'] }}">{{ country.name }}</md-option>
-            </md-select>
-
-          </div>
-          
-
-          <div class="md-select-wrapper text-right" flex="50" ng-show="$storage.address.country === 'US'">
-            <!-- <label for="state">
+                        <md-select id="country" ng-model="$storage.address.country" ng-blur="validateAddress($storage.address)" placeholder="Country..." style="margin-top: 4px;" required>
+                            <md-option value="">Select Country</md-option>
+                            <md-option ng-repeat="country in countries" value="{{ country['alpha-2'] }}">{{ country.name }}</md-option>
+                        </md-select>
+                    </div>
+                    <div class="md-select-wrapper text-right" flex="50" ng-show="$storage.address.country === 'US'">
+                        <!-- <label for="state">
               <span>State</span>
               <strong class="text-small text-error margin-horizontal-small">{{ errorMessages.territory }}</strong>
             </label> -->
-            <md-select id="state" ng-model="$storage.address.state" ng-blur="validateAddress($storage.address)" ng-change="updateAddress()" placeholder="State..." style="margin-top: 4px;">
-              <md-option value="">Select State</md-option>
-              <md-option ng-repeat="state in states" value="{{ state.abbreviation }}">{{ state.name }}</md-option>
-            </md-select>
-          </div>
-          
-
-          <md-input-container flex="50" ng-show="$storage.address.country !== 'US'">
-            <label for="address-state">
-              <span>Territory</span>
-              <!-- <strong class="text-small text-error margin-horizontal-small">{{ errorMessages.territory }}</strong> -->
-            </label>
-            <input type="text" ng-model="$storage.address.territory" ng-blur="validateAddress($storage.address)" placeholder="Territory...">
-
-          </md-input-container>       
-
-
-          <md-input-container flex="100">
-            <label for="address-instructions">Shipping Instructions</label>
-            <textarea ng-model="$storage.address.instructions" placeholder="Shipping instructions..."></textarea>
-
-          </md-input-container>
-
-          <md-button class="md-raised md-primary min-16 max-16" flex ng-click="saveAddress($storage.address)">Save Address</md-button>
-
+                        <md-select id="state" ng-model="$storage.address.state" ng-blur="validateAddress($storage.address)" ng-change="updateAddress()" placeholder="State..." style="margin-top: 4px;">
+                            <md-option value="">Select State</md-option>
+                            <md-option ng-repeat="state in states" value="{{ state.abbreviation }}">{{ state.name }}</md-option>
+                        </md-select>
+                    </div>
+                    <md-input-container flex="50" ng-show="$storage.address.country !== 'US'">
+                        <label for="address-state">
+                            <span>Territory</span>
+                            <!-- <strong class="text-small text-error margin-horizontal-small">{{ errorMessages.territory }}</strong> -->
+                        </label>
+                        <input type="text" ng-model="$storage.address.territory" ng-blur="validateAddress($storage.address)" placeholder="Territory...">
+                    </md-input-container>
+                    <md-input-container flex="100">
+                        <label for="address-instructions">Shipping Instructions</label>
+                        <textarea ng-model="$storage.address.instructions" placeholder="Shipping instructions..."></textarea>
+                    </md-input-container>
+                    <md-button class="md-raised md-primary min-16 max-16" flex ng-click="saveAddress($storage.address)">Save Address</md-button>
+                </div>
+            </form>
+            <div ng-if="$storage.cart.address && !editingAddress">
+                <ul class="padded padding-zero">
+                    <li>{{ $storage.cart.address.recipient }}</li>
+                    <li>{{ $storage.cart.address.street1 }}</li>
+                    <li ng-show="$storage.cart.address.street2">{{ $storage.cart.address.street2 }}</li>
+                    <li ng-show="$storage.cart.address.street3">{{ $storage.cart.address.street3 }}</li>
+                    <li>{{ $storage.cart.address.city }}, {{ $storage.cart.address.territory }} {{ $storage.cart.address.postalCode }}</li>
+                    <li>{{ $storage.cart.address.countryName }}</li>
+                    <li>{{ $storage.cart.address.email }}</li>
+                    <li>{{ $storage.cart.address.countryCode }} {{ $storage.cart.address.phone }}</li>
+                    <li ng-show="$storage.cart.address.sms">SMS notifications enabled</li>
+                    <li ng-show="$storage.cart.address.instructions" class="margin-vertical-small">
+                        <strong>Shipping Instructions:</strong>
+                        <p class="text-small padding-horizontal-x-small">
+                            {{ $storage.cart.address.instructions }}
+                        </p>
+                    </li>
+                    <li class="padding-zero-important" layout="row" layout-align="start">
+                        <md-button class="md-raised min-16 max-16" flex ng-click="editAddress()" aria-label="Edit address">
+                            <i class="mdi-editor-mode-edit"></i> Edit Address
+                        </md-button>
+                        <md-button class="md-warn" flex ng-click="removeAddress(); editAddress();" style="max-width: 3rem;" aria-label="Delete address">
+                            <i class="mdi-action-delete"></i>
+                        </md-button>
+                    </li>
+                </ul>
+            </div>
         </div>
-
-      </form>
-
-      <div ng-if="$storage.cart.address && !editingAddress">
-        <ul class="padded padding-zero">
-          <li>{{ $storage.cart.address.recipient }}</li>
-          <li>{{ $storage.cart.address.street1 }}</li>
-          <li ng-show="$storage.cart.address.street2">{{ $storage.cart.address.street2 }}</li>
-          <li ng-show="$storage.cart.address.street3">{{ $storage.cart.address.street3 }}</li>
-          <li>{{ $storage.cart.address.city }}, {{ $storage.cart.address.territory }} {{ $storage.cart.address.postalCode }}</li>
-          <li>{{ $storage.cart.address.countryName }}</li>
-          <li>{{ $storage.cart.address.email }}</li>
-          <li>{{ $storage.cart.address.countryCode }} {{ $storage.cart.address.phone }}</li>
-          <li ng-show="$storage.cart.address.sms">SMS notifications enabled</li>
-          <li ng-show="$storage.cart.address.instructions" class="margin-vertical-small">
-            <strong>Shipping Instructions:</strong>
-            <p class="text-small padding-horizontal-x-small">
-              {{ $storage.cart.address.instructions }}
-            </p>
-
-          </li>
-          <li class="padding-zero-important" layout="row" layout-align="start">
-            <md-button class="md-raised min-16 max-16" flex ng-click="editAddress()" aria-label="Edit address">
-              <i class="mdi-editor-mode-edit"></i> Edit Address
-            </md-button>
-            <md-button class="md-warn" flex ng-click="removeAddress(); editAddress();" style="max-width: 3rem;" aria-label="Delete address">
-              <i class="mdi-action-delete"></i>
-            </md-button>
-          </li>
-        </ul>
-
-      </div>
-
-    </div>
-
-  </md-whiteframe>
-
-  <h3 id="add-payment-method" class="headline transition-color" flex="100">Add Payment Method</h3>
-
-  <md-whiteframe class="md-whiteframe-z1" flex-sm="100" flex-gt-sm="50" layout="row" layout-padding layout-wrap>
-    <!-- Braintree Drop-In Form -->
-    <div flex="100" ng-if="$storage.cart.total">
-      <style>#dropin {min-height: 196px;}</style>
-      <div braintree-drop-in token="clientToken"></div>
-
-    </div>
-    <!-- END Braintree Drop-In Form -->
-
-  </md-whiteframe>
-
-  
-  <h3 class="headline">Checkout</h3>
-
-  <md-whiteframe class="md-whiteframe-z2" layout-sm="column" layout-gt-sm="row" layout-align="space-between end" layout-padding layout-wrap>
-
-    <md-whiteframe class="md-whiteframe-z0" flex="100" layout="row" layout-align="start start" layout-padding layout-wrap ng-if="user.private.customer.paypalAccounts.length || user.private.customer.creditCards.length">     
-
-      <span flex="50" flex-sm="100" ng-if="user.private.customer.creditCards">
-        <h4 class="padding-horizontal-medium">Credit Cards</h4>
-        <md-radio-group ng-model="$storage.cart.paymentToken">
-          <div class="padding-x-small" layout="row" layout-align="space-between center" layout-wrap ng-repeat="card in user.private.customer.creditCards" ng-class="{disabled: card.disabled}">
-            <md-radio-button ng-value="card.token" aria-label="Select card {{ card.last4 }}"></md-radio-button>
-            <img style="max-width: 2rem;" ng-src="{{ card.imageUrl }}" alt="{{ card.cardType }}" /> 
-            <span>****{{ card.last4 }}</span>
-            <md-button class="md-warn" ng-click="card.disabled = true; removePaymentMethod(card.token);" aria-label="Remove credit card">
-              <i class="mdi-action-delete"></i>
-            </md-button>
-          </div>
-        </md-radio-group>
-      </span>
-
-      <span flex="50" flex-sm="100" ng-if="user.private.customer.paypalAccounts">
-        <h4 class="padding-horizontal-medium">PayPal Accounts</h4>
-        <md-radio-group ng-model="$storage.cart.paymentToken">
-          <div class="padding-x-small" layout="row" layout-align="space-between center" layout-wrap ng-repeat="account in user.private.customer.paypalAccounts" ng-class="{disabled: card.disabled}">
-            <md-radio-button ng-value="account.token" aria-label="Select PayPal {{ account.email }}"></md-radio-button>
-            <img style="max-width: 2rem;" ng-src="{{ account.imageUrl }}" alt="PayPal" /> 
-            <span>{{ account.email }}</span>
-            <md-button class="md-warn" ng-click="account.disabled = true; removePaymentMethod(account.token)" aria-label="Remove PayPal account">
-              <i class="mdi-action-delete"></i>
-            </md-button>
-          </div>
-        </md-radio-group>
-        
-      </span>
-
     </md-whiteframe>
-
-    <md-whiteframe class="md-whiteframe-z3" flex="100" layout="row" layout-align="space-between end" layout-padding layout-wrap>
-
-      <span flex="100" layout="row" layout-align="space-between center" layout-wrap ng-repeat="code in $storage.cart.codes">
+    <h3 id="add-payment-method" class="headline transition-color" flex="100">Add Payment Method</h3>
+    <md-whiteframe class="md-whiteframe-z1" flex-sm="100" flex-gt-sm="50" layout="row" layout-padding layout-wrap>
+        <!-- Braintree Drop-In Form -->
+        <div flex="100" ng-if="$storage.cart.total">
+            <style>
+            #dropin {
+                min-height: 196px;
+            }
+            </style>
+            <div braintree-drop-in token="clientToken"></div>
+        </div>
+        <!-- END Braintree Drop-In Form -->
+    </md-whiteframe>
+    <h3 class="headline">Checkout</h3>
+    <md-whiteframe class="md-whiteframe-z2" layout-sm="column" layout-gt-sm="row" layout-align="space-between end" layout-padding layout-wrap>
+        <md-whiteframe class="md-whiteframe-z0" flex="100" layout="row" layout-align="start start" layout-padding layout-wrap ng-if="user.private.customer.paypalAccounts.length || user.private.customer.creditCards.length">
+            <div class="max-33" flex flex-sm="100" ng-if="user.private.customer.creditCards">
+                <h4 class="padding-horizontal-medium">Credit Cards</h4>
+                <md-radio-group ng-model="$storage.cart.paymentToken">
+                    <div class="padding-x-small" layout="row" layout-align="space-between center" layout-wrap ng-repeat="card in user.private.customer.creditCards" ng-class="{disabled: card.disabled}">
+                        <div class="max-5" flex>
+                            <md-radio-button ng-value="card.token" aria-label="Select card {{ card.last4 }}"></md-radio-button>
+                        </div>
+                        <img class="max-3" flex ng-src="{{ card.imageUrl }}" alt="{{ card.cardType }}" />
+                        <span class="margin-horizontal-small" flex>****{{ card.last4 }}</span>
+                        <md-button class="md-warn md-icon-button" flex ng-click="card.disabled = true; removePaymentMethod(card.token);" aria-label="Remove credit card">
+                            <i class="mdi-action-delete"></i>
+                        </md-button>
+                    </div>
+                </md-radio-group>
+            </div>
+            <div class="max-33" flex flex-sm="100" ng-if="user.private.customer.paypalAccounts">
+                <h4 class="padding-horizontal-medium">PayPal Accounts</h4>
+                <md-radio-group ng-model="$storage.cart.paymentToken">
+                    <div class="padding-x-small" layout="row" layout-align="space-between center" layout-wrap ng-repeat="account in user.private.customer.paypalAccounts" ng-class="{disabled: account.disabled}">
+                        <div class="max-5" flex>
+                            <md-radio-button ng-value="account.token" aria-label="Select PayPal {{ account.email }}"></md-radio-button>
+                        </div>
+                        <img class="max-3" flex ng-src="{{ account.imageUrl }}" alt="PayPal" />
+                        <span class="margin-horizontal-small" flex>{{ account.email }}</span>
+                        <md-button class="md-warn md-icon-button" flex ng-click="account.disabled = true; removePaymentMethod(account.token)" aria-label="Remove PayPal account">
+                            <i class="mdi-action-delete"></i>
+                        </md-button>
+                    </div>
+                </md-radio-group>
+            </div>
+            <div class="max-33" flex flex-sm="100" ng-if="user.private.customer.coinbaseAccounts">
+                <h4 class="padding-horizontal-medium">Coinbase Accounts</h4>
+                <md-radio-group ng-model="$storage.cart.paymentToken">
+                    <div class="padding-x-small" layout="row" layout-align="space-between center" layout-wrap ng-repeat="account in user.private.customer.coinbaseAccounts" ng-class="{disabled: account.disabled}">
+                        <div class="max-5" flex>
+                            <md-radio-button ng-value="account.token" aria-label="Select Coinbase {{ account.userEmail }}"></md-radio-button>
+                        </div>
+                        <!-- <img style="max-width: 2rem;" ng-src="{{ account.imageUrl }}" alt="Coinbase" /> -->
+                        <span class="margin-horizontal-small" flex>{{ account.userEmail }}</span>
+                        <md-button class="md-warn md-icon-button" flex ng-click="account.disabled = true; removePaymentMethod(account.token)" aria-label="Remove Coinbase account">
+                            <i class="mdi-action-delete"></i>
+                        </md-button>
+                    </div>
+                </md-radio-group>
+            </div>
+        </md-whiteframe>
+        <md-whiteframe class="md-whiteframe-z3" flex="100" layout="row" layout-align="space-between end" layout-padding layout-wrap>
+            <span flex="100" layout="row" layout-align="space-between center" layout-wrap ng-repeat="code in $storage.cart.codes">
         <span flex="50">
           <span>{{ code.code }}</span>
-        </span>
-        <span class="text-right" flex>
+            </span>
+            <span class="text-right" flex>
           
           <span ng-show="code.type === 'value'">{{ code.value | currency }}</span>
-          <span ng-show="code.type === 'percentage'">{{ code.percentage }}%</span>
-        </span>
-      </span>
-      
-
-      <span flex="50">Subtotal</span>
-      <span class="text-right" flex>{{ $storage.cart.subtotal | currency }}</span>
-
-      <span flex="50" ng-show="$storage.cart.codes.length">Discount</span>
-      <span class="text-right" flex ng-show="$storage.cart.codes.length">{{ -1 * $storage.cart.discount | currency }}</span>
-
-      <span flex="50" ng-show="$storage.cart.shipping">Shipping</span>
-      <span flex="50" ng-show="!$storage.cart.shipping">Free Shipping</span>
-      <span class="text-right" flex>
+            <span ng-show="code.type === 'percentage'">{{ code.percentage }}%</span>
+            </span>
+            </span>
+            <span flex="50">Subtotal</span>
+            <span class="text-right" flex>{{ $storage.cart.subtotal | currency }}</span>
+            <span flex="50" ng-show="$storage.cart.codes.length">Discount</span>
+            <span class="text-right" flex ng-show="$storage.cart.codes.length">{{ -1 * $storage.cart.discount | currency }}</span>
+            <span flex="50" ng-show="$storage.cart.shipping">Shipping</span>
+            <span flex="50" ng-show="!$storage.cart.shipping">Free Shipping</span>
+            <span class="text-right" flex>
         <span ng-show="$storage.address.domestic || $storage.address.international">{{ $storage.cart.shipping | currency }}</span>
-        <a class="text-x-small" qv-focus="#address-country" ng-hide="$storage.address.domestic || $storage.address.international">+ Address</a>
-      </span>
-
-      <span flex="50">Tax</span>
-      <span class="text-right" flex>
+            <a class="text-x-small" qv-focus="#address-country" ng-hide="$storage.address.domestic || $storage.address.international">+ Address</a>
+            </span>
+            <span flex="50">Tax</span>
+            <span class="text-right" flex>
         <span ng-show="$storage.address.tax !== false">{{ $storage.cart.tax | currency }}</span>
-        <a class="text-x-small" qv-focus="#address-country" ng-show="$storage.address.tax === false">+ Address</a>
-      </span>
-
-      <md-divider flex="100"></md-divider>
-
-      <span flex="50">Total</span>
-      <span class="text-right" flex><strong>{{ $storage.cart.total | currency }}</strong></span>
-
-      <span flex="50" flex-sm="100" style="min-height: 6.5rem;">
+            <a class="text-x-small" qv-focus="#address-country" ng-show="$storage.address.tax === false">+ Address</a>
+            </span>
+            <md-divider flex="100"></md-divider>
+            <span flex="50">Total</span>
+            <span class="text-right" flex><strong>{{ $storage.cart.total | currency }}</strong></span>
+            <span flex="50" flex-sm="100" style="min-height: 6.5rem;">
 
         <div layout="row" layout-align="space-between center" ng-if="!user.private.customer.paypalAccounts.length && !user.private.customer.creditCards.length">
           <span>Required <i class="mdi-navigation-arrow-forward"></i></span>
-          <md-button class="md-raised md-warn" ng-href="#add-payment-method" qv-focus="[name='braintree-dropin-frame']" qv-highlight="text-secondary0" selector="#add-payment-method" aria-label="Add payment method">Add Payment Method</md-button>
-        </div>
-
-        <div layout="row" layout-align="space-between center" ng-if="!$storage.cart.paymentToken && $storage.cart.total && (user.private.customer.paypalAccounts.length || user.private.customer.creditCards.length)">
-          <span>Required <i class="mdi-navigation-arrow-forward"></i></span>
-          <md-button class="md-raised md-warn" ng-click="selectFirstPaymentToken()" aria-label="Select payment method">Select Payment Method</md-button>
-        </div>
-
-        <div layout="row" layout-align="space-between center" ng-if="$storage.cart.shipped && !$storage.cart.address">
-          <span>Required <i class="mdi-navigation-arrow-forward"></i></span>
-          <md-button class="md-raised md-warn" ng-href="#shipping-address" qv-focus="#name" ng-click="editAddress()" qv-highlight="text-secondary0" selector="#shipping-address" aria-label="Address required">Add Address</md-button>
-        </div>
-
-        
-      </span>
-
-      <span class="text-right" flex="50" flex-sm="100" layout="row" layout-align="end center">
+            <md-button class="md-raised md-warn" ng-href="#add-payment-method" qv-focus="[name='braintree-dropin-frame']" qv-highlight="text-secondary0" selector="#add-payment-method" aria-label="Add payment method">Add Payment Method</md-button>
+</div>
+<div layout="row" layout-align="space-between center" ng-if="!$storage.cart.paymentToken && $storage.cart.total && (user.private.customer.paypalAccounts.length || user.private.customer.creditCards.length)">
+    <span>Required <i class="mdi-navigation-arrow-forward"></i></span>
+    <md-button class="md-raised md-warn" ng-click="selectFirstPaymentToken()" aria-label="Select payment method">Select Payment Method</md-button>
+</div>
+<div layout="row" layout-align="space-between center" ng-if="$storage.cart.shipped && !$storage.cart.address">
+    <span>Required <i class="mdi-navigation-arrow-forward"></i></span>
+    <md-button class="md-raised md-warn" ng-href="#shipping-address" qv-focus="#name" ng-click="editAddress()" qv-highlight="text-secondary0" selector="#shipping-address" aria-label="Address required">Add Address</md-button>
+</div>
+</span>
+<span class="text-right" flex="50" flex-sm="100" layout="row" layout-align="end center">
         <md-button class="md-raised margin-horizontal-small" ui-sref="master.nav.cart" style="min-height: 33px;" aria-label="Back to cart">
           <i class="mdi-navigation-arrow-back"></i> Back to Cart
         </md-button>
@@ -360,21 +300,15 @@
           <i class="mdi-action-delete"></i> Empty Cart
         </md-button>  
       </span>
-
-      <span flex="100" layout="row">
+<span flex="100" layout="row">
         <md-button id="checkout-button" class="md-raised md-primary min-16 max-16" ng-click="checkingOut = true; checkout($storage.cart);" ng-disabled="!user || (!$storage.cart.paymentToken && $storage.cart.total) || ($storage.cart.shipped && !$storage.cart.address) || checkingOut" aria-label="Check out">
           <i class="mdi-action-done-all"></i>
           <span ng-show="$storage.cart.total">Complete Purchase</span>
-          <span ng-hide="$storage.cart.total">Free Checkout</span>
-        </md-button>
-
-        <div>
-          <md-progress-circular class="invisible" flex md-mode="indeterminate" qv-loading target="#checkout-button"></md-progress-circular>
-        </div>
-
-      </span>
-
-      
-    </md-whiteframe>
-
-  </md-whiteframe>
+<span ng-hide="$storage.cart.total">Free Checkout</span>
+</md-button>
+<div>
+    <md-progress-circular class="invisible" flex md-mode="indeterminate" qv-loading target="#checkout-button"></md-progress-circular>
+</div>
+</span>
+</md-whiteframe>
+</md-whiteframe>
