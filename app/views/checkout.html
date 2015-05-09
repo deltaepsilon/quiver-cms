@@ -201,7 +201,7 @@
     </md-whiteframe>
     <h3 class="headline">Checkout</h3>
     <md-whiteframe class="md-whiteframe-z2" layout-sm="column" layout-gt-sm="row" layout-align="space-between end" layout-padding layout-wrap>
-        <md-whiteframe class="md-whiteframe-z0" flex="100" layout="row" layout-align="start start" layout-padding layout-wrap ng-if="user.private.customer.paypalAccounts.length || user.private.customer.creditCards.length">
+        <md-whiteframe class="md-whiteframe-z0" flex="100" layout="row" layout-align="start start" layout-padding layout-wrap ng-if="user.private.customer.paypalAccounts.length || user.private.customer.creditCards.length || user.private.customer.coinbaseAccounts.length">
             <div class="max-33" flex flex-sm="100" ng-if="user.private.customer.creditCards">
                 <h4 class="padding-horizontal-medium">Credit Cards</h4>
                 <md-radio-group ng-model="$storage.cart.paymentToken">
@@ -279,11 +279,11 @@
             <span class="text-right" flex><strong>{{ $storage.cart.total | currency }}</strong></span>
             <span flex="50" flex-sm="100" style="min-height: 6.5rem;">
 
-        <div layout="row" layout-align="space-between center" ng-if="!user.private.customer.paypalAccounts.length && !user.private.customer.creditCards.length">
+        <div layout="row" layout-align="space-between center" ng-if="!user.private.customer.paypalAccounts.length && !user.private.customer.creditCards.length && !user.private.customer.coinbaseAccounts.length">
           <span>Required <i class="mdi-navigation-arrow-forward"></i></span>
             <md-button class="md-raised md-warn" ng-href="#add-payment-method" qv-focus="[name='braintree-dropin-frame']" qv-highlight="text-secondary0" selector="#add-payment-method" aria-label="Add payment method">Add Payment Method</md-button>
 </div>
-<div layout="row" layout-align="space-between center" ng-if="!$storage.cart.paymentToken && $storage.cart.total && (user.private.customer.paypalAccounts.length || user.private.customer.creditCards.length)">
+<div layout="row" layout-align="space-between center" ng-if="!$storage.cart.paymentToken && $storage.cart.total && (user.private.customer.paypalAccounts.length || user.private.customer.creditCards.length || user.private.customer.coinbaseAccounts.length)">
     <span>Required <i class="mdi-navigation-arrow-forward"></i></span>
     <md-button class="md-raised md-warn" ng-click="selectFirstPaymentToken()" aria-label="Select payment method">Select Payment Method</md-button>
 </div>
