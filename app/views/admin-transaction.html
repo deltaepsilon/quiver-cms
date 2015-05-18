@@ -26,7 +26,7 @@
                     <div flex>
                         <a ui-sref="authenticated.master.admin.product({key: item.key})">{{ item.title }} x {{ item.quantity }} @ {{ item.priceAdjusted || item.price | currency }}</a>
                         <div>
-                            <strong>{{ item.optionsMatrixSelected.name || '&nbsp;' }}</strong>
+                            <strong>{{ item.optionsMatrixSelected.name }}</strong>
                         </div>
                     </div>
                     <div flex>
