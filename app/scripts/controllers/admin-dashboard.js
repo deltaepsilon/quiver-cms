@@ -37,6 +37,7 @@ angular.module('quiverCmsApp')
             AdminService.runBackup().then(function() {
                 NotificationService.success('Backup Run!');
                 delete $scope.runningBackup;
+                $scope.updateBackups();
             }, function(error) {
                 NotificationService.error('Backup Error', error);
                 delete $scope.runningBackup;

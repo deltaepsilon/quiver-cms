@@ -4,7 +4,7 @@
     <div class="max-7" flex>
         <md-progress-circular flex md-mode="indeterminate" qv-loading ng-class="{invisible: !runningReports}"></md-progress-circular>
     </div>
-    <md-button class="md-warn md-raised max-10" flex ng-click="runReports()">
+    <md-button class="md-warn md-raised max-10" flex ng-click="runReports()" ng-disabled="runningReports">
         Run Reports
     </md-button>
     <md-button class="md-primary md-raised md-icon-button" flex ng-click="$storage.hideDashboardReports = !$storage.hideDashboardReports" aria-label="Hide dashboard reports">
@@ -76,10 +76,10 @@
     <div class="max-7" flex>
         <md-progress-circular flex md-mode="indeterminate" qv-loading ng-class="{invisible: !runningBackup && !updatingBackups}"></md-progress-circular>
     </div>
-    <md-button class="md-warn md-raised max-10" flex ng-click="runBackup()">
+    <md-button class="md-warn md-raised max-10" flex ng-click="runBackup()" ng-disabled="runningBackup">
         Run
     </md-button>
-    <md-button class="md-warn md-raised max-10" flex ng-click="updateBackups()">
+    <md-button class="md-warn md-raised max-10" flex ng-click="updateBackups()" ng-disabled="updatingBackups">
         Update
     </md-button>
     <md-button class="md-primary md-raised md-icon-button" flex ng-click="$storage.hideDashboardBackups = !$storage.hideDashboardBackups" aria-label="Hide dashboard backups">
@@ -94,7 +94,7 @@
                     <md-button class="md-primary md-raised md-icon-button adjust-mdi" flex ng-href="/api/admin/backup/download/{{ backup.Filename }}?email={{ user.email }}&uid={{ currentUser.uid }}&provider={{ currentUser.provider }}&authorization={{ currentUser.token }}" target="_blank" download>
                         <i class="mdi-file-file-download"></i>
                     </md-button>
-                    <span flex>{{ backup.Filename }}</span>
+                    <span flex>{{ backup.Key }}</span>
                 </md-item-content>
                 <md-divider ng-if="!$last"></md-divider>
             </md-item>
