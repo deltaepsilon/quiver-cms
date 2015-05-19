@@ -583,6 +583,9 @@ angular.module('quiverCmsApp', [
             resolve: {
                 reports: function(AdminService) {
                     return AdminService.getReports();
+                },
+                backups: function(AdminService) {
+                    return AdminService.getBackups();
                 }
             }
         })

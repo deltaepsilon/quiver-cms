@@ -1,227 +1,213 @@
 {
-  "public": {
-    "environment": "development",
-    "liveReload": false,
-    "html5Mode": true,
-    "firebase": {
-      "endpoint": "https://my-firebase.firebaseio.com/quiver-cms"
-    },
-    "api": "https://my-site.com/api",
-    "root": "https://my-site.com",
-    "email": {
-      "from": "TyrionLannister@westeros.com",
-      "name": "Tyrion Lannister"
-    },
-    "resources": {
-      "whitelist": [
-        "self", 
-        "http://localhost/*", 
-        "https://localhost/*", 
-        "http:127.0.0.1/*", 
-        "https:127.0.0.1/*", 
-        "http://s3.amazonaws.com/*", 
-        "https://s3.amazonaws.com/*"
-      ]
-    },
-    "imageSizes": {
-      "small": 640,
-      "medium": 1024,
-      "large": 1440,
-      "xlarge": 1920,
-      "postSize": "medium"
-    },
-    "supportedImageTypes": ["jpg", "jpeg", "png", "gif", "tiff"],
-    "supportedVideoTypes": ["mp4", "webm", "mpeg", "ogg"],
-    "maxUploadBytes": 10000000,
-    "maps": {
-      "apiKey": "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-    },
-    "disqus": {
-      "shortname": "my-disqus-shortname"
-    },
-    "amazon": {
-      "publicBucket": "assets.westeros.com"
-    },
-    "rss": {
-      "title": "Quiver CMS",
-      "description": "A Firebase/Express/Angular/Node CMS",
-      "link": "https://quiver.is/",
-      "image": "https://quiver.is/small.jpg",
-      "docs": "https://quiver.is/my-rss-documentation",
-      "managingEditor": "Chris Esplin: chris@quiver.is",
-      "webMaster": "Chris Esplin: chris@quiver.is",
-      "copyright": "MIT",
-      "language": "english",
-      "categories": ["cats", "dogs"],
-      "ttl": 3600
-    },
-    "google": {
-      "analyticsId": "UA-6859198-XX"
-    },
-    "shipping": {
-      "defaultCarrier": "usps",
-      "carriers": [
-        {
-          "code": "usps",
-          "name": "USPS",
-          "trackingUrl": "https://tools.usps.com/go/TrackConfirmAction_input?qtc_tLabels1=$NUMBER"
+    "public": {
+        "environment": "development",
+        "liveReload": false,
+        "html5Mode": true,
+        "firebase": {
+            "endpoint": "https://my-firebase.firebaseio.com/quiver-cms"
         },
-        {
-          "code": "ups",
-          "name": "UPS",
-          "trackingUrl": "http://wwwapps.ups.com/WebTracking/track?track=yes&trackNums=$NUMBER"
+        "api": "https://my-site.com/api",
+        "root": "https://my-site.com",
+        "email": {
+            "from": "TyrionLannister@westeros.com",
+            "name": "Tyrion Lannister"
         },
-        {
-          "code": "fedex",
-          "name": "FedEx",
-          "trackingUrl": "http://www.fedex.com/Tracking?action=track&tracknumbers=$NUMBER"
+        "resources": {
+            "whitelist": [
+                "self",
+                "http://localhost/*",
+                "https://localhost/*",
+                "http:127.0.0.1/*",
+                "https:127.0.0.1/*",
+                "http://s3.amazonaws.com/*",
+                "https://s3.amazonaws.com/*"
+            ]
         },
-        {
-          "code": "dhl",
-          "name": "DHL",
-          "trackingUrl": "http://track.dhl-usa.com/TrackByNbr.asp?ShipmentNumber=$NUMBER"
+        "imageSizes": {
+            "small": 640,
+            "medium": 1024,
+            "large": 1440,
+            "xlarge": 1920,
+            "postSize": "medium"
         },
-        {
-          "code": "ontrac",
-          "name": "OnTrac",
-          "trackingUrl": "http://www.ontrac.com/trackingdetail.asp?tracking=$NUMBER"
+        "supportedImageTypes": ["jpg", "jpeg", "png", "gif", "tiff"],
+        "supportedVideoTypes": ["mp4", "webm", "mpeg", "ogg"],
+        "maxUploadBytes": 10000000,
+        "maps": {
+            "apiKey": "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+        },
+        "disqus": {
+            "shortname": "my-disqus-shortname"
+        },
+        "amazon": {
+            "publicBucket": "assets.westeros.com"
+        },
+        "rss": {
+            "title": "Quiver CMS",
+            "description": "A Firebase/Express/Angular/Node CMS",
+            "link": "https://quiver.is/",
+            "image": "https://quiver.is/small.jpg",
+            "docs": "https://quiver.is/my-rss-documentation",
+            "managingEditor": "Chris Esplin: chris@quiver.is",
+            "webMaster": "Chris Esplin: chris@quiver.is",
+            "copyright": "MIT",
+            "language": "english",
+            "categories": ["cats", "dogs"],
+            "ttl": 3600
+        },
+        "google": {
+            "analyticsId": "UA-6859198-XX"
+        },
+        "shipping": {
+            "defaultCarrier": "usps",
+            "carriers": [{
+                "code": "usps",
+                "name": "USPS",
+                "trackingUrl": "https://tools.usps.com/go/TrackConfirmAction_input?qtc_tLabels1=$NUMBER"
+            }, {
+                "code": "ups",
+                "name": "UPS",
+                "trackingUrl": "http://wwwapps.ups.com/WebTracking/track?track=yes&trackNums=$NUMBER"
+            }, {
+                "code": "fedex",
+                "name": "FedEx",
+                "trackingUrl": "http://www.fedex.com/Tracking?action=track&tracknumbers=$NUMBER"
+            }, {
+                "code": "dhl",
+                "name": "DHL",
+                "trackingUrl": "http://track.dhl-usa.com/TrackByNbr.asp?ShipmentNumber=$NUMBER"
+            }, {
+                "code": "ontrac",
+                "name": "OnTrac",
+                "trackingUrl": "http://www.ontrac.com/trackingdetail.asp?tracking=$NUMBER"
+            }]
+        },
+        "easypost": {
+            "predefinedDefault": {
+                "predefined_package": "FlatRatePaddedEnvelope"
+            },
+            "predefinedPackages": [{
+                "key": "FlatRatePaddedEnvelope",
+                "value": "USPS Flat Rate Padded Envelope"
+            }, {
+                "key": "FedExPak",
+                "value": "FedEx Pak"
+            }]
+        },
+        "braintree": {
+            "cse": "ASDFBCE"
+        },
+        "timeZone": "America/Denver",
+        "themes": [{
+            "name": "default",
+            "primaryPalette": {
+                "name": "blue-grey",
+                "options": {
+                    "default": "900"
+                }
+            },
+            "accentPalette": {
+                "name": "pink"
+            }
+        }],
+        "notification": {
+            "toast": {
+                "position": "top right",
+                "hideDelay": 4000
+            }
         }
-      ]
     },
-    "easypost": {
-      "predefinedDefault": {
-        "predefined_package": "FlatRatePaddedEnvelope"
-      },
-      "predefinedPackages": [
-        {
-          "key": "FlatRatePaddedEnvelope",
-          "value": "USPS Flat Rate Padded Envelope"
+    "private": {
+        "cms": {
+            "folder": "app",
+            "staticEnabled": true,
+            "port": 9800
         },
-        {
-          "key": "FedExPak",
-          "value": "FedEx Pak"
-        }
-      ]
-    },
-    "braintree": {
-      "cse": "ASDFBCE"
-    },
-    "timeZone": "America/Denver",
-    "themes": [
-      {
-        "name": "default",
-        "primaryPalette": {
-          "name": "blue-grey",
-          "options": {
-            "default": "900"
-          }
+        "content": {
+            "port": 9801
         },
-        "accentPalette": {
-          "name": "pink"
+        "firebase": {
+            "secret": "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+        },
+        "mandrill": {
+            "apiKey": "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+        },
+        "instagram": {
+            "clientId": "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+            "clientSecret": "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+        },
+        "amazon": {
+            "accessKeyId": "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+            "secretAccessKey": "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+            "filePrefix": "cms"
+        },
+        "redis": {
+            "dbIndex": 0,
+            "ttl": 3600
+        },
+        "elasticsearch": {
+            "host": "127.0.0.1",
+            "port": 9200,
+            "index": "cms"
+        },
+        "server": {
+            "HostName": "server.my-remote-server.com",
+            "Port": 22,
+            "User": "admin",
+            "IdentityFile": "~/.ssh/id_rsa",
+            "destination": "/var/www/my-site-folder",
+            "remoteCommand": "sh /var/www/my-site-folder/install"
+        },
+        "braintree": {
+            "environment": "Sandbox",
+            "merchantId": "ASDFASDFASDF",
+            "publicKey": "ASDFADSFASDF",
+            "privateKey": "ASDFASDFADFS"
+        },
+        "easypost": {
+            "key": "ASDFASDFASDFASDF"
+        },
+        "aftership": {
+            "key": "ASDFASDFASDFASDF"
+        },
+        "facebook": {
+            "id": "123456",
+            "secret": "123456"
+        },
+        "twitter": {
+            "id": "123456",
+            "secret": "123456"
+        },
+        "google": {
+            "id": "123456",
+            "secret": "123456",
+            "email": "123123123123@developer.gserviceaccount.com"
+        },
+        "email": {
+            "from": {
+                "name": "Tyrion Lannister",
+                "email": "TyrionLannister@westeros.com"
+            },
+            "reply": "reply@westeros.com",
+            "signature": {
+                "text": "TyrionLannister\nMaster of Coin\nAKA The Imp\n1234 East Lannister Lane\nWesteros, Seven Kingdoms 90210",
+                "html": "<p>TyrionLannister<br/>Master of Coin<br/>AKA The Imp<br/>1234 East Lannister Lane<br/>Westeros, Seven Kingdoms 90210</p>"
+            },
+            "subjects": {
+                "transaction": "Thanks for shopping with Westeros.com!",
+                "feedbackAlert": "Westeros.com - Feedback Received"
+            },
+            "copy": [{
+                "name": "Tywin Lannister",
+                "email": "tywin@westeros.com",
+                "type": "cc"
+            }, {
+                "name": "Little Finger",
+                "email": "littlefinger@westeros.com",
+                "type": "bcc"
+            }],
+            "sincerely": "Sincerely,<br>The team at Quiver CMS"
         }
-      }
-    ],
-    "notification": {
-      "toast": {
-        "position": "top right",
-        "hideDelay": 4000
-      }
     }
-  },
-  "private": {
-    "cms": {
-      "folder": "app",
-      "staticEnabled": false,
-      "port": 9800
-    },
-    "content": {
-      "port": 9801
-    },
-    "firebase": {
-      "secret": "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-    },
-    "mandrill": {
-      "apiKey": "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-    },
-    "instagram": {
-      "clientId": "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
-      "clientSecret": "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-    },
-    "amazon": {
-      "accessKeyId": "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
-      "secretAccessKey": "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
-      "filePrefix": "cms"
-    },
-    "redis": {
-      "dbIndex": 0,
-      "ttl": 3600
-    },
-    "elasticsearch": {
-      "host": "127.0.0.1",
-      "port": 9200,
-      "index": "cms"
-    },
-    "server": {
-      "HostName": "server.my-remote-server.com",
-      "Port": 22,
-      "User": "admin",
-      "IdentityFile": "~/.ssh/id_rsa",
-      "destination": "/var/www/my-site-folder",
-      "remoteCommand": "sh /var/www/my-site-folder/install"
-    },
-    "braintree": {
-      "environment": "Sandbox",
-      "merchantId": "ASDFASDFASDF",
-      "publicKey": "ASDFADSFASDF",
-      "privateKey": "ASDFASDFADFS"
-    },
-    "easypost": {
-      "key": "ASDFASDFASDFASDF"
-    },
-    "aftership": {
-      "key": "ASDFASDFASDFASDF"
-    },
-    "facebook": {
-      "id": "123456",
-      "secret": "123456"
-    },
-    "twitter": {
-      "id": "123456",
-      "secret": "123456"
-    },
-    "google": {
-      "id": "123456",
-      "secret": "123456",
-      "email": "123123123123@developer.gserviceaccount.com"
-    },
-    "email": {
-      "from": {
-        "name": "Tyrion Lannister",
-        "email": "TyrionLannister@westeros.com"
-      },
-      "reply": "reply@westeros.com",
-      "signature": {
-        "text": "TyrionLannister\nMaster of Coin\nAKA The Imp\n1234 East Lannister Lane\nWesteros, Seven Kingdoms 90210",
-        "html": "<p>TyrionLannister<br/>Master of Coin<br/>AKA The Imp<br/>1234 East Lannister Lane<br/>Westeros, Seven Kingdoms 90210</p>"
-      },
-      "subjects": {
-        "transaction": "Thanks for shopping with Westeros.com!",
-        "feedbackAlert": "Westeros.com - Feedback Received"
-      },
-      "copy": [
-        {
-          "name": "Tywin Lannister",
-          "email": "tywin@westeros.com",
-          "type": "cc"
-        },
-        {
-          "name": "Little Finger",
-          "email": "littlefinger@westeros.com",
-          "type": "bcc"
-        }
-      ],
-      "sincerely": "Sincerely,<br>The team at Quiver CMS"
-    }
-  }
 
 }

@@ -31,6 +31,7 @@ var UserController = require('./lib/controllers/user'),
     MessageController = require('./lib/controllers/message'),
     ShipmentController = require('./lib/controllers/shipment'),
     ReportController = require('./lib/controllers/report'),
+    BackupController = require('./lib/controllers/backup'),
     SurveyController = require('./lib/controllers/survey'),
     Middleware = require('./lib/controllers/middleware');
 
@@ -184,6 +185,13 @@ app.post('/admin/shipment/:shipmentKey/label/:labelKey/tracking', ShipmentContro
  * Report
  */
 app.post('/admin/report/run', ReportController.run);
+
+/*
+ * Backup
+ */
+app.post('/admin/backup/run', BackupController.run);
+app.post('/admin/backup/update', BackupController.update);
+app.get('/admin/backup/download/:filename', BackupController.download);
 
 /*
  * Survey

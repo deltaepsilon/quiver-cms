@@ -23,6 +23,8 @@ angular.module('quiverCmsApp')
                         this.$path = this.$list.$ref().toString();
                     } else if (this.$list.$ref().repo) {
                         this.$path = this.$list.$ref().repo.toString() + this.$list.$ref().path.toString();
+                    } else if (this.$list.$ref().ref) {
+                        this.$path = this.$list.$ref().ref().toString();
                     }
 
                     var self = this,
