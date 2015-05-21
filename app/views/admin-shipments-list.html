@@ -36,6 +36,9 @@
                         <md-button class="md-primary md-raised md-icon-button" ng-click="addCustomsItem(shipment)" aria-label="Add customs item {{ $index }}">
                             <i class="mdi-content-add-box"></i>
                         </md-button>
+                        <md-button class="md-primary md-raised md-icon-button" ng-href="{{ env.firebase.endpoint }}/logs/shipments/{{ shipment.$id }}" target="_blank" aria-label="View firebase data for {{ shipment.$id }}">
+                            <i class="mdi-navigation-arrow-forward"></i>
+                        </md-button>
                         <span class="max-10" flex>{{ shipment.created | moment:"MM/DD/YYYY" }}</span>
                         <md-button class="adjust-line-height" flex ng-href="mailto:{{ shipment.transaction.user.preferredEmail || shipment.transaction.user.email }}">
                             {{ shipment.transaction.user.preferredEmail || shipment.transaction.user.email }}

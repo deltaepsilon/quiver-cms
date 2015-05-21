@@ -5,8 +5,8 @@
         <span flex flex-sm="50" ng-if="transaction.updated">Updated: {{ transaction.updated | moment:"MM/DD/YY hh:mm:ss" }}</span>
         <md-button class="md-primary md-raised" ui-sref="authenticated.master.nav.transaction({userId: transaction.userId, key: transaction.keys.user })">User View</md-button>
         <md-button class="md-primary md-raised" ng-href="{{ env.firebase.endpoint }}/userObjects/transactions/{{ transaction.userId }}/{{ transaction.keys.user }}" target="_blank">Transaction Data</md-button>
-        <md-button class="md-primary md-raised" ng-href="/transaction/{{ transaction.$id }}/email/html" qv-to-static target="_blank">View Email</md-button>
-        <md-button class="md-primary md-raised" ng-click="sendTransactionEmail(transaction.$id, transaction)">Send Email</md-button>
+        <md-button class="md-primary md-raised" ng-href="/transaction/{{ transaction.$id }}/email/html" target="_blank">View Email</md-button>
+        <md-button class="md-primary md-raised" ng-click="sendEmail(transaction.$id, transaction)">Send Email</md-button>
         <md-button class="md-warn md-raised" ng-click="chargeCard(transaction)" ng-disabled="transaction.charge.success">Charge Card</md-button>
         <div class="text-right" flex="100" ng-if="transaction.total && !transaction.charge.success">
             <h5 class="text-error">

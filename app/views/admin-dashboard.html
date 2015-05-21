@@ -86,7 +86,7 @@
         <i ng-class="{'mdi-navigation-expand-less': $storage.hideDashboardBackups, 'mdi-navigation-expand-more': !$storage.hideDashboardBackups}"></i>
     </md-button>
 </section>
-<section ng-if="!$storage.hideDashboardBackups && backups">
+<section ng-if="!$storage.hideDashboardBackups && backups.length">
     <md-whiteframe class="md-whiteframe-z1" layout="row" layout-padding layout-wrap ng-if="!$storage.hideSurveysReport">
         <md-list flex>
             <md-item ng-repeat="backup in backups">
