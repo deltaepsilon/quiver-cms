@@ -89,29 +89,29 @@
                             <strong ng-if="subscription.subscriptionDays">{{ subscription.subscriptionDays }} Days</strong>
                         </div>
                         <md-button class="md-primary md-raised adjust-line-height" flex ui-sref="authenticated.master.subscription.page({subscriptionKey: subscription.$id, pageNumber: $storage['bookmark-' + subscription.$id] || 0})" aria-label="Subscription {{ subscription.title }}">
-                            <span layout="row" layout-align="space-between" ng-if="subscription.subscriptionType === 'interaction' && isExpired(subscription)">
-                                <span class="text-left" flex>Assignments expired</span>
-                            <span class="text-right" flex>{{ subscription.expiration | moment:"MM/DD/YYYY" }}</span>
-                            </span>
-                            <span layout="row" layout-align="space-between" ng-if="subscription.subscriptionType === 'interaction' && !isExpired(subscription) && subscription.expiration">
-                                <span class="text-left" flex>Assignments expiration</span>
-                            <span class="text-right" flex>{{ subscription.expiration | moment:"MM/DD/YYYY" }}</span>
-                            </span>
-                            <span layout="row" layout-align="space-between" ng-if="subscription.subscriptionType === 'interaction' && !isExpired(subscription) && !subscription.expiration">
+                            <div layout="row" ng-if="subscription.subscriptionType === 'interaction' && isExpired(subscription)">
+                                <span class="text-center" flex>Assignments expired</span>
+                                <span class="text-center" flex>{{ subscription.expiration | moment:"MM/DD/YYYY" }}</span>
+                            </div>
+                            <div layout="row" ng-if="subscription.subscriptionType === 'interaction' && !isExpired(subscription) && subscription.expiration">
+                                <span class="text-center" flex>Assignments expiration</span>
+                                <span class="text-center" flex>{{ subscription.expiration | moment:"MM/DD/YYYY" }}</span>
+                            </div>
+                            <div layout="row" ng-if="subscription.subscriptionType === 'interaction' && !isExpired(subscription) && !subscription.expiration">
                                 <span flex>Assignments not started</span>
-                            </span>
-                            <span layout="row" layout-align="space-between" ng-if="subscription.subscriptionType === 'content' && isExpired(subscription)">
-                                <span class="text-left" flex>Expired</span>
-                            <span class="text-right" flex>{{ subscription.expiration | moment:"MM/DD/YYYY" }}</span>
-                            </span>
-                            <span layout="row" layout-align="space-between" ng-if="subscription.subscriptionType === 'content' && !isExpired(subscription) && subscription.expiration">
-                                <span class="text-left" flex>Expiration</span>
-                            <span class="text-right" flex>{{ subscription.expiration | moment:"MM/DD/YYYY" }}</span>
-                            </span>
-                            <span layout="row" layout-align="space-between" ng-if="subscription.subscriptionType === 'content' && !isExpired(subscription) && !subscription.expiration">
+                                </span>
+                                <span layout="row" ng-if="subscription.subscriptionType === 'content' && isExpired(subscription)">
+                                <span class="text-center" flex>Expired</span>
+                                <span class="text-center" flex>{{ subscription.expiration | moment:"MM/DD/YYYY" }}</span>
+                            </div>
+                            <div layout="row" ng-if="subscription.subscriptionType === 'content' && !isExpired(subscription) && subscription.expiration">
+                                <span class="text-center" flex>Expiration</span>
+                                <span class="text-center" flex>{{ subscription.expiration | moment:"MM/DD/YYYY" }}</span>
+                            </div>
+                            <div layout="row" ng-if="subscription.subscriptionType === 'content' && !isExpired(subscription) && !subscription.expiration">
                                 <span flex ng-if="subscription.subscriptionDays">Click to start subscription</span>
-                            <span flex ng-if="!subscription.subscriptionDays">Click to view content</span>
-                            </span>
+                                <span flex ng-if="!subscription.subscriptionDays">Click to view content</span>
+                            </div>
                         </md-button>
                     </md-item-content>
                     <md-divider ng-if="!$last"></md-divider>
@@ -210,12 +210,12 @@
                 </md-item>
                 <md-item ng-repeat="transaction in transactions">
                     <md-item-content layout="row" layout-align="start center" layout-wrap>
-                        <a class="undecorated" flex layout="row" layout-padding layout-wrap ui-sref="authenticated.master.nav.transaction({userId: transaction.userId, key: transaction.keys.user })">
+                        <a class="undecorated" flex layout="row" layout-align="start center" layout-padding layout-wrap ui-sref="authenticated.master.nav.transaction({userId: transaction.userId, key: transaction.keys.user })">
                             <div flex="30" flex-sm="100">
                                 #{{ transaction.transactionCount }}: {{ transaction.date | moment:"MM/DD/YYYY" }}
                             </div>
                             <div flex flex-sm="100">
-                                <ul class="inline-list padding-zero">
+                                <ul class="inline-list padding-zero margin-zero">
                                     <li ng-repeat="item in transaction.items">{{ item.title }}</li>
                                 </ul>
                             </div>

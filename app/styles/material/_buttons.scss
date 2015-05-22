@@ -33,6 +33,8 @@
 }
 
 .md-button {
+    @extend .text-medium;
+    
     &.adjust-mdi {
         [class^="mdi-"], [class*=" mdi-"] {
             top: 3px;
@@ -65,11 +67,12 @@
 }
 
 .md-icon-button {
-    min-width: 3rem !important;
-    max-width: 3rem !important;
+    $iconButtonHeight: 2rem;
+    min-width: $iconButtonHeight !important;
+    max-width: $iconButtonHeight !important;
     line-height: .75rem !important;
-    height: 3rem !important;
-    font-size: 1.5rem;
+    height: $iconButtonHeight !important;
+    font-size: $iconButtonHeight * .5;
 }
 
 a.md-icon-button {

@@ -13,7 +13,7 @@ module.exports = function (grunt) {
         }
       },
       style: {
-        files: 'static/styles/**/*.scss',
+        files: ['static/styles/**/*.scss', '../../app/styles/material/*.scss'],
         tasks: ['compass']
       },
       scripts: {

@@ -20,6 +20,10 @@ angular.module('quiverCmsApp')
          */
         $scope.searchTerm = $stateParams.search;
 
+        $scope.setSearch = function (term) {
+            $scope.searchTerm = term;
+        };
+
         /*
          * Pagination
          */

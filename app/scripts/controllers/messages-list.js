@@ -18,4 +18,5 @@ angular.module('quiverCmsApp')
          * Flags
          */
         $scope.incrementMessageFlag = AdminService.incrementMessageFlag;
+
     });

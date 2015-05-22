@@ -29,7 +29,7 @@
         <section>
             <md-list layout="column">
                 <md-item ng-repeat="message in items | orderBy:'$priority':'desc'">
-                    <md-item-content layout="row" layout-align="space-between center" layout-padding layout-wrap>
+                    <md-item-content layout="row" layout-align="start center" layout-padding layout-wrap>
                         <span class="bold" flex flex-order="1" style="max-width: 10rem;">{{ message.created | moment:"MMM DD, hh:mm" }}</span>
                         <span class="truncate" flex flex-order="2">{{ message.userEmail }}</span>
                         <span class="truncate" flex flex-order="2">{{ message.assignmentTitle }}</span>
@@ -40,7 +40,7 @@
                         <md-button class="md-icon-button md-primary" flex flex-order="5" ng-click="setSearch(message.userEmail)" aria-label="Search by user: {{ message.userEmail }}">
                             <i class="mdi-action-search"></i>
                         </md-button>
-                        <md-button class="md-icon-button md-primary" flex flex-order="6" ui-sref="authenticated.master.admin.feedback({userId: message.recipientId || message.userId, assignmentKey: message.assignmentKey })" aria-label="Go to {{ message.userEmail }} assignment {{ message.assignmentTitle }}">
+                        <md-button class="md-primary md-raised md-icon-button adjust-mdi" flex flex-order="6" ui-sref="authenticated.master.admin.feedback({userId: message.recipientId || message.userId, assignmentKey: message.assignmentKey })" aria-label="Go to {{ message.userEmail }} assignment {{ message.assignmentTitle }}">
                             <i class="mdi-navigation-arrow-forward"></i>
                         </md-button>
                     </md-item-content>

@@ -1,0 +1,10 @@
+.landing-page {
+    h1, h2, h3 {
+        @extend .headline;
+    }
+
+    h1 {
+        @extend .text-x-large;
+    }
+
+}
