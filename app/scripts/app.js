@@ -748,6 +748,12 @@ angular.module('quiverCmsApp', [
                 user: function(AdminService, $stateParams) {
                     return AdminService.getUser($stateParams.key);
                 },
+                assignments: function(AdminService) {
+                    return AdminService.getAllAssignments();
+                },
+                products: function(AdminService) {
+                    return AdminService.getAllProducts();
+                },
                 transactions: function(UserService, $stateParams) {
                     return UserService.getTransactions($stateParams.key);
                 },
@@ -763,7 +769,6 @@ angular.module('quiverCmsApp', [
                 downloads: function(UserService, $stateParams) {
                     return UserService.getDownloads($stateParams.key);
                 }
-
             }
         })
         .state('authenticated.master.admin.settings', { // ***************************  Settings *************************
@@ -1045,6 +1050,124 @@ angular.module('quiverCmsApp', [
                     return AdminService.getLandingPage($stateParams.key);
                 }
             }
+        })
+        /*
+         * Moderator routes
+         */
+        .state('authenticated.master.moderator', { // ************************************  Moderator ********************
+            abstract: true,
+            url: '/moderator',
+            views: {
+                sidenavLeft: {
+                    templateUrl: 'views/sidenav-left-moderator.html'
+                },
+                sidenavRight: {
+                    templateUrl: 'views/sidenav-gallery.html',
+                    controller: 'ListCtrl',
+                    resolve: {
+                        items: function(AdminService) {
+                            return AdminService.getOriginals().$limit(5).$default().$get();
+                        }
+                    }
+                },
+                body: {
+                    templateUrl: 'views/body.html',
+                    controller: "ModeratorCtrl",
+                    resolve: {
+                        isModerator: function(user, $state) {
+                            if (!user.isModerator) {
+                                $state.go('authenticated.master.nav.dashboard');
+                                return false;
+                            } else {
+                                return true;
+                            }
+                        }
+                    }
+                }
+            }
+        })
+        .state('authenticated.master.moderator.dashboard', { // ***************************  Moderator ********************
+            url: '/dashboard',
+            templateUrl: 'views/moderator-dashboard.html',
+            controller: 'ModeratorDashboardCtrl'
+        })
+        .state('authenticated.master.moderator.messages', { // ***************************  Messages *************************
+            abstract: true,
+            templateUrl: 'views/moderator-messages.html',
+            controller: 'ModeratorMessagesCtrl',
+            resolve: {
+                assignments: function(AdminService, $q, user, NotificationService, _) {
+                    if (!user.permissions || !user.permissions.assignments) {
+                        NotificationService.error('No assignments assigned.');
+                        $state.go('authenticated.master.moderator.dashboard');
+                        return false;
+                    } else {
+                        var deferred = $q.defer();
+
+                        AdminService.getAllAssignments().$loaded().then(function(assignments) {
+                            var keys = Object.keys(user.permissions.assignments),
+                                i = keys.length,
+                                allowed = [];
+
+                            while (i--) {
+                                if (user.permissions.assignments[keys[i]]) {
+                                    allowed.push(keys[i]);
+                                }
+                            }
+
+                            deferred.resolve(_.filter(assignments, function(assignment) {
+                                return ~allowed.indexOf(assignment.$id);
+                            }));
+                        });
+
+                        return deferred.promise;
+                    }
+                }
+            }
+        })
+        .state('authenticated.master.moderator.messages.list', {
+            url: '/messages/$search',
+            templateUrl: 'views/moderator-messages-list.html',
+            controller: 'ModeratorMessagesListCtrl'
+        })
+        .state('authenticated.master.moderator.uploads', { // ****************************  Uploads **************************
+            abstract: true,
+            templateUrl: 'views/moderator-uploads.html',
+            controller: 'ModeratorUploadsCtrl',
+            resolve: {
+                assignments: function(AdminService, $q, user, NotificationService, _) {
+                    if (!user.permissions || !user.permissions.assignments) {
+                        NotificationService.error('No assignments assigned.');
+                        $state.go('authenticated.master.moderator.dashboard');
+                        return false;
+                    } else {
+                        var deferred = $q.defer();
+
+                        AdminService.getAllAssignments().$loaded().then(function(assignments) {
+                            var keys = Object.keys(user.permissions.assignments),
+                                i = keys.length,
+                                allowed = [];
+
+                            while (i--) {
+                                if (user.permissions.assignments[keys[i]]) {
+                                    allowed.push(keys[i]);
+                                }
+                            }
+
+                            deferred.resolve(_.filter(assignments, function(assignment) {
+                                return ~allowed.indexOf(assignment.$id);
+                            }));
+                        });
+
+                        return deferred.promise;
+                    }
+                }
+            }
+        })
+        .state('authenticated.master.moderator.uploads.list', {
+            url: '/uploads/:search',
+            templateUrl: 'views/moderator-uploads-list.html',
+            controller: 'ModeratorUploadsListCtrl'
         });
 
 

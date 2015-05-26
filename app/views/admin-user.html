@@ -1,302 +1,270 @@
 <section>
-  <h3 class="headline">{{ user.name || user.email }}</h3>
-
-  <md-whiteframe class="md-whiteframe-z1" layout="row" layout-wrap layout-padding>
-    <div flex="100" flex-sm="100" layout="row" layout-align="start center" layout-wrap>
-      <h4 flex="100">Public</h4>
-
-      <span flex="25">ID</span>
-      <span class="text-right" flex="75">
-        <a ng-href="{{ env.firebase.endpoint }}/users/{{ user.public.id }}" target="_blank">{{ user.public.id }}</a>
-      </span>
-
-      <span flex="25">Email</span>
-      <span class="text-right" flex="75">
-        <a ng-href="mailto:{{ user.preferredEmail || user.email }}">{{ user.preferredEmail || user.email }}</a>
-      </span>
-
-      <span flex="25">Birthday</span>
-      <span class="text-right" flex="75">{{ user.public.birthdate | moment:"MM/DD/YYYY" }}</span>
-
-      <span flex="25">Gender</span>
-      <span class="text-right" flex="75">{{ user.public.gender || 'Not specified' }}</span>
-
-      <span flex="25">Twitter</span>
-      <span class="text-right" flex="75">
-        <a href="https://twitter.com/{{ user.public.twitter }}" ng-if="user.public.twitter">{{ user.public.twitter }}</a>
-      </span>
-
-      <span flex="25">Instagram</span>
-      <span class="text-right" flex="75">
-        <a href="https://instagram.com/{{ user.public.instagram }}" ng-if="user.public.instagram">{{ user.public.instagram }}</a>
-      </span>
-
-      <span flex="25">Web</span>
-      <span class="text-right" flex="75">
-        <a ng-href="{{ user.public.website }}" ng-if="user.public.website">{{ user.public.website }}</a>
-      </span>
-
-      <span flex="100">
-        <md-checkbox ng-model="user.public.preferences.marketing" disabled="true">
-          Marketing
-        </md-checkbox>
-      </span>
-
-      <span flex="100">
-        <md-checkbox ng-model="user.public.preferences.tracking" disabled="true">
-          Tracking
-        </md-checkbox>
-      </span>
-
-    </div>
-
-    <div flex="100" flex-sm="100" layout="row" layout-align="start center" layout-wrap>
-      <h4 flex="100">Private</h4>
-
-      <span flex="25">Last Login</span>
-      <span class="text-right" flex="75">{{ user.lastLogin | moment:"MM/DD/YYYY hh:mm" }}</span>
-
-      <span flex="25">Created</span>
-      <span class="text-right" flex="75">{{ user.created | moment:"MM/DD/YYYY hh:mm" }}</span>
-
-      <span flex="25">Password</span>
-      <span class="text-right" flex="75">{{ user.password || 'n/a' }}</span>
-
-      <span flex="10">
-        <i class="qv qv-google-plus"></i>
-      </span>
-      <span class="text-right" flex="90">{{ user.google || 'n/a' }}</span>
-
-      <span flex="10">
-        <i class="qv qv-facebook"></i>
-      </span>
-      <span class="text-right" flex="90">{{ user.facebook || 'n/a' }}</span>
-
-      <span flex="100">
-        <md-checkbox ng-model="user.isAdmin">
-          Admin
-        </md-checkbox>
-      </span>
-
-      <span flex="100">
-        <md-checkbox ng-model="user.isModerator">
-          Moderator
-        </md-checkbox>
-      </span>
-
-      <span flex="100">
-        <md-checkbox ng-model="user.messageable">
-          Messageable
-        </md-checkbox>
-      </span>
-
-    </div>
-
-    <div flex="100" flex-sm="100" layout="row" layout-align="start center" layout-wrap ng-if="user.private.customer">
-      <h4 flex="100">Customer</h4>
-
-      <span flex="25">ID</span>
-      <span class="text-right" flex="75">{{ user.private.customer.id }}</span>
-
-      <span flex="25">Email</span>
-      <span class="text-right" flex="75">{{ user.private.customer.email }}</span>
-
-      <span flex="25">Name</span>
-      <span class="text-right" flex="75">{{ user.private.customer.firstName }} {{ user.private.customer.lastName }}</span>
-
-      <span flex="25">Merchant ID</span>
-      <span class="text-right" flex="75">{{ user.private.customer.merchantId }}</span>
-
-      <span flex="25">Created</span>
-      <span class="text-right" flex="75">{{ user.private.customer.createdAt | moment:"MM/DD/YYYY hh:mm" }}</span>
-
-      <span flex="25">Updated</span>
-      <span class="text-right" flex="75">{{ user.private.customer.updatedAt | moment:"MM/DD/YYYY hh:mm" }}</span>
-
-      <span flex="25"></span>
-      <span class="text-right" flex="75"></span>
-
-    </div>
-  </md-whiteframe>
-
+    <h3 class="headline">{{ user.name || user.email }}</h3>
+    <md-whiteframe class="md-whiteframe-z1" layout="row" layout-wrap layout-padding>
+        <div flex="100" flex-gt-md="33" layout="row" layout-align="start start" layout-padding layout-wrap>
+            <h4 flex="100">Public</h4>
+            <span flex="25">ID</span>
+            <div class="text-right" flex="75">
+                <a ng-href="{{ env.firebase.endpoint }}/users/{{ user.public.id }}" target="_blank">{{ user.public.id }}</a>
+            </div>
+            <span flex="25">Email</span>
+            <div class="text-right" flex="75">
+                <a ng-href="mailto:{{ user.preferredEmail || user.email }}">{{ user.preferredEmail || user.email }}</a>
+            </div>
+            <span flex="25">Birthday</span>
+            <span class="text-right" flex="75">{{ user.public.birthdate | moment:"MM/DD/YYYY" }}</span>
+            <span flex="25">Gender</span>
+            <span class="text-right" flex="75">{{ user.public.gender || 'Not specified' }}</span>
+            <span flex="25">Twitter</span>
+            <div class="text-right" flex="75">
+                <a href="https://twitter.com/{{ user.public.twitter }}" ng-if="user.public.twitter">{{ user.public.twitter }}</a>
+            </div>
+            <span flex="25">Instagram</span>
+            <div class="text-right" flex="75">
+                <a href="https://instagram.com/{{ user.public.instagram }}" ng-if="user.public.instagram">{{ user.public.instagram }}</a>
+            </div>
+            <span flex="25">Web</span>
+            <div class="text-right" flex="75">
+                <a ng-href="{{ user.public.website }}" ng-if="user.public.website">{{ user.public.website }}</a>
+            </div>
+            <div flex="100">
+                <md-checkbox ng-model="user.public.preferences.marketing" disabled="true">
+                    Marketing
+                </md-checkbox>
+            </div>
+            <div flex="100">
+                <md-checkbox ng-model="user.public.preferences.tracking" disabled="true">
+                    Tracking
+                </md-checkbox>
+            </div>
+        </div>
+        <div flex="100" flex-gt-md="33" layout="row" layout-align="start start" layout-padding layout-wrap>
+            <h4 flex="100">Private</h4>
+            <span flex="25">Last Login</span>
+            <span class="text-right" flex="75">{{ user.lastLogin | moment:"MM/DD/YYYY hh:mm" }}</span>
+            <span flex="25">Created</span>
+            <span class="text-right" flex="75">{{ user.created | moment:"MM/DD/YYYY hh:mm" }}</span>
+            <span flex="25">Password</span>
+            <span class="text-right" flex="75">{{ user.password || 'n/a' }}</span>
+            <div flex="10">
+                <i class="qv qv-google-plus"></i>
+            </div>
+            <span class="text-right" flex="90">{{ user.google || 'n/a' }}</span>
+            <div flex="10">
+                <i class="qv qv-facebook"></i>
+            </div>
+            <span class="text-right" flex="90">{{ user.facebook || 'n/a' }}</span>
+            <div flex="100">
+                <md-checkbox ng-model="user.isAdmin">
+                    Admin
+                </md-checkbox>
+            </div>
+            <div flex="100">
+                <md-checkbox ng-model="user.isModerator">
+                    Moderator
+                </md-checkbox>
+            </div>
+            <div flex="100">
+                <md-checkbox ng-model="user.messageable">
+                    Messageable
+                </md-checkbox>
+            </div>
+        </div>
+        <div flex="100" flex-gt-md="33" layout="row" layout-align="start start" layout-padding layout-wrap ng-if="user.private.customer">
+            <h4 flex="100">Customer</h4>
+            <span flex="25">ID</span>
+            <span class="text-right" flex="75">{{ user.private.customer.id }}</span>
+            <span flex="25">Email</span>
+            <span class="text-right" flex="75">{{ user.private.customer.email }}</span>
+            <span flex="25">Name</span>
+            <span class="text-right" flex="75">{{ user.private.customer.firstName }} {{ user.private.customer.lastName }}</span>
+            <span flex="25">Merchant ID</span>
+            <span class="text-right" flex="75">{{ user.private.customer.merchantId }}</span>
+            <span flex="25">Created</span>
+            <span class="text-right" flex="75">{{ user.private.customer.createdAt | moment:"MM/DD/YYYY hh:mm" }}</span>
+            <span flex="25">Updated</span>
+            <span class="text-right" flex="75">{{ user.private.customer.updatedAt | moment:"MM/DD/YYYY hh:mm" }}</span>
+            <span flex="25"></span>
+            <span class="text-right" flex="75"></span>
+        </div>
+    </md-whiteframe>
 </section>
-
+<section ng-if="user.isModerator">
+    <h3 class="headline">Permissions</h3>
+    <md-whiteframe class="md-whiteframe-z1" layout="row" layout-padding layout-wrap>
+        <div flex flex-sm="100">
+            <h4>Sections</h4>
+            <div>
+                <md-checkbox ng-model="user.permissions.sections.feedback">
+                    Feedback
+                </md-checkbox>
+            </div>
+            <div>
+                <md-checkbox ng-model="user.permissions.sections.content">
+                    Content
+                </md-checkbox>
+            </div>
+            <div>
+                <md-checkbox ng-model="user.permissions.sections.eCommerce">
+                    eCommerce
+                </md-checkbox>
+            </div>
+            <div>
+                <md-checkbox ng-model="user.permissions.sections.settings">
+                    Settings
+                </md-checkbox>
+            </div>
+        </div>
+        <div flex flex-sm="100">
+            <h4>Assignments</h4>
+            <div ng-repeat="assignment in assignments">
+                <md-checkbox ng-model="user.permissions.assignments[assignment.$id]">
+                    {{ assignment.title }}
+                </md-checkbox>
+            </div>
+        </div>
+        <div flex flex-sm="100">
+            <h4>Products</h4>
+            <div ng-repeat="product in products">
+                <md-checkbox ng-model="user.permissions.products[product.$id]">
+                    {{ product.title }}
+                </md-checkbox>
+            </div>
+        </div>
+    </md-whiteframe>
+</section>
 <section ng-if="user.private.customer.creditCards.length || user.private.customer.paypalAccounts.length">
-  <h3 class="headline">Payment Methods</h3>
-
-  <md-whiteframe class="md-whiteframe-z1" layout="row" layout-align="start start" layout-wrap layout-padding>
-    <div flex="50" flex-sm="100" layout="row" layout-align="start start" layout-wrap ng-if="user.private.customer.creditCards">
-      <h4 class="margin-zero" flex="100">Credit Cards</h4>
-
-      <div class="padding-x-small" flex="100" layout="row" layout-align="space-between center" layout-wrap ng-repeat="card in user.private.customer.creditCards">
-        <img style="max-width: 2rem;" ng-src="{{ card.imageUrl }}" alt="{{ card.cardType }}" /> 
-        <span>****{{ card.last4 }}</span>
-        <md-button class="md-warn" ng-click="card.disabled = true; removePaymentMethod(card.token);" aria-label="Remove credit card">
-          <i class="mdi-action-delete"></i>
-        </md-button>
-
-      </div>
-
-    </div>
-
-    <div flex="50" flex-sm="100" layout="row" layout-align="start start" layout-wrap ng-if="user.private.customer.paypalAccounts">
-      <h4 class="margin-zero" flex="100">PayPal</h4>
-
-      <div class="padding-x-small" flex="100" layout="row" layout-align="space-between center" layout-wrap ng-repeat="account in user.private.customer.paypalAccounts">
-        <img style="max-width: 2rem;" ng-src="{{ account.imageUrl }}" alt="PayPal" /> 
-        <span>{{ account.email }}</span>
-        <md-button class="md-warn" ng-click="account.disabled = true; removePaymentMethod(account.token)" aria-label="Remove PayPal account">
-          <i class="mdi-action-delete"></i>
-        </md-button>
-
-      </div>
-      
-    </div>
-
-  </md-whiteframe>
-
+    <h3 class="headline">Payment Methods</h3>
+    <md-whiteframe class="md-whiteframe-z1" layout="row" layout-align="start start" layout-wrap layout-padding>
+        <div flex="50" flex-sm="100" layout="row" layout-align="start start" layout-wrap ng-if="user.private.customer.creditCards">
+            <h4 class="margin-zero" flex="100">Credit Cards</h4>
+            <div class="padding-x-small" flex="100" layout="row" layout-align="space-between center" layout-wrap ng-repeat="card in user.private.customer.creditCards">
+                <img style="max-width: 2rem;" ng-src="{{ card.imageUrl }}" alt="{{ card.cardType }}" />
+                <span>****{{ card.last4 }}</span>
+                <md-button class="md-warn" ng-click="card.disabled = true; removePaymentMethod(card.token);" aria-label="Remove credit card">
+                    <i class="mdi-action-delete"></i>
+                </md-button>
+            </div>
+        </div>
+        <div flex="50" flex-sm="100" layout="row" layout-align="start start" layout-wrap ng-if="user.private.customer.paypalAccounts">
+            <h4 class="margin-zero" flex="100">PayPal</h4>
+            <div class="padding-x-small" flex="100" layout="row" layout-align="space-between center" layout-wrap ng-repeat="account in user.private.customer.paypalAccounts">
+                <img style="max-width: 2rem;" ng-src="{{ account.imageUrl }}" alt="PayPal" />
+                <span>{{ account.email }}</span>
+                <md-button class="md-warn" ng-click="account.disabled = true; removePaymentMethod(account.token)" aria-label="Remove PayPal account">
+                    <i class="mdi-action-delete"></i>
+                </md-button>
+            </div>
+        </div>
+    </md-whiteframe>
 </section>
-
 <section class="padding-vertical-medium" ng-if="transactions.length">
-  <h3 class="headline">Transactions</h3>
-
-  <md-whiteframe class="md-whiteframe-z1" layout="row">
-    <md-list flex>
-      <md-item ng-repeat="transaction in transactions">
-        <md-item-content layout="row" layout-align="start center" layout-padding>
-          <a flex ui-sref="authenticated.master.admin.transaction({key: transaction.keys.log, userId: transaction.userId})">
+    <h3 class="headline">Transactions</h3>
+    <md-whiteframe class="md-whiteframe-z1" layout="row">
+        <md-list flex>
+            <md-item ng-repeat="transaction in transactions">
+                <md-item-content layout="row" layout-align="start center" layout-padding>
+                    <a flex ui-sref="authenticated.master.admin.transaction({key: transaction.keys.log, userId: transaction.userId})">
             {{ ::transaction.date | moment:"MM/DD/YY" }}
           </a>
-          <div flex>
-            {{ ::transaction.productCount }} Items
-          </div>
-          <div flex>
-            {{ ::transaction.total | currency }}
-          </div>
-          <md-button class="md-raised md-primary md-icon-button adjust-mdi" flex ng-href="{{ adminSettings.braintreeRoot }}/transactions/{{ transaction.charge.transaction.id }}" target="_blank" aria-label="Braintree customer link">
-            <i class="mdi-action-credit-card"></i>
-          </md-button>
-
-        </md-item-content>
-
-      </md-item>
-    </md-list>
-
-  </md-whiteframe>
-
+                    <div flex>
+                        {{ ::transaction.productCount }} Items
+                    </div>
+                    <div flex>
+                        {{ ::transaction.total | currency }}
+                    </div>
+                    <md-button class="md-raised md-primary md-icon-button adjust-mdi" flex ng-href="{{ adminSettings.braintreeRoot }}/transactions/{{ transaction.charge.transaction.id }}" target="_blank" aria-label="Braintree customer link">
+                        <i class="mdi-action-credit-card"></i>
+                    </md-button>
+                </md-item-content>
+            </md-item>
+        </md-list>
+    </md-whiteframe>
 </section>
-
 <section class="padding-vertical-medium" ng-if="subscriptions.length">
-  <h3 class="headline">Subscriptions</h3>
-
-  <md-whiteframe class="md-whiteframe-z1" layout="row">
-    <md-list flex>
-      <md-item ng-repeat="subscription in subscriptions">
-        <md-item-content layout="row" layout-align="start center" layout-padding>
-          <a flex ui-sref="authenticated.master.admin.subscription({key: subscription.keys.log})">
+    <h3 class="headline">Subscriptions</h3>
+    <md-whiteframe class="md-whiteframe-z1" layout="row">
+        <md-list flex>
+            <md-item ng-repeat="subscription in subscriptions">
+                <md-item-content layout="row" layout-align="start center" layout-padding>
+                    <a flex ui-sref="authenticated.master.admin.subscription({key: subscription.keys.log})">
             {{ ::subscription.title }}
           </a>
-          <div flex>
-            {{ ::subscription.subscriptionDays }} Days
-          </div>
-          <div flex>
-            Expires: {{ ::subscription.expiration | moment:"MM/DD/YYYY" }}
-          </div>
-          <div class="text-right" flex>
-            {{ ::subscription.date | moment:"MM/DD/YYYY"}}
-          </div>
-
-        </md-item-content>
-
-      </md-item>
-    </md-list>
-
-  </md-whiteframe>
-
+                    <div flex>
+                        {{ ::subscription.subscriptionDays }} Days
+                    </div>
+                    <div flex>
+                        Expires: {{ ::subscription.expiration | moment:"MM/DD/YYYY" }}
+                    </div>
+                    <div class="text-right" flex>
+                        {{ ::subscription.date | moment:"MM/DD/YYYY"}}
+                    </div>
+                </md-item-content>
+            </md-item>
+        </md-list>
+    </md-whiteframe>
 </section>
-
 <section class="padding-vertical-medium" ng-if="gifts.length">
-  <h3 class="headline">Gifts</h3>
-
-  <md-whiteframe class="md-whiteframe-z1" layout="row">
-    <md-list flex>
-      <md-item ng-repeat="gift in gifts">
-        <md-item-content layout="row" layout-align="start center" layout-padding>
-          <a flex ng-href="{{ env.firebase.endpoint }}/gifts/{{ user.public.id }}/{{ gift.$id }}" target="_blank">
+    <h3 class="headline">Gifts</h3>
+    <md-whiteframe class="md-whiteframe-z1" layout="row">
+        <md-list flex>
+            <md-item ng-repeat="gift in gifts">
+                <md-item-content layout="row" layout-align="start center" layout-padding>
+                    <a flex ng-href="{{ env.firebase.endpoint }}/gifts/{{ user.public.id }}/{{ gift.$id }}" target="_blank">
             {{ ::gift.code }}
           </a>
-          <div flex>
-            {{ ::gift.price || gift.priceAdjusted | currency }}
-          </div>
-          <div flex>
-            Expires: {{ ::gift.expiration | moment:"MM/DD/YYYY" }}
-          </div>
-          <div class="text-right" flex>
-            {{ ::gift.created | moment:"MM/DD/YYYY"}}
-          </div>
-
-        </md-item-content>
-
-      </md-item>
-    </md-list>
-
-  </md-whiteframe>
-
+                    <div flex>
+                        {{ ::gift.price || gift.priceAdjusted | currency }}
+                    </div>
+                    <div flex>
+                        Expires: {{ ::gift.expiration | moment:"MM/DD/YYYY" }}
+                    </div>
+                    <div class="text-right" flex>
+                        {{ ::gift.created | moment:"MM/DD/YYYY"}}
+                    </div>
+                </md-item-content>
+            </md-item>
+        </md-list>
+    </md-whiteframe>
 </section>
-
 <section class="padding-vertical-medium" ng-if="shipments.length">
-  <h3 class="headline">Shipments</h3>
-
-  <md-whiteframe class="md-whiteframe-z1" layout="row">
-    <md-list flex>
-      <md-item ng-repeat="shipment in shipments">
-        <md-item-content layout="row" layout-align="start center" layout-padding>
-          <span class="md-icon-button md-icon-padding text-success" flex><i class="mdi-content-send" ng-class="{'text-error': !shipment.shipped}"></i></span>
-
-          <a flex ui-sref="authenticated.master.admin.shipments.list({search: user.email})">
+    <h3 class="headline">Shipments</h3>
+    <md-whiteframe class="md-whiteframe-z1" layout="row">
+        <md-list flex>
+            <md-item ng-repeat="shipment in shipments">
+                <md-item-content layout="row" layout-align="start center" layout-padding>
+                    <span class="md-icon-button md-icon-padding text-success" flex><i class="mdi-content-send" ng-class="{'text-error': !shipment.shipped}"></i></span>
+                    <a flex ui-sref="authenticated.master.admin.shipments.list({search: user.email})">
             {{ ::shipment.item.title }} - {{ shipmentitem.priceAdjusted || shipment.item.price | currency }}
           </a>
-
-          <div flex>
-            {{ ::shipment.item.optionsMatrixSelected.name }}
-          </div>
-
-          <div class="text-right" flex>
-            {{ ::shipment.created | moment:"MM/DD/YYYY"}}
-          </div>
-
-        </md-item-content>
-
-      </md-item>
-    </md-list>
-
-  </md-whiteframe>
-
+                    <div flex>
+                        {{ ::shipment.item.optionsMatrixSelected.name }}
+                    </div>
+                    <div class="text-right" flex>
+                        {{ ::shipment.created | moment:"MM/DD/YYYY"}}
+                    </div>
+                </md-item-content>
+            </md-item>
+        </md-list>
+    </md-whiteframe>
 </section>
-
-
 <section class="padding-vertical-medium" ng-if="downloads.length">
-  <h3 class="headline">Downloads</h3>
-
-  <md-whiteframe class="md-whiteframe-z1" layout="row">
-    <md-list flex>
-      <md-item ng-repeat="download in downloads">
-        <md-item-content layout="row" layout-align="start center" layout-padding>
-          <a href="/resource/{{ download.resource.keys.resource }}" target="_blank">
+    <h3 class="headline">Downloads</h3>
+    <md-whiteframe class="md-whiteframe-z1" layout="row">
+        <md-list flex>
+            <md-item ng-repeat="download in downloads">
+                <md-item-content layout="row" layout-align="start center" layout-padding>
+                    <a href="/resource/{{ download.resource.keys.resource }}" target="_blank">
             {{ download.title }}
           </a>
-          <div flex>
-            {{ download.price | currency }}
-          </div>
-          <div class="text-right" flex>
-            {{ download.downloadUri }}
-          </div>
-
-        </md-item-content>
-
-      </md-item>
-    </md-list>
-
-  </md-whiteframe>
-
+                    <div flex>
+                        {{ download.price | currency }}
+                    </div>
+                    <div class="text-right" flex>
+                        {{ download.downloadUri }}
+                    </div>
+                </md-item-content>
+            </md-item>
+        </md-list>
+    </md-whiteframe>
 </section>

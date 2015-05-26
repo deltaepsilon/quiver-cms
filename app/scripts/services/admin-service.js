@@ -147,6 +147,10 @@ angular.module('quiverCmsApp')
                 return FirebaseService.paginatingArray(new Firebase(firebaseEndpoint + '/content/products'), query);
             },
 
+            getAllProducts: function() {
+                return $firebaseArray(new Firebase(firebaseEndpoint + '/content/products'));
+            },
+
             getProduct: function(key) {
                 return $firebaseObject(new Firebase(firebaseEndpoint + '/content/products/' + key));
             },
@@ -223,6 +227,10 @@ angular.module('quiverCmsApp')
 
             getAssignments: function(query) {
                 return FirebaseService.paginatingArray(new Firebase(firebaseEndpoint + '/content/assignments'), query);
+            },
+
+            getAllAssignments: function() {
+                return $firebaseArray(new Firebase(firebaseEndpoint + '/content/assignments'));
             },
 
             getAssignment: function(key) {

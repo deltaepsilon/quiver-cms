@@ -40,8 +40,8 @@
                             <i class="mdi-action-delete"></i>
                         </md-button>
                         <div flex="100" ng-repeat="log in resource.logs" layout="row" layout-padding layout-wrap>
-                            <span class="max-16" flex>{{ log.date | moment:"MM/DD/YYYY hh:mm:ss" }}</span>
-                            <span class="max-10" flex>{{ log.ip }}</span>
+                            <span class="max-10" flex>{{ log.date | moment:"MM/DD/YYYY hh:mm:ss" }}</span>
+                            <span class="max-7" flex>{{ log.ip }}</span>
                             <span class="max-22" flex>{{ log.ga }}</span>
                             <span class="text-right" flex>{{ log.fingerprint }}</span>
                         </div>

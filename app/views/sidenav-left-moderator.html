@@ -41,24 +41,24 @@
             </div>
         </div>
     </section>
-    <section>
+    <section ng-if="user.permissions.sections.feedback">
         <md-toolbar>
             <h5 class="md-toolbar-tools">Feedback</h5>
         </md-toolbar>
         <div layout="column" layout-padding>
             <div layout="row" flex qv-active>
-                <md-button class="text-left" flex layout-fill ui-sref="authenticated.master.admin.messages.list">
+                <md-button class="text-left" flex layout-fill ui-sref="authenticated.master.moderator.messages.list">
                     Messages
                 </md-button>
             </div>
             <div layout="row" flex qv-active>
-                <md-button class="text-left" flex layout-fill ui-sref="authenticated.master.admin.uploads.list">
+                <md-button class="text-left" flex layout-fill ui-sref="authenticated.master.moderator.uploads.list">
                     Uploads
                 </md-button>
             </div>
         </div>
     </section>
-    <section>
+    <section ng-if="user.permissions.sections.content">
         <md-toolbar layout="row">
             <h5 class="md-toolbar-tools">Content</h5>
         </md-toolbar>
@@ -95,7 +95,7 @@
             </div>
         </div>
     </section>
-    <section>
+    <section ng-if="user.permissions.sections.eCommerce">
         <md-toolbar>
             <h5 class="md-toolbar-tools">eCommerce</h5>
         </md-toolbar>
@@ -127,7 +127,7 @@
             </div>
         </div>
     </section>
-    <section>
+    <section ng-if="user.permissions.sections.settings">
         <md-toolbar>
             <h5 class="md-toolbar-tools">Settings</h5>
         </md-toolbar>

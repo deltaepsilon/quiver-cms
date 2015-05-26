@@ -1,0 +1,11 @@
+<section id="feedback-messages">
+    <h3 class="headline">Messages</h3>
+    <md-tabs md-dynamic-height md-border-bottom md-selected="$storage.messagesTabIndex">
+        <md-tab ng-repeat="assignment in assignments" md-on-select="$storage.messagesTabIndex = $index; tabSelect(assignment);" label="{{ assignment.title }}">
+            <md-content class="padding-small">
+                <h4 class="headline" flex>{{ assignment.title }}</h4>
+                <div ui-view></div>
+            </md-content>
+        </md-tab>
+    </md-tabs>
+</section>
