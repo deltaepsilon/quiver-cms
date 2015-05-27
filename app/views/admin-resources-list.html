@@ -35,15 +35,15 @@
                         <div flex>
                             <span ng-if="resource.ttl">ttl: {{ resource.ttl }}</span>
                         </div>
-                        <a class="max-20" flex ng-href="/resource/{{ resource.$id }}" target="_blank" ng-disabled="resource.disabled">{{ resource.$id }}</a>
+                        <a class="truncate max-20" flex ng-href="/resource/{{ resource.$id }}" target="_blank" ng-disabled="resource.disabled">{{ resource.$id }}</a>
                         <md-button class="md-warn md-icon-button" ng-click="confirmRemoveResource($event, resource);" aria-label="Delete resource {{ resource.uri }}">
                             <i class="mdi-action-delete"></i>
                         </md-button>
                         <div flex="100" ng-repeat="log in resource.logs" layout="row" layout-padding layout-wrap>
-                            <span class="max-10" flex>{{ log.date | moment:"MM/DD/YYYY hh:mm:ss" }}</span>
-                            <span class="max-7" flex>{{ log.ip }}</span>
-                            <span class="max-22" flex>{{ log.ga }}</span>
-                            <span class="text-right" flex>{{ log.fingerprint }}</span>
+                            <span class="truncate max-10" flex>{{ log.date | moment:"MM/DD/YYYY hh:mm:ss" }}</span>
+                            <span class="truncate max-7" flex>{{ log.ip }}</span>
+                            <span class="truncate max-22" flex>{{ log.ga }}</span>
+                            <span class="truncate text-right" flex>{{ log.fingerprint }}</span>
                         </div>
                     </md-item-content>
                     <md-divider ng-if="!$last"></md-divider>

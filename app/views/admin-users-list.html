@@ -37,7 +37,7 @@
                         <a flex="25" flex-sm="100" ui-sref="authenticated.master.admin.user({key: user.$id})">{{ user.preferredEmail || user.email }}</a>
                         <!-- <span flex="25" flex-sm="100">{{ user.created | moment:"MM/DD/YYYY" }}</span> -->
                         <span flex="25" flex-sm="100">Login: {{ user.lastLogin | moment:"MM/DD/YYYY hh:mm" }}</span>
-                        <md-checkbox ng-model="user.isAdmin" ng-change="saveUserRoles(user)">
+                        <md-checkbox ng-model="user.isAdmin" ng-change="saveUserRoles(user)" ng-disabled="isModeratorView">
                             Admin
                         </md-checkbox>
                         <md-checkbox ng-model="user.isModerator" ng-change="saveUserRoles(user)">

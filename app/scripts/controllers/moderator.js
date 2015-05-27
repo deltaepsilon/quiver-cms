@@ -9,5 +9,8 @@
  */
 angular.module('quiverCmsApp')
   .controller('ModeratorCtrl', function ($scope) {
-    
+  	/*
+  	 * Moderator flag
+  	 */
+	$scope.isModeratorView = true;    
   });

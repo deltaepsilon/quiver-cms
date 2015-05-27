@@ -2,6 +2,10 @@
 
 angular.module('quiverCmsApp')
     .controller('AdminCtrl', function($scope, theme, settings, adminSettings, AdminService, ObjectService, NotificationService) {
+        /*
+         * Admin flag
+         */
+        $scope.isAdminView = true;
 
         /*
          * Theme
