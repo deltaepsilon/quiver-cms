@@ -1,5 +1,4 @@
-1
-<div layout="column">
+<div class="cards-spaced" layout="column">
     <h3 class="headline">Items For Checkout</h3>
     <form name="cartForm">
         <fieldset>
@@ -15,12 +14,8 @@
                             <md-tile-content flex layout="row" layout-align="end" layout-wrap>
                                 <div flex="100" layout="row" layout-align="start space-between">
                                     <div flex>
-                                        <h4 class="headline uppercase margin-zero">
-                      <a href="/product/{{ product.slug }}" qv-to-static>{{ product.title }}</a>
-                    </h4>
-                                        <strong ng-if="product.optionsMatrixSelected">
-                      {{ product.optionsMatrixSelected.name }}
-                    </strong>
+                                        <h4 class="headline uppercase margin-zero"><a href="/product/{{ product.slug }}" qv-to-static>{{ product.title }}</a></h4>
+                                        <strong ng-if="product.optionsMatrixSelected">{{ product.optionsMatrixSelected.name }}</strong>
                                     </div>
                                     <md-button class="md-raised md-warn md-icon-button" flex ng-click="removeFromCart(product)">
                                         <i class="mdi-action-delete" aria-label="Remove from cart"></i>
@@ -30,19 +25,17 @@
                   <div class="markdown" markdown-editable ng-model="product.description.excerpt">{{ product.description.excerpt }}</div>
                 </div> -->
                                 <div flex="50" flex-sm="100" layout="row" layout-align="start center" layout-wrap layout-padding>
-                                    <span flex="50">
-                    <span>Quantity</span>
-                                    <span class="text-x-small" ng-if="product.optionsMatrixSelected.inventory">({{ product.optionsMatrixSelected.inventory }} available)</span>
-                                    </span>
+                                    <div flex="50">
+                                        <span>Quantity</span>
+                                        <span class="text-x-small" ng-if="product.optionsMatrixSelected.inventory">({{ product.optionsMatrixSelected.inventory }} available)</span>
+                                    </div>
                                     <span flex="50" class="text-right padding-horizontal-small">{{ product.quantity }}</span>
                                     <span flex="50">Price</span>
-                                    <span flex="50" class="text-right padding-horizontal-small">
-                    {{ product.priceAdjusted || product.price | currency }}
-                  </span>
+                                    <span flex="50" class="text-right padding-horizontal-small">{{ product.priceAdjusted || product.price | currency }}</span>
                                     <span flex="50">Total</span>
-                                    <span flex="50" class="text-right padding-horizontal-small">
-                    <strong>{{ (product.priceAdjusted || product.price) * product.quantity | currency }}</strong>
-                  </span>
+                                    <div flex="50" class="text-right padding-horizontal-small">
+                                        <strong>{{ (product.priceAdjusted || product.price) * product.quantity | currency }}</strong>
+                                    </div>
                                 </div>
                             </md-tile-content>
                         </md-item-content>
@@ -55,8 +48,8 @@
             </md-whiteframe>
         </fieldset>
     </form>
-    <h3 id="shipping-address" class="headline transition-color">Shipping Address</h3>
     <md-whiteframe class="md-whiteframe-z1" layout-sm="column" layout-gt-sm="row" layout-align="space-between start" layout-padding layout-wrap>
+        <h3 id="shipping-address" class="headline transition-color" flex="100">Shipping Address</h3>
         <div flex="100">
             <!-- Shipping Address -->
             <form name="addressForm" ng-if="!$storage.cart.address || editingAddress">
@@ -186,8 +179,8 @@
             </div>
         </div>
     </md-whiteframe>
-    <h3 id="add-payment-method" class="headline transition-color" flex="100">Add Payment Method</h3>
     <md-whiteframe class="md-whiteframe-z1" flex-sm="100" flex-gt-sm="50" layout="row" layout-padding layout-wrap>
+        <h3 id="add-payment-method" class="headline transition-color" flex="100">Add Payment Method</h3>
         <!-- Braintree Drop-In Form -->
         <div flex="100" ng-if="$storage.cart.total">
             <style>
@@ -199,116 +192,114 @@
         </div>
         <!-- END Braintree Drop-In Form -->
     </md-whiteframe>
-    <h3 class="headline">Checkout</h3>
-    <md-whiteframe class="md-whiteframe-z2" layout-sm="column" layout-gt-sm="row" layout-align="space-between end" layout-padding layout-wrap>
-        <md-whiteframe class="md-whiteframe-z0" flex="100" layout="row" layout-align="start start" layout-padding layout-wrap ng-if="user.private.customer.paypalAccounts.length || user.private.customer.creditCards.length || user.private.customer.coinbaseAccounts.length">
-            <div class="max-33" flex flex-sm="100" ng-if="user.private.customer.creditCards">
-                <h4 class="padding-horizontal-medium">Credit Cards</h4>
-                <md-radio-group ng-model="$storage.cart.paymentToken">
-                    <div class="padding-x-small" layout="row" layout-align="space-between center" layout-wrap ng-repeat="card in user.private.customer.creditCards" ng-class="{disabled: card.disabled}">
-                        <div class="max-5" flex>
-                            <md-radio-button ng-value="card.token" aria-label="Select card {{ card.last4 }}"></md-radio-button>
-                        </div>
-                        <img class="max-3" flex ng-src="{{ card.imageUrl }}" alt="{{ card.cardType }}" />
-                        <span class="margin-horizontal-small" flex>****{{ card.last4 }}</span>
-                        <md-button class="md-warn md-icon-button" flex ng-click="card.disabled = true; removePaymentMethod(card.token);" aria-label="Remove credit card">
-                            <i class="mdi-action-delete"></i>
-                        </md-button>
+    <md-whiteframe class="md-whiteframe-z1" flex="100" layout="row" layout-align="start start" layout-padding layout-wrap ng-if="user.private.customer.paypalAccounts.length || user.private.customer.creditCards.length || user.private.customer.coinbaseAccounts.length">
+        <h3 class="headlin" flex="100">Payment Methods</h3>
+        <div class="max-33" flex flex-sm="100" ng-if="user.private.customer.creditCards">
+            <h4 class="padding-horizontal-medium">Credit Cards</h4>
+            <md-radio-group ng-model="$storage.cart.paymentToken">
+                <div class="padding-x-small" layout="row" layout-align="space-between center" layout-wrap ng-repeat="card in user.private.customer.creditCards" ng-class="{disabled: card.disabled}">
+                    <div class="max-5" flex>
+                        <md-radio-button ng-value="card.token" aria-label="Select card {{ card.last4 }}"></md-radio-button>
                     </div>
-                </md-radio-group>
-            </div>
-            <div class="max-33" flex flex-sm="100" ng-if="user.private.customer.paypalAccounts">
-                <h4 class="padding-horizontal-medium">PayPal Accounts</h4>
-                <md-radio-group ng-model="$storage.cart.paymentToken">
-                    <div class="padding-x-small" layout="row" layout-align="space-between center" layout-wrap ng-repeat="account in user.private.customer.paypalAccounts" ng-class="{disabled: account.disabled}">
-                        <div class="max-5" flex>
-                            <md-radio-button ng-value="account.token" aria-label="Select PayPal {{ account.email }}"></md-radio-button>
-                        </div>
-                        <img class="max-3" flex ng-src="{{ account.imageUrl }}" alt="PayPal" />
-                        <span class="margin-horizontal-small" flex>{{ account.email }}</span>
-                        <md-button class="md-warn md-icon-button" flex ng-click="account.disabled = true; removePaymentMethod(account.token)" aria-label="Remove PayPal account">
-                            <i class="mdi-action-delete"></i>
-                        </md-button>
+                    <img class="max-3" flex ng-src="{{ card.imageUrl }}" alt="{{ card.cardType }}" />
+                    <span class="margin-horizontal-small" flex>****{{ card.last4 }}</span>
+                    <md-button class="md-warn md-icon-button" flex ng-click="card.disabled = true; removePaymentMethod(card.token);" aria-label="Remove credit card">
+                        <i class="mdi-action-delete"></i>
+                    </md-button>
+                </div>
+            </md-radio-group>
+        </div>
+        <div class="max-33" flex flex-sm="100" ng-if="user.private.customer.paypalAccounts">
+            <h4 class="padding-horizontal-medium">PayPal Accounts</h4>
+            <md-radio-group ng-model="$storage.cart.paymentToken">
+                <div class="padding-x-small" layout="row" layout-align="space-between center" layout-wrap ng-repeat="account in user.private.customer.paypalAccounts" ng-class="{disabled: account.disabled}">
+                    <div class="max-5" flex>
+                        <md-radio-button ng-value="account.token" aria-label="Select PayPal {{ account.email }}"></md-radio-button>
                     </div>
-                </md-radio-group>
-            </div>
-            <div class="max-33" flex flex-sm="100" ng-if="user.private.customer.coinbaseAccounts">
-                <h4 class="padding-horizontal-medium">Coinbase Accounts</h4>
-                <md-radio-group ng-model="$storage.cart.paymentToken">
-                    <div class="padding-x-small" layout="row" layout-align="space-between center" layout-wrap ng-repeat="account in user.private.customer.coinbaseAccounts" ng-class="{disabled: account.disabled}">
-                        <div class="max-5" flex>
-                            <md-radio-button ng-value="account.token" aria-label="Select Coinbase {{ account.userEmail }}"></md-radio-button>
-                        </div>
-                        <!-- <img style="max-width: 2rem;" ng-src="{{ account.imageUrl }}" alt="Coinbase" /> -->
-                        <span class="margin-horizontal-small" flex>{{ account.userEmail }}</span>
-                        <md-button class="md-warn md-icon-button" flex ng-click="account.disabled = true; removePaymentMethod(account.token)" aria-label="Remove Coinbase account">
-                            <i class="mdi-action-delete"></i>
-                        </md-button>
+                    <img class="max-3" flex ng-src="{{ account.imageUrl }}" alt="PayPal" />
+                    <span class="margin-horizontal-small" flex>{{ account.email }}</span>
+                    <md-button class="md-warn md-icon-button" flex ng-click="account.disabled = true; removePaymentMethod(account.token)" aria-label="Remove PayPal account">
+                        <i class="mdi-action-delete"></i>
+                    </md-button>
+                </div>
+            </md-radio-group>
+        </div>
+        <div class="max-33" flex flex-sm="100" ng-if="user.private.customer.coinbaseAccounts">
+            <h4 class="padding-horizontal-medium">Coinbase Accounts</h4>
+            <md-radio-group ng-model="$storage.cart.paymentToken">
+                <div class="padding-x-small" layout="row" layout-align="space-between center" layout-wrap ng-repeat="account in user.private.customer.coinbaseAccounts" ng-class="{disabled: account.disabled}">
+                    <div class="max-5" flex>
+                        <md-radio-button ng-value="account.token" aria-label="Select Coinbase {{ account.userEmail }}"></md-radio-button>
                     </div>
-                </md-radio-group>
+                    <!-- <img style="max-width: 2rem;" ng-src="{{ account.imageUrl }}" alt="Coinbase" /> -->
+                    <span class="margin-horizontal-small" flex>{{ account.userEmail }}</span>
+                    <md-button class="md-warn md-icon-button" flex ng-click="account.disabled = true; removePaymentMethod(account.token)" aria-label="Remove Coinbase account">
+                        <i class="mdi-action-delete"></i>
+                    </md-button>
+                </div>
+            </md-radio-group>
+        </div>
+    </md-whiteframe>
+    <md-whiteframe class="md-whiteframe-z1" flex="100" layout="row" layout-align="space-between start" layout-padding layout-wrap>
+        <h3 class="headline" flex="100">Checkout</h3>
+        <div flex="100" layout="row" layout-align="space-between center" layout-wrap ng-repeat="code in $storage.cart.codes">
+            <div flex="50">
+                <span>{{ code.code }}</span>
             </div>
-        </md-whiteframe>
-        <md-whiteframe class="md-whiteframe-z3" flex="100" layout="row" layout-align="space-between end" layout-padding layout-wrap>
-            <span flex="100" layout="row" layout-align="space-between center" layout-wrap ng-repeat="code in $storage.cart.codes">
-        <span flex="50">
-          <span>{{ code.code }}</span>
-            </span>
-            <span class="text-right" flex>
-          
-          <span ng-show="code.type === 'value'">{{ code.value | currency }}</span>
-            <span ng-show="code.type === 'percentage'">{{ code.percentage }}%</span>
-            </span>
-            </span>
-            <span flex="50">Subtotal</span>
-            <span class="text-right" flex>{{ $storage.cart.subtotal | currency }}</span>
-            <span flex="50" ng-show="$storage.cart.codes.length">Discount</span>
-            <span class="text-right" flex ng-show="$storage.cart.codes.length">{{ -1 * $storage.cart.discount | currency }}</span>
-            <span flex="50" ng-show="$storage.cart.shipping">Shipping</span>
-            <span flex="50" ng-show="!$storage.cart.shipping">Free Shipping</span>
-            <span class="text-right" flex>
-        <span ng-show="$storage.address.domestic || $storage.address.international">{{ $storage.cart.shipping | currency }}</span>
+            <div class="text-right" flex>
+                <span ng-show="code.type === 'value'">{{ code.value | currency }}</span>
+                <span ng-show="code.type === 'percentage'">{{ code.percentage }}%</span>
+            </div>
+        </div>
+        <span flex="50">Subtotal</span>
+        <span class="text-right" flex>{{ $storage.cart.subtotal | currency }}</span>
+        <span flex="50" ng-show="$storage.cart.codes.length">Discount</span>
+        <span class="text-right" flex ng-show="$storage.cart.codes.length">{{ -1 * $storage.cart.discount | currency }}</span>
+        <span flex="50" ng-show="$storage.cart.shipping">Shipping</span>
+        <span flex="50" ng-show="!$storage.cart.shipping">Free Shipping</span>
+        <div class="text-right" flex>
+            <span ng-show="$storage.address.domestic || $storage.address.international">{{ $storage.cart.shipping | currency }}</span>
             <a class="text-x-small" qv-focus="#address-country" ng-hide="$storage.address.domestic || $storage.address.international">+ Address</a>
-            </span>
-            <span flex="50">Tax</span>
-            <span class="text-right" flex>
-        <span ng-show="$storage.address.tax !== false">{{ $storage.cart.tax | currency }}</span>
+        </div>
+        <span flex="50">Tax</span>
+        <div class="text-right" flex>
+            <span ng-show="$storage.address.tax !== false">{{ $storage.cart.tax | currency }}</span>
             <a class="text-x-small" qv-focus="#address-country" ng-show="$storage.address.tax === false">+ Address</a>
-            </span>
-            <md-divider flex="100"></md-divider>
-            <span flex="50">Total</span>
-            <span class="text-right" flex><strong>{{ $storage.cart.total | currency }}</strong></span>
-            <span flex="50" flex-sm="100" style="min-height: 6.5rem;">
-
-        <div layout="row" layout-align="space-between center" ng-if="!user.private.customer.paypalAccounts.length && !user.private.customer.creditCards.length && !user.private.customer.coinbaseAccounts.length">
-          <span>Required <i class="mdi-navigation-arrow-forward"></i></span>
-            <md-button class="md-raised md-warn" ng-href="#add-payment-method" qv-focus="[name='braintree-dropin-frame']" qv-highlight="text-secondary0" selector="#add-payment-method" aria-label="Add payment method">Add Payment Method</md-button>
+        </div>
+        <md-divider flex="100"></md-divider>
+        <span flex="50">Total</span>
+        <span class="text-right" flex><strong>{{ $storage.cart.total | currency }}</strong></span>
+        <div flex="50" flex-sm="100" style="min-height: 6.5rem;">
+            <div layout="row" layout-align="space-between center" ng-if="!user.private.customer.paypalAccounts.length && !user.private.customer.creditCards.length && !user.private.customer.coinbaseAccounts.length">
+                <span>Required <i class="mdi-navigation-arrow-forward"></i></span>
+                <md-button class="md-raised md-warn" ng-href="#add-payment-method" qv-focus="[name='braintree-dropin-frame']" qv-highlight="text-secondary0" selector="#add-payment-method" aria-label="Add payment method">Add Payment Method</md-button>
+            </div>
+            <div layout="row" layout-align="space-between center" ng-if="!$storage.cart.paymentToken && $storage.cart.total && (user.private.customer.paypalAccounts.length || user.private.customer.creditCards.length || user.private.customer.coinbaseAccounts.length)">
+                <span>Required <i class="mdi-navigation-arrow-forward"></i></span>
+                <md-button class="md-raised md-warn" ng-click="selectFirstPaymentToken()" aria-label="Select payment method">Select Payment Method</md-button>
+            </div>
+            <div layout="row" layout-align="space-between center" ng-if="$storage.cart.shipped && !$storage.cart.address">
+                <span>Required <i class="mdi-navigation-arrow-forward"></i></span>
+                <md-button class="md-raised md-warn" ng-href="#shipping-address" qv-focus="#name" ng-click="editAddress()" qv-highlight="text-secondary0" selector="#shipping-address" aria-label="Address required">Add Address</md-button>
+            </div>
+        </div>
+        <div class="text-right" flex="50" flex-sm="100" layout="row" layout-align="end center">
+            <md-button class="md-raised margin-horizontal-small" ui-sref="master.nav.cart" style="min-height: 33px;" aria-label="Back to cart">
+                <i class="mdi-navigation-arrow-back"></i> Back to Cart
+            </md-button>
+            <md-button class="md-raised" ng-click="emptyCart(); toLanding();" style="min-height: 33px;" aria-label="Empty cart">
+                <i class="mdi-action-delete"></i> Empty Cart
+            </md-button>
+        </div>
+        <div flex="100" layout="row">
+            <md-button id="checkout-button" class="md-raised md-primary min-16 max-16" ng-click="checkingOut = true; checkout($storage.cart);" ng-disabled="!user || (!$storage.cart.paymentToken && $storage.cart.total) || ($storage.cart.shipped && !$storage.cart.address) || checkingOut" aria-label="Check out">
+                <i class="mdi-action-done-all"></i>
+                <span ng-show="$storage.cart.total">Complete Purchase</span>
+                <span ng-hide="$storage.cart.total">Free Checkout</span>
+            </md-button>
+            <div>
+                <md-progress-circular class="invisible" flex md-mode="indeterminate" qv-loading target="#checkout-button"></md-progress-circular>
+            </div>
+        </div>
+    </md-whiteframe>
 </div>
-<div layout="row" layout-align="space-between center" ng-if="!$storage.cart.paymentToken && $storage.cart.total && (user.private.customer.paypalAccounts.length || user.private.customer.creditCards.length || user.private.customer.coinbaseAccounts.length)">
-    <span>Required <i class="mdi-navigation-arrow-forward"></i></span>
-    <md-button class="md-raised md-warn" ng-click="selectFirstPaymentToken()" aria-label="Select payment method">Select Payment Method</md-button>
-</div>
-<div layout="row" layout-align="space-between center" ng-if="$storage.cart.shipped && !$storage.cart.address">
-    <span>Required <i class="mdi-navigation-arrow-forward"></i></span>
-    <md-button class="md-raised md-warn" ng-href="#shipping-address" qv-focus="#name" ng-click="editAddress()" qv-highlight="text-secondary0" selector="#shipping-address" aria-label="Address required">Add Address</md-button>
-</div>
-</span>
-<span class="text-right" flex="50" flex-sm="100" layout="row" layout-align="end center">
-        <md-button class="md-raised margin-horizontal-small" ui-sref="master.nav.cart" style="min-height: 33px;" aria-label="Back to cart">
-          <i class="mdi-navigation-arrow-back"></i> Back to Cart
-        </md-button>
-        <md-button class="md-raised" ng-click="emptyCart(); toLanding();" style="min-height: 33px;" aria-label="Empty cart">
-          <i class="mdi-action-delete"></i> Empty Cart
-        </md-button>  
-      </span>
-<span flex="100" layout="row">
-        <md-button id="checkout-button" class="md-raised md-primary min-16 max-16" ng-click="checkingOut = true; checkout($storage.cart);" ng-disabled="!user || (!$storage.cart.paymentToken && $storage.cart.total) || ($storage.cart.shipped && !$storage.cart.address) || checkingOut" aria-label="Check out">
-          <i class="mdi-action-done-all"></i>
-          <span ng-show="$storage.cart.total">Complete Purchase</span>
-<span ng-hide="$storage.cart.total">Free Checkout</span>
-</md-button>
-<div>
-    <md-progress-circular class="invisible" flex md-mode="indeterminate" qv-loading target="#checkout-button"></md-progress-circular>
-</div>
-</span>
-</md-whiteframe>
-</md-whiteframe>
