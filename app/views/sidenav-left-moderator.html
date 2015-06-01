@@ -1,6 +1,6 @@
 <md-content role="navigation">
     <section ng-show="currentUser">
-        <md-toolbar>
+        <md-toolbar class="md-hue-1">
             <h5 class="md-toolbar-tools">{{ user.name || user.preferredEmail || user.email }}</h5>
         </md-toolbar>
         <div layout="column" layout-padding>
@@ -42,7 +42,7 @@
         </div>
     </section>
     <section ng-if="user.permissions.sections.feedback">
-        <md-toolbar>
+        <md-toolbar class="md-hue-1">
             <h5 class="md-toolbar-tools">Feedback</h5>
         </md-toolbar>
         <div layout="column" layout-padding>
@@ -59,107 +59,72 @@
         </div>
     </section>
     <section ng-if="user.permissions.sections.content">
-        <md-toolbar layout="row">
+        <md-toolbar class="md-hue-1" layout="row">
             <h5 class="md-toolbar-tools">Content</h5>
         </md-toolbar>
         <div layout="column" layout-padding>
             <div layout="row" flex qv-active>
-                <md-button class="text-left" flex layout-fill ui-sref="authenticated.master.admin.words.list">
+                <md-button class="text-left" flex layout-fill ui-sref="authenticated.master.moderator.words.list">
                     Words
                 </md-button>
             </div>
             <div layout="row" flex qv-active>
-                <md-button class="text-left" flex layout-fill ui-sref="authenticated.master.admin.assignments.list">
+                <md-button class="text-left" flex layout-fill ui-sref="authenticated.master.moderator.assignments.list">
                     Assignments
                 </md-button>
             </div>
             <div layout="row" flex qv-active>
-                <md-button class="text-left" flex layout-fill ui-sref="authenticated.master.admin.files.list">
+                <md-button class="text-left" flex layout-fill ui-sref="authenticated.master.moderator.files.list">
                     Files
-                </md-button>
-            </div>
-            <div layout="row" flex qv-active>
-                <md-button class="text-left" flex layout-fill ui-sref="authenticated.master.admin.products">
-                    Products
-                </md-button>
-            </div>
-            <div layout="row" flex qv-active>
-                <md-button class="text-left" flex layout-fill ui-sref="authenticated.master.admin.hashtags">
-                    Hashtags
-                </md-button>
-            </div>
-            <div layout="row" flex qv-active>
-                <md-button class="text-left" flex layout-fill ui-sref="authenticated.master.admin.social">
-                    Social Media
                 </md-button>
             </div>
         </div>
     </section>
     <section ng-if="user.permissions.sections.eCommerce">
-        <md-toolbar>
+        <md-toolbar class="md-hue-1">
             <h5 class="md-toolbar-tools">eCommerce</h5>
         </md-toolbar>
         <div layout="column" layout-padding>
             <div layout="row" flex qv-active>
-                <md-button class="text-left" flex layout-fill ui-sref="authenticated.master.admin.transactions.list">
+                <md-button class="text-left" flex layout-fill ui-sref="authenticated.master.moderator.transactions.list">
                     Transactions
                 </md-button>
             </div>
             <div layout="row" flex qv-active>
-                <md-button class="text-left" flex layout-fill ui-sref="authenticated.master.admin.discounts.list">
+                <md-button class="text-left" flex layout-fill ui-sref="authenticated.master.moderator.discounts.list">
                     Discounts
                 </md-button>
             </div>
             <div layout="row" flex qv-active>
-                <md-button class="text-left" flex layout-fill ui-sref="authenticated.master.admin.subscriptions.list">
+                <md-button class="text-left" flex layout-fill ui-sref="authenticated.master.moderator.subscriptions.list">
                     Subscriptions
                 </md-button>
             </div>
             <div layout="row" flex qv-active>
-                <md-button class="text-left" flex layout-fill ui-sref="authenticated.master.admin.shipments.list">
+                <md-button class="text-left" flex layout-fill ui-sref="authenticated.master.moderator.shipments.list">
                     Shipments
                 </md-button>
             </div>
             <div layout="row" flex qv-active>
-                <md-button class="text-left" flex layout-fill ui-sref="authenticated.master.admin.resources.list">
+                <md-button class="text-left" flex layout-fill ui-sref="authenticated.master.moderator.resources.list">
                     Resources
                 </md-button>
             </div>
         </div>
     </section>
     <section ng-if="user.permissions.sections.settings">
-        <md-toolbar>
+        <md-toolbar class="md-hue-1">
             <h5 class="md-toolbar-tools">Settings</h5>
         </md-toolbar>
         <div layout="column" layout-padding>
             <div layout="row" flex qv-active>
-                <md-button class="text-left" flex layout-fill ui-sref="authenticated.master.admin.settings">
-                    Settings
-                </md-button>
-            </div>
-            <div layout="row" flex qv-active>
-                <md-button class="text-left" flex layout-fill ui-sref="authenticated.master.admin.email.list">
+                <md-button class="text-left" flex layout-fill ui-sref="authenticated.master.moderator.email.list">
                     Email
                 </md-button>
             </div>
             <div layout="row" flex qv-active>
-                <md-button class="text-left" flex layout-fill ui-sref="authenticated.master.admin.users.list">
+                <md-button class="text-left" flex layout-fill ui-sref="authenticated.master.moderator.users.list">
                     Users
-                </md-button>
-            </div>
-            <div layout="row" flex qv-active>
-                <md-button class="text-left" flex layout-fill ui-sref="authenticated.master.admin.commerce">
-                    Commerce
-                </md-button>
-            </div>
-            <div layout="row" flex qv-active>
-                <md-button class="text-left" flex layout-fill ui-sref="authenticated.master.admin.surveys.list">
-                    Surveys
-                </md-button>
-            </div>
-            <div layout="row" flex qv-active>
-                <md-button class="text-left" flex layout-fill ui-sref="authenticated.master.admin.landing-pages">
-                    Landing Pages
                 </md-button>
             </div>
         </div>
