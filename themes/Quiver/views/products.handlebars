@@ -12,11 +12,11 @@
 {{/if }}
 
 {{#if products }}
-  <section id="products" class="constrained">
+  <section id="products" class="constrained cards-spaced">
     {{#each products }}
         {{#if active }}
           <div class="product product-{{ @index }}" itemscope itemtype="http://schema.org/Product">
-            <md-whiteframe class="md-whiteframe-z1" layout-sm="column" layout-gt-sm="row" layout-margin>
+            <md-whiteframe class="md-whiteframe-z1" layout-sm="column" layout-gt-sm="row">
               {{> inline-product }}              
             </md-whiteframe>
             

@@ -1,158 +1,177 @@
-<section>
-    <h3 class="headline">Account Details</h3>
-    <md-whiteframe class="md-whiteframe-z1" layout="row" layout-padding layout-wrap>
-        <span flex="50">
-            Login Email (cannot be changed)
-        </span>
-        <span class="text-right" flex>
-            <a class="undecorated" ng-href="mailto:{{ user.email }}">{{ user.email }}</a>
-        </span>
-        <span flex="50">
-            Last login
-        </span>
-        <span class="text-right" flex>
-            {{ user.lastLogin | moment:"MM/DD/YY HH:mm:ss" }}
-        </span>
-        <span flex="50">
-            Login methods
-        </span>
-        <span class="text-right" flex>
-            <ul>
-                <li ng-if="user.password">
-                    Username and password
-                </li>
-                <li ng-if="user.google">
-                    Google
-                </li>
-                <li ng-if="user.facebook">
-                    Facebook
-                </li>
-            </ul>                    
-        </span>
-    </md-whiteframe>
-</section>
-<section class="padding-vertical-small">
-    <h3 class="headline">User Details</h3>
-    <form name="accountForm">
-        <fieldset>
-            <md-whiteframe class="md-whiteframe-z1" layout="row" layout-align="start end" layout-padding layout-wrap>
-                <md-input-container flex="100">
-                    <label for="name">Name</label>
-                    <input id="name" type="text" ng-model="userName.$value" placeholder="Name..." ng-model-options="{debounce: {'default': 500, 'blur': 0}}" required/>
-                </md-input-container>
-                <md-input-container flex="100">
-                    <label for="email">Preferred Email</label>
-                    <input type="email" ng-model="userPreferredEmail.$value" placeholder="Preferred email..." ng-model-options="{debounce: {'default': 500, 'blur': 0}}" required/>
-                </md-input-container>
-                <md-select flex="33" flex-sm="100" name="gender" id="gender" ng-model="public.gender" placeholder="Gender">
-                    <md-option value="">Unspecified</md-option>
-                    <md-option value="f">Female</md-option>
-                    <md-option value="m">Male</md-option>
-                </md-select>
-                <md-input-container flex="33" flex-sm="100">
-                    <label for="birthday">Birthday</label>
-                    <input id="birthday" type="date" ng-model="birthdate" ng-blur="setBirthdate(birthdate)" placeholder="birthday" />
-                </md-input-container>
-                <md-input-container flex="33" flex-sm="100">
-                    <label for="website">Personal Website</label>
-                    <input id="website" type="text" ng-model="public.website" ng-model-options="{debounce: {'default': 500, 'blur': 0}}" placeholder="https://..." />
-                </md-input-container>
-                <md-input-container flex="33" flex-sm="100">
-                    <label for="twitter">Twitter Name</label>
-                    <input id="twitter" type="text" ng-model="public.twitter" ng-model-options="{debounce: {'default': 500, 'blur': 0}}" placeholder="BryanCranston..." />
-                </md-input-container>
-                <md-input-container flex="33" flex-sm="100">
-                    <label for="instagram">Instagram Name</label>
-                    <input id="instagram" type="text" ng-model="public.instagram" ng-model-options="{debounce: {'default': 500, 'blur': 0}}" placeholder="glassofwhiskey..." />
-                </md-input-container>
-            </md-whiteframe>
-        </fieldset>
-    </form>
-</section>
-<section class="padding-vertical-small">
-    <h3 class="headline">Change Password</h3>
-    <form name="passwordForm">
-        <fieldset>
-            <md-whiteframe class="md-whiteframe-z1" layout="row" layout-align="start center" layout-padding layout-wrap>
-                <md-input-container flex flex-sm="100">
-                    <label for="old-password">Old Password</label>
-                    <input id="old-password" type="password" ng-model="oldPassword" placeholder="Old password..." required/>
-                </md-input-container>
-                <md-input-container flex flex-sm="100">
-                    <label for="new-password">New Password</label>
-                    <input id="new-password" type="password" ng-model="newPassword" placeholder="New password..." required/>
-                </md-input-container>
-                <md-button class="md-primary md-raised adjust-line-height max-14" flex flex-sm="100" ng-click="changePassword(user.email, oldPassword, newPassword)" ng-disabled="passwordForm.$invalid">Change Password</md-button>
-            </md-whiteframe>
-        </fieldset>
-    </form>
-</section>
-<section class="padding-vertical-small">
-    <h3 class="headline">Preferences</h3>
-    <form name="preferencesForm">
-        <fieldset>
-            <md-whiteframe class="md-whiteframe-z1" layout="row" layout-align="start center" layout-padding layout-wrap>
-                <md-checkbox ng-model="public.preferences.marketing" aria-label="Receive marketing email">
-                    Receive marketing email
-                </md-checkbox>
-                <md-checkbox ng-model="public.preferences.tracking" aria-label="Enable user analytics">
-                    Enable user analytics
-                </md-checkbox>
-                <div flex="100">
-                    <p class="padding-x-small">
-                        Using {{ settings.siteTitle }} indicates that you agree to our <a href="/policies" qv-to-static>privacy policy and terms of service</a>.
-                    </p>
-                    <p class="padding-x-small">
-                        We take your privacy seriously. We do occasionally send out marketing email and we like to track on-site activity to better serve our users. We don't share your usage data with anyone, and the checkboxes above enable you to opt-out of our marketing and our user-based analytics.
-                    </p>
-                </div>
-            </md-whiteframe>
-        </fieldset>
-    </form>
-</section>
-<section class="padding-vertical-small" ng-if="user.private.customer.creditCards">
-    <h3 class="headline">Credit Cards</h3>
-    <form name="cardsForm">
-        <fieldset>
-            <md-whiteframe class="md-whiteframe-z1" layout="row" layout-align="start center" layout-padding layout-wrap>
-                <md-list flex>
-                    <md-list-item ng-repeat="method in user.private.customer.creditCards">
-                        <md-item-content flex layout="row" layout-align="space-between center" layout-padding ng-class="{disabled: method.disabled}">
-                            <span flex flex-gt-sm="33">
+<div class="cards-spaced">
+    <section>
+        <md-whiteframe class="md-whiteframe-z1" layout="row" layout-padding layout-wrap>
+            <h3 class="headline" flex="100">Account Details</h3>
+            <span flex="50">Login Email (cannot be changed)</span>
+            <div class="text-right" flex>
+                <a class="undecorated" ng-href="mailto:{{ user.email }}">{{ user.email }}</a>
+            </div>
+            <span flex="50">Last login</span>
+            <span class="text-right" flex>{{ user.lastLogin | moment:"MM/DD/YY HH:mm:ss" }}</span>
+            <span flex="50">Login methods</span>
+            <div class="text-right" flex>
+                <ul class="margin-zero-important">
+                    <li ng-if="user.password">
+                        Username and password
+                    </li>
+                    <li ng-if="user.google">
+                        Google
+                    </li>
+                    <li ng-if="user.facebook">
+                        Facebook
+                    </li>
+                </ul>
+            </div>
+        </md-whiteframe>
+    </section>
+    <section>
+        <form name="accountForm">
+            <fieldset>
+                <md-whiteframe class="md-whiteframe-z1" layout="row" layout-align="start end" layout-padding layout-wrap>
+                    <h3 class="headline" flex="100">User Details</h3>
+                    <md-input-container flex="100">
+                        <label for="name">Name</label>
+                        <input id="name" type="text" ng-model="userName.$value" placeholder="Name..." ng-model-options="{debounce: {'default': 500, 'blur': 0}}" required/>
+                    </md-input-container>
+                    <md-input-container flex="100">
+                        <label for="email">Preferred Email</label>
+                        <input type="email" ng-model="userPreferredEmail.$value" placeholder="Preferred email..." ng-model-options="{debounce: {'default': 500, 'blur': 0}}" required/>
+                    </md-input-container>
+                    <div class="md-select-wrapper" flex="33" flex-sm="100">
+                        <md-select name="gender" id="gender" ng-model="public.gender" placeholder="Gender">
+                            <md-option value="">Unspecified</md-option>
+                            <md-option value="f">Female</md-option>
+                            <md-option value="m">Male</md-option>
+                        </md-select>
+                    </div>
+                    <md-input-container flex="33" flex-sm="100">
+                        <label for="birthday">Birthday</label>
+                        <input id="birthday" type="date" ng-model="birthdate" ng-blur="setBirthdate(birthdate)" placeholder="birthday" />
+                    </md-input-container>
+                    <md-input-container flex="33" flex-sm="100">
+                        <label for="website">Personal Website</label>
+                        <input id="website" type="text" ng-model="public.website" ng-model-options="{debounce: {'default': 500, 'blur': 0}}" placeholder="https://..." />
+                    </md-input-container>
+                    <md-input-container flex="33" flex-sm="100">
+                        <label for="twitter">Twitter Name</label>
+                        <input id="twitter" type="text" ng-model="public.twitter" ng-model-options="{debounce: {'default': 500, 'blur': 0}}" placeholder="BryanCranston..." />
+                    </md-input-container>
+                    <md-input-container flex="33" flex-sm="100">
+                        <label for="instagram">Instagram Name</label>
+                        <input id="instagram" type="text" ng-model="public.instagram" ng-model-options="{debounce: {'default': 500, 'blur': 0}}" placeholder="glassofwhiskey..." />
+                    </md-input-container>
+                </md-whiteframe>
+            </fieldset>
+        </form>
+    </section>
+    <section>
+        <form name="passwordForm">
+            <fieldset>
+                <md-whiteframe class="md-whiteframe-z1" layout="row" layout-align="start center" layout-padding layout-wrap>
+                    <h3 class="headline" flex="100">Change Password</h3>
+                    <md-input-container flex="100">
+                        <label for="old-password">Old Password</label>
+                        <input id="old-password" type="password" ng-model="oldPassword" placeholder="Old password..." required/>
+                    </md-input-container>
+                    <md-input-container flex="100">
+                        <label for="new-password">New Password</label>
+                        <input id="new-password" type="password" ng-model="newPassword" placeholder="New password..." required/>
+                    </md-input-container>
+                    <div flex="100">
+                        <md-button class="md-primary md-raised margin-zero max-14" ng-click="changePassword(user.email, oldPassword, newPassword)" ng-disabled="passwordForm.$invalid">
+                            Change Password
+                        </md-button>
+                    </div>
+                </md-whiteframe>
+            </fieldset>
+        </form>
+    </section>
+    <section>
+        <form name="preferencesForm">
+            <fieldset>
+                <md-whiteframe class="md-whiteframe-z1" layout="row" layout-align="start center" layout-padding layout-wrap>
+                    <h3 class="headline" flex="100">Preferences</h3>
+                    <md-checkbox ng-model="public.preferences.marketing" aria-label="Receive marketing email">
+                        Receive marketing email
+                    </md-checkbox>
+                    <md-checkbox ng-model="public.preferences.tracking" aria-label="Enable user analytics">
+                        Enable user analytics
+                    </md-checkbox>
+                    <div flex="100">
+                        <p class="padding-vertical-small">
+                            Using {{ settings.siteTitle }} indicates that you agree to our <a href="/policies" qv-to-static>privacy policy and terms of service</a>.
+                        </p>
+                        <p class="padding-vertical-small">
+                            We take your privacy seriously. We do occasionally send out marketing email and we like to track on-site activity to better serve our users. We don't share your usage data with anyone, and the checkboxes above enable you to opt-out of our marketing and our user-based analytics.
+                        </p>
+                    </div>
+                </md-whiteframe>
+            </fieldset>
+        </form>
+    </section>
+    <section>
+        <md-whiteframe class="md-whiteframe-z1" layout="row" layout-padding layout-wrap>
+            <h3 class="headline" flex="100">Payment Methods</h3>
+            <form flex="100" name="cardsForm" ng-if="user.private.customer.creditCards">
+                <fieldset>
+                    <md-whiteframe class="md-whiteframe-z0" layout="row" layout-align="start center" layout-padding layout-wrap>
+                        <md-list flex>
+                            <md-list-item class="relative" ng-repeat="method in user.private.customer.creditCards">
+                                <md-item-content flex layout="row" layout-align="space-between center" layout-padding ng-class="{disabled: method.disabled}">
+                                    <span flex flex-gt-sm="33">
                                 <img flex ng-src="{{ method.imageUrl }}" alt="{{ method.cardType }}" />     
                             </span>
-                            <span flex>****{{ method.last4 }}</span>
-                            <md-button class="md-raised md-warn md-icon-button" ng-click="method.disabled = true; removePaymentMethod(method.token);" ng-disabled="method.disabled" aria-label="Remove credit card payment method">
-                                <i class="mdi-action-delete"></i>
-                            </md-button>
-                        </md-item-content>
-                        <md-divider ng-if="!$last"></md-divider>
-                    </md-list-item>
-                </md-list>
-            </md-whiteframe>
-        </fieldset>
-    </form>
-</section>
-<section class="padding-vertical-small" ng-if="user.private.customer.paypalAccounts">
-    <h3 class="headline">PayPal</h3>
-    <form name="paypalForm">
-        <fieldset>
-            <md-whiteframe class="md-whiteframe-z1" layout="row" layout-align="start center" layout-padding layout-wrap>
-                <md-list flex>
-                    <md-list-item ng-repeat="method in user.private.customer.paypalAccounts" ng-class="{disabled: method.disabled}">
-                        <md-item-content flex layout="row" layout-align="space-between center" layout-padding>
-                            <span flex flex-gt-sm="33">
+                                    <span flex>****{{ method.last4 }}</span>
+                                    <md-button class="md-raised md-warn md-icon-button" ng-click="method.disabled = true; removePaymentMethod(method.token);" ng-disabled="method.disabled" aria-label="Remove credit card payment method">
+                                        <i class="mdi-action-delete"></i>
+                                    </md-button>
+                                </md-item-content>
+                                <md-divider ng-if="!$last"></md-divider>
+                            </md-list-item>
+                        </md-list>
+                    </md-whiteframe>
+                </fieldset>
+            </form>
+            <form flex="100" name="paypalForm" ng-if="user.private.customer.paypalAccounts">
+                <fieldset>
+                    <md-whiteframe class="md-whiteframe-z0" layout="row" layout-align="start center" layout-padding layout-wrap>
+                        <md-list flex>
+                            <md-list-item class="relative" ng-repeat="method in user.private.customer.paypalAccounts" ng-class="{disabled: method.disabled}">
+                                <md-item-content flex layout="row" layout-align="space-between center" layout-padding>
+                                    <span flex flex-gt-sm="33">
                                 <img flex ng-src="{{ method.imageUrl }}" alt="{{ method.email }}" />
                             </span>
-                            <span flex>{{ method.email }}</span>
-                            <md-button class="md-raised md-warn md-icon-button" ng-click="method.disabled = true; removePaymentMethod(method.token);" ng-disabled="method.disabled" aria-label="Remove PayPal payment method">
-                                <i class="mdi-action-delete"></i>
-                            </md-button>
-                        </md-item-content>
-                        <md-divider ng-if="!$last"></md-divider>
-                    </md-list-item>
-                </md-list>
-            </md-whiteframe>
-        </fieldset>
-    </form>
-</section>
+                                    <span flex>{{ method.email }}</span>
+                                    <md-button class="md-raised md-warn md-icon-button" ng-click="method.disabled = true; removePaymentMethod(method.token);" ng-disabled="method.disabled" aria-label="Remove PayPal payment method">
+                                        <i class="mdi-action-delete"></i>
+                                    </md-button>
+                                </md-item-content>
+                                <md-divider ng-if="!$last"></md-divider>
+                            </md-list-item>
+                        </md-list>
+                    </md-whiteframe>
+                </fieldset>
+            </form>
+            <form flex="100" name="coinbaseForm" ng-if="user.private.customer.coinbaseAccounts">
+                <fieldset>
+                    <md-whiteframe class="md-whiteframe-z0" layout="row" layout-align="start center" layout-padding layout-wrap>
+                        <md-list flex>
+                            <md-list-item class="relative" ng-repeat="method in user.private.customer.coinbaseAccounts" ng-class="{disabled: method.disabled}">
+                                <md-item-content flex layout="row" layout-align="space-between center" layout-padding>
+                                    <span flex flex-gt-sm="33">
+                                <img flex ng-src="{{ method.imageUrl }}" alt="{{ method.email }}" />
+                            </span>
+                                    <span flex>{{ method.userEmail }}</span>
+                                    <md-button class="md-raised md-warn md-icon-button" ng-click="method.disabled = true; removePaymentMethod(method.token);" ng-disabled="method.disabled" aria-label="Remove CoinBase payment method">
+                                        <i class="mdi-action-delete"></i>
+                                    </md-button>
+                                </md-item-content>
+                                <md-divider ng-if="!$last"></md-divider>
+                            </md-list-item>
+                        </md-list>
+                    </md-whiteframe>
+                </fieldset>
+            </form>
+        </md-whiteframe>
+    </section>
+</div>

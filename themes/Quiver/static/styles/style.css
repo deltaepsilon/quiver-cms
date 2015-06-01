@@ -3818,7 +3818,7 @@ input {
 }
 
 /* line 31, ../../../../app/styles/material/_font.scss */
-.text-medium {
+.text-medium, .md-button {
   font-size: 1rem;
 }
 
@@ -4413,6 +4413,12 @@ input {
   padding: 0 !important;
 }
 
+/* line 75, ../../../../app/styles/material/_spacing.scss */
+.margin-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
+
 /* line 9, ../../../../app/styles/material/_global.scss */
 a {
   color: inherit;
@@ -4521,13 +4527,13 @@ img {
 /* line 93, ../../../../app/styles/material/_global.scss */
 .avatar {
   display: block;
-  max-width: 4rem;
-  max-height: 4rem;
+  max-width: 3rem;
+  max-height: 3rem;
 }
-/* line 98, ../../../../app/styles/material/_global.scss */
+/* line 99, ../../../../app/styles/material/_global.scss */
 .avatar img {
-  max-width: 4rem;
-  max-height: 4rem;
+  max-width: 3rem;
+  max-height: 3rem;
 }
 
 @font-face {
@@ -8408,33 +8414,33 @@ strong {
   cursor: not-allowed;
 }
 
-/* line 37, ../../../../app/styles/material/_buttons.scss */
+/* line 39, ../../../../app/styles/material/_buttons.scss */
 .md-button.adjust-mdi [class^="mdi-"], .md-button.adjust-mdi [class*=" mdi-"] {
   top: 3px;
   position: relative;
 }
-/* line 42, ../../../../app/styles/material/_buttons.scss */
+/* line 44, ../../../../app/styles/material/_buttons.scss */
 .md-button.adjust-line-height {
   line-height: 2.5rem;
 }
-/* line 45, ../../../../app/styles/material/_buttons.scss */
+/* line 47, ../../../../app/styles/material/_buttons.scss */
 .md-button.align-left {
   margin-left: 0;
 }
-/* line 48, ../../../../app/styles/material/_buttons.scss */
+/* line 50, ../../../../app/styles/material/_buttons.scss */
 .md-button[flag="1"] {
   color: #f04e23;
 }
-/* line 51, ../../../../app/styles/material/_buttons.scss */
+/* line 53, ../../../../app/styles/material/_buttons.scss */
 .md-button[flag="2"] {
   color: #FC0272;
 }
-/* line 54, ../../../../app/styles/material/_buttons.scss */
+/* line 56, ../../../../app/styles/material/_buttons.scss */
 .md-button[flag="3"] {
   color: #4A910A;
 }
 
-/* line 59, ../../../../app/styles/material/_buttons.scss */
+/* line 61, ../../../../app/styles/material/_buttons.scss */
 .md-fab-tiny {
   min-width: 3rem !important;
   max-width: 3rem !important;
@@ -8443,37 +8449,37 @@ strong {
   line-height: 1rem !important;
 }
 
-/* line 67, ../../../../app/styles/material/_buttons.scss */
+/* line 69, ../../../../app/styles/material/_buttons.scss */
 .md-icon-button {
-  min-width: 2rem !important;
-  max-width: 2rem !important;
+  min-width: 2.3rem !important;
+  max-width: 2.3rem !important;
   line-height: .75rem !important;
   height: 2rem !important;
   font-size: 1rem;
 }
 
-/* line 76, ../../../../app/styles/material/_buttons.scss */
+/* line 78, ../../../../app/styles/material/_buttons.scss */
 a.md-icon-button {
   padding-top: 10px;
 }
 
-/* line 80, ../../../../app/styles/material/_buttons.scss */
+/* line 82, ../../../../app/styles/material/_buttons.scss */
 .md-button-padding {
   padding: 6px;
 }
 
-/* line 84, ../../../../app/styles/material/_buttons.scss */
+/* line 86, ../../../../app/styles/material/_buttons.scss */
 .social-buttons {
   font-size: 3rem;
 }
-/* line 86, ../../../../app/styles/material/_buttons.scss */
+/* line 88, ../../../../app/styles/material/_buttons.scss */
 .social-buttons > * {
   color: #fff !important;
   margin: 0 .25rem;
   font-size: 1.875rem;
   padding: 0.8125rem;
 }
-/* line 92, ../../../../app/styles/material/_buttons.scss */
+/* line 94, ../../../../app/styles/material/_buttons.scss */
 .social-buttons .md-fab {
   width: 2rem;
   height: 2rem;
@@ -8584,152 +8590,152 @@ iframe {
   display: inline;
 }
 
-/* line 87, ../../../../app/styles/material/_layout.scss */
+/* line 89, ../../../../app/styles/material/_layout.scss */
 .vh-100 {
   height: 100vh;
 }
 
-/* line 91, ../../../../app/styles/material/_layout.scss */
+/* line 93, ../../../../app/styles/material/_layout.scss */
 .vh-90 {
   height: 90vh;
 }
 
-/* line 96, ../../../../app/styles/material/_layout.scss */
+/* line 98, ../../../../app/styles/material/_layout.scss */
 .min-2 {
   min-width: 2rem;
 }
 
-/* line 100, ../../../../app/styles/material/_layout.scss */
+/* line 102, ../../../../app/styles/material/_layout.scss */
 .min-3 {
   min-width: 3rem;
 }
 
-/* line 104, ../../../../app/styles/material/_layout.scss */
+/* line 106, ../../../../app/styles/material/_layout.scss */
 .min-4 {
   min-width: 4rem;
 }
 
-/* line 108, ../../../../app/styles/material/_layout.scss */
+/* line 110, ../../../../app/styles/material/_layout.scss */
 .min-5 {
   min-width: 5rem;
 }
 
-/* line 112, ../../../../app/styles/material/_layout.scss */
+/* line 114, ../../../../app/styles/material/_layout.scss */
 .min-7 {
   min-width: 7rem;
 }
 
-/* line 116, ../../../../app/styles/material/_layout.scss */
+/* line 118, ../../../../app/styles/material/_layout.scss */
 .min-10 {
   min-width: 10rem;
 }
 
-/* line 120, ../../../../app/styles/material/_layout.scss */
+/* line 122, ../../../../app/styles/material/_layout.scss */
 .min.min-12 {
   min-width: 12rem;
 }
 
-/* line 124, ../../../../app/styles/material/_layout.scss */
+/* line 126, ../../../../app/styles/material/_layout.scss */
 .min-14 {
   min-width: 14rem;
 }
 
-/* line 128, ../../../../app/styles/material/_layout.scss */
+/* line 130, ../../../../app/styles/material/_layout.scss */
 .min-16 {
   min-width: 16rem;
 }
 
-/* line 132, ../../../../app/styles/material/_layout.scss */
+/* line 134, ../../../../app/styles/material/_layout.scss */
 .min-18 {
   min-width: 18rem;
 }
 
-/* line 136, ../../../../app/styles/material/_layout.scss */
+/* line 138, ../../../../app/styles/material/_layout.scss */
 .min-20 {
   min-width: 20rem;
 }
 
-/* line 140, ../../../../app/styles/material/_layout.scss */
+/* line 142, ../../../../app/styles/material/_layout.scss */
 .min-22 {
   min-width: 22rem;
 }
 
-/* line 144, ../../../../app/styles/material/_layout.scss */
+/* line 146, ../../../../app/styles/material/_layout.scss */
 .min-30 {
   min-width: 30rem;
 }
 
-/* line 148, ../../../../app/styles/material/_layout.scss */
+/* line 150, ../../../../app/styles/material/_layout.scss */
 .min-33 {
   min-width: 33rem;
 }
 
-/* line 153, ../../../../app/styles/material/_layout.scss */
+/* line 155, ../../../../app/styles/material/_layout.scss */
 .max-2 {
   max-width: 2rem;
 }
 
-/* line 157, ../../../../app/styles/material/_layout.scss */
+/* line 159, ../../../../app/styles/material/_layout.scss */
 .max-3 {
   max-width: 3rem;
 }
 
-/* line 161, ../../../../app/styles/material/_layout.scss */
+/* line 163, ../../../../app/styles/material/_layout.scss */
 .max-4 {
   max-width: 4rem;
 }
 
-/* line 165, ../../../../app/styles/material/_layout.scss */
+/* line 167, ../../../../app/styles/material/_layout.scss */
 .max-5 {
   max-width: 5rem;
 }
 
-/* line 169, ../../../../app/styles/material/_layout.scss */
+/* line 171, ../../../../app/styles/material/_layout.scss */
 .max-7 {
   max-width: 7rem;
 }
 
-/* line 173, ../../../../app/styles/material/_layout.scss */
+/* line 175, ../../../../app/styles/material/_layout.scss */
 .max-10 {
   max-width: 10rem;
 }
 
-/* line 177, ../../../../app/styles/material/_layout.scss */
+/* line 179, ../../../../app/styles/material/_layout.scss */
 .max-12 {
   max-width: 12rem;
 }
 
-/* line 181, ../../../../app/styles/material/_layout.scss */
+/* line 183, ../../../../app/styles/material/_layout.scss */
 .max-14 {
   max-width: 14rem;
 }
 
-/* line 185, ../../../../app/styles/material/_layout.scss */
+/* line 187, ../../../../app/styles/material/_layout.scss */
 .max-16 {
   max-width: 16rem;
 }
 
-/* line 189, ../../../../app/styles/material/_layout.scss */
+/* line 191, ../../../../app/styles/material/_layout.scss */
 .max-18 {
   max-width: 18rem;
 }
 
-/* line 193, ../../../../app/styles/material/_layout.scss */
+/* line 195, ../../../../app/styles/material/_layout.scss */
 .max-20 {
   max-width: 20rem;
 }
 
-/* line 197, ../../../../app/styles/material/_layout.scss */
+/* line 199, ../../../../app/styles/material/_layout.scss */
 .max-22 {
   max-width: 22rem;
 }
 
-/* line 201, ../../../../app/styles/material/_layout.scss */
+/* line 203, ../../../../app/styles/material/_layout.scss */
 .max-30 {
   max-width: 30rem;
 }
 
-/* line 205, ../../../../app/styles/material/_layout.scss */
+/* line 207, ../../../../app/styles/material/_layout.scss */
 .max-33 {
   max-width: 33rem;
 }
@@ -8843,4 +8849,9 @@ md-list.pointer > md-item.active {
   top: 0;
   width: 1rem;
   height: 1rem;
+}
+
+/* line 2, ../../../../app/styles/material/_cards.scss */
+.cards-spaced md-whiteframe {
+  margin: .5rem 0;
 }

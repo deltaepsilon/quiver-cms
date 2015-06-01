@@ -1,8 +1,9 @@
 <section>
-    <h3 class="headline">{{ subscription.title }}</h3>
+    <h3 class="headline">Subscription</h3>
     <md-whiteframe class="md-whiteframe-z1" layout="row" layout-align="start start" layout-padding layout-wrap>
+        <h3 class="headline" flex="100">{{ subscription.title }}</h3>
         <a class="bold" flex ui-sref="authenticated.master.admin.user({key: subscription.user.public.id})">{{ subscription.user.preferredEmail || subscription.user.email }}</a>
-        <md-button class="md-warn md-raised md-icon-button" ng-click="confirmRemoveSubscription($event)">
+        <md-button class="md-warn md-raised md-icon-button" ng-click="confirmRemoveSubscription($event)" aria-label="Remove subscription">
             <i class="mdi-action-delete"></i>
         </md-button>
         <span class="padding-zero-important" flex="100"></span>

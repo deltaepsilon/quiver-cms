@@ -47,7 +47,7 @@
                     <md-divider ng-if="!$last"></md-divider>
                 </md-item>
             </md-list>
-            <div class="text-center" ng-if="items.length && !items.$moreDisabled">
+            <div class="text-center" ng-if="itemsFiltered.length && !items.$moreDisabled">
                 <md-button class="md-primary md-raised min-10 max-10" ng-click="loadMore()">
                     Load More
                 </md-button>

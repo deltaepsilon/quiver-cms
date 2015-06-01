@@ -2,15 +2,15 @@
   <div flex>
     <a href="/product/{{ slug }}">
         {{#if featuredImage.Versions.small.Key }}
-          <img src="{{s3 featuredImage.Versions.small.Key }}" alt="{{deSlug featuredImage.Name }}"/>
+          <img class="block" src="{{s3 featuredImage.Versions.small.Key }}" alt="{{deSlug featuredImage.Name }}"/>
         {{ else }}
-            <img src="{{s3 featuredImage.Key }}" alt="{{deSlug featuredImage.Name }}"/>
+            <img class="block" src="{{s3 featuredImage.Key }}" alt="{{deSlug featuredImage.Name }}"/>
         {{/if }}
     </a>
   </div>
 {{/if }}
 
-<div flex layout="column">
+<div flex layout="column" layout-padding>
   <div layout="row" layout-align="space-between" layout-padding>
     <h5 class="headline uppercase">
       <a class="undecorated" href="/product/{{ slug }}">{{ title }}</a>

@@ -1,14 +1,15 @@
 <md-whiteframe class="md-whiteframe-z1 extra-padding" layout="column" layout-padding>
+    <h3 class="headline" ng-if="loaded && selectedUser">Messages</h3>
     <md-content flex style="max-height: 500px;">
         <section>
             <md-list class="hover" layout="column">
-                <md-list-item class="margin-vertical-small" layout="row" layout-align="start start" layout-wrap ng-repeat="message in getMessages(selectedUser.id)" ng-class="{disabled: disabled}">
+                <md-list-item class="margin-vertical-small" layout="row" layout-align="start start" layout-wrap ng-repeat="message in getMessages(selectedUser.id)" ng-class="{disabled: disabled}" style="min-height: 5rem;">
                     <a class="avatar" flex href="https://gravatar.com" target="_blank" style="margin-right: 1rem;">
                         <img ng-src="{{ message.senderEmail | gravatar }}" alt="{{ message.senderEmail }}">
                     </a>
                     <div class="md-list-item-text" flex>
                         <strong class="headline">{{ message.senderName || message.senderEmail }}</strong>
-                        <span class="text-small text-secondary5">{{ message.date | timeago }}</span>
+                        <span class="text-small text-secondary5 margin-horizontal-small">{{ message.date | timeago }}</span>
                         <span ng-show="message.type === 'assignment'">
               <a ui-sref="authenticated.master.nav.subscription.assignment({subscriptionKey: message.subscriptionKey, assignmentKey: message.assignmentKey })">See assignment</a>
             </span>

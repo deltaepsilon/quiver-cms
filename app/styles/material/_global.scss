@@ -91,13 +91,14 @@ img {
 }
 
 .avatar {
+    $avatar-width: 3rem;
     @extend .circle;
     display: block;
-    max-width: 4rem;
-    max-height: 4rem;
+    max-width: $avatar-width;
+    max-height: $avatar-width;
     img {
         @extend .circle;
-        max-width: 4rem;
-        max-height: 4rem;
+        max-width: $avatar-width;
+        max-height: $avatar-width;
     }
 }

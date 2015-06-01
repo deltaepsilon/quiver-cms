@@ -7,8 +7,8 @@
     </md-whiteframe>
 </section>
 <section>
-    <h3 class="headline">Messages</h3>
     <md-whiteframe class="md-whiteframe-z1" layout="row" layout-padding layout-wrap>
+        <h3 class="headline" flex="100">Messages</h3>
         <md-list flex>
             <md-item ng-repeat="message in messages">
                 <md-item-content layout="row" layout-align="space-between center" layout-padding layout-wrap>
@@ -22,7 +22,7 @@
                 <md-divider ng-if="!$last"></md-divider>
             </md-item>
         </md-list>
-        <md-whiteframe class="md-whiteframe-z2" flex="100" layout="row" layout-align="start center" layout-padding layout-wrap>
+        <md-whiteframe class="md-whiteframe-z0 background-secondary4" flex="100" layout="row" layout-align="start center" layout-padding layout-wrap>
             <md-input-container flex>
                 <label for="new-message">New Message</label>
                 <textarea id="new-message" ng-model="text" placeholder="Message..."></textarea>
@@ -34,8 +34,8 @@
     </md-whiteframe>
 </section>
 <section>
-    <h3 class="headline">Instructor's Eyes Only</h3>
     <md-whiteframe class="md-whiteframe-z1" layout="row" layout-padding layout-wrap>
+        <h3 class="headline" flex="100">Instructor's Eyes Only</h3>
         <md-button class="md-primary md-raised max-20 adjust-line-height" flex ng-href="/user/{{ client.$id }}/assignment/{{ userAssignment.$id }}/feedback-email/html" target="_blank">
             Preview HTML Email
         </md-button>

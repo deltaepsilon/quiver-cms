@@ -131,6 +131,10 @@ angular.module('quiverCmsApp')
                 return $firebaseObject(new Firebase(firebaseEndpoint + '/settings'));
             },
 
+            getReload: function () {
+                return $firebaseObject(new Firebase(firebaseEndpoint + '/settings/reload'));  
+            },
+
             getAdminSettings: function() {
                 return $firebaseObject(new Firebase(firebaseEndpoint + '/admin/settings'));
             },
