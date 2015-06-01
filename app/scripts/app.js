@@ -545,7 +545,10 @@ angular.module('quiverCmsApp', [
                         controller: "AdminCtrl",
                         resolve: {
                             isAdmin: function(user, $state) {
-                                if (!user.isAdmin) {
+                                if ($state.toState && $state.current.name.match(/moderator/)) {
+                                    $state.go($state.toState.name.replace(/admin/, 'moderator'), $state.toParams);
+                                    return false
+                                } else if (!user.isAdmin) {
                                     $state.go('authenticated.master.nav.dashboard');
                                     return false;
                                 } else {
@@ -1229,18 +1232,23 @@ angular.module('quiverCmsApp', [
         .state('authenticated.master.moderator.messages.list', getState(states.authenticatedMasterModeratorMessagesList))
         .state('authenticated.master.moderator.uploads', getState(states.authenticatedMasterModeratorUploads))
         .state('authenticated.master.moderator.uploads.list', getState(states.authenticatedMasterModeratorUploadsList))
+        .state('authenticated.master.moderator.feedback', getState(states.authenticatedMasterAdminFeedback))
         .state('authenticated.master.moderator.words', _.clone(states.authenticatedMasterAdminWords))
         .state('authenticated.master.moderator.words.list', _.clone(states.authenticatedMasterAdminWordsList))
+        .state('authenticated.master.moderator.word', getState(states.authenticatedMasterAdminWord))
         .state('authenticated.master.moderator.assignments', getState(states.authenticatedMasterAdminAssignments))
         .state('authenticated.master.moderator.assignments.list', getState(states.authenticatedMasterAdminAssignmentsList))
+        .state('authenticated.master.moderator.assignment', getState(states.authenticatedMasterAdminAssignment))
         .state('authenticated.master.moderator.files', getState(states.authenticatedMasterAdminFiles))
         .state('authenticated.master.moderator.files.list', getState(states.authenticatedMasterAdminFilesList))
         .state('authenticated.master.moderator.transactions', getState(states.authenticatedMasterAdminTransactions))
         .state('authenticated.master.moderator.transactions.list', getState(states.authenticatedMasterAdminTransactionsList))
+        .state('authenticated.master.moderator.transaction', getState(states.authenticatedMasterAdminTransaction))
         .state('authenticated.master.moderator.discounts', getState(states.authenticatedMasterAdminDiscounts))
         .state('authenticated.master.moderator.discounts.list', getState(states.authenticatedMasterAdminDiscountsList))
         .state('authenticated.master.moderator.subscriptions', getState(states.authenticatedMasterAdminSubscriptions))
         .state('authenticated.master.moderator.subscriptions.list', getState(states.authenticatedMasterAdminSubscriptionsList))
+        .state('authenticated.master.moderator.subscription', getState(states.authenticatedMasterAdminSubscription))
         .state('authenticated.master.moderator.shipments', getState(states.authenticatedMasterAdminShipments))
         .state('authenticated.master.moderator.shipments.list', getState(states.authenticatedMasterAdminShipmentsList))
         .state('authenticated.master.moderator.resources', getState(states.authenticatedMasterAdminResources))
