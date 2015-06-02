@@ -1,0 +1,9 @@
+<md-dialog class="padding-medium" layout="row" layout-padding layout-wrap style="max-width: 40rem;">
+    <h3 class="headline" flex="100">New Payment Method</h3>
+    <style>
+    #dropin {
+        min-height: 196px;
+    }
+    </style>
+    <div braintree-drop-in token="clientToken" on-save="onSave();" flex></div>
+</md-dialog>

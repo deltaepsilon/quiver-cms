@@ -8,7 +8,7 @@
  * Controller of the quiverCmsApp
  */
 angular.module('quiverCmsApp')
-    .controller('CartCtrl', function($scope, $localStorage, $state, _, moment, products, countriesStatus, statesStatus, shipping, clientToken, CommerceService, NotificationService, braintree, ObjectService, Analytics, user, env, $location) {
+    .controller('CartCtrl', function($scope, $localStorage, $state, _, moment, products, countriesStatus, statesStatus, shipping, clientToken, CommerceService, NotificationService, braintree, ObjectService, Analytics, user, env, $location, $mdDialog, $timeout) {
         /*
          * Storage
          */
@@ -24,34 +24,41 @@ angular.module('quiverCmsApp')
         // Injecting loaded array
 
         /*
+         * Navigation
+         */
+        $scope.goToCheckout = function() {
+            $scope.checkingOut = true;
+            $state.go('authenticated.master.nav.checkout');
+        };
+
+        /*
          * Commerce
          */
+        var countries = _.filter(CommerceService.getCountries(), function(country) {
+                return countriesStatus[country['alpha-2']] ? countriesStatus[country['alpha-2']].enabled : false;
+            }),
+            states = _.filter(CommerceService.getStates(), function(state) {
+                return statesStatus[state.abbreviation] ? statesStatus[state.abbreviation].enabled : false;
+            }),
+            cleanedCountryCodes = _.map(CommerceService.getCountryCodes(), function(code) {
+                var dialCode = code.dial_code,
+                    i = 6 - dialCode.length;
 
-        $scope.countries = _.filter(CommerceService.getCountries(), function(country) {
-            return countriesStatus[country['alpha-2']] ? countriesStatus[country['alpha-2']].enabled : false;
-        });
+                while (i--) {
+                    dialCode += " ";
+                }
+                return {
+                    key: code.dial_code,
+                    value: dialCode + " " + code.code
+                };
+            }),
+            COUNTRY_CODE_REGEX = /(\s|\+)/g,
+            countryCodes = _.sortBy(cleanedCountryCodes, function(code) {
+                return parseInt(code.key.replace(COUNTRY_CODE_REGEX, ""));
+            });
 
-        $scope.states = _.filter(CommerceService.getStates(), function(state) {
-            return statesStatus[state.abbreviation] ? statesStatus[state.abbreviation].enabled : false;
-        });
-
-        var cleanedCountryCodes = _.map(CommerceService.getCountryCodes(), function(code) {
-            var dialCode = code.dial_code,
-                i = 6 - dialCode.length;
-
-            while (i--) {
-                dialCode += " ";
-            }
-            return {
-                key: code.dial_code,
-                value: dialCode + " " + code.code
-            };
-        });
-
-        var COUNTRY_CODE_REGEX = /(\s|\+)/g;
-        $scope.countryCodes = _.sortBy(cleanedCountryCodes, function(code) {
-            return parseInt(code.key.replace(COUNTRY_CODE_REGEX, ""));
-        });
+        $scope.countries = countries;
+        $scope.states = states;
 
         /*
          * Cart
@@ -262,152 +269,194 @@ angular.module('quiverCmsApp')
         /*
          * Address
          */
+        var removeAddress = function() {
+                $scope.$storage.address = false;
+                $scope.$storage.cart.address = false;
+            },
+            updateAddress = function() {
+                var address = $scope.$storage.address || {},
+                    country = address.country ? countriesStatus[address.country] : null,
+                    state = address.country === 'US' && address.state ? statesStatus[address.state] : null;
 
-        $scope.removeAddress = function() {
-            $scope.$storage.address = false;
-            $scope.$storage.cart.address = false;
-        };
+                if (country && country.enabled && address.country === 'US' && state) {
+                    address.tax = (country.tax || 0) + (state.tax || 0);
+                    address.domestic = country.domestic;
+                    address.international = !country.domestic;
 
-        $scope.updateAddress = function() {
-            var address = $scope.$storage.address || {},
-                country = address.country ? countriesStatus[address.country] : null,
-                state = address.country === 'US' && address.state ? statesStatus[address.state] : null;
+                } else if (country && country.enabled && address.country !== 'US') {
+                    address.tax = (country.tax || 0);
+                    address.domestic = country.domestic;
+                    address.international = !country.domestic;
 
-            if (country && country.enabled && address.country === 'US' && state) {
-                address.tax = (country.tax || 0) + (state.tax || 0);
-                address.domestic = country.domestic;
-                address.international = !country.domestic;
-
-            } else if (country && country.enabled && address.country !== 'US') {
-                address.tax = (country.tax || 0);
-                address.domestic = country.domestic;
-                address.international = !country.domestic;
-
-            } else {
-                address.tax = false;
-                address.domestic = false;
-                address.international = false;
-
-            }
-
-            $scope.$storage.address = address;
-            updateCart();
-        };
-
-        $scope.validateAddress = function(address) {
-            var address = address || {},
-                country = address.country ? _.findWhere(CommerceService.getCountries(), {
-                    'alpha-2': address.country
-                }) : null,
-                state = address.country === 'US' ? _.findWhere(CommerceService.getStates(), {
-                    'abbreviation': address.state
-                }) : null,
-                territory = address.territory,
-                formattedAddress = {
-                    recipient: address.recipient,
-                    email: address.email,
-                    phone: (typeof address.countryCodeIndex !== 'undefined' ? $scope.countryCodes[address.countryCodeIndex].key : "") + " " + (address && address.phone ? address.phone.replace(/[^\d]/g, "") : ""),
-                    sms: address.sms || false,
-                    street1: address.street1 && address.street1.length ? address.street1 : null,
-                    street2: address.street2 && address.street2.length ? address.street2 : null,
-                    street3: address.street3 && address.street3.length ? address.street3 : null,
-                    city: address.city,
-                    territory: state ? state.abbreviation : address.territory,
-                    territoryName: state ? state.name : address.territory,
-                    country: country ? country['alpha-2'] : null,
-                    countryName: country ? country.name : null,
-                    postalCode: address.postalCode,
-                    isUS: address.country === 'US',
-                    instructions: address.instructions
-                },
-                errorMessages = {};
-
-            if (!formattedAddress.recipient) {
-                errorMessages.recipient = 'Missing recipient name.';
-            }
-
-            if (!formattedAddress.street1) {
-                errorMessages.street = 'Missing street line 1.';
-            }
-
-            if (!formattedAddress.city) {
-                errorMessages.city = 'Missing city.';
-            }
-
-            if (!formattedAddress.email) {
-                errorMessages.email = 'Missing recipient email.';
-            }
-
-            if (!formattedAddress.phone) {
-                errorMessages.phone = 'Missing recipient phone.';
-            }
-
-            if (!formattedAddress.territory) {
-                if (address.country === 'US') {
-                    errorMessages.territory = 'Missing state.';
                 } else {
-                    errorMessages.territory = 'Missing territory.';
+                    address.tax = false;
+                    address.domestic = false;
+                    address.international = false;
+
                 }
 
-            }
+                $scope.$storage.address = address;
+                updateCart();
+            },
+            validateAddress = function(address) {
+                var address = address || {},
+                    country = address.country ? _.findWhere(CommerceService.getCountries(), {
+                        'alpha-2': address.country
+                    }) : null,
+                    state = address.country === 'US' ? _.findWhere(CommerceService.getStates(), {
+                        'abbreviation': address.state
+                    }) : null,
+                    territory = address.territory,
+                    formattedAddress = {
+                        recipient: address.recipient,
+                        email: address.email,
+                        phone: (typeof address.countryCodeIndex !== 'undefined' ? countryCodes[address.countryCodeIndex].key : "") + " " + (address && address.phone ? address.phone.replace(/[^\d]/g, "") : ""),
+                        sms: address.sms || false,
+                        street1: address.street1 && address.street1.length ? address.street1 : null,
+                        street2: address.street2 && address.street2.length ? address.street2 : null,
+                        street3: address.street3 && address.street3.length ? address.street3 : null,
+                        city: address.city,
+                        territory: state ? state.abbreviation : address.territory,
+                        territoryName: state ? state.name : address.territory,
+                        country: country ? country['alpha-2'] : null,
+                        countryName: country ? country.name : null,
+                        postalCode: address.postalCode,
+                        isUS: address.country === 'US',
+                        instructions: address.instructions
+                    },
+                    errorMessages = {};
 
-            if (!formattedAddress.country) {
-                errorMessages.country = 'Missing country.';
-            }
+                if (!formattedAddress.recipient) {
+                    errorMessages.recipient = 'Missing recipient name.';
+                }
 
-            if (!formattedAddress.postalCode) {
-                errorMessages.postalCode = 'Missing postal code.';
-            }
+                if (!formattedAddress.street1) {
+                    errorMessages.street = 'Missing street line 1.';
+                }
 
-            $scope.errorMessages = errorMessages;
+                if (!formattedAddress.city) {
+                    errorMessages.city = 'Missing city.';
+                }
 
-            return !Object.keys(errorMessages).length ? formattedAddress : false;
+                if (!formattedAddress.email) {
+                    errorMessages.email = 'Missing recipient email.';
+                }
 
-        };
+                if (!formattedAddress.phone) {
+                    errorMessages.phone = 'Missing recipient phone.';
+                }
 
-        if (!$scope.$storage.cart || !$scope.$storage.cart.address || !$scope.validateAddress($scope.$storage.cart.address)) {
-            $scope.editingAddress = true;
-        } else {
-            $scope.editingAddress = false;
-        }
+                if (!formattedAddress.territory) {
+                    if (address.country === 'US') {
+                        errorMessages.territory = 'Missing state.';
+                    } else {
+                        errorMessages.territory = 'Missing territory.';
+                    }
 
-        $scope.editAddress = function() {
-            if (!$scope.$storage.address) {
-                $scope.$storage.address = {
-                    email: user.preferredEmail || user.email
-                };
-            }
+                }
 
-            if (!$scope.$storage.address.country) {
-                $scope.$storage.address.country = 'US';
-            }
+                if (!formattedAddress.country) {
+                    errorMessages.country = 'Missing country.';
+                }
 
-            if (!$scope.$storage.address.state && $scope.$storage.address.country === 'US') {
-                $scope.$storage.address.state = 'AL';
-            }
+                if (!formattedAddress.postalCode) {
+                    errorMessages.postalCode = 'Missing postal code.';
+                }
 
-            if (!$scope.$storage.address.countryCode) {
-                $scope.$storage.address.countryCodeIndex = 1;
-            }
+                $scope.errorMessages = errorMessages;
+
+                return !Object.keys(errorMessages).length ? formattedAddress : false;
+
+            },
+            editAddress = function() {
+                if (!$scope.$storage.address) {
+                    $scope.$storage.address = {
+                        email: user.preferredEmail || user.email
+                    };
+                }
+
+                if (!$scope.$storage.address.country) {
+                    $scope.$storage.address.country = 'US';
+                }
+
+                if (!$scope.$storage.address.state && $scope.$storage.address.country === 'US') {
+                    $scope.$storage.address.state = 'AL';
+                }
+
+                if (!$scope.$storage.address.countryCode) {
+                    $scope.$storage.address.countryCodeIndex = 1;
+                }
 
 
-            $scope.validateAddress($scope.$storage.address);
-            $scope.editingAddress = true;
-
-        };
-
-        $scope.editAddress();
-
-        $scope.saveAddress = function(address) {
-            var address = $scope.validateAddress(address);
-
-            if (address) {
-                $scope.$storage.cart.address = address;
-                $scope.editingAddress = false;
-            } else {
+                $scope.validateAddress($scope.$storage.address);
                 $scope.editingAddress = true;
-            }
 
+            },
+            saveAddress = function(address) {
+                var address = $scope.validateAddress(address);
+
+                if (address) {
+                    $scope.$storage.cart.address = address;
+                    $scope.editingAddress = false;
+                } else {
+                    $scope.editingAddress = true;
+                }
+
+            };
+
+        $scope.removeAddress = removeAddress;
+        $scope.updateAddress = updateAddress;
+        $scope.validateAddress = validateAddress;
+        $scope.editAddress = editAddress;
+        $scope.saveAddress = saveAddress;
+
+        // if (!$scope.$storage.cart || !$scope.$storage.cart.address || !$scope.validateAddress($scope.$storage.cart.address)) {
+        //     $scope.editingAddress = true;
+        // } else {
+        //     $scope.editingAddress = false;
+        // }
+
+        // $scope.editAddress();
+
+        $scope.addressDialog = function(e) {
+            $mdDialog.show({
+                controller: function($scope, $mdDialog) {
+                    $scope.$storage = $localStorage;
+
+                    $scope.countries = countries;
+                    $scope.states = states;
+                    $scope.removeAddress = removeAddress;
+                    $scope.updateAddress = updateAddress;
+                    $scope.validateAddress = validateAddress;
+                    $scope.editAddress = editAddress;
+                    $scope.saveAddress = saveAddress;
+
+                    $scope.cancel = $mdDialog.cancel;
+                },
+                templateUrl: "views/address-dialog.html",
+                targetEvent: e
+            });
+        };
+
+        /*
+         * Payment Dialog
+         */
+        $scope.paymentDialog = function(e) {
+            $mdDialog.show({
+                controller: function($scope, $mdDialog) {
+                    $scope.clientToken = clientToken;
+                    $scope.cancel = $mdDialog.cancel;
+                    $scope.onSave = function() {
+                        var unwatch = user.$watch(function() {
+                            selectFirstPaymentToken();
+                            unwatch();
+                        });
+                        $mdDialog.cancel();
+                    };
+                },
+                templateUrl: "views/payment-method-dialog.html",
+                targetEvent: e
+            });
         };
 
         /*
@@ -496,8 +545,6 @@ angular.module('quiverCmsApp')
         /*
          * Checkout
          */
-        $scope.clientToken = clientToken;
-
         $scope.removePaymentMethod = function(token) {
             if (token === $scope.$storage.cart.paymentToken) {
                 $scope.$storage.cart.paymentToken = false;
@@ -514,17 +561,19 @@ angular.module('quiverCmsApp')
             });
         };
 
-        $scope.selectFirstPaymentToken = function() {
-            if (user.private.customer.creditCards && user.private.customer.creditCards.length) {
-                $scope.$storage.cart.paymentToken = user.private.customer.creditCards[0].token;
-            } else if (user.private.customer.paypalAccounts && user.private.customer.paypalAccounts.length) {
-                $scope.$storage.cart.paymentToken = user.private.customer.paypalAccounts[0].token;
-            } else if (user.private.customer.coinbaseAccounts && user.private.customer.coinbaseAccounts.length) {
-                $scope.$storage.cart.paymentToken = user.private.customer.coinbaseAccounts[0].token;
+        var selectFirstPaymentToken = function() {
+            if (user) {
+                if (user.private.customer.creditCards && user.private.customer.creditCards.length) {
+                    $scope.$storage.cart.paymentToken = user.private.customer.creditCards[0].token;
+                } else if (user.private.customer.paypalAccounts && user.private.customer.paypalAccounts.length) {
+                    $scope.$storage.cart.paymentToken = user.private.customer.paypalAccounts[0].token;
+                } else if (user.private.customer.coinbaseAccounts && user.private.customer.coinbaseAccounts.length) {
+                    $scope.$storage.cart.paymentToken = user.private.customer.coinbaseAccounts[0].token;
+                }
             }
-
         };
-
+        $scope.selectFirstPaymentToken = selectFirstPaymentToken;
+        selectFirstPaymentToken();
 
         $scope.checkout = function(cart) {
             $scope.checkingOut = true;

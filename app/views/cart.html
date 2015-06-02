@@ -1,134 +1,138 @@
-<div class="cards-spaced" layout="column">
-    <h3 class="headline">Items In Your Cart</h3>
-    <form name="cartForm">
-        <fieldset>
-            <md-whiteframe class="md-whiteframe-z1" layout>
-                <md-list flex ng-if="$storage.cart.items.length">
-                    <md-item ng-repeat="product in $storage.cart.items | orderBy:'title'">
-                        <md-item-content layout="row" layout-margin>
-                            <md-tile-left flex style="max-width: 10rem;">
-                                <a flex href="/product/{{ product.slug }}">
-                                    <img ng-if="product.featuredImage.Versions.small.Key" ng-src="{{ product.featuredImage.Versions.small.Key | s3Link:bucket }}" />
-                                </a>
-                            </md-tile-left>
-                            <md-tile-content flex layout="row" layout-align="end" layout-wrap>
-                                <div flex="100" layout="row" layout-align="start space-between">
-                                    <div flex>
-                                        <h4 class="headline uppercase margin-zero"><a href="/product/{{ product.slug }}" qv-to-static>{{ product.title }}</a></h4>
-                                        <strong ng-if="product.optionsMatrixSelected">{{ product.optionsMatrixSelected.name }}</strong>
+<div layout="row" layout-wrap>
+    <div class="padded-card" flex="100" layout="column">
+        <form name="cartForm">
+            <fieldset>
+                <md-whiteframe class="md-whiteframe-z1" layout layout-wrap>
+                    <h3 class="headline margin-horizontal-medium" flex="100">Items In Your Cart</h3>
+                    <md-list flex ng-if="$storage.cart.items.length">
+                        <md-item ng-repeat="product in $storage.cart.items | orderBy:'title'">
+                            <md-item-content layout="row" layout-margin>
+                                <md-tile-left flex style="max-width: 10rem;">
+                                    <a flex href="/product/{{ product.slug }}">
+                                        <img ng-if="product.featuredImage.Versions.small.Key" ng-src="{{ product.featuredImage.Versions.small.Key | s3Link:bucket }}" />
+                                    </a>
+                                </md-tile-left>
+                                <md-tile-content flex layout="row" layout-align="end" layout-wrap>
+                                    <div flex="100" layout="row" layout-align="start space-between">
+                                        <div flex>
+                                            <h4 class="headline uppercase margin-zero"><a href="/product/{{ product.slug }}" qv-to-static>{{ product.title }}</a></h4>
+                                            <strong ng-if="product.optionsMatrixSelected">{{ product.optionsMatrixSelected.name }}</strong>
+                                        </div>
+                                        <md-button class="md-raised md-warn md-icon-button" flex ng-click="removeFromCart(product)">
+                                            <i class="mdi-action-delete" aria-label="Remove from cart"></i>
+                                        </md-button>
                                     </div>
-                                    <md-button class="md-raised md-warn md-icon-button" flex ng-click="removeFromCart(product)">
-                                        <i class="mdi-action-delete" aria-label="Remove from cart"></i>
-                                    </md-button>
-                                </div>
-                                <!-- <div style="height: 2rem; overflow: auto;">
+                                    <!-- <div style="height: 2rem; overflow: auto;">
                   <div class="markdown" markdown-editable ng-model="product.description.excerpt">{{ product.description.excerpt }}</div>
                 </div> -->
-                                <div flex="100" flex-gt-sm="66" layout="row" layout-align="start center" layout-wrap layout-padding>
-                                    <div flex="25" flex-gt-sm="50">
-                                        <span>Quantity</span>
-                                        <span class="text-x-small" ng-if="product.optionsMatrixSelected.inventory">({{ product.optionsMatrixSelected.inventory }} available)</span>
+                                    <div class="max-30" flex layout="row" layout-align="start center" layout-wrap layout-padding>
+                                        <div flex="25" flex-gt-sm="50">
+                                            <span>Quantity</span>
+                                            <span class="text-x-small" ng-if="product.optionsMatrixSelected.inventory">({{ product.optionsMatrixSelected.inventory }} available)</span>
+                                        </div>
+                                        <div flex="75" flex-gt-sm="50" layout="row" layout-align="space-between center">
+                                            <md-button class="md-raised md-icon-button margin-horizontal-x-small" hide-sm flex ng-click="product.quantity = product.quantity + 1; updateCart();" ng-disabled="product.maxQuantity && product.quantity >= product.maxQuantity;">
+                                                <i class="mdi-image-exposure-plus-1" aria-label="Add to quantity"></i>
+                                            </md-button>
+                                            <md-button class="md-raised md-icon-button margin-horizontal-x-small" hide-sm flex ng-click="product.quantity = product.quantity - 1; updateCart();" ng-disabled="product.quantity < 1">
+                                                <i class="mdi-image-exposure-minus-1" aria-label="Remove from quantity"></i>
+                                            </md-button>
+                                            <md-input-container flex class="padding-zero">
+                                                <input id="product-{{$index}}" class="text-right" flex type="number" ng-model="product.quantity" min="1" max="{{ product.maxQuantity }}" ng-blur="updateCart()" qv-select-text="#product-{{$index}}" aria-label="Product quantity {{ product.title }}">
+                                            </md-input-container>
+                                        </div>
+                                        <span flex="50">Price</span>
+                                        <span flex="50" class="text-right padding-horizontal-small">{{ product.priceAdjusted || product.price | currency }}</span>
+                                        <span flex="50">Total</span>
+                                        <div flex="50" class="text-right padding-horizontal-small">
+                                            <strong>{{ (product.priceAdjusted || product.price) * product.quantity | currency }}</strong>
+                                        </div>
                                     </div>
-                                    <div flex="75" flex-gt-sm="50" layout="row" layout-align="space-between center">
-                                        <md-button class="md-raised md-icon-button margin-horizontal-x-small" hide-sm flex ng-click="product.quantity = product.quantity + 1; updateCart();" ng-disabled="product.maxQuantity && product.quantity >= product.maxQuantity;">
-                                            <i class="mdi-image-exposure-plus-1" aria-label="Add to quantity"></i>
-                                        </md-button>
-                                        <md-button class="md-raised md-icon-button margin-horizontal-x-small" hide-sm flex ng-click="product.quantity = product.quantity - 1; updateCart();" ng-disabled="product.quantity < 1">
-                                            <i class="mdi-image-exposure-minus-1" aria-label="Remove from quantity"></i>
-                                        </md-button>
-                                        <md-input-container flex class="padding-zero">
-                                            <input id="product-{{$index}}" class="text-right" flex type="number" ng-model="product.quantity" min="1" max="{{ product.maxQuantity }}" ng-blur="updateCart()" qv-select-text="#product-{{$index}}" placeholder="#" aria-label="Product quantity {{ product.title }}">
-                                        </md-input-container>
-                                    </div>
-                                    <span flex="50">Price</span>
-                                    <span flex="50" class="text-right padding-horizontal-small">{{ product.priceAdjusted || product.price | currency }}</span>
-                                    <span flex="50">Total</span>
-                                    <div flex="50" class="text-right padding-horizontal-small">
-                                        <strong>{{ (product.priceAdjusted || product.price) * product.quantity | currency }}</strong>
-                                    </div>
-                                </div>
-                            </md-tile-content>
-                        </md-item-content>
-                        <md-divider ng-if="!$last"></md-divider>
-                    </md-item>
-                </md-list>
-                <div class="text-center" flex layout="row" layout-align="center center" ng-if="!$storage.cart.items.length">
-                    <h3 class="Headline">Your cart is empty. <span class="text-medium">Add some <a href="/products" qv-to-static>products</a> to check out.</span></h3>
-                </div>
-            </md-whiteframe>
-        </fieldset>
-    </form>
-</div>
-<div class="column small-12">
-    <h3 class="headline">Calculate Shipping and Tax</h3>
-    <form name="checkoutForm" ng-show="$storage.cart.items.length">
-        <fieldset>
-            <md-whiteframe class="md-whiteframe-z1" layout>
-                <div layout="row" layout-padding layout-align="start start">
-                    <md-whiteframe class="md-whiteframe-z0 md-primary" flex layout="column" layout-align="center center" layout-padding layout-margin>
-                        <md-select id="address-country" flex="50" ng-model="$storage.address.country" ng-change="updateAddress()" placeholder="Select country...">
-                            <md-option value="{{ country['alpha-2'] }}" ng-repeat="country in countries">{{ country.name }}</md-option>
-                        </md-select>
-                        <md-select id="address-state" flex="50" ng-model="$storage.address.state" ng-change="updateAddress()" placeholder="Select state...">
-                            <md-option value="{{ state.abbreviation }}" ng-repeat="state in states">{{ state.name }}</md-option>
-                        </md-select>
-                    </md-whiteframe>
-                    <div flex layout="row" layout-align="space-between center" layout-padding layout-wrap>
-                        <div flex="100" layout="row" layout-align="space-between center" layout-wrap ng-repeat="code in $storage.cart.codes">
-                            <div flex="50">
-                                <span>{{ code.code }}</span>
-                                <md-button class="md-icon-button" ng-click="removeCode(code.code)" aria-label="Remove code {{ code.code }}">
-                                    <i class="mdi-action-delete"></i>
-                                </md-button>
-                            </div>
-                            <div class="text-right" flex>
-                                <span ng-show="code.type === 'value'">{{ code.value | currency }}</span>
-                                <span ng-show="code.type === 'percentage'">{{ code.percentage }}%</span>
-                            </div>
-                        </div>
-                        <span flex="50">Subtotal</span>
-                        <span class="text-right" flex>{{ $storage.cart.subtotal | currency }}</span>
-                        <span flex="50" ng-show="$storage.cart.codes.length">Discount</span>
-                        <span class="text-right" flex ng-show="$storage.cart.codes.length">{{ -1 * $storage.cart.discount | currency }}</span>
-                        <span flex="50" ng-show="$storage.cart.shipping">Shipping</span>
-                        <span flex="50" ng-show="!$storage.cart.shipping">Free Shipping</span>
-                        <div class="text-right" flex>
-                            <span ng-show="$storage.address.domestic || $storage.address.international">{{ $storage.cart.shipping | currency }}</span>
-                            <a class="text-x-small" qv-focus="#address-country" ng-hide="$storage.address.domestic || $storage.address.international">+ Address</a>
-                        </div>
-                        <span flex="50">Tax</span>
-                        <div class="text-right" flex>
-                            <span ng-show="$storage.address.tax !== false">{{ $storage.cart.tax | currency }}</span>
-                            <a class="text-x-small" qv-focus="#address-country" ng-show="$storage.address.tax === false">+ Address</a>
-                        </div>
-                        <md-divider flex="100"></md-divider>
-                        <span flex="50">Total</span>
-                        <span class="text-right" flex><strong>{{ $storage.cart.total | currency }}</strong></span>
-                        <div class="padding-zero-important" flex="50">
-                            <md-input-container class="padding-zero-important" ng-show="addingCode" style="margin-bottom: -1px;">
-                                <label for="discount-code">Discount or gift code</label>
-                                <input id="discount-code" class="" type="text" ng-model="discountCode" placeholder="Discount or gift code...">
-                            </md-input-container>
-                        </div>
-                        <div class="padding-zero-important text-right" flex style="padding-top: 17px !important; padding-bottom: 0 !important;">
-                            <md-button ng-click="addingCode = true" ng-hide="addingCode" aria-label="Open add code field">Add Code</md-button>
-                            <md-button class="md-icon-button" ng-click="addingCode = false" ng-show="addingCode" aria-label="Close add code field">X</md-button>
-                            <md-button class="md-primary md-raised" ng-click="addCode(discountCode)" ng-show="addingCode" aria-label="Add code">Add Code</md-button>
-                        </div>
+                                </md-tile-content>
+                            </md-item-content>
+                            <md-divider ng-if="!$last"></md-divider>
+                        </md-item>
+                    </md-list>
+                    <div class="text-center" flex layout="row" layout-align="center center" ng-if="!$storage.cart.items.length">
+                        <h3 class="Headline">Your cart is empty. <span class="text-medium">Add some <a href="/products" qv-to-static>products</a> to check out.</span></h3>
                     </div>
+                </md-whiteframe>
+            </fieldset>
+        </form>
+    </div>
+    <div class="padded-card" flex="100" flex-gt-sm="50">
+        <form name="checkoutForm" ng-show="$storage.cart.items.length">
+            <fieldset>
+                <md-whiteframe class="md-whiteframe-z1" layout layout-padding layout-wrap>
+                    <h3 class="headline" flex="100">Calculate Shipping and Tax</h3>
+                    <md-select id="address-country" flex="50" ng-model="$storage.address.country" ng-change="updateAddress()" placeholder="Select country...">
+                        <md-option value="{{ country['alpha-2'] }}" ng-repeat="country in countries">{{ country.name }}</md-option>
+                    </md-select>
+                    <md-select id="address-state" flex="50" ng-model="$storage.address.state" ng-change="updateAddress()" placeholder="Select state..." ng-if="$storage.address.country === 'US'">
+                        <md-option value="{{ state.abbreviation }}" ng-repeat="state in states">{{ state.name }}</md-option>
+                    </md-select>
+                </md-whiteframe>
+                <md-whiteframe class="md-whiteframe-z0" layout="row" layout-padding layout-wrap>
+                    <span flex></span>
+                </md-whiteframe>
+            </fieldset>
+        </form>
+    </div>
+    <div class="padded-card" flex="100" flex-gt-sm="50">
+        <md-whiteframe class="md-whiteframe-z1 relative" layout="row" layout-padding layout-wrap>
+            <h3 class="headline" flex="100">Totals</h3>
+            <div flex="100" layout="row" layout-align="space-between center" layout-wrap ng-repeat="code in $storage.cart.codes">
+                <div flex="50">
+                    <span>{{ code.code }}</span>
+                    <md-button class="md-icon-button" ng-click="removeCode(code.code)" aria-label="Remove code {{ code.code }}">
+                        <i class="mdi-action-delete"></i>
+                    </md-button>
                 </div>
-            </md-whiteframe>
-            <md-whiteframe class="md-whiteframe-z0" layout="row" layout-padding layout-wrap>
-                <span flex></span>
-                <div class="max-7" flex>
-                    <md-progress-circular class="invisible" md-mode="indeterminate" qv-loading target=".checkout-button"></md-progress-circular>
+                <div class="text-right" flex>
+                    <span ng-show="code.type === 'value'">{{ code.value | currency }}</span>
+                    <span ng-show="code.type === 'percentage'">{{ code.percentage }}%</span>
                 </div>
-                <md-button flex class="checkout-button md-raised md-primary" ui-sref="authenticated.master.nav.checkout" ng-disabled="checkingOut">
+            </div>
+            <span flex="50">Subtotal</span>
+            <span class="text-right" flex>{{ $storage.cart.subtotal | currency }}</span>
+            <span flex="50" ng-show="$storage.cart.codes.length">Discount</span>
+            <span class="text-right" flex ng-show="$storage.cart.codes.length">{{ -1 * $storage.cart.discount | currency }}</span>
+            <span flex="50" ng-show="$storage.cart.shipping">Shipping</span>
+            <span flex="50" ng-show="!$storage.cart.shipping">Free Shipping</span>
+            <div class="text-right" flex>
+                <span ng-show="$storage.address.domestic || $storage.address.international">{{ $storage.cart.shipping | currency }}</span>
+                <a class="text-x-small" qv-focus="#address-country" ng-hide="$storage.address.domestic || $storage.address.international">+ Address</a>
+            </div>
+            <span flex="50">Tax</span>
+            <div class="text-right" flex>
+                <span ng-show="$storage.address.tax !== false">{{ $storage.cart.tax | currency }}</span>
+                <a class="text-x-small" qv-focus="#address-country" ng-show="$storage.address.tax === false">+ Address</a>
+            </div>
+            <md-divider flex="100"></md-divider>
+            <span flex="50">Total</span>
+            <span class="text-right" flex><strong>{{ $storage.cart.total | currency }}</strong></span>
+            <div class="padding-zero-important" flex="50">
+                <md-input-container class="padding-zero-important" ng-show="addingCode" style="margin-bottom: -1px;">
+                    <label for="discount-code">Discount or gift code</label>
+                    <input id="discount-code" class="" type="text" ng-model="discountCode" placeholder="Discount or gift code...">
+                </md-input-container>
+            </div>
+            <div class="padding-zero-important text-right" flex style="padding-top: 17px !important; padding-bottom: 0 !important;">
+                <md-button ng-click="addingCode = true" ng-hide="addingCode" aria-label="Open add code field">Add Code</md-button>
+                <md-button class="md-icon-button" ng-click="addingCode = false" ng-show="addingCode" aria-label="Close add code field">X</md-button>
+                <md-button class="md-primary md-raised" ng-click="addCode(discountCode)" ng-show="addingCode" aria-label="Add code">Add Code</md-button>
+            </div>
+            <span flex="100"></span>
+            <div flex>
+                <md-button class="md-accent md-raised checkout-button min-16 max-16" ng-click="goToCheckout()" ng-disabled="checkingOut">
                     <span ng-show="!user">Log in or register</span>
                     <span ng-show="user">To Check Out</span>
                     <i class="mdi-navigation-arrow-forward" style="position: relative; margin-top: 1px;"></i>
                 </md-button>
-            </md-whiteframe>
-        </fieldset>
-    </form>
+            </div>
+            <div class="absolute cornered background-highlight9" layout="column" layout-align="center center" ng-if="checkingOut">
+                <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+            </div>
+        </md-whiteframe>
+    </div>
 </div>

@@ -4600,6 +4600,11 @@ a.md-icon-button {
   margin: .5rem 0;
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Dropbox\/Development\/quiver-cms\/app\/styles\/material\/_cards\.scss}line{font-family:\000037}}
+.padded-card {
+  padding: .25rem .5rem;
+}
+
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Dropbox\/Development\/quiver-cms\/app\/styles\/material\/_dialog\.scss}line{font-family:\000031}}
 .md-dialog-container {
   height: 100vh;
@@ -4725,154 +4730,169 @@ iframe {
   display: inline;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Dropbox\/Development\/quiver-cms\/app\/styles\/material\/_layout\.scss}line{font-family:\0000389}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Dropbox\/Development\/quiver-cms\/app\/styles\/material\/_layout\.scss}line{font-family:\0000388}}
 .vh-100 {
   height: 100vh;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Dropbox\/Development\/quiver-cms\/app\/styles\/material\/_layout\.scss}line{font-family:\0000393}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Dropbox\/Development\/quiver-cms\/app\/styles\/material\/_layout\.scss}line{font-family:\0000392}}
 .vh-90 {
   height: 90vh;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Dropbox\/Development\/quiver-cms\/app\/styles\/material\/_layout\.scss}line{font-family:\0000398}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Dropbox\/Development\/quiver-cms\/app\/styles\/material\/_layout\.scss}line{font-family:\0000396}}
+.width-100 {
+  width: 100%;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Dropbox\/Development\/quiver-cms\/app\/styles\/material\/_layout\.scss}line{font-family:\00003101}}
 .min-2 {
   min-width: 2rem;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Dropbox\/Development\/quiver-cms\/app\/styles\/material\/_layout\.scss}line{font-family:\00003102}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Dropbox\/Development\/quiver-cms\/app\/styles\/material\/_layout\.scss}line{font-family:\00003105}}
 .min-3 {
   min-width: 3rem;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Dropbox\/Development\/quiver-cms\/app\/styles\/material\/_layout\.scss}line{font-family:\00003106}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Dropbox\/Development\/quiver-cms\/app\/styles\/material\/_layout\.scss}line{font-family:\00003109}}
 .min-4 {
   min-width: 4rem;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Dropbox\/Development\/quiver-cms\/app\/styles\/material\/_layout\.scss}line{font-family:\00003110}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Dropbox\/Development\/quiver-cms\/app\/styles\/material\/_layout\.scss}line{font-family:\00003113}}
 .min-5 {
   min-width: 5rem;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Dropbox\/Development\/quiver-cms\/app\/styles\/material\/_layout\.scss}line{font-family:\00003114}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Dropbox\/Development\/quiver-cms\/app\/styles\/material\/_layout\.scss}line{font-family:\00003117}}
 .min-7 {
   min-width: 7rem;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Dropbox\/Development\/quiver-cms\/app\/styles\/material\/_layout\.scss}line{font-family:\00003118}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Dropbox\/Development\/quiver-cms\/app\/styles\/material\/_layout\.scss}line{font-family:\00003121}}
 .min-10 {
   min-width: 10rem;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Dropbox\/Development\/quiver-cms\/app\/styles\/material\/_layout\.scss}line{font-family:\00003122}}
-.min.min-12 {
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Dropbox\/Development\/quiver-cms\/app\/styles\/material\/_layout\.scss}line{font-family:\00003125}}
+.min-12 {
   min-width: 12rem;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Dropbox\/Development\/quiver-cms\/app\/styles\/material\/_layout\.scss}line{font-family:\00003126}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Dropbox\/Development\/quiver-cms\/app\/styles\/material\/_layout\.scss}line{font-family:\00003129}}
 .min-14 {
   min-width: 14rem;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Dropbox\/Development\/quiver-cms\/app\/styles\/material\/_layout\.scss}line{font-family:\00003130}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Dropbox\/Development\/quiver-cms\/app\/styles\/material\/_layout\.scss}line{font-family:\00003133}}
 .min-16 {
   min-width: 16rem;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Dropbox\/Development\/quiver-cms\/app\/styles\/material\/_layout\.scss}line{font-family:\00003134}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Dropbox\/Development\/quiver-cms\/app\/styles\/material\/_layout\.scss}line{font-family:\00003137}}
 .min-18 {
   min-width: 18rem;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Dropbox\/Development\/quiver-cms\/app\/styles\/material\/_layout\.scss}line{font-family:\00003138}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Dropbox\/Development\/quiver-cms\/app\/styles\/material\/_layout\.scss}line{font-family:\00003141}}
 .min-20 {
   min-width: 20rem;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Dropbox\/Development\/quiver-cms\/app\/styles\/material\/_layout\.scss}line{font-family:\00003142}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Dropbox\/Development\/quiver-cms\/app\/styles\/material\/_layout\.scss}line{font-family:\00003145}}
 .min-22 {
   min-width: 22rem;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Dropbox\/Development\/quiver-cms\/app\/styles\/material\/_layout\.scss}line{font-family:\00003146}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Dropbox\/Development\/quiver-cms\/app\/styles\/material\/_layout\.scss}line{font-family:\00003149}}
 .min-30 {
   min-width: 30rem;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Dropbox\/Development\/quiver-cms\/app\/styles\/material\/_layout\.scss}line{font-family:\00003150}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Dropbox\/Development\/quiver-cms\/app\/styles\/material\/_layout\.scss}line{font-family:\00003153}}
 .min-33 {
   min-width: 33rem;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Dropbox\/Development\/quiver-cms\/app\/styles\/material\/_layout\.scss}line{font-family:\00003155}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Dropbox\/Development\/quiver-cms\/app\/styles\/material\/_layout\.scss}line{font-family:\00003157}}
+.min-40 {
+  min-width: 40rem;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Dropbox\/Development\/quiver-cms\/app\/styles\/material\/_layout\.scss}line{font-family:\00003162}}
 .max-2 {
   max-width: 2rem;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Dropbox\/Development\/quiver-cms\/app\/styles\/material\/_layout\.scss}line{font-family:\00003159}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Dropbox\/Development\/quiver-cms\/app\/styles\/material\/_layout\.scss}line{font-family:\00003166}}
 .max-3 {
   max-width: 3rem;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Dropbox\/Development\/quiver-cms\/app\/styles\/material\/_layout\.scss}line{font-family:\00003163}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Dropbox\/Development\/quiver-cms\/app\/styles\/material\/_layout\.scss}line{font-family:\00003170}}
 .max-4 {
   max-width: 4rem;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Dropbox\/Development\/quiver-cms\/app\/styles\/material\/_layout\.scss}line{font-family:\00003167}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Dropbox\/Development\/quiver-cms\/app\/styles\/material\/_layout\.scss}line{font-family:\00003174}}
 .max-5 {
   max-width: 5rem;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Dropbox\/Development\/quiver-cms\/app\/styles\/material\/_layout\.scss}line{font-family:\00003171}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Dropbox\/Development\/quiver-cms\/app\/styles\/material\/_layout\.scss}line{font-family:\00003178}}
 .max-7 {
   max-width: 7rem;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Dropbox\/Development\/quiver-cms\/app\/styles\/material\/_layout\.scss}line{font-family:\00003175}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Dropbox\/Development\/quiver-cms\/app\/styles\/material\/_layout\.scss}line{font-family:\00003182}}
 .max-10 {
   max-width: 10rem;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Dropbox\/Development\/quiver-cms\/app\/styles\/material\/_layout\.scss}line{font-family:\00003179}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Dropbox\/Development\/quiver-cms\/app\/styles\/material\/_layout\.scss}line{font-family:\00003186}}
 .max-12 {
   max-width: 12rem;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Dropbox\/Development\/quiver-cms\/app\/styles\/material\/_layout\.scss}line{font-family:\00003183}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Dropbox\/Development\/quiver-cms\/app\/styles\/material\/_layout\.scss}line{font-family:\00003190}}
 .max-14 {
   max-width: 14rem;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Dropbox\/Development\/quiver-cms\/app\/styles\/material\/_layout\.scss}line{font-family:\00003187}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Dropbox\/Development\/quiver-cms\/app\/styles\/material\/_layout\.scss}line{font-family:\00003194}}
 .max-16 {
   max-width: 16rem;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Dropbox\/Development\/quiver-cms\/app\/styles\/material\/_layout\.scss}line{font-family:\00003191}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Dropbox\/Development\/quiver-cms\/app\/styles\/material\/_layout\.scss}line{font-family:\00003198}}
 .max-18 {
   max-width: 18rem;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Dropbox\/Development\/quiver-cms\/app\/styles\/material\/_layout\.scss}line{font-family:\00003195}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Dropbox\/Development\/quiver-cms\/app\/styles\/material\/_layout\.scss}line{font-family:\00003202}}
 .max-20 {
   max-width: 20rem;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Dropbox\/Development\/quiver-cms\/app\/styles\/material\/_layout\.scss}line{font-family:\00003199}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Dropbox\/Development\/quiver-cms\/app\/styles\/material\/_layout\.scss}line{font-family:\00003206}}
 .max-22 {
   max-width: 22rem;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Dropbox\/Development\/quiver-cms\/app\/styles\/material\/_layout\.scss}line{font-family:\00003203}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Dropbox\/Development\/quiver-cms\/app\/styles\/material\/_layout\.scss}line{font-family:\00003210}}
 .max-30 {
   max-width: 30rem;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Dropbox\/Development\/quiver-cms\/app\/styles\/material\/_layout\.scss}line{font-family:\00003207}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Dropbox\/Development\/quiver-cms\/app\/styles\/material\/_layout\.scss}line{font-family:\00003214}}
 .max-33 {
   max-width: 33rem;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Dropbox\/Development\/quiver-cms\/app\/styles\/material\/_layout\.scss}line{font-family:\00003218}}
+.max-40 {
+  max-width: 40rem;
 }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Dropbox\/Development\/quiver-cms\/app\/styles\/material\/_list\.scss}line{font-family:\000031}}
