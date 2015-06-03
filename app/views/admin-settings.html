@@ -1,127 +1,244 @@
-<section>
-    <h3 class="headline">Admin Settings</h3>
-    <md-whiteframe class="md-whiteframe-z1" layout="row" layout-align="start start" layout-padding layout-wrap>
-        <md-input-container flex="100">
-            <label for="braintree-root">Braintree Root Url</label>
-            <input id="braintree-root" type="text" ng-model="adminSettings.braintreeRoot" placeholder="https://braintreegateway.com/merchants/YOURMERCHANTID">
-        </md-input-container>
-    </md-whiteframe>
-</section>
-<section>
-    <h3 class="headline">Site Settings</h3>
-    <form name="themeForm">
-        <fieldset>
-            <md-whiteframe class="md-whiteframe-z1" layout="row" layout-padding layout-wrap>
-                <div class="md-select-wrapper" flex="33" flex-sm="100">
-                    <md-select ng-model="theme.active" placeholder="Theme">
-                        <md-option ng-value="key" ng-repeat="(key, value) in theme.options">{{ value }}</md-option>
-                    </md-select>
-                </div>
-                <div class="md-select-wrapper" flex="33" flex-sm="100">
-                    <md-select ng-model="theme.frontPage" placeholder="Front Page Template">
-                        <md-option value="">Default Template</md-option>
-                        <md-option ng-value="alternate.filename" ng-repeat="(key, alternate) in theme.alternates">{{ alternate.name }}</md-option>
-                        <md-option ng-value="page.slug" ng-repeat="page in landingPages">{{ page.title }}</md-option>
-                    </md-select>
-                </div>
-                <span class="padding-zero-important" flex="100"></span>
-                <md-input-container flex="33" flex-sm="100">
-                    <label for="site-title">Site Title</label>
-                    <input id="site-title" type="text" ng-model="settings.siteTitle" ng-model-options="{debounce: {'default': 500, 'blur': 0}}" placeholder="Site title..." />
-                </md-input-container>
-                <md-input-container flex="33" flex-sm="100">
-                    <label for="front-page-image">Front Page Image</label>
-                    <input id="front-page-image" type="text" ng-model="settings.frontPageImage" ng-model-options="{debounce: {'default': 500, 'blur': 0}}" placeholder="https://..." />
-                </md-input-container>
-                <md-input-container flex="33" flex-sm="100">
-                    <label for="front-page-image">Front Page Image</label>
-                    <input id="front-page-image" type="text" ng-model="settings.frontPageImage" ng-model-options="{debounce: {'default': 500, 'blur': 0}}" placeholder="https://..." />
-                </md-input-container>
-                <md-input-container flex="33" flex-sm="100">
-                    <label for="primary-post-count">Primary Post Count</label>
-                    <input id="primary-post-count" type="number" ng-model="settings.primaryPostCount" />
-                </md-input-container>
-                <md-input-container flex="33" flex-sm="100">
-                    <label for="secondary-post-count">Secondary Post Count</label>
-                    <input id="secondary-post-count" type="number" ng-model="settings.secondaryPostCount" />
-                </md-input-container>
-                <md-input-container flex="33" flex-sm="100">
-                    <label for="tertiary-post-count">Tertiary Post Count</label>
-                    <input id="tertiary-post-count" type="number" ng-model="settings.tertiaryPostCount" />
-                </md-input-container>
-            </md-whiteframe>
-        </fieldset>
-    </form>
-</section>
-<section>
-    <h3 class="headline">Nav Links</h3>
-    <form name="settingsForm">
-        <fieldset>
-            <md-whiteframe class="md-whiteframe-z1" layout="row" layout-padding layout-wrap>
-                <md-list flex>
-                    <md-item ng-repeat="nav in navList">
-                        <md-item-content layout="row" layout-align="space-between center" layout-padding layout-wrap>
-                            <form flex="100" layout="row" layout-align="space-between center" layout-padding layout-wrap>
-                                <md-input-container flex="100">
-                                    <label for="{{ nav.slug }}-link-text">{{ nav.name }} Links</label>
-                                    <input id="{{ nav.slug }}-title" type="text" ng-model="settings[nav.slug + 'Title']" />
-                                    <!-- <input id="{{ nav.slug }}-title" type="text" ng-model="navTitle" ng-blur="setNavTitle(nav.slug, navTitle); navTitle = null;" /> -->
-                                </md-input-container>
-                                <!-- <span class="title-contenteditable" flex ng-show="settings[nav.slug + 'Title']" ng-model="settings[nav.slug + 'Title']" contenteditable="true">{{ settings[nav.slug + 'Title'] }}</span> -->
-                                <md-input-container flex>
-                                    <label for="link-text-{{ $index }}">Link Text</label>
-                                    <input id="link-text-{{ $index }}" type="text" ng-model="navNew.text" required>
-                                </md-input-container>
-                                <md-input-container flex>
-                                    <label for="link-href-{{ $index }}">Link Href</label>
-                                    <input id="link-href-{{ $index }}" type="text" ng-model="navNew.href" required>
-                                </md-input-container>
-                                <md-button class="md-primary md-raised md-icon-button" flex ng-click="addNavLink(nav.slug, navNew); navNew = {};" qv-focus="#{{ nav.slug }}-link-text" ng-disabled="!navNew.text || !navNew.href" aria-label="Add link">
-                                    <i class="mdi-content-add-box"></i>
-                                </md-button>
-                            </form>
-                            <div flex="100" ng-if="settings[nav.slug].length">
-                                <md-chips flex ng-model="settings[nav.slug]" md-on-append="cleanNavArray(settings[nav.slug])">
-                                    <md-chip-template>
-                                        <strong>{{ $chip.text }}: {{ $chip.href }}</strong>
-                                    </md-chip-template>
-                                </md-chips>
-                            </div>
-                        </md-item-content>
-                        <md-divider ng-if="!$last"></md-divider>
-                    </md-item>
-                </md-list>
-            </md-whiteframe>
-        </fieldset>
-    </form>
-</section>
-<section>
-    <h3 class="headline">Email Settings</h3>
-    <form name="emailCronForm">
-        <fieldset>
-            <md-whiteframe class="md-whiteframe-z1" layout="row" layout-padding layout-wrap>
-                <p flex>
-                    <a href="https://github.com/ncb000gt/node-cron" target="_blank">See docs</a>:
-                    <span>(seconds minutes hours days months weekdays) 0-59 0-59 0-23 1-31 0-11 0-6</span>
-                </p>
-                <md-input-container flex="100">
-                    <label for="cron">Cron Pattern: S M H D M Weekday / 0-59 0-59 0-23 1-31 0-11 0-6</label>
-                    <input id="cron" type="text" ng-model="settings.crons.feedbackEmail" ng-model-options="{'updateOn': 'blur'}">
-                </md-input-container>
-            </md-whiteframe>
-        </fieldset>
-    </form>
-</section>
-<section>
-    <h3 class="headline">Survey Settings</h3>
-    <form name="surveyForm">
-        <fieldset>
-            <md-whiteframe class="md-whiteframe-z1" layout="row" layout-padding layout-wrap>
-                <md-input-container flex="100">
-                    <label for="survey-interval">Survey Interval in Days</label>
-                    <input id="survey-interval" type="number" ng-model="settings.surveyInterval" ng-model-options="{'updateOn': 'blur'}">
-                </md-input-container>
-            </md-whiteframe>
-        </fieldset>
-    </form>
-</section>
+<div layout="row" layout-wrap>
+    <section class="padded-card" flex="100">
+        <md-whiteframe class="md-whiteframe-z1" layout="row" layout-align="start start" layout-padding layout-wrap>
+            <h3 class="headline" flex="100">Admin Settings</h3>
+            <md-input-container flex="100">
+                <label for="braintree-root">Braintree Root Url</label>
+                <input id="braintree-root" type="text" ng-model="adminSettings.braintreeRoot" placeholder="https://braintreegateway.com/merchants/YOURMERCHANTID">
+            </md-input-container>
+        </md-whiteframe>
+    </section>
+    <section class="padded-card" flex="100">
+        <form name="themeForm">
+            <fieldset>
+                <md-whiteframe class="md-whiteframe-z1" layout="row" layout-padding layout-wrap>
+                    <h3 class="headline" flex="100">Site Settings</h3>
+                    <div class="md-select-wrapper" flex="33" flex-sm="100">
+                        <md-select ng-model="theme.active" placeholder="Theme">
+                            <md-option ng-value="key" ng-repeat="(key, value) in theme.options">{{ value }}</md-option>
+                        </md-select>
+                    </div>
+                    <div class="md-select-wrapper" flex="33" flex-sm="100">
+                        <md-select ng-model="theme.frontPage" placeholder="Front Page Template">
+                            <md-option value="">Default Template</md-option>
+                            <md-option ng-value="alternate.filename" ng-repeat="(key, alternate) in theme.alternates">{{ alternate.name }}</md-option>
+                            <md-option ng-value="page.slug" ng-repeat="page in landingPages">{{ page.title }}</md-option>
+                        </md-select>
+                    </div>
+                    <span class="padding-zero-important" flex="100"></span>
+                    <md-input-container flex="33" flex-sm="100">
+                        <label for="site-title">Site Title</label>
+                        <input id="site-title" type="text" ng-model="settings.siteTitle" ng-model-options="{debounce: {'default': 500, 'blur': 0}}" placeholder="Site title..." />
+                    </md-input-container>
+                    <md-input-container flex="33" flex-sm="100">
+                        <label for="logo">Logo</label>
+                        <input id="logo" type="text" ng-model="settings.logo" ng-model-options="{debounce: {'default': 500, 'blur': 0}}" />
+                    </md-input-container>
+                    <md-input-container flex="33" flex-sm="100">
+                        <label for="logo">Logo Inline Styles</label>
+                        <input id="logo" type="text" ng-model="settings.logoStyle" ng-model-options="{debounce: {'default': 500, 'blur': 0}}">
+                    </md-input-container>
+                    <md-input-container flex="33" flex-sm="100">
+                        <label for="front-page-image">Front Page Image</label>
+                        <input id="front-page-image" type="text" ng-model="settings.frontPageImage" ng-model-options="{debounce: {'default': 500, 'blur': 0}}" />
+                    </md-input-container>
+                    <md-input-container flex="33" flex-sm="100">
+                        <label for="primary-post-count">Primary Post Count</label>
+                        <input id="primary-post-count" type="number" ng-model="settings.primaryPostCount" />
+                    </md-input-container>
+                    <md-input-container flex="33" flex-sm="100">
+                        <label for="secondary-post-count">Secondary Post Count</label>
+                        <input id="secondary-post-count" type="number" ng-model="settings.secondaryPostCount" />
+                    </md-input-container>
+                    <md-input-container flex="33" flex-sm="100">
+                        <label for="tertiary-post-count">Tertiary Post Count</label>
+                        <input id="tertiary-post-count" type="number" ng-model="settings.tertiaryPostCount" />
+                    </md-input-container>
+                </md-whiteframe>
+            </fieldset>
+        </form>
+    </section>
+    <section class="padded-card" flex="100">
+        <form name="themeColorsForm">
+            <fieldset>
+                <md-whiteframe class="md-whiteframe-z1" layout="row" layout-padding layout-wrap>
+                    <h3 class="headline" flex="100">Theme Colors</h3>
+                    <div flex="100">
+                        <md-button class="md-primary md-raised max-10" ng-click="loadTheme()">
+                            Load Theme
+                        </md-button>
+                    </div>
+                    <span flex="100"></span>
+                    <div class="md-select-wrapper" flex="25" flex-sm="100">
+                        <md-select ng-model="theme.palette.primary" placeholder="Primary Palette">
+                            <md-option ng-value="palette" ng-repeat="palette in palettes">{{ palette }}</md-option>
+                        </md-select>
+                    </div>
+                    <div class="md-select-wrapper" flex="25" flex-sm="100">
+                        <md-select ng-model="theme.palette.accent" placeholder="Accent Palette">
+                            <md-option ng-value="palette" ng-repeat="palette in palettes">{{ palette }}</md-option>
+                        </md-select>
+                    </div>
+                    <div flex="25" flex-sm="100">
+                        <md-checkbox ng-model="theme.palette.dark">
+                            Dark Palette
+                        </md-checkbox>
+                    </div>
+                    <span flex="100"></span>
+                    
+                </md-whiteframe>
+            </fieldset>
+        </form>
+    </section>
+    <section class="padded-card" flex="100">
+        <form name="themePrimaryOverridesForm">
+            <fieldset>
+                <md-whiteframe class="md-whiteframe-z1" layout="row" layout-padding layout-wrap>
+                    <h3 class="headline" flex="100">Primary Palette Overrides</h3>
+                    <div class="md-select-wrapper" flex flex-sm="100" ng-repeat="hue in paletteHues">
+                        <md-select ng-model="theme.palette.overrides.primary[hue]" placeholder="{{ hue }}">
+                            <md-option ng-value="key" ng-repeat="key in paletteKeys">{{ key }}</md-option>
+                        </md-select>
+                        <md-button class="md-warn md-icon-button" ng-click="deleteOverride('primary', hue)" ng-disabled="!theme.palette.overrides.primary[hue]">
+                            <i class="mdi-action-delete"></i>
+                        </md-button>
+                    </div>
+                    <span flex="100"></span>
+                    <div flex="25" flex-sm="100">
+                        <h4 class="headline">Hex Values</h4>
+                        <md-input-container flex="100" ng-repeat="key in paletteKeys">
+                            <label for="primary-override-{{ key }}">{{ key }}</label>
+                            <input id="primary-override-{{ key }}" ng-model="theme.palette.overrides.primary[key]" type="text">
+                        </md-input-container>
+                    </div>
+                    <div flex="25" flex-sm="100">
+                        <h4 class="headline">Contrast Dark Colors</h4>
+                        <md-checkbox ng-model="theme.palette.overrides.primary.contrastDarkColors[key]" ng-repeat="key in paletteKeys">
+                            {{ key }} Contrast Dark
+                        </md-checkbox>
+                    </div>
+                    <div flex="25" flex-sm="100">
+                        <h4 class="headline">Contrast Light Colors</h4>
+                        <md-checkbox ng-model="theme.palette.overrides.primary.contrastLightColors[key]" ng-repeat="key in paletteKeys">
+                            {{ key }} Contrast Light
+                        </md-checkbox>
+                    </div>
+                    <div flex="25" flex-sm="100">
+                        <h4 class="headline">Contrast Default Color</h4>
+                        <md-radio-group ng-model="theme.palette.overrides.primary.contrastDefaultColor">
+                            <md-radio-button value="light">Light</md-radio-button>
+                            <md-radio-button value="dark">Dark</md-radio-button>
+                        </md-radio-group>
+                    </div>
+                </md-whiteframe>
+            </fieldset>
+        </form>
+    </section>
+    <section class="padded-card" flex="100">
+        <form name="themeSecondaryOverridesForm">
+            <fieldset>
+                <md-whiteframe class="md-whiteframe-z1" layout="row" layout-padding layout-wrap>
+                    <h3 class="headline" flex="100">Accent Palette Overrides</h3>
+                    <div class="md-select-wrapper" flex flex-sm="100" ng-repeat="hue in paletteHues">
+                        <md-select ng-model="theme.palette.overrides.accent[hue]" placeholder="{{ hue }}">
+                            <md-option ng-value="key" ng-repeat="key in paletteKeys">{{ key }}</md-option>
+                        </md-select>
+                        <md-button class="md-warn md-icon-button" ng-click="deleteOverride('accent', hue)" ng-disabled="!theme.palette.overrides.accent[hue]">
+                            <i class="mdi-action-delete"></i>
+                        </md-button>
+                    </div>
+                    <span flex="100"></span>
+                    <div flex="25" flex-sm="100">
+                        <h4 class="headline">Hex Values</h4>
+                        <md-input-container flex="100" ng-repeat="key in paletteKeys">
+                            <label for="secondary-override-{{ key }}">{{ key }}</label>
+                            <input id="secondary-override-{{ key }}" ng-model="theme.palette.overrides.accent[key]" type="text">
+                        </md-input-container>
+                    </div>
+                    <div flex="25" flex-sm="100">
+                        <h4 class="headline">Contrast Dark Colors</h4>
+                        <md-checkbox ng-model="theme.palette.overrides.accent.contrastDarkColors[key]" ng-repeat="key in paletteKeys">
+                            {{ key }} Contrast Dark
+                        </md-checkbox>
+                    </div>
+                    <div flex="25" flex-sm="100">
+                        <h4 class="headline">Contrast Light Colors</h4>
+                        <md-checkbox ng-model="theme.palette.overrides.accent.contrastLightColors[key]" ng-repeat="key in paletteKeys">
+                            {{ key }} Contrast Light
+                        </md-checkbox>
+                    </div>
+                    <div flex="25" flex-sm="100">
+                        <h4 class="headline">Contrast Default Color</h4>
+                        <md-radio-group ng-model="theme.palette.overrides.accent.contrastDefaultColor">
+                            <md-radio-button value="light">Light</md-radio-button>
+                            <md-radio-button value="dark">Dark</md-radio-button>
+                        </md-radio-group>
+                    </div>
+                </md-whiteframe>
+            </fieldset>
+        </form>
+    </section>
+    <section class="padded-card" flex="100" flex-sm="100" ng-repeat="nav in navList">
+        <form name="settingsForm">
+            <fieldset>
+                <md-whiteframe class="md-whiteframe-z1" layout="row" layout-align="space-between center" layout-padding layout-wrap>
+                    <h3 class="headline" flex="100">{{ nav.name }} Links</h3>
+                    <md-input-container flex="100">
+                        <label for="{{ nav.slug }}-link-text">Header Text</label>
+                        <input id="{{ nav.slug }}-title" type="text" ng-model="settings[nav.slug + 'Title']" />
+                        <!-- <input id="{{ nav.slug }}-title" type="text" ng-model="navTitle" ng-blur="setNavTitle(nav.slug, navTitle); navTitle = null;" /> -->
+                    </md-input-container>
+                    <!-- <span class="title-contenteditable" flex ng-show="settings[nav.slug + 'Title']" ng-model="settings[nav.slug + 'Title']" contenteditable="true">{{ settings[nav.slug + 'Title'] }}</span> -->
+                    <md-input-container flex>
+                        <label for="link-text-{{ $index }}">Link Text</label>
+                        <input id="link-text-{{ $index }}" type="text" ng-model="navNew.text" required>
+                    </md-input-container>
+                    <md-input-container flex>
+                        <label for="link-href-{{ $index }}">Link Href</label>
+                        <input id="link-href-{{ $index }}" type="text" ng-model="navNew.href" required>
+                    </md-input-container>
+                    <md-button class="md-primary md-raised md-icon-button" flex ng-click="addNavLink(nav.slug, navNew); navNew = {};" qv-focus="#{{ nav.slug }}-link-text" ng-disabled="!navNew.text || !navNew.href" aria-label="Add link">
+                        <i class="mdi-content-add-box"></i>
+                    </md-button>
+                    <div flex="100" ng-if="settings[nav.slug].length">
+                        <md-chips flex ng-model="settings[nav.slug]" md-on-append="cleanNavArray(settings[nav.slug])">
+                            <md-chip-template>
+                                <strong>{{ $chip.text }}: {{ $chip.href }}</strong>
+                            </md-chip-template>
+                        </md-chips>
+                    </div>
+                </md-whiteframe>
+            </fieldset>
+        </form>
+    </section>
+    <section class="padded-card" flex="50" flex-sm="100">
+        <form name="emailCronForm">
+            <fieldset>
+                <md-whiteframe class="md-whiteframe-z1" layout="row" layout-padding layout-wrap>
+                    <h3 class="headline" flex="100">Email Settings</h3>
+                    <p flex>
+                        <a href="https://github.com/ncb000gt/node-cron" target="_blank">See docs</a>: (seconds minutes hours days months weekdays)
+                        <br> 0-59 0-59 0-23 1-31 0-11 0-6
+                    </p>
+                    <md-input-container flex="100">
+                        <label for="cron">Cron Pattern: S M H D M Weekday / 0-59 0-59 0-23 1-31 0-11 0-6</label>
+                        <input id="cron" type="text" ng-model="settings.crons.feedbackEmail" ng-model-options="{'updateOn': 'blur'}">
+                    </md-input-container>
+                </md-whiteframe>
+            </fieldset>
+        </form>
+    </section>
+    <section class="padded-card" flex="50" flex-sm="100">
+        <form name="surveyForm">
+            <fieldset>
+                <md-whiteframe class="md-whiteframe-z1" layout="row" layout-padding layout-wrap>
+                    <h3 class="headline" flex="100">Survey Settings</h3>
+                    <md-input-container flex="100">
+                        <label for="survey-interval">Survey Interval in Days</label>
+                        <input id="survey-interval" type="number" ng-model="settings.surveyInterval" ng-model-options="{'updateOn': 'blur'}">
+                    </md-input-container>
+                </md-whiteframe>
+            </fieldset>
+        </form>
+    </section>
+</div>

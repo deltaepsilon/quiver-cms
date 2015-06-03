@@ -8,11 +8,71 @@
  * Controller of the quiverCmsApp
  */
 angular.module('quiverCmsApp')
-    .controller('SettingsCtrl', function($scope, landingPages, $timeout) {
+    .controller('SettingsCtrl', function($scope, landingPages, $timeout, $window, NotificationService) {
         /*
          * Landing Pages
          */
         $scope.landingPages = landingPages;
+
+        /*
+         * Theme
+         */
+        $scope.palettes = [
+            "red",
+            "pink",
+            "purple",
+            "deep-purple",
+            "indigo",
+            "blue",
+            "light-blue",
+            "cyan",
+            "teal",
+            "green",
+            "light-green",
+            "lime",
+            "yellow",
+            "amber",
+            "orange",
+            "deep-orange",
+            "brown",
+            "grey",
+            "blue-grey"
+        ];
+
+        $scope.paletteKeys = [
+            "50",
+            "100",
+            "200",
+            "300",
+            "400",
+            "500",
+            "600",
+            "700",
+            "800",
+            "900",
+            "A100",
+            "A200",
+            "A300",
+            "A400",
+            "A700"
+        ];
+
+        $scope.paletteHues = [
+            "default",
+            "hue-1",
+            "hue-2",
+            "hue-3"
+        ];
+
+        $scope.loadTheme = function () {
+            $window.location.reload();
+        };
+
+        $scope.deleteOverride = function (type, hue) {
+            if ($scope.theme && $scope.theme.palette && $scope.theme.palette.overrides) {
+                delete $scope.theme.palette.overrides[type][hue];    
+            }
+        };
 
         /*
          * Nav Lists

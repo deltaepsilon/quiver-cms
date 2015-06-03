@@ -69,6 +69,7 @@ app.use(Middleware.accessControl);
  * Themes
  */
 TemplateService.setThemes();
+RedisService.setTheme();
 app.get('/themes', TemplateController.themes);
 
 /*
@@ -87,7 +88,7 @@ app.get('/env.js', EnvironmentController.envJS);
 /*
  * Discounts
  */
-RedisService.setDiscounts(); // This is done asynchronously, so any discoutn queries will fail until this is back... but it's not a common call to make, so I don't want to block the entire server
+RedisService.setDiscounts(); // This is done asynchronously, so any discount queries will fail until this is back... but it's not a common call to make, so I don't want to block the entire server
 app.get('/discounts/:code', DiscountController.getCode);
 app.post('/discounts/refresh', FormController.body);
 app.post('/discounts/refresh', DiscountController.refresh);

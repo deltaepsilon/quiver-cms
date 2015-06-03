@@ -97,19 +97,7 @@
         "braintree": {
             "cse": "ASDFBCE"
         },
-        "timeZone": "America/Denver",
-        "themes": [{
-            "name": "default",
-            "primaryPalette": {
-                "name": "blue-grey",
-                "options": {
-                    "default": "900"
-                }
-            },
-            "accentPalette": {
-                "name": "pink"
-            }
-        }],
+        "timeZone": "America/Denver"
         "notification": {
             "toast": {
                 "position": "top right",

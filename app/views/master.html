@@ -6,9 +6,9 @@
                 <i class="mdi-action-subject"></i>
             </md-button>
             <div layout="row" flex class="fill-height">
-                <h2 class="headline tight margin-zero" flex style="margin: 0 0 0 2rem;">
-          <a class="undecorated" href="{{ env.root }}" qv-to-static ng-show="settings">{{ settings.siteTitle || 'Quiver CMS' }}</a>
-        </h2>
+                <h2 class="headline tight margin-zero" flex style="margin: 0.5rem 0 0 1rem;">
+                    <a class="undecorated" href="{{ env.root }}" qv-to-static ng-show="settings">{{ settings.siteTitle || 'Quiver CMS' }}</a>
+                </h2>
                 <span flex></span>
                 <div class="line-height-1" ng-if="$storage.cart.productCount" qv-active>
                     <md-button class="adjust-mdi min-5" ui-sref="master.nav.cart" aria-label="shopping cart" style="margin-top: 3px">

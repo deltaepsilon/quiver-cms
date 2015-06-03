@@ -31,13 +31,30 @@ angular.module('QuiverCMS', ['ngStorage', 'quiver.angular-utilities', 'quiver.an
         /*
          * Angular Material
          */
-        _.each(window.envVars.themes, function(theme) {
-            $mdThemingProvider.theme(theme.name).primaryPalette(theme.primaryPalette.name, theme.primaryPalette.options).accentPalette(theme.accentPalette.name, theme.accentPalette.options);
-        });
+        var palette = window.envVars.theme && window.envVars.theme.palette ? window.envVars.theme.palette : false;
 
+        if (palette) {
+            var theme = $mdThemingProvider.theme('default'),
+                overrides = palette.overrides || { primary: {}, secondary: {} };
+
+            if (palette.primary) {
+                theme.primaryPalette(palette.primary, overrides.primary);
+            }
+
+            if (palette.secondary) {
+                theme.primaryPalette(palette.primary, overrides.primary);
+            }
+
+            if (palette.dark) {
+                theme.dark();
+            }
+
+        }
 
     })
-    // .run()
+    .run(function () {
+        angular.element(document.body).removeAttr('style');
+    })
     .factory('moment', function($window) {
         return $window.moment;
     })

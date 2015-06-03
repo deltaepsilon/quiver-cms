@@ -1,37 +1,39 @@
 <md-button ng-click="toggleSidenav('left')" hide-gt-md tabindex="0" aria-label="Toggle left side nav">
-  <i class="mdi-action-subject"></i>
+    <i class="mdi-action-subject"></i>
 </md-button>
 <div class="md-toolbar-tools">
-  <div layout="row" flex class="fill-height">
-    <h1 layout-align="left" class="headline">
-      <a href="/">{{ settings.siteTitle }}</a>
+    <div layout="row" flex class="fill-height">
+        <h1 layout-align="left" class="headline">
+        {{#if settings.logo }}
+            <a class="logo relative block" href="/" style="{{ settings.logoStyle }}">
+                <img src="{{ settings.logo }}">
+            </a>
+        {{ else }}
+            <a class="site-title" href="/">
+                {{ settings.siteTitle }}
+            </a>
+        {{/if }}
     </h1>
-
-    <span flex></span>
-
-    <div layout-align="right" class="md-toolbar-item" ng-show="$storage.cart.productCount">
-      <md-button href="/app/cart" aria-label="View cart">
-        <span class="headline" ng-bind="$storage.cart.productCount"></span>
-        <i class="mdi-action-shopping-cart" style="position: relative; top: 1px;"></i>
-      </md-button>
+        <span flex></span>
+        <div layout-align="right" class="md-toolbar-item" ng-show="$storage.cart.productCount">
+            <md-button href="/app/cart" aria-label="View cart">
+                <span class="headline" ng-bind="$storage.cart.productCount"></span>
+                <i class="mdi-action-shopping-cart" style="position: relative; top: 1px;"></i>
+            </md-button>
+        </div>
+        <div layout-align="right" class="md-toolbar-item" ng-show="!currentUser">
+            <md-button class="margin-horizontal-small" href="/app/login" aria-label="Log in">
+                <i class="mdi-action-input"></i> &nbsp;Login
+            </md-button>
+            <md-button href="/app/register" aria-label="Register">
+                Free Registration
+            </md-button>
+        </div>
+        {{!--
+        <div layout-align="right" class="md-toolbar-item" ng-show="currentUser">
+            <button class="md-button" ng-click="toggleSidenav('right')">
+                <i class="mdi-action-settings"></i>
+            </button>
+        </div> --}}
     </div>
-
-    <div layout-align="right" class="md-toolbar-item" ng-show="!currentUser">
-      <md-button class="margin-horizontal-small" href="/app/login" aria-label="Log in">
-        <i class="mdi-action-input"></i> &nbsp;Login        
-      </md-button>
-      <md-button href="/app/register" aria-label="Register">
-        Free Registration
-      </md-button>
-    </div>
-
-    {{!-- <div layout-align="right" class="md-toolbar-item" ng-show="currentUser">
-      <button class="md-button" ng-click="toggleSidenav('right')">
-        <i class="mdi-action-settings"></i>
-      </button>
-      
-    </div> --}}
-
-  </div>
-
 </div>
