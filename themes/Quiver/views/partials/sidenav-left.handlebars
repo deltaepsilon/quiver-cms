@@ -1,82 +1,82 @@
 <md-content role="navigation">
     <section>
         {{#if settings.nav1Title }}
-        <md-toolbar>
+        <md-toolbar class="md-accent md-hue-3">
             <h5 class="md-toolbar-tools">{{ settings.nav1Title }}</h5>
         </md-toolbar>
         {{/if }}
         <div layout="column" layout-padding>
             {{#each settings.nav1 }}
             <span class="{{active href ../url }}" layout="row" flex>
-          <md-button class="text-left" layout-fill ng-href="{{ this.href }}" flex>{{ this.text }}</md-button>
+          <md-button class="md-primary text-left" layout-fill ng-href="{{ this.href }}" flex>{{ this.text }}</md-button>
         </span> {{/each }}
         </div>
     </section>
     <section>
         {{#if settings.nav2Title }}
-        <md-toolbar>
+        <md-toolbar class="md-accent md-hue-3">
             <h5 class="md-toolbar-tools">{{ settings.nav2Title }}</h5>
         </md-toolbar>
         {{/if }}
         <div layout="column" layout-padding>
             {{#each settings.nav2 }}
             <span class="{{active href ../url }}" layout="row" flex>
-          <md-button class="text-left" layout-fill ng-href="{{ this.href }}" flex>{{ this.text }}</md-button>
+          <md-button class="md-primary text-left" layout-fill ng-href="{{ this.href }}" flex>{{ this.text }}</md-button>
         </span> {{/each }}
         </div>
     </section>
     <section>
         {{#if settings.nav3Title }}
-        <md-toolbar>
+        <md-toolbar class="md-accent md-hue-3">
             <h5 class="md-toolbar-tools">{{ settings.nav3Title }}</h5>
         </md-toolbar>
         {{/if }}
         <div layout="column" layout-padding>
             {{#each settings.nav3 }}
             <span class="{{active href ../url }}" layout="row" flex>
-          <md-button class="text-left" layout-fill ng-href="{{ this.href }}" flex>{{ this.text }}</md-button>
+          <md-button class="md-primary text-left" layout-fill ng-href="{{ this.href }}" flex>{{ this.text }}</md-button>
         </span> {{/each }}
         </div>
     </section>
 </md-content>
 <md-content role="navigation" ng-if="currentUser">
     <section>
-        <md-toolbar>
+        <md-toolbar class="md-accent md-hue-3">
             <h5 class="md-toolbar-tools">Account</h5>
         </md-toolbar>
         <div layout="column" layout-padding>
             <div layout="row" flex ng-if="user.isAdmin">
-                <md-button class="text-left" layout-fill ng-href="/app/admin/dashboard" flex>
+                <md-button class="md-primary text-left" layout-fill ng-href="/app/admin/dashboard" flex>
                     <i class="mdi-action-settings-applications"></i> Admin
                 </md-button>
             </div>
             <div layout="row" flex ng-if="user.isModerator">
-                <md-button class="text-left" layout-fill ng-href="/app/moderator/dashboard" flex>
+                <md-button class="md-primary text-left" layout-fill ng-href="/app/moderator/dashboard" flex>
                     <i class="mdi-communication-forum"></i> Moderator
                 </md-button>
             </div>
             <div layout="row" flex ng-if="user.isAdmin">
-                <md-button class="text-left" layout-fill ng-href="/app/admin/dashboard" flex>
+                <md-button class="md-primary text-left" layout-fill ng-href="/app/admin/dashboard" flex>
                     <i class="mdi-action-settings-applications"></i> Admin
                 </md-button>
             </div>
             <div layout="row" flex>
-                <md-button class="text-left" layout-fill ng-href="/app/" flex>
+                <md-button class="md-primary text-left" layout-fill ng-href="/app/" flex>
                     <i class="mdi-action-dashboard"></i> Dashboard
                 </md-button>
             </div>
             <div layout="row" flex>
-                <md-button class="text-left" layout-fill ng-href="/app/messages" flex>
+                <md-button class="md-primary text-left" layout-fill ng-href="/app/messages" flex>
                     <i class="mdi-communication-message"></i> Messages
                 </md-button>
             </div>
             <div layout="row" flex>
-                <md-button class="text-left" layout-fill ng-href="/app/account" flex>
+                <md-button class="md-primary text-left" layout-fill ng-href="/app/account" flex>
                     <i class="mdi-action-account-box"></i> Account
                 </md-button>
             </div>
             <div layout="row" flex>
-                <md-button class="text-left" layout-fill ng-click="logOut('left');" flex>
+                <md-button class="md-primary text-left" layout-fill ng-click="logOut('left');" flex>
                     <i class="mdi-action-exit-to-app"></i> Log Out
                 </md-button>
             </div>

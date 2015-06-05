@@ -86,3 +86,15 @@ strong {
 .line-height-2 {
     line-height: 2rem !important;
 }
+
+// Sidenav
+md-sidenav {
+    .md-toolbar-tools {
+        font-weight: 900;
+    }
+    .md-button * {
+        font-weight: 900;
+        letter-spacing: 1px;
+        font-size: .875rem;
+    }
+}

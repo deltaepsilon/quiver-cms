@@ -3,25 +3,23 @@
 </md-button>
 <div class="md-toolbar-tools">
     <div layout="row" flex class="fill-height">
-        <h1 layout-align="left" class="headline">
         {{#if settings.logo }}
             <a class="logo relative block" href="/" style="{{ settings.logoStyle }}">
                 <img src="{{ settings.logo }}">
             </a>
         {{ else }}
-            <a class="site-title" href="/">
-                {{ settings.siteTitle }}
-            </a>
+            <h2 class="headline tight">
+                <a class="undecorated" href="/">{{ settings.siteTitle }}</a>
+            </h2>
         {{/if }}
-    </h1>
         <span flex></span>
-        <div layout-align="right" class="md-toolbar-item" ng-show="$storage.cart.productCount">
-            <md-button href="/app/cart" aria-label="View cart">
-                <span class="headline" ng-bind="$storage.cart.productCount"></span>
+        <div class="md-toolbar-item" ng-show="$storage.cart.productCount">
+            <md-button class="md-fab md-mini md-primary md-raised" href="/app/cart" aria-label="View cart">
+                <span class="headline relative" ng-bind="$storage.cart.productCount" style="top: -1px; left: 1px;"></span>
                 <i class="mdi-action-shopping-cart" style="position: relative; top: 1px;"></i>
             </md-button>
         </div>
-        <div layout-align="right" class="md-toolbar-item" ng-show="!currentUser">
+        <div class="md-toolbar-item" ng-show="!currentUser">
             <md-button class="margin-horizontal-small" href="/app/login" aria-label="Log in">
                 <i class="mdi-action-input"></i> &nbsp;Login
             </md-button>

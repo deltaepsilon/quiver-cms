@@ -89,11 +89,11 @@
                         <h4 class="headline capitalize">{{ paletteName }}</h4>
                         <ul>
                             <li ng-repeat="color in getPalette(paletteName)">
-                                <div style="background-color: {{ getRgb(color.value) }}; color: {{ getRgb(color.contrast) }};" ng-if="!theme.palette.overrides[paletteName][color.index]">
-                                    {{ color.index }}: {{ getHex(color.value) }} {{color}}
+                                <div class="padding-small" style="background-color: {{ getRgb(color.value) }}; color: {{ getRgb(color.contrast) }};" ng-if="!theme.palette.overrides[paletteName][color.index]">
+                                    <strong>{{ color.index }}: {{ getHex(color.value) }}</strong>
                                 </div>
-                                <div style="{{ getOverrideStyle(paletteName, color.index) }}" ng-if="theme.palette.overrides[paletteName][color.index]">
-                                    {{ color.index }}: #{{ theme.palette.overrides[paletteName][color.index] }}
+                                <div class="padding-small" style="{{ getOverrideStyle(paletteName, color.index) }}" ng-if="theme.palette.overrides[paletteName][color.index]">
+                                    <strong>{{ color.index }}: #{{ theme.palette.overrides[paletteName][color.index] }}</strong>
                                 </div>
                             </li>
                         </ul>
@@ -101,6 +101,76 @@
                 </md-whiteframe>
             </fieldset>
         </form>
+    </section>
+    <section class="padded-card" flex="100">
+        <md-whiteframe class="md-whiteframe-z1" layout="row" layout-align="center" layout-padding layout-wrap>
+            <md-content>
+                <h3 class="md-title">Button Examples</h3>
+                <section layout="row" layout-sm="column" layout-align="space-between center" layout-wrap>
+                    <h4 class="md-subhead" flex="100">Flat</h4>
+                    <md-button>No Classes</md-button>
+                    <md-button md-no-ink class="md-primary">Primary (md-noink)</md-button>
+                    <md-button ng-disabled="true" class="md-primary">Disabled</md-button>
+                    <md-button class="md-warn">Warn</md-button>
+                </section>
+                <section layout="row" layout-sm="column" layout-align="space-between center" layout-wrap>
+                    <h4 class="md-subhead" flex="100">Raised</h4>
+                    <md-button class="md-raised">Button</md-button>
+                    <md-button class="md-raised md-primary">Primary</md-button>
+                    <md-button ng-disabled="true" class="md-raised md-primary">Disabled</md-button>
+                    <md-button class="md-raised md-warn">Warn</md-button>
+                </section>
+                <section layout="row" layout-sm="column" layout-align="space-between center" layout-wrap>
+                    <h4 class="md-subhead" flex="100">FAB</h4>
+                    <md-button class="md-fab" aria-label="Eat cake">
+                        <i class="mdi-action-favorite"></i>
+                    </md-button>
+                    <md-button class="md-fab md-primary" aria-label="Use Android">
+                        <i class="mdi-action-favorite"></i>
+                    </md-button>
+                    <md-button class="md-fab" ng-disabled="true" aria-label="Comment">
+                        <i class="mdi-action-favorite"></i>
+                    </md-button>
+                    <md-button class="md-fab md-primary md-hue-2" aria-label="Profile">
+                        <i class="mdi-action-favorite"></i>
+                    </md-button>
+                    <md-button class="md-fab md-mini" aria-label="Eat cake">
+                        <i class="mdi-action-favorite"></i>
+                    </md-button>
+                    <md-button class="md-fab md-mini md-primary" aria-label="Use Android">
+                        <i class="mdi-action-favorite"></i>
+                    </md-button>
+                </section>
+                <section layout="row" layout-sm="column" layout-align="space-between center" layout-wrap>
+                    <h4 class="md-subhead" flex="100">Link vs. Button</h4>
+                    <md-button ng-href="{{googleUrl}}" target="_blank">Default Link</md-button>
+                    <md-button class="md-primary" ng-href="{{googleUrl}}" target="_blank">Primary Link</md-button>
+                    <md-button>Default Button</md-button>
+                </section>
+                <section layout="row" layout-sm="column" layout-align="space-between center" layout-wrap>
+                    <h4 class="md-subhead" flex="100">Themed</h4>
+                    <md-button class="md-primary md-hue-1">Primary Hue 1</md-button>
+                    <md-button class="md-warn md-raised md-hue-2">Warn Hue 2</md-button>
+                    <md-button class="md-accent">Accent</md-button>
+                    <md-button class="md-accent md-raised md-hue-1">Accent Hue 1</md-button>
+                </section>
+                <section layout="row" layout-sm="column" layout-align="space-between center" layout-wrap>
+                    <h4 class="md-subhead" flex="100">Icon Buttons</h4>
+                    <md-button class="md-icon-button md-primary" aria-label="Settings">
+                        <i class="mdi-action-favorite"></i>
+                    </md-button>
+                    <md-button class="md-icon-button md-accent" aria-label="Favorite">
+                        <i class="mdi-action-favorite"></i>
+                    </md-button>
+                    <md-button class="md-icon-button" aria-label="More">
+                        <i class="mdi-action-favorite"></i>
+                    </md-button>
+                    <md-button href="http://google.com" title="Launch Google.com in new window" target="_blank" ng-disabled="true" aria-label="Google.com" class="md-icon-button launch">
+                        <i class="mdi-action-favorite"></i>
+                    </md-button>
+                </section>
+            </md-content>
+        </md-whiteframe>
     </section>
     <section class="padded-card" flex="100">
         <form name="themePrimaryOverridesForm">
@@ -117,7 +187,7 @@
                         <md-select ng-model="theme.palette.intentions.primary[hue]" placeholder="{{ hue }}">
                             <md-option ng-value="key" ng-repeat="key in paletteKeys">{{ key }}</md-option>
                         </md-select>
-                        <md-button class="md-warn md-icon-button" ng-click="deleteIntention('primary', hue)" ng-disabled="!theme.palette.intentions.primary[hue]">
+                        <md-button class="md-warn md-icon-button" ng-click="deleteIntention('primary', hue)" ng-disabled="!theme.palette.intentions.primary[hue]" aria-label="Delete intention">
                             <i class="mdi-action-delete"></i>
                         </md-button>
                     </div>
@@ -144,7 +214,7 @@
                     <div flex="25" flex-sm="100">
                         <div class="clearfix">
                             <h4 class="headline left">Contrast Default Color</h4>
-                            <md-button class="md-warn md-icon-button right" ng-click="deleteOverride('primary', 'contrastDefaultColor')" style="margin-top: .75rem">
+                            <md-button class="md-warn md-icon-button right" ng-click="deleteOverride('primary', 'contrastDefaultColor')" style="margin-top: .75rem" aria-label="Delete contrast default color">
                                 <i class="mdi-action-delete"></i>
                             </md-button>
                         </div>
@@ -174,7 +244,7 @@
                         <md-select ng-model="theme.palette.intentions.accent[hue]" placeholder="{{ hue }}">
                             <md-option ng-value="key" ng-repeat="key in paletteKeys">{{ key }}</md-option>
                         </md-select>
-                        <md-button class="md-warn md-icon-button" ng-click="deleteIntention('accent', hue)" ng-disabled="!theme.palette.intentions.accent[hue]">
+                        <md-button class="md-warn md-icon-button" ng-click="deleteIntention('accent', hue)" ng-disabled="!theme.palette.intentions.accent[hue]" aria-label="Delete intention">
                             <i class="mdi-action-delete"></i>
                         </md-button>
                     </div>
@@ -201,7 +271,7 @@
                     <div flex="25" flex-sm="100">
                         <div class="clearfix">
                             <h4 class="headline left">Contrast Default Color</h4>
-                            <md-button class="md-warn md-icon-button right" ng-click="deleteOverride('accent', 'contrastDefaultColor')" style="margin-top: .75rem">
+                            <md-button class="md-warn md-icon-button right" ng-click="deleteOverride('accent', 'contrastDefaultColor')" style="margin-top: .75rem" aria-label="Delete contrast default color">
                                 <i class="mdi-action-delete"></i>
                             </md-button>
                         </div>

@@ -1,164 +1,164 @@
 <md-content role="navigation">
     <section ng-show="currentUser">
-        <md-toolbar class="md-hue-2">
+        <md-toolbar class="md-hue-1">
             <h5 class="md-toolbar-tools">{{ user.name || user.preferredEmail || user.email }}</h5>
         </md-toolbar>
         <div layout="column" layout-padding>
             <div layout="row" flex qv-active ng-show="user.isAdmin">
-                <md-button class="text-left" flex layout-fill ui-sref="authenticated.master.admin.dashboard">
+                <md-button class="md-primary text-left" flex layout-fill ui-sref="authenticated.master.admin.dashboard">
                     <i class="mdi-action-settings-applications"></i> Admin Dashboard
                 </md-button>
             </div>
             <div layout="row" flex qv-active ng-show="user.isModerator">
-                <md-button class="text-left" flex layout-fill ui-sref="authenticated.master.moderator.dashboard">
+                <md-button class="md-primary text-left" flex layout-fill ui-sref="authenticated.master.moderator.dashboard">
                     <i class="mdi-communication-forum"></i> Moderator Dashboard
                 </md-button>
             </div>
             <div layout="row" flex>
-                <md-button class="text-left" flex ui-sref="authenticated.master.nav.dashboard">
+                <md-button class="md-primary text-left" flex ui-sref="authenticated.master.nav.dashboard">
                     <i class="mdi-action-dashboard"></i> User Dashboard
                 </md-button>
             </div>
             <div layout="row" flex>
-                <md-button class="text-left" flex ui-sref="authenticated.master.nav.messages.list">
+                <md-button class="md-primary text-left" flex ui-sref="authenticated.master.nav.messages.list">
                     <i class="mdi-communication-message"></i> Messages
                 </md-button>
             </div>
             <div layout="row" flex qv-active>
-                <md-button class="text-left" flex layout-fill ui-sref="authenticated.master.nav.account">
+                <md-button class="md-primary text-left" flex layout-fill ui-sref="authenticated.master.nav.account">
                     <i class="mdi-action-account-box"></i> Account
                 </md-button>
             </div>
             <div layout="row" flex qv-active>
-                <md-button class="text-left" flex layout-fill ng-click="clearCache()">
+                <md-button class="md-primary text-left" flex layout-fill ng-click="clearCache()">
                     <i class="mdi-action-cached"></i> Clear Cache
                 </md-button>
             </div>
             <div layout="row" flex qv-active>
-                <md-button class="text-left" flex layout-fill ng-click="logOut()" ui-sref="authenticated.master.nav.dashboard">
+                <md-button class="md-primary text-left" flex layout-fill ng-click="logOut()" ui-sref="authenticated.master.nav.dashboard">
                     <i class="mdi-action-exit-to-app"></i> Log Out
                 </md-button>
             </div>
         </div>
     </section>
     <section>
-        <md-toolbar class="md-hue-2">
+        <md-toolbar class="md-hue-1">
             <h5 class="md-toolbar-tools">Feedback</h5>
         </md-toolbar>
         <div layout="column" layout-padding>
             <div layout="row" flex qv-active>
-                <md-button class="text-left" flex layout-fill ui-sref="authenticated.master.admin.messages.list">
+                <md-button class="md-primary text-left" flex layout-fill ui-sref="authenticated.master.admin.messages.list">
                     Messages
                 </md-button>
             </div>
             <div layout="row" flex qv-active>
-                <md-button class="text-left" flex layout-fill ui-sref="authenticated.master.admin.uploads.list">
+                <md-button class="md-primary text-left" flex layout-fill ui-sref="authenticated.master.admin.uploads.list">
                     Uploads
                 </md-button>
             </div>
         </div>
     </section>
     <section>
-        <md-toolbar class="md-hue-2" layout="row">
+        <md-toolbar class="md-hue-1">
             <h5 class="md-toolbar-tools">Content</h5>
         </md-toolbar>
         <div layout="column" layout-padding>
             <div layout="row" flex qv-active>
-                <md-button class="text-left" flex layout-fill ui-sref="authenticated.master.admin.words.list">
+                <md-button class="md-primary text-left" flex layout-fill ui-sref="authenticated.master.admin.words.list">
                     Words
                 </md-button>
             </div>
             <div layout="row" flex qv-active>
-                <md-button class="text-left" flex layout-fill ui-sref="authenticated.master.admin.assignments.list">
+                <md-button class="md-primary text-left" flex layout-fill ui-sref="authenticated.master.admin.assignments.list">
                     Assignments
                 </md-button>
             </div>
             <div layout="row" flex qv-active>
-                <md-button class="text-left" flex layout-fill ui-sref="authenticated.master.admin.files.list">
+                <md-button class="md-primary text-left" flex layout-fill ui-sref="authenticated.master.admin.files.list">
                     Files
                 </md-button>
             </div>
             <div layout="row" flex qv-active>
-                <md-button class="text-left" flex layout-fill ui-sref="authenticated.master.admin.products">
+                <md-button class="md-primary text-left" flex layout-fill ui-sref="authenticated.master.admin.products">
                     Products
                 </md-button>
             </div>
             <div layout="row" flex qv-active>
-                <md-button class="text-left" flex layout-fill ui-sref="authenticated.master.admin.hashtags">
+                <md-button class="md-primary text-left" flex layout-fill ui-sref="authenticated.master.admin.hashtags">
                     Hashtags
                 </md-button>
             </div>
             <div layout="row" flex qv-active>
-                <md-button class="text-left" flex layout-fill ui-sref="authenticated.master.admin.social">
+                <md-button class="md-primary text-left" flex layout-fill ui-sref="authenticated.master.admin.social">
                     Social Media
                 </md-button>
             </div>
         </div>
     </section>
     <section>
-        <md-toolbar class="md-hue-2">
+        <md-toolbar class="md-hue-1">
             <h5 class="md-toolbar-tools">eCommerce</h5>
         </md-toolbar>
         <div layout="column" layout-padding>
             <div layout="row" flex qv-active>
-                <md-button class="text-left" flex layout-fill ui-sref="authenticated.master.admin.transactions.list">
+                <md-button class="md-primary text-left" flex layout-fill ui-sref="authenticated.master.admin.transactions.list">
                     Transactions
                 </md-button>
             </div>
             <div layout="row" flex qv-active>
-                <md-button class="text-left" flex layout-fill ui-sref="authenticated.master.admin.discounts.list">
+                <md-button class="md-primary text-left" flex layout-fill ui-sref="authenticated.master.admin.discounts.list">
                     Discounts
                 </md-button>
             </div>
             <div layout="row" flex qv-active>
-                <md-button class="text-left" flex layout-fill ui-sref="authenticated.master.admin.subscriptions.list">
+                <md-button class="md-primary text-left" flex layout-fill ui-sref="authenticated.master.admin.subscriptions.list">
                     Subscriptions
                 </md-button>
             </div>
             <div layout="row" flex qv-active>
-                <md-button class="text-left" flex layout-fill ui-sref="authenticated.master.admin.shipments.list">
+                <md-button class="md-primary text-left" flex layout-fill ui-sref="authenticated.master.admin.shipments.list">
                     Shipments
                 </md-button>
             </div>
             <div layout="row" flex qv-active>
-                <md-button class="text-left" flex layout-fill ui-sref="authenticated.master.admin.resources.list">
+                <md-button class="md-primary text-left" flex layout-fill ui-sref="authenticated.master.admin.resources.list">
                     Resources
                 </md-button>
             </div>
         </div>
     </section>
     <section>
-        <md-toolbar class="md-hue-2">
+        <md-toolbar class="md-hue-1">
             <h5 class="md-toolbar-tools">Settings</h5>
         </md-toolbar>
         <div layout="column" layout-padding>
             <div layout="row" flex qv-active>
-                <md-button class="text-left" flex layout-fill ui-sref="authenticated.master.admin.settings">
+                <md-button class="md-primary text-left" flex layout-fill ui-sref="authenticated.master.admin.settings">
                     Settings
                 </md-button>
             </div>
             <div layout="row" flex qv-active>
-                <md-button class="text-left" flex layout-fill ui-sref="authenticated.master.admin.email.list">
+                <md-button class="md-primary text-left" flex layout-fill ui-sref="authenticated.master.admin.email.list">
                     Email
                 </md-button>
             </div>
             <div layout="row" flex qv-active>
-                <md-button class="text-left" flex layout-fill ui-sref="authenticated.master.admin.users.list">
+                <md-button class="md-primary text-left" flex layout-fill ui-sref="authenticated.master.admin.users.list">
                     Users
                 </md-button>
             </div>
             <div layout="row" flex qv-active>
-                <md-button class="text-left" flex layout-fill ui-sref="authenticated.master.admin.commerce">
+                <md-button class="md-primary text-left" flex layout-fill ui-sref="authenticated.master.admin.commerce">
                     Commerce
                 </md-button>
             </div>
             <div layout="row" flex qv-active>
-                <md-button class="text-left" flex layout-fill ui-sref="authenticated.master.admin.surveys.list">
+                <md-button class="md-primary text-left" flex layout-fill ui-sref="authenticated.master.admin.surveys.list">
                     Surveys
                 </md-button>
             </div>
             <div layout="row" flex qv-active>
-                <md-button class="text-left" flex layout-fill ui-sref="authenticated.master.admin.landing-pages">
+                <md-button class="md-primary text-left" flex layout-fill ui-sref="authenticated.master.admin.landing-pages">
                     Landing Pages
                 </md-button>
             </div>

@@ -18,9 +18,11 @@
                                             <h4 class="headline uppercase margin-zero"><a href="/product/{{ product.slug }}" qv-to-static>{{ product.title }}</a></h4>
                                             <strong ng-if="product.optionsMatrixSelected">{{ product.optionsMatrixSelected.name }}</strong>
                                         </div>
-                                        <md-button class="md-raised md-warn md-icon-button" flex ng-click="removeFromCart(product)">
-                                            <i class="mdi-action-delete" aria-label="Remove from cart"></i>
-                                        </md-button>
+                                        <div class="text-right max-5" flex>
+                                            <md-button class="md-fab md-mini md-warn md-hue-1" flex ng-click="removeFromCart(product)">
+                                                <i class="mdi-action-delete text-white0" aria-label="Remove from cart"></i>
+                                            </md-button>
+                                        </div>
                                     </div>
                                     <!-- <div style="height: 2rem; overflow: auto;">
                   <div class="markdown" markdown-editable ng-model="product.description.excerpt">{{ product.description.excerpt }}</div>
@@ -31,12 +33,18 @@
                                             <span class="text-x-small" ng-if="product.optionsMatrixSelected.inventory">({{ product.optionsMatrixSelected.inventory }} available)</span>
                                         </div>
                                         <div flex="75" flex-gt-sm="50" layout="row" layout-align="space-between center">
-                                            <md-button class="md-raised md-icon-button margin-horizontal-x-small" hide-sm flex ng-click="product.quantity = product.quantity + 1; updateCart();" ng-disabled="product.maxQuantity && product.quantity >= product.maxQuantity;">
+                                            <div>
+                                                <md-button class="md-raised md-icon-button margin-horizontal-x-small" hide-sm flex ng-click="product.quantity = product.quantity + 1; updateCart();" ng-disabled="product.maxQuantity && product.quantity >= product.maxQuantity;">
                                                 <i class="mdi-image-exposure-plus-1" aria-label="Add to quantity"></i>
                                             </md-button>
-                                            <md-button class="md-raised md-icon-button margin-horizontal-x-small" hide-sm flex ng-click="product.quantity = product.quantity - 1; updateCart();" ng-disabled="product.quantity < 1">
+                                            </div>
+                                            <div>
+                                                <md-button class="md-raised md-icon-button margin-horizontal-x-small" hide-sm flex ng-click="product.quantity = product.quantity - 1; updateCart();" ng-disabled="product.quantity < 1">
                                                 <i class="mdi-image-exposure-minus-1" aria-label="Remove from quantity"></i>
                                             </md-button>
+                                            </div>
+                                            
+                                            
                                             <md-input-container flex class="padding-zero">
                                                 <input id="product-{{$index}}" class="text-right" flex type="number" ng-model="product.quantity" min="1" max="{{ product.maxQuantity }}" ng-blur="updateCart()" qv-select-text="#product-{{$index}}" aria-label="Product quantity {{ product.title }}">
                                             </md-input-container>
@@ -124,7 +132,7 @@
             </div>
             <span flex="100"></span>
             <div flex>
-                <md-button class="md-accent md-raised checkout-button min-16 max-16" ng-click="goToCheckout()" ng-disabled="checkingOut">
+                <md-button class="md-accent md-raised md-hue-1 checkout-button min-16 max-16" ng-click="goToCheckout()" ng-disabled="checkingOut">
                     <span ng-show="!user">Log in or register</span>
                     <span ng-show="user">To Check Out</span>
                     <i class="mdi-navigation-arrow-forward" style="position: relative; margin-top: 1px;"></i>

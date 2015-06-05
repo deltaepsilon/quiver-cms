@@ -1,120 +1,110 @@
 <md-content role="navigation">
     <section ng-show="currentUser">
-        <md-toolbar>
-            <h5 class="md-toolbar-tools">
-        {{ user.name || user.preferredEmail || user.email }}
-      </h5>
+        <md-toolbar class="md-accent md-hue-3">
+            <h5 class="md-toolbar-tools">{{ user.name || user.preferredEmail || user.email }}</h5>
         </md-toolbar>
         <div layout="column" layout-padding>
             <div layout="row" flex qv-active ng-show="user.isAdmin">
-                <md-button class="text-left" flex layout-fill ui-sref="authenticated.master.admin.dashboard">
+                <md-button class="md-primary text-left" flex layout-fill ui-sref="authenticated.master.admin.dashboard">
                     <i class="mdi-action-settings-applications"></i> Admin
                 </md-button>
             </div>
             <div layout="row" flex qv-active ng-show="user.isModerator">
-                <md-button class="text-left" flex layout-fill ui-sref="authenticated.master.moderator.dashboard">
+                <md-button class="md-primary text-left" flex layout-fill ui-sref="authenticated.master.moderator.dashboard">
                     <i class="mdi-communication-forum"></i> Moderator
                 </md-button>
             </div>
             <div layout="row" flex qv-active>
-                <md-button class="text-left" flex ui-sref="authenticated.master.nav.dashboard">
+                <md-button class="md-primary text-left" flex ui-sref="authenticated.master.nav.dashboard">
                     <i class="mdi-action-dashboard"></i> Dashboard
                 </md-button>
             </div>
             <div flex layout="column" ng-if="$state.current.name == 'authenticated.master.nav.dashboard'" style="padding-left: 27px; padding-top: 0;" qv-anchor-links>
-                <md-button class="text-left adjust-mdi" ng-href="#messages" qv-highlight="text-secondary0" selector="#messages .transition-color" style="display: none;">
+                <md-button class="md-primary text-left adjust-mdi" ng-href="#messages" qv-highlight="text-secondary0" selector="#messages .transition-color" style="display: none;">
                     Assignment Feedback
                     <i class="mdi-image-navigate-next"></i>
                 </md-button>
-                <md-button class="text-left adjust-mdi" ng-href="#subscriptions" qv-highlight="text-secondary0" selector="#subscriptions .transition-color" style="display: none;">
+                <md-button class="md-primary text-left adjust-mdi" ng-href="#subscriptions" qv-highlight="text-secondary0" selector="#subscriptions .transition-color" style="display: none;">
                     Subscriptions
                     <i class="mdi-image-navigate-next"></i>
                 </md-button>
-                <md-button class="text-left adjust-mdi" ng-href="#shipping" qv-highlight="text-secondary0" selector="#shipping .transition-color" style="display: none;">
+                <md-button class="md-primary text-left adjust-mdi" ng-href="#shipping" qv-highlight="text-secondary0" selector="#shipping .transition-color" style="display: none;">
                     Shipping
                     <i class="mdi-image-navigate-next"></i>
                 </md-button>
-                <md-button class="text-left adjust-mdi" ng-href="#gifts" qv-highlight="text-secondary0" selector="#gifts .transition-color" style="display: none;">
+                <md-button class="md-primary text-left adjust-mdi" ng-href="#gifts" qv-highlight="text-secondary0" selector="#gifts .transition-color" style="display: none;">
                     Gifts
                     <i class="mdi-image-navigate-next"></i>
                 </md-button>
-                <md-button class="text-left adjust-mdi" ng-href="#downloads" qv-highlight="text-secondary0" selector="#downloads .transition-color" style="display: none;">
+                <md-button class="md-primary text-left adjust-mdi" ng-href="#downloads" qv-highlight="text-secondary0" selector="#downloads .transition-color" style="display: none;">
                     Downloads
                     <i class="mdi-image-navigate-next"></i>
                 </md-button>
-                <md-button class="text-left adjust-mdi" ng-href="#transactions" qv-highlight="text-secondary0" selector="#transactions .transition-color" style="display: none;">
+                <md-button class="md-primary text-left adjust-mdi" ng-href="#transactions" qv-highlight="text-secondary0" selector="#transactions .transition-color" style="display: none;">
                     Transactions
                     <i class="mdi-image-navigate-next"></i>
                 </md-button>
             </div>
             <div layout="row" flex qv-active>
-                <md-button class="text-left" flex ui-sref="authenticated.master.nav.messages.list">
+                <md-button class="md-primary text-left" flex ui-sref="authenticated.master.nav.messages.list">
                     <i class="mdi-communication-message"></i> Messages
                 </md-button>
             </div>
             <div layout="row" flex qv-active>
-                <md-button class="text-left" flex layout-fill ui-sref="authenticated.master.nav.account">
+                <md-button class="md-primary text-left" flex layout-fill ui-sref="authenticated.master.nav.account">
                     <i class="mdi-action-account-box"></i> Account
                 </md-button>
             </div>
             <div layout="row" flex qv-active>
-                <md-button class="text-left" flex layout-fill ng-click="logOut()">
+                <md-button class="md-primary text-left" flex layout-fill ng-click="logOut()">
                     <i class="mdi-action-exit-to-app"></i> Log Out
                 </md-button>
             </div>
         </div>
     </section>
     <section ng-if="showSubscriptions">
-        <md-toolbar>
-            <h5 class="md-toolbar-tools">
-        Subscriptions
-      </h5>
+        <md-toolbar class="md-accent md-hue-3">
+            <h5 class="md-toolbar-tools">Subscriptions</h5>
         </md-toolbar>
         <div layout="column" layout-padding>
             <div layout="row" flex ng-repeat="subscription in currentSubscriptions(subscriptions)" ng-class="{active: subscription.$id == $state.params.subscriptionKey}">
-                <md-button class="text-left" flex layout-fill ui-sref="authenticated.master.subscription.page({subscriptionKey: subscription.$id, pageNumber: $storage['bookmark-' + subscription.$id] || 0})" aria-label="Subscription: {{ subscription.title }}">
+                <md-button class="md-primary text-left" flex layout-fill ui-sref="authenticated.master.subscription.page({subscriptionKey: subscription.$id, pageNumber: $storage['bookmark-' + subscription.$id] || 0})" aria-label="Subscription: {{ subscription.title }}">
                     {{ subscription.title }}
                 </md-button>
             </div>
         </div>
     </section>
     <section ng-if="settings.app1">
-        <md-toolbar ng-if="settings.app1Title">
-            <h5 class="md-toolbar-tools">
-        {{ settings.app1Title }}
-      </h5>
+        <md-toolbar class="md-accent md-hue-3" ng-if="settings.app1Title">
+            <h5 class="md-toolbar-tools">{{ settings.app1Title }}</h5>
         </md-toolbar>
         <div layout="column" layout-padding>
             <div layout="row" flex qv-active ng-repeat="link in settings.app1">
-                <md-button class="text-left" flex layout-fill ng-href="{{ link.href }}" qv-to-static>
+                <md-button class="md-primary text-left" flex layout-fill ng-href="{{ link.href }}" qv-to-static>
                     {{ link.text }}
                 </md-button>
             </div>
         </div>
     </section>
     <section ng-if="settings.app2">
-        <md-toolbar ng-if="settings.app2Title">
-            <h5 class="md-toolbar-tools">
-        {{ settings.app2Title }}
-      </h5>
+        <md-toolbar class="md-accent md-hue-3" ng-if="settings.app2Title">
+            <h5 class="md-toolbar-tools">{{ settings.app2Title }}</h5>
         </md-toolbar>
         <div layout="column" layout-padding>
             <div layout="row" flex qv-active ng-repeat="link in settings.app2">
-                <md-button class="text-left" flex layout-fill ng-href="{{ link.href }}" qv-to-static>
+                <md-button class="md-primary text-left" flex layout-fill ng-href="{{ link.href }}" qv-to-static>
                     {{ link.text }}
                 </md-button>
             </div>
         </div>
     </section>
     <section ng-if="settings.app3">
-        <md-toolbar ng-if="settings.app3Title">
-            <h5 class="md-toolbar-tools">
-        {{ settings.app3Title }}
-      </h5>
+        <md-toolbar class="md-accent md-hue-3" ng-if="settings.app3Title">
+            <h5 class="md-toolbar-tools">{{ settings.app3Title }}</h5>
         </md-toolbar>
         <div layout="column" layout-padding>
             <div layout="row" flex qv-active ng-repeat="link in settings.app3">
-                <md-button class="text-left" flex layout-fill ng-href="{{ link.href }}" qv-to-static>
+                <md-button class="md-primary text-left" flex layout-fill ng-href="{{ link.href }}" qv-to-static>
                     {{ link.text }}
                 </md-button>
             </div>

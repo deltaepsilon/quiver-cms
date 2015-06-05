@@ -48,13 +48,13 @@
         margin-left: 0;
     }
     &[flag="1"] {
-        color: getColor(secondary0);
+        color: getColor(primary1);
     }
     &[flag="2"] {
-        color: getColor(secondary1);
+        color: getColor(secondary0);
     }
     &[flag="3"] {
-        color: getColor(secondary2);
+        color: getColor(secondary1);
     }
 }
 
