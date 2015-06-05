@@ -8559,6 +8559,16 @@ a.md-icon-button {
 }
 
 /* line 60, ../../../../app/styles/material/_layout.scss */
+.left {
+  float: left;
+}
+
+/* line 64, ../../../../app/styles/material/_layout.scss */
+.right {
+  float: right;
+}
+
+/* line 68, ../../../../app/styles/material/_layout.scss */
 .overlay {
   position: absolute;
   top: 0;
@@ -8568,189 +8578,189 @@ a.md-icon-button {
   z-index: 1;
 }
 
-/* line 69, ../../../../app/styles/material/_layout.scss */
+/* line 77, ../../../../app/styles/material/_layout.scss */
 img,
 video,
 iframe {
   max-width: 100%;
 }
 
-/* line 75, ../../../../app/styles/material/_layout.scss */
+/* line 83, ../../../../app/styles/material/_layout.scss */
 .block {
   display: block;
 }
 
-/* line 79, ../../../../app/styles/material/_layout.scss */
+/* line 87, ../../../../app/styles/material/_layout.scss */
 .inline-block {
   display: inline-block;
 }
 
-/* line 83, ../../../../app/styles/material/_layout.scss */
+/* line 91, ../../../../app/styles/material/_layout.scss */
 .inline {
   display: inline;
 }
 
-/* line 88, ../../../../app/styles/material/_layout.scss */
+/* line 96, ../../../../app/styles/material/_layout.scss */
 .vh-100 {
   height: 100vh;
 }
 
-/* line 92, ../../../../app/styles/material/_layout.scss */
+/* line 100, ../../../../app/styles/material/_layout.scss */
 .vh-90 {
   height: 90vh;
 }
 
-/* line 96, ../../../../app/styles/material/_layout.scss */
+/* line 104, ../../../../app/styles/material/_layout.scss */
 .width-100 {
   width: 100%;
 }
 
-/* line 101, ../../../../app/styles/material/_layout.scss */
+/* line 109, ../../../../app/styles/material/_layout.scss */
 .min-2 {
   min-width: 2rem;
 }
 
-/* line 105, ../../../../app/styles/material/_layout.scss */
+/* line 113, ../../../../app/styles/material/_layout.scss */
 .min-3 {
   min-width: 3rem;
 }
 
-/* line 109, ../../../../app/styles/material/_layout.scss */
+/* line 117, ../../../../app/styles/material/_layout.scss */
 .min-4 {
   min-width: 4rem;
 }
 
-/* line 113, ../../../../app/styles/material/_layout.scss */
+/* line 121, ../../../../app/styles/material/_layout.scss */
 .min-5 {
   min-width: 5rem;
 }
 
-/* line 117, ../../../../app/styles/material/_layout.scss */
+/* line 125, ../../../../app/styles/material/_layout.scss */
 .min-7 {
   min-width: 7rem;
 }
 
-/* line 121, ../../../../app/styles/material/_layout.scss */
+/* line 129, ../../../../app/styles/material/_layout.scss */
 .min-10 {
   min-width: 10rem;
 }
 
-/* line 125, ../../../../app/styles/material/_layout.scss */
+/* line 133, ../../../../app/styles/material/_layout.scss */
 .min-12 {
   min-width: 12rem;
 }
 
-/* line 129, ../../../../app/styles/material/_layout.scss */
+/* line 137, ../../../../app/styles/material/_layout.scss */
 .min-14 {
   min-width: 14rem;
 }
 
-/* line 133, ../../../../app/styles/material/_layout.scss */
+/* line 141, ../../../../app/styles/material/_layout.scss */
 .min-16 {
   min-width: 16rem;
 }
 
-/* line 137, ../../../../app/styles/material/_layout.scss */
+/* line 145, ../../../../app/styles/material/_layout.scss */
 .min-18 {
   min-width: 18rem;
 }
 
-/* line 141, ../../../../app/styles/material/_layout.scss */
+/* line 149, ../../../../app/styles/material/_layout.scss */
 .min-20 {
   min-width: 20rem;
 }
 
-/* line 145, ../../../../app/styles/material/_layout.scss */
+/* line 153, ../../../../app/styles/material/_layout.scss */
 .min-22 {
   min-width: 22rem;
 }
 
-/* line 149, ../../../../app/styles/material/_layout.scss */
+/* line 157, ../../../../app/styles/material/_layout.scss */
 .min-30 {
   min-width: 30rem;
 }
 
-/* line 153, ../../../../app/styles/material/_layout.scss */
+/* line 161, ../../../../app/styles/material/_layout.scss */
 .min-33 {
   min-width: 33rem;
 }
 
-/* line 157, ../../../../app/styles/material/_layout.scss */
+/* line 165, ../../../../app/styles/material/_layout.scss */
 .min-40 {
   min-width: 40rem;
 }
 
-/* line 162, ../../../../app/styles/material/_layout.scss */
+/* line 170, ../../../../app/styles/material/_layout.scss */
 .max-2 {
   max-width: 2rem;
 }
 
-/* line 166, ../../../../app/styles/material/_layout.scss */
+/* line 174, ../../../../app/styles/material/_layout.scss */
 .max-3 {
   max-width: 3rem;
 }
 
-/* line 170, ../../../../app/styles/material/_layout.scss */
+/* line 178, ../../../../app/styles/material/_layout.scss */
 .max-4 {
   max-width: 4rem;
 }
 
-/* line 174, ../../../../app/styles/material/_layout.scss */
+/* line 182, ../../../../app/styles/material/_layout.scss */
 .max-5 {
   max-width: 5rem;
 }
 
-/* line 178, ../../../../app/styles/material/_layout.scss */
+/* line 186, ../../../../app/styles/material/_layout.scss */
 .max-7 {
   max-width: 7rem;
 }
 
-/* line 182, ../../../../app/styles/material/_layout.scss */
+/* line 190, ../../../../app/styles/material/_layout.scss */
 .max-10 {
   max-width: 10rem;
 }
 
-/* line 186, ../../../../app/styles/material/_layout.scss */
+/* line 194, ../../../../app/styles/material/_layout.scss */
 .max-12 {
   max-width: 12rem;
 }
 
-/* line 190, ../../../../app/styles/material/_layout.scss */
+/* line 198, ../../../../app/styles/material/_layout.scss */
 .max-14 {
   max-width: 14rem;
 }
 
-/* line 194, ../../../../app/styles/material/_layout.scss */
+/* line 202, ../../../../app/styles/material/_layout.scss */
 .max-16 {
   max-width: 16rem;
 }
 
-/* line 198, ../../../../app/styles/material/_layout.scss */
+/* line 206, ../../../../app/styles/material/_layout.scss */
 .max-18 {
   max-width: 18rem;
 }
 
-/* line 202, ../../../../app/styles/material/_layout.scss */
+/* line 210, ../../../../app/styles/material/_layout.scss */
 .max-20 {
   max-width: 20rem;
 }
 
-/* line 206, ../../../../app/styles/material/_layout.scss */
+/* line 214, ../../../../app/styles/material/_layout.scss */
 .max-22 {
   max-width: 22rem;
 }
 
-/* line 210, ../../../../app/styles/material/_layout.scss */
+/* line 218, ../../../../app/styles/material/_layout.scss */
 .max-30 {
   max-width: 30rem;
 }
 
-/* line 214, ../../../../app/styles/material/_layout.scss */
+/* line 222, ../../../../app/styles/material/_layout.scss */
 .max-33 {
   max-width: 33rem;
 }
 
-/* line 218, ../../../../app/styles/material/_layout.scss */
+/* line 226, ../../../../app/styles/material/_layout.scss */
 .max-40 {
   max-width: 40rem;
 }

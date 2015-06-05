@@ -97,7 +97,7 @@
         "braintree": {
             "cse": "ASDFBCE"
         },
-        "timeZone": "America/Denver"
+        "timeZone": "America/Denver",
         "notification": {
             "toast": {
                 "position": "top right",

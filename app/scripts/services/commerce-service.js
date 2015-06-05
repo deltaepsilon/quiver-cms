@@ -8,7 +8,7 @@
  * Service in the quiverCmsApp.
  */
 angular.module('quiverCmsApp')
-    .service('CommerceService', function CommerceService($q, $filter, _, Restangular, Analytics) {
+    .service('CommerceService', function CommerceService($filter, _, Restangular, Analytics) {
         var countries = [{
             "name": "Afghanistan",
             "alpha-2": "AF",

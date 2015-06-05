@@ -136,21 +136,75 @@ angular.module('quiverCmsApp', [
     /*
      * Angular Material
      */
-    var palette = window.envVars.theme && window.envVars.theme.palette ? window.envVars.theme.palette : false;
+    var palette = window.envVars.theme && window.envVars.theme.palette ? window.envVars.theme.palette : false,
+        isValidCustomPalette = function(palette) {
+            var required = [
+                    "50",
+                    "100",
+                    "200",
+                    "300",
+                    "400",
+                    "500",
+                    "600",
+                    "700",
+                    "800",
+                    "900",
+                    "A100",
+                    "A200",
+                    "A300",
+                    "A400",
+                    "A700",
+                    "contrastDarkColors",
+                    "contrastLightColors",
+                    "contrastDefaultColor"
+                ],
+                keys = Object.keys(palette),
+                i = required.length;
+            while (i--) {
+                if (!~keys.indexOf(required[i])) {
+                    return false
+                }
+            }
+            return true;
+        };
+
+
 
     if (palette) {
-        var theme = $mdThemingProvider.theme('default'),
-            overrides = palette.overrides || {
-                primary: {},
-                secondary: {}
-            };
+        var theme = $mdThemingProvider.theme('default');
 
-        if (palette.primary) {
-            theme.primaryPalette(palette.primary, overrides.primary);
+        if (palette.primary && palette.overrides && palette.overrides.primary) { // Extend a palette
+            var customPrimary = $mdThemingProvider.extendPalette(palette.primary, palette.overrides.primary);
+            $mdThemingProvider.definePalette('customPrimary', customPrimary);
+            if (palette.intentions && palette.intentions.primary) {
+                theme.primaryPalette('customPrimary', palette.intentions.primary);
+            } else {
+                theme.primaryPalette('customPrimary');
+            }
+        } else if (palette.primary && palette.intentions && palette.intentions.primary) { // Use a predefined Palette with custom intentions
+            theme.primaryPalette(palette.primary, palette.intentions.primary);
+        } else if (palette.primary) { // Use an unmodified palette
+            theme.primaryPalette(palette.primary);
+        } else if (palette.overrides && palette.overrides.primary && isValidCustomPalette(palette.overrides.primary)) { // Create a palette
+            $mdThemingProvider.definePalette('customPrimary', palette.overrides.primary);
+            theme.primaryPalette('customPrimary');
         }
 
-        if (palette.secondary) {
-            theme.primaryPalette(palette.primary, overrides.primary);
+        if (palette.accent && palette.overrides && palette.overrides.accent) { // Extend a palette
+            var customAccent = $mdThemingProvider.extendPalette(palette.accent, palette.overrides.accent);
+            $mdThemingProvider.definePalette('customAccent', customAccent);
+            if (palette.intentions && palette.intentions.accent) {
+                theme.accentPalette('customPrimary', palette.intentions.accent);
+            } else {
+                theme.accentPalette('customAccent');
+            }
+        } else if (palette.accent && palette.intentions && palette.intentions.accent) { // Use a predefined Palette with custom intentions
+            theme.accentPalette(palette.accent, palette.intentions.accent);
+        } else if (palette.accent) { // Use an unmodified Palette
+            theme.accentPalette(palette.accent);
+        } else if (palette.overrides && palette.overrides.accent && isValidCustomPalette(palette.overrides.accent)) { // Create a palette
+            $mdThemingProvider.definePalette('customAccent', palette.overrides.accent);
+            theme.accentPalette('customAccent');
         }
 
         if (palette.dark) {
