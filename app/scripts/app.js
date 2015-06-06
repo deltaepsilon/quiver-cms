@@ -382,7 +382,7 @@ angular.module('quiverCmsApp', [
             resolve: {
                 assignments: function(UserService, user) {
                     return UserService.getSubmittedAssignments(user.$id, {
-                        orderByPriority: true
+                        orderByKey: true
                     }).$loaded();
                 },
                 subscriptions: function(UserService, user) {
@@ -679,7 +679,7 @@ angular.module('quiverCmsApp', [
             controller: 'WordsCtrl',
             resolve: {
                 items: function(AdminService) {
-                    return AdminService.getWords().$orderByPriority().$limitToLast(10).$default().$get();
+                    return AdminService.getWords().$orderByKey().$limitToLast(10).$default().$get();
                 },
                 moderators: function(AdminService) {
                     return AdminService.getUsers().$orderByChild('isModerator').$equalTo(true).$default().$get();
@@ -719,7 +719,7 @@ angular.module('quiverCmsApp', [
             controller: 'AssignmentsCtrl',
             resolve: {
                 items: function(AdminService) {
-                    return AdminService.getAssignments().$orderByPriority().$limitToLast(10).$default().$get();
+                    return AdminService.getAssignments().$orderByKey().$limitToLast(10).$default().$get();
                 }
             }
         },
@@ -904,7 +904,7 @@ angular.module('quiverCmsApp', [
                 },
                 ref: function(AdminService, limit) {
                     return AdminService.getSurveys({
-                        orderByPriority: true,
+                        orderByKey: true,
                         limitToLast: limit
                     });
                 }

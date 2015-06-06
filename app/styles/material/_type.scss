@@ -21,7 +21,20 @@
 
 .bold,
 strong {
-    font-weight: 700;
+    font-weight: 900;
+}
+
+// Letter spacing
+.letter-spacing-small {
+    letter-spacing: 1px;
+}
+
+.letter-spacing-medium {
+    letter-spacing: 2px;   
+}
+
+.letter-spacing-large {
+    letter-spacing: 3px;   
 }
 
 // Transforms

@@ -453,7 +453,7 @@ md-list.hover > md-item.active {
 }
 
 /* line 58, ../../../../app/styles/material/_color.scss */
-.text-primary0 {
+.text-primary0, .cta-headline {
   color: #4C4c4E;
 }
 
@@ -3015,7 +3015,7 @@ a.link-hover-black0-important:hover {
 }
 
 /* line 123, ../../../../app/styles/material/_color.scss */
-.border-primary0 {
+.border-primary0, .cta-headline:after {
   border: 1px solid #4C4c4E;
 }
 
@@ -3025,7 +3025,7 @@ a.link-hover-black0-important:hover {
 }
 
 /* line 123, ../../../../app/styles/material/_color.scss */
-.border-primary2 {
+.border-primary2, .cta-headline:before, .down-arrow {
   border: 1px solid #BDE3DC;
 }
 
@@ -3224,7 +3224,7 @@ input {
 }
 
 /* line 30, ../../../../app/styles/material/_font.scss */
-.text-x-small {
+.text-x-small, .cta-button span {
   font-size: 0.75rem;
 }
 
@@ -3264,7 +3264,7 @@ input {
 }
 
 /* line 30, ../../../../app/styles/material/_font.scss */
-.text-large {
+.text-large, .cta-headline {
   font-size: 1.25rem;
 }
 
@@ -3274,7 +3274,7 @@ input {
 }
 
 /* line 30, ../../../../app/styles/material/_font.scss */
-.text-x-large, .landing-page h1 {
+.text-x-large {
   font-size: 2.1875rem;
 }
 
@@ -3284,7 +3284,7 @@ input {
 }
 
 /* line 54, ../../../../app/styles/material/_font.scss */
-.font-secondary, .headline, .landing-page h1, .landing-page h2, .landing-page h3 {
+.font-secondary, .headline {
   font-family: "museo-sans", "Helvetica", "Helvetica Neue", Arial, sans-serif;
   letter-spacing: -1px;
 }
@@ -3698,7 +3698,7 @@ input {
 }
 
 /* line 12, ../../../../app/styles/material/_spacing.scss */
-.padding-large {
+.padding-large, .cta-headline {
   padding: 1.5rem 3rem;
 }
 
@@ -7688,11 +7688,11 @@ img {
 }
 
 /* line 2, ../../../../app/styles/material/_type.scss */
-.headline, .landing-page h1, .landing-page h2, .landing-page h3 {
+.headline {
   font-weight: 700;
 }
 /* line 5, ../../../../app/styles/material/_type.scss */
-.headline.tight, .landing-page h1.tight, .landing-page h2.tight, .landing-page h3.tight {
+.headline.tight {
   letter-spacing: -3px;
 }
 
@@ -7712,89 +7712,104 @@ img {
 }
 
 /* line 22, ../../../../app/styles/material/_type.scss */
-.bold,
+.bold, .cta-headline, .cta-button div,
 strong {
-  font-weight: 700;
+  font-weight: 900;
 }
 
 /* line 28, ../../../../app/styles/material/_type.scss */
+.letter-spacing-small {
+  letter-spacing: 1px;
+}
+
+/* line 32, ../../../../app/styles/material/_type.scss */
+.letter-spacing-medium {
+  letter-spacing: 2px;
+}
+
+/* line 36, ../../../../app/styles/material/_type.scss */
+.letter-spacing-large {
+  letter-spacing: 3px;
+}
+
+/* line 41, ../../../../app/styles/material/_type.scss */
 .uppercase {
   text-transform: uppercase;
 }
 
-/* line 32, ../../../../app/styles/material/_type.scss */
+/* line 45, ../../../../app/styles/material/_type.scss */
 .lowercase {
   text-transform: lowercase;
 }
 
-/* line 36, ../../../../app/styles/material/_type.scss */
+/* line 49, ../../../../app/styles/material/_type.scss */
 .capitalize {
   text-transform: capitalize;
 }
 
-/* line 40, ../../../../app/styles/material/_type.scss */
+/* line 53, ../../../../app/styles/material/_type.scss */
 .undecorated {
   text-decoration: none;
   color: inherit;
 }
 
-/* line 45, ../../../../app/styles/material/_type.scss */
+/* line 58, ../../../../app/styles/material/_type.scss */
 .truncate {
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
 }
 
-/* line 52, ../../../../app/styles/material/_type.scss */
+/* line 65, ../../../../app/styles/material/_type.scss */
 .text-left {
   text-align: left;
 }
 
-/* line 56, ../../../../app/styles/material/_type.scss */
+/* line 69, ../../../../app/styles/material/_type.scss */
 .text-left-important {
   text-align: left !important;
 }
 
-/* line 60, ../../../../app/styles/material/_type.scss */
+/* line 73, ../../../../app/styles/material/_type.scss */
 .text-right {
   text-align: right;
 }
 
-/* line 64, ../../../../app/styles/material/_type.scss */
+/* line 77, ../../../../app/styles/material/_type.scss */
 .text-right-important {
   text-align: right !important;
 }
 
-/* line 68, ../../../../app/styles/material/_type.scss */
+/* line 81, ../../../../app/styles/material/_type.scss */
 .text-center {
   text-align: center;
 }
 
-/* line 72, ../../../../app/styles/material/_type.scss */
+/* line 85, ../../../../app/styles/material/_type.scss */
 .text-center-important {
   text-align: center !important;
 }
 
-/* line 77, ../../../../app/styles/material/_type.scss */
+/* line 90, ../../../../app/styles/material/_type.scss */
 .break-word {
   word-wrap: break-word;
 }
 
-/* line 82, ../../../../app/styles/material/_type.scss */
+/* line 95, ../../../../app/styles/material/_type.scss */
 .line-height-1 {
   line-height: 1rem !important;
 }
 
-/* line 86, ../../../../app/styles/material/_type.scss */
+/* line 99, ../../../../app/styles/material/_type.scss */
 .line-height-2 {
   line-height: 2rem !important;
 }
 
-/* line 92, ../../../../app/styles/material/_type.scss */
+/* line 105, ../../../../app/styles/material/_type.scss */
 md-sidenav .md-toolbar-tools {
   font-weight: 900;
 }
-/* line 95, ../../../../app/styles/material/_type.scss */
+/* line 108, ../../../../app/styles/material/_type.scss */
 md-sidenav .md-button * {
   font-weight: 900;
   letter-spacing: 1px;
@@ -8311,6 +8326,84 @@ md-list.pointer > md-item.active {
   top: 0;
   width: 1rem;
   height: 1rem;
+}
+
+/* line 1, ../../../../app/styles/material/_landing-page.scss */
+.landing-page {
+  max-width: 100%;
+}
+
+/* line 5, ../../../../app/styles/material/_landing-page.scss */
+.cta-headline {
+  display: inline-block;
+  letter-spacing: 1px;
+  position: relative;
+  text-align: center;
+  text-transform: uppercase;
+}
+/* line 17, ../../../../app/styles/material/_landing-page.scss */
+.cta-headline:after {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  border-width: 2px;
+  content: "";
+  display: block;
+}
+/* line 26, ../../../../app/styles/material/_landing-page.scss */
+.cta-headline:before {
+  position: absolute;
+  top: -4px;
+  right: 4px;
+  bottom: 4px;
+  left: -4px;
+  border-width: 2px;
+  content: "";
+  display: block;
+}
+
+/* line 37, ../../../../app/styles/material/_landing-page.scss */
+.down-arrow {
+  display: block;
+  height: 3rem;
+  width: 0;
+  position: relative;
+}
+/* line 45, ../../../../app/styles/material/_landing-page.scss */
+.down-arrow:after {
+  position: absolute;
+  top: inherit;
+  right: inherit;
+  bottom: 0px;
+  left: -0.55rem;
+  border-color: #BDE3DC;
+  border-style: solid;
+  border-width: 0 0 2px 2px;
+  content: "";
+  display: block;
+  width: 1rem;
+  height: 1rem;
+  transform: rotate(-45deg);
+}
+
+/* line 62, ../../../../app/styles/material/_landing-page.scss */
+.cta-button.md-hue-1 {
+  border-bottom: 4px solid #115f49;
+}
+/* line 66, ../../../../app/styles/material/_landing-page.scss */
+.cta-button.md-hue-2 {
+  border-bottom: 4px solid #8daaa5;
+}
+/* line 71, ../../../../app/styles/material/_landing-page.scss */
+.cta-button div {
+  padding: .5rem 2rem 0;
+  margin-bottom: -1rem;
+}
+/* line 77, ../../../../app/styles/material/_landing-page.scss */
+.cta-button span {
+  padding: 0 2rem .5rem;
 }
 
 /* line 2, ../../../../app/styles/material/_cards.scss */

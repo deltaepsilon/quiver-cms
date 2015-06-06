@@ -8,16 +8,16 @@
                 <label for="list-search">Search by filename</label>
                 <input id="list-search" type="text" ng-model="searchTerm" qv-enter="items = items.$orderByChild('Name').$startAt(searchTerm).$get();">
             </md-input-container>
-            <md-button class="md-icon-button" flex ng-click="loadNext()" ng-disabled="disablePrev" aria-label="list back">
+            <md-button class="md-icon-button" flex ng-click="items = items.$next()" ng-disabled="disablePrev" aria-label="list back">
                 <i class="mdi-navigation-arrow-back"></i>
             </md-button>
-            <md-button class="md-icon-button" flex ng-click="loadPrev()" ng-disabled="disableNext" aria-label="list forward">
+            <md-button class="md-icon-button" flex ng-click="items = items.$prev()" ng-disabled="disableNext" aria-label="list forward">
                 <i class="mdi-navigation-arrow-forward"></i>
             </md-button>
-            <md-button class="md-icon-button" flex ng-click="loadMore()" ng-disabled="disableMore" aria-label="list load more">
+            <md-button class="md-icon-button" flex ng-click="items = items.$more()" ng-disabled="disableMore" aria-label="list load more">
                 <i class="mdi-navigation-expand-more"></i>
             </md-button>
-            <md-button class="md-icon-button" flex ng-click="reset()" ng-disabled="disableReset" aria-label="list reload">
+            <md-button class="md-icon-button" flex ng-click="items = items.$reset()" ng-disabled="disableReset" aria-label="list reload">
                 <i class="mdi-navigation-refresh"></i>
             </md-button>
         </div>

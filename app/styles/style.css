@@ -4502,87 +4502,102 @@ md-toast {
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Dropbox\/Development\/quiver-cms\/app\/styles\/material\/_type\.scss}line{font-family:\0000322}}
 .bold,
 strong {
-  font-weight: 700;
+  font-weight: 900;
 }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Dropbox\/Development\/quiver-cms\/app\/styles\/material\/_type\.scss}line{font-family:\0000328}}
+.letter-spacing-small {
+  letter-spacing: 1px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Dropbox\/Development\/quiver-cms\/app\/styles\/material\/_type\.scss}line{font-family:\0000332}}
+.letter-spacing-medium {
+  letter-spacing: 2px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Dropbox\/Development\/quiver-cms\/app\/styles\/material\/_type\.scss}line{font-family:\0000336}}
+.letter-spacing-large {
+  letter-spacing: 3px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Dropbox\/Development\/quiver-cms\/app\/styles\/material\/_type\.scss}line{font-family:\0000341}}
 .uppercase {
   text-transform: uppercase;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Dropbox\/Development\/quiver-cms\/app\/styles\/material\/_type\.scss}line{font-family:\0000332}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Dropbox\/Development\/quiver-cms\/app\/styles\/material\/_type\.scss}line{font-family:\0000345}}
 .lowercase {
   text-transform: lowercase;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Dropbox\/Development\/quiver-cms\/app\/styles\/material\/_type\.scss}line{font-family:\0000336}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Dropbox\/Development\/quiver-cms\/app\/styles\/material\/_type\.scss}line{font-family:\0000349}}
 .capitalize {
   text-transform: capitalize;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Dropbox\/Development\/quiver-cms\/app\/styles\/material\/_type\.scss}line{font-family:\0000340}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Dropbox\/Development\/quiver-cms\/app\/styles\/material\/_type\.scss}line{font-family:\0000353}}
 .undecorated {
   text-decoration: none;
   color: inherit;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Dropbox\/Development\/quiver-cms\/app\/styles\/material\/_type\.scss}line{font-family:\0000345}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Dropbox\/Development\/quiver-cms\/app\/styles\/material\/_type\.scss}line{font-family:\0000358}}
 .truncate {
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Dropbox\/Development\/quiver-cms\/app\/styles\/material\/_type\.scss}line{font-family:\0000352}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Dropbox\/Development\/quiver-cms\/app\/styles\/material\/_type\.scss}line{font-family:\0000365}}
 .text-left {
   text-align: left;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Dropbox\/Development\/quiver-cms\/app\/styles\/material\/_type\.scss}line{font-family:\0000356}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Dropbox\/Development\/quiver-cms\/app\/styles\/material\/_type\.scss}line{font-family:\0000369}}
 .text-left-important {
   text-align: left !important;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Dropbox\/Development\/quiver-cms\/app\/styles\/material\/_type\.scss}line{font-family:\0000360}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Dropbox\/Development\/quiver-cms\/app\/styles\/material\/_type\.scss}line{font-family:\0000373}}
 .text-right {
   text-align: right;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Dropbox\/Development\/quiver-cms\/app\/styles\/material\/_type\.scss}line{font-family:\0000364}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Dropbox\/Development\/quiver-cms\/app\/styles\/material\/_type\.scss}line{font-family:\0000377}}
 .text-right-important {
   text-align: right !important;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Dropbox\/Development\/quiver-cms\/app\/styles\/material\/_type\.scss}line{font-family:\0000368}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Dropbox\/Development\/quiver-cms\/app\/styles\/material\/_type\.scss}line{font-family:\0000381}}
 .text-center {
   text-align: center;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Dropbox\/Development\/quiver-cms\/app\/styles\/material\/_type\.scss}line{font-family:\0000372}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Dropbox\/Development\/quiver-cms\/app\/styles\/material\/_type\.scss}line{font-family:\0000385}}
 .text-center-important {
   text-align: center !important;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Dropbox\/Development\/quiver-cms\/app\/styles\/material\/_type\.scss}line{font-family:\0000377}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Dropbox\/Development\/quiver-cms\/app\/styles\/material\/_type\.scss}line{font-family:\0000390}}
 .break-word {
   word-wrap: break-word;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Dropbox\/Development\/quiver-cms\/app\/styles\/material\/_type\.scss}line{font-family:\0000382}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Dropbox\/Development\/quiver-cms\/app\/styles\/material\/_type\.scss}line{font-family:\0000395}}
 .line-height-1 {
   line-height: 1rem !important;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Dropbox\/Development\/quiver-cms\/app\/styles\/material\/_type\.scss}line{font-family:\0000386}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Dropbox\/Development\/quiver-cms\/app\/styles\/material\/_type\.scss}line{font-family:\0000399}}
 .line-height-2 {
   line-height: 2rem !important;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Dropbox\/Development\/quiver-cms\/app\/styles\/material\/_type\.scss}line{font-family:\0000392}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Dropbox\/Development\/quiver-cms\/app\/styles\/material\/_type\.scss}line{font-family:\00003105}}
 md-sidenav .md-toolbar-tools {
   font-weight: 900;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Dropbox\/Development\/quiver-cms\/app\/styles\/material\/_type\.scss}line{font-family:\0000395}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Dropbox\/Development\/quiver-cms\/app\/styles\/material\/_type\.scss}line{font-family:\00003108}}
 md-sidenav .md-button * {
   font-weight: 900;
   letter-spacing: 1px;

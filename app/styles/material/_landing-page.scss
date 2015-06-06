@@ -1,10 +1,81 @@
 .landing-page {
-    h1, h2, h3 {
-        @extend .headline;
+    max-width: 100%;
+}
+
+.cta-headline {
+    @extend .bold;
+    @extend .text-large;
+    @extend .text-primary0;
+    @extend .padding-large;
+
+    display: inline-block;
+    letter-spacing: 1px;
+    position: relative;
+    text-align: center;
+    text-transform: uppercase;
+
+    &:after {
+        @include absolute();
+        @extend .border-primary0;
+
+        border-width: 2px;
+        content: "";
+        display: block;
     }
 
-    h1 {
-        @extend .text-x-large;
+    &:before {
+        @include absolute(-4px, 4px, 4px, -4px);
+        @extend .border-primary2;
+
+        border-width: 2px;
+        content: "";
+        display: block;
+    }
+    
+}
+
+.down-arrow {
+    @extend .border-primary2;
+
+    display: block;
+    height: 3rem;
+    width: 0;
+    position: relative;
+
+    &:after {
+        $width: 1rem;
+
+        @include absolute(inherit, inherit, 0px, -.55 * $width); // Use square root of 2 to calculate offset
+        border-color: getColor(primary2);
+        border-style: solid;
+        border-width: 0 0 2px 2px;
+        content: "";
+        display: block;
+        width: $width;
+        height: $width;
+        transform: rotate(-45deg);
     }
 
+}
+
+.cta-button {
+    &.md-hue-1 {
+        border-bottom: 4px solid shade(getColor(primary1), 25);    
+    }
+
+    &.md-hue-2 {
+        border-bottom: 4px solid shade(getColor(primary2), 25);    
+    }
+    
+
+    div {
+        @extend .bold;
+        padding: .5rem 2rem 0;
+        margin-bottom: -1rem;
+    }
+
+    span {
+        @extend .text-x-small;
+        padding: 0 2rem .5rem;
+    }
 }

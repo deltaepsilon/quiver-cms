@@ -8,14 +8,16 @@
     <form name="filesForm" flow-init="{target: uploadTarget, simultaneousUploads: 1}" flow-name="flow" ng-if="!$storage.hideFileUpload">
         <fieldset>
             <md-whiteframe class="md-whiteframe-z1" layout="row" layout-align="center center" layout-fill layout-margin layout-padding layout-wrap>
-                <md-whiteframe class="md-whiteframe-z3 background-highlight4 text-white0 text-center" flex="100" layout="row" layout-align="center center" style="padding: 2.8rem;" flow-drop ng-class="{'drag-over': dragOver}" flow-drag-enter="dragOver = true;" flow-drag-leave="dragOver = false;">
-                    <strong class="headline uppercase text-x-large text-center" flex style="color: inherit;">File Drop</strong>
-                </md-whiteframe>
-                <label class="md-button md-default-theme md-primary md-raised" flex="40" for="upload-file">
+                <div flex="100">
+                    <md-whiteframe class="md-whiteframe-z3 background-primary2 text-center" flex="100" layout="row" layout-align="center center" style="padding: 2.8rem;" flow-drop ng-class="{'drag-over': dragOver}" flow-drag-enter="dragOver = true;" flow-drag-leave="dragOver = false;">
+                        <strong class="headline uppercase text-x-large text-center" flex style="color: inherit;">File Drop</strong>
+                    </md-whiteframe>
+                </div>
+                <label class="md-button md-default-theme md-primary md-raised" flex for="upload-file">
                     Select Files
                 </label>
                 <input id="upload-file" class="hidden" type="file" flow-btn/>
-                <label class="md-button md-default-theme md-primary md-raised adjust-line-height" flex="40" for="upload-directory">
+                <label class="md-button md-default-theme md-primary md-raised adjust-line-height" flex for="upload-directory">
                     Select Directory
                 </label>
                 <input id="upload-directory" class="hidden" type="file" flow-btn flow-directory/>
@@ -43,7 +45,7 @@
 <section class="padding-vertical-medium" ng-if="$storage.clipboard.length">
     <div layout="row" layout-align="start center">
         <h3 class="headline" flex ng-class="{'disabled': $storage.hideFilesClipboard}">Clipboard</h3>
-        <md-button class="md-primary md-raised md-icon-button" flex ng-click="$storage.hideFilesClipboard = !$storage.hideFilesClipboard" aria-label="Hide files clipboard">
+        <md-button class="md-fab md-mini md-primary" flex ng-click="$storage.hideFilesClipboard = !$storage.hideFilesClipboard" aria-label="Hide files clipboard">
             <i ng-class="{'mdi-navigation-expand-less': $storage.hideFilesClipboard, 'mdi-navigation-expand-more': !$storage.hideFilesClipboard}"></i>
         </md-button>
     </div>

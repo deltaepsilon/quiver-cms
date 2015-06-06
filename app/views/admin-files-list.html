@@ -42,19 +42,19 @@
                                 </md-select>
                             </div>
                             <span flex>{{ file.Index }}: {{ file.Name }}</span>
-                            <md-button class="md-primary md-raised md-icon-button" ng-click="addToClipboard(file)" ng-hide="inClipboard(file) || file.disabled" aria-label="Add file to clipboard {{ file.Key }}">
+                            <md-button class="md-fab md-mini md-primary" ng-click="addToClipboard(file)" ng-hide="inClipboard(file) || file.disabled" aria-label="Add file to clipboard {{ file.Key }}">
                                 <i class="mdi-content-add-box"></i>
                             </md-button>
-                            <md-button class="md-warn md-raised md-icon-button margin-horizontal-small" ng-click="confirmRemoveFile($event, file); file.disabled = true;" ng-disabled="file.disabled" aria-label="Remove file {{ file.Key }}">
+                            <md-button class="md-fab md-mini md-warn margin-horizontal-x-small" ng-click="confirmRemoveFile($event, file); file.disabled = true;" ng-disabled="file.disabled" aria-label="Remove file {{ file.Key }}">
                                 <i class="mdi-action-delete"></i>
                             </md-button>
                             <span class="padding-zero-important" flex="100"></span>
                             <span id="file-link-{{ $index }}" class="cursor-pointer break-word text-x-small" flex="75" ng-if="fileVersion" qv-select-text>{{ file.Versions[fileVersion].Key | s3Link:bucket }}</span>
                             <span id="file-link-{{ $index }}" class="cursor-pointer break-word text-x-small" flex="75" ng-if="!fileVersion" qv-select-text>{{ file.Key | s3Link:bucket }}</span>
                             <div class="text-right" flex style="max-width: 5rem;">
-                                <md-button class="md-primary md-fab md-fab-tiny" qv-select-text="file-link-{{ $index }}" events="click mouseenter" aria-label="Control + C to copy href.">
+                                <md-button class="md-primary md-fab md-mini margin-zero" qv-select-text="file-link-{{ $index }}" events="click mouseenter" aria-label="Control + C to copy href.">
                                     <md-tooltip>
-                                        Ctrl + C to copy
+                                        Ctrl + C
                                     </md-tooltip>
                                     <i class="mdi-content-content-copy"></i>
                                 </md-button>
@@ -62,7 +62,7 @@
                             <span id="md-link-{{ $index }}" class="cursor-pointer break-word text-x-small" flex="75" ng-if="!fileVersion" qv-select-text>![{{ file.Key | filename }}]({{ file.Key | s3Link:bucket }})</span>
                             <span id="md-link-{{ $index }}" class="cursor-pointer break-word text-x-small" flex="75" ng-if="fileVersion" qv-select-text>![{{ file.Versions[fileVersion].Key | filename }}]({{ file.Versions[fileVersion].Key | s3Link:bucket }})</span>
                             <div class="text-right" flex style="max-width: 5rem;">
-                                <md-button class="md-primary md-fab md-fab-tiny" qv-select-text="md-link-{{ $index }}" events="click mouseenter" aria-label="Control + C to copy CommonMark link.">
+                                <md-button class="md-primary md-fab md-mini margin-zero" qv-select-text="md-link-{{ $index }}" events="click mouseenter" aria-label="Control + C to copy CommonMark link.">
                                     <md-tooltip>
                                         Ctrl + C to copy
                                     </md-tooltip>

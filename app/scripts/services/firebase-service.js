@@ -14,10 +14,10 @@ angular.module('quiverCmsApp')
                 // $save: function (indexOrItem) {
                 //   return $firebaseArray.prototype.$save.call(this, indexOrItem);
                 // },
-                $add: function(item) {
-                    item.$priority = moment().unix();
-                    return $firebaseArray.prototype.$add.call(this, item);
-                },
+                // $add: function(item) {
+                //     item.$priority = moment().unix();
+                //     return $firebaseArray.prototype.$add.call(this, item);
+                // },
                 $get: function() {
                     if (this.$list.$ref() instanceof Firebase) {
                         this.$path = this.$list.$ref().toString();
@@ -49,12 +49,14 @@ angular.module('quiverCmsApp')
                         ref = ref.orderByChild(this.$query.orderBy);
                     }
 
-                    if (this.$query.at.type === 'equalTo') {
-                        ref = ref.equalTo(this.$query.at.value);
-                    } else if (this.$query.at.type === 'startAt') {
-                        ref = ref.startAt(this.$query.at.value);
-                    } else if (this.$query.at.type === 'endAt') {
-                        ref = ref.endAt(this.$query.at.value);
+                    if (this.$query.at.value) {
+                        if (this.$query.at.type === 'equalTo') {
+                            ref = ref.equalTo(this.$query.at.value);
+                        } else if (this.$query.at.type === 'startAt') {
+                            ref = ref.startAt(this.$query.at.value);
+                        } else if (this.$query.at.type === 'endAt') {
+                            ref = ref.endAt(this.$query.at.value);
+                        }
                     }
 
                     var paginatingArray = new PaginatingArray(ref);
@@ -67,9 +69,9 @@ angular.module('quiverCmsApp')
                 },
                 $next: function() {
                     var self = this,
-                        priorities = _.pluck(this.$list, '$priority'),
-                        max = _.max(priorities),
-                        paginatingArray = this.$list.$orderByPriority().$startAt(max + 1).$get();
+                        keys = _.pluck(this.$list, '$id'),
+                        max = keys[keys.length - 1],
+                        paginatingArray = this.$list.$orderByKey().$startAt(max).$get();
 
                     paginatingArray.$prevQuery = _.clone(this.$query);
 
@@ -84,10 +86,10 @@ angular.module('quiverCmsApp')
                 },
                 $prev: function() {
                     var self = this,
-                        priorities = _.pluck(this.$list, '$priority'),
-                        min = _.min(priorities),
-                        target = isFinite(min) ? min - 1 : this.$query.at.value,
-                        paginatingArray = this.$list.$orderByPriority().$endAt(target).$get();
+                        keys = _.pluck(this.$list, '$id'),
+                        min = keys[0],
+                        // target = isFinite(min) ? min - 1 : this.$query.at.value,
+                        paginatingArray = this.$list.$orderByKey().$endAt(min).$get();
 
                     paginatingArray.$prevQuery = _.clone(this.$query);
 
@@ -101,7 +103,7 @@ angular.module('quiverCmsApp')
                 },
                 $more: function() {
                     this.$query = _.clone(this.$list.$defaultQuery);
-                    var paginatingArray = this.$orderByPriority().$limit(this.$query.limit + 10).$get();
+                    var paginatingArray = this.$orderByKey().$limit(this.$query.limit + 10).$get();
 
                     paginatingArray.$loaded().then(function(newArray) {
                         if (newArray.length < paginatingArray.$query.limit) {
@@ -119,7 +121,7 @@ angular.module('quiverCmsApp')
                 },
                 $query: {
                     limit: 10,
-                    orderBy: 'priority',
+                    orderBy: 'key',
                     limitTo: 'first',
                     at: {
                         type: false,
@@ -245,11 +247,11 @@ angular.module('quiverCmsApp')
             },
 
             paginatingArray: function(ref) {
-                var paginatingArray = new PaginatingArray(ref.orderByPriority().limitToFirst(10));
+                var paginatingArray = new PaginatingArray(ref.orderByKey().limitToFirst(10));
 
                 paginatingArray.$default({
                     limit: 10,
-                    orderBy: 'priority',
+                    orderBy: 'key',
                     limitTo: 'first',
                     at: {
                         type: false,
