@@ -6,8 +6,8 @@
                     <h3 class="headline margin-horizontal-medium" flex="100">Items In Your Cart</h3>
                     <md-list flex ng-if="$storage.cart.items.length">
                         <md-item ng-repeat="product in $storage.cart.items | orderBy:'title'">
-                            <md-item-content layout="row" layout-margin>
-                                <md-tile-left flex style="max-width: 10rem;">
+                            <md-item-content layout="row" layout-sm="column" layout-margin>
+                                <md-tile-left class="max-12" flex>
                                     <a flex href="/product/{{ product.slug }}">
                                         <img ng-if="product.featuredImage.Versions.small.Key" ng-src="{{ product.featuredImage.Versions.small.Key | s3Link:bucket }}" />
                                     </a>

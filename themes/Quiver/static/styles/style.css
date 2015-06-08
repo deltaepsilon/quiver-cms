@@ -3224,7 +3224,7 @@ input {
 }
 
 /* line 30, ../../../../app/styles/material/_font.scss */
-.text-x-small, .cta-button span {
+.text-x-small, .cta-button .caption, .markdown.text-x-small p, .markdown.text-x-small li, .markdown h6 {
   font-size: 0.75rem;
 }
 
@@ -3234,7 +3234,7 @@ input {
 }
 
 /* line 30, ../../../../app/styles/material/_font.scss */
-.text-small {
+.text-small, .markdown.text-small p, .markdown.text-small li, .markdown h5 {
   font-size: 0.875rem;
 }
 
@@ -3244,7 +3244,7 @@ input {
 }
 
 /* line 30, ../../../../app/styles/material/_font.scss */
-.text-medium, .md-button {
+.text-medium, .md-button, .markdown h4 {
   font-size: 1rem;
 }
 
@@ -3254,7 +3254,7 @@ input {
 }
 
 /* line 30, ../../../../app/styles/material/_font.scss */
-.text-x-medium {
+.text-x-medium, .markdown h3 {
   font-size: 1.125rem;
 }
 
@@ -3264,7 +3264,7 @@ input {
 }
 
 /* line 30, ../../../../app/styles/material/_font.scss */
-.text-large, .cta-headline {
+.text-large, .cta-headline, .markdown h2 {
   font-size: 1.25rem;
 }
 
@@ -3274,7 +3274,7 @@ input {
 }
 
 /* line 30, ../../../../app/styles/material/_font.scss */
-.text-x-large {
+.text-x-large, .markdown h1 {
   font-size: 2.1875rem;
 }
 
@@ -3851,7 +3851,7 @@ a {
 }
 
 /* line 13, ../../../../app/styles/material/_global.scss */
-.clearfix {
+.clearfix, .headline {
   overflow: hidden;
   *zoom: 1;
 }
@@ -7689,127 +7689,127 @@ img {
 
 /* line 2, ../../../../app/styles/material/_type.scss */
 .headline {
-  font-weight: 700;
+  font-weight: 900;
 }
-/* line 5, ../../../../app/styles/material/_type.scss */
+/* line 7, ../../../../app/styles/material/_type.scss */
 .headline.tight {
   letter-spacing: -3px;
 }
 
-/* line 10, ../../../../app/styles/material/_type.scss */
+/* line 12, ../../../../app/styles/material/_type.scss */
 .lightest {
   font-weight: 100;
 }
 
-/* line 14, ../../../../app/styles/material/_type.scss */
+/* line 16, ../../../../app/styles/material/_type.scss */
 .light {
   font-weight: 300;
 }
 
-/* line 18, ../../../../app/styles/material/_type.scss */
+/* line 20, ../../../../app/styles/material/_type.scss */
 .book {
   font-weight: 500;
 }
 
-/* line 22, ../../../../app/styles/material/_type.scss */
-.bold, .cta-headline, .cta-button div,
+/* line 24, ../../../../app/styles/material/_type.scss */
+.bold, .cta-headline, .cta-button .title,
 strong {
   font-weight: 900;
 }
 
-/* line 28, ../../../../app/styles/material/_type.scss */
+/* line 30, ../../../../app/styles/material/_type.scss */
 .letter-spacing-small {
   letter-spacing: 1px;
 }
 
-/* line 32, ../../../../app/styles/material/_type.scss */
+/* line 34, ../../../../app/styles/material/_type.scss */
 .letter-spacing-medium {
   letter-spacing: 2px;
 }
 
-/* line 36, ../../../../app/styles/material/_type.scss */
+/* line 38, ../../../../app/styles/material/_type.scss */
 .letter-spacing-large {
   letter-spacing: 3px;
 }
 
-/* line 41, ../../../../app/styles/material/_type.scss */
+/* line 43, ../../../../app/styles/material/_type.scss */
 .uppercase {
   text-transform: uppercase;
 }
 
-/* line 45, ../../../../app/styles/material/_type.scss */
+/* line 47, ../../../../app/styles/material/_type.scss */
 .lowercase {
   text-transform: lowercase;
 }
 
-/* line 49, ../../../../app/styles/material/_type.scss */
+/* line 51, ../../../../app/styles/material/_type.scss */
 .capitalize {
   text-transform: capitalize;
 }
 
-/* line 53, ../../../../app/styles/material/_type.scss */
+/* line 55, ../../../../app/styles/material/_type.scss */
 .undecorated {
   text-decoration: none;
   color: inherit;
 }
 
-/* line 58, ../../../../app/styles/material/_type.scss */
+/* line 60, ../../../../app/styles/material/_type.scss */
 .truncate {
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
 }
 
-/* line 65, ../../../../app/styles/material/_type.scss */
+/* line 67, ../../../../app/styles/material/_type.scss */
 .text-left {
   text-align: left;
 }
 
-/* line 69, ../../../../app/styles/material/_type.scss */
+/* line 71, ../../../../app/styles/material/_type.scss */
 .text-left-important {
   text-align: left !important;
 }
 
-/* line 73, ../../../../app/styles/material/_type.scss */
+/* line 75, ../../../../app/styles/material/_type.scss */
 .text-right {
   text-align: right;
 }
 
-/* line 77, ../../../../app/styles/material/_type.scss */
+/* line 79, ../../../../app/styles/material/_type.scss */
 .text-right-important {
   text-align: right !important;
 }
 
-/* line 81, ../../../../app/styles/material/_type.scss */
+/* line 83, ../../../../app/styles/material/_type.scss */
 .text-center {
   text-align: center;
 }
 
-/* line 85, ../../../../app/styles/material/_type.scss */
+/* line 87, ../../../../app/styles/material/_type.scss */
 .text-center-important {
   text-align: center !important;
 }
 
-/* line 90, ../../../../app/styles/material/_type.scss */
+/* line 92, ../../../../app/styles/material/_type.scss */
 .break-word {
   word-wrap: break-word;
 }
 
-/* line 95, ../../../../app/styles/material/_type.scss */
+/* line 97, ../../../../app/styles/material/_type.scss */
 .line-height-1 {
   line-height: 1rem !important;
 }
 
-/* line 99, ../../../../app/styles/material/_type.scss */
+/* line 101, ../../../../app/styles/material/_type.scss */
 .line-height-2 {
   line-height: 2rem !important;
 }
 
-/* line 105, ../../../../app/styles/material/_type.scss */
+/* line 107, ../../../../app/styles/material/_type.scss */
 md-sidenav .md-toolbar-tools {
   font-weight: 900;
 }
-/* line 108, ../../../../app/styles/material/_type.scss */
+/* line 110, ../../../../app/styles/material/_type.scss */
 md-sidenav .md-button * {
   font-weight: 900;
   letter-spacing: 1px;
@@ -7921,23 +7921,20 @@ a.md-icon-button {
 }
 
 /* line 86, ../../../../app/styles/material/_buttons.scss */
-.social-buttons {
-  font-size: 3rem;
+.qv-offset-1 {
+  position: relative;
+  top: 1px;
+  left: 1px;
 }
-/* line 88, ../../../../app/styles/material/_buttons.scss */
-.social-buttons > * {
-  color: #fff !important;
-  margin: 0 .25rem;
-  font-size: 1.875rem;
-  padding: 0.8125rem;
+
+/* line 2, ../../../../app/styles/material/_cards.scss */
+.cards-spaced md-whiteframe {
+  margin: .5rem 0;
 }
-/* line 94, ../../../../app/styles/material/_buttons.scss */
-.social-buttons .md-fab {
-  width: 2rem;
-  height: 2rem;
-  font-size: 1.0625rem;
-  text-align: center;
-  padding: 0.4375rem 0 0;
+
+/* line 7, ../../../../app/styles/material/_cards.scss */
+.padded-card {
+  padding: .25rem .5rem;
 }
 
 /* line 1, ../../../../app/styles/material/_layout.scss */
@@ -7945,82 +7942,89 @@ a.md-icon-button {
   max-width: 100rem;
 }
 
-/* line 6, ../../../../app/styles/material/_layout.scss */
+/* line 5, ../../../../app/styles/material/_layout.scss */
+.viewport-minus-header {
+  height: -webkit-calc(100vh - $header);
+  height: -moz-calc(100vh - $header);
+  height: calc(100vh - $header);
+}
+
+/* line 14, ../../../../app/styles/material/_layout.scss */
 [layout-padding].extra-padding {
   padding: 1rem;
 }
-/* line 9, ../../../../app/styles/material/_layout.scss */
+/* line 17, ../../../../app/styles/material/_layout.scss */
 [layout-padding].extra-padding-top {
   padding: 2rem 1rem 1rem;
 }
 
-/* line 14, ../../../../app/styles/material/_layout.scss */
+/* line 22, ../../../../app/styles/material/_layout.scss */
 .absolute {
   position: absolute;
 }
-/* line 16, ../../../../app/styles/material/_layout.scss */
+/* line 24, ../../../../app/styles/material/_layout.scss */
 .absolute.cornered {
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
 }
-/* line 22, ../../../../app/styles/material/_layout.scss */
+/* line 30, ../../../../app/styles/material/_layout.scss */
 .absolute.top {
   top: 0;
   right: 0;
   left: 0;
 }
-/* line 27, ../../../../app/styles/material/_layout.scss */
+/* line 35, ../../../../app/styles/material/_layout.scss */
 .absolute.right {
   top: 0;
   bottom: 0;
   right: 0;
 }
-/* line 32, ../../../../app/styles/material/_layout.scss */
+/* line 40, ../../../../app/styles/material/_layout.scss */
 .absolute.bottom {
   bottom: 0;
   right: 0;
   left: 0;
 }
-/* line 37, ../../../../app/styles/material/_layout.scss */
+/* line 45, ../../../../app/styles/material/_layout.scss */
 .absolute.left {
   top: 0;
   bottom: 0;
   left: 0;
 }
-/* line 42, ../../../../app/styles/material/_layout.scss */
+/* line 50, ../../../../app/styles/material/_layout.scss */
 .absolute.top-left {
   top: 0;
   left: 0;
 }
-/* line 46, ../../../../app/styles/material/_layout.scss */
+/* line 54, ../../../../app/styles/material/_layout.scss */
 .absolute.top-right {
   top: 0;
   right: 0;
 }
-/* line 50, ../../../../app/styles/material/_layout.scss */
+/* line 58, ../../../../app/styles/material/_layout.scss */
 .absolute.bottom-right {
   bottom: 0;
   right: 0;
 }
-/* line 54, ../../../../app/styles/material/_layout.scss */
+/* line 62, ../../../../app/styles/material/_layout.scss */
 .absolute.bottom-left {
   bottom: 0;
   left: 0;
 }
 
-/* line 60, ../../../../app/styles/material/_layout.scss */
+/* line 68, ../../../../app/styles/material/_layout.scss */
 .left {
   float: left;
 }
 
-/* line 64, ../../../../app/styles/material/_layout.scss */
+/* line 72, ../../../../app/styles/material/_layout.scss */
 .right {
   float: right;
 }
 
-/* line 68, ../../../../app/styles/material/_layout.scss */
+/* line 76, ../../../../app/styles/material/_layout.scss */
 .overlay {
   position: absolute;
   top: 0;
@@ -8030,189 +8034,189 @@ a.md-icon-button {
   z-index: 1;
 }
 
-/* line 77, ../../../../app/styles/material/_layout.scss */
+/* line 85, ../../../../app/styles/material/_layout.scss */
 img,
 video,
 iframe {
   max-width: 100%;
 }
 
-/* line 83, ../../../../app/styles/material/_layout.scss */
+/* line 91, ../../../../app/styles/material/_layout.scss */
 .block {
   display: block;
 }
 
-/* line 87, ../../../../app/styles/material/_layout.scss */
+/* line 95, ../../../../app/styles/material/_layout.scss */
 .inline-block {
   display: inline-block;
 }
 
-/* line 91, ../../../../app/styles/material/_layout.scss */
+/* line 99, ../../../../app/styles/material/_layout.scss */
 .inline {
   display: inline;
 }
 
-/* line 96, ../../../../app/styles/material/_layout.scss */
+/* line 104, ../../../../app/styles/material/_layout.scss */
 .vh-100 {
   height: 100vh;
 }
 
-/* line 100, ../../../../app/styles/material/_layout.scss */
+/* line 108, ../../../../app/styles/material/_layout.scss */
 .vh-90 {
   height: 90vh;
 }
 
-/* line 104, ../../../../app/styles/material/_layout.scss */
+/* line 112, ../../../../app/styles/material/_layout.scss */
 .width-100 {
   width: 100%;
 }
 
-/* line 109, ../../../../app/styles/material/_layout.scss */
+/* line 117, ../../../../app/styles/material/_layout.scss */
 .min-2 {
   min-width: 2rem;
 }
 
-/* line 113, ../../../../app/styles/material/_layout.scss */
+/* line 121, ../../../../app/styles/material/_layout.scss */
 .min-3 {
   min-width: 3rem;
 }
 
-/* line 117, ../../../../app/styles/material/_layout.scss */
+/* line 125, ../../../../app/styles/material/_layout.scss */
 .min-4 {
   min-width: 4rem;
 }
 
-/* line 121, ../../../../app/styles/material/_layout.scss */
+/* line 129, ../../../../app/styles/material/_layout.scss */
 .min-5 {
   min-width: 5rem;
 }
 
-/* line 125, ../../../../app/styles/material/_layout.scss */
+/* line 133, ../../../../app/styles/material/_layout.scss */
 .min-7 {
   min-width: 7rem;
 }
 
-/* line 129, ../../../../app/styles/material/_layout.scss */
+/* line 137, ../../../../app/styles/material/_layout.scss */
 .min-10 {
   min-width: 10rem;
 }
 
-/* line 133, ../../../../app/styles/material/_layout.scss */
+/* line 141, ../../../../app/styles/material/_layout.scss */
 .min-12 {
   min-width: 12rem;
 }
 
-/* line 137, ../../../../app/styles/material/_layout.scss */
+/* line 145, ../../../../app/styles/material/_layout.scss */
 .min-14 {
   min-width: 14rem;
 }
 
-/* line 141, ../../../../app/styles/material/_layout.scss */
+/* line 149, ../../../../app/styles/material/_layout.scss */
 .min-16 {
   min-width: 16rem;
 }
 
-/* line 145, ../../../../app/styles/material/_layout.scss */
+/* line 153, ../../../../app/styles/material/_layout.scss */
 .min-18 {
   min-width: 18rem;
 }
 
-/* line 149, ../../../../app/styles/material/_layout.scss */
+/* line 157, ../../../../app/styles/material/_layout.scss */
 .min-20 {
   min-width: 20rem;
 }
 
-/* line 153, ../../../../app/styles/material/_layout.scss */
+/* line 161, ../../../../app/styles/material/_layout.scss */
 .min-22 {
   min-width: 22rem;
 }
 
-/* line 157, ../../../../app/styles/material/_layout.scss */
+/* line 165, ../../../../app/styles/material/_layout.scss */
 .min-30 {
   min-width: 30rem;
 }
 
-/* line 161, ../../../../app/styles/material/_layout.scss */
+/* line 169, ../../../../app/styles/material/_layout.scss */
 .min-33 {
   min-width: 33rem;
 }
 
-/* line 165, ../../../../app/styles/material/_layout.scss */
+/* line 173, ../../../../app/styles/material/_layout.scss */
 .min-40 {
   min-width: 40rem;
 }
 
-/* line 170, ../../../../app/styles/material/_layout.scss */
+/* line 178, ../../../../app/styles/material/_layout.scss */
 .max-2 {
   max-width: 2rem;
 }
 
-/* line 174, ../../../../app/styles/material/_layout.scss */
+/* line 182, ../../../../app/styles/material/_layout.scss */
 .max-3 {
   max-width: 3rem;
 }
 
-/* line 178, ../../../../app/styles/material/_layout.scss */
+/* line 186, ../../../../app/styles/material/_layout.scss */
 .max-4 {
   max-width: 4rem;
 }
 
-/* line 182, ../../../../app/styles/material/_layout.scss */
+/* line 190, ../../../../app/styles/material/_layout.scss */
 .max-5 {
   max-width: 5rem;
 }
 
-/* line 186, ../../../../app/styles/material/_layout.scss */
+/* line 194, ../../../../app/styles/material/_layout.scss */
 .max-7 {
   max-width: 7rem;
 }
 
-/* line 190, ../../../../app/styles/material/_layout.scss */
+/* line 198, ../../../../app/styles/material/_layout.scss */
 .max-10 {
   max-width: 10rem;
 }
 
-/* line 194, ../../../../app/styles/material/_layout.scss */
+/* line 202, ../../../../app/styles/material/_layout.scss */
 .max-12 {
   max-width: 12rem;
 }
 
-/* line 198, ../../../../app/styles/material/_layout.scss */
+/* line 206, ../../../../app/styles/material/_layout.scss */
 .max-14 {
   max-width: 14rem;
 }
 
-/* line 202, ../../../../app/styles/material/_layout.scss */
+/* line 210, ../../../../app/styles/material/_layout.scss */
 .max-16 {
   max-width: 16rem;
 }
 
-/* line 206, ../../../../app/styles/material/_layout.scss */
+/* line 214, ../../../../app/styles/material/_layout.scss */
 .max-18 {
   max-width: 18rem;
 }
 
-/* line 210, ../../../../app/styles/material/_layout.scss */
+/* line 218, ../../../../app/styles/material/_layout.scss */
 .max-20 {
   max-width: 20rem;
 }
 
-/* line 214, ../../../../app/styles/material/_layout.scss */
+/* line 222, ../../../../app/styles/material/_layout.scss */
 .max-22 {
   max-width: 22rem;
 }
 
-/* line 218, ../../../../app/styles/material/_layout.scss */
+/* line 226, ../../../../app/styles/material/_layout.scss */
 .max-30 {
   max-width: 30rem;
 }
 
-/* line 222, ../../../../app/styles/material/_layout.scss */
+/* line 230, ../../../../app/styles/material/_layout.scss */
 .max-33 {
   max-width: 33rem;
 }
 
-/* line 226, ../../../../app/styles/material/_layout.scss */
+/* line 234, ../../../../app/styles/material/_layout.scss */
 .max-40 {
   max-width: 40rem;
 }
@@ -8385,33 +8389,57 @@ md-list.pointer > md-item.active {
   display: block;
   width: 1rem;
   height: 1rem;
+  -webkit-transform: rotate(-45deg);
   transform: rotate(-45deg);
 }
 
-/* line 62, ../../../../app/styles/material/_landing-page.scss */
+/* line 63, ../../../../app/styles/material/_landing-page.scss */
 .cta-button.md-hue-1 {
   border-bottom: 4px solid #115f49;
 }
-/* line 66, ../../../../app/styles/material/_landing-page.scss */
+/* line 67, ../../../../app/styles/material/_landing-page.scss */
 .cta-button.md-hue-2 {
   border-bottom: 4px solid #8daaa5;
 }
-/* line 71, ../../../../app/styles/material/_landing-page.scss */
-.cta-button div {
+/* line 72, ../../../../app/styles/material/_landing-page.scss */
+.cta-button .title {
   padding: .5rem 2rem 0;
   margin-bottom: -1rem;
 }
-/* line 77, ../../../../app/styles/material/_landing-page.scss */
-.cta-button span {
-  padding: 0 2rem .5rem;
+/* line 78, ../../../../app/styles/material/_landing-page.scss */
+.cta-button .caption {
+  line-height: 1rem;
+  padding: 1rem 2rem .5rem;
 }
 
-/* line 2, ../../../../app/styles/material/_cards.scss */
-.cards-spaced md-whiteframe {
-  margin: .5rem 0;
+/* line 2, ../../../../app/styles/material/_markdown.scss */
+.markdown:focus {
+  outline: none;
 }
-
-/* line 7, ../../../../app/styles/material/_cards.scss */
-.padded-card {
-  padding: .25rem .5rem;
+/* line 5, ../../../../app/styles/material/_markdown.scss */
+.markdown p:first-of-type {
+  margin-top: 0;
+}
+/* line 18, ../../../../app/styles/material/_markdown.scss */
+.markdown ul {
+  list-style-type: initial;
+}
+/* line 21, ../../../../app/styles/material/_markdown.scss */
+.markdown a,
+.markdown a:visited {
+  color: inherit;
+}
+/* line 25, ../../../../app/styles/material/_markdown.scss */
+.markdown img {
+  display: block;
+  margin: 1rem auto;
+}
+/* line 29, ../../../../app/styles/material/_markdown.scss */
+.markdown p {
+  margin: 1rem 0;
+}
+/* line 32, ../../../../app/styles/material/_markdown.scss */
+.markdown h1, .markdown h2, .markdown h3, .markdown h4, .markdown h5, .markdown h6 {
+  font-weight: 900;
+  margin-bottom: 1rem;
 }

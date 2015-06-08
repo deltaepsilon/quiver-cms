@@ -53,6 +53,7 @@
         display: block;
         width: $width;
         height: $width;
+        -webkit-transform: rotate(-45deg);
         transform: rotate(-45deg);
     }
 
@@ -68,14 +69,15 @@
     }
     
 
-    div {
+    .title {
         @extend .bold;
         padding: .5rem 2rem 0;
         margin-bottom: -1rem;
     }
 
-    span {
+    .caption {
         @extend .text-x-small;
-        padding: 0 2rem .5rem;
+        line-height: 1rem;
+        padding: 1rem 2rem .5rem;
     }
 }

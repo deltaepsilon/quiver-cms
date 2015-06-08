@@ -83,19 +83,8 @@ a.md-icon-button {
     padding: 6px;
 }
 
-.social-buttons {
-    font-size: 3rem;
-    > * {
-        color: getColor('white0') !important;
-        margin: 0 .25rem;
-        font-size: rem-calc(30);
-        padding: rem-calc(13);
-    }
-    .md-fab {
-        width: 2rem;
-        height: 2rem;
-        font-size: rem-calc(17);
-        text-align: center;
-        padding: rem-calc(7) 0 0;
-    }
+.qv-offset-1 {
+    position: relative;
+    top: 1px;
+    left: 1px;
 }

@@ -1,7 +1,9 @@
 // Weights
 .headline {
     @extend .font-secondary;
-    font-weight: 700;
+    @extend .clearfix;
+
+    font-weight: 900;
     &.tight {
         letter-spacing: -3px;
     }

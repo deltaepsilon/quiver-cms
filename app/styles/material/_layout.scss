@@ -2,6 +2,14 @@
     max-width: 100rem;
 }
 
+.viewport-minus-header {
+    //$header: 64px;
+    $header: 7rem;
+    height: -webkit-calc(100vh - $header);
+    height: -moz-calc(100vh - $header);
+    height: calc(100vh - $header);
+}
+
 [layout-padding] {
     &.extra-padding {
         padding: 1rem;

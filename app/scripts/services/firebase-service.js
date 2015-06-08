@@ -101,9 +101,10 @@ angular.module('quiverCmsApp')
 
                     return paginatingArray;
                 },
-                $more: function() {
+                $more: function() {                   
                     this.$query = _.clone(this.$list.$defaultQuery);
-                    var paginatingArray = this.$orderByKey().$limit(this.$query.limit + 10).$get();
+
+                    var paginatingArray = this.$orderByKey().$limit(this.$list.$query.limit + 10).$get();
 
                     paginatingArray.$loaded().then(function(newArray) {
                         if (newArray.length < paginatingArray.$query.limit) {
