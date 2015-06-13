@@ -81,3 +81,7 @@
         padding: 1rem 2rem .5rem;
     }
 }
+
+.cta-attention {
+    @include bounce();
+}

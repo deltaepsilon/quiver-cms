@@ -39,3 +39,7 @@
 // Materialize
 $icons-font-path: "../lib/materialize/font/material-design-icons/";
 @import "../lib/materialize/sass/components/icons-material-design";
+
+// Animate.css (or Animate.scss)
+@import "../lib/geoffgraham.animate.scss/properties";
+@import "../lib/geoffgraham.animate.scss/_attention-seekers/attention-seekers";
