@@ -346,7 +346,7 @@ angular.module('quiverCmsApp')
             },
 
             getBackups: function() {
-                return $firebaseObject(new Firebase(firebaseEndpoint + '/admin/backups/Contents'));
+                return $firebaseArray(new Firebase(firebaseEndpoint + '/admin/backups/Contents'));
             },
 
             getLandingPage: function(key) {
