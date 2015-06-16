@@ -9244,9 +9244,9 @@ a.md-icon-button {
 
 /* line 5, ../../../../app/styles/material/_layout.scss */
 .viewport-minus-header {
-  height: -webkit-calc(100vh - $header);
-  height: -moz-calc(100vh - $header);
-  height: calc(100vh - $header);
+  height: -webkit-calc(100vh - 7rem);
+  height: -moz-calc(100vh - 7rem);
+  height: calc(100vh - 7rem);
 }
 
 /* line 14, ../../../../app/styles/material/_layout.scss */
@@ -9762,22 +9762,28 @@ md-list.pointer > md-item.active {
 /* line 18, ../../../../app/styles/material/_markdown.scss */
 .markdown ul {
   list-style-type: initial;
+  padding-left: 1rem;
 }
-/* line 21, ../../../../app/styles/material/_markdown.scss */
+/* line 22, ../../../../app/styles/material/_markdown.scss */
 .markdown a,
 .markdown a:visited {
   color: inherit;
 }
-/* line 25, ../../../../app/styles/material/_markdown.scss */
+/* line 26, ../../../../app/styles/material/_markdown.scss */
 .markdown img {
   display: block;
   margin: 1rem auto;
 }
-/* line 29, ../../../../app/styles/material/_markdown.scss */
+/* line 30, ../../../../app/styles/material/_markdown.scss */
 .markdown p {
   margin: 1rem 0;
+  line-height: 1.2rem;
 }
-/* line 32, ../../../../app/styles/material/_markdown.scss */
+/* line 34, ../../../../app/styles/material/_markdown.scss */
+.markdown hr {
+  border-width: 1px 0 0 0;
+}
+/* line 37, ../../../../app/styles/material/_markdown.scss */
 .markdown h1, .markdown h2, .markdown h3, .markdown h4, .markdown h5, .markdown h6 {
   font-weight: 900;
   margin-bottom: 1rem;

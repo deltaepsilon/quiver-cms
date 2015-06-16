@@ -1,4 +1,6 @@
-<section class="constrained" layout="row" layout-align="start center" layout-fill style="margin-bottom: 1rem;">
+<div layout="row" layout-wrap>
+
+<section class="constrained" layout="row" layout-align="start center" style="margin-bottom: 1rem;">
   {{#if breadcrumbs}}
     {{#each breadcrumbs}}
       <md-button ng-href="{{ href }}">{{ text }}</md-button>
@@ -53,7 +55,6 @@
             </a>
           </md-button>
         </div>
-        <md-divider class="margin-vertical-medium"></md-divider>
         <div layout layout-align="space-between start">
           {{#if useInventoryMatrix }}
             {{#if product.optionsMatrix }}
@@ -180,7 +181,7 @@
   </div>
   
   <div class="padding-vertical-large">
-    <div class="markdown">
+    <div class="markdown padding-large">
       {{markdown product.description.markdown }}
     </div>
 
@@ -194,213 +195,7 @@
     
     
   </div>
-  
-
-
-  {{!-- <md-grid-list md-cols-sm="1" md-cols-md="2" md-cols="4" md-row-height="fit">
-    {{#if product.featuredImage }}
-      <md-grid-tile md-colspan-sm="1" md-colspan-md="2" md-colspan-lg="4">
-        {{#if product.featuredImage.Versions.small.Key }}
-          <div style="height: 100px; width: 100px;">
-            <img src="{{s3 product.featuredImage.Versions.medium.Key }}" alt="{{deSlug product.featuredImage.Name }}"/>
-          </div>
-
-        {{ else }}
-          <div style="height: 100px; width: 100px;">
-            test
-            <img src="{{s3 product.featuredImage.Key }}" alt="{{deSlug product.featuredImage.Name }}"/>
-          </div>
-          
-        {{/if }}
-      </md-grid-tile>
-    {{/if }}
-
-    {{#if product.images }}
-      {{#each product.images }}
-        <md-grid-tile md-colspan="1">
-          <div>
-            <img src="{{s3 this.Versions.small.Key }}" alt="{{deSlug this.Name  }}"/>
-          </div>
-          
-        </md-grid-tile>
-      {{/each }}
-      
-    {{/if }}
-  </md-grid-list> --}}
-  
-</section>
-
-{{!-- <div class="row padding-large" itemscope itemtype="http://schema.org/Product">
-  <div class="column small-12">
-    <ul class="inline-list slashes no-margin margin-horizontal-zero-important margin-vertical-small-important">
-      {{#if breadcrumbs}}
-        {{#each breadcrumbs}}
-          <li><a href="{{ href }}">{{ text }}</a></li>
-        {{/each }}
-      {{/if }}
-      <li>
-        <strong>{{ title }}</strong>
-      </li>
-    </ul>
-  </div>
-  <div class="column small-12">
-    {{#if product.featuredImage }}
-      <div class="margin-vertical-medium">
-        {{#if product.featuredImage.Versions.small.Key }}
-          <img src="{{s3 product.featuredImage.Versions.medium.Key }}" alt="{{deSlug product.featuredImage.Name }}"/>
-        {{ else }}
-            <img src="{{s3 product.featuredImage.Key }}" alt="{{deSlug product.featuredImage.Name }}"/>
-        {{/if }}
-      </div>
-    {{/if }}
-
-    {{#if product.images }}
-      <ul class="small-block-grid-1 small-block-grid-3">
-        {{#each product.images }}
-          <li>
-            <img src="{{s3 this.Versions.small.Key }}" alt="{{deSlug this.Name  }}" />
-          </li>
-        {{/each }}
-      </ul>
-    {{/if }}
-  </div>
-
-  <div class="column small-12">
-    <div class="margin-vertical-medium">
-      <h3 class="font-flair clearfix margin-vertical-zero-important">
-        <div class="left link-secondary0">
-          <a href="/product/{{ product.slug }}" itemprop="name">{{ product.title }}</a>
-        </div>
-        <div class="right">
-          $<span ng-show="getPriceAdjusted('{{ product.slug }}')" ng-bind="getPriceAdjusted('{{ product.slug }}')"></span><span ng-hide="getPriceAdjusted('{{ product.slug }}')">{{ product.price }}</span>
-        </div>
-      </h3>
-
-      <hr class="margin-vertical-x-small">
-
-      <div class="panel right small-12 medium-4 background-white-important" style="margin-left: 1rem;">
-        {{#if useInventoryMatrix }}
-          {{#if product.optionsMatrix }}
-            <form name="optionsForm">
-              <ul class="margin-zero-important">
-                {{#each product.optionGroups }}
-                  <li>
-                    <select ng-model="options['{{ @key }}']" ng-change="updateOptions('{{ ../product.slug }}', options)" required>
-                      <option value="">{{ this.name }}</option>
-                      {{#each this.options}}
-                        <option value="{{ @index }}">{{ this.name }}</option>
-                      {{/each }}
-
-                    </select>
-                  </li>
-                {{/each }}
-              </ul>
-              <button class="small-12" ng-hide="inCart('{{ product.slug }}')" ng-click="addToCart('{{ product.slug }}')" ng-disabled="optionsForm.$invalid">Add to Cart</button>
-              <button class="small-12 alert" ng-show="inCart('{{ product.slug }}')" ng-click="removeFromCart('{{ product.slug }}')">Remove from Cart</button>
-            </form>
-          {{ else }}
-            <button class="small-12" ng-hide="inCart('{{ product.slug }}')" ng-click="addToCart('{{ product.slug }}')">Add to Cart</button>
-            <button class="small-12 alert" ng-show="inCart('{{ product.slug }}')" ng-click="removeFromCart('{{ product.slug }}')">Remove from Cart</button>
-
-            <span class="text-secondary0">
-              <strong>In Stock
-                {{#if product.inventory }}
-                :
-                {{/if }}
-              </strong>
-              <strong>{{ product.inventory }}</strong>
-            </span>
-          {{/if }}
-        {{ else }}
-          {{#if product.inventory }}
-            <button class="small-12" ng-hide="inCart('{{ product.slug }}')" ng-click="addToCart('{{ product.slug }}')">Add to Cart</button>
-            <button class="small-12 alert" ng-show="inCart('{{ product.slug }}')" ng-click="removeFromCart('{{ product.slug }}')">Remove from Cart</button>
-
-            <span class="text-secondary0">
-              <strong>In Stock:</strong>
-              <strong>{{ product.inventory }}</strong>
-            </span>
-
-
-          {{ else }}
-            <button class="small-12" disabled="true">Out of Stock</button>
-          {{/if }}
-        {{/if }}
-
-        {{#if product.shipped }}
-          <strong>Shipping Details</strong>
-          <ul>
-            <li>
-              Domestic: 
-              {{#if product.shipping.domesticBase }}
-                {{#if product.shipping.domesticIncremental}}
-                  ${{ product.shipping.domesticBase }} + ${{ product.shipping.domesticIncremental }} per unit
-                {{ else }}
-                  ${{ product.shipping.domesticBase }}
-                {{/if }}
-
-              {{ else }}
-                {{#if product.shipping.domesticIncremental}}
-                  ${{ product.shipping.domesticIncremental }} per unit
-                {{ else }}
-                free
-                {{/if }}
-              {{/if }}
-            </li>
-            <li>
-              International: 
-              {{#if product.shipping.internationalAllowed}}
-                {{#if product.shipping.internationalBase }}
-                  {{#if product.shipping.internationalIncremental}}
-                    ${{ product.shipping.internationalBase }} + ${{ product.shipping.internationalIncremental }} per unit
-                  {{ else }}
-                    ${{ product.shipping.internationalBase }}
-                  {{/if }}
-
-                {{ else }}
-                  {{#if product.shipping.internationalIncremental}}
-                    ${{ product.shipping.internationalIncremental }} per unit
-                  {{ else }}
-                    free
-                  {{/if }}
-                {{/if }}
-
-              {{ else }}
-                No international shipping
-              {{/if }}
-              
-            </li>
-
-          </ul>
-          
-        {{/if }}
-
-        <div class="right link-secondary0" ng-show="$storage.cart.productCount">
-          <a href="/app/cart">
-            <span ng-bind="$storage.cart.productCount"></span>
-            <i class="fa fa-shopping-cart"></i>
-          </a>
-        </div>
-      </div>
-
-      <ul class="inline-list clearfix">
-        {{#each product.hashtags }}
-            <li>
-                <a href="/products/{{ this.key }}">#{{ this.value }}</a>
-            </li>
-        {{/each }}
-      </ul>
-
-      <div class="markdown">
-        {{markdown product.description.markdown }}
-      </div
-
-    </div>
-
-
-  </div>
-
-</div> --}}
+</div>
 
 <script>
   (function () {

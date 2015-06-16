@@ -52,9 +52,15 @@
     </section>
     <div>
         <section layout="column" layout-padding>
-            <div class="markdown" flex>
-                {{markdown post.published.markdown }}
-            </div>
+            {{#if post.published.html }} 
+                <div class="html" flex>
+                    {{{ post.published.html }}}
+                </div>
+            {{else }}
+                <div class="markdown" flex>
+                    {{markdown post.published.markdown }}
+                </div>
+            {{/if }}
         </section>
     </div>
     <section>
