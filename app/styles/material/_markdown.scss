@@ -17,6 +17,7 @@
     }
     ul {
         list-style-type: initial;
+        padding-left: 1rem;
     }
     a,
     a:visited {
@@ -28,6 +29,10 @@
     }
     p {
         margin: 1rem 0;
+        line-height: 1.2rem;
+    }
+    hr {
+        border-width: 1px 0 0 0;
     }
     h1, h2, h3, h4, h5, h6 {
         font-weight: 900;

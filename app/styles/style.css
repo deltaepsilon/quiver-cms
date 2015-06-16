@@ -4048,9 +4048,9 @@ md-input-container.next-to-select {
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Dropbox\/Development\/quiver-cms\/app\/styles\/material\/_layout\.scss}line{font-family:\000035}}
 .viewport-minus-header {
-  height: -webkit-calc(100vh - $header);
-  height: -moz-calc(100vh - $header);
-  height: calc(100vh - $header);
+  height: -webkit-calc(100vh - 7rem);
+  height: -moz-calc(100vh - 7rem);
+  height: calc(100vh - 7rem);
 }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Dropbox\/Development\/quiver-cms\/app\/styles\/material\/_layout\.scss}line{font-family:\0000314}}
@@ -4447,22 +4447,28 @@ md-list.pointer > md-item.active {
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Dropbox\/Development\/quiver-cms\/app\/styles\/material\/_markdown\.scss}line{font-family:\0000318}}
 .markdown ul {
   list-style-type: initial;
+  padding-left: 1rem;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Dropbox\/Development\/quiver-cms\/app\/styles\/material\/_markdown\.scss}line{font-family:\0000321}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Dropbox\/Development\/quiver-cms\/app\/styles\/material\/_markdown\.scss}line{font-family:\0000322}}
 .markdown a,
 .markdown a:visited {
   color: inherit;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Dropbox\/Development\/quiver-cms\/app\/styles\/material\/_markdown\.scss}line{font-family:\0000325}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Dropbox\/Development\/quiver-cms\/app\/styles\/material\/_markdown\.scss}line{font-family:\0000326}}
 .markdown img {
   display: block;
   margin: 1rem auto;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Dropbox\/Development\/quiver-cms\/app\/styles\/material\/_markdown\.scss}line{font-family:\0000329}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Dropbox\/Development\/quiver-cms\/app\/styles\/material\/_markdown\.scss}line{font-family:\0000330}}
 .markdown p {
   margin: 1rem 0;
+  line-height: 1.2rem;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Dropbox\/Development\/quiver-cms\/app\/styles\/material\/_markdown\.scss}line{font-family:\0000332}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Dropbox\/Development\/quiver-cms\/app\/styles\/material\/_markdown\.scss}line{font-family:\0000334}}
+.markdown hr {
+  border-width: 1px 0 0 0;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/quiver\/Dropbox\/Development\/quiver-cms\/app\/styles\/material\/_markdown\.scss}line{font-family:\0000337}}
 .markdown h1, .markdown h2, .markdown h3, .markdown h4, .markdown h5, .markdown h6 {
   font-weight: 900;
   margin-bottom: 1rem;

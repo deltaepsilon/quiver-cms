@@ -21,7 +21,7 @@
                     <input id="slug" type="text" ng-model="word.slug" ng-model-options="{debounce: {'default': 500}}">
                 </md-input-container>
 
-                <div class="md-select-wrapper" flex="33" flex-sm="100" style="margin-top: 22px;">
+                <div class="md-select-wrapper" flex="33" flex-sm="100" style="margin-top: 5px;">
                     <md-select class="margin-zero" flex="20" ng-model="word.type">
                       <md-option value="">Select Type</md-option>
                       <md-option value="post">Post</md-option>
@@ -136,8 +136,8 @@
                 <input id="published-date" type="date" ng-model="getSetPublishedDate" ng-model-options="{ getterSetter: true, debounce: {'default': 500} }"/>
             </md-input-container>
 
-            <md-button class="md-primary md-raised align-left" flex="45" ng-click="makeActiveDraft(word.published)" ng-disabled="$storage.activeDraft.edited == word.published.edited" aria-label="Make active draft">
-                Make active draft
+            <md-button class="md-primary md-raised align-left" flex="45" ng-click="makeActiveDraft(word.published)" ng-disabled="!word.published || $storage.activeDraft.edited == word.published.edited" aria-label="Make active draft">
+                Activate
             </md-button>
 
             <md-button class="md-primary md-raised align-left" flex="45" ng-click="unpublish($event)" ng-disabled="!word.published" aria-label="Unpublish">
@@ -215,12 +215,12 @@
     <div layout="row" layout-align="start center">
         <h3 class="headline" flex ng-class="{'disabled': $storage.hideDraft}">Draft</h3>
 
-        <md-button class="md-primary md-raised md-icon-button min-10" flex ng-click="useHtml = !useHtml" aria-label="Toggle HTML mode" ng-hide="$storage.hideDraft" style="min-width: 10rem;">
+        <md-button class="md-primary md-raised max-10" flex ng-click="useHtml = !useHtml" aria-label="Toggle HTML mode" ng-hide="$storage.hideDraft">
             <span ng-show="!useHtml">Edit HTML</span>
             <span ng-show="useHtml">Hide HTML</span>
         </md-button>
 
-        <md-button class="md-primary md-raised md-icon-button min-10 margin-horizontal-small" flex ng-click="useTextarea = !useTextarea" ng-disabled="useHtml" aria-label="Toggle textarea" ng-hide="$storage.hideDraft" style="min-width: 10rem;">
+        <md-button class="md-primary md-raised max-10 margin-horizontal-small" flex ng-click="useTextarea = !useTextarea" ng-disabled="useHtml" aria-label="Toggle textarea" ng-hide="$storage.hideDraft">
             <span ng-show="!useTextarea">Use Textarea</span>
             <span ng-show="useTextarea">Hide Textarea</span>
         </md-button>
