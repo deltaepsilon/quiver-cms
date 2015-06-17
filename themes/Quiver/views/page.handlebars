@@ -2,23 +2,27 @@
     <section class="margin-vertical-medium" layout="column" layout-align="start start">
         <div layout-sm="column" layout-gt-sm="row" layout-align="start end" layout-align-sm="center center" layout-fill layout-padding style="min-height: 6rem;">
             <div flex layout="column" layout-align="space-between">
-                <h2 class="headline uppercase tight md-display-1 margin-vertical-medium" flex><a class="undecorated" href="/{{ post.slug }}">{{ post.title }}</a></h2>
+                <h1 class="headline uppercase tight md-display-1 margin-vertical-medium" flex>{{ post.title }}</h1>
                 <md-whiteframe class="md-whiteframe-z1 max-33" layout="row" layout-md="column" layout-align-sm="center center" layout-padding layout-wrap>
                     <div flex layout="column" layout-align-sm="center center">
                         <div class="headline uppercase text-secondary0">{{ post.author.name }}</div>
                         <div class="text-small" flex>{{calendar post.published.published}}</div>
                     </div>
-                    <div class="text-center max-16" flex>
-                        <md-button class="md-fab md-mini md-primary md-hue-1" ng-href="/{{ post.slug }}" aria-label="View page comments">
+                    <div class="text-right max-16" flex>
+                        <md-button class="md-fab md-mini md-primary md-hue-1" ng-href="#disqus_thread" aria-label="View page comments">
                             <span data-disqus-identifier="{{ post.slug }}"></span>
                             <i class="mdi-editor-mode-comment"></i>
                         </md-button>
+                        {{#if post.author.twitter }}
                         <md-button class="md-fab md-mini twitter" ng-href="https://twitter.com/{{ post.author.twitter }}" target="_blank" aria-label="Author's Twitter feed">
                             <i class="qv qv-twitter"></i>
                         </md-button>
+                        {{/if}}
+                        {{#if post.author.instagram}}
                         <md-button class="md-fab md-mini instagram" href="https://instagram.com/{{ post.author.instagram }}" target="_blank" aria-label="Author's Instagram feed">
                             <i class="qv qv-instagram"></i>
                         </md-button>
+                        {{/if}}
                         <md-button class="md-fab md-mini md-secondary" ng-href="mailto:{{ post.author.email }}" aria-label="Author's email">
                             <i class="mdi-communication-email"></i>
                         </md-button>

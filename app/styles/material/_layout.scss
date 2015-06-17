@@ -1,5 +1,5 @@
 .constrained {
-    max-width: 100rem;
+    max-width: 80rem;
 }
 
 .viewport-minus-header {
@@ -8,6 +8,12 @@
     height: -webkit-calc(100vh - 7rem);
     height: -moz-calc(100vh - 7rem);
     height: calc(100vh - 7rem);
+}
+
+.background-video {
+    max-width: -webkit-calc(100% + 4rem);
+    max-width: -moz-calc(100% + 4rem);
+    max-width: calc(100% + 4rem);
 }
 
 [layout-padding] {
