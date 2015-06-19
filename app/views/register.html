@@ -3,17 +3,17 @@
         <h3 class="headline" flex="100">Register with email</h3>
         <form class="no-margin-or-padding" flex="100" name="loginForm">
             <fieldset>
-                <div class="no-margin-or-padding" layout="row" layout-align="center center" layout-margin layout-padding layout-wrap>
-                    <md-input-container flex="50" flex-sm="100">
+                <div class="no-margin-or-padding" layout="row" layout-sm="column" layout-align="center center" layout-margin layout-padding layout-wrap>
+                    <md-input-container flex>
                         <label for="email">Email</label>
                         <input type="email" ng-model="email" placeholder="Email..." required/>
                     </md-input-container>
-                    <md-input-container flex flex-sm="100">
+                    <md-input-container flex>
                         <label for="password">Password</label>
                         <input type="password" ng-model="password" placeholder="Password..." required/>
                     </md-input-container>
                     <span class="margin-zero-important padding-zero-important" flex="100"></span>
-                    <md-button class="min-10" id="login-button" class="md-primary" ng-click="register(email, password)" ng-disabled="loginForm.$invalid">Register</md-button>
+                    <md-button class="min-10" id="login-button" class="md-primary" flex ng-click="register(email, password)" ng-disabled="loginForm.$invalid">Register</md-button>
                     <md-button class="adjust-line-height min-10" flex ui-sref="master.nav.login">Login</md-button>
                     <md-button class="adjust-line-height min-10" flex ui-sref="master.nav.reset">Reset Password</md-button>
                 </div>

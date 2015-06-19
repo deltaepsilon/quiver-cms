@@ -16,6 +16,16 @@
     max-width: calc(100% + 4rem);
 }
 
+.one-third-vh {
+    min-height: 33vh;
+}
+
+.one-third-vh-last {
+    min-height: -webkit-calc(33vh - 5rem);
+    min-height: -moz-calc(33vh - 5rem);
+    min-height: calc(33vh - 5rem);
+}
+
 [layout-padding] {
     &.extra-padding {
         padding: 1rem;

@@ -63,6 +63,10 @@ strong {
     white-space: nowrap;
 }
 
+.ellipsis {
+    text-overflow: ellipsis;
+}
+
 // Alignments
 .text-left {
     text-align: left;

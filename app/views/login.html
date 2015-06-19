@@ -23,7 +23,7 @@
                         <input type="password" ng-model="password" placeholder="Password..." required/>
                     </md-input-container>
                     <span class="margin-zero-important padding-zero-important" flex="100"></span>
-                    <md-button class="min-10" id="login-button" class="md-primary login-button" ng-click="logIn(email, password)" ng-disabled="loginForm.$invalid">Sign in</md-button>
+                    <md-button class="min-10" id="login-button" class="md-primary login-button" flex ng-click="logIn(email, password)" ng-disabled="loginForm.$invalid">Sign in</md-button>
                     <md-button class="adjust-line-height min-10" flex ui-sref="master.nav.register">Register</md-button>
                     <md-button class="adjust-line-height min-10" flex ui-sref="master.nav.reset">Reset Password</md-button>
                 </div>

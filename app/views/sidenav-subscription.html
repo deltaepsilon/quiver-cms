@@ -6,6 +6,7 @@
         <div layout="column" layout-padding>
             <div layout="row" flex ng-repeat="page in pages" ng-class="{active: $index == pageNumber}">
                 <md-button class="text-left" flex layout-fill ui-sref="authenticated.master.subscription.page({subscriptionKey: subscription.$id, pageNumber: $index})">
+                    <md-tooltip>{{ page.title }}</md-tooltip>
                     {{ page.title }}
                 </md-button>
             </div>
@@ -18,6 +19,7 @@
         <div layout="column" layout-padding>
             <div layout="row" flex ng-repeat="assignment in doesNotStartSubscription" ng-class="{active: assignment.$id == assignmentKey}">
                 <md-button class="text-left" flex layout-fill ui-sref="authenticated.master.subscription.assignment({subscriptionKey: subscription.$id, assignmentKey: assignment.$id})">
+                    <md-tooltip>{{ assignment.title }}</md-tooltip>
                     {{ assignment.title }}
                 </md-button>
             </div>
@@ -54,6 +56,7 @@
             </div>
             <div layout="row" flex ng-repeat="assignment in assignments" ng-class="{active: assignment.$id == assignmentKey}">
                 <md-button class="text-left" flex layout-fill ui-sref="authenticated.master.subscription.assignment({subscriptionKey: subscription.$id, assignmentKey: assignment.$id})">
+                    <md-tooltip>{{ assignment.title }}</md-tooltip>
                     {{ assignment.title }}
                 </md-button>
             </div>
