@@ -20,7 +20,7 @@
                     </md-input-container>
                     <md-input-container flex="33" flex-sm="100">
                         <label for="discount-code">Code</label>
-                        <input id="discount-code" type="text" ng-model="newDiscount.code" placeholder="Code...">
+                        <input id="discount-code" type="text" ng-model="newDiscount.code">
                     </md-input-container>
                     <md-input-container flex="33" flex-sm="100" style="margin-top: -2px;">
                         <label for="discount-expiration">Expiration</label>
@@ -32,15 +32,15 @@
                     </md-input-container>
                     <md-input-container flex="33" flex-sm="100">
                         <label for="discount-product-slug">Required Product Slug</label>
-                        <input id="discount-product-slug" type="text" ng-model="newDiscount.productSlug" ng-blur="validateNewDiscount()" placeholder="Product slug...">
+                        <input id="discount-product-slug" type="text" ng-model="newDiscount.productSlug" ng-blur="validateNewDiscount()">
                     </md-input-container>
                     <md-input-container flex="33" flex-sm="100">
                         <label for="discount-min-subtotal">Minimum Subtotal</label>
-                        <input id="discount-min-subtotal" type="number" min="0" ng-model="newDiscount.minSubtotal" ng-blur="validateNewDiscount()" placeholder="Min subtotal...">
+                        <input id="discount-min-subtotal" type="number" min="0" ng-model="newDiscount.minSubtotal" ng-blur="validateNewDiscount()">
                     </md-input-container>
                     <md-input-container flex="33" flex-sm="100">
                         <label for="discount-max-subtotal">Maximum Subtotal</label>
-                        <input id="discount-max-subtotal" type="number" min="0" ng-model="newDiscount.maxSubtotal" ng-blur="validateNewDiscount()" placeholder="Max subtotal...">
+                        <input id="discount-max-subtotal" type="number" min="0" ng-model="newDiscount.maxSubtotal" ng-blur="validateNewDiscount()">
                     </md-input-container>
                     <div flex="33" flex-sm="100">
                         <md-checkbox ng-model="newDiscount.freeShipping" ng-blur="validateNewDiscount()" style="margin-top: 19px; margin-bottom: 0px;">

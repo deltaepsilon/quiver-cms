@@ -74,6 +74,7 @@ angular.module('quiverCmsApp')
                         paginatingArray = this.$list.$orderByKey().$startAt(max).$get();
 
                     paginatingArray.$prevQuery = _.clone(this.$query);
+                    paginatingArray.$query.page = Math.max(0, this.$list.$query.page -1);
 
                     paginatingArray.$loaded().then(function(newArray) {
                         if (newArray.length < paginatingArray.$query.limit) {
@@ -92,6 +93,7 @@ angular.module('quiverCmsApp')
                         paginatingArray = this.$list.$orderByKey().$endAt(min).$get();
 
                     paginatingArray.$prevQuery = _.clone(this.$query);
+                    paginatingArray.$query.page = this.$list.$query.page + 1;
 
                     paginatingArray.$loaded().then(function(newArray) {
                         if (newArray.length < paginatingArray.$query.limit) {
@@ -127,7 +129,8 @@ angular.module('quiverCmsApp')
                     at: {
                         type: false,
                         value: false
-                    }
+                    },
+                    page: 1
                 },
                 $default: function(query) {
                     if (query) {
@@ -257,7 +260,8 @@ angular.module('quiverCmsApp')
                     at: {
                         type: false,
                         value: false
-                    }
+                    },
+                    page: 1
                 });
 
                 return paginatingArray;

@@ -1,12 +1,10 @@
+<div layout="row" layout-wrap>
 {{#if title }}
   <section class="constrained" layout="row" layout-fill style="margin-bottom: 1rem;">
     {{#if breadcrumbs}}
       {{#each breadcrumbs}}
         <md-button ng-href="{{ href }}">{{ text }}</md-button>
       {{/each }}
-    {{/if }}
-    {{#if title}}
-      <md-button ng-disabled="true">{{ title }}</md-button>
     {{/if }}
   </section>
 {{/if }}
@@ -40,3 +38,4 @@
   </div>
 
 {{/if }}
+</div>

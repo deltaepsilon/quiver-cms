@@ -109,7 +109,7 @@
             </fieldset>
         </form>
     </section>
-    <section>
+    <section ng-if="user.private.customer.creditCards || user.private.customer.paypalAccounts || user.private.customer.coinbaseAccounts">
         <md-whiteframe class="md-whiteframe-z1" layout="row" layout-padding layout-wrap>
             <h3 class="headline" flex="100">Payment Methods</h3>
             <form flex="100" name="cardsForm" ng-if="user.private.customer.creditCards">

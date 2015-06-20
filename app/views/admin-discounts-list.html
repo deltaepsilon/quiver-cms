@@ -5,16 +5,16 @@
             <input id="list-search" type="text" ng-model="searchTerm" qv-enter="items = items.$orderByChild('code').$startAt(searchTerm).$get(); orderBy = 'code'" ng-focus="searchTerm = undefined;" auto-enter="searchTerm">
         </md-input-container>
         <span flex></span>
-        <md-button class="md-icon-button" flex ng-click="items = items.$prev(); orderBy = '-$priority'; searchTerm = undefined;" ng-disabled="items.$prevDisabled" aria-label="list back">
+        <md-button class="md-icon-button" flex ng-click="items = items.$prev(); orderBy = '-$id'; searchTerm = undefined;" ng-disabled="items.$prevDisabled" aria-label="list back">
             <i class="mdi-navigation-arrow-back"></i>
         </md-button>
-        <md-button class="md-icon-button" flex ng-click="items = items.$next(); orderBy = '-$priority'; searchTerm = undefined;" ng-disabled="items.$nextDisabled" aria-label="list forward">
+        <md-button class="md-icon-button" flex ng-click="items = items.$next(); orderBy = '-$id'; searchTerm = undefined;" ng-disabled="items.$nextDisabled" aria-label="list forward">
             <i class="mdi-navigation-arrow-forward"></i>
         </md-button>
-        <md-button class="md-icon-button" flex ng-click="items = items.$more(); orderBy = '-$priority'; searchTerm = undefined;" ng-disabled="items.$moreDisabled" aria-label="list load more">
+        <md-button class="md-icon-button" flex ng-click="items = items.$more(); orderBy = '-$id'; searchTerm = undefined;" ng-disabled="items.$moreDisabled" aria-label="list load more">
             <i class="mdi-navigation-expand-more"></i>
         </md-button>
-        <md-button class="md-icon-button" flex ng-click="items = items.$reset(); orderBy = '-$priority'; searchTerm = undefined;" ng-disabled="items.$resetDisabled" aria-label="list reload">
+        <md-button class="md-icon-button" flex ng-click="items = items.$reset(); orderBy = '-$id'; searchTerm = undefined;" ng-disabled="items.$resetDisabled" aria-label="list reload">
             <i class="mdi-navigation-refresh"></i>
         </md-button>
     </div>
@@ -29,29 +29,30 @@
         <section>
             <md-list layout="column">
                 <md-item ng-repeat="discount in items | orderBy:orderBy">
-                    <md-item-content class="extra-padding" layout="row" layout-align="space-between center" layout-padding layout-wrap style="padding-top: 2rem;">
-                        <div flex="20" flex-sm="33">
-                            <md-checkbox ng-model="discount.active" ng-change="saveDiscount(discount)">
-                                Active
-                            </md-checkbox>
-                        </div>
+                    <md-item-content class="extra-padding" layout="row" layout-align="start center" layout-padding layout-wrap style="padding-top: 2rem;">
+                        <strong flex="40" flex-sm="33"><span style="padding-left: .5rem; padding-right: .9rem;">{{ 10*(items.$query.page - 1) + $index + 1 }}:</span>{{ ::discount.code }}</strong>
+                        <span flex="20" flex-sm="33">Product: {{ ::discount.productSlug || 'All' }}</span>
                         <div flex="20" flex-sm="33">
                             <span class="capitalize">{{ ::discount.type }}:</span>
                             <span ng-if="discount.type === 'percentage'">{{ ::discount.percentage }}%</span>
                             <span ng-if="discount.type === 'value'">{{ ::discount.value | currency }}</span>
                         </div>
-                        <span flex="40" flex-sm="33">{{ ::discount.code }}</span>
-                        <span class="text-right" flex="20" flex-sm="33">
+                        <span flex>Uses: {{ ::discount.useCount || 0 }}/{{ ::discount.uses }}</span>
+                        <span class="text-right max-5">
                             <md-button class="md-warn md-icon-button" ng-click="confirmRemoveDiscount($event, discount, items)" ng-disabled="discount.disabled" aria-label="Delete discount {{ discount.code }}">
                                 <i class="mdi-action-delete"></i>
                             </md-button>
                         </span>
-                        <span flex="20" flex-sm="33">Uses: {{ ::discount.useCount || 0 }}/{{ ::discount.uses }}</span>
-                        <span flex="20" flex-sm="33">Product: {{ ::discount.productSlug || 'All' }}</span>
+                        <div flex="20" flex-sm="33">
+                            <md-checkbox ng-model="discount.active" ng-change="saveDiscount(discount)">
+                                Active
+                            </md-checkbox>
+                        </div>
+                        <span flex="20" hide-sm></span>
                         <span flex="20" flex-sm="33">Min/Max: {{ ::discount.minSubtotal }}/{{ ::discount.maxSubtotal || '∞'}}</span>
                         <span flex="20" flex-sm="33">Expires: {{ ::discount.expiration | moment:"MM/DD/YY" }}</span>
                         <span flex>Created: {{ ::discount.created | moment:"MM/DD/YY" }}</span>
-                        <span class="text-success max-5" flex><i class="mdi-maps-local-shipping" ng-class="{'text-error': !discount.freeShipping}"></i></span>
+                        <span class="text-success max-5 text-right padding-horizontal-medium-important" flex><i class="mdi-maps-local-shipping" ng-class="{'text-error': !discount.freeShipping}"></i></span>
                     </md-item-content>
                     <md-divider ng-if="!$last"></md-divider>
                 </md-item>

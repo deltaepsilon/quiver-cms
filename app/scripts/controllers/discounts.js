@@ -13,6 +13,7 @@ angular.module('quiverCmsApp')
          * Items
          */
         $scope.items = items;
+        $scope.orderBy = '-$id';
 
         // items.$loaded().then(function(items) {
         //     var counter = 0;
