@@ -1,3 +1,8 @@
+if (process.env.NODE_ENV === 'production') {
+    var NewRelic = require('newrelic');
+    console.log('...enabling New Relic');
+}
+
 var express = require('express'),
     app = express(),
     Q = require('q'),
@@ -149,8 +154,17 @@ FirebaseService.isAuthenticated().then(function() {
 
     deferred.promise.then(function() {
         var port = ConfigService.get('private.content.port');
-        LogService.info('Serving on port ' + port);
         app.listen(port);
+
+        if (NewRelic) {
+            LogService.info('New Relic enabled for production');
+            app.locals.NewRelic = NewRelic.getBrowserTimingHeader();
+        } else {
+            LogService.info('New Relic disabled for development');
+            app.locals.NewRelic = "<script>console.info('New Relic timings header not inserted.');</script>";
+        }
+
+        LogService.info('Serving on port ' + port);
 
     }, function(err) {
         LogService.error('App not listening', err);

@@ -1,3 +1,9 @@
+if (process.env.NODE_ENV === 'production') {
+    var NewRelic = require('newrelic');
+    console.log('...enabling New Relic');
+}
+
+
 var express = require('express'),
     app = express(),
     _ = require('underscore');
@@ -84,6 +90,12 @@ app.post('/admin/template/reset-page/:slug', TemplateController.resetPage);
  */
 app.get('/env', EnvironmentController.env);
 app.get('/env.js', EnvironmentController.envJS);
+
+/*
+ * New Relic timings header
+ */
+app.get('/newrelic', EnvironmentController.newRelic(NewRelic));
+app.get('/newrelic.js', EnvironmentController.newRelicJS(NewRelic));
 
 /*
  * Discounts
@@ -211,5 +223,12 @@ CronService.feedbackEmail();
 /*
  * Finish this sucka up
  */
+console.log(NewRelic);
+if (NewRelic) {
+    LogService.info('New Relic enabled for production');
+} else {
+    LogService.info('New Relic disabled for development');
+}
+
 LogService.info("Serving on port " + ConfigService.get('private.cms.port'));
 app.listen(ConfigService.get('private.cms.port'));

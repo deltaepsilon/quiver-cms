@@ -89,12 +89,13 @@
 <section ng-if="!$storage.hideDashboardBackups && backups.length">
     <md-whiteframe class="md-whiteframe-z1" layout="row" layout-padding layout-wrap ng-if="!$storage.hideSurveysReport">
         <md-list flex>
-            <md-item ng-repeat="backup in backups">
+            <md-item ng-repeat="backup in backups | orderBy:'-$id'">
                 <md-item-content layout="row" layout-align="space-between center" layout-padding layout-wrap>
                     <md-button class="md-primary md-raised md-icon-button adjust-mdi" flex ng-href="/api/admin/backup/download/{{ backup.Filename }}?email={{ user.email }}&uid={{ currentUser.uid }}&provider={{ currentUser.provider }}&authorization={{ currentUser.token }}" target="_blank" download>
                         <i class="mdi-file-file-download"></i>
                     </md-button>
                     <span flex>{{ backup.Key }}</span>
+                    <span class="text-right" flex>{{ backup.Size | filesize }}MB</span>
                 </md-item-content>
                 <md-divider ng-if="!$last"></md-divider>
             </md-item>
