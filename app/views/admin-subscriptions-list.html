@@ -5,16 +5,16 @@
             <input id="list-search" type="text" ng-model="searchTerm" qv-enter="items = items.$orderByChild('email').$startAt(searchTerm).$limit(20).$get(); orderBy = 'email'" ng-focus="searchTerm = undefined;" auto-enter="searchTerm">
         </md-input-container>
         <span flex></span>
-        <md-button class="md-icon-button" flex ng-click="items = items.$prev(); orderBy = '-$priority'; query = undefined;" ng-disabled="items.$prevDisabled" aria-label="list back">
+        <md-button class="md-icon-button" flex ng-click="items = items.$prev(); orderBy = '-$id'; query = undefined;" ng-disabled="items.$prevDisabled" aria-label="list back">
             <i class="mdi-navigation-arrow-back"></i>
         </md-button>
-        <md-button class="md-icon-button" flex ng-click="items = items.$next(); orderBy = '-$priority'; query = undefined;" ng-disabled="items.$nextDisabled" aria-label="list forward">
+        <md-button class="md-icon-button" flex ng-click="items = items.$next(); orderBy = '-$id'; query = undefined;" ng-disabled="items.$nextDisabled" aria-label="list forward">
             <i class="mdi-navigation-arrow-forward"></i>
         </md-button>
-        <md-button class="md-icon-button" flex ng-click="items = items.$more(); orderBy = '-$priority'; query = undefined;" ng-disabled="items.$moreDisabled" aria-label="list load more">
+        <md-button class="md-icon-button" flex ng-click="items = items.$more(); orderBy = '-$id'; query = undefined;" ng-disabled="items.$moreDisabled" aria-label="list load more">
             <i class="mdi-navigation-expand-more"></i>
         </md-button>
-        <md-button class="md-icon-button" flex ng-click="items = items.$reset(); orderBy = '-$priority'; query = undefined;" ng-disabled="items.$resetDisabled" aria-label="list reload">
+        <md-button class="md-icon-button" flex ng-click="items = items.$reset(); orderBy = '-$id'; query = undefined;" ng-disabled="items.$resetDisabled" aria-label="list reload">
             <i class="mdi-navigation-refresh"></i>
         </md-button>
     </div>
@@ -33,7 +33,7 @@
                         <md-button class="md-primary md-raised md-icon-button" ui-sref="authenticated.master.admin.subscription({key: subscription.$id})" aria-label="Go to subscription by {{ subscription.email }}">
                             <i class="mdi-content-forward"></i>
                         </md-button>
-                        <a flex ng-href="mailto:{{ ::subscription.user.email }}">{{ ::subscription.user.email }}</a>
+                        <a class="truncate" flex ng-href="mailto:{{ ::subscription.user.email }}">{{ ::subscription.user.email }}</a>
                         <div flex>
                             {{ ::subscription.title }}
                         </div>

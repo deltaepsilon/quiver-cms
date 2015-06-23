@@ -404,12 +404,12 @@ md-list.hover > md-item.active {
 
 /* line 46, ../../../../app/styles/material/_color.scss */
 .background-success {
-  background-color: #BDE3DC;
+  background-color: #177F62;
 }
 
 /* line 50, ../../../../app/styles/material/_color.scss */
 .background-success-important {
-  background-color: #BDE3DC !important;
+  background-color: #177F62 !important;
 }
 
 /* line 46, ../../../../app/styles/material/_color.scss */
@@ -2104,52 +2104,52 @@ a.link-hover-error-important:hover {
 
 /* line 58, ../../../../app/styles/material/_color.scss */
 .text-success {
-  color: #BDE3DC;
+  color: #177F62;
 }
 
 /* line 63, ../../../../app/styles/material/_color.scss */
 a.link-success {
-  color: #BDE3DC;
+  color: #177F62;
 }
 
 /* line 67, ../../../../app/styles/material/_color.scss */
 .link-success a {
-  color: #BDE3DC;
+  color: #177F62;
 }
 
 /* line 71, ../../../../app/styles/material/_color.scss */
 a.link-hover-success:hover {
-  color: #BDE3DC;
+  color: #177F62;
 }
 
 /* line 75, ../../../../app/styles/material/_color.scss */
 .link-hover-success a:hover {
-  color: #BDE3DC;
+  color: #177F62;
 }
 
 /* line 79, ../../../../app/styles/material/_color.scss */
 .text-success-important {
-  color: #BDE3DC !important;
+  color: #177F62 !important;
 }
 
 /* line 84, ../../../../app/styles/material/_color.scss */
 a.link-success-important {
-  color: #BDE3DC !important;
+  color: #177F62 !important;
 }
 
 /* line 88, ../../../../app/styles/material/_color.scss */
 .link-success-important a {
-  color: #BDE3DC !important;
+  color: #177F62 !important;
 }
 
 /* line 92, ../../../../app/styles/material/_color.scss */
 a.link-hover-success-important:hover {
-  color: #BDE3DC !important;
+  color: #177F62 !important;
 }
 
 /* line 96, ../../../../app/styles/material/_color.scss */
 .link-hover-success-important a:hover {
-  color: #BDE3DC !important;
+  color: #177F62 !important;
 }
 
 /* line 58, ../../../../app/styles/material/_color.scss */
@@ -2931,12 +2931,12 @@ a.link-hover-black0-important:hover {
 
 /* line 105, ../../../../app/styles/material/_color.scss */
 .fade-success:after {
-  background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCIgeDE9IjAuNSIgeTE9IjAuMCIgeDI9IjAuNSIgeTI9IjEuMCI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2ZmZmZmZiIgc3RvcC1vcGFjaXR5PSIwLjAiLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNiZGUzZGMiLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyYWQpIiAvPjwvc3ZnPiA=');
+  background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCIgeDE9IjAuNSIgeTE9IjAuMCIgeDI9IjAuNSIgeTI9IjEuMCI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2ZmZmZmZiIgc3RvcC1vcGFjaXR5PSIwLjAiLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMxNzdmNjIiLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyYWQpIiAvPjwvc3ZnPiA=');
   background-size: 100%;
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, rgba(255, 255, 255, 0)), color-stop(100%, #bde3dc));
-  background-image: -moz-linear-gradient(rgba(255, 255, 255, 0), #bde3dc);
-  background-image: -webkit-linear-gradient(rgba(255, 255, 255, 0), #bde3dc);
-  background-image: linear-gradient(rgba(255, 255, 255, 0), #bde3dc);
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, rgba(255, 255, 255, 0)), color-stop(100%, #177f62));
+  background-image: -moz-linear-gradient(rgba(255, 255, 255, 0), #177f62);
+  background-image: -webkit-linear-gradient(rgba(255, 255, 255, 0), #177f62);
+  background-image: linear-gradient(rgba(255, 255, 255, 0), #177f62);
   content: "";
   display: block;
   position: absolute;
@@ -3181,7 +3181,7 @@ a.link-hover-black0-important:hover {
 
 /* line 123, ../../../../app/styles/material/_color.scss */
 .border-success {
-  border: 1px solid #BDE3DC;
+  border: 1px solid #177F62;
 }
 
 /* line 123, ../../../../app/styles/material/_color.scss */

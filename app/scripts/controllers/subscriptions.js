@@ -10,4 +10,5 @@
 angular.module('quiverCmsApp')
     .controller('SubscriptionsCtrl', function($scope, items) {
         $scope.items = items;
+        $scope.orderBy = '-$id';
     });

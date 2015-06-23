@@ -43,7 +43,7 @@
                             <md-divider ng-if="!$last"></md-divider>
                         </md-item>
                     </md-list>
-                    <div class="text-center" flex layout="row" layout-align="center center" ng-if="!$storage.cart.items.length">
+                    <div class="text-center" flex="100" layout="row" layout-align="center center" ng-if="!$storage.cart.items.length">
                         <h3 class="Headline">Your cart is empty. <span class="text-medium">Add some <a href="/products" qv-to-static>products</a> to check out.</span></h3>
                     </div>
                     <div flex="100" layout="row" layout-align="end center" layout-wrap>
@@ -142,7 +142,7 @@
                         Add Shipping Address
                     </md-button>
                     <div layout="row" layout-align="space-between center">
-                        <md-button class="md-primary md-raised min-12 max-16" flex ng-click="addressDialog($event)" ng-if="$storage.cart.address">
+                        <md-button class="md-primary md-raised min-14 max-18" flex ng-click="addressDialog($event)" ng-if="$storage.cart.address">
                             Edit Shipping Address
                         </md-button>
                         <span flex></span>
@@ -184,7 +184,7 @@
                 <span flex="50">Total</span>
                 <span class="text-right" flex><strong>{{ $storage.cart.total | currency }}</strong></span>
                 <div flex="100">
-                    <md-button id="checkout-button" class="md-accent md-raised margin-zero min-16 max-16" ng-click="checkingOut = true; checkout($storage.cart);" ng-disabled="!user || (!$storage.cart.paymentToken && $storage.cart.total) || ($storage.cart.shipped && !$storage.cart.address) || checkingOut" aria-label="Check out">
+                    <md-button id="checkout-button" class="md-accent md-raised margin-zero min-16 max-16" ng-click="checkingOut = true; checkout($storage.cart);" ng-disabled="!user || (!$storage.cart.paymentToken && $storage.cart.total) || ($storage.cart.shipped && !$storage.cart.address) || checkingOut || !$storage.cart.items.length" aria-label="Check out">
                         <i class="mdi-action-done-all"></i>
                         <span ng-show="$storage.cart.total">Complete Purchase</span>
                         <span ng-hide="$storage.cart.total">Free Checkout</span>

@@ -8,6 +8,10 @@
         </md-button>
         <span class="padding-zero-important" flex="100"></span>
         <div flex="50" flex-sm="100" layout="row" layout-align="start start" layout-padding layout-wrap>
+            <span flex="50">Log Record:</span>
+            <span class="text-right" flex><a ng-href="{{ env.firebase.endpoint }}/logs/subscriptions/{{ subscription.keys.log }}" target="_blank">{{ subscription.keys.log }}</a></span>
+            <span flex="50">User Record:</span>
+            <span class="text-right" flex><a ng-href="{{ env.firebase.endpoint }}/userObjects/subscriptions/{{ subscription.user.public.id }}/{{ subscription.keys.user }}" target="_blank">{{ subscription.keys.user }}</a></span>
             <span flex="50">Date:</span>
             <span class="text-right" flex>{{ subscription.date | moment:"MM/DD/YYYY" }}</span>
             <span flex="50">Email</span>
