@@ -1,69 +1,59 @@
 <div id="page" class="constrained">
-    <section class="margin-vertical-medium" layout="column" layout-align="start start">
-        <div layout-sm="column" layout-gt-sm="row" layout-align="start end" layout-align-sm="center center" layout-fill layout-padding style="min-height: 6rem;">
-            <div flex layout="column" layout-align="space-between">
-                <h1 class="headline uppercase tight md-display-1 margin-vertical-medium clearfix" flex>{{ post.title }}</h1>
-                <md-whiteframe class="md-whiteframe-z1 max-33" layout="row" layout-md="column" layout-align-sm="center center" layout-padding layout-wrap>
-                    <div flex layout="column" layout-align-sm="center center">
-                        <div class="headline uppercase text-secondary0">{{ post.author.name }}</div>
-                        <div class="text-small" flex>{{calendar post.published.published}}</div>
-                    </div>
-                    <div class="text-right max-16" flex>
-                        <md-button class="md-fab md-mini md-primary md-hue-1" ng-href="#disqus_thread" aria-label="View page comments">
-                            <span data-disqus-identifier="{{ post.slug }}"></span>
-                            <i class="mdi-editor-mode-comment"></i>
-                        </md-button>
-                        {{#if post.author.twitter }}
-                        <md-button class="md-fab md-mini twitter" ng-href="https://twitter.com/{{ post.author.twitter }}" target="_blank" aria-label="Author's Twitter feed">
-                            <i class="qv qv-twitter"></i>
-                        </md-button>
-                        {{/if}}
-                        {{#if post.author.instagram}}
-                        <md-button class="md-fab md-mini instagram" href="https://instagram.com/{{ post.author.instagram }}" target="_blank" aria-label="Author's Instagram feed">
-                            <i class="qv qv-instagram"></i>
-                        </md-button>
-                        {{/if}}
-                        <md-button class="md-fab md-mini md-secondary" ng-href="mailto:{{ post.author.email }}" aria-label="Author's email">
-                            <i class="mdi-communication-email"></i>
-                        </md-button>
-                    </div>
-                </md-whiteframe>
+    <section class="margin-vertical-medium" layout="row" layout-align="start start" layout-wrap>
+        <h1 class="headline uppercase tight md-display-2 margin-vertical-medium clearfix" flex="100" style="line-height: 2.5rem;">{{ post.title }}</h1>
+        <md-whiteframe class="md-whiteframe-z1" flex layout="row" layout-sm="column" layout-align="space-between" layout-padding layout-wrap>
+            <div class="min-16 max-16" flex>
+                <div class="headline uppercase text-secondary0">{{ post.author.name }}</div>
+                <div class="text-small">{{calendar post.published.published}}</div>
+                <div>
+                    <md-button class="md-fab md-mini md-primary md-hue-1" ng-href="#disqus_thread" aria-label="View page comments">
+                        <span data-disqus-identifier="{{ post.slug }}"></span>
+                        <i class="mdi-editor-mode-comment"></i>
+                    </md-button>
+                    {{#if post.author.twitter }}
+                    <md-button class="md-fab md-mini twitter" ng-href="https://twitter.com/{{ post.author.twitter }}" target="_blank" aria-label="Author's Twitter feed">
+                        <i class="qv qv-twitter"></i>
+                    </md-button>
+                    {{/if}} {{#if post.author.instagram}}
+                    <md-button class="md-fab md-mini instagram" href="https://instagram.com/{{ post.author.instagram }}" target="_blank" aria-label="Author's Instagram feed">
+                        <i class="qv qv-instagram"></i>
+                    </md-button>
+                    {{/if}}
+                    <md-button class="md-fab md-mini md-secondary" ng-href="mailto:{{ post.author.email }}" aria-label="Author's email">
+                        <i class="mdi-communication-email"></i>
+                    </md-button>
+                </div>
             </div>
-            <div class="max-18" flex>
-                <md-card class="margin-zero">
-                    <md-card-content>
-                        <div layout="column" layout-align-sm="center center">
-                            <h6 class="headline" style="margin-bottom: 1rem;">Share</h6>
-                        </div>
-                        <div class="text-center">
-                            <md-button class="md-fab md-mini twitter" ng-href="http://twitter.com/share?text={{ post.title }}&url={{ post.url }}" aria-label="Share page to Twitter">
-                                <i class="qv qv-twitter qv-offset-1"></i>
-                            </md-button>
-                            <md-button class="md-fab md-mini facebook" ng-href="https://www.facebook.com/sharer/sharer.php?u={{ post.url }}" aria-label="Share page to Facebook">
-                                <i class="qv qv-instagram"></i>
-                            </md-button>
-                            <md-button class="md-fab md-mini google-plus" ng-href="https://plus.google.com/share?url={{ post.url }}" aria-label="Share page to Google Plus">
-                                <i class="qv qv-google-plus qv-offset-1"></i>
-                            </md-button>
-                            <md-button class="md-fab md-mini md-secondary" ng-href="mailto:?subject={{ post.title }}&body={{ post.url }}" aria-label="Share via email">
-                                <i class="mdi-communication-email"></i>
-                            </md-button>
-                        </div>
-                    </md-card-content>
-                </md-card>
+            <div class="min-16 max-16" flex>
+                <div class="headline uppercase">Share</div>
+                <div class="text-small">&nbsp;</div>
+                <div>
+                    <md-button class="md-fab md-mini twitter" ng-href="http://twitter.com/share?text={{ post.title }}&url={{ post.url }}" aria-label="Share page to Twitter">
+                        <i class="qv qv-twitter qv-offset-1"></i>
+                    </md-button>
+                    <md-button class="md-fab md-mini facebook" ng-href="https://www.facebook.com/sharer/sharer.php?u={{ post.url }}" aria-label="Share page to Facebook">
+                        <i class="qv qv-instagram"></i>
+                    </md-button>
+                    <md-button class="md-fab md-mini google-plus" ng-href="https://plus.google.com/share?url={{ post.url }}" aria-label="Share page to Google Plus">
+                        <i class="qv qv-google-plus qv-offset-1"></i>
+                    </md-button>
+                    <md-button class="md-fab md-mini md-secondary" ng-href="mailto:?subject={{ post.title }}&body={{ post.url }}" aria-label="Share via email">
+                        <i class="mdi-communication-email"></i>
+                    </md-button>
+                </div>
             </div>
-        </div>
+        </md-whiteframe>
     </section>
     <div>
         <section layout="column" layout-padding>
-            {{#if post.published.html }} 
-                <div class="html" flex>
-                    {{{ post.published.html }}}
-                </div>
+            {{#if post.published.html }}
+            <div class="html" flex>
+                {{{ post.published.html }}}
+            </div>
             {{else }}
-                <div class="markdown" flex>
-                    {{markdown post.published.markdown }}
-                </div>
+            <div class="markdown" flex>
+                {{markdown post.published.markdown }}
+            </div>
             {{/if }}
         </section>
     </div>

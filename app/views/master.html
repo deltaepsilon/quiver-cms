@@ -1,8 +1,8 @@
 <div layout="row" flex>
     <md-sidenav layout="column" class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')" ui-view="sidenavLeft"></md-sidenav>
     <div id="content" layout="column" flex layout-align="start center" layout-fill>
-        <md-toolbar class="md-hue-3 border-primary0" layout="row" layout-align="start center" style="border-width: 0 0 2px 0; max-height: 62px;">
-            <md-button class="min-3 text-large" ng-click="toggleSidenav('left')" hide-gt-md tabindex="0" aria-label="toggle left nav" style="margin: 0 .5rem">
+        <md-toolbar class="top-toolbar md-hue-3 border-primary0" layout="row" layout-align="start center" style="border-width: 0 0 2px 0; max-height: 62px;">
+            <md-button class="min-3 text-large" ng-click="toggleSidenav('left')" hide-gt-md tabindex="0" aria-label="toggle left nav" style="margin: 0 -.5rem 0 0;">
                 <i class="mdi-action-subject"></i>
             </md-button>
             <div class="md-toolbar-tools">
@@ -20,12 +20,12 @@
                             <i class="mdi-action-shopping-cart"></i>
                         </md-button>
                     </div>
-                    <div class="md-toolbar-item" ng-show="!currentUser" style="padding-top: 7px;">
+                    <div class="md-toolbar-item" ng-show="!currentUser" layout="row" layout-align="center center">
                         <md-button class="margin-horizontal-small" href="/app/login" aria-label="Log in">
-                            <i class="mdi-action-input"></i> &nbsp;Login
+                            <span hide-sm><i class="mdi-action-input"></i> &nbsp;</span>Login
                         </md-button>
                         <md-button href="/app/register" aria-label="Register" hide-sm>
-                            Free Registration
+                            Register
                         </md-button>
                     </div>
                     <div class="md-toolbar-item" ng-if="showTOC()">

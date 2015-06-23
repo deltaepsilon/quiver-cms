@@ -1,9 +1,3 @@
-if (process.env.NODE_ENV === 'production') {
-    var NewRelic = require('newrelic');
-    console.log('...enabling New Relic');
-}
-
-
 var express = require('express'),
     app = express(),
     _ = require('underscore');
@@ -40,6 +34,11 @@ var UserController = require('./lib/controllers/user'),
     BackupController = require('./lib/controllers/backup'),
     SurveyController = require('./lib/controllers/survey'),
     Middleware = require('./lib/controllers/middleware');
+
+if (ConfigService.get('public.environment') === 'production') {
+    var NewRelic = require('newrelic');
+    console.log('...enabling New Relic');
+}
 
 /*
  * Static
@@ -223,7 +222,6 @@ CronService.feedbackEmail();
 /*
  * Finish this sucka up
  */
-console.log(NewRelic);
 if (NewRelic) {
     LogService.info('New Relic enabled for production');
 } else {

@@ -1,4 +1,4 @@
-FROM dockerfile/ubuntu
+FROM ubuntu
 
 MAINTAINER Chris Esplin <chris@quiver.is>
 

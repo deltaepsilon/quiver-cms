@@ -1,8 +1,3 @@
-if (process.env.NODE_ENV === 'production') {
-    var NewRelic = require('newrelic');
-    console.log('...enabling New Relic');
-}
-
 var express = require('express'),
     app = express(),
     Q = require('q'),
@@ -33,6 +28,11 @@ var CacheController = require('./lib/controllers/cache'),
     EmailController = require('./lib/controllers/email'),
     ResourceController = require('./lib/controllers/resource'),
     StaticController = require('./lib/controllers/static');
+
+if (ConfigService.get('public.environment') === 'production') {
+    var NewRelic = require('newrelic');
+    console.log('...enabling New Relic');
+}
 
 /*
  * Templating
@@ -161,7 +161,7 @@ FirebaseService.isAuthenticated().then(function() {
             app.locals.NewRelic = NewRelic.getBrowserTimingHeader();
         } else {
             LogService.info('New Relic disabled for development');
-            app.locals.NewRelic = "<script>console.info('New Relic timings header not inserted.');</script>";
+            app.locals.NewRelic = "<script>console.warn('New Relic timings header not inserted.');</script>";
         }
 
         LogService.info('Serving on port ' + port);

@@ -1,5 +1,5 @@
 <div layout="row" layout-wrap>
-  <section class="constrained" layout="row" layout-align="start center" style="margin-bottom: 1rem;">
+  <section class="constrained" layout="row" layout-sm="column" layout-align="start center" layout-align-sm="start start" style="margin-bottom: 1rem;">
     {{#if breadcrumbs}}
       {{#each breadcrumbs}}
         <md-button ng-href="{{ href }}">{{ text }}</md-button>
@@ -37,11 +37,11 @@
         </div>
 
         <md-card-content>
-          <div layout="row" layout-align="start center" layout-padding style="min-height: 5rem;">
+          <div layout="row" layout-sm="column" layout-align="start center" layout-padding style="min-height: 5rem;">
             <h5 class="headline uppercase margin-horizontal-x-small">
               {{ product.title }}
             </h5>
-            <strong class="headline margin-horizontal-small md-hue-2">
+            <strong class="headline margin-horizontal-x-small md-hue-2">
               $<span ng-show="getPriceAdjusted('{{ product.slug }}')" ng-bind="getPriceAdjusted('{{ product.slug }}')"></span><span ng-hide="getPriceAdjusted('{{ product.slug }}')">{{ product.price }}</span>
             </strong>
 
@@ -57,7 +57,7 @@
           <div layout layout-align="space-between start">
             {{#if useInventoryMatrix }}
               {{#if product.optionsMatrix }}
-                <form name="optionsForm" layout="row" layout-fill layout-padding layout-wrap>
+                <form name="optionsForm" layout="row" layout-sm="column" layout-align-sm="center center" layout-fill layout-padding layout-wrap>
                   {{#each product.optionGroups }}
                     <md-select class="margin-zero" flex placeholder="{{ this.name }}" ng-model="options['{{ @key }}']" ng-change="updateOptions('{{ ../product.slug }}', options)" required>
                         {{#each this.options}}
@@ -84,8 +84,8 @@
                       Please select options
                     </div>
                   </div>
-                  <md-button class="md-raised md-primary" flex ng-hide="inCart('{{ product.slug }}')" ng-click="addToCart('{{ product.slug }}')" ng-disabled="optionsForm.$invalid || optionsMatrixSelected.inStock < 1" style="max-width: 10rem;">Add to Cart</md-button>
-                  <md-button class="md-raised" flex ng-show="inCart('{{ product.slug }}')" ng-click="removeFromCart('{{ product.slug }}')" style="max-width: 10rem;">Remove from Cart</md-button>
+                  <md-button class="md-raised md-primary min-12 max-12" flex ng-hide="inCart('{{ product.slug }}')" ng-click="addToCart('{{ product.slug }}')" ng-disabled="optionsForm.$invalid || optionsMatrixSelected.inStock < 1">Add to Cart</md-button>
+                  <md-button class="md-raised min-12 max-12" flex ng-show="inCart('{{ product.slug }}')" ng-click="removeFromCart('{{ product.slug }}')">Remove from Cart</md-button>
                 </form>
                 
               {{ else }}
