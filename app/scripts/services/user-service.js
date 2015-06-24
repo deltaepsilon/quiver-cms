@@ -139,6 +139,18 @@ angular.module('quiverCmsApp')
 
             logSurvey: function(userId, key, survey) {
                 return Restangular.one('user').one(userId).one('survey').one(key).post('answered', survey);
+            },
+
+            getArchivedGalleries: function (userId, query) {
+                return FirebaseService.registerSecureRef($firebaseArray(FirebaseService.query(new Firebase(firebaseEndpoint + '/userObjects/archivedGalleries/' + userId), query)));         
+            },
+
+            getArchivedGallery: function (userId, key) {
+                return FirebaseService.registerSecureRef($firebaseObject(FirebaseService.query(new Firebase(firebaseEndpoint + '/userObjects/archivedGalleries/' + userId + '/' + key))));
+            },
+
+            getArchivedGalleryComments: function (userId, key) {
+                return FirebaseService.registerSecureRef($firebaseArray(FirebaseService.query(new Firebase(firebaseEndpoint + '/userObjects/archivedGalleries/' + userId + '/' + key + '/comments'))));
             }
 
         };

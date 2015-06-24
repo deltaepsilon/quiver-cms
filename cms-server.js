@@ -33,6 +33,7 @@ var UserController = require('./lib/controllers/user'),
     ReportController = require('./lib/controllers/report'),
     BackupController = require('./lib/controllers/backup'),
     SurveyController = require('./lib/controllers/survey'),
+    ResourceController = require('./lib/controllers/resource'),
     Middleware = require('./lib/controllers/middleware');
 
 if (ConfigService.get('public.environment') === 'production') {
@@ -212,6 +213,11 @@ app.post('/user/:userId/survey/:key/asked', SurveyController.asked);
 
 app.post('/user/:userId/survey/:key/answered', FormController.body);
 app.post('/user/:userId/survey/:key/answered', SurveyController.answered);
+
+/*
+ * Private Resource
+ */
+app.get('/user/:userId/resource/*', ResourceController.privateResource);
 
 /*
  * Cron

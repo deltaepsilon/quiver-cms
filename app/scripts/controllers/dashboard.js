@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('quiverCmsApp')
-    .controller('DashboardCtrl', function($scope, assignments, subscriptions, shipments, gifts, downloads, transactions, surveyResponses, UserService, $stateParams, moment, _, NotificationService) {
+    .controller('DashboardCtrl', function($scope, assignments, subscriptions, shipments, gifts, downloads, transactions, surveyResponses, archivedGalleries, UserService, $stateParams, moment, _, NotificationService) {
 
         /*
          * Objects
@@ -12,6 +12,7 @@ angular.module('quiverCmsApp')
         $scope.downloads = downloads;
         $scope.transactions = transactions;
         $scope.surveyResponses = surveyResponses;
+        $scope.archivedGalleries = archivedGalleries;
 
         /*
          * Assignments

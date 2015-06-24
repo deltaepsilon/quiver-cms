@@ -402,6 +402,9 @@ angular.module('quiverCmsApp', [
                 },
                 surveyResponses: function(UserService, user) {
                     return UserService.getSurveyResponses(user.$id);
+                },
+                archivedGalleries: function (UserService, user) {
+                    return UserService.getArchivedGalleries(user.$id);
                 }
             }
         },
@@ -613,6 +616,19 @@ angular.module('quiverCmsApp', [
                 },
                 notifications: function(AdminService, currentUser) {
                     return AdminService.getNotifications(currentUser.uid);
+                }
+            }
+        },
+        authenticatedMasterArchivedGallery: {
+            url: "/archived-gallery/:key",
+            templateUrl: "/views/archived-gallery.html",
+            controller: "ArchivedGalleryCtrl",
+            resolve: {
+                gallery: function (UserService, user, $stateParams) {
+                    return UserService.getArchivedGallery(user.$id, $stateParams.key);
+                },
+                comments: function (UserService, user, $stateParams) {
+                    return UserService.getArchivedGalleryComments(user.$id, $stateParams.key);
                 }
             }
         },
@@ -1275,6 +1291,7 @@ angular.module('quiverCmsApp', [
         .state('authenticated.master.subscription', getState(states.authenticatedMasterSubscription))
         .state('authenticated.master.subscription.page', getState(states.authenticatedMasterSubscriptionPage))
         .state('authenticated.master.subscription.assignment', getState(states.authenticatedMasterSubscriptionAssignment))
+        .state('authenticated.master.nav.archivedGallery', getState(states.authenticatedMasterArchivedGallery))
         .state('authenticated.master.admin', getState(states.authenticatedMasterAdmin)) // Admin
         .state('authenticated.master.admin.dashboard', getState(states.authenticatedMasterAdminDashboard))
         .state('authenticated.master.admin.words', getState(states.authenticatedMasterAdminWords))

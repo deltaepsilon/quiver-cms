@@ -1,0 +1,28 @@
+<section>
+    <h3 class="headline md-headline">Archived Gallery</h3>
+    <md-card>
+        <img ng-src="/api/user/{{ user.$id }}/resource/{{ gallery.filename }}?authorization={{ currentUser.token }}&uid={{ currentUser.uid }}&provider={{ currentUser.provider }}&email={{ user.email }}" alt="{{ gallery.filename}}" />
+        <md-card-content>
+            <h3 class="headline md-title">{{ gallery.title || 'No title' }}</h3>
+            <div class="markdown" flex markdown-editable ng-model="gallery.description"></div>
+            <md-divider></md-divider>
+            <md-list>
+                <md-item ng-if="!comments.length">
+                    <md-item-content layout="row" layout-align="space-between center" layout-padding layout-wrap>
+                        <h3 class="headline">This gallery has no comments</h3>
+                    </md-item-content>
+                </md-item>
+                <md-item ng-repeat="comment in comments">
+                    <md-item-content layout="row" layout-sm="column" layout-align="space-between start" layout-padding layout-wrap>
+                        <div flex="33" flex-sm="100">
+                            <div class="bold capitalize">{{ comment.commenterUsername || comment.commenterEmail }}</div>
+                            <span>{{ comment.created | moment:"MM/DD/YYYY" }}</span>
+                        </div>
+                        <div class="markdown" flex markdown-editable ng-model="comment.comment"></div>
+                    </md-item-content>
+                    <md-divider ng-if="!$last"></md-divider>
+                </md-item>
+            </md-list>
+        </md-card-content>
+    </md-card>
+</section>
