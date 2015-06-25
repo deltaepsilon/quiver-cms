@@ -59,6 +59,27 @@
         </form>
     </section>
     <section class="padded-card" flex="100">
+        <form name="seoForm">
+            <fieldset>
+                <md-whiteframe class="md-whiteframe-z1" layout="row" layout-padding layout-wrap>
+                    <h3 class="headline" flex="100">Search Engine Optimization</h3>
+                    <md-input-container flex="100">
+                        <label for="landing-page-title">Main Page Title</label>
+                        <input id="landing-page-title" type="text" ng-model="settings.seo.title" ng-model-options="{debounce: {'default': 500, 'blur': 0}}" />
+                    </md-input-container>
+                    <md-input-container flex="100">
+                        <label for="landing-page-description">Main Page Description</label>
+                        <textarea id="landing-page-description" ng-model="settings.seo.description" ng-model-options="{debounce: {'default': 500, 'blur': 0}}"></textarea>
+                    </md-input-container>
+                    <div class="text-small text-right" flex="100" ng-if="settings.seo.description">
+                        <span>Description length: </span>
+                        <span ng-class="{'text-success': settings.seo.description.length >= 150 && settings.seo.description.length <= 160, 'text-error': settings.seo.description.length < 150 || settings.seo.description.length > 160 }">{{ settings.seo.description.length }}</span>
+                    </div>
+                </md-whiteframe>
+            </fieldset>
+        </form>
+    </section>
+    <section class="padded-card" flex="100">
         <form name="themeColorsForm">
             <fieldset>
                 <md-whiteframe class="md-whiteframe-z1" layout="row" layout-padding layout-wrap>

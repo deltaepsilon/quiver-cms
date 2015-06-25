@@ -45,14 +45,16 @@
 <section class="padding-vertical-medium" ng-if="$storage.clipboard.length">
     <div layout="row" layout-align="start center">
         <h3 class="headline" flex ng-class="{'disabled': $storage.hideFilesClipboard}">Clipboard</h3>
-        <md-button class="md-fab md-mini md-primary" flex ng-click="$storage.hideFilesClipboard = !$storage.hideFilesClipboard" aria-label="Hide files clipboard">
-            <i ng-class="{'mdi-navigation-expand-less': $storage.hideFilesClipboard, 'mdi-navigation-expand-more': !$storage.hideFilesClipboard}"></i>
-        </md-button>
+        <div class="max-5 text-right" flex>
+            <md-button class="md-fab md-mini md-primary" ng-click="$storage.hideFilesClipboard = !$storage.hideFilesClipboard" aria-label="Hide files clipboard">
+                <i ng-class="{'mdi-navigation-expand-less': $storage.hideFilesClipboard, 'mdi-navigation-expand-more': !$storage.hideFilesClipboard}"></i>
+            </md-button>
+        </div>
     </div>
-    <md-whiteframe class="md-whiteframe-z1" layout="row" layout-padding layout-wrap ng-if="!$storage.hideFilesClipboard">
-        <md-content flex="100" layout style="height: 30rem;">
-            <md-list flex="100" layout="row" layout-wrap>
-                <md-item flex="100" ng-repeat="file in $storage.clipboard">
+    <md-whiteframe class="md-whiteframe-z1" layout="row" layout-padding layout-wrap ng-if="!$storage.hideFilesClipboard" style="height: 30rem;">
+        <md-content flex="100" layout>
+            <md-list flex="100">
+                <md-item ng-repeat="file in $storage.clipboard">
                     <md-item-content layout="row" layout-align="start start" layout-padding layout-wrap>
                         <span flex>{{ file.Key | filename }}</span>
                         <md-button class="md-warn md-raised md-icon-button" ng-click="removeFromClipboard(file)" aria-label="Remove from clipboard: {{ file.Key }}">

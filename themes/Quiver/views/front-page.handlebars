@@ -13,9 +13,9 @@
     {{/each }}
   </section>
 
-  <section class="posts-secondary" layout-sm="column" layout-md="column" layout-gt-md="row">
+  <section class="posts-secondary" layout="column" layout-gt-md="row" layout-wrap>
     {{#each postBlocks.secondary }}
-      <div class="post column post-{{ @index }}" flex>
+      <div class="post column min-22 post-{{ @index }}" flex>
           {{> inline-post }}
       </div>
     {{/each }}
@@ -28,65 +28,4 @@
       </div>
     {{/each }}
   </section>
-
-  
-
-
-
-
 </div>
-
-{{!-- <div id="posts" class="posts row">
-    {{#each postBlocks.primary }}
-      <div class="post column small-12 post-{{ @index }}" layout="column">
-          {{> inline-post }}
-      </div>
-    {{/each }}
-
-  <ul class="post-block-secondary" layout="row">
-    {{#each postBlocks.secondary }}
-        <li class="post post-{{ @index }}">
-          {{> inline-post }}
-        </li>
-    {{/each }}
-
-  </ul>
-
-{{#if hashtags.length }}
-  <div class="column medium-4">
-      <div class="hidden-for-small margin-vertical-large">
-          <div class="panel">
-              <table>
-                  <tr>
-                      <td><h6>HASHTAGS&nbsp;</h6></td>
-                      <td class="small-12"><hr style="margin: -.2rem 0 .2rem .5rem"/></td>
-                  </tr>
-              </table>
-            
-            <ul>
-
-                {{#each hashtags }}
-                  <li>
-                      <a href="/search/{{ this.key }}">#{{ this.value }}</a>
-                  </li>
-                {{/each }}
-            </ul>
-
-          </div>
-
-      </div>
-
-  </div>
-{{/if }}  
-  <ul class="post-block-tertiary column small-12 medium-8" layout="column">
-    {{#each postBlocks.tertiary }}
-        <li class="post post-{{ @index }}">
-          {{> inline-post }}
-        </li>
-    {{/each }}
-  </ul>
-
-  {{> prev-next }}
-
-</div>
- --}}

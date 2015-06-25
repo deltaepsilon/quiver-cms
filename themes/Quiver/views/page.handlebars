@@ -1,12 +1,13 @@
 <div id="page" class="constrained">
     <section class="margin-vertical-medium" layout="row" layout-align="start start" layout-wrap>
         <h1 class="headline uppercase tight md-display-2 margin-vertical-medium clearfix" flex="100" style="line-height: 2.5rem;">{{ post.title }}</h1>
+        {{#unless post.hideDetails }}
         <md-whiteframe class="md-whiteframe-z1" flex layout="row" layout-sm="column" layout-align="space-between" layout-padding layout-wrap>
             <div class="min-16 max-16" flex>
                 <div class="headline uppercase text-secondary0">{{ post.author.name }}</div>
                 <div class="text-small">{{calendar post.published.published}}</div>
                 <div>
-                    <md-button class="md-fab md-mini md-primary md-hue-1" ng-href="#disqus_thread" aria-label="View page comments">
+                    <md-button class="md-fab md-mini md-primary md-hue-1" qv-scroll="disqus_thread" aria-label="View page comments">
                         <span data-disqus-identifier="{{ post.slug }}"></span>
                         <i class="mdi-editor-mode-comment"></i>
                     </md-button>
@@ -43,6 +44,7 @@
                 </div>
             </div>
         </md-whiteframe>
+        {{/unless }}
     </section>
     <div>
         <section layout="column" layout-padding>

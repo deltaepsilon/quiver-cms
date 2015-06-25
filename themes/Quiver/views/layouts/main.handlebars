@@ -1,75 +1,72 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    {{#if NewRelic}}
-      {{{ NewRelic }}}
-    {{/if }}
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"> {{#if NewRelic}} {{{ NewRelic }}} {{/if }}
     <title>{{> title }}</title>
-    <meta name="description" content="">
+    {{#if description }}
+    <meta name="description" content="{{ description }}">
+    <meta itemprop="description" content="{{ description }}">{{/if }}
     <meta name="viewport" content="width=device-width">
     <script type="text/javascript" src="//use.typekit.net/bmk8cii.js"></script>
-    <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+    <script type="text/javascript">
+    try {
+        Typekit.load();
+    } catch (e) {}
+    </script>
     <script src="//use.fonticons.com/18aa8882.js"></script>
-    <link rel="icon" type="image/x-icon" href="/static/favicon.ico"/>
+    <link rel="icon" type="image/x-icon" href="/static/favicon.ico" />
+    <link rel="apple-touch-icon" type="image/png" href="static/apple-touch-icon.png" />
+    <link rel="apple-touch-icon" type="image/png" sizes="72x72" href="static/apple-touch-icon72px.png" />
+    <link rel="apple-touch-icon" type="image/png" sizes="114x114" href="static/apple-touch-icon114px.png" />
     <link rel="stylesheet" href="/static/lib/angular-material/angular-material.css">
     <link rel="stylesheet" href="/static/styles/style.css">
     <link rel="stylesheet" href="/static/lib/rainbow/themes/github.css">
     <script src="/env.js"></script>
     <meta name="viewport" content="initial-scale=1, maximum-scale=1" />
-
 </head>
+
 <body layout="column" ng-app="QuiverCMS" ng-controller="MasterCtrl" style="display: none;">
-  <md-toolbar class="top-toolbar md-hue-3 relative border-primary0" layout="row" layout-align="start center" style="border-width: 0 0 2px 0; max-height: 62px;">
-    {{> nav}}
-  </md-toolbar>
-  <div layout="row" flex>
-    
+    <md-toolbar class="top-toolbar md-hue-3 relative border-primary0" layout="row" layout-align="start center" style="border-width: 0 0 2px 0; max-height: 62px;">
+        {{> nav}}
+    </md-toolbar>
+    <div layout="row" flex>
         <md-sidenav layout="column" class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')">
-          {{> sidenav-left}}
+            {{> sidenav-left}}
         </md-sidenav>
-        {{!-- <md-sidenav layout="column" class="md-sidenav-right md-whiteframe-z2" md-component-id="right">
-          {{> sidenav-right}}
+        {{!--
+        <md-sidenav layout="column" class="md-sidenav-right md-whiteframe-z2" md-component-id="right">
+            {{> sidenav-right}}
         </md-sidenav> --}}
         <div layout="column" flex id="content" layout-align="start center">
-            <md-content flex class="md-padding constrained viewport-minus-header" layout="column" layout-align="start center" layout-fill>
-              {{{body}}}          
+            <md-content flex class="md-padding viewport-minus-header" layout="column" layout-align="start center" layout-fill>
+                <div class="constrained" style="width: 100%">
+                    {{{body}}}
+                </div>
             </md-content>
-
-          </div>
-
-  </div>
-  
-  {{#if env.liveReload }}
-    {{> livereload}}
-  {{/if  }}
-
-  {{#if env.google.analyticsId }}
-    {{> analytics }}
-  {{/if }}
-
-  {{> disqus-comment-count }}
-
-  <script src="/static/lib/rainbow/js/rainbow.js"></script>
-  <script src="/static/lib/jquery/dist/jquery.min.js"></script>
-  <script src="/static/lib/jquery.finger/dist/jquery.finger.js"></script>
-  <script src="/static/lib/angular/angular.js"></script>
-  <script src="/static/lib/angular-animate/angular-animate.js"></script>
-  <script src="/static/lib/angular-aria/angular-aria.js"></script>
-  <script src="/static/lib/angular-material/angular-material.js"></script>
-  <script src="/static/lib/ngstorage/ngStorage.js"></script>
-  <script src="/static/lib/moment/min/moment.min.js"></script>
-  <script src="/static/lib/underscore/underscore-min.js"></script>
-  <script src="/static/lib/angular-notifications/notification.js"></script>
-  <script src="/static/lib/firebase/firebase.js"></script>
-  <script src="/static/lib/angularfire/dist/angularfire.js"></script>
-  <script src="/static/lib/angular-ui-router/release/angular-ui-router.js"></script>
-  <script src="/static/lib/quiver-angular-utilities/utilities.js"></script>
-  <script src="/static/lib/angularfire-authentication/angularfire-authentication.js"></script>
-  <script src="/static/lib/angular-md5/angular-md5.js"></script>
-  <script src="/static/lib/angular-google-analytics/dist/angular-google-analytics.js"></script>
-  <script src="/static/scripts/app.js"></script>
-
+        </div>
+    </div>
+    {{#if env.liveReload }} {{> livereload}} {{/if }} {{#if env.google.analyticsId }} {{> analytics }} {{/if }} {{> disqus-comment-count }}
+    <script src="/static/lib/rainbow/js/rainbow.js"></script>
+    <script src="/static/lib/jquery/dist/jquery.min.js"></script>
+    <script src="/static/lib/jquery.finger/dist/jquery.finger.js"></script>
+    <script src="/static/lib/angular/angular.js"></script>
+    <script src="/static/lib/angular-animate/angular-animate.js"></script>
+    <script src="/static/lib/angular-aria/angular-aria.js"></script>
+    <script src="/static/lib/angular-material/angular-material.js"></script>
+    <script src="/static/lib/ngstorage/ngStorage.js"></script>
+    <script src="/static/lib/moment/min/moment.min.js"></script>
+    <script src="/static/lib/underscore/underscore-min.js"></script>
+    <script src="/static/lib/angular-notifications/notification.js"></script>
+    <script src="/static/lib/firebase/firebase.js"></script>
+    <script src="/static/lib/angularfire/dist/angularfire.js"></script>
+    <script src="/static/lib/angular-ui-router/release/angular-ui-router.js"></script>
+    <script src="/static/lib/quiver-angular-utilities/utilities.js"></script>
+    <script src="/static/lib/angularfire-authentication/angularfire-authentication.js"></script>
+    <script src="/static/lib/angular-md5/angular-md5.js"></script>
+    <script src="/static/lib/angular-google-analytics/dist/angular-google-analytics.js"></script>
+    <script src="/static/scripts/app.js"></script>
 </body>
+
 </html>
