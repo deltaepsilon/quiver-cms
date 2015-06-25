@@ -38,48 +38,48 @@
         </span> {{/each }}
         </div>
     </section>
-</md-content>
-<md-content role="navigation" ng-if="currentUser">
-    <section>
-        <md-toolbar class="md-accent md-hue-3">
-            <h5 class="md-toolbar-tools">Account</h5>
-        </md-toolbar>
-        <div layout="column" layout-padding>
-            <div layout="row" flex ng-if="user.isAdmin">
-                <md-button class="md-primary text-left" layout-fill ng-href="/app/admin/dashboard" flex>
-                    <i class="mdi-action-settings-applications"></i> Admin
-                </md-button>
+    <div ng-if="currentUser">
+        <section>
+            <md-toolbar class="md-accent md-hue-3">
+                <h5 class="md-toolbar-tools">Account</h5>
+            </md-toolbar>
+            <div layout="column" layout-padding>
+                <div layout="row" flex ng-if="user.isAdmin">
+                    <md-button class="md-primary text-left" layout-fill ng-href="/app/admin/dashboard" flex>
+                        <i class="mdi-action-settings-applications"></i> Admin
+                    </md-button>
+                </div>
+                <div layout="row" flex ng-if="user.isModerator">
+                    <md-button class="md-primary text-left" layout-fill ng-href="/app/moderator/dashboard" flex>
+                        <i class="mdi-communication-forum"></i> Moderator
+                    </md-button>
+                </div>
+                <div layout="row" flex ng-if="user.isAdmin">
+                    <md-button class="md-primary text-left" layout-fill ng-href="/app/admin/dashboard" flex>
+                        <i class="mdi-action-settings-applications"></i> Admin
+                    </md-button>
+                </div>
+                <div layout="row" flex>
+                    <md-button class="md-primary text-left" layout-fill ng-href="/app/" flex>
+                        <i class="mdi-action-dashboard"></i> Dashboard
+                    </md-button>
+                </div>
+                <div layout="row" flex>
+                    <md-button class="md-primary text-left" layout-fill ng-href="/app/messages" flex>
+                        <i class="mdi-communication-message"></i> Messages
+                    </md-button>
+                </div>
+                <div layout="row" flex>
+                    <md-button class="md-primary text-left" layout-fill ng-href="/app/account" flex>
+                        <i class="mdi-action-account-box"></i> Account
+                    </md-button>
+                </div>
+                <div layout="row" flex>
+                    <md-button class="md-primary text-left" layout-fill ng-click="logOut('left');" flex>
+                        <i class="mdi-action-exit-to-app"></i> Log Out
+                    </md-button>
+                </div>
             </div>
-            <div layout="row" flex ng-if="user.isModerator">
-                <md-button class="md-primary text-left" layout-fill ng-href="/app/moderator/dashboard" flex>
-                    <i class="mdi-communication-forum"></i> Moderator
-                </md-button>
-            </div>
-            <div layout="row" flex ng-if="user.isAdmin">
-                <md-button class="md-primary text-left" layout-fill ng-href="/app/admin/dashboard" flex>
-                    <i class="mdi-action-settings-applications"></i> Admin
-                </md-button>
-            </div>
-            <div layout="row" flex>
-                <md-button class="md-primary text-left" layout-fill ng-href="/app/" flex>
-                    <i class="mdi-action-dashboard"></i> Dashboard
-                </md-button>
-            </div>
-            <div layout="row" flex>
-                <md-button class="md-primary text-left" layout-fill ng-href="/app/messages" flex>
-                    <i class="mdi-communication-message"></i> Messages
-                </md-button>
-            </div>
-            <div layout="row" flex>
-                <md-button class="md-primary text-left" layout-fill ng-href="/app/account" flex>
-                    <i class="mdi-action-account-box"></i> Account
-                </md-button>
-            </div>
-            <div layout="row" flex>
-                <md-button class="md-primary text-left" layout-fill ng-click="logOut('left');" flex>
-                    <i class="mdi-action-exit-to-app"></i> Log Out
-                </md-button>
-            </div>
-        </div>
-    </section>
+        </section>
+    </div>
 </md-content>
