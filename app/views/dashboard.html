@@ -96,27 +96,27 @@
                             <div class="max-5" flex>
                                 <strong ng-if="subscription.subscriptionDays">{{ subscription.subscriptionDays }} Days</strong>
                             </div>
-                            <span flex></span>
-                            <div class="text-center min-20" flex>
-                                <md-button class="md-primary md-raised adjust-line-height max-30" ui-sref="authenticated.master.subscription.page({subscriptionKey: subscription.$id, pageNumber: $storage['bookmark-' + subscription.$id] || 0})" aria-label="Subscription {{ subscription.title }}">
+                            <span flex hide-sm></span>
+                            <div class="text-center min-22" flex>
+                                <md-button class="md-primary md-raised adjust-line-height min-20 max-30" ui-sref="authenticated.master.subscription.page({subscriptionKey: subscription.$id, pageNumber: $storage['bookmark-' + subscription.$id] || 0})" aria-label="Subscription {{ subscription.title }}">
                                     <div layout="row" ng-if="subscription.subscriptionType === 'interaction' && isExpired(subscription)">
-                                        <span class="text-center" flex>Assignments expired</span>
-                                        <span class="text-center" flex>{{ subscription.expiration | moment:"MM/DD/YYYY" }}</span>
+                                        <span class="text-left" flex>Assignments Expired</span>
+                                        <span class="text-right" flex>{{ subscription.expiration | moment:"MM/DD/YYYY" }}</span>
                                     </div>
                                     <div layout="row" ng-if="subscription.subscriptionType === 'interaction' && !isExpired(subscription) && subscription.expiration">
-                                        <span class="text-center" flex>Assignments expiration</span>
-                                        <span class="text-center" flex>{{ subscription.expiration | moment:"MM/DD/YYYY" }}</span>
+                                        <span class="text-left" flex>Assignments Expiration</span>
+                                        <span class="text-right" flex>{{ subscription.expiration | moment:"MM/DD/YYYY" }}</span>
                                     </div>
                                     <div layout="row" ng-if="subscription.subscriptionType === 'interaction' && !isExpired(subscription) && !subscription.expiration">
                                         <span flex>Assignments not started</span>
                                     </div>
                                     <div layout="row" ng-if="subscription.subscriptionType === 'content' && isExpired(subscription)">
-                                        <span class="text-center" flex>Expired</span>
-                                        <span class="text-center" flex>{{ subscription.expiration | moment:"MM/DD/YYYY" }}</span>
+                                        <span class="text-left" flex>Expired</span>
+                                        <span class="text-right" flex>{{ subscription.expiration | moment:"MM/DD/YYYY" }}</span>
                                     </div>
                                     <div layout="row" ng-if="subscription.subscriptionType === 'content' && !isExpired(subscription) && subscription.expiration">
-                                        <span class="text-center" flex>Expiration</span>
-                                        <span class="text-center" flex>{{ subscription.expiration | moment:"MM/DD/YYYY" }}</span>
+                                        <span class="text-left" flex>Expiration</span>
+                                        <span class="text-right" flex>{{ subscription.expiration | moment:"MM/DD/YYYY" }}</span>
                                     </div>
                                     <div layout="row" ng-if="subscription.subscriptionType === 'content' && !isExpired(subscription) && !subscription.expiration">
                                         <span flex ng-if="subscription.subscriptionDays">Click to start subscription</span>

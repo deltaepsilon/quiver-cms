@@ -104,7 +104,7 @@ angular.module('quiverCmsApp')
 
             if (maxAnswered && moment().diff(maxAnswered, 'days') < interval) {
                 return console.log('No need to ask a survey questions. It has only been ' + moment().diff(maxAnswered, 'days') + ' days since the last survey. The interval is ' + interval + ' days.');
-            } else if (maxIgnored && moment().diff(maxIgnored, 'days') < inverval) {
+            } else if (maxIgnored && moment().diff(maxIgnored, 'days') < interval) {
                 return console.log('No need to ask a survey questions. It has only been ' + moment().diff(maxIgnored, 'days') + ' days since the last survey was ignored. The interval is ' + interval + ' days.');
             } else {
                 while (i--) {

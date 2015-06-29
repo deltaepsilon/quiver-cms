@@ -10,31 +10,32 @@
 "compass/utilities/general/clearfix";
 
 // Imports
-@import "material/mixins";
-@import "material/triangles";
-// @import "material/retina-sprites";
-// @import "material/sprites";
+@import "modules/mixins";
+@import "modules/triangles";
+// @import "modules/retina-sprites";
+// @import "modules/sprites";
 
 // Theme
 @import
-"material/color",
-"material/font",
-"material/spacing",
-"material/global";
+"modules/color",
+"modules/font",
+"modules/spacing",
+"modules/global";
 
 // Modules
 
-@import "material/buttons";
-@import "material/cards";
-@import "material/dialog";
-@import "material/form";
-@import "material/layout";
-@import "material/list";
-@import "material/markdown";
-@import "material/toast";
-@import "material/toolbar";
-@import "material/transition";
-@import "material/type";
+@import "modules/buttons";
+@import "modules/cards";
+@import "modules/dialog";
+@import "modules/form";
+@import "modules/layout";
+@import "modules/list";
+@import "modules/markdown";
+@import "modules/testimonial";
+@import "modules/toast";
+@import "modules/toolbar";
+@import "modules/transition";
+@import "modules/type";
 
 // Materialize
 $icons-font-path: "../lib/materialize/font/material-design-icons/";

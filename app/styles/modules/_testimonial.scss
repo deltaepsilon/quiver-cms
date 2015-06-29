@@ -1,0 +1,16 @@
+.testimonial {
+    p {
+        margin: 1rem 0 !important;
+        line-height: 1.2rem;
+
+        &:first-of-type {
+            margin-top: 1rem;
+        }
+    }
+
+    blockquote {
+        border-left: .25rem solid getColor(primary0);
+        padding-left: 1rem;
+        margin-left: 1rem;
+    }
+}

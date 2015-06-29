@@ -1,15 +1,90 @@
-button, .button {
-  &.callout {
-    @extend .background-secondary1;
-
-    text-transform: uppercase;
-
-    &:hover {
-      @extend .background-secondary0;
+@mixin social-button($name) {
+    color: getColor(white0) !important;
+    background-color: getColor($name) !important;
+    &:not([disabled]):hover {
+        background-color: darken(getColor($name), 20) !important;
     }
+}
 
-    &:active, &:focus {
-      background-color: adjust-lightness(getColor(secondary0), 20);
+.md-button,
+.md-fab {
+    &.twitter {
+        @include social-button('twitter');
     }
-  }
+    ;
+    &.instagram {
+        @include social-button('instagram');
+    }
+    ;
+    &.google-plus {
+        @include social-button('google-plus');
+    }
+    ;
+    &.facebook {
+        @include social-button('facebook');
+    }
+    ;
+}
+
+.active > .md-button {
+    @extend .background-primary2;
+    @extend .text-white0;
+    cursor: not-allowed;
+}
+
+.md-button {
+    @extend .text-medium;
+    
+    &.adjust-mdi {
+        [class^="mdi-"], [class*=" mdi-"] {
+            top: 3px;
+            position: relative;
+        }
+    }
+    &.adjust-line-height {
+        line-height: 2.5rem;
+    }
+    &.align-left {
+        margin-left: 0;
+    }
+    &[flag="1"] {
+        color: getColor(primary1);
+    }
+    &[flag="2"] {
+        color: getColor(secondary0);
+    }
+    &[flag="3"] {
+        color: getColor(secondary1);
+    }
+}
+
+.md-fab-tiny {
+    min-width: 3rem !important;
+    max-width: 3rem !important;
+    min-height: 3rem !important;
+    max-height: 3rem !important;
+    line-height: 1rem !important;
+}
+
+.md-icon-button {
+    $iconButtonHeight: 2rem;
+    min-width: 2.3rem !important;
+    max-width: 2.3rem !important;
+    line-height: .75rem !important;
+    height: $iconButtonHeight !important;
+    font-size: $iconButtonHeight * .5;
+}
+
+a.md-icon-button {
+    padding-top: 10px;
+}
+
+.md-button-padding {
+    padding: 6px;
+}
+
+.qv-offset-1 {
+    position: relative;
+    top: 1px;
+    left: 1px;
 }
