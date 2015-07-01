@@ -8,6 +8,7 @@
     {{#if description }}
     <meta name="description" content="{{ description }}">
     <meta itemprop="description" content="{{ description }}">{{/if }}
+    {{#if settings.seo.googleSiteVerification}}<meta name="google-site-verification" content="{{ settings.seo.googleSiteVerification }}" />{{/if}}
     <meta name="viewport" content="width=device-width">
     <script type="text/javascript" src="//use.typekit.net/bmk8cii.js"></script>
     <script type="text/javascript">
@@ -27,7 +28,7 @@
     <meta name="viewport" content="initial-scale=1, maximum-scale=1" />
 </head>
 
-<body layout="column" ng-app="QuiverCMS" ng-controller="MasterCtrl" style="display: none;">
+<body id="body" layout="column" ng-app="QuiverCMS" ng-controller="MasterCtrl">
     <md-toolbar class="top-toolbar md-hue-3 relative border-primary0" layout="row" layout-align="start center" style="border-width: 0 0 2px 0; max-height: 62px;">
         {{> nav}}
     </md-toolbar>
@@ -47,6 +48,9 @@
             </md-content>
         </div>
     </div>
+    <script type="text/javascript">
+        document.getElementById('body').setAttribute('style', 'display: none;');
+    </script>
     {{#if env.liveReload }} {{> livereload}} {{/if }} {{#if env.google.analyticsId }} {{> analytics }} {{/if }} {{> disqus-comment-count }}
     <script src="/static/lib/rainbow/js/rainbow.js"></script>
     <script src="/static/lib/jquery/dist/jquery.min.js"></script>

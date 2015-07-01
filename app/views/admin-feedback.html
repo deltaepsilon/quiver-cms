@@ -1,5 +1,5 @@
 <section>
-    <h3 class="headline left">{{ assignment.title }} by <a ui-sref="authenticated.master.admin.messages.list({search: client.email})">{{ client.email }}</a></h3>
+    <h3 class="headline">{{ assignment.title }} by <a ui-sref="authenticated.master.admin.messages.list({search: client.email})">{{ client.email }}</a></h3>
     <md-whiteframe class="md-whiteframe-z1" layout="row" layout-align="start end" layout-padding layout-wrap ng-if="uploads.length">
         <md-button class="margin-zero-important" flex="33" flex-sm="100" ng-click="openGallery($event, image, uploads)" ng-repeat="(key, image) in uploads" style="height: inherit;" aria-label="Open image in gallery {{ image.name }}">
             <img ng-class="{'disabled': image.disabled}" ng-src="{{ image.url }}" alt="{{ image.Name }}" title="{{ image.Name }} ({{ image.Size / 1000 | number:0 }}kb)">

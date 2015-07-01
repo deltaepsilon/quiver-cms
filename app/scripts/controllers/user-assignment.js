@@ -204,7 +204,6 @@ angular.module('quiverCmsApp')
 
                             if (!existing) {
                                 completed.push(file);
-                                $scope.uploads.$add(file);
                             }
                             break;
                         case 'complete':

@@ -5,21 +5,21 @@
             <input id="list-search" type="text" ng-model="searchTerm" qv-enter="items = items.$orderByChild('userEmail').$startAt(searchTerm).$get(); orderBy = 'userEmail'" ng-focus="searchTerm = undefined;" auto-enter="searchTerm">
         </md-input-container>
         <span flex></span>
-        <!-- <md-button class="md-icon-button" flex ng-click="items = items.$prev(); orderBy = '-$priority'" ng-disabled="items.$prevDisabled" aria-label="list back">
+        <md-button class="md-icon-button" flex ng-click="items = items.$prev(); orderBy = '-$id'" ng-disabled="items.$prevDisabled" aria-label="list back">
             <i class="mdi-navigation-arrow-back"></i>
         </md-button>
-        <md-button class="md-icon-button" flex ng-click="items = items.$next(); orderBy = '-$priority'" ng-disabled="items.$nextDisabled" aria-label="list forward">
+        <md-button class="md-icon-button" flex ng-click="items = items.$next(); orderBy = '-$id'" ng-disabled="items.$nextDisabled" aria-label="list forward">
             <i class="mdi-navigation-arrow-forward"></i>
-        </md-button> -->
-        <md-button class="md-icon-button" flex ng-click="items = items.$more(); orderBy = '-$priority'" ng-disabled="items.$moreDisabled" aria-label="list load more">
+        </md-button>
+        <md-button class="md-icon-button" flex ng-click="items = items.$more(); orderBy = '-$id'" ng-disabled="items.$moreDisabled" aria-label="list load more">
             <i class="mdi-navigation-expand-more"></i>
         </md-button>
-        <md-button class="md-icon-button" flex ng-click="items = items.$reset(); orderBy = '-$priority'" ng-disabled="items.$resetDisabled" aria-label="list reload">
+        <md-button class="md-icon-button" flex ng-click="items = items.$reset(); orderBy = '-$id'" ng-disabled="items.$resetDisabled" aria-label="list reload">
             <i class="mdi-navigation-refresh"></i>
         </md-button>
     </div>
     <md-content>
-        <md-list layout="column" ng-if="!itemsFiltered.length">
+        <md-list layout="column" ng-if="!items.length">
             <md-item>
                 <md-item-content class="text-center" layout="row" layout-align="center center" layout-padding layout-wrap>
                     <h3 class="Headline">There are no more messages to display.</h3>
@@ -28,13 +28,13 @@
         </md-list>
         <section>
             <md-list layout="column">
-                <md-item ng-repeat="message in itemsFiltered | orderBy:'$priority':'desc'">
+                <md-item ng-repeat="message in items | orderBy:'$id':'desc'">
                     <md-item-content layout="row" layout-align="start center" layout-padding layout-wrap>
                         <span class="bold" flex flex-order="1" style="max-width: 10rem;">{{ $index + 1 }}: {{ message.created | moment:"MMM DD, hh:mm" }}</span>
                         <span class="truncate" flex flex-order="2">{{ message.userEmail }}</span>
                         <span class="truncate" flex flex-order="2">{{ message.assignmentTitle }}</span>
                         <a class="undecorated" flex="33" flex-sm="100" flex-order="3" flex-order-sm="9" ui-sref="authenticated.master.admin.feedback({userId: message.recipientId || message.userId, assignmentKey: message.assignmentKey })">{{ message.text | truncate:30 }}</a>
-                        <md-button class="md-icon-button" flag="{{ message.flag || 0 }}" flex flex-order="4" ng-click="incrementMessageFlag(message.$id)" aria-label="Increment flag for {{ message.assignmentTitle }}">
+                        <md-button class="md-icon-button" flag="{{ message.flag || 0 }}" flex flex-order="4" ng-click="incrementMessageFlag(assignment.$id, message.$id)" aria-label="Increment flag for {{ message.assignmentTitle }}">
                             <i class="mdi-content-flag"></i>
                         </md-button>
                         <md-button class="md-icon-button md-primary" flex flex-order="5" ng-click="setSearch(message.userEmail)" aria-label="Search by user: {{ message.userEmail }}">
@@ -47,8 +47,8 @@
                     <md-divider ng-if="!$last"></md-divider>
                 </md-item>
             </md-list>
-            <div class="text-center" ng-if="itemsFiltered.length && !items.$moreDisabled">
-                <md-button class="md-primary md-raised min-10 max-10" ng-click="loadMore()">
+            <div class="text-center" ng-if="items.length && !items.$moreDisabled">
+                <md-button class="md-primary md-raised min-10 max-10" ng-click="items = items.$more(); orderBy = '-$id'">
                     Load More
                 </md-button>
             </div>

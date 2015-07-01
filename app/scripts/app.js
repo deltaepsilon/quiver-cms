@@ -1223,7 +1223,7 @@ angular.module('quiverCmsApp', [
             }
         },
         authenticatedMasterModeratorMessagesList: {
-            url: '/messages/$search',
+            url: '/messages/:search',
             templateUrl: 'views/moderator-messages-list.html',
             controller: 'ModeratorMessagesListCtrl'
         },

@@ -8,7 +8,7 @@
  * Controller of the quiverCmsApp
  */
 angular.module('quiverCmsApp')
-    .controller('ModeratorMessagesCtrl', function($scope, AdminService, assignments) {
+    .controller('ModeratorMessagesCtrl', function($scope, ModeratorService, assignments) {
         
         /*
          * Assignments
@@ -18,7 +18,7 @@ angular.module('quiverCmsApp')
         /*
          * Flags
          */
-        $scope.incrementMessageFlag = AdminService.incrementMessageFlag;
+        $scope.incrementMessageFlag = ModeratorService.incrementMessageFlag;
 
         $scope.tabSelect = function (assignment) {
             $scope.assignment = assignment;

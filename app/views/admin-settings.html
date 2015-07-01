@@ -75,6 +75,10 @@
                         <span>Description length: </span>
                         <span ng-class="{'text-success': settings.seo.description.length >= 150 && settings.seo.description.length <= 160, 'text-error': settings.seo.description.length < 150 || settings.seo.description.length > 160 }">{{ settings.seo.description.length }}</span>
                     </div>
+                    <md-input-container flex="100">
+                        <label for="google-site-verification">Google Site Verification</label>
+                        <input id="google-site-verification" type="text" ng-model="settings.seo.googleSiteVerification">
+                    </md-input-container>
                 </md-whiteframe>
             </fieldset>
         </form>
