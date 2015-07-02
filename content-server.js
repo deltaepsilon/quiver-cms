@@ -56,6 +56,7 @@ app.use('/static', StaticController.content);
 
 app.use('/favicon.ico', StaticController.file('favicon.ico'));
 app.use('/robots.txt', StaticController.file('robots.txt'));
+app.use('/sitemap.xml', StaticController.sitemap);
 
 /*
  * Atom 1.0 and RSS 2.0

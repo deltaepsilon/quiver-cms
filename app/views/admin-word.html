@@ -185,6 +185,23 @@
             <span>Description length: </span>
             <span ng-class="{'text-success': word.seoDescription.length >= 150 && word.seoDescription.length <= 160, 'text-error': word.seoDescription.length < 150 || word.seoDescription.length > 160 }">{{ word.seoDescription.length }}</span>
         </div>
+        <div layout="row" layout-md="column">
+            <div class="md-select-wrapper" flex>
+                <md-select ng-model="word.sitemap.changefreq" placeholder="Change Frequency (default to weekly)">
+                    <md-option value="always">Always</md-option>
+                    <md-option value="hourly">Hourly</md-option>
+                    <md-option value="daily">Daily</md-option>
+                    <md-option value="weekly">Weekly</md-option>
+                    <md-option value="monthly">Monthly</md-option>
+                    <md-option value="yearly">Yearly</md-option>
+                    <md-option value="never">Never</md-option>
+                </md-select>
+            </div>
+            <md-input-container flex>
+                <label for="sitemap-priority">Sitemap Priority (defaults to 0.5)</label>
+                <input id="sitemap-priority" type="number" ng-model="word.sitemap.priority" min="0" max="1">
+            </md-input-container>
+        </div>
     </md-whiteframe>
 </section>
 <section class="padding-vertical-medium">
