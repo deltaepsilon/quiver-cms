@@ -19,7 +19,7 @@ angular.module('quiverCmsApp')
   		AdminService.sendTransactionEmail(key, transaction).then(function () {
   			NotificationService.success('Email sent');
   		}, function (err) {
-  			NotificationService.error('Email failed', err);
+  			NotificationService.error('Email failed', err.statusText);
   		});
   	};
 
@@ -27,7 +27,7 @@ angular.module('quiverCmsApp')
   		AdminService.chargeCard(transaction, key || transaction.$id).then(function () {
   			NotificationService.success('Card charged');
   		}, function (err) {
-  			NotificationService.error('Charge failed', err);
+  			NotificationService.error('Charge failed', err.statusText);
   		});
   	};
     

@@ -241,5 +241,8 @@ if (NewRelic) {
     LogService.info('New Relic disabled for development');
 }
 
+LogService.info('Ignoring request-module TLS rejections in order to handle self-signed certs.');
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+
 LogService.info("Serving on port " + ConfigService.get('private.cms.port'));
 app.listen(ConfigService.get('private.cms.port'));
