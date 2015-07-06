@@ -153,10 +153,6 @@ angular.module('QuiverCMS', ['ngStorage', 'quiver.angular-utilities', 'quiver.an
         qvAuth.getCurrentUser().then(function(currentUser) {
             $scope.currentUser = currentUser;
             $scope.showNav = true;
-            
-            if (currentUser && location.pathname === '/') {
-                location.replace('/app/');
-            }
 
             if (currentUser && currentUser.email) {
                 $scope.gravatar = "https://www.gravatar.com/avatar/" + md5.createHash(currentUser.email);
@@ -176,8 +172,18 @@ angular.module('QuiverCMS', ['ngStorage', 'quiver.angular-utilities', 'quiver.an
 
             if (!currentUser) {
                 $localStorage.redirect = '/';
+            } 
+
+            if (currentUser && location.pathname === '/') {
+                location.replace('/app/');
+            } else {
+                $timeout(function () {
+                    $scope.loaded = true;    
+                });
+                
             }
 
+            
 
         });
 

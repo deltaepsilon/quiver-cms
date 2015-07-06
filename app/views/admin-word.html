@@ -33,7 +33,7 @@
                     <h4 class="margin-zero-important" flex>Hashtags</h4>
                     <div flex="100">
                         <md-chips flex ng-model="wordHashtags" md-on-append="addHashtag($chip)">
-                            <md-autocomplete md-selected-item="selectedHashtag" md-search-text="searchText" md-no-cache="true" md-items="hashtag in searchHashtags(searchText)" md-item-text="hashtag.value" placeholder="Add hashtag...">
+                            <md-autocomplete md-selected-item="selectedHashtag" md-search-text="searchText" md-no-cache="true" md-items="hashtag in searchHashtags(searchText)" md-item-text="hashtag.value" placeholder="Add hashtag..." md-search-text-change md-selected-item-change>
                                 <span md-highlight-text="searchText" md-highlight-flags="^i">{{ hashtag.value }}</span>
                             </md-autocomplete>
                             <md-chip-template>

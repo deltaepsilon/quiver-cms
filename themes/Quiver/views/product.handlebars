@@ -204,8 +204,8 @@
 
     localStorage.setItem(name, JSON.stringify(product));
     setTimeout(function () {
-      angular.element($(document.body)).scope().logProductImpression(product);  
-    }, 1000);
+      angular.element(document.getElementById('app-wrapper')).scope().logProductImpression(product);  
+    }, 2000);
     
   })();
 
