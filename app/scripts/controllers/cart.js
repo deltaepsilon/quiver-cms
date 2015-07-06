@@ -423,6 +423,7 @@ angular.module('quiverCmsApp')
                 controller: function($scope, $mdDialog) {
                     $scope.$storage = $localStorage;
 
+                    $scope.countryCodes = countryCodes;
                     $scope.countries = countries;
                     $scope.states = states;
                     $scope.removeAddress = removeAddress;
@@ -603,15 +604,18 @@ angular.module('quiverCmsApp')
                 Analytics.trackTransaction(transactionId, affiliation, revenue, tax, shipping, coupon, list, step, option);
 
                 NotificationService.success('Checkout Successful');
-                $scope.emptyCart();
-                delete $scope.checkingOut;
-                $state.go('authenticated.master.nav.transaction', {
-                    userId: transaction.userId,
-                    key: transaction.keys.user
-                });
 
+                $timeout(function() {
+                    $state.go('authenticated.master.nav.transaction', {
+                        userId: transaction.userId,
+                        key: transaction.keys.user
+                    });
+                });
             }, function(err) {
-                NotificationService.error('Checkout Error', err);
+                NotificationService.error('Checkout Error', err.statusText);
+                $state.go('authenticated.master.nav.dashboard');
+            }).finally(function(transaction) {
+                $scope.emptyCart();
                 delete $scope.checkingOut;
             });
         };

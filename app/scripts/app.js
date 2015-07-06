@@ -1151,6 +1151,21 @@ angular.module('quiverCmsApp', [
                 }
             }
         },
+        authenticatedMasterAdminLogs: {
+            abstract: true,
+            url: '/logs',
+            template: '<div ui-view></div>'
+        },
+        authenticatedMasterAdminLogsType: {
+            url: '/:type',
+            templateUrl: '/views/admin-logs.html',
+            controller: 'LogsCtrl',
+            resolve: {
+                logs: function (AdminService, user, $stateParams) {
+                    return AdminService.getLogs($stateParams.type);
+                }
+            }
+        },
         authenticatedMasterModerator: { // ************************************  Moderator ********************
             abstract: true,
             url: '/moderator',
@@ -1335,6 +1350,8 @@ angular.module('quiverCmsApp', [
         .state('authenticated.master.admin.email.list', getState(states.authenticatedMasterAdminEmailList))
         .state('authenticated.master.admin.landing-pages', getState(states.authenticatedMasterAdminLandingPages))
         .state('authenticated.master.admin.landing-page', getState(states.authenticatedMasterAdminLandingPage))
+        .state('authenticated.master.admin.logs', getState(states.authenticatedMasterAdminLogs))
+        .state('authenticated.master.admin.logs.type', getState(states.authenticatedMasterAdminLogsType))
         .state('authenticated.master.moderator', getState(states.authenticatedMasterModerator)) // Moderator
         .state('authenticated.master.moderator.dashboard', getState(states.authenticatedMasterModeratorDashboard))
         .state('authenticated.master.moderator.messages', getState(states.authenticatedMasterModeratorMessages))

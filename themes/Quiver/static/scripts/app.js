@@ -153,6 +153,10 @@ angular.module('QuiverCMS', ['ngStorage', 'quiver.angular-utilities', 'quiver.an
         qvAuth.getCurrentUser().then(function(currentUser) {
             $scope.currentUser = currentUser;
             $scope.showNav = true;
+            
+            if (currentUser && location.pathname === '/') {
+                location.replace('/app/');
+            }
 
             if (currentUser && currentUser.email) {
                 $scope.gravatar = "https://www.gravatar.com/avatar/" + md5.createHash(currentUser.email);

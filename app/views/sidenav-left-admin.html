@@ -164,4 +164,21 @@
             </div>
         </div>
     </section>
+    <section>
+        <md-toolbar class="md-hue-1">
+            <h5 class="md-toolbar-tools">Logs</h5>
+        </md-toolbar>
+        <div layout="column" layout-padding>
+            <div layout="row" flex qv-active>
+                <md-button class="md-primary text-left" flex layout-fill ui-sref="authenticated.master.admin.logs.type({type: 'cms'})">
+                    CMS Server
+                </md-button>
+            </div>
+            <div layout="row" flex qv-active>
+                <md-button class="md-primary text-left" flex layout-fill ui-sref="authenticated.master.admin.logs.type({type: 'content'})">
+                    Content Server
+                </md-button>
+            </div>
+        </div>
+    </section>
 </md-content>

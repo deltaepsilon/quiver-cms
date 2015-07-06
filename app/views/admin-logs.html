@@ -1,0 +1,29 @@
+<section>
+    <h3 class="headline"><span class="capitalize">{{ type }}</span> Logs</h3>
+
+    <md-whiteframe class="md-whiteframe-z1" layout="row" layout-padding layout-wrap>
+        <md-input-container flex>
+          <label for="list-search">Filter</label>
+          <input id="list-search" type="text" ng-model="logFilter" ng-focus="logFilter = undefined;">
+        </md-input-container>
+
+        <div class="max-5" flex>
+            <md-button class="md-fab md-mini md-raised md-warn" ng-click="confirmDelete($event)">
+                <i class="mdi-action-delete"></i>
+            </md-button>
+        </div>
+
+        <md-list flex="100">
+            <md-item ng-repeat="log in logs | filter:logFilter">
+                <md-item-content layout="row" layout-sm="column" layout-align="space-between center" layout-padding layoutwrap>
+                    <span class="max-5 truncate" flex>{{ log.level }}</span>
+                    <span class="max-12 truncate" flex>{{ log.code }}</span>
+                    <span class="truncate" flex>{{ log.message }}</span>
+                    <span class="max-14 truncate" flex>{{ log.timestamp }}</span>
+                </md-item-content>
+                <md-divider ng-if="!$last"></md-divider>
+            </md-item>
+        </md-list>
+    </md-whiteframe>
+
+</section>

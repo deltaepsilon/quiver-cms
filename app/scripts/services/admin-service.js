@@ -359,6 +359,14 @@ angular.module('quiverCmsApp')
 
             saveLandingPage: function(slug) {
                 return Restangular.one('admin').one('template').one('reset-page').post(slug);
+            },
+
+            getLogs: function (type) {
+                return Restangular.one('admin').one('logs').getList(type);
+            },
+
+            clearLogs: function (type) {
+                return Restangular.one('admin').one('logs').one(type).remove();  
             }
 
         }

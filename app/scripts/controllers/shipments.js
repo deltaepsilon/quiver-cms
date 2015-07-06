@@ -15,6 +15,8 @@ angular.module('quiverCmsApp')
          */
         $scope.items = items;
 
+        $scope.orderBy = "-$id";
+
         /*
          * Shipments
          */
@@ -92,10 +94,10 @@ angular.module('quiverCmsApp')
             }
         };
 
-        var setUnverifiedAddress = function(shipment) {
+        var getUnverifiedAddress = function(shipment) {
             var address = shipment.transaction.address;
 
-            $scope.unverifiedAddress = {
+            return {
                 name: address.recipient,
                 street1: address.street1,
                 street2: address.street2,
@@ -108,9 +110,8 @@ angular.module('quiverCmsApp')
                 phone: address.phone
 
             };
-
         };
-        $scope.setUnverifiedAddress = setUnverifiedAddress;
+        $scope.getUnverifiedAddress = getUnverifiedAddress;
 
         var createAddress = function(address) {
             var promise = ShipmentService.createAddress(address);
@@ -124,12 +125,21 @@ angular.module('quiverCmsApp')
                     verifyDataStructure();
                     $scope.$storage.shipment.toAddress = response.address;
                 }
+            }, function (error) {
+                NotificationService.error(error.data.message.message);
             });
 
             return promise;
         };
 
         $scope.createAddress = createAddress;
+
+        var forceAddress = function(address) {
+            verifyDataStructure();
+            $scope.$storage.shipment.toAddress = _.clone(address);
+        };
+
+        $scope.forceAddress = forceAddress;
 
 
         var selectShipment = function(e, shipment) {
@@ -140,7 +150,7 @@ angular.module('quiverCmsApp')
             }
 
             $scope.selectedShipment = shipment;
-            $scope.setUnverifiedAddress(shipment);
+            $scope.unverifiedAddress = $scope.getUnverifiedAddress(shipment);
             $scope.createAddress($scope.unverifiedAddress);
 
             $scope.showShipmentDialog(e, shipment);
@@ -227,7 +237,8 @@ angular.module('quiverCmsApp')
                 delete $scope.buyingShipment;
                 $scope.showShipmentDialog(e, shipment);
             }, function(error) {
-                NotificationService.error('Purchase failed', error.data.message);
+                console.warn(error.data.message);
+                NotificationService.error('Purchase failed', error.data.message.message);
                 delete $scope.buyingShipment;
                 $scope.showShipmentDialog(e, shipment);
             });
@@ -292,7 +303,7 @@ angular.module('quiverCmsApp')
                     $scope.env = env;
                     $scope.save = save;
                     $scope.shipping = env.shipping;
-                    $scope.setUnverifiedAddress = setUnverifiedAddress;
+                    $scope.unverifiedAddress = getUnverifiedAddress(shipment);
                     $scope.$storage = $localStorage;
                     $scope.getAddress = getAddress;
                     $scope.forcePrecision = forcePrecision;
@@ -314,6 +325,12 @@ angular.module('quiverCmsApp')
                         }).then(function(response) {
                             ShipmentService.saveQuote($scope.selectedShipment.$id, response.shipment);
                             NotificationService.success('Shipment created');
+                            if (response.shipment.messages && response.shipment.messages.length) {
+                                _.each(response.shipment.messages, function (message) {
+                                    console.warn(message.message);
+                                    NotificationService.notify('Shipment issue', message.message); 
+                                });
+                            }
                             delete $scope.creatingShipment;
 
                         }, function(error) {
@@ -326,9 +343,14 @@ angular.module('quiverCmsApp')
                         $scope.verifying = true;
                         createAddress(address).then(function() {
                             delete $scope.verifying;
+                        }, function () {
+                            delete $scope.verifying;
                         });
                     };
 
+                    $scope.forceAddress = function(address) {
+                        forceAddress(address);
+                    };
 
                 },
                 templateUrl: "views/shipment-dialog.html",

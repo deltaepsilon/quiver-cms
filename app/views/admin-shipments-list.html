@@ -5,16 +5,16 @@
             <input id="list-search" type="text" ng-model="searchTerm" qv-enter="items = items.$orderByChild('email').$startAt(searchTerm).$get(); orderBy = 'email'" ng-focus="searchTerm = undefined;" auto-enter="searchTerm">
         </md-input-container>
         <span flex></span>
-        <md-button class="md-icon-button" flex ng-click="items = items.$prev(); orderBy = '-$priority'; searchTerm = undefined;" ng-disabled="items.$prevDisabled" aria-label="list back">
+        <md-button class="md-icon-button" flex ng-click="items = items.$prev(); orderBy = '-$id'; searchTerm = undefined;" ng-disabled="items.$prevDisabled" aria-label="list back">
             <i class="mdi-navigation-arrow-back"></i>
         </md-button>
-        <md-button class="md-icon-button" flex ng-click="items = items.$next(); orderBy = '-$priority'; searchTerm = undefined;" ng-disabled="items.$nextDisabled" aria-label="list forward">
+        <md-button class="md-icon-button" flex ng-click="items = items.$next(); orderBy = '-$id'; searchTerm = undefined;" ng-disabled="items.$nextDisabled" aria-label="list forward">
             <i class="mdi-navigation-arrow-forward"></i>
         </md-button>
-        <md-button class="md-icon-button" flex ng-click="items = items.$more(); orderBy = '-$priority'; searchTerm = undefined;" ng-disabled="items.$moreDisabled" aria-label="list load more">
+        <md-button class="md-icon-button" flex ng-click="items = items.$more(); orderBy = '-$id'; searchTerm = undefined;" ng-disabled="items.$moreDisabled" aria-label="list load more">
             <i class="mdi-navigation-expand-more"></i>
         </md-button>
-        <md-button class="md-icon-button" flex ng-click="items = items.$reset(); orderBy = '-$priority'; searchTerm = undefined;" ng-disabled="items.$resetDisabled" aria-label="list reload">
+        <md-button class="md-icon-button" flex ng-click="items = items.$reset(); orderBy = '-$id'; searchTerm = undefined;" ng-disabled="items.$resetDisabled" aria-label="list reload">
             <i class="mdi-navigation-refresh"></i>
         </md-button>
     </div>
@@ -29,36 +29,45 @@
         <section>
             <md-list layout="column">
                 <md-item ng-repeat="shipment in items | orderBy:orderBy">
-                    <md-item-content class="extra-padding" layout="row" layout-align="space-between end" layout-padding layout-wrap style="padding-top: 2rem;">
-                        <md-button class="md-primary md-raised md-icon-button" flex ng-click="selectShipment($event, shipment)" aria-label="Select shipment {{ $index }}">
-                            <i class="mdi-maps-local-shipping"></i>
-                        </md-button>
-                        <md-button class="md-primary md-raised md-icon-button" ng-click="addCustomsItem(shipment)" aria-label="Add customs item {{ $index }}">
-                            <i class="mdi-content-add-box"></i>
-                        </md-button>
-                        <md-button class="md-primary md-raised md-icon-button" ng-href="{{ env.firebase.endpoint }}/logs/shipments/{{ shipment.$id }}" target="_blank" aria-label="View firebase data for {{ shipment.$id }}">
-                            <i class="mdi-navigation-arrow-forward"></i>
-                        </md-button>
-                        <span class="max-10" flex>{{ shipment.created | moment:"MM/DD/YYYY" }}</span>
-                        <md-button class="adjust-line-height" flex ng-href="mailto:{{ shipment.transaction.user.preferredEmail || shipment.transaction.user.email }}">
-                            {{ shipment.transaction.user.preferredEmail || shipment.transaction.user.email }}
-                        </md-button>
+                    <md-item-content class="extra-padding" layout="column" layout-align="start center" layout-gt-md="row" layout-align-gt-md="space-between end" layout-padding layout-wrap style="padding-top: 2rem;">
+                        <div class="max-5" flex>
+                            <md-button class="md-primary md-raised md-icon-button" ng-click="selectShipment($event, shipment)" aria-label="Select shipment {{ $index }}">
+                                <i class="mdi-maps-local-shipping"></i>
+                            </md-button>
+                        </div>
+                        <div class="max-5" flex>
+                            <md-button class="md-primary md-raised md-icon-button" ng-click="addCustomsItem(shipment)" aria-label="Add customs item {{ $index }}">
+                                <i class="mdi-content-add-box"></i>
+                            </md-button>
+                        </div>
+                        <div class="max-5" flex>
+                            <md-button class="md-primary md-raised md-icon-button" ng-href="{{ env.firebase.endpoint }}/logs/shipments/{{ shipment.$id }}" target="_blank" aria-label="View firebase data for {{ shipment.$id }}">
+                                <i class="mdi-navigation-arrow-forward"></i>
+                            </md-button>
+                        </div>
                         <div flex>
                             <strong>{{ ::shipment.item.title }} - {{ shipmentitem.priceAdjusted || shipment.item.price | currency }}</strong>
                             <br>
                             <span ng-show="shipment.item.optionsMatrixSelected.name">{{ ::shipment.item.optionsMatrixSelected.name }}</span>
                         </div>
-                        <md-divider flex="100" style="margin-top: 1rem;"></md-divider>
+                        <div flex>
+                            <a flex ng-href="mailto:{{ shipment.transaction.user.preferredEmail || shipment.transaction.user.email }}">{{ shipment.transaction.user.preferredEmail || shipment.transaction.user.email }}</a>
+                            <br>
+                            <span>{{ shipment.created | moment:"MM/DD/YYYY" }}</span>
+                        </div>
+                        <span flex="100"></span>
                         <div flex>
                             <md-checkbox ng-model="shipment.shipped" ng-change="save(shipment)">
                                 Shipped
                             </md-checkbox>
                         </div>
-                        <md-button class="md-icon-button" ng-show="shipment.tracking.carrier && shipment.tracking.number" ng-href="{{ shipment.tracking | tracking }}" target="_blank" aria-label="View tracking for {{ $index }}">
-                            <i class="mdi-content-send"></i>
-                        </md-button>
+                        <div flex>
+                            <md-button class="md-icon-button" ng-show="shipment.tracking.carrier && shipment.tracking.number" ng-href="{{ shipment.tracking | tracking }}" target="_blank" aria-label="View tracking for {{ $index }}">
+                                <i class="mdi-content-send"></i>
+                            </md-button>
+                        </div>
                         <div class="md-select-wrapper" flex>
-                            <md-select ng-model="shipment.tracking.carrier" qv-enter="save(shipment)">
+                            <md-select ng-model="shipment.tracking.carrier" qv-enter="save(shipment)" placeholder="Carrier">
                                 <md-option ng-value="carrier.code" ng-repeat="carrier in shipping.carriers">{{ carrier.name }}</md-option>
                             </md-select>
                         </div>
@@ -81,66 +90,3 @@
         </section>
     </md-content>
 </md-whiteframe>
-<!-- <input type="text" ng-model="searchTerm" ng-focus="searchTerm = '';" placeholder="Search: Click ENTER to search server by email..." qv-enter="search(searchTerm)" />
-<ul class="table-list striped text-medium">
-    <li class="padding-small" ng-repeat="shipment in items | orderBy:'$priority':'desc'">
-        <div class="column small-12 medium-8 text-small">
-            <div class="column small-12 medium-6">
-                <button class="show-shipment tiny left" style="margin: 7px 1rem 0 0" ng-click="selectShipment(shipment)">
-                    <i class="fa fa-truck"></i>
-                </button>
-                <a href="mailto:{{ shipment.transaction.user.preferredEmail || shipment.transaction.user.email }}">{{ shipment.transaction.user.preferredEmail || shipment.transaction.user.email }}</a>
-                <div>{{ shipment.created | moment:"MM/DD/YYYY" }}</div>
-            </div>
-            <div class="column padding-horizontal-zero-important small-12 medium-6">
-                <strong>
-            {{ ::shipment.item.title }} - {{ shipmentitem.priceAdjusted || shipment.item.price | currency }}
-          </strong>
-                <div ng-show="shipment.item.optionsMatrixSelected.name">
-                    {{ ::shipment.item.optionsMatrixSelected.name }}
-                </div>
-            </div>
-            <div class="column small-12">
-                <hr class="margin-vertical-x-small">
-            </div>
-            <div class="column small-12">
-                <div class="left small-12 medium-6">
-                    <a ng-click="addCustomsItem(shipment)">
-                        <i class="fa fa-plus"></i>
-                    </a>
-                    <input id="shipped-{{ $index }}" class="margin-horizontal-xx-small-important" type="checkbox" ng-model="shipment.shipped" ng-change="save(shipment)">
-                    <label style="margin-left: 0;" for="shipped-{{ $index }}">Shipped</label>
-                    <a ng-show="shipment.tracking.carrier && shipment.tracking.number" href="{{ shipment.tracking | tracking }}" target="_blank"><i class="fa fa-paper-plane"></i></a>
-                </div>
-                <div class="left small-12 medium-2" style="margin-right: -1px;">
-                    <select style="margin-bottom: -1px;" ng-model="shipment.tracking.carrier" ng-options="carrier.code as carrier.name for carrier in shipping.carriers" ng-blur="save(shipment)" qv-enter="save(shipment)">
-                        <option value="">Carrier</option>
-                    </select>
-                </div>
-                <div class="left small-12 medium-4">
-                    <input class="margin-zero-important" type="text" ng-model="shipment.tracking.number" placeholder="Tracking number..." ng-blur="save(shipment)" qv-enter="save(shipment)">
-                </div>
-            </div>
-        </div>
-        <div class="column small-12 medium-2 padding-zero-important" style="right: -1px;">
-            <textarea class="text-x-small margin-zero-important" style="height: 98px;" ng-model="shipment.comments" placeholder="Comments..." ng-blur="save(shipment)" qv-enter="save(shipment)"></textarea>
-        </div>
-        <div class="column small-12 medium-2 padding-zero-important">
-            <textarea class="text-x-small margin-zero-important" style="height: 98px;" ng-bind="getAddress(shipment)" qv-select-text></textarea>
-        </div>
-    </li>
-    <li class="no-stripe no-hover padding-small" ng-show="items.length || paginating">
-        <div class="column small-3">
-            <button class="secondary small-12 tiny" ng-click="loadNext()" ng-disabled="disablePrev">Previous</button>&nbsp;
-        </div>
-        <div class="column small-3">
-            <button class="secondary small-12 tiny" ng-click="reset()" ng-disabled="disableReset">Reset</button>
-        </div>
-        <div class="column small-3">
-            <button class="secondary small-12 tiny" ng-click="loadMore()" ng-disabled="disableMore">Load More +</button>
-        </div>
-        <div class="column small-3">
-            <button class="secondary small-12 tiny" ng-click="loadPrev()" ng-disabled="disableNext">Next</button>
-        </div>
-    </li>
-</ul> -->

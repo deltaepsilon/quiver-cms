@@ -6,9 +6,9 @@ angular.module('quiverCmsApp')
 
     $scope.moderators = moderators;
 
-    $scope.moderators.$loaded().then(function(moderators) {
-      console.log('moderators', moderators);
-    });
+    // $scope.moderators.$loaded().then(function(moderators) {
+    //   console.log('moderators', moderators);
+    // });
 
     $scope.orderBy = '-$priority'
 

@@ -4,25 +4,32 @@
     </md-button>
     <md-content flex>
         <section layout="row" layout-align="start center" layout-padding layout-wrap ng-show="selectedShipment.labels">
-            <h4>Labels</h4>
+            <h4 class="headline" flex="100">Labels</h4>
             <md-list>
                 <md-item ng-repeat="(id, label) in selectedShipment.labels" ng-class="{disabled: label.refund_status}">
-                    <md-item-content layout="row" layout-align="start center" layout-padding layout-wrap>
-                        <a flex ng-href="mailto:{{ label.to_address.email }}">{{ label.to_address.email }}</a>
-                        <div class="min-20" flex>
+                    <md-item-content layout="column" layout-gt-md="row" layout-align="start center" layout-padding layout-wrap>
+                        <a flex="50" flex-sm="100" ng-href="mailto:{{ label.to_address.email }}">{{ label.to_address.email }}</a>
+                        <div flex>
+                            <md-button class="md-primary md-raised" ng-href="{{ label.postage_label.label_url }}" download>Download</md-button>
+                        </div>
+                        <div flex>
+                            <md-button class="md-warn md-raised" ng-click="confirmUpdateTracking($event, selectedShipment, label.id, label.tracker.tracking_code, label.to_address.email, selectedShipment.transaction.address.sms)" ng-disabled="updatingTracking">Aftership</md-button>
+                        </div>
+                        <div flex>
+                            <md-button class="md-raised" ng-click="confirmRefundShipment($event, selectedShipment, label.id)">Refund</md-button>
+                        </div>
+                        <span class="padding-zero-important" flex="100"></span>
+                        <div flex>
                             <span ng-show="label.parcel.predefined_package">{{ label.parcel.predefined_package }}</span>
                             <span ng-hide="label.parcel.predefined_package">{{label.parcel.length }}x{{label.parcel.width }}x{{label.parcel.height }}</span>
                         </div>
-                        <span class="max-7" flex>{{ label.parcel.weight }} oz</span>
-                        <md-button class="md-primary md-raised adjust-line-height" flex ng-href="{{ label.postage_label.label_url }}" download>Download</md-button>
-                        <md-button class="md-warn md-raised" ng-click="confirmUpdateTracking($event, selectedShipment, label.id, label.tracker.tracking_code, label.to_address.email, selectedShipment.transaction.address.sms)" ng-disabled="updatingTracking">Aftership</md-button>
-                        <md-button class="md-raised" ng-click="confirmRefundShipment($event, selectedShipment, label.id)">Refund</md-button>
+                        <span flex>{{ label.parcel.weight }} oz</span>
                         <span class="padding-zero-important" flex="100"></span>
                         <span class="max-10" flex>Label: <a href="{{label.postage_label.label_url }}" target="_blank">View</a></span>
-                        <span flex>Track: <a href="https://www.google.com/search?q={{ label.tracker.tracking_code }}" target="_blank">{{ label.tracker.tracking_code }}</a></span>
+                        <span flex flex-sm="100">Track: <a href="https://www.google.com/search?q={{ label.tracker.tracking_code }}" target="_blank">{{ label.tracker.tracking_code }}</a></span>
                         <a id="label-id" class="max-30" flex href="https://www.easypost.com/account/shipments" target="_blank">{{ label.id }}</a>
                         <div class="text-right max-10" flex>
-                            <md-button class="md-primary md-fab" qv-select-text="label-id" events="click mouseenter" aria-label="Control + C to copy">
+                            <md-button class="md-primary md-fab" qv-select-text="label-id" events="click mouseenter" aria-label="Control + C to copy" ng-disabled="label.refund_status">
                                 <md-tooltip>
                                     Ctrl + C to copy
                                 </md-tooltip>
@@ -43,37 +50,27 @@
             <h4 class="headline">Shipment</h4>
             <form>
                 <fieldset>
-                    <md-whiteframe class="md-whiteframe-z1" layout="row" layout-align="start start" layout-padding layout-wrap>
-                        <md-button class="md-primary md-raised adjust-line-height max-20" flex ng-click="createShipment($storage.shipment)" ng-disabled="!validateShipment($storage.shipment) || creatingShipment">
+                    <md-whiteframe class="md-whiteframe-z0" layout="row" layout-align="start start" layout-padding layout-wrap>
+                        <md-button class="md-primary md-raised adjust-line-height max-20" flex="100" ng-click="createShipment($storage.shipment)" ng-disabled="!validateShipment($storage.shipment) || creatingShipment">
                             Get Quote
                         </md-button>
-                        <md-whiteframe class="md-whiteframe-z2" flex="100" layout="row" layout-padding layout-wrap ng-if="selectedShipment.quote.rates.length">
+                        <md-whiteframe class="md-whiteframe-z2 margin-vertical-medium" flex="100" layout="row" layout-padding layout-wrap ng-if="selectedShipment.quote.rates.length">
                             <md-list flex="100">
                                 <md-item ng-repeat="rate in selectedShipment.quote.rates">
-                                    <md-item-content layout="row" layout-align="space-between center" layout-padding layout-wrap>
+                                    <md-item-content layout="row" layout-sm="column" layout-align="space-between center" layout-padding layout-wrap>
                                         <span flex>Carrier: {{ rate.carrier }}</span>
                                         <span flex>Service: {{ rate.service }}</span>
-                                        <md-button class="md-warn md-raised adjust-line-height max-10" flex ng-click="confirmBuyShipment($event, selectedShipment, rate)" ng-disabled="!selectedShipment.quote || !rate || buyingShipment">
+                                        <div flex>
+                                            <md-button class="md-warn md-raised max-10" ng-click="confirmBuyShipment($event, selectedShipment, rate)" ng-disabled="!selectedShipment.quote || !rate || buyingShipment">
                                             {{ rate.rate }} {{ rate.currency }}
                                         </md-button>
+                                        </div>
+                                        
                                     </md-item-content>
                                     <md-divider ng-if="!$last"></md-divider>
                                 </md-item>
                             </md-list>
                         </md-whiteframe>
-                        <div flex flex-sm="100" layout="row" layout-align="space-between center" layout-wrap ng-show="selectedShipment.quote">
-                            <h4 flex="100">Parcel Details</h4>
-                            <span flex="50">Weight</span>
-                            <span class="text-right" flex="50">{{ selectedShipment.quote.parcel.weight }}oz</span>
-                            <span flex="50" ng-if="selectedShipment.quote.parcel.predefined_package">Predefined Package</span>
-                            <span class="text-right" flex="50" ng-if="selectedShipment.quote.parcel.predefined_package">{{ selectedShipment.quote.parcel.predefined_package }}</span>
-                            <span flex="50" ng-if="!selectedShipment.quote.parcel.predefined_package">Length</span>
-                            <span class="text-right" flex="50" ng-if="!selectedShipment.quote.parcel.predefined_package">{{ selectedShipment.quote.parcel.length }}</span>
-                            <span flex="50" ng-if="!selectedShipment.quote.parcel.predefined_package">Width</span>
-                            <span class="text-right" flex="50" ng-if="!selectedShipment.quote.parcel.predefined_package">{{ selectedShipment.quote.parcel.width }}</span>
-                            <span flex="50" ng-if="!selectedShipment.quote.parcel.predefined_package">Height</span>
-                            <span class="text-right break-word" flex="50" ng-if="!selectedShipment.quote.parcel.predefined_package">{{ selectedShipment.quote.parcel.height }}</span>
-                        </div>
                         <div flex flex-sm="100" ng-show="selectedShipment.quote">
                             <h4>From Address</h4>
                             <div ng-show="selectedShipment.quote.from_address.name">{{ selectedShipment.quote.from_address.name }}</div>
@@ -104,8 +101,21 @@
                             <div ng-show="selectedShipment.quote.to_address.phone">{{ selectedShipment.quote.to_address.phone }}</div>
                             <!-- <div ng-show="selectedShipment.quote.to_address.created_at">Created: {{ selectedShipment.quote.to_address.created_at | moment:"MM/DD/YY" }}</div> -->
                         </div>
+                        <div flex="100" layout="row" layout-align="space-between center" layout-wrap ng-show="selectedShipment.quote">
+                            <h4 flex="100">Parcel Details</h4>
+                            <span flex="50">Weight</span>
+                            <span class="text-right" flex="50">{{ selectedShipment.quote.parcel.weight }}oz</span>
+                            <span flex="50" ng-if="selectedShipment.quote.parcel.predefined_package">Predefined</span>
+                            <span class="text-right" flex="50" ng-if="selectedShipment.quote.parcel.predefined_package">{{ selectedShipment.quote.parcel.predefined_package }}</span>
+                            <span flex="50" ng-if="!selectedShipment.quote.parcel.predefined_package">Length</span>
+                            <span class="text-right" flex="50" ng-if="!selectedShipment.quote.parcel.predefined_package">{{ selectedShipment.quote.parcel.length }}</span>
+                            <span flex="50" ng-if="!selectedShipment.quote.parcel.predefined_package">Width</span>
+                            <span class="text-right" flex="50" ng-if="!selectedShipment.quote.parcel.predefined_package">{{ selectedShipment.quote.parcel.width }}</span>
+                            <span flex="50" ng-if="!selectedShipment.quote.parcel.predefined_package">Height</span>
+                            <span class="text-right break-word" flex="50" ng-if="!selectedShipment.quote.parcel.predefined_package">{{ selectedShipment.quote.parcel.height }}</span>
+                        </div>
                         <span flex="100"></span>
-                        <div flex="33" flex-sm="100" layout="row" layout-align="space-between center" layout-wrap ng-show="selectedShipment.quote">
+                        <div flex="100" layout="row" layout-align="space-between center" layout-wrap ng-show="selectedShipment.quote">
                             <h4 flex="100">Customs Details</h4>
                             <span flex="50">Contents</span>
                             <span class="text-right" flex="50">{{ selectedShipment.quote.customs_info.contents_type }}</span>
@@ -118,7 +128,7 @@
                             <span flex="50">Customs Certify</span>
                             <span class="text-right" flex="50">{{ selectedShipment.quote.customs_info.customs_certify }}</span>
                         </div>
-                        <div flex="66" flex-sm="100" ng-show="selectedShipment.quote">
+                        <div flex="100" ng-show="selectedShipment.quote">
                             <h4>Customs Items</h4>
                             <md-list class="padding-vertical-zero" flex="100">
                                 <md-item ng-repeat="item in selectedShipment.quote.customs_info.customs_items">
@@ -199,7 +209,7 @@
                             <div class="md-select-wrapper" flex>
                                 <md-select ng-model="$storage.shipment.parcel.predefined_package" placeholder="Package Type" style="margin-top: 22px;">
                                     <md-option value="">Custom</md-option>
-                                    <md-option ng-value="package.key" ng-repeat="package in env.easypost.predefinedPackages">{{ package.value }}</md-option>
+                                    <md-option value="{{ package.key }}" ng-repeat="package in env.easypost.predefinedPackages">{{ package.value }}</md-option>
                                 </md-select>
                             </div>
                             <md-input-container flex>
@@ -222,14 +232,18 @@
                     </fieldset>
                 </form>
             </md-whiteframe>
-            <md-whiteframe class="md-whiteframe-z1" layout="row" layout-padding layout-wrap>
+            <md-whiteframe class="md-whiteframe-z1" layout="row" layout-sm="column" layout-padding layout-wrap>
                 <h4 flex="100">Customs Details</h4>
                 <md-input-container flex>
                     <label for="customs-eel-pfc">AES Exemption or Proof of Filing Citation ITN</label>
                     <input id="customs-eel-pfc" type="text" ng-model="$storage.shipment.customs.eel_pfc" placeholder="AES exemption or ITN (NOEEI 30.36AES X20080930987654..." required>
                 </md-input-container>
-                <md-button class="md-primary md-raised max-14 adjust-line-height" flex ng-click="$storage.shipment.customs.eel_pfc = 'NOEEI 30.37(a)'">Under 25000USD</md-button>
-                <md-button class="md-primary md-raised max-14 adjust-line-height" flex ng-click="$storage.shipment.customs.eel_pfc = 'NOEEI 30.36'">Canada</md-button>
+                <div>
+                    <md-button class="md-primary md-raised max-14" ng-click="$storage.shipment.customs.eel_pfc = 'NOEEI 30.37(a)'">Under 25000USD</md-button>
+                </div>
+                <div>
+                    <md-button class="md-primary md-raised max-14" ng-click="$storage.shipment.customs.eel_pfc = 'NOEEI 30.36'">Canada</md-button>
+                </div>
                 <span class="padding-zero-important" flex="100"></span>
                 <div class="md-select-wrapper" flex="50" flex-sm="100">
                     <md-select ng-model="$storage.shipment.customs.contents_type" placeholder="Contents Type" style="margin-top: 22px;" required>
@@ -265,26 +279,26 @@
                         <md-option value="abandon">Abandon</md-option>
                     </md-select>
                 </div>
-                <md-list flex="100">
+                <md-list class="padding-zero-important" flex="100">
                     <md-item ng-repeat="item in $storage.shipment.customs.customs_items">
-                        <md-item-content layout="row" layout-align="space-between center" layout-padding layout-wrap>
-                            <md-input-container flex>
+                        <md-item-content class="padding-horizontal-zero-important" layout="row" layout-align="space-between center" layout-padding layout-wrap>
+                            <md-input-container flex flex-md="33" flex-sm="100">
                                 <label for="item-description-{{ $index }}">Description</label>
                                 <input id="item-description-{{ $index }}" type="text" ng-model="item.description">
                             </md-input-container>
-                            <md-input-container flex>
+                            <md-input-container flex flex-md="33" flex-sm="100">
                                 <label for="item-quantity-{{ $index }}">Quantity</label>
                                 <input id="item-quantity-{{ $index }}" type="number" ng-model="item.quantity">
                             </md-input-container>
-                            <md-input-container flex>
+                            <md-input-container flex flex-md="33" flex-sm="100">
                                 <label for="item-weight-{{ $index }}">Weight (oz)</label>
                                 <input id="item-weight-{{ $index }}" type="number" ng-model="item.weight">
                             </md-input-container>
-                            <md-input-container flex>
+                            <md-input-container flex flex-md="33" flex-sm="100">
                                 <label for="item-value-{{ $index }}">Value (USD)</label>
                                 <input id="item-value-{{ $index }}" type="number" ng-model="item.value">
                             </md-input-container>
-                            <md-input-container flex>
+                            <md-input-container flex flex-md="33" flex-sm="100">
                                 <label for="item-country-{{ $index }}">Country of Origin</label>
                                 <input id="item-country-{{ $index }}" type="text" ng-model="item.origin_country">
                             </md-input-container>
@@ -299,27 +313,33 @@
                         <md-divider ng-if="!$last"></md-divider>
                     </md-item>
                 </md-list>
-                <md-button class="md-primary md-raised max-14 adjust-line-height" flex ng-click="addCustomsItem()">
-                    Add Blank Item
-                </md-button>
-                <md-button class="md-primary md-raised  max-14 adjust-line-height" flex ng-click="addCustomsItem(selectedShipment)">
-                    Add Current Item
-                </md-button>
+                <span flex></span>
+                <div>
+                    <md-button class="md-primary md-raised max-14" ng-click="addCustomsItem()">
+                        Add Blank Item
+                    </md-button>
+                </div>
+                <div>
+                    <md-button class="md-primary md-raised  max-14" ng-click="addCustomsItem(selectedShipment)">
+                        Add Current Item
+                    </md-button>
+                </div>
             </md-whiteframe>
         </section>
         <section>
             <h4>Order Details</h4>
-            <md-whiteframe class="md-whiteframe-z1" layout="row" layout-align="start end" layout-padding layout-wrap>
-                <md-button class="md-icon-button relative" ng-click="toggleShipped(selectedShipment)" style="top: -3px;" aria-label="Toggle shipped for {{ selectedShipment.item.title }}">
-                    <i class="mdi-content-send cursor-pointer" ng-class="{'text-success': selectedShipment.shipped}"></i>
-                </md-button>
-                <md-button class="md-primary md-raised md-icon-button relative" ng-href="mailto:{{ selectedShipment.transaction.user.email || selectedShipment.transaction.user.email }}" style="top: -4px;" aria-label="Mail to {{ selectedShipment.transaction.user.email || selectedShipment.transaction.user.email }}">
-                    <i class="mdi-communication-email relative" style="top: 2px"></i>
-                </md-button>
-                <md-button class="max-16 adjust-line-height relative" flex ui-sref="authenticated.master.admin.user({key: transaction.userId})" style="top: 3px;" aria-label="View user {{ selectedShipment.transaction.user.name }}">
-                    <i class="mdi-social-person"></i>
-                    <span ng-show="selectedShipment.transaction.user.name">{{ selectedShipment.transaction.user.name }}</span>
-                </md-button>
+            <md-whiteframe class="md-whiteframe-z1" layout="row" layout-sm="column" layout-align="start end" layout-align-sm="start center" layout-padding layout-wrap>
+                <div flex style="padding-bottom: 0;">
+                    <md-button class="md-icon-button relative" ng-click="toggleShipped(selectedShipment)" aria-label="Toggle shipped for {{ selectedShipment.item.title }}">
+                        <i class="mdi-content-send cursor-pointer" ng-class="{'text-success': selectedShipment.shipped}"></i>
+                    </md-button>
+                    <md-button class="md-primary md-raised md-fab md-mini relative" ng-href="mailto:{{ selectedShipment.transaction.user.email || selectedShipment.transaction.user.email }}" aria-label="Mail to {{ selectedShipment.transaction.user.email || selectedShipment.transaction.user.email }}">
+                        <i class="mdi-communication-email"></i>
+                    </md-button>
+                    <md-button class="md-fab md-mini" ui-sref="authenticated.master.admin.user({key: transaction.userId})" aria-label="View user {{ selectedShipment.transaction.user.name }}">
+                        <i class="mdi-social-person"></i>
+                    </md-button>
+                </div>
                 <span flex>{{ selectedShipment.item.title }}: {{ selectedShipment.item.priceAdjusted | currency }}</span>
                 <span class="max-10" flex>Count: {{ selectedShipment.totalCount }}</span>
                 <span class="max-16 text-right" flex>{{ selectedShipment.created | moment:"MMM. DD, YYYY HH:mm:ss"}}</span>
@@ -355,11 +375,11 @@
                             </md-input-container>
                             <md-input-container flex="100">
                                 <label for="unverified-street2">Street Line 2</label>
-                                <input id="unverified-street2" type="text" ng-model="unverifiedAddress.street2" required>
+                                <input id="unverified-street2" type="text" ng-model="unverifiedAddress.street2">
                             </md-input-container>
                             <md-input-container flex="100">
                                 <label for="unverified-street3">Street Line 3</label>
-                                <input id="unverified-street3" type="text" ng-model="unverifiedAddress.street3" required>
+                                <input id="unverified-street3" type="text" ng-model="unverifiedAddress.street3">
                             </md-input-container>
                             <md-input-container flex="33" flex-sm="100">
                                 <label for="unverified-city">City</label>
@@ -388,20 +408,23 @@
                             <md-button class="md-primary md-raised" ng-click="createAddress(unverifiedAddress)" ng-disabled="addressForm.$invalid || verifying">
                                 Verify
                             </md-button>
+                            <md-button class="md-primary md-raised" ng-click="forceAddress(unverifiedAddress)" ng-disabled="addressForm.$invalid || verifying">
+                                Force
+                            </md-button>
                         </div>
                         <div flex="50" flex-sm="100">
                             <div>
                                 <strong>Verified Address</strong>
                             </div>
-                            <div>{{ $storage.shipment.fromAddress.name }}</div>
-                            <div>{{ $storage.shipment.fromAddress.company }}</div>
-                            <div>{{ $storage.shipment.fromAddress.street1 }}</div>
-                            <div>{{ $storage.shipment.fromAddress.street2 }}</div>
-                            <div>{{ $storage.shipment.fromAddress.street3 }}</div>
-                            <div>{{ $storage.shipment.fromAddress.city }}, {{ $storage.shipment.fromAddress.state }} {{ $storage.shipment.fromAddress.zip }}</div>
-                            <div>{{ $storage.shipment.fromAddress.country }}</div>
-                            <div>{{ $storage.shipment.fromAddress.email }}</div>
-                            <div>{{ $storage.shipment.fromAddress.phone }}</div>
+                            <div>{{ $storage.shipment.toAddress.name }}</div>
+                            <div>{{ $storage.shipment.toAddress.company }}</div>
+                            <div>{{ $storage.shipment.toAddress.street1 }}</div>
+                            <div>{{ $storage.shipment.toAddress.street2 }}</div>
+                            <div>{{ $storage.shipment.toAddress.street3 }}</div>
+                            <div>{{ $storage.shipment.toAddress.city }}<span ng-show="$storage.shipment.toAddress.city && $storage.shipment.toAddress.state">, </span>{{ $storage.shipment.toAddress.state }} {{ $storage.shipment.toAddress.zip }}</div>
+                            <div>{{ $storage.shipment.toAddress.country }}</div>
+                            <div>{{ $storage.shipment.toAddress.email }}</div>
+                            <div>{{ $storage.shipment.toAddress.phone }}</div>
                         </div>
                     </md-whiteframe>
                 </fieldset>

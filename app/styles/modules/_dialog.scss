@@ -1,3 +1,8 @@
 .md-dialog-container {
     height: 100vh;
+    z-index: 1000;
+}
+
+md-backdrop.md-dialog-backdrop {
+    z-index: 1000;
 }

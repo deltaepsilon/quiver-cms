@@ -17,8 +17,8 @@
                 </label>
                 <input id="email" type="text" ng-model="$storage.address.email" ng-blur="validateAddress($storage.address)" placeholder="Notification email..." required>
             </md-input-container>
-            <div class="md-select-wrapper" flex>
-                <md-select id="country-code" ng-model="$storage.address.countryCodeIndex" aria-label="Country telephone code" placeholder="Country code..." required>
+            <div class="md-select-wrapper" flex="100">
+                <md-select id="country-code" ng-model="$storage.address.countryCodeIndex" aria-label="Country telephone code" placeholder="Phone country code..." required>
                     <md-option value="">Country code</md-option>
                     <md-option ng-repeat="code in countryCodes" value="{{ $index }}">{{ code.value }}</md-option>
                 </md-select>
