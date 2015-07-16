@@ -1,4 +1,7 @@
 <md-dialog class="padding-medium" layout="row" layout-padding layout-wrap style="max-width: 40rem;">
+    <md-button class="md-icon-button md-warn md-raised absolute" ng-click="cancel()" style="top: .5rem; right: .5rem;" aria-label="Close shipping address dialog">
+        <i class="mdi-content-clear"></i>
+    </md-button>
     <h3 class="headline">Shipping Address</h3>
     <!-- Shipping Address -->
     <form name="addressForm">
@@ -8,14 +11,14 @@
                     <span>Recipient Name</span>
                     <!-- <strong class="text-small text-error margin-horizontal-small">{{ errorMessages.recipient }}</strong> -->
                 </label>
-                <input id="name" type="text" ng-model="$storage.address.recipient" ng-blur="validateAddress($storage.address)" placeholder="First and last name..." required>
+                <input id="name" type="text" ng-model="$storage.address.recipient" ng-blur="validateAddress($storage.address)" required>
             </md-input-container>
             <md-input-container flex="100">
                 <label for="email">
                     <span>Notification Email</span>
                     <!-- <strong class="text-small text-error margin-horizontal-small">{{ errorMessages.email }}</strong> -->
                 </label>
-                <input id="email" type="text" ng-model="$storage.address.email" ng-blur="validateAddress($storage.address)" placeholder="Notification email..." required>
+                <input id="email" type="text" ng-model="$storage.address.email" ng-blur="validateAddress($storage.address)" required>
             </md-input-container>
             <div class="md-select-wrapper" flex="100">
                 <md-select id="country-code" ng-model="$storage.address.countryCodeIndex" aria-label="Country telephone code" placeholder="Phone country code..." required>
@@ -29,7 +32,7 @@
                     <strong class="text-small text-error margin-horizontal-small">{{ errorMessages.countryCode }}</strong>
                     <strong class="text-small text-error margin-horizontal-small">{{ errorMessages.phone }}</strong>
                 </label>
-                <input class="margin-zero-important" type="text" ng-model="$storage.address.phone" ng-blur="validateAddress($storage.address)" placeholder="202-555-0100..." style="padding-top: 20px;" required>
+                <input class="margin-zero-important" type="text" ng-model="$storage.address.phone" ng-blur="validateAddress($storage.address)" style="padding-top: 20px;" required>
             </md-input-container>
             <div flex="100">
                 <md-switch ng-model="$storage.address.sms" aria-label="Enable SMS notifications">
@@ -41,29 +44,29 @@
                     <span>Street Address</span>
                     <!-- <strong class="text-small text-error margin-horizontal-small">{{ errorMessages.street }}</strong> -->
                 </label>
-                <input id="address-line-one" type="text" ng-model="$storage.address.street1" ng-blur="validateAddress($storage.address)" placeholder="Line 1 (required)..." required>
+                <input id="address-line-one" type="text" ng-model="$storage.address.street1" ng-blur="validateAddress($storage.address)" required>
             </md-input-container>
             <md-input-container flex="100">
                 <label for="line-two">Line 2</label>
-                <input id="line-two" type="text" ng-model="$storage.address.street2" placeholder="Line 2...">
+                <input id="line-two" type="text" ng-model="$storage.address.street2">
             </md-input-container>
             <md-input-container flex="100">
                 <label for="line-three">Line 3</label>
-                <input id="line-three" type="text" ng-model="$storage.address.street3" placeholder="Line 3...">
+                <input id="line-three" type="text" ng-model="$storage.address.street3">
             </md-input-container>
             <md-input-container flex="100">
                 <label for="city">
                     <span>City</span>
                     <!-- <strong class="text-small text-error margin-horizontal-small">{{ errorMessages.city }}</strong> -->
                 </label>
-                <input id="city" type="text" ng-model="$storage.address.city" ng-blur="validateAddress($storage.address)" placeholder="City (required)..." required>
+                <input id="city" type="text" ng-model="$storage.address.city" ng-blur="validateAddress($storage.address)" required>
             </md-input-container>
             <md-input-container flex="100">
                 <label for="postal-code">
                     <span>Postal Code</span>
                     <!-- <strong class="text-small text-error margin-horizontal-small">{{ errorMessages.postalCode }}</strong> -->
                 </label>
-                <input id="postal-code" type="text" ng-model="$storage.address.postalCode" ng-blur="validateAddress($storage.address)" placeholder="Postal code (required)..." required>
+                <input id="postal-code" type="text" ng-model="$storage.address.postalCode" ng-blur="validateAddress($storage.address)" required>
             </md-input-container>
             <div class="md-select-wrapper text-left" flex="100" ng-show="$storage.address.country === 'US'">
                 <!-- <label for="state">
@@ -90,11 +93,11 @@
                     <span>Territory</span>
                     <!-- <strong class="text-small text-error margin-horizontal-small">{{ errorMessages.territory }}</strong> -->
                 </label>
-                <input type="text" ng-model="$storage.address.territory" ng-blur="validateAddress($storage.address)" placeholder="Territory...">
+                <input type="text" ng-model="$storage.address.territory" ng-blur="validateAddress($storage.address)">
             </md-input-container>
             <md-input-container flex="100">
                 <label for="address-instructions">Shipping Instructions</label>
-                <textarea ng-model="$storage.address.instructions" placeholder="Shipping instructions..."></textarea>
+                <textarea ng-model="$storage.address.instructions"></textarea>
             </md-input-container>
             <md-button class="md-raised md-primary margin-zero min-16 max-16" flex ng-click="saveAddress($storage.address); cancel();">Save Address</md-button>
         </div>
