@@ -11,14 +11,14 @@
 </section>
 <section class="padding-vertical-medium">
     <md-whiteframe class="md-whiteframe-z1" layout="row" layout-sm="column" layout-align="space-between center" layout-padding layout-wrap>
-        <div class="text-center" flex>
+        <div class="text-center" flex ng-class="{invisible: !prev}">
             <strong class="margin-x-small">Previous</strong>
             <br>
             <md-button class="md-primary md-raised min-20 max-20 truncate" ui-sref="authenticated.master.subscription.page({subscriptionKey: subscriptionKey, pageNumber: prevPageNumber})">
                 {{ prev.title }}
             </md-button>
         </div>
-        <div class="text-center" flex>
+        <div class="text-center" flex ng-class="{invisible: !next}">
             <strong class="margin-x-small">Next</strong>
             <br>
             <md-button class="md-primary md-raised min-20 max-20 truncate" ui-sref="authenticated.master.subscription.page({subscriptionKey: subscriptionKey, pageNumber: nextPageNumber})">
@@ -26,12 +26,4 @@
             </md-button>
         </div>
     </md-whiteframe>
-    <!--     <md-whiteframe class="md-whiteframe-z1" layout="row" layout-align="space-between start" layout-padding layout-wrap>
-        <div class="min-20 max-20 text-center" flex layout-fill ng-repeat="page in pages">
-            <md-button class="md-primary md-raised min-16 max-16 truncate" ui-sref="authenticated.master.subscription.page({subscriptionKey: subscriptionKey, pageNumber: $index})" ng-disabled="$index == pageNumber">
-                {{ page.title }}
-            </md-button>
-        </div>
-        <span flex></span>
-    </md-whiteframe> -->
 </section>
