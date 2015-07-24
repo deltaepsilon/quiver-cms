@@ -1,5 +1,5 @@
 <md-whiteframe class="md-whiteframe-z1 relative" layout="column" layout-fill flex>
-    <div layout="row" layout-align="start center" layout-padding>
+    <div layout="row" layout-sm="column" layout-align="start center" layout-padding>
         <md-input-container flex>
             <label for="list-search">Search by Email</label>
             <input id="list-search" type="text" ng-model="searchTerm" qv-enter="items = items.$orderByChild('userEmail').$startAt(searchTerm).$get(); orderBy = 'userEmail'" ng-focus="searchTerm = undefined;" auto-enter="searchTerm">
@@ -33,11 +33,11 @@
         <section>
             <md-list layout="column">
                 <md-item ng-repeat="transaction in items | orderBy:orderBy">
-                    <md-item-content class="extra-padding" layout="row" layout-align="space-between center" layout-padding layout-wrap style="padding-top: 2rem;">
+                    <md-item-content class="extra-padding" layout="row" layout-sm="column" layout-align="space-between center" layout-padding layout-wrap style="padding-top: 2rem;">
                         <md-button class="md-primary md-raised md-icon-button" ui-sref="authenticated.master.admin.transaction({key: transaction.$id, userId: transaction.userId})" aria-label="Go to transaction by {{ transactions.userEmail }}">
                             <i class="mdi-content-forward"></i>
                         </md-button>
-                        <a flex ng-href="mailto:{{ ::transaction.userEmail }}">{{ ::transaction.userEmail }}</a>
+                        <a class="truncate" flex ng-href="mailto:{{ ::transaction.userEmail }}">{{ ::transaction.userEmail }}<md-tooltip>{{ ::transaction.userEmail }}</md-tooltip></a>
                         <div flex>
                             <span ng-class="{'text-error': transaction.total && !transaction.charge.success}">{{ ::transaction.total | currency }}</span>
                             <div class="text-error text-xx-small" ng-show="transaction.total && !transaction.charge.success">{{ transaction.charge.message }}</div>
@@ -48,7 +48,7 @@
                         <span flex>
                             {{ ::transaction.referer }}
                         </span>
-                        <span flex>
+                        <span class="text-right" flex>
                             {{ ::transaction.date | moment:"MM/DD/YY hh:mm:ss" }}
                         </span>
                     </md-item-content>

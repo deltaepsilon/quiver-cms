@@ -94,8 +94,8 @@
 </section>
 <section>
     <h3 class="headline">Tax Rates</h3>
-    <form name="commerceForm" layout="row">
-        <div flex>
+    <form name="commerceForm" layout="row" layout-wrap> 
+        <div flex flex-sm="100">
             <fieldset>
                 <md-whiteframe class="md-whiteframe-z1" layout="row" layout-padding layout-wrap>
                     <md-button class="md-primary md-raised adjust-line-height" flex ng-click="checkAllStates()">
@@ -121,7 +121,7 @@
                 </md-whiteframe>
             </fieldset>
         </div>
-        <div flex>
+        <div flex flex-sm="100">
             <fieldset>
                 <md-whiteframe class="md-whiteframe-z1" layout="row" layout-padding layout-wrap>
                     <md-button class="md-primary md-raised adjust-line-height" flex ng-click="checkAllCountries()">

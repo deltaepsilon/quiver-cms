@@ -29,7 +29,7 @@
         <section>
             <md-list layout="column">
                 <md-item ng-repeat="subscription in items | orderBy:orderBy">
-                    <md-item-content class="extra-padding" layout="row" layout-align="space-between center" layout-padding layout-wrap style="padding-top: 2rem;">
+                    <md-item-content class="extra-padding" layout="row" layout-sm="column" layout-align="space-between center" layout-padding layout-wrap style="padding-top: 2rem;">
                         <md-button class="md-primary md-raised md-icon-button" ui-sref="authenticated.master.admin.subscription({key: subscription.$id})" aria-label="Go to subscription by {{ subscription.email }}">
                             <i class="mdi-content-forward"></i>
                         </md-button>

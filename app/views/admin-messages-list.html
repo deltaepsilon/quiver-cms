@@ -29,7 +29,7 @@
         <section>
             <md-list layout="column">
                 <md-item ng-repeat="message in items | orderBy:'$priority':'desc'">
-                    <md-item-content layout="row" layout-align="start center" layout-padding layout-wrap>
+                    <md-item-content layout="row" layout-sm="column" layout-align="start center" layout-padding layout-wrap>
                         <span class="bold" flex flex-order="1" style="max-width: 10rem;">{{ message.created | moment:"MMM DD, hh:mm" }}</span>
                         <span class="truncate" flex flex-order="2">{{ message.userEmail }}</span>
                         <span class="truncate" flex flex-order="2">{{ message.assignmentTitle }}</span>

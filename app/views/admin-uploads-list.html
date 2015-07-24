@@ -29,7 +29,7 @@
         <section>
             <md-list layout="column">
                 <md-item ng-repeat="upload in items | orderBy:'$priority':'desc'">
-                    <md-item-content layout="row" layout-align="space-between center" layout-padding layout-wrap>
+                    <md-item-content layout="row" layout-sm="column" layout-align="space-between center" layout-padding layout-wrap>
                         <span class="bold" flex flex-order="1" style="max-width: 10rem;">{{ upload.date | moment:"MMM DD, hh:mm" }}</span>
                         <span class="truncate" flex flex-order="2">{{ upload.userEmail }}</span>
                         <span class="truncate" flex flex-order="2">{{ upload.assignmentTitle }}</span>

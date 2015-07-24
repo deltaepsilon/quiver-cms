@@ -29,7 +29,7 @@
         <section>
             <md-list layout="column">
                 <md-item ng-repeat="survey in items | orderBy:'-$priority'" ng-class="{disabled: disabled}">
-                    <md-item-content class="extra-padding" layout="row" layout-align="space-between center" layout-padding layout-wrap style="padding-top: 2rem;">
+                    <md-item-content class="extra-padding" layout="row" layout-sm="column" layout-align="space-between center" layout-padding layout-wrap style="padding-top: 2rem;">
                         <md-button class="md-primary md-raised md-icon-button" flex ng-click="prioritizeSurvey(survey)" ng-class="{invisible: !$index}" style="transform: rotate(-90deg);" aria-label="Prioritize survey {{ survey.name }}">
                             <i class="mdi-navigation-arrow-forward"></i>
                         </md-button>

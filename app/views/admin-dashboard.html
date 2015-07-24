@@ -1,10 +1,10 @@
-<section layout="row" layout-align="start center">
+<section layout="row" layout-align="end center">
     <!-- <h3 class="headline" flex ng-class="{'disabled': $storage.hideDashboardReports}">Reports</h3> -->
-    <span flex></span>
-    <div class="max-7" flex>
+    <span flex hide-sm></span>
+    <div class="max-7" flex hide-sm>
         <md-progress-circular flex md-mode="indeterminate" qv-loading ng-class="{invisible: !runningReports}"></md-progress-circular>
     </div>
-    <md-button class="md-warn md-raised max-10" flex ng-click="runReports()" ng-disabled="runningReports">
+    <md-button class="md-warn md-raised max-10 truncate" flex ng-click="runReports()" ng-disabled="runningReports">
         Run Reports
     </md-button>
     <md-button class="md-primary md-raised md-icon-button" flex ng-click="$storage.hideDashboardReports = !$storage.hideDashboardReports" aria-label="Hide dashboard reports">
@@ -21,15 +21,15 @@
     <md-whiteframe class="md-whiteframe-z1" layout="row" layout-padding layout-wrap ng-if="!$storage.hideDiscountsReport">
         <md-list flex>
             <md-item ng-repeat="(day, results) in reports.discounts.byDay">
-                <md-item-content layout="row" layout-align="space-between center" layout-padding layout-wrap>
-                    <span class="max-10" flex>{{ ::day }}</span>
+                <md-item-content layout="column" layout-gt-sm="row" layout-align-sm="center center" layout-padding layout-wrap>
+                    <span class="max-7" flex>{{ ::day }}</span>
                     <div flex>
-                        <ul>
-                            <li ng-repeat="use in results" layout="row">
-                                <span flex>{{ ::use.code }}</span>
-                                <a flex ui-sref="authenticated.master.admin.users.list({search: use.userEmail})">{{ ::use.userEmail }}</a>
-                                <span flex>Discount: {{ ::use.discount || use.value | currency }}</span>
-                                <span flex>Uses: {{ ::use.useCount }}/{{ ::use.uses }}</span>
+                        <ul class="margin-zero padding-zero">
+                            <li ng-repeat="use in results" layout="column" layout-gt-md="row">
+                                <span class="truncate" flex>{{ ::use.code }}<md-tooltip>{{ ::use.code }}</md-tooltip></span>
+                                <a class="truncate" flex ui-sref="authenticated.master.admin.users.list({search: use.userEmail})">{{ ::use.userEmail }}</a>
+                                <span class="truncate" flex>Discount: {{ ::use.discount || use.value | currency }}</span>
+                                <span class="truncate" flex>Uses: {{ ::use.useCount }}/{{ ::use.uses }}</span>
                             </li>
                         </ul>
                     </div>
@@ -49,16 +49,16 @@
     <md-whiteframe class="md-whiteframe-z1" layout="row" layout-padding layout-wrap ng-if="!$storage.hideSurveysReport">
         <md-list flex>
             <md-item ng-repeat="(key, survey) in reports.surveys.bySurvey">
-                <md-item-content layout="row" layout-align="space-between center" layout-padding layout-wrap>
+                <md-item-content layout="row" layout-sm="column" layout-align="space-between center" layout-padding layout-wrap>
                     <span class="max-20" flex>{{ ::survey.question }}</span>
                     <span class="max-7" flex>{{ ::survey.answered || 0 }}/{{ ::survey.asked || 0 }}</span>
                     <ul flex>
-                        <li ng-repeat="response in survey.responses" layout="row">
+                        <li ng-repeat="response in survey.responses" layout="row" layout-sm="column">
                             <span flex>{{ response.response }}</span>
                             <span class="max-7" flex>Count: {{ response.count }}</span>
                             <ul class="inline-list padding-zero-important" flex layout="column">
-                                <li ng-repeat="responder in response.responders" layout="row">
-                                    <a flex ui-sref="authenticated.master.admin.user({key: responder.userId})">{{ responder.userEmail }}</a>
+                                <li ng-repeat="responder in response.responders" layout="column" layout-gt-md="row">
+                                    <a class="truncate" flex ui-sref="authenticated.master.admin.user({key: responder.userId})">{{ responder.userEmail }}<md-tooltip>{{ responder.userEmail }}</md-tooltip></a>
                                     <span class="max-7 text-right" flex>{{ responder.answered | moment:"MM/DD/YY" }}</span>
                                 </li>
                             </ul>
@@ -71,18 +71,18 @@
     </md-whiteframe>
 </section>
 <div class="padding-large"></div>
-<section layout="row" layout-align="start center">
-    <h3 class="headline" flex>Backups</h3>
-    <div class="max-7" flex>
+<section layout="row" layout-sm="column" layout-align="start center">
+    <h3 class="headline" flex flex-order="1">Backups</h3>
+    <div class="max-7" flex flex-order="1" flex-order-sm="2">
         <md-progress-circular flex md-mode="indeterminate" qv-loading ng-class="{invisible: !runningBackup && !updatingBackups}"></md-progress-circular>
     </div>
-    <md-button class="md-warn md-raised max-10" flex ng-click="runBackup()" ng-disabled="runningBackup">
+    <md-button class="md-warn md-raised max-10" flex flex-order="1" ng-click="runBackup()" ng-disabled="runningBackup">
         Run
     </md-button>
-    <md-button class="md-warn md-raised max-10" flex ng-click="updateBackups()" ng-disabled="updatingBackups">
+    <md-button class="md-warn md-raised max-10" flex flex-order="1" ng-click="updateBackups()" ng-disabled="updatingBackups">
         Update
     </md-button>
-    <md-button class="md-primary md-raised md-icon-button" flex ng-click="$storage.hideDashboardBackups = !$storage.hideDashboardBackups" aria-label="Hide dashboard backups">
+    <md-button class="md-primary md-raised md-icon-button" flex flex-order="1" ng-click="$storage.hideDashboardBackups = !$storage.hideDashboardBackups" aria-label="Hide dashboard backups">
         <i ng-class="{'mdi-navigation-expand-less': $storage.hideDashboardBackups, 'mdi-navigation-expand-more': !$storage.hideDashboardBackups}"></i>
     </md-button>
 </section>
@@ -90,7 +90,7 @@
     <md-whiteframe class="md-whiteframe-z1" layout="row" layout-padding layout-wrap ng-if="!$storage.hideSurveysReport">
         <md-list flex>
             <md-item ng-repeat="backup in backups | orderBy:'-$id'">
-                <md-item-content layout="row" layout-align="space-between center" layout-padding layout-wrap>
+                <md-item-content layout="row" layout-sm="column" layout-align="space-between center" layout-padding layout-wrap>
                     <md-button class="md-primary md-raised md-icon-button adjust-mdi" flex ng-href="/api/admin/backup/download/{{ backup.Filename }}?email={{ user.email }}&uid={{ currentUser.uid }}&provider={{ currentUser.provider }}&authorization={{ currentUser.token }}" target="_blank" download>
                         <i class="mdi-file-file-download"></i>
                     </md-button>

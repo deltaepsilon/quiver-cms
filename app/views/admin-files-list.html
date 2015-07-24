@@ -29,12 +29,12 @@
         <section>
             <md-list layout="column">
                 <md-item ng-repeat="file in items | orderBy:'-$priority'" ng-class="{'disabled': file.disabled}">
-                    <md-item-content layout="row" layout-align="space-between center" layout-wrap ng-if="file.Size">
-                        <div class="max-10 min-10" flex flex-sm="100" style="margin-left: .5rem;">
+                    <md-item-content layout="row" layout-align="space-between center" layout-padding layout-wrap ng-if="file.Size">
+                        <div class="max-10 min-10 text-center" flex flex-sm="100" style="margin-left: .5rem;">
                             <a flex ng-if='!fileVersion' ng-href="{{ file.Key | s3Link:bucket }}" target="_blank" qv-media="{{ file.Key | s3Link:bucket }}" alt="{{ file.Key | filename }}" attributes="{embed: {width: '100px', height: '100px'}, img: {'style': 'width: 200px; max-width: 100%;'}, video: {width: '200px'}}"></a>
                             <a flex ng-if="fileVersion" ng-href="{{ file.Versions[fileVersion].Key | s3Link:bucket }}" target="_blank" qv-media="{{ file.Key | s3Link:bucket }}" alt="{{ file.Key | filename }}" attributes="{embed: {width: '100px', height: '100px'}, img: {'style': 'width: 200px; max-width: 100%;'}, video: {width: '200px'}}"></a>
                         </div>
-                        <div flex layout="row" layout-align="space-between center" layout-padding layout-wrap>
+                        <div flex layout="row" layout-sm="column" layout-align="space-between center" layout-padding layout-wrap>
                             <div class="md-select-wrapper max-16" flex>
                                 <md-select ng-model="fileVersion">
                                     <md-option value="" selected>Original: ({{ file.Size / 1000 | number:0 }}kb)</md-option>

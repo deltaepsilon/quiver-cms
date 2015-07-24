@@ -1,5 +1,5 @@
 <md-whiteframe class="md-whiteframe-z1 relative" layout="column" layout-fill flex>
-    <div layout="row" layout-align="start center" layout-padding>
+    <div layout="row" layout-sm="column" layout-align="start center" layout-padding>
         <md-input-container flex>
             <label for="email-search">Search by Email</label>
             <input id="email-search" type="text" ng-model="searchTerm" qv-enter="items = items.$orderByChild('email').$startAt(searchTerm).$get();" auto-enter="searchTerm">

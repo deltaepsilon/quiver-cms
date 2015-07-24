@@ -29,7 +29,7 @@
         <section>
             <md-list layout="column">
                 <md-item ng-repeat="resource in items | orderBy:orderBy" ng-class="{disabled: resource.disabled}">
-                    <md-item-content class="extra-padding" layout="row" layout-align="space-between center" layout-padding layout-wrap style="padding-top: 2rem;">
+                    <md-item-content class="extra-padding" layout="row" layout-sm="column" layout-align="space-between center" layout-padding layout-wrap style="padding-top: 2rem;">
                         <span flex>{{ resource.userEmail }}</span>
                         <span flex>{{ resource.uri }}</span>
                         <div flex>
@@ -39,7 +39,7 @@
                         <md-button class="md-warn md-icon-button" ng-click="confirmRemoveResource($event, resource);" aria-label="Delete resource {{ resource.uri }}">
                             <i class="mdi-action-delete"></i>
                         </md-button>
-                        <div flex="100" ng-repeat="log in resource.logs" layout="row" layout-padding layout-wrap>
+                        <div flex="100" ng-repeat="log in resource.logs" layout="row" layout-sm="column" layout-padding layout-wrap>
                             <span class="truncate max-10" flex>{{ log.date | moment:"MM/DD/YYYY hh:mm:ss" }}</span>
                             <span class="truncate max-7" flex>{{ log.ip }}</span>
                             <span class="truncate max-22" flex>{{ log.ga }}</span>

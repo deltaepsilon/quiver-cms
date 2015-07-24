@@ -19,9 +19,11 @@
                     <label for="survey-answer">New Answer</label>
                     <input id="survey-answer" type="text" ng-model="newAnswer">
                 </md-input-container>
-                <md-button class="md-primary md-raised adjust-line-height max-16" flex ng-click="addAnswer(newAnswer); newAnswer = '';" qv-focus="#survey-answer">
-                    Add Answer
-                </md-button>
+                <div class="max-10 text-right" flex>
+                    <md-button class="md-primary md-raised adjust-line-height max-16" ng-click="addAnswer(newAnswer); newAnswer = '';" qv-focus="#survey-answer">
+                        Add Answer
+                    </md-button>
+                </div>
                 <md-list flex="100" ng-if="newSurvey.answers.length">
                     <md-item ng-repeat="answer in newSurvey.answers">
                         <md-item-content layout="row" layout-align="space-between center" layout-padding layout-wrap>
@@ -34,9 +36,11 @@
                     </md-item>
                 </md-list>
                 <span class="padding-zero-important" flex="100"></span>
-                <md-button class="md-primary md-raised adjust-line-height max-16" flex ng-click="addSurvey(newSurvey)" ng-disabled="newSurveyForm.$invalid" qv-focus="#survey-name">
-                    Create Survey
-                </md-button>
+                <div class="text-right" flex>
+                    <md-button class="md-primary md-raised adjust-line-height max-16" ng-click="addSurvey(newSurvey)" ng-disabled="newSurveyForm.$invalid" qv-focus="#survey-name">
+                        Create Survey
+                    </md-button>
+                </div>
             </md-whiteframe>
         </fieldset>
     </form>

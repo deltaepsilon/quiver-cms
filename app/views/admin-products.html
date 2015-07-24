@@ -47,13 +47,13 @@
             <section>
                 <md-list layout="column">
                     <md-item ng-repeat="product in items | orderBy:orderBy">
-                        <md-item-content class="extra-padding" layout="row" layout-align="space-between start" layout-padding layout-wrap>
+                        <md-item-content class="extra-padding" layout="row" layout-sm="column" layout-align="space-between start" layout-align-sm="center center" layout-padding layout-wrap>
                             <div class="max-7" flex>
                                 <a ui-sref="authenticated.master.admin.product({key: product.$id})">
                                     <img ng-if="product.featuredImage.Versions.small.Key" ng-src="{{ product.featuredImage.Versions.small.Key | s3Link:files.Name }}" />
                                 </a>
                             </div>
-                            <div flex layout="row" layout-align="space-between top" layout-padding layout-wrap>
+                            <div flex layout="row" layout-sm="column" layout-align="space-between top" layout-align-sm="center center" layout-padding layout-wrap>
                                 <a flex="25" flex-sm="100" ui-sref="authenticated.master.admin.product({key: product.$id})">{{ product.title }}</a>
                                 <span class="md-button-icon md-button-padding text-success" flex><i class="fa fa-check-circle" ng-class="{'text-error': !product.active || !product.isValid}"></i></span>
                                 <md-button class="md-warn md-raised md-icon-button" ng-click="confirmRemoveProduct($event, product, items)" aria-label="Remove product {{ product.title }}">
@@ -63,42 +63,18 @@
                                 <div flex flex-sm="100">
                                     <h4 class="margin-zero" flex="100">Details</h4>
                                     <div class="padding-small" layout="row" layout-wrap>
-                                        <span flex="50">
-                      Price
-                    </span>
-                                        <span class="text-right" flex="50">
-                      {{ product.price | currency }}
-                    </span>
-                                        <span flex="50">
-                      Taxable
-                    </span>
-                                        <span class="text-right" flex="50">
-                      {{ product.taxable }}
-                    </span>
-                                        <span flex="50">
-                      Type
-                    </span>
-                                        <span class="text-right" flex="50">
-                      {{ product.type }}
-                    </span>
-                                        <span flex="50">
-                      Type
-                    </span>
-                                        <span class="text-right" flex="50">
-                      {{ product.type }}
-                    </span>
-                                        <span flex="50" ng-if="product.type == 'subscription'">
-                      Subscription Type
-                    </span>
-                                        <span class="text-right" flex="50" ng-if="product.type == 'subscription'">
-                      {{ product.subscriptionType }}
-                    </span>
-                                        <span flex="50">
-                      Slug
-                    </span>
-                                        <span class="text-right" flex="50">
-                      {{ product.slug }}
-                    </span>
+                                        <span flex="50">Price</span>
+                                        <span class="text-right" flex="50">{{ product.price | currency }}</span>
+                                        <span flex="50">Taxable</span>
+                                        <span class="text-right" flex="50">{{ product.taxable }}</span>
+                                        <span flex="50">Type</span>
+                                        <span class="text-right" flex="50">{{ product.type }}</span>
+                                        <span flex="50">Type</span>
+                                        <span class="text-right" flex="50">{{ product.type }}</span>
+                                        <span flex="50" ng-if="product.type == 'subscription'">Subscription Type</span>
+                                        <span class="text-right" flex="50" ng-if="product.type == 'subscription'">{{ product.subscriptionType }}</span>
+                                        <span flex="50">Slug</span>
+                                        <span class="text-right" flex="50">{{ product.slug }}</span>
                                     </div>
                                 </div>
                                 <div flex flex-sm="100">

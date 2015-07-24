@@ -7,7 +7,7 @@
     </div>
     <form name="filesForm" flow-init="{target: uploadTarget, simultaneousUploads: 1}" flow-name="flow" ng-if="!$storage.hideFileUpload">
         <fieldset>
-            <md-whiteframe class="md-whiteframe-z1" layout="row" layout-align="center center" layout-fill layout-margin layout-padding layout-wrap>
+            <md-whiteframe class="md-whiteframe-z1" layout="row" layout-sm="column" layout-align="center center" layout-fill layout-margin layout-padding layout-wrap>
                 <div flex="100">
                     <md-whiteframe class="md-whiteframe-z3 background-primary2 text-center" flex="100" layout="row" layout-align="center center" style="padding: 2.8rem;" flow-drop ng-class="{'drag-over': dragOver}" flow-drag-enter="dragOver = true;" flow-drag-leave="dragOver = false;">
                         <strong class="headline uppercase text-x-large text-center" flex style="color: inherit;">File Drop</strong>

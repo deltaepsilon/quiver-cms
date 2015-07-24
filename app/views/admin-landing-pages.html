@@ -44,7 +44,7 @@
             <section>
                 <md-list layout="column">
                     <md-item ng-repeat="page in items | orderBy:orderBy">
-                        <md-item-content class="extra-padding" layout="row" layout-align="space-between center" layout-padding layout-wrap style="padding-top: 2rem;">
+                        <md-item-content class="extra-padding" layout="row" layout-sm="column" layout-align="space-between center" layout-padding layout-wrap style="padding-top: 2rem;">
                             <a flex ui-sref="authenticated.master.admin.landing-page({key: page.$id})">{{ page.title }}</a>
                             <span flex>{{ page.slug }}</span>
                             <span flex>{{ page.created | moment:"MM/DD/YY" }}</span>
