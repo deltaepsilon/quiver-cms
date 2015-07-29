@@ -87,6 +87,4 @@ angular.module('quiverCmsApp')
             return goTo(assignment.$id, $scope.subscription.$id);
         }
 
-        console.log($scope.assignment);
-        console.log($scope.subscriptions);
     });

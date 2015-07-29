@@ -21,7 +21,7 @@
                         </md-radio-group>
                     </div>
                     <div flex>
-                        <md-button class="md-primary md-raised" ng-click="goToAssignment(assignment, subscription)" ng-if="subscription" ng-disabled="!assignment || !subscription || goingToAssignment" ng-aria="Go to assignment">
+                        <md-button class="md-primary md-raised" ng-click="goToAssignment(assignment, subscription)" ng-if="subscription" ng-disabled="!assignment || !subscription || goingToAssignment" aria-label="Go to assignment">
                             <span ng-if="willStartSubscription(subscription) || freezeButtonText">Start Subscription</span>
                             <span ng-if="!willStartSubscription(subscription) && !freezeButtonText">Access {{ assignment.title }}</span>
                         </md-button>
