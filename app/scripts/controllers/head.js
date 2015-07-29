@@ -21,6 +21,7 @@ angular.module('quiverCmsApp')
                 'authenticated.master.nav.messages.list': 'Messages',
                 'authenticated.master.subscription.page': 'Page',
                 'authenticated.master.subscription.assignment': 'Assignment',
+                'authenticated.master.nav.find-assignment': 'Find Assignment',
                 'authenticated.master.nav.archivedGallery': 'Archived Gallery'
             },
             siteTitle = 'Quiver CMS';

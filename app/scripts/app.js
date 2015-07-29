@@ -555,6 +555,8 @@ angular.module('quiverCmsApp', [
 
                 },
                 word: function(AdminService, UserService, user, $stateParams, $localStorage, $rootScope) {
+                    $localStorage.lastSubscriptionKey = $stateParams.subscriptionKey; // Necessary to find user assignments by slug
+
                     return UserService.getPages(user.public.id, $stateParams.subscriptionKey).then(function(pages) {
                         var key = pages[$stateParams.pageNumber].$id;
 
@@ -616,6 +618,25 @@ angular.module('quiverCmsApp', [
                 },
                 notifications: function(AdminService, currentUser) {
                     return AdminService.getNotifications(currentUser.uid);
+                }
+            }
+        },
+        authenticatedMasterFindassignment: {
+            url: '/find-assignment/:slug',
+            templateUrl: '/views/find-assignment.html',
+            controller: 'FindAssignmentCtrl',
+            resolve: {
+                assignment: function (AdminService, $stateParams, $q, _) {
+                    return AdminService.getAssignments().$loaded().then(function (assignments) {
+                        var deferred = $q.defer();
+
+                        deferred.resolve(_.find(assignments, {slug: $stateParams.slug}));
+
+                        return deferred.promise;
+                    });
+                },
+                subscriptions: function (UserService, user) {
+                    return UserService.getSubscriptions(user.public.id).$loaded();  
                 }
             }
         },
@@ -1306,6 +1327,7 @@ angular.module('quiverCmsApp', [
         .state('authenticated.master.subscription', getState(states.authenticatedMasterSubscription))
         .state('authenticated.master.subscription.page', getState(states.authenticatedMasterSubscriptionPage))
         .state('authenticated.master.subscription.assignment', getState(states.authenticatedMasterSubscriptionAssignment))
+        .state('authenticated.master.nav.find-assignment', getState(states.authenticatedMasterFindassignment))
         .state('authenticated.master.nav.archivedGallery', getState(states.authenticatedMasterArchivedGallery))
         .state('authenticated.master.admin', getState(states.authenticatedMasterAdmin)) // Admin
         .state('authenticated.master.admin.dashboard', getState(states.authenticatedMasterAdminDashboard))

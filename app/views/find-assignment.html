@@ -1,0 +1,46 @@
+<div ng-if="subscription">
+    <div ng-if="assignment">
+        <h3 class="headline">Start {{ assignment.title }}</h3>
+        <p ng-if="!assignment.startsSubscription">
+            <strong>{{ assignment.title }}</strong> is an unlimited assignment that will not start your subscription and will never expire.
+        </p>
+        <p ng-if="assignment.startsSubscription">
+            Accessing <strong>{{ assignment.title }}</strong> will begin your subscription.
+        </p>
+        <form>
+            <fieldset>
+                <md-whiteframe class="md-whiteframe-z1" layout="column" layout-padding layout-wrap>
+                    <div flex>
+                        <md-radio-group ng-model="subscription">
+                            <md-radio-button ng-value="subscription" ng-repeat="subscription in subscriptions" ng-disabled="isExpired(subscription)">
+                                <span>{{ subscription.title }}: </span>
+                                <span ng-if="subscription.expiration && !isExpired(subscription)"> Expires {{ subscription.expiration | moment:"MM/DD/YYYY" }}</span>
+                                <span ng-if="subscription.expiration && isExpired(subscription)"> Expired {{ subscription.expiration | moment:"MM/DD/YYYY" }}</span>
+                                <span ng-if="!subscription.expiration">Not Started</span>
+                            </md-radio-button>
+                        </md-radio-group>
+                    </div>
+                    <div flex>
+                        <md-button class="md-primary md-raised" ng-click="goToAssignment(assignment, subscription)" ng-if="subscription" ng-disabled="!assignment || !subscription || goingToAssignment" ng-aria="Go to assignment">
+                            <span ng-if="willStartSubscription(subscription) || freezeButtonText">Start Subscription</span>
+                            <span ng-if="!willStartSubscription(subscription) && !freezeButtonText">Access {{ assignment.title }}</span>
+                        </md-button>
+                    </div>
+                </md-whiteframe>
+            </fieldset>
+        </form>
+    </div>
+    <div ng-if="!assignment">
+        <p>
+            No assignment found that matches <strong>{{ slug }}</strong>.
+        </p>
+    </div>
+</div>
+<div ng-if="!subscription">
+    <p ng-if="assignment">
+        All of your subscriptions appear to be expired. Email <a ng-href="mailto:{{ env.email.from }}">{{ env.email.from }}</a> with any questions.
+    </p>
+    <p ng-if="!assignment">
+        No assignment found that matches <strong>{{ slug }}</strong>.
+    </p>
+</div>
