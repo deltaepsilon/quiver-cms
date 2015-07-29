@@ -8,21 +8,22 @@
                     <label for="new-product-title">New Product Title</label>
                     <input id="new-product-title" type="text" name="product-title" ng-model="newProduct.title" placeholder="Product title..." required>
                 </md-input-container>
-                <md-button class="md-primary md-raised md-icon-button" flex name="button" ng-disabled="productForm.$invalid" ng-click="addProduct(newProduct, items)" qv-focus="#new-product-title">
-                    <i class="mdi-content-add-box"></i>
-                </md-button>
+                <div class="max-5 text-right" flex>
+                    <md-button class="md-primary md-raised md-icon-button" name="button" ng-disabled="productForm.$invalid" ng-click="addProduct(newProduct, items)" qv-focus="#new-product-title">
+                        <i class="mdi-content-add-box"></i>
+                    </md-button>
                 </div>
             </md-whiteframe>
     </form>
 </section>
 <section>
     <md-whiteframe class="md-whiteframe-z1 relative" layout="column" layout-fill flex>
-        <div layout="row" layout-align="start center" layout-padding>
-            <md-input-container flex>
+        <div layout="row" layout-align="start center" layout-align-sm="center center" layout-padding layout-wrap>
+            <md-input-container flex flex-sm="100">
                 <label for="list-search">Search by Slug</label>
                 <input id="list-search" type="text" ng-model="query" qv-enter="items = items.$orderByChild('slug').$startAt(query).$get(); orderBy = 'slug'" ng-focus="query = undefined;">
             </md-input-container>
-            <span flex></span>
+            <span flex hide-sm></span>
             <md-button class="md-icon-button" flex ng-click="items = items.$prev(); orderBy = '-$priority'; query = undefined;" ng-disabled="items.$prevDisabled" aria-label="list back">
                 <i class="mdi-navigation-arrow-back"></i>
             </md-button>

@@ -1,6 +1,6 @@
 <section id="feedback-messages">
     <h3 class="headline">Uploads</h3>
-    <md-tabs md-dynamic-height md-border-bottom md-selected="$storage.uploadsTabIndex">
+    <md-tabs md-dynamic-height md-no-pagination="false" md-border-bottom md-selected="$storage.uploadsTabIndex">
         <md-tab ng-repeat="assignment in assignments" md-on-select="$storage.uploadsTabIndex = $index; tabSelect(assignment);" label="{{ assignment.title }}">
             <md-content class="padding-small">
                 <h4 class="headline">{{ assignment.title }}</h4>

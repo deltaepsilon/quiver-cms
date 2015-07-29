@@ -1,70 +1,45 @@
 <section>
-  <h3 class="headline">{{ assignment.title }}</h3>
-  
-  <form name="assigmentForm">
-    <fieldset>
-      <div layout="row" layout-align="start center" layout-padding layout-wrap>
-
-        <h4 flex="100" style="margin-bottom: 0;">Assignment Details</h4>
-
-        <md-whiteframe class="md-whiteframe-z1 margin-vertical-medium" flex="100" layout="row" layout-padding layout-wrap>
-          
-
-          <md-input-container flex>
-            <label for="assignment-title">Assignment Title</label>
-            <input id="assignment-title" type="text" ng-model="assignment.title" required>
-          </md-input-container>
-
-          <md-input-container class="max-10" flex>
-            <label for="priority">Priority</label>
-            <input id="priority" type="number" ng-model="assignment.$priority" required>
-          </md-input-container>
-
-          <div flex="100">
-            <md-checkbox flex ng-model="assignment.supportsUpload">
-              Supports File Upload
-            </md-checkbox>
-
-            <md-checkbox flex ng-model="assignment.startsSubscription">
-              Start Subscription
-            </md-checkbox>
-          </div>
-
-          
-
-          
-
-          <h4 flex="100" style="margin-bottom: 0;">Apply to Subscription</h4>
-
-          <div flex="100" ng-repeat="product in products">
-            <md-checkbox ng-model="assignment.products[product.slug]" ng-change="setProduct(product, assignment.products[product.slug])">
-              {{ product.title }}
-            </md-checkbox>
-          </div>
-
-        </md-whiteframe>
-
-
-        <h4 flex="100" style="margin-bottom: 0;">Assignment Description</h4>
-
-        <md-whiteframe class="md-whiteframe-z1 margin-vertical-medium" flex="100" layout="row" layout-padding layout-wrap>
-          
-          <md-input-container flex="100">
-            <label for="description">Accepts CommonMark</label>
-            <textarea id="description" ng-model="assignment.description" ng-model-options="{debounce: {'default': 500, 'blur': 0}}" style="height: 10rem;" required></textarea>
-          </md-input-container>
-        </md-whiteframe>
-
-
-        <h4 flex="100" style="margin-bottom: 0;">Description Preview</h4>
-        
-        <md-whiteframe class="md-whiteframe-z1 margin-vertical-medium" flex="100" layout="row" layout-padding layout-wrap>
-          
-          <div class="markdown" flex="100" ng-model="assignment.description" markdown-editable></div>
-        </md-whiteframe>
-
-      </div>
-
-    </fieldset>
-  </form>
+    <h3 class="headline">{{ assignment.title }}</h3>
+    <form name="assigmentForm">
+        <fieldset>
+            <div layout="row" layout-align="start center" layout-padding layout-wrap>
+                <h4 flex="100" style="margin-bottom: 0;">Assignment Details</h4>
+                <md-whiteframe class="md-whiteframe-z1 margin-vertical-medium" flex="100" layout="row" layout-padding layout-wrap>
+                    <md-input-container flex>
+                        <label for="assignment-title">Assignment Title</label>
+                        <input id="assignment-title" type="text" ng-model="assignment.title" required>
+                    </md-input-container>
+                    <md-input-container class="max-10" flex>
+                        <label for="priority">Priority</label>
+                        <input id="priority" type="number" ng-model="assignment.$priority" required>
+                    </md-input-container>
+                    <div flex="100">
+                        <md-checkbox flex ng-model="assignment.supportsUpload">
+                            Supports File Upload
+                        </md-checkbox>
+                        <md-checkbox flex ng-model="assignment.startsSubscription">
+                            Start Subscription
+                        </md-checkbox>
+                    </div>
+                    <h4 flex="100" style="margin-bottom: 0;">Apply to Subscription</h4>
+                    <div flex="100" ng-repeat="product in products">
+                        <md-checkbox ng-model="assignment.products[product.slug]" ng-change="setProduct(product, assignment.products[product.slug])">
+                            {{ product.title }}
+                        </md-checkbox>
+                    </div>
+                </md-whiteframe>
+                <h4 flex="100" style="margin-bottom: 0;">Assignment Description</h4>
+                <md-whiteframe class="md-whiteframe-z1 margin-vertical-medium" flex="100" layout="row" layout-padding layout-wrap>
+                    <md-input-container flex="100">
+                        <label for="description">Accepts CommonMark</label>
+                        <textarea id="description" ng-model="assignment.description" ng-model-options="{debounce: {'default': 500, 'blur': 0}}" style="height: 10rem;" required></textarea>
+                    </md-input-container>
+                </md-whiteframe>
+                <h4 flex="100" style="margin-bottom: 0;">Description Preview</h4>
+                <md-whiteframe class="md-whiteframe-z1 margin-vertical-medium" flex="100" layout="row" layout-padding layout-wrap>
+                    <div class="markdown" flex="100" ng-model="assignment.description" markdown-editable></div>
+                </md-whiteframe>
+            </div>
+        </fieldset>
+    </form>
 </section>

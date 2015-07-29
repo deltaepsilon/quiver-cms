@@ -1,73 +1,60 @@
 <md-whiteframe class="md-whiteframe-z1 relative" layout="column" layout-fill flex>
-  <div layout="row" layout-align="start center" layout-padding>
-    <md-input-container flex>
-      <label for="list-search">Search by Slug</label>
-      <input id="list-search" type="text" ng-model="searchTerm" qv-enter="items = items.$orderByChild('slug').$startAt(searchTerm).$get(); searchTerm = undefined;">
-    </md-input-container>
-
-    <span flex></span>
-    
-    <md-button class="md-icon-button" flex ng-click="items = items.$prev()" ng-disabled="items.$prevDisabled" aria-label="list back">
-      <i class="mdi-navigation-arrow-back"></i>
-    </md-button>
-    
-    <md-button class="md-icon-button" flex ng-click="items = items.$next()" ng-disabled="items.$nextDisabled" aria-label="list forward">
-      <i class="mdi-navigation-arrow-forward"></i>
-    </md-button>
-    
-    <md-button class="md-icon-button" flex ng-click="items = items.$more()" ng-disabled="items.$moreDisabled" aria-label="list load more">
-      <i class="mdi-navigation-expand-more"></i>
-    </md-button>
-    
-    <md-button class="md-icon-button" flex ng-click="items = items.$reset()" ng-disabled="items.$resetDisabled" aria-label="list reload">
-      <i class="mdi-navigation-refresh"></i>
-    </md-button>
-
-  </div>
-
-  <md-content>
-    <md-list layout="column" ng-if="!items">
-      <md-item>
-        <md-item-content class="text-center" layout="row" layout-align="center center" layout-padding layout-wrap>
-          <h3 class="Headline">There are no assignments to display.</h3>
-        </md-item-content>
-      </md-item>
-    </md-list>
-        
-    <section>
-      <md-list layout="column">
-        <md-item ng-repeat="assignment in items | orderBy:'-$priority'">
-          <md-item-content class="extra-padding" layout="row" layout-align="space-between center" layout-padding layout-wrap>
-
-            <a class="max-20" flex ui-sref="authenticated.master.admin.assignment({key: assignment.$id})">{{ assignment.title }}</a>
-
-            <i class="mdi-device-access-time md-icon-button md-button-padding" flex ng-class="{'text-success': assignment.startsSubscription}"></i>
-
-            <i class="mdi-file-cloud-upload md-icon-button md-button-padding" flex ng-class="{'text-success': assignment.supportsUpload}"></i>
-
-            <div flex flex-sm="100">
-              <ul class="inline-list dotted">
-                <li ng-repeat="(slug, value) in assignment.products">{{ slug }}</li>
-              </ul>
-            </div>
-
-            <md-input-container class="max-10" flex flex-sm="50" style="margin-top: -22px;">
-              <label for="priority-{{ $index }}">Priority</label>
-              <input id="priority-{{ $index }}" type="number" ng-model="assignment.$priority" ng-change="items.$save(assignment)" ng-model-options="{updateOn: 'blur'}">
-            </md-input-container>
-
-            <md-button class="md-warn md-raised md-icon-button" flex ng-click="confirmDelete($event, assignment, items)" aria-label="Delete {{ assignment.title }}">
-              <i class="mdi-action-delete"></i>
-            </md-button>
-
-            <!-- <div class="text-right max-10" flex flex-sm="50"> 
+    <div layout="row" layout-align="start center" layout-align-sm="center center" layout-padding layout-wrap>
+        <md-input-container flex flex-sm="100">
+            <label for="list-search">Search by Slug</label>
+            <input id="list-search" type="text" ng-model="searchTerm" qv-enter="items = items.$orderByChild('slug').$startAt(searchTerm).$get(); searchTerm = undefined;">
+        </md-input-container>
+        <span flex hide-sm></span>
+        <md-button class="md-icon-button" flex ng-click="items = items.$prev()" ng-disabled="items.$prevDisabled" aria-label="list back">
+            <i class="mdi-navigation-arrow-back"></i>
+        </md-button>
+        <md-button class="md-icon-button" flex ng-click="items = items.$next()" ng-disabled="items.$nextDisabled" aria-label="list forward">
+            <i class="mdi-navigation-arrow-forward"></i>
+        </md-button>
+        <md-button class="md-icon-button" flex ng-click="items = items.$more()" ng-disabled="items.$moreDisabled" aria-label="list load more">
+            <i class="mdi-navigation-expand-more"></i>
+        </md-button>
+        <md-button class="md-icon-button" flex ng-click="items = items.$reset()" ng-disabled="items.$resetDisabled" aria-label="list reload">
+            <i class="mdi-navigation-refresh"></i>
+        </md-button>
+    </div>
+    <md-content>
+        <md-list layout="column" ng-if="!items">
+            <md-item>
+                <md-item-content class="text-center" layout="row" layout-align="center center" layout-padding layout-wrap>
+                    <h3 class="Headline">There are no assignments to display.</h3>
+                </md-item-content>
+            </md-item>
+        </md-list>
+        <section>
+            <md-list layout="column">
+                <md-item ng-repeat="assignment in items | orderBy:'-$priority'">
+                    <md-item-content class="extra-padding" layout="row" layout-align="space-between center" layout-padding layout-wrap>
+                        <a class="max-20" flex ui-sref="authenticated.master.admin.assignment({key: assignment.$id})">{{ assignment.title }}</a>
+                        <div flex>
+                            {{ assignment.slug }}
+                        </div>
+                        <i class="mdi-device-access-time md-icon-button md-button-padding" flex ng-class="{'text-success': assignment.startsSubscription}"></i>
+                        <i class="mdi-file-cloud-upload md-icon-button md-button-padding" flex ng-class="{'text-success': assignment.supportsUpload}"></i>
+                        <div flex flex-sm="100">
+                            <ul class="inline-list dotted">
+                                <li ng-repeat="(slug, value) in assignment.products">{{ slug }}</li>
+                            </ul>
+                        </div>
+                        <md-input-container class="max-10" flex flex-sm="50" style="margin-top: -22px;">
+                            <label for="priority-{{ $index }}">Priority</label>
+                            <input id="priority-{{ $index }}" type="number" ng-model="assignment.$priority" ng-change="items.$save(assignment)" ng-model-options="{updateOn: 'blur'}">
+                        </md-input-container>
+                        <md-button class="md-warn md-raised md-icon-button" flex ng-click="confirmDelete($event, assignment, items)" aria-label="Delete {{ assignment.title }}">
+                            <i class="mdi-action-delete"></i>
+                        </md-button>
+                        <!-- <div class="text-right max-10" flex flex-sm="50"> 
               {{ assignment.created | moment:"MM/DD/YYYY" }}
             </div>   -->
-
-          </md-item-content>
-          <md-divider ng-if="!$last"></md-divider>
-        </md-item>
-      </md-list>
-    </section>
-  </md-content>
+                    </md-item-content>
+                    <md-divider ng-if="!$last"></md-divider>
+                </md-item>
+            </md-list>
+        </section>
+    </md-content>
 </md-whiteframe>

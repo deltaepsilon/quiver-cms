@@ -1,10 +1,10 @@
 <md-whiteframe class="md-whiteframe-z1 relative" layout="column" layout-fill flex>
-    <div layout="row" layout-align="start center" layout-padding>
-        <md-input-container flex="33">
+    <div layout="row" layout-align="start center" layout-align-sm="center center" layout-padding layout-wrap>
+        <md-input-container flex="33" flex-sm="100">
             <label for="list-search">Search by email address</label>
             <input id="list-search" type="text" ng-model="searchTerm" qv-enter="items = items.$orderByChild('userEmail').$startAt(searchTerm).$get(); orderBy = 'userEmail'" ng-focus="searchTerm = undefined;" auto-enter="searchTerm">
         </md-input-container>
-        <span flex></span>
+        <span flex hide-sm></span>
         <md-button class="md-icon-button" flex ng-click="items = items.$prev(); orderBy = '-$id'" ng-disabled="items.$prevDisabled" aria-label="list back">
             <i class="mdi-navigation-arrow-back"></i>
         </md-button>
@@ -29,7 +29,7 @@
         <section>
             <md-list layout="column">
                 <md-item ng-repeat="upload in items | orderBy:'-$id'">
-                    <md-item-content layout="row" layout-align="space-between center" layout-padding layout-wrap>
+                    <md-item-content layout="row" layout-sm="column" layout-align="space-between center" layout-padding layout-wrap>
                         <span class="bold" flex flex-order="1" style="max-width: 10rem;">{{ $index + 1 }}: {{ upload.date | moment:"MMM DD, hh:mm" }}</span>
                         <span class="truncate" flex flex-order="2">{{ upload.userEmail }}</span>
                         <span class="truncate" flex flex-order="2">{{ upload.assignmentTitle }}</span>

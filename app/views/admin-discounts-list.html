@@ -1,10 +1,10 @@
 <md-whiteframe class="md-whiteframe-z1" layout="row" layout-padding layout-wrap>
-    <div flex="100" layout="row" layout-align="start center" layout-padding>
-        <md-input-container flex>
+    <div flex="100" layout="row" layout-align="start center" layout-align-sm="center center" layout-padding layout-wrap>
+        <md-input-container flex flex-sm="100">
             <label for="list-search">Search by Code</label>
             <input id="list-search" type="text" ng-model="searchTerm" qv-enter="items = items.$orderByChild('code').$startAt(searchTerm).$get(); orderBy = 'code'" ng-focus="searchTerm = undefined;" auto-enter="searchTerm">
         </md-input-container>
-        <span flex></span>
+        <span flex hide-sm></span>
         <md-button class="md-icon-button" flex ng-click="items = items.$prev(); orderBy = '-$id'; searchTerm = undefined;" ng-disabled="items.$prevDisabled" aria-label="list back">
             <i class="mdi-navigation-arrow-back"></i>
         </md-button>
@@ -30,9 +30,9 @@
             <md-list layout="column">
                 <md-item ng-repeat="discount in items | orderBy:orderBy">
                     <md-item-content class="extra-padding" layout="row" layout-sm="column" layout-align="start center" layout-padding layout-wrap style="padding-top: 2rem;">
-                        <strong flex="40" flex-sm="33"><span style="padding-left: .5rem; padding-right: .9rem;">{{ 10*(items.$query.page - 1) + $index + 1 }}:</span>{{ ::discount.code }}</strong>
-                        <span flex="20" flex-sm="33">Product: {{ ::discount.productSlug || 'All' }}</span>
-                        <div flex="20" flex-sm="33">
+                        <strong flex="40" flex-sm="100"><span style="padding-left: .5rem; padding-right: .9rem;">{{ 10*(items.$query.page - 1) + $index + 1 }}:</span>{{ ::discount.code }}</strong>
+                        <span flex="20" flex-sm="100">Product: {{ ::discount.productSlug || 'All' }}</span>
+                        <div flex="20" flex-sm="100">
                             <span class="capitalize">{{ ::discount.type }}:</span>
                             <span ng-if="discount.type === 'percentage'">{{ ::discount.percentage }}%</span>
                             <span ng-if="discount.type === 'value'">{{ ::discount.value | currency }}</span>

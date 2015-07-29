@@ -13,15 +13,19 @@
                         <strong class="headline uppercase text-x-large text-center" flex style="color: inherit;">File Drop</strong>
                     </md-whiteframe>
                 </div>
-                <label class="md-button md-default-theme md-primary md-raised" flex for="upload-file">
-                    Select Files
-                </label>
-                <input id="upload-file" class="hidden" type="file" flow-btn/>
-                <label class="md-button md-default-theme md-primary md-raised adjust-line-height" flex for="upload-directory">
-                    Select Directory
-                </label>
-                <input id="upload-directory" class="hidden" type="file" flow-btn flow-directory/>
-                <md-divider flex="100" ng-if="$flow.files.length"></md-divider>
+                <div flex>
+                    <label class="md-button md-default-theme md-primary md-raised" for="upload-file">
+                        Select Files
+                    </label>
+                    <input id="upload-file" class="hidden" type="file" flow-btn/>
+                </div>
+                <div flex>
+                    <label class="md-button md-default-theme md-primary md-raised adjust-line-height" for="upload-directory">
+                        Select Directory
+                    </label>
+                    <input id="upload-directory" class="hidden" type="file" flow-btn flow-directory/>
+                </div>
+                <md-divider flex="100" ng-if="$flow.files.length" hide-sm></md-divider>
                 <div flex="100" ng-if="$flow.files.length">
                     <div flex layout="row" layout-align="center center" layout-padding layout-wrap ng-repeat="file in $flow.files">
                         <span class="meter-text" flex>{{ file.name }} &nbsp; — &nbsp; {{ file.size / 1000 | number:0 }}kb</span>
@@ -35,9 +39,16 @@
                 <div flex layout="row" layout-align="center center" ng-if="$flow.files.length">
                     <md-progress-circular class="invisible" md-mode="indeterminate" qv-loading loaded="!uploading" target=".upload-button"></md-progress-circular>
                 </div>
-                <md-button class="upload-button md-accent md-raised adjust-line-height max-16" flex flex-sm="40" ng-click="upload($flow)" ng-if="$flow.files.length && !resizing" ng-disabled="uploading">Upload Files</md-button>
-                <!-- <md-button class="upload-button max-10" flex flex-sm="40" ng-click="fakeUpload($flow)" ng-if="$flow.files.length" ng-disabled="uploading">Fake Upload</md-button> -->
-                <md-button class="md-primary md-raised adjust-line-height max-16" flex ng-click="resize()" ng-disabled="resizing" aria-label="Resize and update">Resize and Update</md-button>
+                <div flex flex-sm="40">
+                    <md-button class="upload-button md-accent md-raised adjust-line-height max-16" ng-click="upload($flow)" ng-if="$flow.files.length && !resizing" ng-disabled="uploading">Upload Files</md-button>
+                    <!-- <md-button class="upload-button max-10" ng-click="fakeUpload($flow)" ng-if="$flow.files.length" ng-disabled="uploading">Fake Upload</md-button> -->
+                </div>
+                <div flex>
+                    <md-button class="md-primary md-raised adjust-line-height max-16" ng-click="resize()" ng-disabled="resizing" aria-label="Resize and update">Resize and Update</md-button>
+                </div>
+                
+                
+                
             </md-whiteframe>
         </fieldset>
     </form>

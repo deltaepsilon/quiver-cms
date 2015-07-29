@@ -1,10 +1,10 @@
 <section>
-    <div layout="row" layout-align="start center">
-        <h3 class="headline" flex>Email Queue</h3>
-        <div class="max-7" flex>
+    <div layout="row" layout-sm="column" layout-align="start center">
+        <h3 class="headline" flex flex-order="1">Email Queue</h3>
+        <div class="max-7" flex flex-order="1" flex-order-sm="2">
             <md-progress-circular md-mode="indeterminate" ng-class="{invisible: !loading}"></md-progress-circular>
         </div>
-        <md-button id="send-feedback" class="md-primary md-raised max-14" flex ng-click="sendFeedback()" ng-disabled="loading">Send All Feedback</md-button>
+        <md-button id="send-feedback" class="md-primary md-raised max-14" flex flex-order="1" ng-click="sendFeedback()" ng-disabled="loading">Send All Feedback</md-button>
     </div>
     <div ui-view></div>
 </section>

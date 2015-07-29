@@ -1,10 +1,10 @@
 <md-whiteframe class="md-whiteframe-z1" layout="row" layout-padding layout-wrap>
-    <div flex="100" layout="row" layout-align="start center" layout-padding>
-        <md-input-container flex>
+    <div flex="100" layout="row" layout-align="start center" layout-align-sm="center center" layout-padding layout-wrap>
+        <md-input-container flex flex-sm="100">
             <label for="list-search">Search by Email</label>
             <input id="list-search" type="text" ng-model="searchTerm" qv-enter="items = items.$orderByChild('userEmail').$limit(100).$startAt(searchTerm).$get(); orderBy = 'userEmail'" ng-focus="searchTerm = undefined;" auto-enter="searchTerm">
         </md-input-container>
-        <span flex></span>
+        <span flex hide-sm></span>
         <md-button class="md-icon-button" flex ng-click="items = items.$prev(); orderBy = '-$priority'; searchTerm = undefined;" ng-disabled="items.$prevDisabled" aria-label="list back">
             <i class="mdi-navigation-arrow-back"></i>
         </md-button>

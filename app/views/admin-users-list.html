@@ -1,14 +1,14 @@
 <md-whiteframe class="md-whiteframe-z1 relative" layout="column" layout-fill flex>
-    <div layout="row" layout-sm="column" layout-align="start center" layout-padding>
-        <md-input-container flex>
+    <div layout="row" layout-align="start center" layout-align-sm="center center" layout-padding layout-wrap>
+        <md-input-container flex flex-sm="100">
             <label for="email-search">Search by Email</label>
             <input id="email-search" type="text" ng-model="searchTerm" qv-enter="items = items.$orderByChild('email').$startAt(searchTerm).$get();" auto-enter="searchTerm">
         </md-input-container>
-        <md-input-container flex>
+        <md-input-container flex flex-sm="100">
             <label for="name-search">Search by Name</label>
             <input id="name-search" type="text" ng-model="name" qv-enter="items = items.$orderByChild('name').$startAt(name).$get();">
         </md-input-container>
-        <span flex></span>
+        <span flex hide-sm></span>
         <md-button class="md-icon-button" flex ng-click="items = items.$prev()" ng-disabled="items.$prevDisabled" aria-label="list back">
             <i class="mdi-navigation-arrow-back"></i>
         </md-button>

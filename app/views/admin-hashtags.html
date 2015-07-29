@@ -1,6 +1,5 @@
 <section>
     <h3 class="headline">Hashtags</h3>
-
     <form name="newHashtagForm">
         <fieldset>
             <div layout="row" layout-align="space-between center" layout-padding>
@@ -8,22 +7,19 @@
                     <label for="new-hashtag">New Hashtag</label>
                     <input id="new-hashtag" type="text" ng-model="newHashtag" placeholder="New Hashtag..." required/>
                 </md-input-container>
-
-                <md-button class="md-primary md-raised max-10 adjust-line-height" flex ng-click="createHashtag(newHashtag)" ng-disabled="newHashtagForm.$invalid" qv-focus="#new-hashtag">
-                    Create
-                </md-button>
-
+                <div class="max-7 text-right" flex>
+                    <md-button class="md-primary md-raised max-10 adjust-line-height" ng-click="createHashtag(newHashtag)" ng-disabled="newHashtagForm.$invalid" qv-focus="#new-hashtag">
+                        Create
+                    </md-button>
+                </div>
             </div>
         </fieldset>
-        
     </form>
-
     <md-whiteframe class="md-whiteframe-z1" layout="row" layout-padding layout-wrap>
         <md-input-container flex="100">
-          <label for="list-search">Filter</label>
-          <input id="list-search" type="text" ng-model="hashtagFilter" ng-focus="hashtagFilter = undefined;">
+            <label for="list-search">Filter</label>
+            <input id="list-search" type="text" ng-model="hashtagFilter" ng-focus="hashtagFilter = undefined;">
         </md-input-container>
-
         <md-list flex="100">
             <md-item ng-repeat="hashtag in hashtags | filter:hashtagFilter">
                 <md-item-content layout="row" layout-sm="column" layout-align="space-between center" layout-padding layoutwrap>
@@ -39,11 +35,9 @@
                     <md-button class="md-warn md-raised md-icon-button" ng-click="confirmRemoveHashtag($event, hashtag, hashtags)" aria-label="Remove hashtag {{ hashtag.value }}">
                         <i class="mdi-action-delete"></i>
                     </md-button>
-                
                 </md-item-content>
                 <md-divider ng-if="!$last"></md-divider>
             </md-item>
         </md-list>
     </md-whiteframe>
-
 </section>
