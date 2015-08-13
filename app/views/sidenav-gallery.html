@@ -34,7 +34,7 @@
                     <md-item flex="50" ng-repeat="file in items | orderBy:'$priority':'desc'">
                         <md-item-content class="relative" layout="row" layout-align="space-between center" layout-padding layout-wrap>
                             <md-button ng-click="showGalleryDialog($event, file)" target="_blank" style="height: inherit;" aria-label="{{ file.Name }}">
-                                <img ng-src="{{ file.Versions.small.Key || file.Key | s3Link:bucket | forceImage }}">
+                                <img style="margin-top: 12px;" ng-src="{{ file.Versions.small.Key || file.Key | s3Link:bucket | forceImage }}">
                             </md-button>
                         </md-item-content>
                     </md-item>

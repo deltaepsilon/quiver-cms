@@ -97,7 +97,7 @@ angular.module('quiverCmsApp')
                     $scope.file = file;
                     $scope.imgLink = $filter('forceImage')(imgLink);
                     $scope.fileLink = $filter('s3Link')(file.Key, bucket);
-                    $scope.mdLink = "[" + file.Name + "](" + $scope.fileLink + ")";
+                    $scope.mdLink = "![" + file.Name + "](" + $scope.fileLink + ")";
 
                     $scope.cancel = $mdDialog.cancel;
                 },

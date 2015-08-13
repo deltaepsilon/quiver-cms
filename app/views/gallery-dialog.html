@@ -1,29 +1,31 @@
-<md-dialog class="padding-medium" layout="row" layout-padding layout-wrap style="max-width: 50rem;">
-    <md-button class="md-icon-button md-warn md-raised absolute" ng-click="cancel()" style="top: .5rem; right: .5rem;" aria-label="Close image dialog">
+<div class="relative">
+    <md-button class="md-icon-button md-warn md-raised absolute" ng-click="cancel()" style="top: .5rem; right: .5rem; z-index: 1;" aria-label="Close image dialog">
         <i class="mdi-content-clear"></i>
     </md-button>
-    <a flex="100" class="text-center" ng-href="{{ imgLink }}" target="_blank">
-        <img ng-src="{{ imgLink }}" style="max-height: 50vh;">
-    </a>
-    <h3 class="headline text-center" flex="100">{{ file.Name }} ({{ file.Size | filesize}})</h3>
-    <h4 class="headline" flex="100">Link</h4>
-    <span id="file-link" class="cursor-pointer break-word" flex qv-select-text>{{ fileLink }}</span>
-    <div class="text-right" flex style="max-width: 7rem;">
-        <md-button class="md-primary md-fab" qv-select-text="file-link" events="click mouseenter" aria-label="Control + C to copy file link">
-            <md-tooltip>
-                Ctrl + C to copy
-            </md-tooltip>
-            <i class="mdi-content-content-copy"></i>
-        </md-button>
-    </div>
-    <h4 class="headline" flex="100">Markdown</h4>
-    <span id="md-link" class="cursor-pointer break-word" flex qv-select-text>{{ mdLink }}</span>
-    <div class="text-right" flex style="max-width: 7rem;">
-        <md-button class="md-primary md-fab" qv-select-text="md-link" events="click mouseenter" aria-label="Control + C to copy CommonMark link">
-            <md-tooltip>
-                Ctrl + C to copy
-            </md-tooltip>
-            <i class="mdi-content-content-copy"></i>
-        </md-button>
-    </div>
-</md-dialog>
+    <md-dialog class="padding-medium" layout="row" layout-padding layout-wrap style="max-width: 50rem; overflow: auto;">
+        <a flex="100" class="text-center" ng-href="{{ imgLink }}" target="_blank">
+            <img ng-src="{{ imgLink }}" style="max-height: 50vh;">
+        </a>
+        <h3 class="headline text-center" flex="100">{{ file.Name }} ({{ file.Size | filesize}})</h3>
+        <h4 class="headline" flex="100">Link</h4>
+        <span id="file-link" class="cursor-pointer break-word" flex qv-select-text>{{ fileLink }}</span>
+        <div class="text-right" flex style="max-width: 7rem;">
+            <md-button class="md-primary md-fab" qv-select-text="file-link" events="click mouseenter" aria-label="Control + C to copy file link">
+                <md-tooltip>
+                    Ctrl + C to copy
+                </md-tooltip>
+                <i class="mdi-content-content-copy"></i>
+            </md-button>
+        </div>
+        <h4 class="headline" flex="100">Markdown</h4>
+        <span id="md-link" class="cursor-pointer break-word" flex qv-select-text>{{ mdLink }}</span>
+        <div class="text-right" flex style="max-width: 7rem;">
+            <md-button class="md-primary md-fab" qv-select-text="md-link" events="click mouseenter" aria-label="Control + C to copy CommonMark link">
+                <md-tooltip>
+                    Ctrl + C to copy
+                </md-tooltip>
+                <i class="mdi-content-content-copy"></i>
+            </md-button>
+        </div>
+    </md-dialog>
+</div>
