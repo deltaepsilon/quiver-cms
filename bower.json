@@ -20,7 +20,7 @@
     "angularfire": "~1.0.0",
     "angularfire-authentication": ">=0.0.3",
     "angular-sanitize": "~1.4.1",
-    "angular-material": "~0.10.0",
+    "angular-material": "~0.10.1",
     "materialize": "~0.96.0",
     "tinycolor": "~1.1.2",
     "geoffgraham.animate.scss": "*"

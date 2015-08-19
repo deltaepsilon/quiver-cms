@@ -39,7 +39,7 @@
     "angularfire-authentication": ">=0.0.3",
     "jquery.finger": "~0.1.2",
     "angular-google-analytics": "~0.0.10",
-    "angular-material": "~0.10.0",
+    "angular-material": "~0.10.1",
     "materialize": "~0.95.3",
     "geoffgraham.animate.scss": "*"
   },
