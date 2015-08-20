@@ -83,7 +83,14 @@ angular.module('quiverCmsApp')
 
         setDefaultSubscription($scope.subscriptions);
 
-        if (assignment && assignment.subscriptionType === 'content' && $scope.subscription) {
+        /*
+         * Auto-forward if:
+         * One subscription exists
+         * AND default subscription exists (implies that it's active)
+         * AND Subscription will not be started
+         */
+
+        if ($scope.subscriptions && $scope.subscriptions.length === 1 && $scope.subscription && !$scope.willStartSubscription($scope.subscription)) {
             return goTo(assignment.$id, $scope.subscription.$id);
         }
 
