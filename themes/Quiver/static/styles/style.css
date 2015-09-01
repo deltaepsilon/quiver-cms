@@ -9100,21 +9100,26 @@ strong {
   word-wrap: break-word;
 }
 
-/* line 101, ../../../../app/styles/modules/_type.scss */
+/* line 100, ../../../../app/styles/modules/_type.scss */
+.break-all {
+  word-break: break-all;
+}
+
+/* line 105, ../../../../app/styles/modules/_type.scss */
 .line-height-1 {
   line-height: 1rem !important;
 }
 
-/* line 105, ../../../../app/styles/modules/_type.scss */
+/* line 109, ../../../../app/styles/modules/_type.scss */
 .line-height-2 {
   line-height: 2rem !important;
 }
 
-/* line 111, ../../../../app/styles/modules/_type.scss */
+/* line 115, ../../../../app/styles/modules/_type.scss */
 md-sidenav .md-toolbar-tools {
   font-weight: 900;
 }
-/* line 114, ../../../../app/styles/modules/_type.scss */
+/* line 118, ../../../../app/styles/modules/_type.scss */
 md-sidenav .md-button * {
   font-weight: 900;
   letter-spacing: 1px;
