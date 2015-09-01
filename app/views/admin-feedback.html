@@ -1,5 +1,7 @@
 <section>
-    <h3 class="headline">{{ assignment.title }} by <a ui-sref="authenticated.master.admin.messages.list({search: client.email})">{{ client.email }}</a></h3>
+    <div layout="row" layout-sm="column" layout-align="space-between">
+        <h3 class="headline">{{ assignment.title }} by <a ui-sref="authenticated.master.admin.messages.list({search: client.email})">{{ client.email }}</a></h3>
+    </div>
     <md-whiteframe class="md-whiteframe-z1" layout="row" layout-align="start end" layout-padding layout-wrap ng-if="uploads.length">
         <md-button class="margin-zero-important" flex="33" flex-sm="100" ng-click="openGallery($event, image, uploads)" ng-repeat="(key, image) in uploads" style="height: inherit;" aria-label="Open image in gallery {{ image.name }}">
             <img ng-class="{'disabled': image.disabled}" ng-src="{{ image.url }}" alt="{{ image.Name }}" title="{{ image.Name }} ({{ image.Size / 1000 | number:0 }}kb)">
@@ -54,5 +56,26 @@
             <label for="assignment-comments">Assignment Comments</label>
             <textarea id="assignment-comments" style="min-height: 10rem;" ng-model="userAssignment.comment" ng-model-options="{debounce: {'default': 1000}}"></textarea>
         </md-input-container>
+    </md-whiteframe>
+</section>
+<section>
+    <div class="text-right">
+        <md-button class="md-accent md-raised md-fab" ng-click="viewAllUserFiles(client.$id)" ng-if="!userFiles.length">
+            <i class="mdi-content-add-circle text-x-large"></i>
+            <md-tooltip>View All User Images</md-tooltip>
+        </md-button>
+    </div>
+    <md-whiteframe class="md-whiteframe-z1" layout="column" layout-padding layout-wrap ng-if="userFiles.length">
+        <div flex>
+            <h3 class="headline">All User Images</h3>
+        </div>
+        <md-list flex>
+            <md-item ng-repeat="file in userFiles">
+                <md-item-content layout="row" layout-align="center center" layout-padding layout-wrap>
+                    <img ng-src="{{ file.url }}">
+                </md-item-content>
+                <md-divider ng-if="!$last"></md-divider>
+            </md-item>
+        </md-list>
     </md-whiteframe>
 </section>

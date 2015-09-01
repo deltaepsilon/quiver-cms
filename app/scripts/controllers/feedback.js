@@ -84,4 +84,11 @@ angular.module('quiverCmsApp')
             });
         };
 
+        /*
+         * View all user images
+         */
+         $scope.viewAllUserFiles = function (clientId) {
+            $scope.userFiles = UserService.getFiles(clientId);
+         };
+
     });

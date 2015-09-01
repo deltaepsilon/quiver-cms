@@ -151,6 +151,10 @@ angular.module('quiverCmsApp')
 
             getArchivedGalleryComments: function (userId, key) {
                 return FirebaseService.registerSecureRef($firebaseArray(FirebaseService.query(new Firebase(firebaseEndpoint + '/userObjects/archivedGalleries/' + userId + '/' + key + '/comments'))));
+            },
+
+            getFiles: function (userId) {
+                return $firebaseArray(new Firebase(firebaseEndpoint + '/userObjects/files/' + userId + '/Contents'));
             }
 
         };
