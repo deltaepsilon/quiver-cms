@@ -3,7 +3,15 @@
 angular.module('quiverCmsApp')
     .controller('AuthCtrl', function($scope, $state, qvAuth, NotificationService, AdminService, $localStorage, moment) {
         var parseError = function(err) {
-            var parts = err.message.split(':');
+            var parts = err;
+
+            if (err) {
+                if (err.message) {
+                    parts = err.message.split(':');                    
+                } else if (err.data && err.data.error) {
+                    parts = err.data.error;
+                }
+            }
 
             if (parts.length > 1) {
                 return parts[1].trim();
