@@ -144,8 +144,8 @@ angular.module('quiverCmsApp')
         };
 
         $scope.saveDiscount = function(discount) {
-            if (typeof $scope.discounts.$save === 'function') {
-                $scope.discounts.$save(discount);
+            if (typeof $scope.items.$save === 'function') {
+                $scope.items.$save(discount);
             }
 
         };
