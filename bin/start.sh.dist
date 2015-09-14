@@ -4,3 +4,5 @@ echo "Jam time."
 forever stopall
 NODE_ENV='development' forever start -l /src/logs/cms-server-development.log cms-server.js
 NODE_ENV='development' forever start -l /src/logs/content-server-development.log content-server.js
+
+ln -s /src/nginx/quiver.is /etc/nginx/sites-enabled/quiver.is

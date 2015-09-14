@@ -4,7 +4,7 @@ quiver-cms
 A CMS built on Angular, Firebase, Express and Node.
 
 ### Installation
-Quiver-CMS relies on Node.js, NPM, Yeoman, Grunt, Bower, Firebase, Mandrill, Redis, elasticsearch, ImageMagick, TypeKit and Amazon Web Services S3.
+Quiver-CMS relies on Node.js, NPM, Yeoman, Grunt, Bower, Firebase, Mandrill, Redis, ImageMagick, TypeKit and Amazon Web Services S3.
 
 1. [Install Node.js](http://howtonode.org/how-to-install-nodejs) if necessary. You'll get NPM as part of the new Node.js install.
 2. Install Yeoman, Grunt and Bower. ```npm install -g yo bower grunt-cli```
@@ -12,7 +12,7 @@ Quiver-CMS relies on Node.js, NPM, Yeoman, Grunt, Bower, Firebase, Mandrill, Red
 4. Create an [AWS account, activate S3 and create an S3 bucket](http://docs.aws.amazon.com/AmazonS3/latest/gsg/SigningUpforS3.html).
 5. Clone the repo. ```clone git@github.com:deltaepsilon/quiver-cms.git```
 6. Navigate to the repo and install NPM and Bower dependencies. ```cd quiver-cms && npm install && bower install```
-7. Install [redis](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-redis), [elasticsearch](https://www.digitalocean.com/community/tutorials/how-to-install-elasticsearch-on-an-ubuntu-vps) and [ImageMagick](https://help.ubuntu.com/community/ImageMagick).
+7. Install [redis](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-redis) and [ImageMagick](https://help.ubuntu.com/community/ImageMagick).
 8. Copy ```/config/default.json``` to ```/config/development.json``` and again to ```/config/production.json```.
 9. ```default.json``` contains the default config which will be overridden by ```development.json``` or ```production.json``` depending on your [node environment](http://stackoverflow.com/questions/16978256/what-is-node-env-in-express). See more documentation at [node-config](https://github.com/lorenwest/node-config).
 
@@ -92,237 +92,61 @@ Quiver-CMS relies on Node.js, NPM, Yeoman, Grunt, Bower, Firebase, Mandrill, Red
 }
 ```
 
-10. Set up your Firebase app's security rules. These are a work in progress, and you'll want to make sure that you understand Firebase security rules well before attempting to deploy this app into the wild. These are the rules that I'm currently using. You'll probably want to swap out my email address for your own.
-
-```
-{
-  "rules": {
-    "$quiverCMS": {
-      ".read": "auth.email == 'chris@quiver.is'",
-      ".write": "auth.email == 'chris@quiver.is'",
-
-      "settings": {
-        ".read": true,
-        ".write": "root.child($quiverCMS).child('acl').child(auth.uid).child('isAdmin').val() == true"
-      },
-      
-      "admin": {
-        ".read": "root.child($quiverCMS).child('acl').child(auth.uid).child('isAdmin').val() == true",
-        ".write": "root.child($quiverCMS).child('acl').child(auth.uid).child('isAdmin').val() == true",
-      },
-      
-      "theme": {
-        ".read": true,
-        ".write": "root.child($quiverCMS).child('acl').child(auth.uid).child('isAdmin').val() == true"
-      },
-      
-      "commerce": {
-        ".read": true,
-        ".write": "root.child($quiverCMS).child('acl').child(auth.uid).child('isAdmin').val() == true"
-      },
-      
-      "discounts": {
-        ".read": "root.child($quiverCMS).child('acl').child(auth.uid).child('isAdmin').val() == true",
-        ".write": "root.child($quiverCMS).child('acl').child(auth.uid).child('isAdmin').val() == true",
-        ".indexOn": ["code"]
-      },
-      
-      "products": {
-        ".read": "true",
-        ".write": "root.child($quiverCMS).child('acl').child(auth.uid).child('isAdmin').val() == true"
-      },
-      
-      "resources": {
-        ".read": true,
-        ".write": "root.child($quiverCMS).child('acl').child(auth.uid).child('isAdmin').val() == true",
-        ".indexOn": ["ttl", "userEmail"]
-      },
-      
-      "queues": {
-        ".read": "root.child($quiverCMS).child('acl').child(auth.uid).child('isAdmin').val() == true",
-        ".write": "root.child($quiverCMS).child('acl').child(auth.uid).child('isAdmin').val() == true",
-        
-        "email": {
-          ".indexOn": ["type", "sent"]
-        }
-      },
-      
-      "logs": {
-        ".read": "root.child($quiverCMS).child('acl').child(auth.uid).child('isAdmin').val() == true",
-        ".write": "root.child($quiverCMS).child('acl').child(auth.uid).child('isAdmin').val() == true",
-        
-        "subscriptions": {
-          ".indexOn": ["email"]
-        },
-        
-        "transactions": {
-          ".indexOn": ["userEmail"]
-        },
-        
-        "shipments": {
-          ".indexOn": ["email"]
-        },
-        
-        "messages": {
-          ".indexOn": ["created", "userEmail"]
-        },
-        
-        "uploads": {
-          ".indexOn": ["created", "userEmail"]
-        }
-      },
-      
-      "content": {
-        "files": {
-          ".read": true,
-          ".write": "root.child($quiverCMS).child('acl').child(auth.uid).child('isAdmin').val() == true",
-          
-          "Originals": {
-            ".indexOn": ["Name"]
-          }
-        },
-        
-        "products": {
-          ".read": true,
-          ".write": "root.child($quiverCMS).child('acl').child(auth.uid).child('isAdmin').val() == true",
-          ".indexOn": ["type"]
-        },
-        
-        "hashtags": {
-          ".read": true,
-          ".write": "root.child($quiverCMS).child('acl').child(auth.uid).child('isAdmin').val() == true"
-        },
-        
-        "social": {
-          ".read": true,
-          ".write": "root.child($quiverCMS).child('acl').child(auth.uid).child('isAdmin').val() == true"
-        },
-        
-        "words": {
-          ".read": "root.child($quiverCMS).child('acl').child(auth.uid).child('isAdmin').val() == true",
-          ".write": "root.child($quiverCMS).child('acl').child(auth.uid).child('isAdmin').val() == true",
-          ".indexOn": ["type", "slug", "title"],
-          "$word": {
-            ".read": "data.child('type').val() == 'subscription' || root.child($quiverCMS).child('acl').child(auth.uid).child('isAdmin').val() == true",
-          }
-        },
-        
-        "assignments": {
-          ".read": true,
-          ".write": "root.child($quiverCMS).child('acl').child(auth.uid).child('isAdmin').val() == true"
-        }
-      },
-      
-      "fit": {
-        "settings": {
-          ".read": true,
-          ".write": "root.child($quiverCMS).child('acl').child(auth.uid).child('isAdmin').val() == true"
-        },
-        "exercises": {
-          ".read": true,
-          ".write": "root.child($quiverCMS).child('acl').child(auth.uid).child('isAdmin').val() == true",
-          ".indexOn": ["slug", "type"]
-        },
-        "tips": {
-          ".read": true,
-          ".write": "root.child($quiverCMS).child('acl').child(auth.uid).child('isAdmin').val() == true"
-        }
-      },
-      
-      "messageable": {
-        ".read": "auth.uid != null",
-        ".write": "root.child($quiverCMS).child('acl').child(auth.uid).child('isAdmin').val() == true",
-      },
-      
-      "messages": {
-        ".read": "root.child($quiverCMS).child('acl').child(auth.uid).child('isAdmin').val() == true",
-        ".write": "root.child($quiverCMS).child('acl').child(auth.uid).child('isAdmin').val() == true",
-        
-        "$user": {
-          ".read": "$user == data.parent().parent().child('acl').child(auth.uid).child('userKey').val() || root.child($quiverCMS).child('acl').child(auth.uid).child('isAdmin').val() == true",
-          ".write": "$user == data.parent().parent().child('acl').child(auth.uid).child('userKey').val() || root.child($quiverCMS).child('acl').child(auth.uid).child('isAdmin').val() == true"
-        }
-      },
-      
-      "assignments": {
-        ".read": "root.child($quiverCMS).child('acl').child(auth.uid).child('isAdmin').val() == true",
-        ".write": "root.child($quiverCMS).child('acl').child(auth.uid).child('isAdmin').val() == true",
-        
-        "$user": {
-          ".read": "$user == root.child($quiverCMS).child('acl').child(auth.uid).child('userKey').val() || root.child($quiverCMS).child('acl').child(auth.uid).child('isAdmin').val() == true",
-          ".write": "$user == root.child($quiverCMS).child('acl').child(auth.uid).child('userKey').val() || root.child($quiverCMS).child('acl').child(auth.uid).child('isAdmin').val() == true"
-        }
-      },
-      
-      "subscriptions": {
-        ".read": "root.child($quiverCMS).child('acl').child(auth.uid).child('isAdmin').val() == true",
-        ".write": "root.child($quiverCMS).child('acl').child(auth.uid).child('isAdmin').val() == true",
-        
-        "$user": {
-          ".read": "$user == root.child($quiverCMS).child('acl').child(auth.uid).child('userKey').val() || root.child($quiverCMS).child('acl').child(auth.uid).child('isAdmin').val() == true",
-          ".write": "$user == root.child($quiverCMS).child('acl').child(auth.uid).child('userKey').val() || root.child($quiverCMS).child('acl').child(auth.uid).child('isAdmin').val() == true"
-        }
-      },
-      
-      "transactions": {
-        ".read": "root.child($quiverCMS).child('acl').child(auth.uid).child('isAdmin').val() == true",
-        ".write": "root.child($quiverCMS).child('acl').child(auth.uid).child('isAdmin').val() == true",
-        
-        "$user": {
-          ".read": "$user == root.child($quiverCMS).child('acl').child(auth.uid).child('userKey').val() || root.child($quiverCMS).child('acl').child(auth.uid).child('isAdmin').val() == true",
-          ".write": "$user == root.child($quiverCMS).child('acl').child(auth.uid).child('userKey').val() || root.child($quiverCMS).child('acl').child(auth.uid).child('isAdmin').val() == true"
-        }
-      },
-      
-      "shipments": {
-        ".read": "root.child($quiverCMS).child('acl').child(auth.uid).child('isAdmin').val() == true",
-        ".write": "root.child($quiverCMS).child('acl').child(auth.uid).child('isAdmin').val() == true",
-        
-        "$user": {
-          ".read": "$user == root.child($quiverCMS).child('acl').child(auth.uid).child('userKey').val() || root.child($quiverCMS).child('acl').child(auth.uid).child('isAdmin').val() == true",
-          ".write": "$user == root.child($quiverCMS).child('acl').child(auth.uid).child('userKey').val() || root.child($quiverCMS).child('acl').child(auth.uid).child('isAdmin').val() == true"
-        }
-      },
-      
-      "downloads": {
-        ".read": "root.child($quiverCMS).child('acl').child(auth.uid).child('isAdmin').val() == true",
-        ".write": "root.child($quiverCMS).child('acl').child(auth.uid).child('isAdmin').val() == true",
-        
-        "$user": {
-          ".read": "$user == root.child($quiverCMS).child('acl').child(auth.uid).child('userKey').val() || root.child($quiverCMS).child('acl').child(auth.uid).child('isAdmin').val() == true",
-          ".write": "$user == root.child($quiverCMS).child('acl').child(auth.uid).child('userKey').val() || root.child($quiverCMS).child('acl').child(auth.uid).child('isAdmin').val() == true"
-        }
-      },
-      
-      "gifts": {
-        ".read": "root.child($quiverCMS).child('acl').child(auth.uid).child('isAdmin').val() == true",
-        ".write": "root.child($quiverCMS).child('acl').child(auth.uid).child('isAdmin').val() == true",
-        
-        "$user": {
-          ".read": "$user == root.child($quiverCMS).child('acl').child(auth.uid).child('userKey').val() || root.child($quiverCMS).child('acl').child(auth.uid).child('isAdmin').val() == true",
-          ".write": "$user == root.child($quiverCMS).child('acl').child(auth.uid).child('userKey').val() || root.child($quiverCMS).child('acl').child(auth.uid).child('isAdmin').val() == true",
-          ".indexOn": ["code"]
-        }
-      },
-      
-      "files": {
-        ".read": "root.child($quiverCMS).child('acl').child(auth.uid).child('isAdmin').val() == true",
-        ".write": "root.child($quiverCMS).child('acl').child(auth.uid).child('isAdmin').val() == true",
-        
-        "$user": {
-          ".read": "$user == root.child($quiverCMS).child('acl').child(auth.uid).child('userKey').val() || root.child($quiverCMS).child('acl').child(auth.uid).child('isAdmin').val() == true",
-          ".write": "$user == root.child($quiverCMS).child('acl').child(auth.uid).child('userKey').val() || root.child($quiverCMS).child('acl').child(auth.uid).child('isAdmin').val() == true"
-        }
-      }
-    }
-  }
-}
-```
-
+10. Set up your Firebase app's security rules. These are a work in progress, and you'll want to make sure that you understand Firebase security rules well before attempting to deploy this app into the wild. You'll find my rules in ```/security-rules.json```.
 11. Start ```cms-server.js``` and ```content-server.js``` using either ```node``` or ```nodemon```. You'll need two terminal windows. You'll run ```nodemon cms-server.js``` in the first and ```nodemon content-server.js``` in the second.
-12. Run ```grunt serve``` from the ```quiver-cms``` directory and the app should be up and running. You'll be able to access the front end at ```http://localhost:9900```.
+13. I was originally using ```grunt serve``` to serve up my static files, but as the site got more complex I've switched to NGINX. Here's the configuration that I'm using. You'll need to change the paths to your snakeoil cert and key. You'll also need to edit ```/etc/hosts``` to redirect ```dev.quiver.is``` to ```127.0.0.1```. See [/etc/hosts instructions](http://osxdaily.com/2012/08/07/edit-hosts-file-mac-os-x/).
 
-### Deploy
+```
+server {
+  listen 80;
+  server_name dev.quiver.is;
+  return 302 https://dev.quiver.is$request_uri;
+}
+
+
+server {
+  listen	443;
+  server_name dev.quiver.is;
+
+  ssl on;
+  ssl_certificate      /Users/quiver/development/quiver-cms/certs/snakeoil.crt;
+  ssl_certificate_key  /Users/quiver/development/quiver-cms/certs/snakeoil.key;
+
+  ssl_session_timeout 5m;
+
+  ssl_protocols  SSLv2 SSLv3 TLSv1;
+  ssl_ciphers  HIGH:!aNULL:!MD5;
+  ssl_prefer_server_ciphers   on;
+
+  #rewrite_log on;
+
+  location ~ ^/(app|images|lib|scripts|styles|views) {
+    proxy_pass http://127.0.0.1:9800;
+  }
+
+  location ~ ^/api(/?)(.*) {
+    proxy_set_header X-Real-IP  $remote_addr;
+  	proxy_set_header X-Forwarded-For $remote_addr;
+  	proxy_set_header Host $host;
+  	proxy_pass http://127.0.0.1:9800/$2$is_args$args;
+  }
+
+  location / {
+    proxy_set_header X-Real-IP  $remote_addr;
+  	proxy_set_header X-Forwarded-For $remote_addr;
+  	proxy_set_header Host $host;
+  	proxy_pass http://127.0.0.1:9801;
+  }
+
+
+}
+
+
+```
+
+14. If you're adventurous and don't want to run NGINS, run ```grunt serve``` from the ```quiver-cms``` directory and the app might run. You'll access the front end at ```http://localhost:9900```. I don't think the back end will work with this deploy method.
+
+### Deploy Without Docker
 Quiver-CMS is built for deploying to a VPS running linux. I recommend [DigitalOcean](https://www.digitalocean.com/?refcode=d5bfb6736f8e), particularly their "MEAN on Ubuntu" image.
 
 Once you have a VPS up and running, you'll need to [install NGINX](https://www.digitalocean.com/community/tutorials/how-to-install-nginx-on-ubuntu-14-04-lts)
@@ -385,9 +209,12 @@ server {
 
 - [Adjust your nginx max body size](http://www.cyberciti.biz/faq/linux-unix-bsd-nginx-413-request-entity-too-large/) up to accommodate file uploads
 
+### Deploy With Docker
+Copy ```run.sh.dist``` and ```start.sh.dist``` without the ```.dist``` suffix into /bin. Edit both of those files to reference your development directory instead of mine. Then review the files within ```certs```, ```/config``` and ```/nginx``` to make sure that they match your paths and your information. Once it looks good, run ```sh /bin/run.sh``` and hold your breath. Run ```docker ps``` to see if your instance is running and what it's called. Try to hit your dev site at https://dev.quiver.is or whatever domain you set up in ```/etc/hosts```.
+
+
 ### Known Issues
 
-- The newest version of [Compass has a problem](http://stackoverflow.com/questions/25580933/zurb-foundation-sass-not-compiling-completely) with ```!global```, which is an important part of this project's CSS framework, [Zurb Foundation](http://foundation.zurb.com/docs/). This should get resolved at some point, but if Compass isn't compiling for you, try installing an older version of ```sass``` and ```compass```.
 - If you're having trouble with TypeKit, get rid of the following lines in ```index.html```:
 
 ```

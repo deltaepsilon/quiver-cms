@@ -36,7 +36,7 @@
                         </div>
                         <div flex layout="row" layout-sm="column" layout-align="space-between center" layout-padding layout-wrap>
                             <div class="md-select-wrapper max-16" flex>
-                                <md-select ng-model="fileVersion">
+                                <md-select ng-model="fileVersion" aria-label="file version">
                                     <md-option value="" selected>Original: ({{ file.Size / 1000 | number:0 }}kb)</md-option>
                                     <md-option ng-repeat="(key, version) in file.Versions" ng-value="key">{{ key }}: ({{ version.Size / 1000 | number:0 }}kb)</md-option>
                                 </md-select>
