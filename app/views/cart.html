@@ -90,11 +90,11 @@
         <md-whiteframe class="md-whiteframe-z1 relative" layout="row" layout-padding layout-wrap>
             <h3 class="headline" flex="100">Totals</h3>
             <div flex="100" layout="row" layout-align="space-between center" layout-wrap ng-repeat="code in $storage.cart.codes">
-                <div flex="50">
-                    <span>{{ code.code }}</span>
+                <div class="truncate" flex="50">
                     <md-button class="md-icon-button" ng-click="removeCode(code.code)" aria-label="Remove code {{ code.code }}">
                         <i class="mdi-action-delete"></i>
                     </md-button>
+                    <span>{{ code.code }}</span>
                 </div>
                 <div class="text-right" flex>
                     <span ng-show="code.type === 'value'">{{ code.value | currency }}</span>
