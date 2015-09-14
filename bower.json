@@ -1,6 +1,6 @@
 {
   "name": "quiver-cms",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "dependencies": {
     "angular": ">=1.4.1",
     "json3": "~3.2.6",
