@@ -194,9 +194,8 @@ angular.module('quiverCmsApp')
                     var codes = _.sortBy(res.codes, function(code) {
                             return code.type === 'value' ? 0 : 1; // We want value codes to get evaluated before percentage codes
                         }),
-                        now = moment().unix();
-
-                    cart.codes = codes;
+                        now = moment().unix(),
+                        valid = [];
 
                     _.each(codes, function(code) {
                         if (code.productSlug && !_.findWhere(cart.items, {
@@ -230,6 +229,7 @@ angular.module('quiverCmsApp')
                         }
 
                         applied.push(code.code);
+                        valid.push(code);
 
                         if (code.type === 'value') {
                             code.discount = code.value;
@@ -244,6 +244,8 @@ angular.module('quiverCmsApp')
                         cart.discount += code.discount;
 
                     });
+
+                    cart.codes = valid;
 
                     finishIt();
 

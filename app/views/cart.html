@@ -120,15 +120,16 @@
             <span flex="50">Total</span>
             <span class="text-right" flex><strong>{{ $storage.cart.total | currency }}</strong></span>
             <div class="padding-zero-important" flex="50">
-                <md-input-container class="padding-zero-important" ng-show="addingCode" style="margin-bottom: -1px;">
+                <md-input-container class="padding-zero-important" ng-show="addingCode" style="margin-top: 5px;">
                     <label for="discount-code">Discount or gift code</label>
                     <input id="discount-code" class="" type="text" ng-model="discountCode" placeholder="Discount or gift code...">
                 </md-input-container>
             </div>
             <div class="padding-zero-important text-right" flex style="padding-top: 17px !important; padding-bottom: 0 !important;">
                 <md-button ng-click="addingCode = true" ng-hide="addingCode" aria-label="Open add code field">Add Code</md-button>
-                <md-button class="md-icon-button" ng-click="addingCode = false" ng-show="addingCode" aria-label="Close add code field">X</md-button>
+                <md-button class="md-icon-button" ng-click="addingCode = false" ng-show="addingCode" aria-label="Close add code field" tabindex="-1">X</md-button>
                 <md-button class="md-primary md-raised" ng-click="addCode(discountCode)" ng-show="addingCode" aria-label="Add code">Add Code</md-button>
+                
             </div>
             <span flex="100"></span>
             <div class="text-center" flex>
