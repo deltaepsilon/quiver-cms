@@ -35,6 +35,7 @@ var UserController = require('./lib/controllers/user'),
     SurveyController = require('./lib/controllers/survey'),
     ResourceController = require('./lib/controllers/resource'),
     LogController = require('./lib/controllers/log'),
+    TestController = require('./lib/controllers/test'),
     Middleware = require('./lib/controllers/middleware');
 
 if (ConfigService.get('public.environment') === 'production') {
@@ -105,7 +106,7 @@ RedisService.setDiscounts(); // This is done asynchronously, so any discount que
 app.get('/discounts/:code', DiscountController.getCode);
 app.post('/discounts/refresh', FormController.body);
 app.post('/discounts/refresh', DiscountController.refresh);
-app.get('/admin/discounts', DiscountController.getDiscounts);
+app.post('/admin/discounts/breakCache', DiscountController.breakCache);
 
 
 /*
@@ -225,6 +226,12 @@ app.get('/user/:userId/resource/*', ResourceController.privateResource);
  */
 app.get('/admin/logs/:type', LogController.view);
 app.delete('/admin/logs/:type', LogController.delete);
+
+/*
+ * Test
+ */
+app.post('/admin/test/timeout', TestController.timeout);
+app.post('/admin/test/discounts', TestController.discounts);
 
 /*
  * Cron

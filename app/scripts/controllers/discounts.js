@@ -150,4 +150,13 @@ angular.module('quiverCmsApp')
 
         };
 
+        $scope.breakCache = function () {
+            AdminService.breakDiscountsCache().then(function () {
+                NotificationService.success('Discounts', 'Cache Broken');
+            }, function (err) {
+                console.warn(err);
+                NotificationService.error('Discounts', err.data);
+            });
+        }
+
     });

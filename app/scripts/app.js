@@ -1172,7 +1172,7 @@ angular.module('quiverCmsApp', [
                 }
             }
         },
-        authenticatedMasterAdminLogs: {
+        authenticatedMasterAdminLogs: { // ********************************  Logs ****************************
             abstract: true,
             url: '/logs',
             template: '<div ui-view></div>'
@@ -1186,6 +1186,11 @@ angular.module('quiverCmsApp', [
                     return AdminService.getLogs($stateParams.type);
                 }
             }
+        },
+        authenticatedMasterAdminTest: {
+            url: '/test',
+            templateUrl: '/views/admin-test.html',
+            controller: 'TestCtrl'
         },
         authenticatedMasterModerator: { // ************************************  Moderator ********************
             abstract: true,
@@ -1374,6 +1379,7 @@ angular.module('quiverCmsApp', [
         .state('authenticated.master.admin.landing-page', getState(states.authenticatedMasterAdminLandingPage))
         .state('authenticated.master.admin.logs', getState(states.authenticatedMasterAdminLogs))
         .state('authenticated.master.admin.logs.type', getState(states.authenticatedMasterAdminLogsType))
+        .state('authenticated.master.admin.test', getState(states.authenticatedMasterAdminTest))
         .state('authenticated.master.moderator', getState(states.authenticatedMasterModerator)) // Moderator
         .state('authenticated.master.moderator.dashboard', getState(states.authenticatedMasterModeratorDashboard))
         .state('authenticated.master.moderator.messages', getState(states.authenticatedMasterModeratorMessages))

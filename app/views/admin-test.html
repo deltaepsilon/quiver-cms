@@ -1,0 +1,41 @@
+<section>
+    <h3 class="headline"><span class="capitalize">Run Tests</h3>
+    <md-whiteframe class="md-whiteframe-z1" layout="row" layout-padding layout-wrap>
+        <md-list flex>
+            <md-item>
+                <md-item-content layout="row" layout-align="space-between center" layout-padding layout-wrap>
+                    <div class="max-14" flex>
+                        <md-button class="md-primary md-raised" ng-click="logEnv()">
+                            Log Environment
+                        </md-button>
+                    </div>
+                    <div flex ng-if="logEnvShow">
+                        Environment Logged. Check console.
+                    </div>
+                </md-item-content>
+                <md-divider></md-divider>
+                <md-item-content layout="row" layout-align="space-between center" layout-padding layout-wrap>
+                    <div class="max-14" flex>
+                        <md-button class="md-primary md-raised" ng-click="logDiscounts()">
+                            Log Discounts
+                        </md-button>
+                    </div>
+                    <div flex ng-if="logDiscountsMessage">
+                        {{ logDiscountsMessage }}
+                    </div>
+                </md-item-content>
+                <md-divider></md-divider>
+                <md-item-content layout="row" layout-align="space-between center" layout-padding layout-wrap>
+                    <div class="max-14" flex>
+                        <md-button class="md-primary md-raised" ng-click="testTimeout()">
+                            Test Timeout
+                        </md-button>
+                    </div>
+                    <div flex ng-if="testTimeoutMessage">
+                        {{ testTimeoutMessage }}
+                    </div>
+                </md-item-content>
+            </md-item>
+        </md-list>
+    </md-whiteframe>
+</section>

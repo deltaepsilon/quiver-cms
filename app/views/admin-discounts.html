@@ -1,9 +1,9 @@
 <section>
     <h3 class="headline">Discounts</h3>
     <md-whiteframe class="md-whiteframe-z1" layout="row" layout-padding layout-wrap>
-        <form>
+        <form class="width-100">
             <fieldset>
-                <div layout="row" layout-align="start start" layout-padding layout-wrap>
+                <div layout="row" layout-sm="column" layout-align="start start" layout-align-sm="center center" layout-padding layout-wrap>
                     <div class="select-wrapper" flex="33" flex-sm="100" style="margin-top: -2px;">
                         <md-select ng-model="newDiscount.type" ng-blur="validateNewDiscount()" placeholder="Discount Type">
                             <md-option value="percentage">Percentage</md-option>
@@ -47,9 +47,16 @@
                             Free Shipping
                         </md-checkbox>
                     </div>
-                    <md-button class="md-primary md-raised adjust-line-height max-10" flex ng-click="createDiscount(newDiscount)" ng-disabled="newDiscountForm.$invalid" qv-focus="#discount-type">
-                        Create
-                    </md-button>
+                    <div class="max-10" flex flex-sm="100">
+                        <md-button class="md-primary md-raised max-10" flex ng-click="createDiscount(newDiscount)" ng-disabled="newDiscountForm.$invalid" qv-focus="#discount-type">
+                            Create
+                        </md-button>
+                    </div>
+                    <div class="text-right" flex flex-sm="100">
+                        <md-button class="md-secondary md-raised max-10" flex ng-click="breakCache()">
+                            Break Cache
+                        </md-button>
+                    </div>
                 </div>
             </fieldset>
         </form>

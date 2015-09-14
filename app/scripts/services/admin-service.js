@@ -367,6 +367,14 @@ angular.module('quiverCmsApp')
 
             clearLogs: function (type) {
                 return Restangular.one('admin').one('logs').one(type).remove();  
+            },
+
+            getTest: function (type) {
+                return Restangular.one('admin').one('test').post(type);
+            },
+
+            breakDiscountsCache: function () {
+                return Restangular.one('admin').one('discounts').post('breakCache');  
             }
 
         }

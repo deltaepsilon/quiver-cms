@@ -166,17 +166,22 @@
     </section>
     <section>
         <md-toolbar class="md-hue-1">
-            <h5 class="md-toolbar-tools">Logs</h5>
+            <h5 class="md-toolbar-tools">Server</h5>
         </md-toolbar>
         <div layout="column" layout-padding>
             <div layout="row" flex qv-active>
                 <md-button class="md-primary text-left" flex layout-fill ui-sref="authenticated.master.admin.logs.type({type: 'cms'})">
-                    CMS Server
+                    CMS Server Logs
                 </md-button>
             </div>
             <div layout="row" flex qv-active>
                 <md-button class="md-primary text-left" flex layout-fill ui-sref="authenticated.master.admin.logs.type({type: 'content'})">
-                    Content Server
+                    Content Server Logs
+                </md-button>
+            </div>
+            <div layout="row" flex qv-active>
+                <md-button class="md-primary text-left" flex layout-fill ui-sref="authenticated.master.admin.test">
+                    Test
                 </md-button>
             </div>
         </div>
