@@ -11,5 +11,5 @@ angular.module('quiverCmsApp')
   .controller('TransactionsCtrl', function ($scope, items) {
     $scope.items = items;
 
-    $scope.orderBy = '-$priority';
+    $scope.orderBy = '-$id';
   });

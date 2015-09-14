@@ -9,16 +9,16 @@
             <input id="referer-search" type="text" ng-model="refererSearch" qv-enter="items = items.$orderByChild('referer').$startAt(refererSearch).$get(); orderBy = 'referer'" ng-focus="refererSearch = undefined;">
         </md-input-container>
         <span flex hide-sm></span>
-        <md-button class="md-icon-button" flex ng-click="items = items.$prev(); orderBy = '-$priority'; query = undefined;" ng-disabled="items.$prevDisabled" aria-label="list back">
+        <md-button class="md-icon-button" flex ng-click="items = items.$prev(); orderBy = '-$id'; query = undefined;" ng-disabled="items.$prevDisabled" aria-label="list back">
             <i class="mdi-navigation-arrow-back"></i>
         </md-button>
-        <md-button class="md-icon-button" flex ng-click="items = items.$next(); orderBy = '-$priority'; query = undefined;" ng-disabled="items.$nextDisabled" aria-label="list forward">
+        <md-button class="md-icon-button" flex ng-click="items = items.$next(); orderBy = '-$id'; query = undefined;" ng-disabled="items.$nextDisabled" aria-label="list forward">
             <i class="mdi-navigation-arrow-forward"></i>
         </md-button>
-        <md-button class="md-icon-button" flex ng-click="items = items.$more(); orderBy = '-$priority'; query = undefined;" ng-disabled="items.$moreDisabled" aria-label="list load more">
+        <md-button class="md-icon-button" flex ng-click="items = items.$more(); orderBy = '-$id'; query = undefined;" ng-disabled="items.$moreDisabled" aria-label="list load more">
             <i class="mdi-navigation-expand-more"></i>
         </md-button>
-        <md-button class="md-icon-button" flex ng-click="items = items.$reset(); orderBy = '-$priority'; query = undefined;" ng-disabled="items.$resetDisabled" aria-label="list reload">
+        <md-button class="md-icon-button" flex ng-click="items = items.$reset(); orderBy = '-$id'; query = undefined;" ng-disabled="items.$resetDisabled" aria-label="list reload">
             <i class="mdi-navigation-refresh"></i>
         </md-button>
     </div>
@@ -34,15 +34,18 @@
             <md-list layout="column">
                 <md-item ng-repeat="transaction in items | orderBy:orderBy">
                     <md-item-content class="extra-padding" layout="row" layout-sm="column" layout-align="space-between center" layout-padding layout-wrap style="padding-top: 2rem;">
-                        <md-button class="md-primary md-raised md-icon-button" ui-sref="authenticated.master.admin.transaction({key: transaction.$id, userId: transaction.userId})" aria-label="Go to transaction by {{ transactions.userEmail }}">
-                            <i class="mdi-content-forward"></i>
-                        </md-button>
+                        <strong class="max-4" flex>#{{ $index + 1 }}</strong>
+                        <div>
+                            <md-button class="md-fab md-primary md-mini md-raised" ui-sref="authenticated.master.admin.transaction({key: transaction.$id, userId: transaction.userId})" aria-label="Go to transaction by {{ transactions.userEmail }}">
+                                <i class="mdi-content-forward"></i>
+                            </md-button>
+                        </div>
                         <a class="truncate" flex ng-href="mailto:{{ ::transaction.userEmail }}">{{ ::transaction.userEmail }}<md-tooltip>{{ ::transaction.userEmail }}</md-tooltip></a>
-                        <div flex>
+                        <div class="max-7" flex>
                             <span ng-class="{'text-error': transaction.total && !transaction.charge.success}">{{ ::transaction.total | currency }}</span>
                             <div class="text-error text-xx-small" ng-show="transaction.total && !transaction.charge.success">{{ transaction.charge.message }}</div>
                         </div>
-                        <span flex>
+                        <span class="max-7" flex>
                             {{ ::transaction.productCount }} item(s)
                         </span>
                         <span flex>

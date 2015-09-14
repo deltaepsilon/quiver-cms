@@ -5,7 +5,7 @@ MAINTAINER Chris Esplin <chris@quiver.is>
 # Install Stuffs
 RUN apt-get update
 
-RUN apt-get install -y nodejs npm redis-server nginx
+RUN apt-get install -y nodejs npm redis-server nginx imagemagick
 
 RUN ln -s /usr/bin/nodejs /usr/bin/node
 RUN rm -f /etc/nginx/sites-enabled/default
