@@ -5,7 +5,7 @@ MAINTAINER Chris Esplin <chris@quiver.is>
 # Install Stuffs
 RUN apt-get update
 
-RUN apt-get install -y nodejs npm redis-server nginx imagemagick
+RUN apt-get install -y nodejs npm redis-server nginx
 
 RUN ln -s /usr/bin/nodejs /usr/bin/node
 RUN rm -f /etc/nginx/sites-enabled/default
@@ -34,5 +34,7 @@ RUN npm install --production
 
 EXPOSE 80
 EXPOSE 443
+
+# Install ImageMagick to enable file resizing.
 
 CMD service redis-server start; sh /src/bin/start.sh; nginx
