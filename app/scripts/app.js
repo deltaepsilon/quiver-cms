@@ -627,7 +627,7 @@ angular.module('quiverCmsApp', [
             controller: 'FindAssignmentCtrl',
             resolve: {
                 assignment: function (AdminService, $stateParams, $q, _) {
-                    return AdminService.getAssignments().$loaded().then(function (assignments) {
+                    return AdminService.getAllAssignments().$loaded().then(function (assignments) {
                         var deferred = $q.defer();
 
                         deferred.resolve(_.find(assignments, {slug: $stateParams.slug}));
