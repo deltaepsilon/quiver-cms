@@ -22,30 +22,35 @@ angular.module('quiverCmsApp')
          */
 
         var save = function(shipment) {
+            var modifyShipment = function(source, destination) {
+                _.each(source, function(value, key) {
+                    if (key.substr(0, 1) !== "$") {
+                        destination[key] = value;
+                    }
+                });
+
+                if (!source.shipped) {
+                    delete destination.shipped;
+                }
+                if (!source.comments) {
+                    delete destination.comments;
+                }
+                if (!source.tracking) {
+                    delete destination.tracking;
+                }
+
+                return destination;
+            };
+
             UserService.getShipment(shipment.transaction.user.public.id, shipment.keys.user).$loaded()
                 .then(function(userShipment) {
-                    _.each(shipment, function(value, key) {
-                        if (key.substr(0, 1) !== "$") {
-                            userShipment[key] = value;
-                        }
-                    });
-
-                    if (!shipment.shipped) {
-                        delete userShipment.shipped;
-                    }
-                    if (!shipment.comments) {
-                        delete userShipment.comments;
-                    }
-                    if (!shipment.tracking) {
-                        delete userShipment.tracking;
-                    }
-
-                    return userShipment.$save();
+                    return modifyShipment(shipment, userShipment).$save();
                 })
                 .then(function() {
-                    return $scope.items.$save(shipment);
-                })
-                .then(function() {
+                    return AdminService.getShipment(shipment.keys.log).$loaded();
+                }).then(function(logShipment) {
+                    return modifyShipment(shipment, logShipment).$save();
+                }).then(function() {
                     NotificationService.success('Saved');
                 }, function(err) {
                     NotificationService.error('Save Failed', err);
@@ -125,7 +130,7 @@ angular.module('quiverCmsApp')
                     verifyDataStructure();
                     $scope.$storage.shipment.toAddress = response.address;
                 }
-            }, function (error) {
+            }, function(error) {
                 NotificationService.error(error.data.message.message);
             });
 
@@ -326,9 +331,9 @@ angular.module('quiverCmsApp')
                             ShipmentService.saveQuote($scope.selectedShipment.$id, response.shipment);
                             NotificationService.success('Shipment created');
                             if (response.shipment.messages && response.shipment.messages.length) {
-                                _.each(response.shipment.messages, function (message) {
+                                _.each(response.shipment.messages, function(message) {
                                     console.warn(message.message);
-                                    NotificationService.notify('Shipment issue', message.message); 
+                                    NotificationService.notify('Shipment issue', message.message);
                                 });
                             }
                             delete $scope.creatingShipment;
@@ -343,7 +348,7 @@ angular.module('quiverCmsApp')
                         $scope.verifying = true;
                         createAddress(address).then(function() {
                             delete $scope.verifying;
-                        }, function () {
+                        }, function() {
                             delete $scope.verifying;
                         });
                     };
