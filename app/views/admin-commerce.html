@@ -106,7 +106,7 @@
                     </md-button>
                     <md-list flex="100">
                         <md-item ng-repeat="state in states">
-                            <md-item-content layout="row" layout-align="space-between center" layout-padding layout-wrap ng-class="{disabled: !commerce.states[state.abbreviation].enabled}">
+                            <md-item-content layout="row" layout-align="space-between center" layout-padding layout-wrap>
                                 <md-checkbox ng-model="commerce.states[state.abbreviation].enabled">
                                     {{ state.name }}
                                 </md-checkbox>
@@ -132,7 +132,7 @@
                     </md-button>
                     <md-list flex="100">
                         <md-item ng-repeat="country in countries">
-                            <md-item-content layout="row" layout-align="space-between center" layout-padding layout-wrap ng-class="{disabled: !commerce.countries[country['alpha-2']].enabled}">
+                            <md-item-content layout="row" layout-align="space-between center" layout-padding layout-wrap>
                                 <md-checkbox ng-model="commerce.countries[country['alpha-2']].enabled">
                                     {{ country.name }}
                                 </md-checkbox>
