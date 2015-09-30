@@ -10,7 +10,7 @@
         </md-input-container>
         <md-input-container flex flex-sm="100">
             <label for="filter">Filter</label>
-            <input id="filter" type="text" ng-show="items.length" ng-model="authorFilter" ng-focus="authorFilter = ''" placeholder="Search..." />
+            <input id="filter" type="text" ng-show="items.length" ng-model="authorFilter" ng-focus="authorFilter = ''"/>
         </md-input-container>
         <div class="md-select-wrapper" flex flex-sm="100">
             <md-select class="" ng-model="query.type" ng-change="items = items.$orderByChild('type').$equalTo(query.type).$get(); orderBy = 'type';" placeholder="Filter by Type" style="margin-top: 21px; margin-bottom: 0;">

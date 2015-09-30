@@ -5,7 +5,7 @@
             <div layout="row" layout-sm="column" layout-align="start center" layout-padding>
                 <md-input-container flex>
                     <label for="new-word-title">New Word Title</label>
-                    <input id="new-word-title" flex type="text" ng-model="newWordTitle" placeholder="New word title..." required/>
+                    <input id="new-word-title" flex type="text" ng-model="newWordTitle" required/>
                 </md-input-container>
                 <div flex="10" flex-sm="100">
                     <md-button class="md-raised md-primary" ng-click="createWord(newWordTitle)" ng-disabled="newWordForm.$invalid" qv-focus="#new-word-title">Create</md-button>

@@ -3,8 +3,8 @@
         <md-whiteframe class="md-whiteframe-z1" layout="row" layout-align="start start" layout-padding layout-wrap>
             <h3 class="headline" flex="100">Admin Settings</h3>
             <md-input-container flex="100">
-                <label for="braintree-root">Braintree Root Url</label>
-                <input id="braintree-root" type="text" ng-model="adminSettings.braintreeRoot" placeholder="https://braintreegateway.com/merchants/YOURMERCHANTID">
+                <label for="braintree-root">Braintree Gateway: https://braintreegateway.com/merchants/YOURMERCHANTID</label>
+                <input id="braintree-root" type="text" ng-model="adminSettings.braintreeRoot">
             </md-input-container>
         </md-whiteframe>
     </section>
@@ -28,7 +28,7 @@
                     <span class="padding-zero-important" flex="100"></span>
                     <md-input-container flex="33" flex-sm="100">
                         <label for="site-title">Site Title</label>
-                        <input id="site-title" type="text" ng-model="settings.siteTitle" ng-model-options="{debounce: {'default': 500, 'blur': 0}}" placeholder="Site title..." />
+                        <input id="site-title" type="text" ng-model="settings.siteTitle" ng-model-options="{debounce: {'default': 500, 'blur': 0}}" />
                     </md-input-container>
                     <md-input-container flex="33" flex-sm="100">
                         <label for="logo">Logo</label>

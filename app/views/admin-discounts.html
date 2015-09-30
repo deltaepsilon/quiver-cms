@@ -12,7 +12,7 @@
                     </div>
                     <md-input-container flex="33" flex-sm="100" ng-if="newDiscount.type == 'percentage'">
                         <label for="discount-percentage">Discount Percentage</label>
-                        <input id="discount-percentage" type="number" min="0" max="100" ng-model="newDiscount.percentage" ng-blur="validateNewDiscount()" placeholder="0-100...">
+                        <input id="discount-percentage" type="number" min="0" max="100" ng-model="newDiscount.percentage" ng-blur="validateNewDiscount()">
                     </md-input-container>
                     <md-input-container flex="33" flex-sm="100" ng-if="newDiscount.type === 'value'">
                         <label for="discount-value">Discount Value</label>

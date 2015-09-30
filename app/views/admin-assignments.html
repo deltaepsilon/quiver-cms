@@ -5,7 +5,7 @@
             <div layout="row" layout-sm="column" layout-align="start center" layout-align-sm="center center" layout-padding>
                 <md-input-container flex>
                     <label for="new-assignment-title">New Assignment Title</label>
-                    <input id="new-assignment-title" type="text" ng-model="newAssignmentTitle" placeholder="New Title..." required/>
+                    <input id="new-assignment-title" type="text" ng-model="newAssignmentTitle" required/>
                 </md-input-container>
                 <div flex>
                     <md-button class="md-raised md-primary min-10 max-10" ng-click="createAssignment(newAssignmentTitle)" ng-disabled="newAssignmentForm.$invalid" qv-focus="#new-assignment-title">Create</md-button>

@@ -5,7 +5,7 @@
             <div layout="row" layout-align="space-between center" layout-padding>
                 <md-input-container flex>
                     <label for="new-hashtag">New Hashtag</label>
-                    <input id="new-hashtag" type="text" ng-model="newHashtag" placeholder="New Hashtag..." required/>
+                    <input id="new-hashtag" type="text" ng-model="newHashtag" required/>
                 </md-input-container>
                 <div class="max-7 text-right" flex>
                     <md-button class="md-primary md-raised max-10 adjust-line-height" ng-click="createHashtag(newHashtag)" ng-disabled="newHashtagForm.$invalid" qv-focus="#new-hashtag">
