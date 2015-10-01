@@ -102,3 +102,43 @@
         </md-list>
     </md-whiteframe>
 </section>
+<section>
+    <h3 class="headline">Generate Affiliate Links</h3>
+    <md-whiteframe class="md-whiteframe-z1" layout="column" layout-padding layout-wrap>
+        <form>
+            <div layout="row" layout-sm="column" layout-padding layout-wrap>
+                <md-input-container flex="50" ng-if="products.length">
+                    <md-select ng-model="affiliateLink.product" aria-label="affiliate product">
+                        <md-option ng-value="">Pick a Product</md-option>
+                        <md-option ng-value="product.slug" ng-repeat="product in products">{{ product.title }}</md-option>
+                    </md-select>
+                </md-input-container>
+                <md-input-container flex="50" ng-if="getOptions(affiliateLink).length">
+                    <md-select ng-model="affiliateLink.option" aria-label="affiliate product option">
+                        <md-option ng-value="">Pick a Product Option</md-option>
+                        <md-option ng-value="option.slug" ng-repeat="option in getOptions(affiliateLink)">{{ option.name }}</md-option>
+                    </md-select>
+                </md-input-container>
+                <md-input-container flex="100">
+                    <label for="affiliate-discount-code">Discount Code</label>
+                    <input id="affiliate-discount-code" type="text" ng-model="affiliateLink.code">
+                </md-input-container>
+                <md-input-container flex>
+                    <label for="affiliate-referral">Referral</label>
+                    <input id="affiliate-referral" type="text" ng-model="affiliateLink.referral">
+                </md-input-container>
+                <md-input-container flex>
+                    <label for="affiliate-creative">Creative</label>
+                    <input id="affiliate-creative" type="text" ng-model="affiliateLink.creative">
+                </md-input-container>
+                <md-input-container flex>
+                    <label for="affiliate-position">Position</label>
+                    <input id="affiliate-position" type="text" ng-model="affiliateLink.position">
+                </md-input-container>
+                <div flex="100">
+                    <a href="{{ getAffiliateLink(affiliateLink) }}">{{ getAffiliateLink(affiliateLink) }}</a>
+                </div>
+            </div>
+        </form>
+    </md-whiteframe>
+</section>

@@ -707,6 +707,9 @@ angular.module('quiverCmsApp', [
                 },
                 backups: function(AdminService) {
                     return AdminService.getBackups();
+                },
+                products: function (AdminService) {
+                    return AdminService.getAllProducts();
                 }
             }
         },
