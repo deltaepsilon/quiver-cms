@@ -1230,7 +1230,12 @@ angular.module('quiverCmsApp', [
         authenticatedMasterModeratorDashboard: { // ***************************  Moderator ********************
             url: '/dashboard',
             templateUrl: 'views/moderator-dashboard.html',
-            controller: 'ModeratorDashboardCtrl'
+            controller: 'ModeratorDashboardCtrl',
+            resolve: {
+                products: function (AdminService) {
+                    return AdminService.getAllProducts();
+                }
+            }
         },
         authenticatedMasterModeratorMessages: { // ***************************  Messages *************************
             abstract: true,

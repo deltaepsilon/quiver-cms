@@ -70,38 +70,6 @@
         </md-list>
     </md-whiteframe>
 </section>
-<div class="padding-large"></div>
-<section layout="row" layout-sm="column" layout-align="start center">
-    <h3 class="headline" flex flex-order="1">Backups</h3>
-    <div class="max-7" flex flex-order="1" flex-order-sm="2">
-        <md-progress-circular flex md-mode="indeterminate" qv-loading ng-class="{invisible: !runningBackup && !updatingBackups}"></md-progress-circular>
-    </div>
-    <md-button class="md-warn md-raised max-10" flex flex-order="1" ng-click="runBackup()" ng-disabled="runningBackup">
-        Run
-    </md-button>
-    <md-button class="md-warn md-raised max-10" flex flex-order="1" ng-click="updateBackups()" ng-disabled="updatingBackups">
-        Update
-    </md-button>
-    <md-button class="md-primary md-raised md-icon-button" flex flex-order="1" ng-click="$storage.hideDashboardBackups = !$storage.hideDashboardBackups" aria-label="Hide dashboard backups">
-        <i ng-class="{'mdi-navigation-expand-less': $storage.hideDashboardBackups, 'mdi-navigation-expand-more': !$storage.hideDashboardBackups}"></i>
-    </md-button>
-</section>
-<section ng-if="!$storage.hideDashboardBackups && backups.length">
-    <md-whiteframe class="md-whiteframe-z1" layout="row" layout-padding layout-wrap ng-if="!$storage.hideSurveysReport">
-        <md-list flex>
-            <md-item ng-repeat="backup in backups | orderBy:'-$id'">
-                <md-item-content layout="row" layout-sm="column" layout-align="space-between center" layout-padding layout-wrap>
-                    <md-button class="md-primary md-raised md-icon-button adjust-mdi" flex ng-href="/api/admin/backup/download/{{ backup.Filename }}?email={{ user.email }}&uid={{ currentUser.uid }}&provider={{ currentUser.provider }}&authorization={{ currentUser.token }}" target="_blank" download aria-label="Download backup">
-                        <i class="mdi-file-file-download"></i>
-                    </md-button>
-                    <span flex>{{ backup.Key }}</span>
-                    <span class="text-right" flex>{{ backup.Size | filesize }}</span>
-                </md-item-content>
-                <md-divider ng-if="!$last"></md-divider>
-            </md-item>
-        </md-list>
-    </md-whiteframe>
-</section>
 <section>
     <h3 class="headline">Generate Affiliate Links</h3>
     <md-whiteframe class="md-whiteframe-z1" layout="column" layout-padding layout-wrap>
@@ -140,5 +108,37 @@
                 </div>
             </div>
         </form>
+    </md-whiteframe>
+</section>
+<div class="padding-large"></div>
+<section layout="row" layout-sm="column" layout-align="start center">
+    <h3 class="headline" flex flex-order="1">Backups</h3>
+    <div class="max-7" flex flex-order="1" flex-order-sm="2">
+        <md-progress-circular flex md-mode="indeterminate" qv-loading ng-class="{invisible: !runningBackup && !updatingBackups}"></md-progress-circular>
+    </div>
+    <md-button class="md-warn md-raised max-10" flex flex-order="1" ng-click="runBackup()" ng-disabled="runningBackup">
+        Run
+    </md-button>
+    <md-button class="md-warn md-raised max-10" flex flex-order="1" ng-click="updateBackups()" ng-disabled="updatingBackups">
+        Update
+    </md-button>
+    <md-button class="md-primary md-raised md-icon-button" flex flex-order="1" ng-click="$storage.hideDashboardBackups = !$storage.hideDashboardBackups" aria-label="Hide dashboard backups">
+        <i ng-class="{'mdi-navigation-expand-less': $storage.hideDashboardBackups, 'mdi-navigation-expand-more': !$storage.hideDashboardBackups}"></i>
+    </md-button>
+</section>
+<section ng-if="!$storage.hideDashboardBackups && backups.length">
+    <md-whiteframe class="md-whiteframe-z1" layout="row" layout-padding layout-wrap ng-if="!$storage.hideSurveysReport">
+        <md-list flex>
+            <md-item ng-repeat="backup in backups | orderBy:'-$id'">
+                <md-item-content layout="row" layout-sm="column" layout-align="space-between center" layout-padding layout-wrap>
+                    <md-button class="md-primary md-raised md-icon-button adjust-mdi" flex ng-href="/api/admin/backup/download/{{ backup.Filename }}?email={{ user.email }}&uid={{ currentUser.uid }}&provider={{ currentUser.provider }}&authorization={{ currentUser.token }}" target="_blank" download aria-label="Download backup">
+                        <i class="mdi-file-file-download"></i>
+                    </md-button>
+                    <span flex>{{ backup.Key }}</span>
+                    <span class="text-right" flex>{{ backup.Size | filesize }}</span>
+                </md-item-content>
+                <md-divider ng-if="!$last"></md-divider>
+            </md-item>
+        </md-list>
     </md-whiteframe>
 </section>
