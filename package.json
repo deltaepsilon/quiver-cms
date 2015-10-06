@@ -1,6 +1,6 @@
 {
   "name": "quiver-cms",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "dependencies": {
     "aftership": "^4.1.4",
     "aws-sdk": "~2.2.6",
