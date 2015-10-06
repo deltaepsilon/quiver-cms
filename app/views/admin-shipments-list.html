@@ -2,19 +2,19 @@
     <div flex="100" layout="row" layout-align="start center" layout-align-sm="center center" layout-padding layout-wrap>
         <md-input-container flex flex-sm="100">
             <label for="list-search">Search by Email</label>
-            <input id="list-search" type="text" ng-model="searchTerm" qv-enter="items = items.$orderByChild('email').$startAt(searchTerm).$get(); orderBy = 'email'" ng-focus="searchTerm = undefined;" auto-enter="searchTerm">
+            <input id="list-search" type="text" ng-model="searchTerm" qv-enter="items = items.$orderByChild('email').$startAt(searchTerm).$get();" ng-focus="searchTerm = undefined;" auto-enter="searchTerm">
         </md-input-container>
         <span flex hide-sm></span>
-        <md-button class="md-icon-button" flex ng-click="items = items.$prev(); orderBy = '-$id'; searchTerm = undefined;" ng-disabled="items.$prevDisabled" aria-label="list back">
+        <md-button class="md-icon-button" flex ng-click="items = items.$prev(); searchTerm = undefined;" ng-disabled="items.$prevDisabled" aria-label="list back">
             <i class="mdi-navigation-arrow-back"></i>
         </md-button>
-        <md-button class="md-icon-button" flex ng-click="items = items.$next(); orderBy = '-$id'; searchTerm = undefined;" ng-disabled="items.$nextDisabled" aria-label="list forward">
+        <md-button class="md-icon-button" flex ng-click="items = items.$next(); searchTerm = undefined;" ng-disabled="items.$nextDisabled" aria-label="list forward">
             <i class="mdi-navigation-arrow-forward"></i>
         </md-button>
-        <md-button class="md-icon-button" flex ng-click="items = items.$more(); orderBy = '-$id'; searchTerm = undefined;" ng-disabled="items.$moreDisabled" aria-label="list load more">
+        <md-button class="md-icon-button" flex ng-click="items = items.$more(); searchTerm = undefined;" ng-disabled="items.$moreDisabled" aria-label="list load more">
             <i class="mdi-navigation-expand-more"></i>
         </md-button>
-        <md-button class="md-icon-button" flex ng-click="items = items.$reset(); orderBy = '-$id'; searchTerm = undefined;" ng-disabled="items.$resetDisabled" aria-label="list reload">
+        <md-button class="md-icon-button" flex ng-click="items = items.$reset(); searchTerm = undefined;" ng-disabled="items.$resetDisabled" aria-label="list reload">
             <i class="mdi-navigation-refresh"></i>
         </md-button>
     </div>
@@ -28,7 +28,7 @@
         </md-list>
         <section>
             <md-list layout="column">
-                <md-item ng-repeat="shipment in items | orderBy:orderBy">
+                <md-item ng-repeat="shipment in items | orderBy:'created':'desc'">
                     <md-item-content class="extra-padding" layout="column" layout-align="start center" layout-gt-md="row" layout-align-gt-md="space-between end" layout-padding layout-wrap style="padding-top: 2rem;">
                         <div class="max-5" flex>
                             <md-button class="md-primary md-raised md-icon-button" ng-click="selectShipment($event, shipment)" aria-label="Select shipment {{ $index }}">
