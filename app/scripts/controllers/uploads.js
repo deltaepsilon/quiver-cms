@@ -8,7 +8,7 @@
  * Controller of the quiverCmsApp
  */
 angular.module('quiverCmsApp')
-    .controller('UploadsCtrl', function($scope, AdminService, items) {
+    .controller('UploadsCtrl', function($scope, AdminService, ModeratorService, items) {
         /*
          * Items
          */
@@ -17,7 +17,7 @@ angular.module('quiverCmsApp')
         /*
          * Flags
          */
-        $scope.incrementUploadFlag = AdminService.incrementUploadFlag;
+        $scope.incrementUploadFlag = ModeratorService.incrementUploadFlag;
 
         /*
          * Uploads
@@ -43,9 +43,6 @@ angular.module('quiverCmsApp')
         $scope.remove = function(upload) {
             AdminService.getUpload(upload.$id).$remove();
         };
-
-        $scope.incrementUploadFlag = AdminService.incrementUploadFlag;
-
 
         $scope.searchField = 'userEmail';
         $scope.setSearch = function(term) {

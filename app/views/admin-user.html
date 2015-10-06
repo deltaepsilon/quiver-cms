@@ -45,15 +45,24 @@
             <span flex="25">Created</span>
             <span class="text-right" flex="75">{{ user.created | moment:"MM/DD/YYYY hh:mm" }}</span>
             <span flex="25">Password</span>
-            <span class="text-right" flex="75">{{ user.password || 'n/a' }}</span>
+            <div class="text-right" flex="75">
+                <a ng-href="{{ env.firebase.endpoint }}/acl/{{ user.password }}" target="_blank">{{ user.password }}</a>
+                <span ng-if="!user.password">n/a</span>
+            </div>
             <div flex="10">
                 <i class="qv qv-google-plus"></i>
             </div>
-            <span class="text-right" flex="90">{{ user.google || 'n/a' }}</span>
+            <div class="text-right" flex="90">
+                <a ng-href="{{ env.firebase.endpoint }}/acl/{{ user.google }}" target="_blank">{{ user.google }}</a>
+                <span ng-if="!user.google">n/a</span>
+            </div>
             <div flex="10">
                 <i class="qv qv-facebook"></i>
             </div>
-            <span class="text-right" flex="90">{{ user.facebook || 'n/a' }}</span>
+            <div class="text-right" flex="90">
+                <a ng-href="{{ env.firebase.endpoint }}/acl/{{ user.facebook }}" target="_blank">{{ user.facebook }}</a>
+                <span ng-if="!user.facebook">n/a</span>
+            </div>
             <div flex="100">
                 <md-checkbox ng-model="user.isAdmin">
                     Admin

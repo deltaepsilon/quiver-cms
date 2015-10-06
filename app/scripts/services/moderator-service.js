@@ -9,7 +9,23 @@
  */
 angular.module('quiverCmsApp')
     .service('ModeratorService', function($firebaseObject, $firebaseArray, env, Restangular, FirebaseService, $localStorage, $state, moment) {
-        var firebaseEndpoint = env.firebase.endpoint;
+        var firebaseEndpoint = env.firebase.endpoint,
+            maxFlag = 3,
+            getIncrementer = function(type) {
+                return function(entry) {
+                    var logFlagRef = new Firebase(firebaseEndpoint + '/logs/' + type + '/' + entry.keys.log + '/flag'),
+                        moderatorFlagRef = new Firebase(firebaseEndpoint + '/moderator/' + type + '/' + entry.assignmentKey + '/' + entry.keys.moderator + '/flag'),
+                        incrementer = function(i) {
+                            return i >= maxFlag ? 0 : (i || 0) + 1;
+                        },
+                        errorHandler = function(err) {
+                            return err ? console.warn('incrementMessageFlag error', err) : false;
+                        };
+
+                    logFlagRef.transaction(incrementer, errorHandler);
+                    moderatorFlagRef.transaction(incrementer, errorHandler);
+                };
+            };
 
         return {
             getMessages: function(key, query) {
@@ -20,24 +36,8 @@ angular.module('quiverCmsApp')
                 return FirebaseService.paginatingArray(new Firebase(firebaseEndpoint + '/moderator/uploads/' + key), query);
             },
 
-            incrementMessageFlag: function(assignmentKey, messageKey) {
-                return $firebaseObject(new Firebase(firebaseEndpoint + '/moderator/messages/' + assignmentKey + '/' + messageKey)).$loaded().then(function(message) {
-                    message.flag = (message.flag || 0) + 1
-                    if (message.flag > 3) {
-                        message.flag = 0;
-                    }
-                    return message.$save();
-                });
-            },
+            incrementMessageFlag: getIncrementer('messages'),
 
-            incrementUploadFlag: function(assignmentKey, messageKey) {
-                return $firebaseObject(new Firebase(firebaseEndpoint + '/moderator/uploads/' + assignmentKey + '/' + messageKey)).$loaded().then(function(upload) {
-                    upload.flag = (upload.flag || 0) + 1
-                    if (upload.flag > 3) {
-                        upload.flag = 0;
-                    }
-                    return upload.$save();
-                });
-            }
+            incrementUploadFlag: getIncrementer('uploads')
         };
     });
