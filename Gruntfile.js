@@ -29,7 +29,9 @@ module.exports = function(grunt) {
             reloadRef = new Firebase(firebaseEndpoint + '/settings/reload');
 
         reloadRef.authWithCustomToken(firebaseSecret, function(error, authData) {
-            reloadRef.transaction(function(reload) { return (reload || 0) + 1; }, done);
+            reloadRef.transaction(function(reload) {
+                return (reload || 0) + 1;
+            }, done);
         });
     });
 
@@ -353,15 +355,15 @@ module.exports = function(grunt) {
         //     }
         //   }
         // },
-        // uglify: {
-        //   dist: {
-        //     files: {
-        //       '<%= yeoman.dist %>/scripts/scripts.js': [
-        //         '<%= yeoman.dist %>/scripts/scripts.js'
-        //       ]
-        //     }
-        //   }
-        // },
+        uglify: {
+            dist: {
+                files: {
+                    // '.tmp/concat/scripts/scripts.js': ['.tmp/concat/scripts/scripts.js'],
+                    '.tmp/concat/scripts/vendor.js': ['.tmp/concat/scripts/vendor.js']
+
+                }
+            }
+        },
         // concat: {
         //   dist: {}
         // },
@@ -415,7 +417,7 @@ module.exports = function(grunt) {
         'copy:dist',
         'cdnify',
         'cssmin',
-        //    'uglify',
+        'uglify',
         'copy:scripts',
         'rev',
         'usemin'
@@ -440,4 +442,4 @@ module.exports = function(grunt) {
         'test',
         'build'
     ]);
-}; 
+};
