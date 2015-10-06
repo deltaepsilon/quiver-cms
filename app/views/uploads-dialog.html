@@ -11,7 +11,10 @@
             </md-item>
         </md-list>
     </md-content>
+    <md-button class="md-fab md-mini" ng-click="rotateImage(image)" style="position: absolute; top: 0; right: 3rem;">
+        <i class="mdi-image-rotate-right"></i>
+    </md-button>
     <a flex flex-order="3" class="text-center" ng-href="{{ image.url }}" target="_blank">
-        <img ng-class="{'disabled': image.disabled}" ng-src="{{ image.url }}" alt="{{ image.Name }}" title="{{ image.Name }} ({{ image.Size / 1000 | number:0 }}kb)" style="max-height: 90vh;">
+        <img ng-class="{'disabled': image.disabled}" ng-src="{{ image.url }}" alt="{{ image.Name }}" title="{{ image.Name }} ({{ image.Size / 1000 | number:0 }}kb)" style="max-height: 90vh; transform: rotate({{ image.rotation }}deg)">
     </a>
 </md-dialog>

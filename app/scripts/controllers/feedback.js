@@ -57,11 +57,20 @@ angular.module('quiverCmsApp')
         $scope.openGallery = function(e, image, uploads) {
             $mdDialog.show({
                 controller: function($scope, $mdDialog) {
+                    var imageRotationIncrement = 90;
+
                     $scope.cancel = $mdDialog.cancel;
                     $scope.image = image;
                     $scope.uploads = uploads;
                     $scope.selectImage = function(image) {
                         $scope.image = image;
+                    };
+                    $scope.rotateImage = function (image) {
+                        image.rotation = (image.rotation || 0) + imageRotationIncrement;
+                        
+                        if (image.rotation >= 360) {
+                            image.rotation = 0;
+                        }
                     };
                 },
                 templateUrl: "views/uploads-dialog.html",
