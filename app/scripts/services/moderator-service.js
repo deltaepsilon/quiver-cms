@@ -13,17 +13,21 @@ angular.module('quiverCmsApp')
             maxFlag = 3,
             getIncrementer = function(type) {
                 return function(entry) {
-                    var logFlagRef = new Firebase(firebaseEndpoint + '/logs/' + type + '/' + entry.keys.log + '/flag'),
-                        moderatorFlagRef = new Firebase(firebaseEndpoint + '/moderator/' + type + '/' + entry.assignmentKey + '/' + entry.keys.moderator + '/flag'),
-                        incrementer = function(i) {
+                    var incrementer = function(i) {
                             return i >= maxFlag ? 0 : (i || 0) + 1;
                         },
                         errorHandler = function(err) {
                             return err ? console.warn('incrementMessageFlag error', err) : false;
                         };
 
-                    logFlagRef.transaction(incrementer, errorHandler);
-                    moderatorFlagRef.transaction(incrementer, errorHandler);
+                    if (entry.keys && entry.keys.log) {
+                        (new Firebase(firebaseEndpoint + '/logs/' + type + '/' + entry.keys.log + '/flag')).transaction(incrementer, errorHandler);
+                    }
+
+                    if (entry.keys && entry.keys.moderator) {
+                        (new Firebase(firebaseEndpoint + '/moderator/' + type + '/' + entry.assignmentKey + '/' + entry.keys.moderator + '/flag')).transaction(incrementer, errorHandler);
+                    }
+
                 };
             };
 
