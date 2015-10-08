@@ -19,9 +19,7 @@
     <link rel="apple-touch-icon" type="image/png" href="static/apple-touch-icon.png" />
     <link rel="apple-touch-icon" type="image/png" sizes="72x72" href="static/apple-touch-icon72px.png" />
     <link rel="apple-touch-icon" type="image/png" sizes="114x114" href="static/apple-touch-icon114px.png" />
-    <link rel="stylesheet" href="/static/lib/angular-material/angular-material.css">
-    <link rel="stylesheet" href="/static/styles/style.css">
-    <link rel="stylesheet" href="/static/lib/rainbow/themes/github.css">
+    <link rel="stylesheet" href="/static/styles/all-style.min.css">
     <script src="/env.js"></script>
     <meta name="viewport" content="initial-scale=1, maximum-scale=1" />
 </head>
@@ -89,24 +87,7 @@
         </div>
     </div>
     {{#if env.liveReload }} {{> livereload}} {{/if }} {{#if env.google.analyticsId }} {{> analytics }} {{/if }} {{> disqus-comment-count }}
-    <script src="/static/lib/rainbow/js/rainbow.js"></script>
-    <script src="/static/lib/jquery/dist/jquery.min.js"></script>
-    <script src="/static/lib/jquery.finger/dist/jquery.finger.js"></script>
-    <script src="/static/lib/angular/angular.js"></script>
-    <script src="/static/lib/angular-animate/angular-animate.js"></script>
-    <script src="/static/lib/angular-aria/angular-aria.js"></script>
-    <script src="/static/lib/angular-material/angular-material.js"></script>
-    <script src="/static/lib/ngstorage/ngStorage.js"></script>
-    <script src="/static/lib/moment/min/moment.min.js"></script>
-    <script src="/static/lib/underscore/underscore-min.js"></script>
-    <script src="/static/lib/angular-notifications/notification.js"></script>
-    <script src="/static/lib/firebase/firebase.js"></script>
-    <script src="/static/lib/angularfire/dist/angularfire.js"></script>
-    <script src="/static/lib/angular-ui-router/release/angular-ui-router.js"></script>
-    <script src="/static/lib/quiver-angular-utilities/utilities.js"></script>
-    <script src="/static/lib/angularfire-authentication/angularfire-authentication.js"></script>
-    <script src="/static/lib/angular-md5/angular-md5.js"></script>
-    <script src="/static/lib/angular-google-analytics/dist/angular-google-analytics.js"></script>
+    <script src="/static/scripts/vendor.js"></script>
     <script src="/static/scripts/app.js"></script>
 </body>
 
