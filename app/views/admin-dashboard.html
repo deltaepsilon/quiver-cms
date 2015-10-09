@@ -127,7 +127,7 @@
     </md-button>
 </section>
 <section ng-if="!$storage.hideDashboardBackups && backups.length">
-    <md-whiteframe class="md-whiteframe-z1" layout="row" layout-padding layout-wrap ng-if="!$storage.hideSurveysReport">
+    <md-whiteframe class="md-whiteframe-z1" layout="row" layout-padding layout-wrap ng-if="!$storage.hideDashboardBackups">
         <md-list flex>
             <md-item ng-repeat="backup in backups | orderBy:'-$id'">
                 <md-item-content layout="row" layout-sm="column" layout-align="space-between center" layout-padding layout-wrap>
