@@ -1,6 +1,12 @@
 {
   "name": "quiver-cms",
   "version": "1.0.4",
+  "description" : "A CMS build on Angular, Firebase, Express and Node",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/deltaepsilon/quiver-cms.git"
+  },
+  "license": "MIT",
   "dependencies": {
     "aftership": "^4.1.4",
     "aws-sdk": "~2.2.6",
@@ -67,7 +73,7 @@
     "time-grunt": "~1.2.1"
   },
   "engines": {
-    "node": ">=0.8.0"
+    "node": ">=0.10.0"
   },
   "scripts": {
     "test": "grunt test"
