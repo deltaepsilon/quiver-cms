@@ -1,20 +1,22 @@
-<md-dialog class="padding-medium" layout="row" layout-align="start start" layout-padding layout-wrap style="min-width: 95vw; min-height: 95vh;">
+<md-dialog class="padding-medium" layout="row" layout-sm="column" layout-align="start start" layout-padding layout-wrap style="min-width: 95vw; min-height: 95vh;">
     <md-button class="md-icon-button md-warn md-raised absolute" ng-click="cancel()" style="top: .5rem; right: .5rem;" aria-label="Close image dialog" style="z-index: 1;">
         <i class="mdi-content-clear"></i>
     </md-button>
-    <md-content class="max-20" flex flex-order="2" style="max-height: 90vh;">
-        <md-list layout="row" layout-align="start start" layout-padding layout-wrap>
-            <md-item flex="100" ng-repeat="upload in uploads">
-                <md-item-content ng-class="{disabled: upload.url == image.url}">
-                    <img class="cursor-pointer" ng-class="{'disabled': image.disabled}" ng-click="selectImage(upload)" ng-src="{{ upload.url }}" alt="{{ upload.Name }}" title="{{ upload.Name }} ({{ image.Size / 1000 | number:0 }}kb)">
-                </md-item-content>
-            </md-item>
-        </md-list>
-    </md-content>
+    <div class="max-20" flex flex-order-"2" style="max-height: 90vh;">
+        <md-content>
+            <md-list layout="row" layout-align="start start" layout-padding layout-wrap>
+                <md-item flex="100" ng-repeat="upload in uploads">
+                    <md-item-content ng-class="{disabled: upload.url == image.url}">
+                        <img class="cursor-pointer" ng-class="{'disabled': image.disabled}" ng-click="selectImage(upload)" ng-src="{{ upload.url }}" alt="{{ upload.Name }}" title="{{ upload.Name }} ({{ image.Size / 1000 | number:0 }}kb)">
+                    </md-item-content>
+                </md-item>
+            </md-list>
+        </md-content>
+    </div>
     <md-button class="md-fab md-mini" ng-click="rotateImage(image)" style="position: absolute; top: 0; right: 3rem;">
         <i class="mdi-image-rotate-right"></i>
     </md-button>
-    <a flex flex-order="3" class="text-center" ng-href="{{ image.url }}" target="_blank">
-        <img ng-class="{'disabled': image.disabled}" ng-src="{{ image.url }}" alt="{{ image.Name }}" title="{{ image.Name }} ({{ image.Size / 1000 | number:0 }}kb)" style="max-height: 90vh; transform: rotate({{ image.rotation }}deg)">
+    <a flex flex-order="3" class="text-center" ng-href="{{ image.url }}" target="_blank" style="height: 90vh;" layout="column" layout-align="center center">
+        <img ng-class="{'disabled': image.disabled}" ng-src="{{ image.url }}" alt="{{ image.Name }}" title="{{ image.Name }} ({{ image.Size / 1000 | number:0 }}kb)" style="max-height: 90vh; max-width: 90vh; transform: rotate({{ image.rotation }}deg)">
     </a>
 </md-dialog>
