@@ -30,7 +30,7 @@
             <md-list layout="column">
                 <md-item ng-repeat="upload in items | orderBy:'created'">
                     <md-item-content layout="row" layout-sm="column" layout-align="space-between center" layout-padding layout-wrap>
-                        <span class="bold" flex flex-order="1" style="max-width: 10rem;">{{ $index + 1 }}: {{ upload.date | moment:"MMM DD, hh:mm" }}</span>
+                        <span class="bold" flex flex-order="1" style="max-width: 10rem;">{{ $index + 1 }}: {{ upload.created | moment:"MMM DD, hh:mm" }}</span>
                         <span class="truncate" flex flex-order="2">{{ upload.userEmail }}</span>
                         <span class="truncate" flex flex-order="2">{{ upload.assignmentTitle }}</span>
                         <a class="undecorated" flex="33" flex-sm="100" flex-order="3" flex-order-sm="9" ui-sref="authenticated.master.admin.feedback({userId: upload.recipientId || upload.userId, assignmentKey: upload.assignmentKey })">{{ upload.upload.Name | truncate:30 }}</a>
