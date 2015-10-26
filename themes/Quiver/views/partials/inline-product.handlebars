@@ -2,27 +2,34 @@
   <div flex>
     <a href="/product/{{ slug }}">
         {{#if featuredImage.Versions.small.Key }}
+          <link itemprop="image" content="{{s3 featuredImage.Versions.small.Key }}">
           <img class="block" src="{{s3 featuredImage.Versions.small.Key }}" alt="{{deSlug featuredImage.Name }}"/>
         {{ else }}
-            <img class="block" src="{{s3 featuredImage.Key }}" alt="{{deSlug featuredImage.Name }}"/>
+          <link itemprop="image" content="{{s3 featuredImage.Key }}">
+          <img class="block" src="{{s3 featuredImage.Key }}" alt="{{deSlug featuredImage.Name }}"/>
         {{/if }}
     </a>
   </div>
 {{/if }}
-
-<div flex layout="column" layout-padding>
+<link itemprop="name" content="{{ title }}">
+<div flex layout="column" layout-padding itemscope itemtype="http://schema.org/Offer">
+  <link itemprop="name" content="{{ title }}">
   <div layout="row" layout-align="space-between" layout-padding>
     <h5 class="headline uppercase">
       <a class="undecorated" href="/product/{{ slug }}">{{ title }}</a>
     </h5>
-    <strong class="headline">${{ price }}</strong>
+    <strong class="headline">
+      <span itemprop="priceCurrency" content="USD">$</span>
+      <span itemprop="price" content="{{ price }}">{{ price }}</span>
+      <link itemprop="availability" href="http://schema.org/InStock"/>
+    </strong>
   </div>
   
 
   <md-divider></md-divider>
 
   <div flex layout="column" layout-align="space-between" layout-padding>
-    <div class="markdown">
+    <div class="markdown" itemprop="description">
       {{markdown description.excerpt }}
     </div>
     <div class="inline-list commas" layout="row" layout-align="end" layout-wrap>

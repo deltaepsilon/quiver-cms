@@ -10,8 +10,9 @@
     {{/if }}
   </section>
 
-  <section class="constrained">
-    <div>
+  <section class="constrained" itemscope itemtype="http://schema.org/Product">
+    <link itemprop="name" content="{{ product.title }}">
+    <div itemscope itemtype="http://schema.org/Offer">
       <md-card>
         <div layout="row" layout-wrap layout-fill>
           {{!-- {{#if product.featuredImage }}
@@ -38,11 +39,12 @@
 
         <md-card-content>
           <div layout="row" layout-sm="column" layout-align="start center" layout-padding style="min-height: 5rem;">
-            <h5 class="headline uppercase margin-horizontal-x-small">
+            <h5 class="headline uppercase margin-horizontal-x-small" itemprop="name">
               {{ product.title }}
             </h5>
             <strong class="headline margin-horizontal-x-small md-hue-2">
-              $<span ng-show="getPriceAdjusted('{{ product.slug }}')" ng-bind="getPriceAdjusted('{{ product.slug }}')"></span><span ng-hide="getPriceAdjusted('{{ product.slug }}')">{{ product.price }}</span>
+              <span itemprop="priceCurrency" content="USD">$</span><span itemprop="price" content="{{ product.price }}"></span>
+              <span ng-show="getPriceAdjusted('{{ product.slug }}')" ng-bind="getPriceAdjusted('{{ product.slug }}')"></span><span ng-hide="getPriceAdjusted('{{ product.slug }}')">{{ product.price }}</span>
             </strong>
 
             <span flex></span>
@@ -70,13 +72,15 @@
                   {{/each }}
                   <div flex layout layout-align="start center">
                     <div ng-if="optionsMatrixSelected">
-                      <div ng-show="optionsMatrixSelected.inStock">
+                      <div ng-if="optionsMatrixSelected.inStock">
+                        <link itemprop="availability" href="http://schema.org/InStock"/>
                         <span>In Stock</span>
                         <span ng-show="optionsMatrixSelected.inventory">
                           : <span ng-bind="optionsMatrixSelected.inventory"></span>
                         </span>
                       </div>
-                      <div ng-show="!optionsMatrixSelected.inStock">
+                      <div ng-if="!optionsMatrixSelected.inStock">
+                        <link itemprop="availability" href="http://schema.org/OutOfStock"/>
                         <span>Out of Stock</span>
                       </div>
                     </div>
@@ -93,6 +97,7 @@
                 <div flex flex-order="2" layout="column" layout-align="start end" layout-padding layout-wrap>
 
                   {{#if inStock }}
+                    <link itemprop="availability" href="http://schema.org/InStock"/>
                     <div flex class="bold">
                       In Stock: {{ product.inventory }}
                     </div>
@@ -109,6 +114,7 @@
               <div flex flex-order="2" layout="column" layout-align="start end" layout-padding layout-wrap>
 
                 {{#if inStock }}
+                  <link itemprop="availability" href="http://schema.org/InStock"/>
                   <div flex class="bold">
                     In Stock
                     {{#if product.inventory}} 
@@ -119,6 +125,7 @@
                   <md-button class="md-raised md-primary" flex ng-hide="inCart('{{ product.slug }}')" ng-click="addToCart('{{ product.slug }}')">Add to Cart</md-button>
                   <md-button class="md-raised" flex ng-show="inCart('{{ product.slug }}')" ng-click="removeFromCart('{{ product.slug }}')">Remove from Cart</md-button>  
                 {{ else }}
+                  <link itemprop="availability" href="http://schema.org/OutOfStock"/>
                   <md-button class="md-raised" flex disabled="true">Out of Stock</md-button>
                 {{/if }}
 
@@ -180,7 +187,7 @@
     </div>
     
     <div class="padding-vertical-large">
-      <div class="markdown padding-large">
+      <div class="markdown padding-large" itemprop="description">
         {{markdown product.description.markdown }}
       </div>
 
