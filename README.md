@@ -53,6 +53,24 @@ Quiver-CMS relies on Node.js, NPM, Yeoman, Grunt, Bower, Firebase, Mandrill, Red
     },
     "amazon": {
       "publicBucket": "assets.westeros.com"
+    },
+    "structuredOrganization": {
+      "@context": "http://schema.org",
+      "@type": "Organization",
+      "name": "Quiver CMS",
+      "url": "https://dev.quiver.is",
+      "logo": "https://dev.quiver.is/logo.png",
+      "contactPoint": [{
+        "@type": "ContactPoint",
+        "telephone": "+1-801-867-5309",
+        "contactType": "customer service"
+      }],
+      "sameAs": [
+        "https://twitter.com/quivercms",
+        "https://www.facebook.com/groups/123456/",
+        "https://www.pinterest.com/quivercms/",
+        "https://instagram.com/quivercms/"
+      ]
     }
   },
   "private": {
