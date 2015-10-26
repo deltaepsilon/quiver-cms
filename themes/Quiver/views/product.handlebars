@@ -1,12 +1,12 @@
 <div layout="row" layout-wrap>
-  <section class="constrained" layout="row" layout-sm="column" layout-align="start center" layout-align-sm="start start" style="margin-bottom: 1rem;">
+  <section class="constrained" layout="column" layout-gt-md="row" layout-align-gt-md="start center" layout-align="start start" style="margin-bottom: 1rem;">
     {{#if breadcrumbs}}
       {{#each breadcrumbs}}
         <md-button ng-href="{{ href }}">{{ text }}</md-button>
       {{/each }}
     {{/if }}
-    {{#if title}}
-      <md-button ng-disabled="true">{{ title }}</md-button>
+    {{#if product.title}}
+      <md-button ng-disabled="true">{{ product.title }}</md-button>
     {{/if }}
   </section>
 
