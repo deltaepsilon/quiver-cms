@@ -1,5 +1,6 @@
 var express = require('express'),
     app = express(),
+    compression = require('compression'),
     _ = require('underscore');
 
 /*
@@ -42,6 +43,11 @@ if (ConfigService.get('public.environment') === 'production') {
     var NewRelic = require('newrelic');
     console.log('...enabling New Relic');
 }
+
+/*
+ * Compression
+ */
+app.use(compression());
 
 /*
  * Static

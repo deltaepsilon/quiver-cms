@@ -1,5 +1,6 @@
 var express = require('express'),
     app = express(),
+    compression = require('compression'),
     Q = require('q'),
     _ = require('underscore'),
     expressHandlebars = require('express-handlebars'),
@@ -43,6 +44,11 @@ app.set('view engine', 'handlebars');
  * Redis
  */
 app.use(CacheController.pages);
+
+/*
+ * Compression
+ */
+app.use(compression());
 
 /*
  * Env.js

@@ -1,7 +1,7 @@
 {
   "name": "quiver-cms",
   "version": "1.0.5",
-  "description" : "A CMS build on Angular, Firebase, Express and Node",
+  "description": "A CMS build on Angular, Firebase, Express and Node",
   "repository": {
     "type": "git",
     "url": "https://github.com/deltaepsilon/quiver-cms.git"
@@ -12,6 +12,7 @@
     "aws-sdk": "~2.2.6",
     "braintree": "^1.20.0",
     "browser_fingerprint": "0.0.6",
+    "compression": "^1.6.0",
     "config": "~1.16.0",
     "cron": "^1.0.5",
     "easyimage": "~2.1.0",
