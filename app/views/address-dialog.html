@@ -99,7 +99,7 @@
                 <label for="address-instructions">Shipping Instructions</label>
                 <textarea ng-model="$storage.address.instructions"></textarea>
             </md-input-container>
-            <md-button class="md-raised md-primary margin-zero min-16 max-16" flex ng-click="saveAddress($storage.address); cancel();">Save Address</md-button>
+            <md-button class="md-raised md-primary margin-zero min-16 max-16" flex ng-click="saveAddress($storage.address, cancel);">Save Address</md-button>
         </div>
     </form>
 </md-dialog>

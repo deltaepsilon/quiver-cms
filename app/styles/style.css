@@ -4549,6 +4549,7 @@ md-list.pointer > md-item.active {
 /* line 1, modules/_toast.scss */
 md-toast {
   position: fixed !important;
+  z-index: 10000;
 }
 
 /* line 1, modules/_transition.scss */

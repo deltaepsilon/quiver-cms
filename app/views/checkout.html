@@ -137,6 +137,9 @@
                         </li>
                     </ul>
                 </div>
+                <div flex="100" ng-if="$storage.cart.shipped && !$storage.cart.address">
+                    <h4>Add an address to check out.</h4>
+                </div>
                 <div flex="100">
                     <md-button class="md-accent md-raised min-16 max-16" ng-click="addressDialog($event)" ng-if="!$storage.cart.address">
                         Add Shipping Address

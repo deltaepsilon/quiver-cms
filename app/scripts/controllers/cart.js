@@ -394,14 +394,21 @@ angular.module('quiverCmsApp')
                 $scope.editingAddress = true;
 
             },
-            saveAddress = function(address) {
+            saveAddress = function(address, cancel) {
                 var address = $scope.validateAddress(address);
 
                 if (address) {
                     $scope.$storage.cart.address = address;
-                    $scope.editingAddress = false;
+                }
+
+                $scope.editingAddress = false;
+
+                if ($scope.errorMessages && Object.keys($scope.errorMessages).length) {
+                    _.each($scope.errorMessages, function(error, type) {
+                        NotificationService.error('Address Verification Failed', error);
+                    });
                 } else {
-                    $scope.editingAddress = true;
+                    cancel();
                 }
 
             };
