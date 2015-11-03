@@ -14,7 +14,7 @@
                 </md-item>
                 <md-item ng-repeat="comment in comments">
                     <md-item-content layout="row" layout-sm="column" layout-align="space-between start" layout-padding layout-wrap>
-                        <div flex="33" flex-sm="100">
+                        <div flex="33" flex-sm>
                             <div class="bold capitalize">{{ comment.commenterUsername || comment.commenterEmail }}</div>
                             <span>{{ comment.created | moment:"MM/DD/YYYY" }}</span>
                         </div>
