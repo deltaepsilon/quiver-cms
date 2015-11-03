@@ -591,10 +591,10 @@ angular.module('quiverCmsApp')
             CommerceService.addProducts(cart);
             Analytics.trackCheckout(3);
 
-            if ($scope.$storage.affiliate) {
-                cart.affiliate = $scope.$storage.affiliate;
-                cart.referer = cart.affiliate.affiliate || 'unknown';
-                delete $scope.$storage.affiliate;
+            if ($scope.$storage.referral) {
+                cart.referral = $scope.$storage.referral;
+                cart.referer = cart.referral.referral || 'unknown';
+                delete $scope.$storage.referral;
             }
 
             CommerceService.checkout(cart).then(function(transaction) {
@@ -678,8 +678,8 @@ angular.module('quiverCmsApp')
                     $scope.addCode(search.code);
                 }
 
-                if (search.affiliate) {
-                    $scope.$storage.affiliate = search;
+                if (search.referral) {
+                    $scope.$storage.referral = search;
                     Analytics.addPromo('referral', search.referral, search.creative, search.position);
                     Analytics.pageView();
                 }
