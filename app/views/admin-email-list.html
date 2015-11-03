@@ -26,7 +26,7 @@
             <md-list layout="column">
                 <md-item ng-repeat="email in items | orderBy:orderBy">
                     <md-item-content class="extra-padding" layout="row" layout-sm="column" layout-align="space-between center" layout-padding layout-wrap style="padding-top: 2rem;">
-                        <a flex ng-href="mailto:{{ email.context.to[0].email }}">{{ email.context.to[0].email }}</a>
+                        <a class="truncate" flex ng-href="mailto:{{ email.context.to[0].email }}">{{ email.context.to[0].email }}</a>
                         <span class="truncate" flex>{{ email.context.subject }}</span>
                         <span flex ng-show="email.created">Created: {{ email.created | moment:"MM/DD/YYYY hh:mm" }}</span>
                         <div flex>
