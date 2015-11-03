@@ -62,7 +62,7 @@
     <div layout="row" layout-align="end start" layout-wrap>
         <div class="padded-card" flex="100" flex-gt-md="50">
             <md-whiteframe class="md-whiteframe-z1" flex="100" flex-gt-md="50" layout="row" layout-align="start start" layout-padding layout-wrap>
-                <h3 class="headlin" flex="100">Payment Methods</h3>
+                <h3 class="headline" flex="100">Payment Methods</h3>
                 <div class="max-33" flex="100" ng-if="user.private.customer.creditCards">
                     <h4 class="padding-horizontal-medium">Credit Cards</h4>
                     <md-radio-group ng-model="$storage.cart.paymentToken">
@@ -117,8 +117,8 @@
         </div>
         <div class="padded-card" flex="100" flex-gt-md="50">
             <md-whiteframe class="md-whiteframe-z1" layout-sm="column" layout-gt-sm="row" layout-align="space-between start" layout-padding layout-wrap>
-                <h3 id="shipping-address" class="headline transition-color" flex="100">Shipping Address</h3>
-                <div flex="100" ng-if="$storage.cart.address && !editingAddress">
+                <h3 id="shipping-address" class="headline transition-color" flex="100" flex-sm>Shipping Address</h3>
+                <div flex="100" flex-sm ng-if="$storage.cart.address && !editingAddress">
                     <ul class="padded padding-zero">
                         <li>{{ $storage.cart.address.recipient }}</li>
                         <li>{{ $storage.cart.address.street1 }}</li>
@@ -137,10 +137,10 @@
                         </li>
                     </ul>
                 </div>
-                <div flex="100" ng-if="$storage.cart.shipped && !$storage.cart.address">
+                <div flex="100" flex-sm ng-if="$storage.cart.shipped && !$storage.cart.address">
                     <h4>Add an address to check out.</h4>
                 </div>
-                <div flex="100">
+                <div flex="100" flex-sm>
                     <md-button class="md-accent md-raised min-16 max-16" ng-click="addressDialog($event)" ng-if="!$storage.cart.address">
                         Add Shipping Address
                     </md-button>
