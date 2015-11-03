@@ -13,10 +13,10 @@
         </div>
     </section>
     <section ng-if="assignments && subscription.subscriptionType == 'interaction'">
-        <md-toolbar>
+        <md-toolbar ng-if="doesNotStartSubscription.length">
             <h5 class="md-toolbar-tools">Unlimited Assignments</h5>
         </md-toolbar>
-        <div layout="column" layout-padding>
+        <div layout="column" layout-padding ng-if="doesNotStartSubscription.length">
             <div layout="row" flex ng-repeat="assignment in doesNotStartSubscription" ng-class="{active: assignment.$id == assignmentKey}">
                 <md-button class="text-left" flex layout-fill ui-sref="authenticated.master.subscription.assignment({subscriptionKey: subscription.$id, assignmentKey: assignment.$id})">
                     <md-tooltip>{{ assignment.title }}</md-tooltip>
