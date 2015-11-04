@@ -14,6 +14,13 @@ angular.module('quiverCmsApp')
          */
         $scope.reports = reports;
 
+        $scope.salesReportTypes = {
+            byYear: 'Year',
+            byMonth: 'Month',
+            byWeek: 'Week',
+            byDay: 'Day'
+        };
+
         $scope.runReports = function() {
             $scope.runningReports = true;
             AdminService.runReports().then(function() {
