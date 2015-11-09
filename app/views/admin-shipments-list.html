@@ -76,8 +76,8 @@
                             <input id="tracking-number-{{ $index }}" type="text" ng-model="shipment.tracking.number" ng-blur="save(shipment)" qv-enter="save(shipment)">
                         </md-input-container>
                         <md-input-container flex="25" flex-sm="100">
-                            <label for="instructions-{{ $index }}">Instructions</label>
-                            <textarea id="instructions-{{ $index }}" class="text-x-small line-height-1 margin-zero-important" ng-bind="getInstructions(shipment)"></textarea>
+                            <label for="comments-{{ $index }}"></label>
+                            <textarea id="comments-{{ $index }}" class="text-x-small line-height-1 margin-zero-important" ng-bind="getInstructions(shipment)"></textarea>
                         </md-input-container>
                         <md-input-container flex="25" flex-sm="100">
                             <label for="shipment-address-{{ $index }}"></label>
