@@ -214,19 +214,19 @@
                             </div>
                             <md-input-container flex>
                                 <label for="parcel-weight">Weight (oz)</label>
-                                <input id="parcel-weight" type="number" ng-model="$storage.shipment.parcel.weight" placeholder="Weight (oz)..." ng-change="$storage.shipment.parcel.weight = forcePrecision($storage.shipment.parcel.weight, 10)" ng-model-options="{debounce: {'default': 500}}">
+                                <input id="parcel-weight" type="number" ng-model="$storage.shipment.parcel.weight" ng-change="$storage.shipment.parcel.weight = forcePrecision($storage.shipment.parcel.weight, 10)" ng-model-options="{debounce: {'default': 500}}">
                             </md-input-container>
                             <md-input-container flex ng-if="!$storage.shipment.parcel.predefined_package">
                                 <label for="parcel-length">Length (in)</label>
-                                <input id="parcel-length" type="number" ng-model="$storage.shipment.parcel.length" placeholder="Length (in)..." ng-change="$storage.shipment.parcel.length = forcePrecision($storage.shipment.parcel.length, 10)" ng-model-options="{debounce: {'default': 500}}">
+                                <input id="parcel-length" type="number" ng-model="$storage.shipment.parcel.length" ng-change="$storage.shipment.parcel.length = forcePrecision($storage.shipment.parcel.length, 10)" ng-model-options="{debounce: {'default': 500}}">
                             </md-input-container>
                             <md-input-container flex ng-if="!$storage.shipment.parcel.predefined_package">
                                 <label for="parcel-width">Width (in)</label>
-                                <input id="parcel-width" type="number" ng-model="$storage.shipment.parcel.width" placeholder="Width (in)..." ng-change="$storage.shipment.parcel.width = forcePrecision($storage.shipment.parcel.width, 10)" ng-model-options="{debounce: {'default': 500}}">
+                                <input id="parcel-width" type="number" ng-model="$storage.shipment.parcel.width" ng-change="$storage.shipment.parcel.width = forcePrecision($storage.shipment.parcel.width, 10)" ng-model-options="{debounce: {'default': 500}}">
                             </md-input-container>
                             <md-input-container flex ng-if="!$storage.shipment.parcel.predefined_package">
                                 <label for="parcel-height">Height (in)</label>
-                                <input id="parcel-height" type="number" ng-model="$storage.shipment.parcel.height" placeholder="Height (in)..." ng-change="$storage.shipment.parcel.height = forcePrecision($storage.shipment.parcel.height, 10)" ng-model-options="{debounce: {'default': 500}}">
+                                <input id="parcel-height" type="number" ng-model="$storage.shipment.parcel.height" ng-change="$storage.shipment.parcel.height = forcePrecision($storage.shipment.parcel.height, 10)" ng-model-options="{debounce: {'default': 500}}">
                             </md-input-container>
                         </div>
                     </fieldset>
@@ -236,7 +236,7 @@
                 <h4 flex="100">Customs Details</h4>
                 <md-input-container flex>
                     <label for="customs-eel-pfc">AES Exemption or Proof of Filing Citation ITN</label>
-                    <input id="customs-eel-pfc" type="text" ng-model="$storage.shipment.customs.eel_pfc" placeholder="AES exemption or ITN (NOEEI 30.36AES X20080930987654..." required>
+                    <input id="customs-eel-pfc" type="text" ng-model="$storage.shipment.customs.eel_pfc" required>
                 </md-input-container>
                 <div>
                     <md-button class="md-primary md-raised max-14" ng-click="$storage.shipment.customs.eel_pfc = 'NOEEI 30.37(a)'">Under 25000USD</md-button>
@@ -349,8 +349,8 @@
                     <textarea id="selected-shipment-address" style="height: 10rem;" ng-bind="getAddress(selectedShipment)" qv-select-text></textarea>
                 </md-input-container>
                 <md-input-container flex="50">
-                    <label for="selected-shipment-comments">Comments</label>
-                    <textarea id="selected-shipment-comments" style="height: 100px;" ng-model="shipment.comments" placeholder="Comments..." ng-blur="save(selectedShipment)" qv-enter="save(selectedShipment)"></textarea>
+                    <label for="selected-shipment-instructions">Instructions</label>
+                    <textarea id="selected-shipment-instructions" style="height: 100px;" ng-bind="getInstructions(selectedShipment)"></textarea>
                 </md-input-container>
             </md-whiteframe>
         </section>

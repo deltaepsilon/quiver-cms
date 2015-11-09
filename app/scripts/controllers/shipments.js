@@ -82,6 +82,20 @@ angular.module('quiverCmsApp')
         };
         $scope.forcePrecision = forcePrecision;
 
+        var getInstructions = function (shipment) {
+            var instructions = '';
+            if (shipment && shipment.transaction && shipment.transaction.address && shipment.transaction.address.instructions) {
+                instructions += shipment.transaction.address.instructions;
+            }
+            if (shipment && shipment.item && shipment.item.discounts) {
+                _.each(shipment.item.discounts, function (discount) {
+                    instructions += '\n' + discount.code;     
+                });
+            }
+            return instructions;
+        };
+        $scope.getInstructions = getInstructions;
+
         /*
          * Manage shipment
          */
@@ -312,6 +326,7 @@ angular.module('quiverCmsApp')
                     $scope.$storage = $localStorage;
                     $scope.getAddress = getAddress;
                     $scope.forcePrecision = forcePrecision;
+                    $scope.getInstructions = getInstructions;
                     $scope.toggleShipped = toggleShipped;
                     $scope.validateShipment = validateShipment;
                     $scope.addCustomsItem = addCustomsItem;
