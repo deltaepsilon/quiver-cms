@@ -114,7 +114,7 @@
             <h3 class="headline" flex="100">Payment Methods</h3>
             <form flex="100" name="cardsForm" ng-if="user.private.customer.creditCards">
                 <fieldset>
-                    <md-whiteframe class="md-whiteframe-z0" layout="row" layout-align="start center" layout-padding layout-wrap>
+                    <div layout="row" layout-align="start center" layout-padding layout-wrap>
                         <md-list flex>
                             <md-list-item class="relative" ng-repeat="method in user.private.customer.creditCards">
                                 <md-item-content flex layout="row" layout-align="space-between center" layout-padding ng-class="{disabled: method.disabled}">
@@ -129,12 +129,12 @@
                                 <md-divider ng-if="!$last"></md-divider>
                             </md-list-item>
                         </md-list>
-                    </md-whiteframe>
+                    </div>
                 </fieldset>
             </form>
             <form flex="100" name="paypalForm" ng-if="user.private.customer.paypalAccounts">
                 <fieldset>
-                    <md-whiteframe class="md-whiteframe-z0" layout="row" layout-align="start center" layout-padding layout-wrap>
+                    <div layout="row" layout-align="start center" layout-padding layout-wrap>
                         <md-list flex>
                             <md-list-item class="relative" ng-repeat="method in user.private.customer.paypalAccounts" ng-class="{disabled: method.disabled}">
                                 <md-item-content flex layout="row" layout-align="space-between center" layout-padding>
@@ -149,12 +149,12 @@
                                 <md-divider ng-if="!$last"></md-divider>
                             </md-list-item>
                         </md-list>
-                    </md-whiteframe>
+                    </div>
                 </fieldset>
             </form>
             <form flex="100" name="coinbaseForm" ng-if="user.private.customer.coinbaseAccounts">
                 <fieldset>
-                    <md-whiteframe class="md-whiteframe-z0" layout="row" layout-align="start center" layout-padding layout-wrap>
+                    <div class="md-whiteframe-z0" layout="row" layout-align="start center" layout-padding layout-wrap>
                         <md-list flex>
                             <md-list-item class="relative" ng-repeat="method in user.private.customer.coinbaseAccounts" ng-class="{disabled: method.disabled}">
                                 <md-item-content flex layout="row" layout-align="space-between center" layout-padding>
@@ -169,7 +169,7 @@
                                 <md-divider ng-if="!$last"></md-divider>
                             </md-list-item>
                         </md-list>
-                    </md-whiteframe>
+                    </div>
                 </fieldset>
             </form>
         </md-whiteframe>
