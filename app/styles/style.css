@@ -4552,6 +4552,11 @@ md-toast {
   z-index: 10000;
 }
 
+/* line 1, modules/_tooltip.scss */
+md-tooltip {
+  z-index: 1000;
+}
+
 /* line 1, modules/_transition.scss */
 .transition-color {
   transition: color .5s ease;

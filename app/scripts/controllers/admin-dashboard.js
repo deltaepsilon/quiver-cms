@@ -8,32 +8,7 @@
  * Controller of the quiverCmsApp
  */
 angular.module('quiverCmsApp')
-    .controller('AdminDashboardCtrl', function($scope, reports, backups, products, AdminService, NotificationService, _, Slug) {
-        /*
-         * Reports
-         */
-        $scope.reports = reports;
-
-        $scope.salesReportTypes = {
-            byYear: 'Year',
-            byMonth: 'Month',
-            byWeek: 'Week',
-            byDay: 'Day'
-        };
-
-        $scope.runReports = function() {
-            $scope.runningReports = true;
-            AdminService.runReports().then(function() {
-                NotificationService.success('Reports Run!');
-                delete $scope.runningReports;
-                location.reload();
-            }, function(error) {
-                NotificationService.error('Reports Error', error);
-                delete $scope.runningReports;
-            });
-
-        };
-
+    .controller('AdminDashboardCtrl', function($scope, backups, products, AdminService, NotificationService, _, Slug) {
         /*
          * Backup
          */
@@ -65,35 +40,39 @@ angular.module('quiverCmsApp')
         };
 
         /*
-         * Affiliate link creator
+         * Referral link creator
          */
         $scope.products = products;
-        $scope.affiliateLink = {};
+        $scope.referralLink = {};
 
-        $scope.getOptions = function (affiliateLink) {
-            var product = _.findWhere($scope.products, {slug: affiliateLink.product});
+        $scope.getOptions = function (referralLink) {
+            var product = _.findWhere($scope.products, {slug: referralLink.product});
             return product ? _.toArray(product.optionsMatrix) : [];
         };
 
-        $scope.getAffiliateLink = function(affiliateLink) {
+        $scope.getReferralLink = function(referralLink) {
             // https://quiver.is/app/cart?product=my-product-slug&option=my-product-option-slug&code=MYDISCOUNTCODE&referral=http:%2F%2Fmy-referral-string.com&creative=my-ad-name&position=my-ad-position  
             var root = $scope.env.root,
                 link = root + '/app/cart',
                 parts = [],
+                suffix = '',
                 parameters = ['product', 'option', 'code', 'referral', 'creative', 'position'];
 
-            if (affiliateLink) {
+            if (referralLink) {
                 _.each(parameters, function(parameter) {
-                    if (affiliateLink[parameter]) {
-                        parts.push(parameter + '=' + Slug.slugify(affiliateLink[parameter]));
+                    if (referralLink[parameter]) {
+                        parts.push(parameter + '=' + Slug.slugify(referralLink[parameter]));
                     }
                 });
                 if (parts.length) {
-                    link += '?' + parts.join('&');
+                    suffix = '?' + parts.join('&');
                 }
             }
 
-            return link;
+            return {
+                cart: suffix ? link += suffix : undefined,
+                suffix: suffix
+            };
         };
 
     });

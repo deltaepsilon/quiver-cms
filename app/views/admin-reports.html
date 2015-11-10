@@ -1,0 +1,125 @@
+<section layout="row" layout-align="end center">
+    <span flex hide-sm></span>
+    <div class="max-7" flex hide-sm>
+        <md-progress-circular flex md-mode="indeterminate" qv-loading ng-class="{invisible: !runningReports}"></md-progress-circular>
+    </div>
+    <md-button class="md-warn md-raised max-10 truncate" flex ng-click="runReports()" ng-disabled="runningReports">
+        Run Reports
+    </md-button>
+</section>
+<section ng-if="reports.discounts">
+    <div layout="row" layout-align="start center">
+        <h3 class="headline" flex ng-class="{'disabled': $storage.hideDiscountsReport}">Discounts</h3>
+        <md-button class="md-primary md-raised md-icon-button" flex ng-click="$storage.hideDiscountsReport = !$storage.hideDiscountsReport" aria-label="Hide discounts report">
+            <i ng-class="{'mdi-navigation-expand-less': $storage.hideDiscountsReport, 'mdi-navigation-expand-more': !$storage.hideDiscountsReport}"></i>
+        </md-button>
+    </div>
+    <md-whiteframe class="md-whiteframe-z1" layout="row" layout-padding layout-wrap ng-if="!$storage.hideDiscountsReport">
+        <md-list flex>
+            <md-item ng-repeat="(day, results) in reports.discounts.byDay">
+                <md-item-content layout="column" layout-gt-sm="row" layout-align-sm="center center" layout-padding layout-wrap>
+                    <span class="max-7" flex>{{ ::day }}</span>
+                    <div flex>
+                        <ul class="margin-zero padding-zero">
+                            <li ng-repeat="use in results" layout="column" layout-gt-md="row">
+                                <span class="truncate" flex>{{ ::use.code }}<md-tooltip>{{ ::use.code }}</md-tooltip></span>
+                                <a class="truncate" flex ui-sref="authenticated.master.admin.users.list({search: use.userEmail})">{{ ::use.userEmail }}</a>
+                                <span class="truncate" flex>Discount: {{ ::use.discount || use.value | currency }}</span>
+                                <span class="truncate" flex>Uses: {{ ::use.useCount }}/{{ ::use.uses }}</span>
+                            </li>
+                        </ul>
+                    </div>
+                </md-item-content>
+                <md-divider ng-if="!$last"></md-divider>
+            </md-item>
+        </md-list>
+    </md-whiteframe>
+</section>
+<section ng-if="reports.surveys">
+    <div layout="row" layout-align="start center">
+        <h3 class="headline" flex ng-class="{'disabled': $storage.hideSurveysReport}">Surveys</h3>
+        <md-button class="md-primary md-raised md-icon-button" flex ng-click="$storage.hideSurveysReport = !$storage.hideSurveysReport" aria-label="Hide surveys report">
+            <i ng-class="{'mdi-navigation-expand-less': $storage.hideSurveysReport, 'mdi-navigation-expand-more': !$storage.hideSurveysReport}"></i>
+        </md-button>
+    </div>
+    <md-whiteframe class="md-whiteframe-z1" layout="row" layout-padding layout-wrap ng-if="!$storage.hideSurveysReport">
+        <md-list flex>
+            <md-item ng-repeat="(key, survey) in reports.surveys.bySurvey">
+                <md-item-content layout="row" layout-sm="column" layout-align="space-between center" layout-padding layout-wrap>
+                    <span class="max-20" flex>{{ ::survey.question }}</span>
+                    <span class="max-7" flex>{{ ::survey.answered || 0 }}/{{ ::survey.asked || 0 }}</span>
+                    <ul flex>
+                        <li ng-repeat="response in survey.responses" layout="row" layout-sm="column">
+                            <span flex>{{ response.response }}</span>
+                            <span class="max-7" flex>Count: {{ response.count }}</span>
+                            <ul class="inline-list padding-zero-important" flex layout="column">
+                                <li ng-repeat="responder in response.responders" layout="column" layout-gt-md="row">
+                                    <a class="truncate" flex ui-sref="authenticated.master.admin.user({key: responder.userId})">{{ responder.userEmail }}<md-tooltip>{{ responder.userEmail }}</md-tooltip></a>
+                                    <span class="max-7 text-right" flex>{{ responder.answered | moment:"MM/DD/YY" }}</span>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </md-item-content>
+                <md-divider ng-if="!$last"></md-divider>
+            </md-item>
+        </md-list>
+    </md-whiteframe>
+</section>
+<section ng-if="reports.surveys">
+    <div layout="row" layout-align="start center">
+        <h3 class="headline" flex ng-class="{'disabled': $storage.hideSalesReport}">Sales</h3>
+        <md-button class="md-primary md-raised md-icon-button" flex ng-click="$storage.hideSalesReport = !$storage.hideSalesReport" aria-label="Hide sales report">
+            <i ng-class="{'mdi-navigation-expand-less': $storage.hideSalesReport, 'mdi-navigation-expand-more': !$storage.hideSalesReport}"></i>
+        </md-button>
+    </div>
+    <md-whiteframe class="md-whiteframe-z1 relative" layout="column" layout-padding layout-wrap ng-if="!$storage.hideSalesReport" ng-repeat="(reportType, name) in salesReportTypes">
+        <div flex layout="row" layout-sm="column" layout-align="space-between center" layout-padding layout-wrap>
+            <strong class="max-7" flex>{{ name }}</strong>
+            <div flex layout="row" layout-sm="column" layout-padding>
+                <strong class="truncate" flex="20" flex-sm="100">Subtotal</strong>
+                <strong class="truncate" flex="15" flex-sm="100">Discount</strong>
+                <strong class="truncate" flex="15" flex-sm="100">Shipping</strong>
+                <strong class="truncate" flex="15" flex-sm="100">Tax</strong>
+                <strong class="truncate" flex="20" flex-sm="100">Total</strong>
+                <strong class="truncate" flex="15" flex-sm="100">Transactions</strong>
+            </div>
+        </div>
+        <md-list flex>
+            <md-item ng-repeat="report in reports.sales[reportType] | orderBy:'-key'">
+                <md-item-content>
+                    <div class="padding-horizontal-zero" layout="row" layout-sm="column" layout-align="space-between center" layout-padding layout-wrap>
+                        <strong class="max-7" flex ng-if="!report.date">{{ report.key }}</strong>
+                        <strong class="max-7" flex ng-if="report.date">{{ report.date | moment:"YYYY/MM/DD" }}</strong>
+                        <div flex layout="row" layout-sm="column" layout-padding>
+                            <span flex="20">{{ report.subtotal | currency:'$':0 }}</span>
+                            <span flex="15">{{ report.discount | currency:'$':0 }}</span>
+                            <span flex="15">{{ report.shipping | currency:'$':0 }}</span>
+                            <span flex="15">{{ report.tax | currency:'$':0 }}</span>
+                            <strong flex="20">{{ report.total | currency:'$':0 }}</strong>
+                            <span flex="15">{{ report.transactionCount }}</span>
+                        </div>
+                    </div>
+                    <div ng-repeat="(key, totals) in report.referrals" class="padding-horizontal-zero" layout="row" layout-sm="column" layout-align="space-between center" layout-wrap>
+                        <div class="max-7 truncate" flex style="padding-left: 1rem;">
+                            <span>{{ key }}</span>
+                            <md-tooltip>
+                                {{ key }}
+                            </md-tooltip>
+                        </div>
+                        <div class="padding-vertical-zero" flex layout="row" layout-sm="column" layout-padding>
+                            <span flex="20">{{ totals.subtotal | currency:'$':0 }}</span>
+                            <span flex="15">{{ totals.discount | currency:'$':0 }}</span>
+                            <span flex="15">{{ totals.shipping | currency:'$':0 }}</span>
+                            <span flex="15">{{ totals.tax | currency:'$':0 }}</span>
+                            <span flex="20">{{ totals.total | currency:'$':0 }}</span>
+                            <span flex="15">{{ totals.transactionCount }}</span>
+                        </div>
+                    </div>
+                </md-item-content>
+                <md-divider ng-if="!$last"></md-divider>
+            </md-item>
+        </md-list>
+    </md-whiteframe>
+</section>
+<div class="padding-large"></div>

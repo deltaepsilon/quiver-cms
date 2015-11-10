@@ -702,9 +702,6 @@ angular.module('quiverCmsApp', [
             templateUrl: 'views/admin-dashboard.html',
             controller: 'AdminDashboardCtrl',
             resolve: {
-                reports: function(AdminService) {
-                    return AdminService.getReports();
-                },
                 backups: function(AdminService) {
                     return AdminService.getBackups();
                 },
@@ -963,21 +960,6 @@ angular.module('quiverCmsApp', [
                 }
             }
         },
-        authenticatedMasterAdminDiscounts: { // **************************  Discounts ************************
-            abstract: true,
-            templateUrl: 'views/admin-discounts.html',
-            controller: 'DiscountsCtrl',
-            resolve: {
-                items: function(AdminService) {
-                    return AdminService.getDiscounts().$get();
-                }
-            }
-        },
-        authenticatedMasterAdminDiscountsList: {
-            url: '/discounts/:search',
-            templateUrl: 'views/admin-discounts-list.html',
-            controller: 'ListCtrl'
-        },
         authenticatedMasterAdminSocial: { // *****************************  Social ***************************
             url: '/social-media',
             templateUrl: 'views/admin-social.html',
@@ -1044,7 +1026,7 @@ angular.module('quiverCmsApp', [
             templateUrl: 'views/admin-subscriptions-list.html',
             controller: 'ListCtrl'
         },
-        authenticatedMasterAdminSubscription: { // ***********************  Subscriptions *******************
+        authenticatedMasterAdminSubscription: { // ***********************  Subscription *******************
             url: '/subscription/:key',
             templateUrl: 'views/admin-subscription.html',
             controller: 'SubscriptionCtrl',
@@ -1072,6 +1054,31 @@ angular.module('quiverCmsApp', [
         authenticatedMasterAdminShipmentsList: {
             url: '/shipments/:search',
             templateUrl: 'views/admin-shipments-list.html',
+            controller: 'ListCtrl'
+        },
+        authenticatedMasterAdminReports: {
+            url: '/reports',
+            templateUrl: 'views/admin-reports.html',
+            controller: 'ReportsCtrl',
+            resolve: {
+                reports: function(AdminService) {
+                    return AdminService.getReports();
+                }
+            }
+        },
+        authenticatedMasterAdminDiscounts: { // **************************  Discounts ************************
+            abstract: true,
+            templateUrl: 'views/admin-discounts.html',
+            controller: 'DiscountsCtrl',
+            resolve: {
+                items: function(AdminService) {
+                    return AdminService.getDiscounts().$get();
+                }
+            }
+        },
+        authenticatedMasterAdminDiscountsList: {
+            url: '/discounts/:search',
+            templateUrl: 'views/admin-discounts-list.html',
             controller: 'ListCtrl'
         },
         authenticatedMasterAdminResources: { // **************************  Resources ************************
@@ -1362,8 +1369,6 @@ angular.module('quiverCmsApp', [
         .state('authenticated.master.admin.surveys', getState(states.authenticatedMasterAdminSurveys))
         .state('authenticated.master.admin.surveys.list', getState(states.authenticatedMasterAdminSurveysList))
         .state('authenticated.master.admin.survey', getState(states.authenticatedMasterAdminSurvey))
-        .state('authenticated.master.admin.discounts', getState(states.authenticatedMasterAdminDiscounts))
-        .state('authenticated.master.admin.discounts.list', getState(states.authenticatedMasterAdminDiscountsList))
         .state('authenticated.master.admin.social', getState(states.authenticatedMasterAdminSocial))
         .state('authenticated.master.admin.hashtags', getState(states.authenticatedMasterAdminHashtags))
         .state('authenticated.master.admin.transactions', getState(states.authenticatedMasterAdminTransactions))
@@ -1374,6 +1379,9 @@ angular.module('quiverCmsApp', [
         .state('authenticated.master.admin.subscription', getState(states.authenticatedMasterAdminSubscription))
         .state('authenticated.master.admin.shipments', getState(states.authenticatedMasterAdminShipments))
         .state('authenticated.master.admin.shipments.list', getState(states.authenticatedMasterAdminShipmentsList))
+        .state('authenticated.master.admin.reports', getState(states.authenticatedMasterAdminReports))
+        .state('authenticated.master.admin.discounts', getState(states.authenticatedMasterAdminDiscounts))
+        .state('authenticated.master.admin.discounts.list', getState(states.authenticatedMasterAdminDiscountsList))
         .state('authenticated.master.admin.resources', getState(states.authenticatedMasterAdminResources))
         .state('authenticated.master.admin.resources.list', getState(states.authenticatedMasterAdminResourcesList))
         .state('authenticated.master.admin.messages', getState(states.authenticatedMasterAdminMessages))

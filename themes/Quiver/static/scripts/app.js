@@ -231,8 +231,8 @@ angular.module('QuiverCMS', ['ngStorage', 'quiver.angular-utilities', 'quiver.an
                     search[parts[0]] = parts[1];
                 });
 
-                if (search.affiliate) {
-                    $scope.$storage.affiliate = search;
+                if (search.referral) {
+                    $scope.$storage.referral = search;
                     Analytics.addPromo('referral', search.referral, search.creative, search.position);
                     Analytics.pageView();
                 }
