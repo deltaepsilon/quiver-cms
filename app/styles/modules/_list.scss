@@ -29,6 +29,11 @@ md-list {
             }
         }
     }
+    .striped {
+        > li:nth-child(even) {
+            @extend .background-highlight1;
+        }
+    }
 }
 
 .inline-list {

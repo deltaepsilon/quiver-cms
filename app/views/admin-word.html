@@ -16,14 +16,14 @@
                     <label for="slug">Slug</label>
                     <input id="slug" type="text" ng-model="word.slug" ng-model-options="{debounce: {'default': 500}}">
                 </md-input-container>
-                <div class="md-select-wrapper" flex="33" flex-sm="100" style="margin-top: -5px;">
+                <md-input-container flex="33" flex-sm="100">
                     <md-select class="margin-zero" flex="20" ng-model="word.type">
                         <md-option value="">Select Type</md-option>
                         <md-option value="post">Post</md-option>
                         <md-option value="page">Page</md-option>
                         <md-option value="subscription">Subscription</md-option>
                     </md-select>
-                </div>
+                </md-input-container>
                 <div flex="100">
                     <md-checkbox ng-model="word.hideDetails">
                         Hide word details
@@ -186,7 +186,7 @@
             <span ng-class="{'text-success': word.seoDescription.length >= 150 && word.seoDescription.length <= 160, 'text-error': word.seoDescription.length < 150 || word.seoDescription.length > 160 }">{{ word.seoDescription.length }}</span>
         </div>
         <div layout="row" layout-md="column">
-            <div class="md-select-wrapper" flex>
+            <md-input-container flex>
                 <md-select ng-model="word.sitemap.changefreq" placeholder="Change Frequency (default to weekly)">
                     <md-option value="always">Always</md-option>
                     <md-option value="hourly">Hourly</md-option>
@@ -196,7 +196,7 @@
                     <md-option value="yearly">Yearly</md-option>
                     <md-option value="never">Never</md-option>
                 </md-select>
-            </div>
+            </md-input-container>
             <md-input-container flex>
                 <label for="sitemap-priority">Sitemap Priority (defaults to 0.5)</label>
                 <input id="sitemap-priority" type="number" ng-model="word.sitemap.priority" min="0" max="1">

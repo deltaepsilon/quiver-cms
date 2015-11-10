@@ -61,7 +61,7 @@
     </div>
     <div layout="row" layout-align="end start" layout-wrap>
         <div class="padded-card" flex="100" flex-gt-md="50">
-            <md-whiteframe class="md-whiteframe-z1" flex="100" flex-gt-md="50" layout="row" layout-align="start start" layout-padding layout-wrap>
+            <md-whiteframe class="md-whiteframe-z1" layout="row" layout-align="start start" layout-padding layout-wrap>
                 <h3 class="headline" flex="100">Payment Methods</h3>
                 <div class="max-33" flex="100" ng-if="user.private.customer.creditCards">
                     <h4 class="padding-horizontal-medium">Credit Cards</h4>
@@ -78,7 +78,7 @@
                         </div>
                     </md-radio-group>
                 </div>
-                <div class="max-33" flex="100" ng-if="user.private.customer.paypalAccounts">
+                <div class="max-33"ng-if="user.private.customer.paypalAccounts">
                     <h4 class="padding-horizontal-medium">PayPal Accounts</h4>
                     <md-radio-group ng-model="$storage.cart.paymentToken">
                         <div class="padding-x-small" layout="row" layout-align="space-between center" layout-wrap ng-repeat="account in user.private.customer.paypalAccounts" ng-class="{disabled: account.disabled}">
@@ -93,7 +93,7 @@
                         </div>
                     </md-radio-group>
                 </div>
-                <div class="max-33" flex="100" ng-if="user.private.customer.coinbaseAccounts">
+                <div class="max-33" ng-if="user.private.customer.coinbaseAccounts">
                     <h4 class="padding-horizontal-medium">Coinbase Accounts</h4>
                     <md-radio-group ng-model="$storage.cart.paymentToken">
                         <div class="padding-x-small" layout="row" layout-align="space-between center" layout-wrap ng-repeat="account in user.private.customer.coinbaseAccounts" ng-class="{disabled: account.disabled}">
@@ -108,7 +108,7 @@
                         </div>
                     </md-radio-group>
                 </div>
-                <div flex="100">
+                <div>
                     <md-button class="md-primary md-raised min-16 max-16" ng-click="paymentDialog($event)" ng-class="{'md-accent': !user.private.customer.creditCards && !user.private.customer.paypalAccounts && !user.private.customer.coinbaseAccounts}">
                         Add Payment Method
                     </md-button>

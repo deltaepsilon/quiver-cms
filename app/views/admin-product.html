@@ -12,7 +12,9 @@
                     <label for="title">Title</label>
                     <input id="title" type="text" ng-model="product.title" ng-model-options="{debounce: {'default': 500}}">
                 </md-input-container>
-                <md-button class="md-primary md-raised min-12 max-12 adjust-line-height" flex ng-show="product.active && product.isValid" ng-click="product.active = false">Active</md-button>
+                <div class="min-10 max-10 text-right" flex>
+                    <md-button class="md-primary md-raised" flex ng-show="product.active && product.isValid" ng-click="product.active = false">Active</md-button>
+                </div>
                 <md-button class="md-warn md-raised min-12 max-12 adjust-line-height" flex ng-show="product.active && !product.isValid" ng-click="product.active = false">Product Invalid!</md-button>
                 <md-button class="md-secondary md-raised min-12 max-12 adjust-line-height" flex ng-show="!product.active && product.isValid" ng-click="product.active = true">Activate?</md-button>
                 <md-button class="md-raised min-12 max-12 adjust-line-height" flex ng-show="!product.active && !product.isValid">Inactive</md-button>
@@ -21,7 +23,7 @@
                     <label for="slug">Slug</label>
                     <input id="slug" type="text" ng-model="product.slug" ng-change="slugify(); checkValidity()" ng-model-options="{debounce: {'default': 500}}">
                 </md-input-container>
-                <div class="md-select-wrapper" flex flex-sm="100" style="margin-top: -5px;">
+                <md-input-container flex flex-sm="100">
                     <md-select id="product-type" name="product-type" class="margin-zero" flex="20" ng-model="product.type" ng-change="checkValidity()" aria-label="product type">
                         <md-option value="">Product Type...</md-option>
                         <md-option value="physical">Good</md-option>
@@ -29,7 +31,7 @@
                         <md-option value="subscription">Subscription</md-option>
                         <md-option value="gift">Gift</md-option>
                     </md-select>
-                </div>
+                </md-input-container>
                 <md-input-container flex flex-sm="100">
                     <label for="product-price">Price</label>
                     <input id="product-price" type="number" name="product-price" ng-model="product.price" ng-change="checkValidity()">
@@ -38,7 +40,7 @@
                     <label for="product-inventory">Inventory</label>
                     <input id="product-inventory" type="number" ng-model="product.inventory">
                 </md-input-container>
-                <div flex>
+                <div class="text-right" flex>
                     <md-checkbox flex ng-model="product.taxable">
                         Taxable?
                     </md-checkbox>
@@ -300,7 +302,7 @@
             <span ng-class="{'text-success': product.seoDescription.length >= 150 && product.seoDescription.length <= 160, 'text-error': product.seoDescription.length < 150 || product.seoDescription.length > 160 }">{{ product.seoDescription.length }}</span>
         </div>
         <div layout="row" layout-md="column">
-            <div class="md-select-wrapper" flex>
+            <md-input-container flex>
                 <md-select ng-model="product.sitemap.changefreq" placeholder="Change Frequency (default to weekly)">
                     <md-option value="always">Always</md-option>
                     <md-option value="hourly">Hourly</md-option>
@@ -310,7 +312,7 @@
                     <md-option value="yearly">Yearly</md-option>
                     <md-option value="never">Never</md-option>
                 </md-select>
-            </div>
+            </md-input-container>
             <md-input-container flex>
                 <label for="sitemap-priority">Sitemap Priority (defaults to 0.5)</label>
                 <input id="sitemap-priority" type="number" ng-model="product.sitemap.priority" min="0" max="1">

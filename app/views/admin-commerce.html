@@ -62,7 +62,7 @@
                     <div>{{ $storage.shipment.fromAddress.street1 }}</div>
                     <div>{{ $storage.shipment.fromAddress.street2 }}</div>
                     <div>{{ $storage.shipment.fromAddress.street3 }}</div>
-                    <div>{{ $storage.shipment.fromAddress.city }}, {{ $storage.shipment.fromAddress.state }} {{ $storage.shipment.fromAddress.zip }}</div>
+                    <div>{{ $storage.shipment.fromAddress.city }}<span ng-show="$storage.shipment.fromAddress.city">,</span> {{ $storage.shipment.fromAddress.state }} {{ $storage.shipment.fromAddress.zip }}</div>
                     <div>{{ $storage.shipment.fromAddress.country }}</div>
                     <div>{{ $storage.shipment.fromAddress.email }}</div>
                     <div>{{ $storage.shipment.fromAddress.phone }}</div>

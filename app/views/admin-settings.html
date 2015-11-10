@@ -13,18 +13,18 @@
             <fieldset>
                 <md-whiteframe class="md-whiteframe-z1" layout="row" layout-padding layout-wrap>
                     <h3 class="headline" flex="100">Site Settings</h3>
-                    <div class="md-select-wrapper" flex="33" flex-sm="100">
+                    <md-input-container flex="33" flex-sm="100">
                         <md-select ng-model="theme.active" placeholder="Theme">
                             <md-option ng-value="key" ng-repeat="(key, value) in theme.options">{{ value }}</md-option>
                         </md-select>
-                    </div>
-                    <div class="md-select-wrapper" flex="33" flex-sm="100">
+                    </md-input-container>
+                    <md-input-container flex="33" flex-sm="100">
                         <md-select ng-model="theme.frontPage" placeholder="Front Page Template">
                             <md-option value="">Default Template</md-option>
                             <md-option ng-value="alternate.filename" ng-repeat="(key, alternate) in theme.alternates">{{ alternate.name }}</md-option>
                             <md-option ng-value="page.slug" ng-repeat="page in landingPages">{{ page.title }}</md-option>
                         </md-select>
-                    </div>
+                    </md-input-container>
                     <span class="padding-zero-important" flex="100"></span>
                     <md-input-container flex="33" flex-sm="100">
                         <label for="site-title">Site Title</label>
@@ -94,16 +94,16 @@
                         </md-button>
                     </div>
                     <span flex="100"></span>
-                    <div class="md-select-wrapper" flex="25" flex-sm="100">
+                    <md-input-container flex="25" flex-sm="100">
                         <md-select ng-model="theme.palette.primary" placeholder="Primary Palette">
                             <md-option ng-value="palette" ng-repeat="palette in palettes">{{ palette }}</md-option>
                         </md-select>
-                    </div>
-                    <div class="md-select-wrapper" flex="25" flex-sm="100">
+                    </md-input-container>
+                    <md-input-container flex="25" flex-sm="100">
                         <md-select ng-model="theme.palette.accent" placeholder="Accent Palette">
                             <md-option ng-value="palette" ng-repeat="palette in palettes">{{ palette }}</md-option>
                         </md-select>
-                    </div>
+                    </md-input-container>
                     <div flex="25" flex-sm="100">
                         <md-checkbox ng-model="theme.palette.dark">
                             Dark Palette
@@ -208,13 +208,17 @@
                         </md-button>
                         <strong ng-if="!theme.palette.primary && validForCustomPalette('primary')">Using custom primary palette</strong>
                     </div>
-                    <div class="md-select-wrapper" flex flex-sm="100" ng-repeat="hue in paletteHues">
-                        <md-select ng-model="theme.palette.intentions.primary[hue]" placeholder="{{ hue }}">
-                            <md-option ng-value="key" ng-repeat="key in paletteKeys">{{ key }}</md-option>
-                        </md-select>
-                        <md-button class="md-warn md-icon-button" ng-click="deleteIntention('primary', hue)" ng-disabled="!theme.palette.intentions.primary[hue]" aria-label="Delete intention">
-                            <i class="mdi-action-delete"></i>
-                        </md-button>
+                    <div flex flex-sm="100" ng-repeat="hue in paletteHues" layout="row" layout-align="start center">
+                        <md-input-container flex>
+                            <md-select ng-model="theme.palette.intentions.primary[hue]" placeholder="{{ hue }}">
+                                <md-option ng-value="key" ng-repeat="key in paletteKeys">{{ key }}</md-option>
+                            </md-select>
+                        </md-input-container>
+                        <div class="max-3 text-center" flex>
+                            <md-button class="md-warn md-icon-button" ng-click="deleteIntention('primary', hue)" ng-disabled="!theme.palette.intentions.primary[hue]" aria-label="Delete intention">
+                                <i class="mdi-action-delete"></i>
+                            </md-button>
+                        </div>
                     </div>
                     <span flex="100"></span>
                     <div flex="25" flex-sm="100">
@@ -265,13 +269,19 @@
                         </md-button>
                         <strong ng-if="!theme.palette.accent && validForCustomPalette('accent')">Using Custom Palette</strong>
                     </div>
-                    <div class="md-select-wrapper" flex flex-sm="100" ng-repeat="hue in paletteHues">
-                        <md-select ng-model="theme.palette.intentions.accent[hue]" placeholder="{{ hue }}">
-                            <md-option ng-value="key" ng-repeat="key in paletteKeys">{{ key }}</md-option>
-                        </md-select>
-                        <md-button class="md-warn md-icon-button" ng-click="deleteIntention('accent', hue)" ng-disabled="!theme.palette.intentions.accent[hue]" aria-label="Delete intention">
-                            <i class="mdi-action-delete"></i>
-                        </md-button>
+                    <div flex flex-sm="100" ng-repeat="hue in paletteHues" layout="row" layout-align="start center">
+                        <div flex>
+                            <md-input-container>
+                                <md-select ng-model="theme.palette.intentions.accent[hue]" placeholder="{{ hue }}">
+                                    <md-option ng-value="key" ng-repeat="key in paletteKeys">{{ key }}</md-option>
+                                </md-select>
+                            </md-input-container>
+                        </div>
+                        <div class="max-3 center">
+                            <md-button class="md-warn md-icon-button" ng-click="deleteIntention('accent', hue)" ng-disabled="!theme.palette.intentions.accent[hue]" aria-label="Delete intention">
+                                <i class="mdi-action-delete"></i>
+                            </md-button>
+                        </div>
                     </div>
                     <span flex="100"></span>
                     <div flex="25" flex-sm="100">
@@ -334,7 +344,7 @@
                         <i class="mdi-content-add-box"></i>
                     </md-button>
                     <div flex="100" ng-if="settings[nav.slug].length">
-                        <md-chips flex ng-model="settings[nav.slug]" md-on-append="cleanNavArray(settings[nav.slug])">
+                        <md-chips flex ng-model="settings[nav.slug]" md-on-add="cleanNavArray(settings[nav.slug])">
                             <md-chip-template>
                                 <strong>{{ $chip.text }}: {{ $chip.href }}</strong>
                             </md-chip-template>

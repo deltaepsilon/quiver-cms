@@ -35,11 +35,13 @@
                             <a flex ng-if="fileVersion" ng-href="{{ file.Versions[fileVersion].Key | s3Link:bucket }}" target="_blank" qv-media="{{ file.Key | s3Link:bucket }}" alt="{{ file.Key | filename }}" attributes="{embed: {width: '100px', height: '100px'}, img: {'style': 'width: 200px; max-width: 100%;'}, video: {width: '200px'}}"></a>
                         </div>
                         <div flex layout="row" layout-sm="column" layout-align="space-between center" layout-padding layout-wrap>
-                            <div class="md-select-wrapper max-16" flex>
-                                <md-select ng-model="fileVersion" aria-label="file version">
+                            <div class="max-16" flex>
+                                <md-input-container>
+                                    <md-select ng-model="fileVersion" aria-label="file version">
                                     <md-option value="" selected>Original: ({{ file.Size / 1000 | number:0 }}kb)</md-option>
                                     <md-option ng-repeat="(key, version) in file.Versions" ng-value="key">{{ key }}: ({{ version.Size / 1000 | number:0 }}kb)</md-option>
                                 </md-select>
+                                </md-input-container>
                             </div>
                             <span flex>{{ file.Index }}: {{ file.Name }}</span>
                             <md-button class="md-fab md-mini md-primary" ng-click="addToClipboard(file)" ng-hide="inClipboard(file) || file.disabled" aria-label="Add file to clipboard {{ file.Key }}">

@@ -68,7 +68,9 @@ md-list.hover > md-item.active {
 }
 
 /* line 46, modules/_color.scss */
-.background-highlight1 {
+.background-highlight1, ul .striped > li:nth-child(even),
+ol .striped > li:nth-child(even),
+md-list .striped > li:nth-child(even) {
   background-color: rgba(0, 0, 0, 0.2);
 }
 
@@ -4010,7 +4012,7 @@ a.md-icon-button {
 
 /* line 2, modules/_cards.scss */
 .cards-spaced md-whiteframe {
-  margin: .5rem 0;
+  margin: 2rem 0;
 }
 
 /* line 7, modules/_cards.scss */
@@ -4400,35 +4402,35 @@ md-list.pointer > md-item.active {
   cursor: default !important;
 }
 
-/* line 35, modules/_list.scss */
+/* line 40, modules/_list.scss */
 .inline-list li {
   float: left;
 }
-/* line 37, modules/_list.scss */
+/* line 42, modules/_list.scss */
 .inline-list li:first-child {
   margin-left: 0 !important;
 }
-/* line 41, modules/_list.scss */
+/* line 46, modules/_list.scss */
 .inline-list > * {
   margin-left: 1rem;
 }
-/* line 43, modules/_list.scss */
+/* line 48, modules/_list.scss */
 .inline-list > * > button {
   margin-top: 4px;
 }
-/* line 48, modules/_list.scss */
+/* line 53, modules/_list.scss */
 .inline-list.no-margin > *:first-child {
   margin-left: 0;
 }
-/* line 53, modules/_list.scss */
+/* line 58, modules/_list.scss */
 .inline-list.slashes > * {
   position: relative;
 }
-/* line 55, modules/_list.scss */
+/* line 60, modules/_list.scss */
 .inline-list.slashes > *:last-child:after {
   content: "";
 }
-/* line 58, modules/_list.scss */
+/* line 63, modules/_list.scss */
 .inline-list.slashes > *:after {
   content: "/";
   margin-left: 1rem;
@@ -4436,15 +4438,15 @@ md-list.pointer > md-item.active {
   right: -1rem;
   top: 0;
 }
-/* line 68, modules/_list.scss */
+/* line 73, modules/_list.scss */
 .inline-list.dots > * {
   position: relative;
 }
-/* line 70, modules/_list.scss */
+/* line 75, modules/_list.scss */
 .inline-list.dots > *:last-child:after {
   content: "";
 }
-/* line 73, modules/_list.scss */
+/* line 78, modules/_list.scss */
 .inline-list.dots > *:after {
   content: "•";
   margin-left: 1rem;
@@ -4452,30 +4454,30 @@ md-list.pointer > md-item.active {
   right: -1rem;
   top: 0;
 }
-/* line 83, modules/_list.scss */
+/* line 88, modules/_list.scss */
 .inline-list.commas > * {
   position: relative;
 }
-/* line 85, modules/_list.scss */
+/* line 90, modules/_list.scss */
 .inline-list.commas > *:last-child:after {
   content: "";
 }
-/* line 88, modules/_list.scss */
+/* line 93, modules/_list.scss */
 .inline-list.commas > *:after {
   content: ",";
   position: absolute;
   right: -0.25rem;
   top: 0;
 }
-/* line 97, modules/_list.scss */
+/* line 102, modules/_list.scss */
 .inline-list.arrows > * {
   position: relative;
 }
-/* line 99, modules/_list.scss */
+/* line 104, modules/_list.scss */
 .inline-list.arrows > *:last-child:after {
   content: "";
 }
-/* line 102, modules/_list.scss */
+/* line 107, modules/_list.scss */
 .inline-list.arrows > *:after {
   content: ">";
   position: absolute;

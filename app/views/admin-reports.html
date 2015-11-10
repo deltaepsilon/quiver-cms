@@ -45,14 +45,14 @@
     <md-whiteframe class="md-whiteframe-z1" layout="row" layout-padding layout-wrap ng-if="!$storage.hideSurveysReport">
         <md-list flex>
             <md-item ng-repeat="(key, survey) in reports.surveys.bySurvey">
-                <md-item-content layout="row" layout-sm="column" layout-align="space-between center" layout-padding layout-wrap>
-                    <span class="max-20" flex>{{ ::survey.question }}</span>
+                <md-item-content layout="row" layout-sm="column" layout-align="space-between start" layout-padding layout-wrap>
+                    <strong class="max-10" flex>{{ ::survey.question }}</strong>
                     <span class="max-7" flex>{{ ::survey.answered || 0 }}/{{ ::survey.asked || 0 }}</span>
-                    <ul flex>
-                        <li ng-repeat="response in survey.responses" layout="row" layout-sm="column">
+                    <ul class="striped margin-vertical-zero" flex>
+                        <li class="padding-x-small" ng-repeat="response in survey.responses" layout="row" layout-sm="column">
                             <span flex>{{ response.response }}</span>
                             <span class="max-7" flex>Count: {{ response.count }}</span>
-                            <ul class="inline-list padding-zero-important" flex layout="column">
+                            <ul class="padding-zero-important" flex layout="column">
                                 <li ng-repeat="responder in response.responders" layout="column" layout-gt-md="row">
                                     <a class="truncate" flex ui-sref="authenticated.master.admin.user({key: responder.userId})">{{ responder.userEmail }}<md-tooltip>{{ responder.userEmail }}</md-tooltip></a>
                                     <span class="max-7 text-right" flex>{{ responder.answered | moment:"MM/DD/YY" }}</span>

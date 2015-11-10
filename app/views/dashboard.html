@@ -27,11 +27,11 @@
                             <label for="survey-response">Response</label>
                             <textarea id="survey-response" ng-model="survey.response"></textarea>
                         </md-input-container>
-                        <div class="md-select-wrapper" flex="100" ng-if="survey.answers">
+                        <md-input-container flex="100" ng-if="survey.answers">
                             <md-select class="min-20" ng-model="survey.response" placeholder="Answer...">
                                 <md-option ng-value="{{ answer.slug }}" ng-repeat="(key, answer) in survey.answers">{{ answer.text }}</md-option>
                             </md-select>
-                        </div>
+                        </md-input-container>
                         <div flex>
                             <md-button class="md-primary md-raised adjust-line-height max-10" ng-click="saveSurveyResponse(survey)">
                                 Submit

@@ -20,12 +20,12 @@
                 </label>
                 <input id="email" type="text" ng-model="$storage.address.email" ng-blur="validateAddress($storage.address)" required>
             </md-input-container>
-            <div class="md-select-wrapper" flex="100">
+            <md-input-container flex="100">
                 <md-select id="country-code" ng-model="$storage.address.countryCodeIndex" aria-label="Country telephone code" required>
                     <md-option value="">Country code</md-option>
                     <md-option ng-repeat="code in countryCodes" value="{{ $index }}">{{ code.value }}</md-option>
                 </md-select>
-            </div>
+            </md-input-container>
             <md-input-container flex>
                 <label for="address-phone">
                     <span>Notification Phone</span>
@@ -68,26 +68,18 @@
                 </label>
                 <input id="postal-code" type="text" ng-model="$storage.address.postalCode" ng-blur="validateAddress($storage.address)" required>
             </md-input-container>
-            <div class="md-select-wrapper text-left" flex="100" ng-show="$storage.address.country === 'US'">
-                <!-- <label for="state">
-              <span>State</span>
-              <strong class="text-small text-error margin-horizontal-small">{{ errorMessages.territory }}</strong>
-            </label> -->
+            <md-input-container class="text-left" flex="100" ng-show="$storage.address.country === 'US'">
                 <md-select id="state" ng-model="$storage.address.state" ng-blur="validateAddress($storage.address)" ng-change="updateAddress()" placeholder="State..." style="margin-top: 4px;">
                     <md-option value="">Select State</md-option>
                     <md-option ng-repeat="state in states" value="{{ state.abbreviation }}">{{ state.name }}</md-option>
                 </md-select>
-            </div>
-            <div class="md-select-wrapper text-left" flex="100">
-                <!-- <label for="country">
-              <span>Country</span>
-              <strong class="text-small text-error margin-horizontal-small">{{ errorMessages.country }}</strong>
-            </label> -->
+            </md-input-container>
+            <md-input-container flex="100">
                 <md-select id="country" ng-model="$storage.address.country" ng-blur="validateAddress($storage.address)" placeholder="Country..." style="margin-top: 4px;" required>
                     <md-option value="">Select Country</md-option>
                     <md-option ng-repeat="country in countries" value="{{ country['alpha-2'] }}">{{ country.name }}</md-option>
                 </md-select>
-            </div>
+            </md-input-container>
             <md-input-container flex="100" ng-show="$storage.address.country !== 'US'">
                 <label for="address-state">
                     <span>Territory</span>
