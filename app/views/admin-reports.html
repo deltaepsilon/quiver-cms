@@ -69,9 +69,12 @@
 <section ng-if="reports.surveys">
     <div layout="row" layout-align="start center">
         <h3 class="headline" flex ng-class="{'disabled': $storage.hideSalesReport}">Sales</h3>
-        <md-button class="md-primary md-raised md-icon-button" flex ng-click="$storage.hideSalesReport = !$storage.hideSalesReport" aria-label="Hide sales report">
-            <i ng-class="{'mdi-navigation-expand-less': $storage.hideSalesReport, 'mdi-navigation-expand-more': !$storage.hideSalesReport}"></i>
-        </md-button>
+        <strong class="max-12 text-right" flex>Last run {{ reports.sales.created | timeago}}</strong>
+        <div class="max-5 text-right" flex>
+            <md-button class="md-primary md-raised md-icon-button" flex ng-click="$storage.hideSalesReport = !$storage.hideSalesReport" aria-label="Hide sales report">
+                <i ng-class="{'mdi-navigation-expand-less': $storage.hideSalesReport, 'mdi-navigation-expand-more': !$storage.hideSalesReport}"></i>
+            </md-button>
+        </div>
     </div>
     <md-whiteframe class="md-whiteframe-z1 relative" layout="column" layout-padding layout-wrap ng-if="!$storage.hideSalesReport" ng-repeat="(reportType, name) in salesReportTypes">
         <div flex layout="row" layout-sm="column" layout-align="space-between center" layout-padding layout-wrap>

@@ -4,12 +4,12 @@
         <form class="width-100">
             <fieldset>
                 <div layout="row" layout-sm="column" layout-align="start start" layout-align-sm="center center" layout-padding layout-wrap>
-                    <div class="select-wrapper" flex="33" flex-sm="100" style="margin-top: -2px;">
+                    <md-input-container flex="33" flex-sm="100">
                         <md-select ng-model="newDiscount.type" ng-blur="validateNewDiscount()" placeholder="Discount Type">
                             <md-option value="percentage">Percentage</md-option>
                             <md-option value="value">Value</md-option>
-                            </md-input-container>
-                    </div>
+                        </md-select>
+                    </md-input-container>
                     <md-input-container flex="33" flex-sm="100" ng-if="newDiscount.type == 'percentage'">
                         <label for="discount-percentage">Discount Percentage</label>
                         <input id="discount-percentage" type="number" min="0" max="100" ng-model="newDiscount.percentage" ng-blur="validateNewDiscount()">
@@ -22,7 +22,7 @@
                         <label for="discount-code">Code</label>
                         <input id="discount-code" type="text" ng-model="newDiscount.code">
                     </md-input-container>
-                    <md-input-container flex="33" flex-sm="100" style="margin-top: -2px;">
+                    <md-input-container flex="33" flex-sm="100">
                         <label for="discount-expiration">Expiration</label>
                         <input id="discount-expiration" type="date" ng-model="newDiscount.expiration" ng-blur="validateNewDiscount()">
                     </md-input-container>

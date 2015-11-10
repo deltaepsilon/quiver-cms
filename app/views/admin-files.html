@@ -37,7 +37,7 @@
                     </div>
                 </div>
                 <div flex layout="row" layout-align="center center" ng-if="$flow.files.length">
-                    <md-progress-circular class="invisible" md-mode="indeterminate" qv-loading loaded="!uploading" target=".upload-button"></md-progress-circular>
+                    <md-progress-circular class="invisible" md-mode="indeterminate" qv-loading target=".upload-button" ng-class="{invisible: !uploading}"></md-progress-circular>
                 </div>
                 <div flex flex-sm="40">
                     <md-button class="upload-button md-accent md-raised adjust-line-height max-16" ng-click="upload($flow)" ng-if="$flow.files.length && !resizing" ng-disabled="uploading">Upload Files</md-button>

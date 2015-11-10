@@ -5,7 +5,7 @@
     "angular": ">=1.4.1",
     "json3": "~3.2.6",
     "es5-shim": "~2.1.0",
-    "quiver-angular-utilities": ">=0.0.5",
+    "quiver-angular-utilities": ">=1.0.0",
     "foundation": "~5.4.3",
     "font-awesome": "~4.2.0",
     "angular-markdown-editable": "~0.0.8",
@@ -20,7 +20,7 @@
     "angularfire": "~1.0.0",
     "angularfire-authentication": ">=0.0.3",
     "angular-sanitize": "~1.4.1",
-    "angular-material": "~0.10.1",
+    "angular-material": "~1.0.0-RC3",
     "materialize": "~0.96.0",
     "tinycolor": "~1.1.2",
     "geoffgraham.animate.scss": "*"
@@ -34,8 +34,6 @@
   "resolutions": {
     "angular": ">=1.4.1",
     "angular-mocks": ">=1.4.1",
-    "firebase": "2.2.x",
-    "angularfire": "~1.0.0",
-    "angular-material": ">=0.10.0"
+    "firebase": "2.2.x"
   }
 }

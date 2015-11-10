@@ -40,7 +40,7 @@
                                 <i class="mdi-content-add-box"></i>
                             </md-button>
                         </div>
-                        <div class="max-5" flex>
+                        <div class="max-5" flex style="position: relative; top: 4px;">
                             <md-button class="md-primary md-raised md-icon-button" ng-href="{{ env.firebase.endpoint }}/logs/shipments/{{ shipment.$id }}" target="_blank" aria-label="View firebase data for {{ shipment.$id }}">
                                 <i class="mdi-navigation-arrow-forward"></i>
                             </md-button>
@@ -61,25 +61,25 @@
                                 Shipped
                             </md-checkbox>
                         </div>
-                        <div flex>
+                        <div class="max-4" flex>
                             <md-button class="md-icon-button" ng-show="shipment.tracking.carrier && shipment.tracking.number" ng-href="{{ shipment.tracking | tracking }}" target="_blank" aria-label="View tracking for {{ $index }}">
                                 <i class="mdi-content-send"></i>
                             </md-button>
                         </div>
-                        <div class="md-select-wrapper" flex>
+                        <md-input-container class="max-7" flex>
                             <md-select ng-model="shipment.tracking.carrier" qv-enter="save(shipment)" placeholder="Carrier">
                                 <md-option ng-value="carrier.code" ng-repeat="carrier in shipping.carriers">{{ carrier.name }}</md-option>
                             </md-select>
-                        </div>
+                        </md-input-container>
                         <md-input-container flex>
                             <label for="tracking-number-{{ $index }}">Tracking Number</label>
                             <input id="tracking-number-{{ $index }}" type="text" ng-model="shipment.tracking.number" ng-blur="save(shipment)" qv-enter="save(shipment)">
                         </md-input-container>
-                        <md-input-container flex="25" flex-sm="100">
+                        <md-input-container class="max-10" flex flex-sm="100">
                             <label for="comments-{{ $index }}"></label>
                             <textarea id="comments-{{ $index }}" class="text-x-small line-height-1 margin-zero-important" ng-bind="getInstructions(shipment)"></textarea>
                         </md-input-container>
-                        <md-input-container flex="25" flex-sm="100">
+                        <md-input-container class="max-12" flex flex-sm="100">
                             <label for="shipment-address-{{ $index }}"></label>
                             <textarea id="shipment-address-{{ $index }}" class="text-x-small line-height-1 margin-zero-important" ng-bind="getAddress(shipment)" qv-select-text></textarea>
                         </md-input-container>

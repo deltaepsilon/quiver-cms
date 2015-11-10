@@ -12,17 +12,20 @@ angular.module('quiverCmsApp')
         /*
          * Reports
          */
-        $scope.reports = {
-            discounts: reports.discounts,
-            surveys: reports.surveys,
-            sales: {
-                created: reports.sales.created
+        reports.$loaded().then(function(reports) {
+            $scope.reports = {
+                discounts: reports.discounts,
+                surveys: reports.surveys,
+                sales: {
+                    created: reports.sales ? reports.sales.created : false
+                }
             }
-        }
-        _.each(reports.sales, function(value, key) {
-            if (typeof value === 'object') {
-                $scope.reports.sales[key] = _.toArray(value);
-            }
+            _.each(reports.sales, function(value, key) {
+                if (typeof value === 'object') {
+                    $scope.reports.sales[key] = _.toArray(value);
+                }
+            });
+
         });
 
         $scope.salesReportTypes = {

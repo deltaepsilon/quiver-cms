@@ -1,10 +1,10 @@
-.md-select-wrapper {
-    md-select {
-        margin-top: 0px;
-        margin-bottom: 0px;
-        padding: 1rem 2px 0px;
-    }
-}
+// .md-select-wrapper {
+//     md-select {
+//         margin-top: 0px;
+//         margin-bottom: 0px;
+//         padding: 1rem 2px 0px;
+//     }
+// }
 
 fieldset {
     border: 0;
@@ -15,5 +15,11 @@ fieldset {
 md-input-container {
     &.next-to-select {
         margin-bottom: 26px;
+    }
+}
+
+md-checkbox {
+    .md-label {
+        margin-left: 1rem;
     }
 }

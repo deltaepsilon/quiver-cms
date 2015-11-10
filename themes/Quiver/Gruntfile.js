@@ -76,6 +76,7 @@ module.exports = function(grunt) {
     });
 
     grunt.registerTask('build', [
+        'compass',
         'concat',
         'cssmin'
     ]);

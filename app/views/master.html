@@ -1,6 +1,6 @@
 <div layout="row" flex>
     <md-sidenav layout="column" class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')" ui-view="sidenavLeft"></md-sidenav>
-    <div id="content" layout="column" flex layout-align="start center" layout-fill>
+    <div id="content" layout="column" flex layout-align="start center" layout-fill style="min-height: 100vh;">
         <md-toolbar class="top-toolbar md-hue-3 border-primary0" layout="row" layout-align="start center" style="border-width: 0 0 2px 0; max-height: 62px;">
             <md-button class="min-3 text-large" ng-click="toggleSidenav('left')" hide-gt-md tabindex="0" aria-label="toggle left nav" style="margin: 0 -.5rem 0 0;">
                 <i class="mdi-action-subject"></i>
@@ -37,16 +37,16 @@
                     </div>
                     <div class="md-toolbar-item" ng-if="isAdminView()">
                         <md-button class="md-fab md-mini md-primary" ng-click="toggleSidenav('right')" tabindex="0" aria-label="Toggle right nav">
-                            <i class="mdi-image-camera-alt"></i>
+                            <i class="mdi-image-camera-alt text-white0"></i>
                         </md-button>
                     </div>
                 </div>
             </div>
         </md-toolbar>
-        <md-content class="md-padding viewport-minus-header" flex layout-fill qv-background-image="settings.loginImage" states="['master.nav.login', 'master.nav.register', 'master.nav.reset']">
+        <div class="md-padding viewport-minus-header" flex layout-fill qv-background-image="settings.loginImage" states="['master.nav.login', 'master.nav.register', 'master.nav.reset']">
             <div flex layout="column" layout-align="center center" layout-fill ui-view="body" autoscroll="false"></div>
             <span qv-autoscroll scroll-on="scrollToBottom"></span>
-        </md-content>
+        </div>
     </div>
     <md-sidenav layout="column" class="md-sidenav-right md-whiteframe-z2" md-component-id="right" ui-view="sidenavRight"></md-sidenav>
 </div>
