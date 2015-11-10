@@ -7,4 +7,4 @@ docker run -d -t  \
   -v /Users/quiver/Development/quiver-cms/nginx:/src/nginx \
   -v /Users/quiver/Development/quiver-cms/bin:/src/bin \
   -v /Users/quiver/Development/quiver-cms/logs:/src/logs \
-  epsilon/quiver-cms:1.0.7
+  epsilon/quiver-cms:1.0.8

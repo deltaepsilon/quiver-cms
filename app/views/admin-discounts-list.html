@@ -5,16 +5,16 @@
             <input id="list-search" type="text" ng-model="searchTerm" qv-enter="items = items.$orderByChild('code').$startAt(searchTerm).$get(); orderBy = 'code'" ng-focus="searchTerm = undefined;" auto-enter="searchTerm">
         </md-input-container>
         <span flex hide-sm></span>
-        <md-button class="md-icon-button" flex ng-click="items = items.$prev(); orderBy = '-$id'; searchTerm = undefined;" ng-disabled="items.$prevDisabled" aria-label="list back">
+        <md-button class="md-icon-button" flex ng-click="items = items.$prev(); searchTerm = undefined;" ng-disabled="items.$prevDisabled" aria-label="list back">
             <i class="mdi-navigation-arrow-back"></i>
         </md-button>
-        <md-button class="md-icon-button" flex ng-click="items = items.$next(); orderBy = '-$id'; searchTerm = undefined;" ng-disabled="items.$nextDisabled" aria-label="list forward">
+        <md-button class="md-icon-button" flex ng-click="items = items.$next(); searchTerm = undefined;" ng-disabled="items.$nextDisabled" aria-label="list forward">
             <i class="mdi-navigation-arrow-forward"></i>
         </md-button>
-        <md-button class="md-icon-button" flex ng-click="items = items.$more(); orderBy = '-$id'; searchTerm = undefined;" ng-disabled="items.$moreDisabled" aria-label="list load more">
+        <md-button class="md-icon-button" flex ng-click="items = items.$more(); searchTerm = undefined;" ng-disabled="items.$moreDisabled" aria-label="list load more">
             <i class="mdi-navigation-expand-more"></i>
         </md-button>
-        <md-button class="md-icon-button" flex ng-click="items = items.$reset(); orderBy = '-$id'; searchTerm = undefined;" ng-disabled="items.$resetDisabled" aria-label="list reload">
+        <md-button class="md-icon-button" flex ng-click="items = items.$reset(); searchTerm = undefined;" ng-disabled="items.$resetDisabled" aria-label="list reload">
             <i class="mdi-navigation-refresh"></i>
         </md-button>
     </div>
@@ -28,7 +28,7 @@
         </md-list>
         <section>
             <md-list layout="column">
-                <md-item ng-repeat="discount in items | orderBy:orderBy">
+                <md-item ng-repeat="discount in items | orderBy:'-created'">
                     <md-item-content class="extra-padding" layout="row" layout-sm="column" layout-align="start center" layout-padding layout-wrap style="padding-top: 2rem;">
                         <strong flex="40" flex-sm="100"><span style="padding-left: .5rem; padding-right: .9rem;">{{ 10*(items.$query.page - 1) + $index + 1 }}:</span>{{ ::discount.code }}</strong>
                         <span flex="20" flex-sm="100">Product: {{ ::discount.productSlug || 'All' }}</span>
