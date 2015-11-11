@@ -14,30 +14,29 @@
     <link itemprop="name" content="{{ product.title }}">
     <div itemscope itemtype="http://schema.org/Offer">
       <md-card>
-        <div layout="row" layout-wrap layout-fill>
-          {{!-- {{#if product.featuredImage }}
-            
-            <div flex="100">
-              {{#if product.featuredImage.Versions.small.Key }}
-                <img src="{{s3 product.featuredImage.Versions.medium.Key }}" alt="{{deSlug product.featuredImage.Name }}"/>
-
-              {{ else }}
-                <img src="{{s3 product.featuredImage.Key }}" alt="{{deSlug product.featuredImage.Name }}"/>
-                
-              {{/if }}
-            </div>
-          {{/if }} --}}
-
-          {{#if product.images }}
-            {{#each product.images }}
-              <div flex="33">
-                <img src="{{s3 this.Versions.small.Key }}" alt="{{deSlug this.Name  }}"/>
-              </div>
-            {{/each }}
-          {{/if }}
-        </div>
-
         <md-card-content>
+          <md-whiteframe class="md-whiteframe-z0" layout="row" layout-wrap layout-fill>
+            {{!-- {{#if product.featuredImage }}
+            
+              <div flex="100">
+                {{#if product.featuredImage.Versions.small.Key }}
+                  <img src="{{s3 product.featuredImage.Versions.medium.Key }}" alt="{{deSlug product.featuredImage.Name }}"/>
+
+                {{ else }}
+                  <img src="{{s3 product.featuredImage.Key }}" alt="{{deSlug product.featuredImage.Name }}"/>
+                  
+                {{/if }}
+              </div>
+            {{/if }} --}}
+
+            {{#if product.images }}
+              {{#each product.images }}
+                <div flex="33">
+                  <img src="{{s3 this.Versions.small.Key }}" alt="{{deSlug this.Name  }}"/>
+                </div>
+              {{/each }}
+            {{/if }}    
+          </md-whiteframe>
           <div layout="row" layout-sm="column" layout-align="start center" layout-padding style="min-height: 5rem;">
             <h5 class="headline uppercase margin-horizontal-x-small" itemprop="name">
               {{ product.title }}
