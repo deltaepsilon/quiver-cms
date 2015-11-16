@@ -203,7 +203,8 @@
                         {{ ::subscription.subscriptionDays }} Days
                     </div>
                     <div flex>
-                        Expires: {{ ::subscription.expiration | moment:"MM/DD/YYYY" }}
+                        <span>Expires: </span>
+                        <span ng-if="subscription.expiration">{{ ::subscription.expiration | moment:"MM/DD/YYYY" }}</span>
                     </div>
                     <div class="text-right" flex>
                         {{ ::subscription.date | moment:"MM/DD/YYYY"}}
