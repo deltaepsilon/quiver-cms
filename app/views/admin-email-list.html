@@ -35,13 +35,17 @@
                         <md-button class="md-primary md-raised md-icon-button" ng-click="viewEmail($event, email)" aria-label="View email {{ email.context.to[0].email }}">
                             <i class="mdi-action-open-with"></i>
                         </md-button>
-                        <div flex>
-                            <md-button class="md-warn md-raised" ng-click="send(email)" ng-disabled="email.disabled" aria-label="Send email {{ email.context.to[0].email }}">
+                        <div class="max-8 text-right" flex>
+                            <md-button class="md-raised" ng-click="send(email)" ng-disabled="email.disabled" aria-label="Send email {{ email.context.to[0].email }}" ng-class="{'md-primary': !email.sent, 'md-secondary': email.sent}">
                                 <span ng-if="!email.sent">Send</span>
                                 <span ng-if="email.sent">Resend</span>
                             </md-button>
                         </div>
-                        
+                        <div class="max-5 text-right" flex>
+                            <md-button class="md-warn md-fab md-mini" ng-click="deleteEmail(email)" aria-label="Delete email {{ email.context.to[0].email }}">
+                                <i class="mdi-action-delete"></i>
+                            </md-button>
+                        </div>
                     </md-item-content>
                     <md-divider ng-if="!$last"></md-divider>
                 </md-item>

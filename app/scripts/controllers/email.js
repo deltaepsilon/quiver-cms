@@ -60,4 +60,12 @@ angular.module('quiverCmsApp')
             });
         };
 
+        $scope.deleteEmail = function (email) {
+            $scope.items.$remove(email).then(function () {
+                NotificationService.success('Email', 'Deleted');
+            }, function (error) {
+                NotificationService.error('Email deletion error', error)
+            });  
+        };
+
     });
