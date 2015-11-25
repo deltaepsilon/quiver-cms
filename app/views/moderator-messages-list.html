@@ -48,7 +48,7 @@
                 </md-item>
             </md-list>
             <div class="text-center" ng-if="items.length && !items.$moreDisabled">
-                <md-button class="md-primary md-raised min-10 max-10" ng-click="items = items.$more(); orderBy = '-$id'">
+                <md-button class="md-primary md-raised min-10 max-10" ng-click="more()">
                     Load More
                 </md-button>
             </div>

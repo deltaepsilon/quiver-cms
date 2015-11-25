@@ -9,7 +9,16 @@
  */
 angular.module('quiverCmsApp')
     .controller('ModeratorMessagesListCtrl', function($scope, ModeratorService, $stateParams, _, moment) {       
+        
+
+        /*
+         * Items
+         */
         $scope.items = ModeratorService.getMessages($scope.assignment.$id).$get();
+
+        $scope.more = function () {
+            $scope.items = $scope.items.$more();  
+        };
 
         /*
          * Search

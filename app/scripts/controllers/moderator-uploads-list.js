@@ -9,7 +9,15 @@
  */
 angular.module('quiverCmsApp')
     .controller('ModeratorUploadsListCtrl', function($scope, ModeratorService, $stateParams, _, moment) {
+
+        /*
+         * Items
+         */
         $scope.items = ModeratorService.getUploads($scope.assignment.$id).$get();
+
+        $scope.more = function () {
+            $scope.items = $scope.items.$more();  
+        };
 
         /*
          * Search
