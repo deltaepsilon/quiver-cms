@@ -4569,132 +4569,133 @@ md-tooltip {
 /* line 7, modules/_type.scss */
 .headline.tight {
   letter-spacing: -3px;
+  word-spacing: 5px;
 }
 
-/* line 12, modules/_type.scss */
+/* line 13, modules/_type.scss */
 .lightest {
   font-weight: 100;
 }
 
-/* line 16, modules/_type.scss */
+/* line 17, modules/_type.scss */
 .light {
   font-weight: 300;
 }
 
-/* line 20, modules/_type.scss */
+/* line 21, modules/_type.scss */
 .book {
   font-weight: 500;
 }
 
-/* line 24, modules/_type.scss */
+/* line 25, modules/_type.scss */
 .bold,
 strong {
   font-weight: 900;
 }
 
-/* line 30, modules/_type.scss */
+/* line 31, modules/_type.scss */
 .letter-spacing-small {
   letter-spacing: 1px;
 }
 
-/* line 34, modules/_type.scss */
+/* line 35, modules/_type.scss */
 .letter-spacing-medium {
   letter-spacing: 2px;
 }
 
-/* line 38, modules/_type.scss */
+/* line 39, modules/_type.scss */
 .letter-spacing-large {
   letter-spacing: 3px;
 }
 
-/* line 43, modules/_type.scss */
+/* line 44, modules/_type.scss */
 .uppercase {
   text-transform: uppercase;
 }
 
-/* line 47, modules/_type.scss */
+/* line 48, modules/_type.scss */
 .lowercase {
   text-transform: lowercase;
 }
 
-/* line 51, modules/_type.scss */
+/* line 52, modules/_type.scss */
 .capitalize {
   text-transform: capitalize;
 }
 
-/* line 55, modules/_type.scss */
+/* line 56, modules/_type.scss */
 .undecorated {
   text-decoration: none;
   color: inherit;
 }
 
-/* line 60, modules/_type.scss */
+/* line 61, modules/_type.scss */
 .truncate {
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
 }
 
-/* line 66, modules/_type.scss */
+/* line 67, modules/_type.scss */
 .ellipsis {
   text-overflow: ellipsis;
 }
 
-/* line 71, modules/_type.scss */
+/* line 72, modules/_type.scss */
 .text-left {
   text-align: left;
 }
 
-/* line 75, modules/_type.scss */
+/* line 76, modules/_type.scss */
 .text-left-important {
   text-align: left !important;
 }
 
-/* line 79, modules/_type.scss */
+/* line 80, modules/_type.scss */
 .text-right {
   text-align: right;
 }
 
-/* line 83, modules/_type.scss */
+/* line 84, modules/_type.scss */
 .text-right-important {
   text-align: right !important;
 }
 
-/* line 87, modules/_type.scss */
+/* line 88, modules/_type.scss */
 .text-center {
   text-align: center;
 }
 
-/* line 91, modules/_type.scss */
+/* line 92, modules/_type.scss */
 .text-center-important {
   text-align: center !important;
 }
 
-/* line 96, modules/_type.scss */
+/* line 97, modules/_type.scss */
 .break-word {
   word-wrap: break-word;
 }
 
-/* line 100, modules/_type.scss */
+/* line 101, modules/_type.scss */
 .break-all {
   word-break: break-all;
 }
 
-/* line 105, modules/_type.scss */
+/* line 106, modules/_type.scss */
 .line-height-1 {
   line-height: 1rem !important;
 }
 
-/* line 109, modules/_type.scss */
+/* line 110, modules/_type.scss */
 .line-height-2 {
   line-height: 2rem !important;
 }
 
-/* line 115, modules/_type.scss */
+/* line 116, modules/_type.scss */
 md-sidenav .md-toolbar-tools {
   font-weight: 900;
 }
-/* line 118, modules/_type.scss */
+/* line 119, modules/_type.scss */
 md-sidenav .md-button * {
   font-weight: 900;
   letter-spacing: 1px;

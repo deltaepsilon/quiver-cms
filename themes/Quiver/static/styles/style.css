@@ -9321,132 +9321,133 @@ img {
 /* line 7, ../../../../app/styles/modules/_type.scss */
 .headline.tight {
   letter-spacing: -3px;
+  word-spacing: 5px;
 }
 
-/* line 12, ../../../../app/styles/modules/_type.scss */
+/* line 13, ../../../../app/styles/modules/_type.scss */
 .lightest {
   font-weight: 100;
 }
 
-/* line 16, ../../../../app/styles/modules/_type.scss */
+/* line 17, ../../../../app/styles/modules/_type.scss */
 .light {
   font-weight: 300;
 }
 
-/* line 20, ../../../../app/styles/modules/_type.scss */
+/* line 21, ../../../../app/styles/modules/_type.scss */
 .book {
   font-weight: 500;
 }
 
-/* line 24, ../../../../app/styles/modules/_type.scss */
+/* line 25, ../../../../app/styles/modules/_type.scss */
 .bold, .cta-headline, .cta-button .title,
 strong {
   font-weight: 900;
 }
 
-/* line 30, ../../../../app/styles/modules/_type.scss */
+/* line 31, ../../../../app/styles/modules/_type.scss */
 .letter-spacing-small {
   letter-spacing: 1px;
 }
 
-/* line 34, ../../../../app/styles/modules/_type.scss */
+/* line 35, ../../../../app/styles/modules/_type.scss */
 .letter-spacing-medium {
   letter-spacing: 2px;
 }
 
-/* line 38, ../../../../app/styles/modules/_type.scss */
+/* line 39, ../../../../app/styles/modules/_type.scss */
 .letter-spacing-large {
   letter-spacing: 3px;
 }
 
-/* line 43, ../../../../app/styles/modules/_type.scss */
+/* line 44, ../../../../app/styles/modules/_type.scss */
 .uppercase {
   text-transform: uppercase;
 }
 
-/* line 47, ../../../../app/styles/modules/_type.scss */
+/* line 48, ../../../../app/styles/modules/_type.scss */
 .lowercase {
   text-transform: lowercase;
 }
 
-/* line 51, ../../../../app/styles/modules/_type.scss */
+/* line 52, ../../../../app/styles/modules/_type.scss */
 .capitalize {
   text-transform: capitalize;
 }
 
-/* line 55, ../../../../app/styles/modules/_type.scss */
+/* line 56, ../../../../app/styles/modules/_type.scss */
 .undecorated {
   text-decoration: none;
   color: inherit;
 }
 
-/* line 60, ../../../../app/styles/modules/_type.scss */
+/* line 61, ../../../../app/styles/modules/_type.scss */
 .truncate {
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
 }
 
-/* line 66, ../../../../app/styles/modules/_type.scss */
+/* line 67, ../../../../app/styles/modules/_type.scss */
 .ellipsis {
   text-overflow: ellipsis;
 }
 
-/* line 71, ../../../../app/styles/modules/_type.scss */
+/* line 72, ../../../../app/styles/modules/_type.scss */
 .text-left {
   text-align: left;
 }
 
-/* line 75, ../../../../app/styles/modules/_type.scss */
+/* line 76, ../../../../app/styles/modules/_type.scss */
 .text-left-important {
   text-align: left !important;
 }
 
-/* line 79, ../../../../app/styles/modules/_type.scss */
+/* line 80, ../../../../app/styles/modules/_type.scss */
 .text-right {
   text-align: right;
 }
 
-/* line 83, ../../../../app/styles/modules/_type.scss */
+/* line 84, ../../../../app/styles/modules/_type.scss */
 .text-right-important {
   text-align: right !important;
 }
 
-/* line 87, ../../../../app/styles/modules/_type.scss */
+/* line 88, ../../../../app/styles/modules/_type.scss */
 .text-center {
   text-align: center;
 }
 
-/* line 91, ../../../../app/styles/modules/_type.scss */
+/* line 92, ../../../../app/styles/modules/_type.scss */
 .text-center-important {
   text-align: center !important;
 }
 
-/* line 96, ../../../../app/styles/modules/_type.scss */
+/* line 97, ../../../../app/styles/modules/_type.scss */
 .break-word {
   word-wrap: break-word;
 }
 
-/* line 100, ../../../../app/styles/modules/_type.scss */
+/* line 101, ../../../../app/styles/modules/_type.scss */
 .break-all {
   word-break: break-all;
 }
 
-/* line 105, ../../../../app/styles/modules/_type.scss */
+/* line 106, ../../../../app/styles/modules/_type.scss */
 .line-height-1 {
   line-height: 1rem !important;
 }
 
-/* line 109, ../../../../app/styles/modules/_type.scss */
+/* line 110, ../../../../app/styles/modules/_type.scss */
 .line-height-2 {
   line-height: 2rem !important;
 }
 
-/* line 115, ../../../../app/styles/modules/_type.scss */
+/* line 116, ../../../../app/styles/modules/_type.scss */
 md-sidenav .md-toolbar-tools {
   font-weight: 900;
 }
-/* line 118, ../../../../app/styles/modules/_type.scss */
+/* line 119, ../../../../app/styles/modules/_type.scss */
 md-sidenav .md-button * {
   font-weight: 900;
   letter-spacing: 1px;

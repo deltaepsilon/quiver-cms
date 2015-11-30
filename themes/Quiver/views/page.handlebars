@@ -5,7 +5,7 @@
         <md-whiteframe class="md-whiteframe-z1" flex layout="row" layout-sm="column" layout-align="space-between" layout-padding layout-wrap>
             <div class="min-16 max-16" flex>
                 <div class="headline uppercase text-secondary0">{{ post.author.name }}</div>
-                <div class="text-small">{{calendar post.published.published}}</div>
+                <div class="text-small" style="margin-top: .25rem;">{{calendar post.published.published}}</div>
                 <div>
                     <md-button class="md-fab md-mini md-primary md-hue-1" qv-scroll="disqus_thread" aria-label="View page comments">
                         <span data-disqus-identifier="{{ post.slug }}"></span>
@@ -27,7 +27,7 @@
             </div>
             <div class="min-16 max-16" flex>
                 <div class="headline uppercase">Share</div>
-                <div class="text-small">&nbsp;</div>
+                <div class="text-small" style="margin-top: .25rem;">&nbsp;</div>
                 <div>
                     <md-button class="md-fab md-mini twitter" ng-href="http://twitter.com/share?text={{ post.title }}&url={{ post.url }}" aria-label="Share page to Twitter">
                         <i class="qv qv-twitter qv-offset-1"></i>
