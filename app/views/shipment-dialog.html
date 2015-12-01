@@ -10,7 +10,7 @@
                     <md-item-content layout="column" layout-gt-md="row" layout-align="start center" layout-padding layout-wrap>
                         <a flex="50" flex-sm="100" ng-href="mailto:{{ label.to_address.email }}">{{ label.to_address.email }}</a>
                         <div flex>
-                            <md-button class="md-primary md-raised" ng-href="{{ label.postage_label.label_url }}" download>Download</md-button>
+                            <md-button class="md-primary md-raised" ng-href="{{ label.postage_label.label_url }}" download style="margin-top: 10px;">Download</md-button>
                         </div>
                         <div flex>
                             <md-button class="md-warn md-raised" ng-click="confirmUpdateTracking($event, selectedShipment, label.id, label.tracker.tracking_code, label.to_address.email, selectedShipment.transaction.address.sms)" ng-disabled="updatingTracking">Aftership</md-button>
