@@ -48,7 +48,7 @@
                     <img class="block margin-auto" ng-src="{{ image.url }}" alt="{{ image.name }}">
                 </a>
                 <div class="absolute bottom background-highlight4 text-white0 text-center margin-horizontal-x-small margin-vertical-x-small" layout="row" layout-align="space-between center" layout-padding>
-                    <span class="break-all">{{ image.Name }} ({{ image.Size / 1000 | number:0 }}kb)</span>
+                    <span class="break-all">{{ image.Name | removeRandom }} ({{ image.Size / 1000 | number:0 }}kb)</span>
                     <md-button class="md-icon-button md-warn md-raised" ng-click="remove(image); image.disabled = true;" ng-disabled="image.disabled" aria-label="Remove uploaded image">
                         <i class="mdi-action-delete"></i>
                     </md-button>

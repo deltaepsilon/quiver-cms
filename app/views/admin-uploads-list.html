@@ -33,7 +33,7 @@
                         <span class="bold" flex flex-order="1" style="max-width: 10rem;">{{ upload.date | moment:"MMM DD, hh:mm" }}</span>
                         <span class="truncate" flex flex-order="2">{{ upload.userEmail }}</span>
                         <span class="truncate" flex flex-order="2">{{ upload.assignmentTitle }}</span>
-                        <a class="undecorated" flex="33" flex-sm="100" flex-order="3" flex-order-sm="9" ui-sref="authenticated.master.admin.feedback({userId: upload.recipientId || upload.userId, assignmentKey: upload.assignmentKey })">{{ upload.upload.Name | truncate:30 }}</a>
+                        <a class="undecorated" flex="33" flex-sm="100" flex-order="3" flex-order-sm="9" ui-sref="authenticated.master.admin.feedback({userId: upload.recipientId || upload.userId, assignmentKey: upload.assignmentKey })">{{ upload.upload.Name | removeRandom | truncate:30 }}</a>
                         <md-button class="md-icon-button" flag="{{ upload.flag || 0 }}" flex flex-order="4" ng-click="incrementUploadFlag(upload)" aria-label="Increment flag for {{ upload.assignmentTitle }}">
                             <i class="mdi-content-flag"></i>
                         </md-button>
