@@ -1994,6 +1994,9 @@ angular.module('quiverCmsApp')
             "name": "American Samoa",
             "abbreviation": "AS"
         }, {
+            "name": "Army Post Office",
+            "abbreviation": "APO"
+        }, {
             "name": "Arizona",
             "abbreviation": "AZ"
         }, {
@@ -2020,6 +2023,9 @@ angular.module('quiverCmsApp')
         }, {
             "name": "Florida",
             "abbreviation": "FL"
+        }, {
+            "name": "Fleet Post Office",
+            "abbreviation": "FPO"
         }, {
             "name": "Georgia",
             "abbreviation": "GA"
