@@ -3964,6 +3964,11 @@ img {
   max-height: 3rem;
 }
 
+/* line 106, ../../../../app/styles/modules/_global.scss */
+md-whiteframe > * {
+  max-width: 100%;
+}
+
 @font-face {
   font-family: "Material-Design-Icons";
   src: url("/static/lib/materialize/font/material-design-icons/Material-Design-Icons.eot");

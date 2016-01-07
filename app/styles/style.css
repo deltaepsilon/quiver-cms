@@ -3899,6 +3899,11 @@ img {
   max-height: 3rem;
 }
 
+/* line 106, modules/_global.scss */
+md-whiteframe > * {
+  max-width: 100%;
+}
+
 /* line 11, modules/_buttons.scss */
 .md-button.twitter,
 .md-fab.twitter {

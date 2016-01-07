@@ -102,3 +102,7 @@ img {
         max-height: $avatar-width;
     }
 }
+
+md-whiteframe > * {
+    max-width: 100%;
+}
