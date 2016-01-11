@@ -14,6 +14,60 @@
             </div>
         </md-whiteframe>
     </section>
+    <!-- START subscriptions -->
+    <section id="subscriptions" ng-if="subscriptions.length">
+        <md-whiteframe class="md-whiteframe-z1 relative" layout="column" layout-fill flex>
+            <h3 class="headline margin-horizontal-medium transition-color">Subscriptions</h3>
+            <md-content>
+                <md-list layout="column">
+                    <md-item ng-if="!subscriptions.length">
+                        <md-item-content class="text-center" layout="row" layout-align="center center" layout-padding layout-wrap>
+                            <h3 class="headline">You haven't signed up for any subscriptions.</h3>
+                        </md-item-content>
+                    </md-item>
+                    <md-item ng-repeat="subscription in subscriptions | orderBy:'expiration'" ng-disabled="subscription.subscriptionType == 'content' && expired(subscription)" ng-class="{disabled: subscription.subscriptionType == 'content' && isExpired(subscription)}">
+                        <md-item-content layout="row" layout-sm="column" layout-align="start center" layout-padding layout-wrap>
+                            <strong flex="30" flex-sm="100">{{ subscription.title }}</strong>
+                            <div class="max-5" flex>
+                                <strong ng-if="subscription.subscriptionDays">{{ subscription.subscriptionDays }} Days</strong>
+                            </div>
+                            <span flex hide-sm></span>
+                            <div class="text-center min-22" flex>
+                                <md-button class="md-primary md-raised adjust-line-height min-20 max-30" ui-sref="authenticated.master.subscription.page({subscriptionKey: subscription.$id, pageNumber: $storage['bookmark-' + subscription.$id] || 0})" aria-label="Subscription {{ subscription.title }}">
+                                    <div layout="row" ng-if="subscription.subscriptionType === 'interaction' && isExpired(subscription)">
+                                        <span class="text-left" flex>Assignments Expired</span>
+                                        <span class="text-right" flex>{{ subscription.expiration | moment:"MM/DD/YYYY" }}</span>
+                                    </div>
+                                    <div layout="row" ng-if="subscription.subscriptionType === 'interaction' && !isExpired(subscription) && subscription.expiration">
+                                        <span class="text-left" flex>Assignments Expiration</span>
+                                        <span class="text-right" flex>{{ subscription.expiration | moment:"MM/DD/YYYY" }}</span>
+                                    </div>
+                                    <div layout="row" ng-if="subscription.subscriptionType === 'interaction' && !isExpired(subscription) && !subscription.expiration">
+                                        <span flex>Click to Access</span>
+                                        <md-tooltip>Clicking will not start your subscription!</md-tooltip>
+                                    </div>
+                                    <div layout="row" ng-if="subscription.subscriptionType === 'content' && isExpired(subscription)">
+                                        <span class="text-left" flex>Expired</span>
+                                        <span class="text-right" flex>{{ subscription.expiration | moment:"MM/DD/YYYY" }}</span>
+                                    </div>
+                                    <div layout="row" ng-if="subscription.subscriptionType === 'content' && !isExpired(subscription) && subscription.expiration">
+                                        <span class="text-left" flex>Expiration</span>
+                                        <span class="text-right" flex>{{ subscription.expiration | moment:"MM/DD/YYYY" }}</span>
+                                    </div>
+                                    <div layout="row" ng-if="subscription.subscriptionType === 'content' && !isExpired(subscription) && !subscription.expiration">
+                                        <span flex ng-if="subscription.subscriptionDays">Click to start subscription</span>
+                                        <span flex ng-if="!subscription.subscriptionDays">Click to view content</span>
+                                    </div>
+                                </md-button>
+                            </div>
+                        </md-item-content>
+                        <md-divider ng-if="!$last"></md-divider>
+                    </md-item>
+                </md-list>
+            </md-content>
+        </md-whiteframe>
+    </section>
+    <!-- END Subscriptions -->
     <!-- START Survey -->
     <section id="survey" ng-if="survey">
         <form name="surveyForm">
@@ -79,59 +133,6 @@
         </md-whiteframe>
     </section>
     <!-- END Messages -->
-    <!-- START subscriptions -->
-    <section id="subscriptions" ng-if="subscriptions.length">
-        <md-whiteframe class="md-whiteframe-z1 relative" layout="column" layout-fill flex>
-            <h3 class="headline margin-horizontal-medium transition-color">Subscriptions</h3>
-            <md-content>
-                <md-list layout="column">
-                    <md-item ng-if="!subscriptions.length">
-                        <md-item-content class="text-center" layout="row" layout-align="center center" layout-padding layout-wrap>
-                            <h3 class="headline">You haven't signed up for any subscriptions.</h3>
-                        </md-item-content>
-                    </md-item>
-                    <md-item ng-repeat="subscription in subscriptions | orderBy:'expiration'" ng-disabled="subscription.subscriptionType == 'content' && expired(subscription)" ng-class="{disabled: subscription.subscriptionType == 'content' && isExpired(subscription)}">
-                        <md-item-content layout="row" layout-sm="column" layout-align="start center" layout-padding layout-wrap>
-                            <strong flex="30" flex-sm="100">{{ subscription.title }}</strong>
-                            <div class="max-5" flex>
-                                <strong ng-if="subscription.subscriptionDays">{{ subscription.subscriptionDays }} Days</strong>
-                            </div>
-                            <span flex hide-sm></span>
-                            <div class="text-center min-22" flex>
-                                <md-button class="md-primary md-raised adjust-line-height min-20 max-30" ui-sref="authenticated.master.subscription.page({subscriptionKey: subscription.$id, pageNumber: $storage['bookmark-' + subscription.$id] || 0})" aria-label="Subscription {{ subscription.title }}">
-                                    <div layout="row" ng-if="subscription.subscriptionType === 'interaction' && isExpired(subscription)">
-                                        <span class="text-left" flex>Assignments Expired</span>
-                                        <span class="text-right" flex>{{ subscription.expiration | moment:"MM/DD/YYYY" }}</span>
-                                    </div>
-                                    <div layout="row" ng-if="subscription.subscriptionType === 'interaction' && !isExpired(subscription) && subscription.expiration">
-                                        <span class="text-left" flex>Assignments Expiration</span>
-                                        <span class="text-right" flex>{{ subscription.expiration | moment:"MM/DD/YYYY" }}</span>
-                                    </div>
-                                    <div layout="row" ng-if="subscription.subscriptionType === 'interaction' && !isExpired(subscription) && !subscription.expiration">
-                                        <span flex>Assignments not started</span>
-                                    </div>
-                                    <div layout="row" ng-if="subscription.subscriptionType === 'content' && isExpired(subscription)">
-                                        <span class="text-left" flex>Expired</span>
-                                        <span class="text-right" flex>{{ subscription.expiration | moment:"MM/DD/YYYY" }}</span>
-                                    </div>
-                                    <div layout="row" ng-if="subscription.subscriptionType === 'content' && !isExpired(subscription) && subscription.expiration">
-                                        <span class="text-left" flex>Expiration</span>
-                                        <span class="text-right" flex>{{ subscription.expiration | moment:"MM/DD/YYYY" }}</span>
-                                    </div>
-                                    <div layout="row" ng-if="subscription.subscriptionType === 'content' && !isExpired(subscription) && !subscription.expiration">
-                                        <span flex ng-if="subscription.subscriptionDays">Click to start subscription</span>
-                                        <span flex ng-if="!subscription.subscriptionDays">Click to view content</span>
-                                    </div>
-                                </md-button>
-                            </div>
-                        </md-item-content>
-                        <md-divider ng-if="!$last"></md-divider>
-                    </md-item>
-                </md-list>
-            </md-content>
-        </md-whiteframe>
-    </section>
-    <!-- END Subscriptions -->
     <!-- START Shipping -->
     <section id="shipping" ng-if="shipments.length">
         <md-whiteframe class="md-whiteframe-z1 relative" layout="column" layout-fill flex>

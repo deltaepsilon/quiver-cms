@@ -72,7 +72,7 @@
         </md-toolbar>
         <div layout="column" layout-padding>
             <div layout="row" flex ng-repeat="subscription in currentSubscriptions(subscriptions)" ng-class="{active: subscription.$id == $state.params.subscriptionKey}">
-                <md-button class="md-primary text-left ellipsis" flex layout-fill ui-sref="authenticated.master.subscription.page({subscriptionKey: subscription.$id, pageNumber: $storage['bookmark-' + subscription.$id] || 0})" aria-label="Subscription: {{ subscription.title }}">
+                <md-button class="md-accent text-left ellipsis" flex layout-fill ui-sref="authenticated.master.subscription.page({subscriptionKey: subscription.$id, pageNumber: $storage['bookmark-' + subscription.$id] || 0})" aria-label="Subscription: {{ subscription.title }}" ng-class="{'md-raised': subscription.subscriptionType === 'interaction' && !isExpired(subscription) && !subscription.expiration}">
                     <md-tooltip>{{ subscription.title }}</md-tooltip>
                     {{ subscription.title }}
                 </md-button>
