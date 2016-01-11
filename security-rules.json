@@ -9,13 +9,20 @@
             "$surveyKey": {
               "asked": {
                 ".write": "root.child($quiverCMS).child('acl').child(auth.uid).exists() == true"
+              },
+              "answered": {
+                ".write": true
               }
             }
           }
         },
         
+        "acl": {
+          ".indexOn": ["userKey"]
+        },
+        
         "admin": {
-          ".read": "root.child($quiverCMS).child('acl').child(auth.uid).child('isAdmin').val() == true",
+          ".read": "root.child($quiverCMS).child('acl').child(auth.uid).child('isAdmin').val() == true || root.child($quiverCMS).child('acl').child(auth.uid).child('isModerator').val() == true",
           ".write": "root.child($quiverCMS).child('acl').child(auth.uid).child('isAdmin').val() == true",
           
           "landingPages": {
@@ -29,7 +36,13 @@
           
           "$type": {
             "$assignment": {
-              ".indexOn": ["userEmail"]
+              ".indexOn": ["userEmail"],
+              "$comment": {
+                "flag": {
+                  ".read": "root.child($quiverCMS).child('acl').child(auth.uid).child('isAdmin').val() == true || root.child($quiverCMS).child('acl').child(auth.uid).child('isModerator').val() == true",
+                  ".write": "root.child($quiverCMS).child('acl').child(auth.uid).child('isAdmin').val() == true || root.child($quiverCMS).child('acl').child(auth.uid).child('isModerator').val() == true"
+                }
+              }
             }
           }
         },
@@ -87,11 +100,21 @@
           },
           
           "messages": {
-            ".indexOn": ["created", "userEmail", "assignmentKey"]
+            ".indexOn": ["created", "userEmail", "assignmentKey"],
+            "$message": {
+              "flag": {
+               ".read": true,
+              ".write": true
+              }
+            }
           },
           
           "uploads": {
-            ".indexOn": ["created", "userEmail", "assignmentKey"]
+            ".indexOn": ["created", "userEmail", "assignmentKey"],
+            "flag": {
+              ".read": "root.child($quiverCMS).child('acl').child(auth.uid).child('isAdmin').val() == true || root.child($quiverCMS).child('acl').child(auth.uid).child('isModerator').val() == true",
+              ".write": "root.child($quiverCMS).child('acl').child(auth.uid).child('isAdmin').val() == true || root.child($quiverCMS).child('acl').child(auth.uid).child('isModerator').val() == true"
+            }
           }
         },
         
@@ -152,7 +175,6 @@
             ".write": "root.child($quiverCMS).child('acl').child(auth.uid).child('isAdmin').val() == true"
           }
         },
-        
         "messageable": {
           ".read": "auth.uid != null",
           ".write": "root.child($quiverCMS).child('acl').child(auth.uid).child('isAdmin').val() == true",
@@ -170,8 +192,8 @@
         
         "userObjects": {
           "$objectName": {
-            ".read": "root.child($quiverCMS).child('acl').child(auth.uid).child('isAdmin').val() == true",
-            ".write": "root.child($quiverCMS).child('acl').child(auth.uid).child('isAdmin').val() == true",
+            ".read": "root.child($quiverCMS).child('acl').child(auth.uid).child('isAdmin').val() == true || root.child($quiverCMS).child('acl').child(auth.uid).child('isModerator').val() == true",
+            ".write": "root.child($quiverCMS).child('acl').child(auth.uid).child('isAdmin').val() == true || root.child($quiverCMS).child('acl').child(auth.uid).child('isModerator').val() == true",
           
             "$user": {
               ".read": "$user == root.child($quiverCMS).child('acl').child(auth.uid).child('userKey').val() || root.child($quiverCMS).child('acl').child(auth.uid).child('isAdmin').val() == true",
@@ -191,8 +213,8 @@
         },
 
         "users": {
-          ".read": "data.parent().child('acl').child(auth.uid).child('isAdmin').val() == true",
-          ".write": "data.parent().child('acl').child(auth.uid).child('isAdmin').val() == true",
+          ".read": "data.parent().child('acl').child(auth.uid).child('isAdmin').val() == true || root.child($quiverCMS).child('acl').child(auth.uid).child('isModerator').val() == true",
+          ".write": "data.parent().child('acl').child(auth.uid).child('isAdmin').val() == true || data.parent().child('acl').child(auth.uid).child('isModerator').val() == true",
           ".indexOn": ["email", "google", "facebook", "simplelogin", "messageable", "isAdmin", "isModerator", "legacyId"],
           
           "$user": {
