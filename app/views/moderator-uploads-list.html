@@ -40,7 +40,7 @@
                         <md-button class="md-icon-button md-primary" flex flex-order="5" ng-click="setSearch(upload.userEmail)" aria-label="Search by user: {{ upload.userEmail }}">
                             <i class="mdi-action-search"></i>
                         </md-button>
-                        <md-button class="md-primary md-raised md-icon-button adjust-mdi" flex flex-order="6" target="_blank" ui-sref="authenticated.moderator.admin.feedback({userId: upload.recipientId || upload.userId, assignmentKey: upload.assignmentKey })" aria-label="Go to {{ upload.userEmail }} assignment {{ upload.assignmentTitle }}">
+                        <md-button class="md-primary md-raised md-icon-button adjust-mdi" flex flex-order="6" target="_blank" ui-sref="authenticated.master.moderator.feedback({userId: upload.recipientId || upload.userId, assignmentKey: upload.assignmentKey })" aria-label="Go to {{ upload.userEmail }} assignment {{ upload.assignmentTitle }}">
                             <i class="mdi-navigation-arrow-forward"></i>
                         </md-button>
                     </md-item-content>
