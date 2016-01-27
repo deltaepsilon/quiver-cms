@@ -32,7 +32,7 @@
                     <strong class="text-small text-error margin-horizontal-small">{{ errorMessages.countryCode }}</strong>
                     <strong class="text-small text-error margin-horizontal-small">{{ errorMessages.phone }}</strong>
                 </label>
-                <input class="margin-zero-important" type="text" ng-model="$storage.address.phone" ng-blur="validateAddress($storage.address)" style="padding-top: 20px;" required>
+                <input class="margin-zero-important" type="text" ng-model="$storage.address.phone" ng-blur="validateAddress($storage.address)" required>
             </md-input-container>
             <div flex="100">
                 <md-switch ng-model="$storage.address.sms" aria-label="Enable SMS notifications">
