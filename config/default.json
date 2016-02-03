@@ -191,6 +191,7 @@
                 "type": "bcc"
             }],
             "bcc_address": "tywin+quiver-cms-bcc@westeros.com",
+            "error_address": "bugs@westeros.com",
             "sincerely": "Sincerely,<br>The team at Quiver CMS"
         }
     }
