@@ -20,7 +20,7 @@
     "express": "~4.13.3",
     "express-handlebars": "~2.0.1",
     "feed": "~0.2.6",
-    "firebase": "^2.0.4",
+    "firebase": "^2.4.0",
     "formidable": "~1.0.15",
     "fs-extra": "~0.24.0",
     "handlebars": "~4.0.3",
