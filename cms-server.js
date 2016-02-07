@@ -37,6 +37,7 @@ var UserController = require('./lib/controllers/user'),
     ResourceController = require('./lib/controllers/resource'),
     LogController = require('./lib/controllers/log'),
     TestController = require('./lib/controllers/test'),
+    FeedController = require('./lib/controllers/feed'),
     Middleware = require('./lib/controllers/middleware');
 
 if (ConfigService.get('public.environment') === 'production') {
@@ -232,6 +233,19 @@ app.get('/user/:userId/resource/*', ResourceController.privateResource);
  */
 app.get('/admin/logs/:type', LogController.view);
 app.delete('/admin/logs/:type', LogController.delete);
+
+/*
+ * Feed
+ */
+app.get('/admin/orders/fulfillment.json', function (req, res, next) {
+    console.log('whatevs');
+    next();
+});
+app.get('/secret/orders/fulfillment.json', FeedController.getFulfillments);
+app.get('/secret/orders/fulfillments/count.json', FeedController.getFulfillmentsCount);
+app.get('/secret/orders/fulfillments/:key', FeedController.getFulfillment);
+app.put('/secret/orders/fulfillments/:key', FormController.body);
+app.put('/secret/orders/fulfillments/:key', FeedController.updateFulfillment);
 
 /*
  * Test
