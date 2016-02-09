@@ -28,9 +28,9 @@
     </md-list>
     <section>
       <md-list layout="column">
-        <md-item ng-repeat="shipment in items | orderBy:'created':'desc'">
+        <md-item ng-repeat="shipment in items | orderBy:'$id':'desc'">
           <md-item-content class="extra-padding relative" layout="column" layout-align="start center" layout-gt-md="row" layout-align-gt-md="space-between end" layout-padding layout-wrap style="padding-top: 2rem;">
-            <strong style="position: absolute; top: 50%; left: 50%; margin: -3rem 0 0 -1rem; opacity: .1; font-size: 4rem;">{{ $index }}</strong>
+            <strong style="position: absolute; top: 50%; left: 50%; margin: -3rem 0 0 -1rem; opacity: .1; font-size: 4rem;">{{ $index + 1 }}</strong>
             <div class="max-5" flex>
               <md-button class="md-primary md-raised md-icon-button" ng-click="selectShipment($event, shipment)" aria-label="Select shipment {{ $index }}">
                 <i class="mdi-maps-local-shipping"></i>
@@ -54,7 +54,7 @@
             <div flex>
               <a flex ng-href="mailto:{{ shipment.transaction.user.preferredEmail || shipment.transaction.user.email }}">{{ shipment.transaction.user.preferredEmail || shipment.transaction.user.email }}</a>
               <br>
-              <span>{{ shipment.created | moment:"MM/DD/YYYY" }}</span>
+              <span>{{ shipment.created | moment:"MM/DD/YY hh:mm:ss" }}</span>
             </div>
             <div class="max-4" flex>
               <div ng-repeat="(id, label) in shipment.labels">
