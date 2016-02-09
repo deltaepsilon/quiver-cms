@@ -29,7 +29,8 @@
     <section>
       <md-list layout="column">
         <md-item ng-repeat="shipment in items | orderBy:'created':'desc'">
-          <md-item-content class="extra-padding" layout="column" layout-align="start center" layout-gt-md="row" layout-align-gt-md="space-between end" layout-padding layout-wrap style="padding-top: 2rem;">
+          <md-item-content class="extra-padding relative" layout="column" layout-align="start center" layout-gt-md="row" layout-align-gt-md="space-between end" layout-padding layout-wrap style="padding-top: 2rem;">
+            <strong style="position: absolute; top: 50%; left: 50%; margin: -3rem 0 0 -1rem; opacity: .1; font-size: 4rem;">{{ $index }}</strong>
             <div class="max-5" flex>
               <md-button class="md-primary md-raised md-icon-button" ng-click="selectShipment($event, shipment)" aria-label="Select shipment {{ $index }}">
                 <i class="mdi-maps-local-shipping"></i>
@@ -55,15 +56,9 @@
               <br>
               <span>{{ shipment.created | moment:"MM/DD/YYYY" }}</span>
             </div>
-            <span flex="100"></span>
-            <div flex>
-              <md-checkbox ng-model="shipment.shipped" ng-change="save(shipment)">
-                Shipped
-              </md-checkbox>
-            </div>
             <div class="max-4" flex>
               <div ng-repeat="(id, label) in shipment.labels">
-                <md-button class="md-icon-button text-success" ng-show="label.tracker.tracking_code" ng-href="https://www.google.com/search?q={{ label.tracker.tracking_code }}" target="_blank" aria-label="View tracking for {{ $index }}">
+                <md-button class="md-icon-button text-success" ng-show="label.tracker.tracking_code" ng-href="{{ env.aftership.root }}/{{ label.tracker.tracking_code }}" target="_blank" aria-label="View tracking for {{ $index }}">
                   <i class="mdi-content-send"></i>
                 </md-button>
               </div>
@@ -71,14 +66,24 @@
                 <i class="mdi-content-send"></i>
               </md-button>
             </div>
+            <span flex="100"></span>
+            <div flex style="max-width: 8rem; position: relative; top: -.5rem;">
+              <md-checkbox ng-model="shipment.shipped" ng-change="save(shipment)">
+                Shipped
+              </md-checkbox>
+            </div>
             <md-input-container class="max-7" flex>
               <md-select ng-model="shipment.tracking.carrier" qv-enter="save(shipment)" placeholder="Carrier">
                 <md-option ng-value="carrier.code" ng-repeat="carrier in shipping.carriers">{{ carrier.name }}</md-option>
               </md-select>
             </md-input-container>
-            <md-input-container flex>
-              <label for="tracking-number-{{ $index }}">Tracking Number</label>
+            <md-input-container flex class="max-7">
+              <label for="tracking-number-{{ $index }}">Tracking</label>
               <input id="tracking-number-{{ $index }}" type="text" ng-model="shipment.tracking.number" ng-blur="save(shipment)" qv-enter="save(shipment)">
+            </md-input-container>
+            <md-input-container flex>
+                <label for="shipment-comment-{{ $index }}"></label>
+                <textarea id="shipment-comment-{{ $index }}" class="text-x-small line-height-1 margin-zero-important" ng-model="shipment.comment" ng-blur="save(shipment)" placeholder="Comments..."></textarea>
             </md-input-container>
             <md-input-container class="max-10" flex flex-sm="100">
               <label for="comments-{{ $index }}"></label>
