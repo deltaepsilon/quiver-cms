@@ -8,7 +8,7 @@
   },
   "license": "MIT",
   "dependencies": {
-    "aftership": "^4.1.4",
+    "aftership": "^5.2.0",
     "aws-sdk": "~2.2.6",
     "braintree": "^1.20.0",
     "browser_fingerprint": "0.0.6",
@@ -34,7 +34,7 @@
     "moment": "~2.10.6",
     "newrelic": "^1.11.5",
     "node-easypost": "^2.0.5",
-    "q": "~1.4.1",
+    "q": "^1.4.1",
     "redis": "~2.1.0",
     "request": "^2.48.0",
     "shortid": "^2.2.4",
