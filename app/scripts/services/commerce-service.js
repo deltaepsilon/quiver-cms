@@ -3224,7 +3224,8 @@ angular.module('quiverCmsApp')
                 address += (shipment.transaction.address.territory || shipment.transaction.address.territoryName || '') + " ";
                 address += shipment.transaction.address.postalCode + "\n";
                 address += shipment.transaction.address.country ? shipment.transaction.address.country + "\n" : '';
-                address += shipment.transaction.user.preferredEmail || shipment.transaction.user.email + "\n";
+                address += (shipment.transaction.user.preferredEmail || shipment.transaction.user.email) + "\n";
+                address += shipment.transaction.address.phone;
 
                 return address;
             },

@@ -246,6 +246,8 @@ app.get('/secret/orders/fulfillments/count.json', FeedController.getFulfillments
 app.get('/secret/orders/fulfillments/:key', FeedController.getFulfillment);
 app.put('/secret/orders/fulfillments/:key', FormController.body);
 app.put('/secret/orders/fulfillments/:key', FeedController.updateFulfillment);
+app.put('/secret/orders/fulfillments/:key', FormController.body);
+app.put('/secret/orders/status/:status/:key', FeedController.setOrderStatus);
 
 /*
  * Test

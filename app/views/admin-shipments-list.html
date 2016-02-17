@@ -56,6 +56,9 @@
               <br>
               <span>{{ shipment.created | moment:"MM/DD/YY hh:mm:ss" }}</span>
             </div>
+            <div flex style="max-width: 8rem; height: 3.5rem;">
+              {{ shipment.status }}
+            </div>
             <div class="max-4" flex>
               <div ng-repeat="(id, label) in shipment.labels">
                 <md-button class="md-icon-button text-success" ng-show="label.tracker.tracking_code" ng-href="{{ env.aftership.root }}/{{ label.tracker.tracking_code }}" target="_blank" aria-label="View tracking for {{ $index }}">
