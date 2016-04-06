@@ -1997,6 +1997,24 @@ angular.module('quiverCmsApp')
             "name": "Army Post Office",
             "abbreviation": "APO"
         }, {
+            "name": "Armed Forces Africa",
+            "abbreviation": "AE"
+        }, {
+            "name": "Armed Forces Americas",
+            "abbreviation": "AA (except Canada)"
+        }, {
+            "name": "Armed Forces Canada",
+            "abbreviation": "AE"
+        }, {
+            "name": "Armed Forces Europe",
+            "abbreviation": "AE"
+        }, {
+            "name": "Armed Forces Middle East",
+            "abbreviation": "AE"
+        }, {
+            "name": "Armed Forces Pacific",
+            "abbreviation": "AP"
+        }, {
             "name": "Arizona",
             "abbreviation": "AZ"
         }, {
