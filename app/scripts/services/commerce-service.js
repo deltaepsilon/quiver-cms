@@ -2000,8 +2000,8 @@ angular.module('quiverCmsApp')
             "name": "Armed Forces Africa/Canada/Europe/Middle East",
             "abbreviation": "AE"
         }, {
-            "name": "Armed Forces Americas",
-            "abbreviation": "AA (except Canada)"
+            "name": "Armed Forces Americas (except Canada)",
+            "abbreviation": "AA"
         }, {
             "name": "Armed Forces Pacific",
             "abbreviation": "AP"
