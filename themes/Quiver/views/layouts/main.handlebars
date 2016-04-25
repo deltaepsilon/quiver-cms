@@ -88,7 +88,7 @@
             </script>
         </div>
     </div>
-    {{#if env.liveReload }} {{> livereload}} {{/if }} {{#if env.google.analyticsId }} {{> analytics }} {{/if }} {{> disqus-comment-count }}
+    {{#if env.liveReload }} {{> livereload}} {{/if }} {{#if env.google.analyticsId }} {{> analytics }} {{/if }} {{#if env.facebook.analyticsId }} {{> facebookAnalytics }} {{/if }} {{> disqus-comment-count }}
     {{#if env.structuredOrganization}}<script type="application/ld+json">{{{json env.structuredOrganization }}}</script>{{/if}}
     <script src="/static/scripts/vendor.js"></script>
     <script src="/static/scripts/app.js"></script>
