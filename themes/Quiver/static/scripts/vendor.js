@@ -999,7 +999,6 @@ angular.module('quiver.angular-utilities', ['notifications', 'ui.router', 'ngMat
                         document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
 
                     fbq('init', this.env.facebook.analyticsId);
-                    fbq('track', "PageView");
                 }
             },
             setNotificationConfig: function (notificationConfig) {
