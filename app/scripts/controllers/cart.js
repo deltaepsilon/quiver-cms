@@ -8,7 +8,7 @@
  * Controller of the quiverCmsApp
  */
 angular.module('quiverCmsApp')
-    .controller('CartCtrl', function($scope, $localStorage, $state, _, moment, products, countriesStatus, statesStatus, shipping, clientToken, CommerceService, NotificationService, braintree, ObjectService, Analytics, user, env, $location, $mdDialog, $timeout) {
+    .controller('CartCtrl', function($scope, $localStorage, $state, _, moment, products, countriesStatus, statesStatus, shipping, clientToken, CommerceService, NotificationService, braintree, ObjectService, Analytics, TrackingService, user, env, $location, $mdDialog, $timeout) {
         /*
          * Storage
          */
@@ -29,6 +29,17 @@ angular.module('quiverCmsApp')
         $scope.goToCheckout = function() {
             $scope.checkingOut = true;
             $state.go('authenticated.master.nav.checkout');
+            
+            var cart = $scope.$storage.cart;
+            TrackingService.track('InitiateCheckout', {
+                value: cart.total,
+                currency: 'USD',
+                content_name: 'product',
+                content_ids: _.pluck(cart.items, 'key'),
+                num_items: cart.items.length,
+                userEmail: user ? user.email : undefined,
+                userId: user ? user.$id : undefined
+            });
         };
 
         /*
@@ -184,6 +195,9 @@ angular.module('quiverCmsApp')
                 }
 
                 cart.total = cart.subtotal + cart.tax + cart.shipping - cart.discount;
+                if (isNaN(cart.total)) {
+                    cart.total = 0
+                }
                 $scope.$storage.cart = cart;
             }
 
@@ -478,8 +492,10 @@ angular.module('quiverCmsApp')
 
                 if ($state.current.name === 'master.nav.cart') {
                     Analytics.trackCheckout(1);
+                    TrackingService.track('ViewContent', {content_name: 'cart1'});
                 } else if ($state.current.name === 'authenticated.master.nav.checkout') {
                     Analytics.trackCheckout(2);
+                    TrackingService.track('ViewContent', {content_name: 'cart2'});
                 }
 
             }
@@ -590,6 +606,7 @@ angular.module('quiverCmsApp')
 
             CommerceService.addProducts(cart);
             Analytics.trackCheckout(3);
+            TrackingService.track('ViewContent', {content_name: 'cart3'});
 
             if ($scope.$storage.referral) {
                 cart.referral = $scope.$storage.referral;
@@ -611,6 +628,15 @@ angular.module('quiverCmsApp')
                 CommerceService.addProducts(transaction);
                 CommerceService.addCodes(transaction);
                 Analytics.trackTransaction(transactionId, affiliation, revenue, tax, shipping, coupon, list, step, option);
+                TrackingService.track('Purchase', {
+                    value: transaction.total,
+                    currency: 'USD',
+                    content_type: 'product',
+                    content_ids: _.pluck(transaction.items, 'slug'),
+                    order_id: transactionId,
+                    num_items: transaction.items.length,
+                    userEmail: transaction.userEmail
+                });
 
                 NotificationService.success('Checkout Successful');
 
@@ -682,6 +708,7 @@ angular.module('quiverCmsApp')
                     $scope.$storage.referral = search;
                     Analytics.addPromo('referral', search.referral, search.creative, search.position);
                     Analytics.pageView();
+                    TrackingService.trackCustom('referral', search);
                 }
             };
         evaluateParameters($location.search());
