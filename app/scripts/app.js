@@ -14,7 +14,7 @@ angular.module('quiverCmsApp', [
     'flow',
     'angular-google-analytics',
     'ngMaterial'
-]).run(function($rootScope, $state, Restangular, NotificationService, env, Analytics, qvAuth, AdminService, $localStorage, $timeout) {
+]).run(function($rootScope, $state, Restangular, NotificationService, env, Analytics, TrackingService, qvAuth, AdminService, $localStorage, $timeout) {
     var stateChangeSuccessOff,
         handleStateChangeSuccess = function() {
             $timeout(function() {
@@ -48,7 +48,11 @@ angular.module('quiverCmsApp', [
         $timeout(function() {
             $rootScope.$emit('$stateChangeRender');
         });
-
+        
+        TrackingService.track('PageView', {
+            url: toState.url
+        });
+        
     });
 
     /*

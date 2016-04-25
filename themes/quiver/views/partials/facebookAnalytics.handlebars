@@ -6,7 +6,21 @@ t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
 document,'script','https://connect.facebook.net/en_US/fbevents.js');
 
 fbq('init', '{{ env.facebook.analyticsId }}');
-fbq('track', "PageView");</script>
+
+(function() {
+  var track = function(eventName, parameters) {
+    if (envVars.environment === 'development') {
+      console.log('track', arguments);
+    }
+    fbq('track', eventName, parameters);
+  }
+  var parameters = {url: location.pathname}
+  if (localStorage) {
+    var referral = JSON.parse(localStorage.getItem('ngStorage-referral'));
+    parameters = _.extend(parameters, referral); 
+  }
+  track('PageView', parameters);
+})();</script>
 <noscript><img height="1" width="1" style="display:none"
 src="https://www.facebook.com/tr?id={{ env.google.analyticsId }}&ev=PageView&noscript=1"
 /></noscript>
