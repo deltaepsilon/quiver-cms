@@ -991,7 +991,7 @@ angular.module('quiver.angular-utilities', ['notifications', 'ui.router', 'ngMat
                     !function (f, b, e, v, n, t, s) {
                         if (f.fbq) return; n = f.fbq = function () {
                             n.callMethod ?
-                            n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+                                n.callMethod.apply(n, arguments) : n.queue.push(arguments)
                         }; if (!f._fbq) f._fbq = n;
                         n.push = n; n.loaded = !0; n.version = '2.0'; n.queue = []; t = b.createElement(e); t.async = !0;
                         t.src = v; s = b.getElementsByTagName(e)[0]; s.parentNode.insertBefore(t, s)
@@ -1971,23 +1971,19 @@ angular.module('quiver.angular-utilities', ['notifications', 'ui.router', 'ngMat
 
     })
     .service('TrackingService', function (quiverUtilities, $window) {
-        var log = function () {
-            if (quiverUtilities.env.environment === 'development') {
+        var track = function (type, eventName, parameters) {
+            if (quiverUtilities.env.environment === 'development' || quiverUtilities.env.environment === 'test') {
                 console.log(arguments);
+            } else if (fbq && quiverUtilities.env.environment === 'production') {
+                fbq(type, eventName, parameters);
             }
         };
         return {
             track: function (eventName, parameters) {
-                if (fbq) {
-                    log('track', eventName, parameters);
-                    fbq('track', eventName, parameters);
-                }
+                track('track', eventName, parameters);
             },
             trackCustom: function (eventName, parameters) {
-                if (fbq) {
-                    log('trackCustom', eventName, parameters);
-                    fbq('trackCustom', eventName, parameters);
-                }
+                track('trackCustom', eventName, parameters);
             }
         }
     });

@@ -232,12 +232,19 @@ angular.module('QuiverCMS', ['ngStorage', 'quiver.angular-utilities', 'quiver.an
                 });
 
                 if (search.referral) {
+                    if ($scope.$storage.referral) { // Handle existing referral
+                        search.referral = $scope.$storage.referral.referral || search.referral;
+                        search.creative = $scope.$storage.referral.creative || search.creative;
+                        search.position = $scope.$storage.referral.position || search.position;
+                    } else { // Handle new referral
+                        Analytics.addPromo('referral', search.referral, search.creative, search.position);
+                        if (search.referral === 'facebook') {
+                            TrackingService.trackCustom('referral', search);    
+                        }
+                    }
                     $scope.$storage.referral = search;
-                    Analytics.addPromo('referral', search.referral, search.creative, search.position);
                     Analytics.pageView();
-                    TrackingService.trackCustom('referral', search);
                 }
-
             };
 
         getReferral();
@@ -319,7 +326,8 @@ angular.module('QuiverCMS', ['ngStorage', 'quiver.angular-utilities', 'quiver.an
                 Analytics.addProduct(analyticsProduct.productId, analyticsProduct.name, analyticsProduct.category, analyticsProduct.brand, analyticsProduct.variant, analyticsProduct.price, analyticsProduct.quantity, analyticsProduct.coupon, analyticsProduct.position);
                 Analytics.trackCart('add');
                 TrackingService.track('AddToCart', {
-                   value: analyticsProduct.price * analyticsProduct.quantity,
+                //    value: analyticsProduct.price * analyticsProduct.quantity,
+                   value: 0,
                    currency: 'USD',
                    content_name: 'product',
                    content_ids: [analyticsProduct.productId] 

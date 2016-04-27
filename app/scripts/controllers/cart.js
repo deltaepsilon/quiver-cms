@@ -32,7 +32,8 @@ angular.module('quiverCmsApp')
             
             var cart = $scope.$storage.cart;
             TrackingService.track('InitiateCheckout', {
-                value: cart.total,
+                // value: cart.total,
+                value: 0,
                 currency: 'USD',
                 content_name: 'product',
                 content_ids: _.pluck(cart.items, 'key'),
@@ -492,10 +493,8 @@ angular.module('quiverCmsApp')
 
                 if ($state.current.name === 'master.nav.cart') {
                     Analytics.trackCheckout(1);
-                    TrackingService.track('ViewContent', {content_name: 'cart1'});
                 } else if ($state.current.name === 'authenticated.master.nav.checkout') {
                     Analytics.trackCheckout(2);
-                    TrackingService.track('ViewContent', {content_name: 'cart2'});
                 }
 
             }
@@ -606,7 +605,6 @@ angular.module('quiverCmsApp')
 
             CommerceService.addProducts(cart);
             Analytics.trackCheckout(3);
-            TrackingService.track('ViewContent', {content_name: 'cart3'});
 
             if ($scope.$storage.referral) {
                 cart.referral = $scope.$storage.referral;
@@ -705,10 +703,18 @@ angular.module('quiverCmsApp')
                 }
 
                 if (search.referral) {
+                    if ($scope.$storage.referral) { // Handle existing referral
+                        search.referral = $scope.$storage.referral.referral || search.referral;
+                        search.creative = $scope.$storage.referral.creative || search.creative;
+                        search.position = $scope.$storage.referral.position || search.position;
+                    } else { // Handle new referral
+                        Analytics.addPromo('referral', search.referral, search.creative, search.position);
+                        if (search.referral === 'facebook') {
+                            TrackingService.trackCustom('referral', search);    
+                        }
+                    }
                     $scope.$storage.referral = search;
-                    Analytics.addPromo('referral', search.referral, search.creative, search.position);
                     Analytics.pageView();
-                    TrackingService.trackCustom('referral', search);
                 }
             };
         evaluateParameters($location.search());

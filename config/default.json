@@ -59,6 +59,10 @@
     "google": {
       "analyticsId": "UA-6859198-XX"
     },
+    "facebook": {
+      "analyticsId": "123456789",
+      "emailValue": 2
+    },
     "shipping": {
       "defaultCarrier": "usps",
       "carriers": [{
