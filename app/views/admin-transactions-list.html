@@ -48,12 +48,14 @@
                         <span class="max-7" flex>
                             {{ ::transaction.productCount }} item(s)
                         </span>
-                        <span flex>
-                            {{ ::transaction.referer }}
-                        </span>
                         <span class="text-right" flex>
                             {{ ::transaction.date | moment:"MM/DD/YY hh:mm:ss" }}
                         </span>
+                        <div flex="100" ng-if="transaction.referral">
+                            <ul class="inline-list dots">
+                                <li ng-repeat="(key, value) in transaction.referral">&nbsp;&nbsp;{{ value }}</li>
+                            </ul>
+                        </div>
                     </md-item-content>
                     <md-divider ng-if="!$last"></md-divider>
                 </md-item>
