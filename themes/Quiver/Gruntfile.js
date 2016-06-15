@@ -56,7 +56,8 @@ module.exports = function(grunt) {
                     'static/lib/quiver-angular-utilities/utilities.js',
                     'static/lib/angularfire-authentication/angularfire-authentication.js',
                     'static/lib/angular-md5/angular-md5.min.js',
-                    'static/lib/angular-google-analytics/dist/angular-google-analytics.min.js'
+                    'static/lib/angular-google-analytics/dist/angular-google-analytics.min.js',
+                    'static/scripts/prism.js'
                 ],
                 dest: 'static/scripts/vendor.js'
             }
@@ -67,6 +68,7 @@ module.exports = function(grunt) {
                     'static/styles/all-style.min.css': [
                         'static/lib/angular-material/angular-material.css',
                         'static/lib/rainbow/themes/github.css',
+                        'static/styles/prism.css',
                         'static/styles/style.css'
                     ]
                 }
