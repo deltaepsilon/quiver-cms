@@ -14,6 +14,14 @@ angular.module('quiverCmsApp')
          */
         $scope.word = word;
 
+        $scope.word.$loaded().then(function () {
+            setTimeout(function () {
+                if (Prism && typeof Prism.highlightAll === 'function') {
+                    Prism.highlightAll();
+                }
+            });
+        });
+
         /*
          * Pages
          */
