@@ -19,6 +19,9 @@
         list-style-type: initial;
         padding-left: 1rem;
     }
+    li {
+        padding-bottom: 0.5rem;
+    }
     a,
     a:visited {
         color: inherit;
@@ -60,5 +63,20 @@
     }
     h6 {
         @extend .text-x-small;
+    }
+
+    pre {
+        @include border-radius(3px);
+        @extend .background-githubGray;
+        padding: 1rem;
+        overflow: auto;
+        line-height: 1.45;
+        font-size: 1.1rem;
+    }
+
+    code {
+        @include border-radius(3px);
+        @extend .background-githubGray;
+        padding: 0.2rem;
     }
 }

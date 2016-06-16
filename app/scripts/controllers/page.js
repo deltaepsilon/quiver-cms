@@ -19,7 +19,7 @@ angular.module('quiverCmsApp')
                 if (Prism && typeof Prism.highlightAll === 'function') {
                     Prism.highlightAll();
                 }
-            });
+            }, 100);
         });
 
         /*

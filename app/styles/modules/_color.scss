@@ -39,7 +39,8 @@ $colors:
 
   gray0 #333,
   white0 #fff,
-  black0 #000;
+  black0 #000,
+  githubGray #F7F7F7;
 
 // Background colors class names.
 @each $color in $colors {

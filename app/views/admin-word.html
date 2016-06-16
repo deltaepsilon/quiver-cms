@@ -231,7 +231,7 @@
             <div ng-if="showDraft" class="background-secondary4 padding-small markdown" flex style="height: 100rem; overflow: auto;" delay="300" contenteditable="true" ng-model="$storage.activeDraft.markdown" markdown-editable ng-change="handleActiveDraftChange($storage.activeDraft)" extensions="video, iframe"></div>
         </div>
         <div flex="100" ng-if="useTextarea && !useHtml">
-            <md-input-container flex>
+            <md-input-container flex style="width: 100%;">
                 <label for="markdown">Markdown</label>
                 <textarea id="markdown" class="background-secondary4 padding-small" style="min-height: 100rem;" ng-model="$storage.activeDraft.markdown">{{ $storage.activeDraft.markdown }}</textarea>
             </md-input-container>
