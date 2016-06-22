@@ -8,7 +8,7 @@
     "quiver-angular-utilities": ">=1.1.1",
     "foundation": "~5.4.3",
     "font-awesome": "~4.2.0",
-    "angular-markdown-editable": "~0.0.8",
+    "angular-markdown-editable": "~1.0.0",
     "angular-slugify": "~1.0.0",
     "restangular": "~1.4.0",
     "angular-ui-router": "~0.2.11",

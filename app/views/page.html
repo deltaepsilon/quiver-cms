@@ -2,7 +2,7 @@
     <h3 class="headline">{{ word.title }}</h3>
     <md-whiteframe class="md-whiteframe-z1" layout="row" layout-padding layout-wrap style="padding: 24px;">
         <div ng-if="!word.published.html" style="width: 100%">
-            <div markdown-editable class="markdown" ng-model="word.published.markdown" extensions="video, iframe"></div>
+            <div markdown-editable target="_blank" class="markdown" ng-model="word.published.markdown" extensions="video, iframe"></div>
         </div>
         <div ng-if="word.published.html" style="width: 100%">
             <div class="markdown" ng-bind-html="word.published.html"></div>
