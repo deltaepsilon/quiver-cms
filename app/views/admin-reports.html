@@ -10,7 +10,8 @@
 <section ng-if="reports.discounts">
     <div layout="row" layout-align="start center">
         <h3 class="headline" flex ng-class="{'disabled': $storage.hideDiscountsReport}">Discounts</h3>
-        <md-button class="md-primary md-raised md-icon-button" flex ng-click="$storage.hideDiscountsReport = !$storage.hideDiscountsReport" aria-label="Hide discounts report">
+        <md-button class="md-primary md-raised md-icon-button" flex ng-click="$storage.hideDiscountsReport = !$storage.hideDiscountsReport"
+            aria-label="Hide discounts report">
             <i ng-class="{'mdi-navigation-expand-less': $storage.hideDiscountsReport, 'mdi-navigation-expand-more': !$storage.hideDiscountsReport}"></i>
         </md-button>
     </div>
@@ -38,7 +39,8 @@
 <section ng-if="reports.surveys">
     <div layout="row" layout-align="start center">
         <h3 class="headline" flex ng-class="{'disabled': $storage.hideSurveysReport}">Surveys</h3>
-        <md-button class="md-primary md-raised md-icon-button" flex ng-click="$storage.hideSurveysReport = !$storage.hideSurveysReport" aria-label="Hide surveys report">
+        <md-button class="md-primary md-raised md-icon-button" flex ng-click="$storage.hideSurveysReport = !$storage.hideSurveysReport"
+            aria-label="Hide surveys report">
             <i ng-class="{'mdi-navigation-expand-less': $storage.hideSurveysReport, 'mdi-navigation-expand-more': !$storage.hideSurveysReport}"></i>
         </md-button>
     </div>
@@ -66,17 +68,19 @@
         </md-list>
     </md-whiteframe>
 </section>
-<section ng-if="reports.surveys">
+<section ng-if="reports.sales">
     <div layout="row" layout-align="start center">
         <h3 class="headline" flex ng-class="{'disabled': $storage.hideSalesReport}">Sales</h3>
         <strong class="max-12 text-right" flex>Last run {{ reports.sales.created | timeago}}</strong>
         <div class="max-5 text-right" flex>
-            <md-button class="md-primary md-raised md-icon-button" flex ng-click="$storage.hideSalesReport = !$storage.hideSalesReport" aria-label="Hide sales report">
+            <md-button class="md-primary md-raised md-icon-button" flex ng-click="$storage.hideSalesReport = !$storage.hideSalesReport"
+                aria-label="Hide sales report">
                 <i ng-class="{'mdi-navigation-expand-less': $storage.hideSalesReport, 'mdi-navigation-expand-more': !$storage.hideSalesReport}"></i>
             </md-button>
         </div>
     </div>
-    <md-whiteframe class="md-whiteframe-z1 relative" layout="column" layout-padding layout-wrap ng-if="!$storage.hideSalesReport" ng-repeat="(reportType, name) in salesReportTypes">
+    <md-whiteframe class="md-whiteframe-z1 relative" layout="column" layout-padding layout-wrap ng-if="!$storage.hideSalesReport"
+        ng-repeat="(reportType, name) in salesReportTypes">
         <div flex layout="row" layout-sm="column" layout-align="space-between center" layout-padding layout-wrap>
             <strong class="max-7" flex>{{ name }}</strong>
             <div flex layout="row" layout-sm="column" layout-padding>
@@ -103,7 +107,8 @@
                             <span flex="15">{{ report.transactionCount }}</span>
                         </div>
                     </div>
-                    <div ng-repeat="(key, totals) in report.referrals" class="padding-horizontal-zero" layout="row" layout-sm="column" layout-align="space-between center" layout-wrap>
+                    <div ng-repeat="(key, totals) in report.referrals" class="padding-horizontal-zero" layout="row" layout-sm="column" layout-align="space-between center"
+                        layout-wrap>
                         <div class="max-7 truncate" flex style="padding-left: 1rem;">
                             <span>{{ key }}</span>
                             <md-tooltip>
@@ -117,6 +122,66 @@
                             <span flex="15">{{ totals.tax | currency:'$':0 }}</span>
                             <span flex="20">{{ totals.total | currency:'$':0 }}</span>
                             <span flex="15">{{ totals.transactionCount }}</span>
+                        </div>
+                    </div>
+                </md-item-content>
+                <md-divider ng-if="!$last"></md-divider>
+            </md-item>
+        </md-list>
+    </md-whiteframe>
+</section>
+<section ng-if="reports.byDayByProduct">
+    <div layout="row" layout-align="start center">
+        <h3 class="headline" flex ng-class="{'disabled': $storage.hideByDayByProductReport}">Sale By Day/Product</h3>
+        <strong class="max-12 text-right" flex>Last run {{ reports.byDayByProduct.created | timeago}}</strong>
+        <div class="max-5 text-right" flex>
+            <md-button class="md-primary md-raised md-icon-button" flex ng-click="$storage.hideByDayByProductReport = !$storage.hideByDayByProductReport"
+                aria-label="Hide sales report">
+                <i ng-class="{'mdi-navigation-expand-less': $storage.hideByDayByProductReport, 'mdi-navigation-expand-more': !$storage.hideByDayByProductReport}"></i>
+            </md-button>
+        </div>
+    </div>
+    <form name="productForm" ng-if="!$storage.hideByDayByProductReport">
+        <fieldset>
+            <md-whiteframe class="md-whiteframe-z1" layout="row" layout-align="start end" layout-padding layout-wrap>
+                <md-input-container flex="100">
+                    <md-select name="product-selected" id="product-selected" ng-model="productSelected" ng-change="setProductSelected(productSelected)"
+                        placeholder="Select product...">
+                        <md-option ng-value="">Select a product...</md-option>
+                        <md-option ng-repeat="(key, product) in reports.byDayByProduct.byProduct" ng-value="product.slug">{{ product.title }}</md-option>
+                    </md-select>
+                </md-input-container>
+            </md-whiteframe>
+        </fieldset>
+    </form>
+    <md-whiteframe class="md-whiteframe-z1 relative" layout="column" layout-padding layout-wrap ng-if="!$storage.hideByDayByProductReport && byDay.length">
+        <div flex layout="row" layout-sm="column" layout-align="space-between center" layout-padding layout-wrap>
+            <strong class="max-7" flex>{{ productSelected.title }}</strong>
+            <div flex layout="row" layout-sm="column" layout-padding>
+                <strong class="truncate" flex="15" flex-sm="100">Subtotal</strong>
+                <strong class="truncate" flex="15" flex-sm="100">Discount</strong>
+                <strong class="truncate" flex="15" flex-sm="100">Shipping</strong>
+                <strong class="truncate" flex="10" flex-sm="100">Tax</strong>
+                <strong class="truncate" flex="10" flex-sm="100">Net</strong>
+                <strong class="truncate" flex="10" flex-sm="100">Month</strong>
+                <strong class="truncate" flex="10" flex-sm="100">Year</strong>
+                <strong class="truncate" flex="15" flex-sm="100">Total</strong>
+            </div>
+        </div>
+        <md-list flex>
+            <md-item ng-repeat="day in byDay | orderBy:'-date'">
+                <md-item-content>
+                    <div class="padding-horizontal-zero" layout="row" layout-sm="column" layout-align="space-between center" layout-padding layout-wrap>
+                        <strong class="max-7" flex ng-if="day.date">{{ day.date | moment:"YYYY/MM/DD" }}</strong>
+                        <div flex layout="row" layout-sm="column" layout-padding>
+                            <span flex="15">{{ day.day.subtotal | currency:'$':0 }}</span>
+                            <span flex="15">{{ day.day.discount | currency:'$':0 }}</span>
+                            <span flex="15">{{ day.day.shipping | currency:'$':0 }}</span>
+                            <span flex="10">{{ day.day.tax | currency:'$':0 }}</span>
+                            <strong flex="10">{{ day.day.net | currency:'$':0 }}</strong>
+                            <strong flex="10">{{ day.month.net | currency:'$':0 }}</strong>
+                            <strong flex="10">{{ day.year.net | currency:'$':0 }}</strong>
+                            <strong flex="15">{{ day.total.net | currency:'$':0 }}</strong>
                         </div>
                     </div>
                 </md-item-content>

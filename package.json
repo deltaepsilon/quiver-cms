@@ -1,6 +1,6 @@
 {
   "name": "quiver-cms",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "description": "A CMS build on Angular, Firebase, Express and Node",
   "repository": {
     "type": "git",

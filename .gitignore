@@ -4,6 +4,7 @@ dist
 .sass-cache
 .idea
 .DS_STORE
+.vscode
 app/lib
 
 assets
@@ -27,4 +28,5 @@ themes/quiver/views/*.alt.handlebars
 !certs/snakeoil*
 !nginx/default
 !config/default.json
+
 
