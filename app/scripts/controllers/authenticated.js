@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('quiverCmsApp')
-  .controller('AuthenticatedCtrl', function ($scope, user, Analytics, $localStorage) {
+  .controller('AuthenticatedCtrl', function ($scope, user, env, Analytics, $localStorage, $window) {
     $scope.user = user;
 
     $scope.user.$loaded().then(function (user) {
@@ -9,6 +9,10 @@ angular.module('quiverCmsApp')
         $localStorage.userId = user.$id;
       } else if ($localStorage.userId) {
         delete $localStorage.userId;
+      }
+
+      if (user && user.email && env.adRoll && env.adRoll.advId && env.adRoll.pixId) {
+        $window.adroll_email = user.email;
       }
       
     });

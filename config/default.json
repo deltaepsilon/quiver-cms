@@ -63,6 +63,10 @@
       "analyticsId": "123456789",
       "emailValue": 2
     },
+    "adRoll": {
+      "advId": "123456",
+      "pixId": "123456"
+    },
     "shipping": {
       "defaultCarrier": "usps",
       "carriers": [{
