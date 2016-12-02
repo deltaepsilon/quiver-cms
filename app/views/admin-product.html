@@ -143,19 +143,24 @@
                 <input type="number" name="product-shipping-international-incremental" placeholder="International incremental USD..." ng-model="product.shipping.internationalIncremental" ng-change="checkValidity()" ng-model-options="{debounce: {'default': 500}}">
             </md-input-container>
 
-            <md-input-container flex="33">
+            <md-input-container flex="25">
                 <label>Weight (ounces)</label>
-                <input type="number" name="product-shipping-hs-tariff-number" placeholder="Weight..." ng-model="product.weight" ng-change="checkValidity()">
+                <input type="number" name="product-shipping-weight" placeholder="Weight..." ng-model="product.weight" ng-change="checkValidity()">
             </md-input-container>
 
-            <md-input-container flex="33">
+            <md-input-container flex="25">
                 <label>HS Tariff Number</label>
                 <input type="text" name="product-shipping-hs-tariff-number" placeholder="HS Tariff Number..." ng-model="product.hsTariffNumber" ng-change="checkValidity()" ng-model-options="{debounce: {'default': 500}}">
             </md-input-container>
 
-            <md-input-container flex="33">
+            <md-input-container flex="25">
+                <label>Customs Value</label>
+                <input type="number" name="product-shipping-customs-value" placeholder="Customs value..." ng-model="product.customsValue" ng-change="checkValidity()" ng-model-options="{debounce: {'default': 500}}">
+            </md-input-container>
+
+            <md-input-container flex="25">
                 <label>Origin Country</label>
-                <input type="text" name="product-shipping-hs-tariff-number" placeholder="Origin country..." ng-model="product.originCountry" ng-change="checkValidity()" ng-model-options="{debounce: {'default': 500}}">
+                <input type="text" name="product-shipping-origin-country" placeholder="Origin country..." ng-model="product.originCountry" ng-change="checkValidity()" ng-model-options="{debounce: {'default': 500}}">
             </md-input-container>
 
         </div>
