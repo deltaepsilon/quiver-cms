@@ -35,12 +35,12 @@
                             <div class="text-center min-22" flex>
                                 <md-button class="md-primary md-raised adjust-line-height min-20 max-30" ui-sref="authenticated.master.subscription.page({subscriptionKey: subscription.$id, pageNumber: $storage['bookmark-' + subscription.$id] || 0})" aria-label="Subscription {{ subscription.title }}">
                                     <div layout="row" ng-if="subscription.subscriptionType === 'interaction' && isExpired(subscription)">
-                                        <span class="text-left" flex>Assignments Expired</span>
-                                        <span class="text-right" flex>{{ subscription.expiration | moment:"MM/DD/YYYY" }}</span>
+                                        <span flex>Click For Content</span>
+                                        <md-tooltip>Assignments expired on {{ subscription.expiration | moment:"MM/DD/YYYY" }}</md-tooltip>
                                     </div>
                                     <div layout="row" ng-if="subscription.subscriptionType === 'interaction' && !isExpired(subscription) && subscription.expiration">
-                                        <span class="text-left" flex>Assignments Expiration</span>
-                                        <span class="text-right" flex>{{ subscription.expiration | moment:"MM/DD/YYYY" }}</span>
+                                        <span flex>Feedback active to {{ subscription.expiration | moment:"MM/DD/YYYY" }}</span>
+                                        <md-tooltip>Assignments will expire on {{ subscription.expiration | moment:"MM/DD/YYYY" }}</md-tooltip>
                                     </div>
                                     <div layout="row" ng-if="subscription.subscriptionType === 'interaction' && !isExpired(subscription) && !subscription.expiration">
                                         <span flex>Click to Access</span>
@@ -149,10 +149,14 @@
                             <div flex="100" flex-gt-sm="30">{{ shipment.item.title }}</div>
                             <div flex="100" flex-gt-sm="20">{{ shipment.item.adjusted || shipment.item.price | currency }} x {{ shipment.item.quantity }}</div>
                             <div flex="100" flex-gt-sm="20" flex>{{ shipment.created | moment:"MM/DD/YYYY" }}</div>
-                            <md-button flex ng-href="{{ shipment.tracking.href }}">
-                                <span ng-show="shipment.tracking">{{ shipment.tracking.number }}</span>
-                                <span ng-show="!shipment.tracking">Not yet shipped</span>
-                            </md-button>
+                            <div flex="100" flex-gt-sm="30" ng-if="!shipment.shipped" class="text-center">
+                                Not shipped
+                            </div>
+                            <div flex="100" flex-gt-sm="30" ng-if="shipment.shipped" layout="column">
+                                <md-button target="_blank" ng-href="{{ env.aftership.root }}/{{ label.tracker.tracking_code }}" ng-repeat="(key, label) in shipment.labels" ng-if="label.tracker.tracking_code">
+                                    Track
+                                </md-button>
+                            </div>
                         </md-item-content>
                         <md-divider ng-if="!$last"></md-divider>
                     </md-item>

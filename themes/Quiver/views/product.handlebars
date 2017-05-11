@@ -9,6 +9,21 @@
       <md-button ng-disabled="true">{{ product.title }}</md-button>
     {{/if }}
   </section>
+  {{#isSubscription product.type }}
+    <script type="application/ld+json">
+      {
+        "@context": "http://schema.org",
+        "@type": "Course",
+        "name": "{{ product.seoTitle }}",
+        "description": "{{ product.shortDescription }}",
+        "provider": {
+          "@type": "Organization",
+          "name": "Calligraphy.org",
+          "sameAs": "https://www.calligraphy.org"
+        }
+      }
+    </script>
+  {{/isSubscription}}
 
   <section class="constrained" itemscope itemtype="http://schema.org/Product">
     <link itemprop="name" content="{{ product.title }}">

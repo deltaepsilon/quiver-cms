@@ -47,7 +47,6 @@
                         <md-item-content class="extra-padding" layout="row" layout-sm="column" layout-align="space-between center" layout-padding layout-wrap style="padding-top: 2rem;">
                             <a flex ui-sref="authenticated.master.admin.landing-page({key: page.$id})">{{ page.title }}</a>
                             <span flex>{{ page.slug }}</span>
-                            <span flex>{{ page.created | moment:"MM/DD/YY" }}</span>
                             <md-button class="md-warn md-icon-button" ng-click="confirmRemoveLandingPage($event, page, items)" aria-label="Delete page {{ page.title }}">
                                 <i class="mdi-action-delete"></i>
                             </md-button>

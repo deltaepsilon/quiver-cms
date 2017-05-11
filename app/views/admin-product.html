@@ -306,6 +306,14 @@
             <span>Description length: </span>
             <span ng-class="{'text-success': product.seoDescription.length >= 150 && product.seoDescription.length <= 160, 'text-error': product.seoDescription.length < 150 || product.seoDescription.length > 160 }">{{ product.seoDescription.length }}</span>
         </div>
+        <md-input-container>
+            <label for="short-description">Short Description</label>
+            <textarea id="short-description" ng-model="product.shortDescription" ng-model-options="{debounce: {'default': 500, 'blur': 0}}"></textarea>
+        </md-input-container>
+        <div class="text-small text-right" flex="100" ng-if="product.shortDescription">
+            <span>Short Description length: </span>
+            <span ng-class="{'text-success': product.shortDescription.length <= 60, 'text-error': product.shortDescription.length > 60 }">{{ product.shortDescription.length }}</span>
+        </div>
         <div layout="row" layout-md="column">
             <md-input-container flex>
                 <md-select ng-model="product.sitemap.changefreq" placeholder="Change Frequency (default to weekly)">
