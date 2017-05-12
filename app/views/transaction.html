@@ -62,7 +62,7 @@
             <h3 class="headline" ng-show="transaction.charge.free">Free Checkout</h3>
             <ul class="padded padding-zero" ng-hide="transaction.charge.free">
                 <li>
-                    <span ng-show="transaction.charge.success" class="text-success">Charged on {{ transaction.charge.transaction.created | moment:"MMM DD, YYYY" }}</span>
+                    <span ng-show="transaction.charge.success" class="text-success">Charged on {{ transaction.charge.transaction.createdAt | moment:"MMM DD, YYYY" }}</span>
                     <span ng-hide="transaction.charge.success" class="text-warning">Not Charged</span>
                 </li>
                 <li ng-show="transaction.charge.transaction.creditCard.last4">Last 4 of Card: {{ transaction.charge.transaction.creditCard.last4 }}</li>

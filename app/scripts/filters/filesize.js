@@ -22,7 +22,5 @@ angular.module('quiverCmsApp')
       } else {
         return Math.round(bytes) + 'B';
       }
-
-      return 'filesize filter: ' + input;
     };
   });
