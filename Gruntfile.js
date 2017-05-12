@@ -322,7 +322,7 @@ module.exports = function(grunt) {
 
         shell: {
             docker: {
-                command: "docker build -t epsilon/quiver-cms:" + packageJSON.version + " ."
+                command: "docker build -t epsilon/quiver-cms:" + packageJSON.version + " . && docker push epsilon/quiver-cms:" + packageJSON.version
             },
 
             compress: {
