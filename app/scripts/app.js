@@ -26,9 +26,6 @@ angular.module('quiverCmsApp', [
                 }
 
                 Analytics.createAnalyticsScriptTag(config);
-                if (env.google.optimizeId && typeof ga == 'function') {
-                    ga('require', env.google.optimizeId);
-                }
                 stateChangeSuccessOff();
             });
 
