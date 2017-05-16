@@ -57,7 +57,8 @@
       "ttl": 3600
     },
     "google": {
-      "analyticsId": "UA-6859198-XX"
+      "analyticsId": "UA-6859198-XX",
+      "optimizeId": "GTM-52RKPR4"
     },
     "facebook": {
       "analyticsId": "123456789",
