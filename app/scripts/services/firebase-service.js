@@ -28,7 +28,7 @@ angular.module('quiverCmsApp')
                     }
 
                     var self = this,
-                        ref = new Firebase(this.$path),
+                        ref = firebase.database().ref(this.$path),
                         defaultQuery = this.$defaultQuery || this.$list.$defaultQuery;
 
                     // this.$list.$destroy();

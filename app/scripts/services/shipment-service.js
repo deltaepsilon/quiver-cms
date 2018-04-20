@@ -36,7 +36,7 @@ angular.module('quiverCmsApp')
             saveQuote: function(shipmentKey, quote) {
                 var keys = Object.keys(quote),
                     i = keys.length,
-                    quoteObj = $firebaseObject(new Firebase(firebaseEndpoint + '/logs/shipments/' + shipmentKey + '/quote'));
+                    quoteObj = $firebaseObject(firebase.database().ref(firebaseEndpoint + '/logs/shipments/' + shipmentKey + '/quote'));
 
                 while (i--) {
                     if (quote[keys[i]] || quote[keys[i]] === false) {
@@ -47,7 +47,7 @@ angular.module('quiverCmsApp')
             },
 
             removeQuote: function(shipmentKey) {
-                return $firebaseObject(new Firebase(firebaseEndpoint + '/logs/shipments/' + shipmentKey + '/quote')).$remove();
+                return $firebaseObject(firebase.database().ref(firebaseEndpoint + '/logs/shipments/' + shipmentKey + '/quote')).$remove();
             },
 
             refundShipment: function(shipmentKey, labelKey) {

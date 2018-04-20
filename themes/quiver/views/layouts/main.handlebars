@@ -88,12 +88,28 @@
             </script>
         </div>
     </div>
+    
+
     {{#if env.liveReload }} {{> livereload}} {{/if }} {{#if env.google.analyticsId }} {{> analytics }} {{/if }} {{> disqus-comment-count }}
     {{#if env.structuredOrganization}}<script type="application/ld+json">{{{json env.structuredOrganization }}}</script>{{/if}}
     <script src="/static/scripts/vendor.js"></script>
     <script src="/static/scripts/app.js"></script>
     {{#if env.facebook.analyticsId }} {{> facebookAnalytics }} {{/if }}
     {{#if env.adRoll.advId }} {{> adRoll }} {{/if }}
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyC7WpaDFiODca_IOQKtFX42B39jHA0cpqg",
+            authDomain: "quiver.firebaseapp.com",
+            databaseURL: "https://quiver.firebaseio.com",
+            projectId: "firebase-quiver",
+            storageBucket: "",
+            messagingSenderId: "743128334885"
+        };
+
+        window.envVars.firebase.endpoint = window.envVars.firebase.endpoint.split('/').pop();
+        firebase.initializeApp(config);
+    </script>
 </body>
 
 </html>

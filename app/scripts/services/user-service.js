@@ -28,31 +28,31 @@ angular.module('quiverCmsApp')
             },
 
             getPublic: function(userId) {
-                return FirebaseService.registerSecureRef($firebaseObject(new Firebase(firebaseEndpoint + '/users/' + userId + '/public')));
+                return FirebaseService.registerSecureRef($firebaseObject(firebase.database().ref(firebaseEndpoint + '/users/' + userId + '/public')));
             },
 
             getPreferredEmail: function(userId) {
-                return FirebaseService.registerSecureRef($firebaseObject(new Firebase(firebaseEndpoint + '/users/' + userId + '/preferredEmail')));
+                return FirebaseService.registerSecureRef($firebaseObject(firebase.database().ref(firebaseEndpoint + '/users/' + userId + '/preferredEmail')));
             },
 
             getName: function(userId) {
-                return FirebaseService.registerSecureRef($firebaseObject(new Firebase(firebaseEndpoint + '/users/' + userId + '/name')));
+                return FirebaseService.registerSecureRef($firebaseObject(firebase.database().ref(firebaseEndpoint + '/users/' + userId + '/name')));
             },
 
             getTransactions: function(userId, query) {
-                return FirebaseService.registerSecureRef($firebaseArray(FirebaseService.query(new Firebase(firebaseEndpoint + '/userObjects/transactions/' + userId), query)));
+                return FirebaseService.registerSecureRef($firebaseArray(FirebaseService.query(firebase.database().ref(firebaseEndpoint + '/userObjects/transactions/' + userId), query)));
             },
 
             getTransaction: function(userId, key) {
-                return FirebaseService.registerSecureRef($firebaseObject(new Firebase(firebaseEndpoint + '/userObjects/transactions/' + userId + '/' + key)));
+                return FirebaseService.registerSecureRef($firebaseObject(firebase.database().ref(firebaseEndpoint + '/userObjects/transactions/' + userId + '/' + key)));
             },
 
             getSubscriptions: function(userId, query) {
-                return FirebaseService.registerSecureRef($firebaseArray(FirebaseService.query(new Firebase(firebaseEndpoint + '/userObjects/subscriptions/' + userId), query)));
+                return FirebaseService.registerSecureRef($firebaseArray(FirebaseService.query(firebase.database().ref(firebaseEndpoint + '/userObjects/subscriptions/' + userId), query)));
             },
 
             getSubscription: function(userId, key) {
-                return FirebaseService.registerSecureRef($firebaseObject(new Firebase(firebaseEndpoint + '/userObjects/subscriptions/' + userId + '/' + key)));
+                return FirebaseService.registerSecureRef($firebaseObject(firebase.database().ref(firebaseEndpoint + '/userObjects/subscriptions/' + userId + '/' + key)));
             },
 
             getPages: function(userId, key) {
@@ -72,19 +72,19 @@ angular.module('quiverCmsApp')
             },
 
             getSentMessages: function(userId, query) {
-                return FirebaseService.registerSecureRef($firebaseArray(FirebaseService.query(new Firebase(firebaseEndpoint + '/userObjects/messages/' + userId + '/sent'), query)));
+                return FirebaseService.registerSecureRef($firebaseArray(FirebaseService.query(firebase.database().ref(firebaseEndpoint + '/userObjects/messages/' + userId + '/sent'), query)));
             },
 
             getSentMessage: function(userId, key) {
-                return FirebaseService.registerSecureRef($firebaseObject(new Firebase(firebaseEndpoint + '/userObjects/messages/' + userId + '/sent/' + key)));
+                return FirebaseService.registerSecureRef($firebaseObject(firebase.database().ref(firebaseEndpoint + '/userObjects/messages/' + userId + '/sent/' + key)));
             },
 
             getReceivedMessages: function(userId, query) {
-                return FirebaseService.registerSecureRef($firebaseArray(FirebaseService.query(new Firebase(firebaseEndpoint + '/userObjects/messages/' + userId + '/received'), query)));
+                return FirebaseService.registerSecureRef($firebaseArray(FirebaseService.query(firebase.database().ref(firebaseEndpoint + '/userObjects/messages/' + userId + '/received'), query)));
             },
 
             getReceivedMessage: function(userId, key) {
-                return FirebaseService.registerSecureRef($firebaseObject(new Firebase(firebaseEndpoint + '/userObjects/messages/' + userId + '/received/' + key)));
+                return FirebaseService.registerSecureRef($firebaseObject(firebase.database().ref(firebaseEndpoint + '/userObjects/messages/' + userId + '/received/' + key)));
             },
 
             sendMessage: function(userId, recipientId, text) {
@@ -94,43 +94,43 @@ angular.module('quiverCmsApp')
             },
 
             getSubmittedAssignments: function(userId, query) {
-                return FirebaseService.registerSecureRef($firebaseArray(FirebaseService.query(new Firebase(firebaseEndpoint + '/userObjects/assignments/' + userId + '/submitted'), query)));
+                return FirebaseService.registerSecureRef($firebaseArray(FirebaseService.query(firebase.database().ref(firebaseEndpoint + '/userObjects/assignments/' + userId + '/submitted'), query)));
             },
 
             getAssignment: function(userId, key) {
-                return FirebaseService.registerSecureRef($firebaseObject(new Firebase(firebaseEndpoint + '/userObjects/assignments/' + userId + '/submitted/' + key)));
+                return FirebaseService.registerSecureRef($firebaseObject(firebase.database().ref(firebaseEndpoint + '/userObjects/assignments/' + userId + '/submitted/' + key)));
             },
 
             getAssignmentUploads: function(userId, key, query) {
-                return FirebaseService.registerSecureRef($firebaseArray(FirebaseService.query(new Firebase(firebaseEndpoint + '/userObjects/assignments/' + userId + '/submitted/' + key + '/uploads'), query)));
+                return FirebaseService.registerSecureRef($firebaseArray(FirebaseService.query(firebase.database().ref(firebaseEndpoint + '/userObjects/assignments/' + userId + '/submitted/' + key + '/uploads'), query)));
             },
 
             getAssignmentMessages: function(userId, key) {
-                return FirebaseService.registerSecureRef($firebaseArray(new Firebase(firebaseEndpoint + '/userObjects/assignments/' + userId + '/submitted/' + key + '/messages')));
+                return FirebaseService.registerSecureRef($firebaseArray(firebase.database().ref(firebaseEndpoint + '/userObjects/assignments/' + userId + '/submitted/' + key + '/messages')));
             },
 
             getMessage: function(userId, key) {
-                return FirebaseService.registerSecureRef($firebaseObject(new Firebase(firebaseEndpoint + '/userObjects/messages/' + userId + '/' + key)));
+                return FirebaseService.registerSecureRef($firebaseObject(firebase.database().ref(firebaseEndpoint + '/userObjects/messages/' + userId + '/' + key)));
             },
 
             getShipments: function(userId, query) {
-                return FirebaseService.registerSecureRef($firebaseArray(FirebaseService.query(new Firebase(firebaseEndpoint + '/userObjects/shipments/' + userId), query)));
+                return FirebaseService.registerSecureRef($firebaseArray(FirebaseService.query(firebase.database().ref(firebaseEndpoint + '/userObjects/shipments/' + userId), query)));
             },
 
             getShipment: function(userId, key) {
-                return FirebaseService.registerSecureRef($firebaseObject(new Firebase(firebaseEndpoint + '/userObjects/shipments/' + userId + '/' + key)));
+                return FirebaseService.registerSecureRef($firebaseObject(firebase.database().ref(firebaseEndpoint + '/userObjects/shipments/' + userId + '/' + key)));
             },
 
             getGifts: function(userId, query) {
-                return FirebaseService.registerSecureRef($firebaseArray(FirebaseService.query(new Firebase(firebaseEndpoint + '/userObjects/gifts/' + userId), query)));
+                return FirebaseService.registerSecureRef($firebaseArray(FirebaseService.query(firebase.database().ref(firebaseEndpoint + '/userObjects/gifts/' + userId), query)));
             },
 
             getDownloads: function(userId, query) {
-                return FirebaseService.registerSecureRef($firebaseArray(FirebaseService.query(new Firebase(firebaseEndpoint + '/userObjects/downloads/' + userId), query)));
+                return FirebaseService.registerSecureRef($firebaseArray(FirebaseService.query(firebase.database().ref(firebaseEndpoint + '/userObjects/downloads/' + userId), query)));
             },
 
             getSurveyResponses: function(userId, query) {
-                return $firebaseArray(FirebaseService.query(new Firebase(firebaseEndpoint + '/userObjects/surveyResponses/' + userId), query));
+                return $firebaseArray(FirebaseService.query(firebase.database().ref(firebaseEndpoint + '/userObjects/surveyResponses/' + userId), query));
             },
 
             askedSurvey: function(userId, key) {
@@ -142,19 +142,19 @@ angular.module('quiverCmsApp')
             },
 
             getArchivedGalleries: function (userId, query) {
-                return FirebaseService.registerSecureRef($firebaseArray(FirebaseService.query(new Firebase(firebaseEndpoint + '/userObjects/archivedGalleries/' + userId), query)));         
+                return FirebaseService.registerSecureRef($firebaseArray(FirebaseService.query(firebase.database().ref(firebaseEndpoint + '/userObjects/archivedGalleries/' + userId), query)));         
             },
 
             getArchivedGallery: function (userId, key) {
-                return FirebaseService.registerSecureRef($firebaseObject(FirebaseService.query(new Firebase(firebaseEndpoint + '/userObjects/archivedGalleries/' + userId + '/' + key))));
+                return FirebaseService.registerSecureRef($firebaseObject(FirebaseService.query(firebase.database().ref(firebaseEndpoint + '/userObjects/archivedGalleries/' + userId + '/' + key))));
             },
 
             getArchivedGalleryComments: function (userId, key) {
-                return FirebaseService.registerSecureRef($firebaseArray(FirebaseService.query(new Firebase(firebaseEndpoint + '/userObjects/archivedGalleries/' + userId + '/' + key + '/comments'))));
+                return FirebaseService.registerSecureRef($firebaseArray(FirebaseService.query(firebase.database().ref(firebaseEndpoint + '/userObjects/archivedGalleries/' + userId + '/' + key + '/comments'))));
             },
 
             getFiles: function (userId) {
-                return $firebaseArray(new Firebase(firebaseEndpoint + '/userObjects/files/' + userId + '/Contents'));
+                return $firebaseArray(firebase.database().ref(firebaseEndpoint + '/userObjects/files/' + userId + '/Contents'));
             }
 
         };

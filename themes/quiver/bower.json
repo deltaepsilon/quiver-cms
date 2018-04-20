@@ -33,7 +33,6 @@
     "moment": "~2.8.3",
     "underscore": "~1.7.0",
     "quiver-angular-utilities": ">=1.1.1",
-    "angularfire": "~0.9.0",
     "angular-ui-router": "~0.2.11",
     "angular-md5": "~0.1.7",
     "angularfire-authentication": ">=0.0.3",
@@ -41,7 +40,8 @@
     "angular-google-analytics": "~0.0.10",
     "angular-material": "~1.0.0-RC3",
     "materialize": "~0.95.3",
-    "geoffgraham.animate.scss": "*"
+    "geoffgraham.animate.scss": "*",
+    "angularfire": "^2.3.0"
   },
   "devDependencies": {
     "livereload": "~2.0.8"
@@ -49,8 +49,7 @@
   "resolutions": {
     "jquery": ">= 2.1.0",
     "angular-material": "~0.10.0",
-    "angular": "~1.4.1",
-    "angularfire": "~1.0.0",
-    "firebase": "2.2.x"
+    "angularfire": "^2.3.0",
+    "firebase": "3.x.x"
   }
 }

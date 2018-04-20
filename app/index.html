@@ -77,7 +77,7 @@
     <script src="/lib/ngstorage/ngStorage.js"></script>
     <script src="/lib/flow.js/dist/flow.js"></script>
     <script src="/lib/ng-flow/dist/ng-flow.js"></script>
-    <script src="/lib/angular-google-analytics/dist/angular-google-analytics.js"></script>
+    <script src="/lib/angular-google-analytics/dist/angular-google-analytics.min.js"></script>
     <script src="/lib/firebase/firebase.js"></script>
     <script src="/lib/angularfire/dist/angularfire.js"></script>
     <script src="/lib/angularfire-authentication/angularfire-authentication.js"></script>
@@ -170,6 +170,19 @@
     <script src="scripts/filters/remove-random.js"></script>
     <script src="scripts/filters/moment.js"></script>
     <!-- endbuild -->
+    <!-- Firebase -->    
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyC7WpaDFiODca_IOQKtFX42B39jHA0cpqg",
+            authDomain: "quiver.firebaseapp.com",
+            databaseURL: "https://quiver.firebaseio.com",
+            projectId: "firebase-quiver",
+            storageBucket: "",
+            messagingSenderId: "743128334885"
+        };
+        firebase.initializeApp(config);
+    </script>
     <!-- Braintree -->
     <script src="https://js.braintreegateway.com/v2/braintree.js"></script>
     <!--

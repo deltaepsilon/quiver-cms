@@ -1,5 +1,5 @@
 @charset "UTF-8";
-/* line 5, ../../../../../../../../../usr/local/lib/ruby/gems/2.2.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+/* line 5, ../../../../../../../../var/lib/gems/2.3.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -21,45 +21,45 @@ time, mark, audio, video {
   vertical-align: baseline;
 }
 
-/* line 22, ../../../../../../../../../usr/local/lib/ruby/gems/2.2.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+/* line 22, ../../../../../../../../var/lib/gems/2.3.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
 html {
   line-height: 1;
 }
 
-/* line 24, ../../../../../../../../../usr/local/lib/ruby/gems/2.2.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+/* line 24, ../../../../../../../../var/lib/gems/2.3.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
 ol, ul {
   list-style: none;
 }
 
-/* line 26, ../../../../../../../../../usr/local/lib/ruby/gems/2.2.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+/* line 26, ../../../../../../../../var/lib/gems/2.3.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
 table {
   border-collapse: collapse;
   border-spacing: 0;
 }
 
-/* line 28, ../../../../../../../../../usr/local/lib/ruby/gems/2.2.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+/* line 28, ../../../../../../../../var/lib/gems/2.3.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
 caption, th, td {
   text-align: left;
   font-weight: normal;
   vertical-align: middle;
 }
 
-/* line 30, ../../../../../../../../../usr/local/lib/ruby/gems/2.2.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+/* line 30, ../../../../../../../../var/lib/gems/2.3.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
 q, blockquote {
   quotes: none;
 }
-/* line 103, ../../../../../../../../../usr/local/lib/ruby/gems/2.2.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+/* line 103, ../../../../../../../../var/lib/gems/2.3.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
 q:before, q:after, blockquote:before, blockquote:after {
   content: "";
   content: none;
 }
 
-/* line 32, ../../../../../../../../../usr/local/lib/ruby/gems/2.2.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+/* line 32, ../../../../../../../../var/lib/gems/2.3.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
 a img {
   border: none;
 }
 
-/* line 116, ../../../../../../../../../usr/local/lib/ruby/gems/2.2.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+/* line 116, ../../../../../../../../var/lib/gems/2.3.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
 article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, summary {
   display: block;
 }
@@ -9589,35 +9589,36 @@ md-sidenav .md-button * {
 /* line 29, ../../../../app/styles/modules/_buttons.scss */
 .active > .md-button {
   cursor: not-allowed;
+  background: rgba(158, 158, 158, 0.2);
 }
 
-/* line 39, ../../../../app/styles/modules/_buttons.scss */
+/* line 40, ../../../../app/styles/modules/_buttons.scss */
 .md-button.adjust-mdi [class^="mdi-"], .md-button.adjust-mdi [class*=" mdi-"] {
   top: 3px;
   position: relative;
 }
-/* line 44, ../../../../app/styles/modules/_buttons.scss */
+/* line 45, ../../../../app/styles/modules/_buttons.scss */
 .md-button.adjust-line-height {
   line-height: 2.5rem;
 }
-/* line 47, ../../../../app/styles/modules/_buttons.scss */
+/* line 48, ../../../../app/styles/modules/_buttons.scss */
 .md-button.align-left {
   margin-left: 0;
 }
-/* line 50, ../../../../app/styles/modules/_buttons.scss */
+/* line 51, ../../../../app/styles/modules/_buttons.scss */
 .md-button[flag="1"] {
   color: #177F62;
 }
-/* line 53, ../../../../app/styles/modules/_buttons.scss */
+/* line 54, ../../../../app/styles/modules/_buttons.scss */
 .md-button[flag="2"] {
   color: #F05555;
 }
-/* line 56, ../../../../app/styles/modules/_buttons.scss */
+/* line 57, ../../../../app/styles/modules/_buttons.scss */
 .md-button[flag="3"] {
   color: #FCDED6;
 }
 
-/* line 61, ../../../../app/styles/modules/_buttons.scss */
+/* line 62, ../../../../app/styles/modules/_buttons.scss */
 .md-fab-tiny {
   min-width: 3rem !important;
   max-width: 3rem !important;
@@ -9626,7 +9627,7 @@ md-sidenav .md-button * {
   line-height: 1rem !important;
 }
 
-/* line 69, ../../../../app/styles/modules/_buttons.scss */
+/* line 70, ../../../../app/styles/modules/_buttons.scss */
 .md-icon-button {
   min-width: 2.3rem !important;
   max-width: 2.3rem !important;
@@ -9635,17 +9636,17 @@ md-sidenav .md-button * {
   font-size: 1rem;
 }
 
-/* line 78, ../../../../app/styles/modules/_buttons.scss */
+/* line 79, ../../../../app/styles/modules/_buttons.scss */
 a.md-icon-button {
   padding-top: 10px;
 }
 
-/* line 82, ../../../../app/styles/modules/_buttons.scss */
+/* line 83, ../../../../app/styles/modules/_buttons.scss */
 .md-button-padding {
   padding: 6px;
 }
 
-/* line 86, ../../../../app/styles/modules/_buttons.scss */
+/* line 87, ../../../../app/styles/modules/_buttons.scss */
 .qv-offset-1 {
   position: relative;
   top: 1px;

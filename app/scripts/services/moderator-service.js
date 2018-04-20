@@ -21,11 +21,11 @@ angular.module('quiverCmsApp')
                         };
 
                     if (entry.keys && entry.keys.log) {
-                        (new Firebase(firebaseEndpoint + '/logs/' + type + '/' + entry.keys.log + '/flag')).transaction(incrementer, errorHandler);
+                        (firebase.database().ref(firebaseEndpoint + '/logs/' + type + '/' + entry.keys.log + '/flag')).transaction(incrementer, errorHandler);
                     }
 
                     if (entry.keys && entry.keys.moderator) {
-                        (new Firebase(firebaseEndpoint + '/moderator/' + type + '/' + entry.assignmentKey + '/' + entry.keys.moderator + '/flag')).transaction(incrementer, errorHandler);
+                        (firebase.database().ref(firebaseEndpoint + '/moderator/' + type + '/' + entry.assignmentKey + '/' + entry.keys.moderator + '/flag')).transaction(incrementer, errorHandler);
                     }
 
                 };
@@ -33,11 +33,11 @@ angular.module('quiverCmsApp')
 
         return {
             getMessages: function(key, query) {
-                return FirebaseService.paginatingArray(new Firebase(firebaseEndpoint + '/moderator/messages/' + key), query);
+                return FirebaseService.paginatingArray(firebase.database().ref(firebaseEndpoint + '/moderator/messages/' + key), query);
             },
 
             getUploads: function(key, query) {
-                return FirebaseService.paginatingArray(new Firebase(firebaseEndpoint + '/moderator/uploads/' + key), query);
+                return FirebaseService.paginatingArray(firebase.database().ref(firebaseEndpoint + '/moderator/uploads/' + key), query);
             },
 
             incrementMessageFlag: getIncrementer('messages'),

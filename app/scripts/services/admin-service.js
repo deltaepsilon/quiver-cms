@@ -31,7 +31,7 @@ angular.module('quiverCmsApp')
             },
 
             getWords: function(query) {
-                return FirebaseService.paginatingArray(new Firebase(firebaseEndpoint + '/content/words'), query);
+                return FirebaseService.paginatingArray(firebase.database().ref(firebaseEndpoint + '/content/words'), query);
             },
 
             getWord: function(key) {
@@ -72,47 +72,47 @@ angular.module('quiverCmsApp')
                         }
                     });
 
-                return new Word(new Firebase(firebaseEndpoint + '/content/words/' + key));
+                return new Word(firebase.database().ref(firebaseEndpoint + '/content/words/' + key));
             },
 
             getWordHashtags: function(key) {
-                return $firebaseArray(new Firebase(firebaseEndpoint + '/content/words/' + key + '/hashtags'));
+                return $firebaseArray(firebase.database().ref(firebaseEndpoint + '/content/words/' + key + '/hashtags'));
             },
 
             getDrafts: function(key) {
-                return $firebaseArray(new Firebase(firebaseEndpoint + '/content/words/' + key + '/drafts'));
+                return $firebaseArray(firebase.database().ref(firebaseEndpoint + '/content/words/' + key + '/drafts'));
             },
 
             getFiles: function() {
-                return $firebaseObject(new Firebase(firebaseEndpoint + '/content/files'));
+                return $firebaseObject(firebase.database().ref(firebaseEndpoint + '/content/files'));
             },
 
             getFile: function(key) {
-                return $firebaseObject(new Firebase(firebaseEndpoint + '/content/files/Originals/' + key));
+                return $firebaseObject(firebase.database().ref(firebaseEndpoint + '/content/files/Originals/' + key));
             },
 
             getOriginals: function(query) {
-                return FirebaseService.paginatingArray(new Firebase(firebaseEndpoint + '/content/files/Originals'), query);
+                return FirebaseService.paginatingArray(firebase.database().ref(firebaseEndpoint + '/content/files/Originals'), query);
             },
 
             getBucket: function() {
-                return $firebaseObject(new Firebase(firebaseEndpoint + '/content/files/Name')).$loaded();
+                return $firebaseObject(firebase.database().ref(firebaseEndpoint + '/content/files/Name')).$loaded();
             },
 
             getNotifications: function(userId) {
-                return $firebaseArray(new Firebase(firebaseEndpoint + '/users/' + userId + '/notifications'));
+                return $firebaseArray(firebase.database().ref(firebaseEndpoint + '/users/' + userId + '/notifications'));
             },
 
             getHashtags: function() {
-                return $firebaseArray(new Firebase(firebaseEndpoint + '/content/hashtags'));
+                return $firebaseArray(firebase.database().ref(firebaseEndpoint + '/content/hashtags'));
             },
 
             getSocial: function() {
-                return $firebaseObject(new Firebase(firebaseEndpoint + '/content/social'));
+                return $firebaseObject(firebase.database().ref(firebaseEndpoint + '/content/social'));
             },
 
             getInstagramTerms: function() {
-                return $firebaseArray(new Firebase(firebaseEndpoint + '/content/social/instagram/terms'));
+                return $firebaseArray(firebase.database().ref(firebaseEndpoint + '/content/social/instagram/terms'));
             },
 
             updateInstagram: function() {
@@ -120,23 +120,23 @@ angular.module('quiverCmsApp')
             },
 
             getInstagramResults: function(term) {
-                return $firebaseArray(new Firebase(firebaseEndpoint + '/content/social/instagram/results/' + term + '/data'));
+                return $firebaseArray(firebase.database().ref(firebaseEndpoint + '/content/social/instagram/results/' + term + '/data'));
             },
 
             getTheme: function() {
-                return $firebaseObject(new Firebase(firebaseEndpoint + '/theme'));
+                return $firebaseObject(firebase.database().ref(firebaseEndpoint + '/theme'));
             },
 
             getSettings: function() {
-                return $firebaseObject(new Firebase(firebaseEndpoint + '/settings'));
+                return $firebaseObject(firebase.database().ref(firebaseEndpoint + '/settings'));
             },
 
             getReload: function () {
-                return $firebaseObject(new Firebase(firebaseEndpoint + '/settings/reload'));  
+                return $firebaseObject(firebase.database().ref(firebaseEndpoint + '/settings/reload'));  
             },
 
             getAdminSettings: function() {
-                return $firebaseObject(new Firebase(firebaseEndpoint + '/admin/settings'));
+                return $firebaseObject(firebase.database().ref(firebaseEndpoint + '/admin/settings'));
             },
 
             clearCache: function() {
@@ -148,35 +148,35 @@ angular.module('quiverCmsApp')
             },
 
             getProducts: function(query) {
-                return FirebaseService.paginatingArray(new Firebase(firebaseEndpoint + '/content/products'), query);
+                return FirebaseService.paginatingArray(firebase.database().ref(firebaseEndpoint + '/content/products'), query);
             },
 
             getAllProducts: function() {
-                return $firebaseArray(new Firebase(firebaseEndpoint + '/content/products'));
+                return $firebaseArray(firebase.database().ref(firebaseEndpoint + '/content/products'));
             },
 
             getProduct: function(key) {
-                return $firebaseObject(new Firebase(firebaseEndpoint + '/content/products/' + key));
+                return $firebaseObject(firebase.database().ref(firebaseEndpoint + '/content/products/' + key));
             },
 
             getProductHashtags: function(key) {
-                return $firebaseArray(new Firebase(firebaseEndpoint + '/content/products/' + key + '/hashtags'));
+                return $firebaseArray(firebase.database().ref(firebaseEndpoint + '/content/products/' + key + '/hashtags'));
             },
 
             getProductImages: function(key) {
-                return $firebaseArray(new Firebase(firebaseEndpoint + '/content/products/' + key + '/images'));
+                return $firebaseArray(firebase.database().ref(firebaseEndpoint + '/content/products/' + key + '/images'));
             },
 
             getProductOptionGroups: function(key) {
-                return $firebaseArray(new Firebase(firebaseEndpoint + '/content/products/' + key + '/optionGroups'));
+                return $firebaseArray(firebase.database().ref(firebaseEndpoint + '/content/products/' + key + '/optionGroups'));
             },
 
             getProductOptionsMatrix: function(key) {
-                return $firebaseObject(new Firebase(firebaseEndpoint + '/content/products/' + key + '/optionsMatrix'));
+                return $firebaseObject(firebase.database().ref(firebaseEndpoint + '/content/products/' + key + '/optionsMatrix'));
             },
 
             getDiscounts: function(query) {
-                return FirebaseService.paginatingArray(new Firebase(firebaseEndpoint + '/discounts'), query);
+                return FirebaseService.paginatingArray(firebase.database().ref(firebaseEndpoint + '/discounts'), query);
             },
 
             getServerDiscounts: function() {
@@ -184,35 +184,35 @@ angular.module('quiverCmsApp')
             },
 
             getCommerce: function() {
-                return $firebaseObject(new Firebase(firebaseEndpoint + '/commerce'));
+                return $firebaseObject(firebase.database().ref(firebaseEndpoint + '/commerce'));
             },
 
             getCountries: function() {
-                return $firebaseObject(new Firebase(firebaseEndpoint + '/commerce/countries'));
+                return $firebaseObject(firebase.database().ref(firebaseEndpoint + '/commerce/countries'));
             },
 
             getStates: function() {
-                return $firebaseObject(new Firebase(firebaseEndpoint + '/commerce/states'));
+                return $firebaseObject(firebase.database().ref(firebaseEndpoint + '/commerce/states'));
             },
 
             getShipping: function() {
-                return $firebaseObject(new Firebase(firebaseEndpoint + '/commerce/shipping'));
+                return $firebaseObject(firebase.database().ref(firebaseEndpoint + '/commerce/shipping'));
             },
 
             getUsers: function(query) {
-                return FirebaseService.paginatingArray(new Firebase(firebaseEndpoint + '/users'), query);
+                return FirebaseService.paginatingArray(firebase.database().ref(firebaseEndpoint + '/users'), query);
             },
 
             getUser: function(key) {
-                return $firebaseObject(new Firebase(firebaseEndpoint + '/users/' + key));
+                return $firebaseObject(firebase.database().ref(firebaseEndpoint + '/users/' + key));
             },
 
             getTransactions: function(query) {
-                return FirebaseService.paginatingArray(new Firebase(firebaseEndpoint + '/logs/transactions'), query);
+                return FirebaseService.paginatingArray(firebase.database().ref(firebaseEndpoint + '/logs/transactions'), query);
             },
 
             getTransaction: function(key) {
-                return $firebaseObject(new Firebase(firebaseEndpoint + '/logs/transactions/' + key));
+                return $firebaseObject(firebase.database().ref(firebaseEndpoint + '/logs/transactions/' + key));
             },
 
             sendTransactionEmail: function(key, transaction) {
@@ -224,49 +224,49 @@ angular.module('quiverCmsApp')
             },
 
             setUserEmail: function(uid, email) {
-                var emailObj = $firebaseObject(new Firebase(firebaseEndpoint + '/users/' + uid + '/public/email'));
+                var emailObj = $firebaseObject(firebase.database().ref(firebaseEndpoint + '/users/' + uid + '/public/email'));
                 emailObj = email;
                 return emailObj.$save();
             },
 
             getAssignments: function(query) {
-                return FirebaseService.paginatingArray(new Firebase(firebaseEndpoint + '/content/assignments'), query);
+                return FirebaseService.paginatingArray(firebase.database().ref(firebaseEndpoint + '/content/assignments'), query);
             },
 
             getAllAssignments: function() {
-                return $firebaseArray(new Firebase(firebaseEndpoint + '/content/assignments'));
+                return $firebaseArray(firebase.database().ref(firebaseEndpoint + '/content/assignments'));
             },
 
             getAssignment: function(key) {
-                return $firebaseObject(new Firebase(firebaseEndpoint + '/content/assignments/' + key));
+                return $firebaseObject(firebase.database().ref(firebaseEndpoint + '/content/assignments/' + key));
             },
 
             getSubscriptions: function(query) {
-                return FirebaseService.paginatingArray(new Firebase(firebaseEndpoint + '/logs/subscriptions'), query);
+                return FirebaseService.paginatingArray(firebase.database().ref(firebaseEndpoint + '/logs/subscriptions'), query);
             },
 
             getSubscription: function(key) {
-                return $firebaseObject(new Firebase(firebaseEndpoint + '/logs/subscriptions/' + key));
+                return $firebaseObject(firebase.database().ref(firebaseEndpoint + '/logs/subscriptions/' + key));
             },
 
             getShipments: function(query) {
-                return FirebaseService.paginatingArray(new Firebase(firebaseEndpoint + '/logs/shipments'), query);
+                return FirebaseService.paginatingArray(firebase.database().ref(firebaseEndpoint + '/logs/shipments'), query);
             },
 
             getShipment: function(key) {
-                return $firebaseObject(new Firebase(firebaseEndpoint + '/logs/shipments/' + key));
+                return $firebaseObject(firebase.database().ref(firebaseEndpoint + '/logs/shipments/' + key));
             },
 
             getMessages: function(query) {
-                return FirebaseService.paginatingArray(new Firebase(firebaseEndpoint + '/logs/messages'), query);
+                return FirebaseService.paginatingArray(firebase.database().ref(firebaseEndpoint + '/logs/messages'), query);
             },
 
             getUploads: function(query) {
-                return FirebaseService.paginatingArray(new Firebase(firebaseEndpoint + '/logs/uploads'), query);
+                return FirebaseService.paginatingArray(firebase.database().ref(firebaseEndpoint + '/logs/uploads'), query);
             },
 
             getUpload: function(key) {
-                return $firebaseObject(new Firebase(firebaseEndpoint + '/logs/uploads/' + key));
+                return $firebaseObject(firebase.database().ref(firebaseEndpoint + '/logs/uploads/' + key));
             },
 
             queueFeedbackEmail: function(userId, assignmentKey) {
@@ -274,7 +274,7 @@ angular.module('quiverCmsApp')
             },
 
             getEmailQueue: function(query) {
-                return FirebaseService.paginatingArray(new Firebase(firebaseEndpoint + '/queues/email'), query);
+                return FirebaseService.paginatingArray(firebase.database().ref(firebaseEndpoint + '/queues/email'), query);
             },
 
             sendQueuedEmail: function(email) {
@@ -286,31 +286,31 @@ angular.module('quiverCmsApp')
             },
 
             getResources: function(query) {
-                return FirebaseService.paginatingArray(new Firebase(firebaseEndpoint + '/resources'), query);
+                return FirebaseService.paginatingArray(firebase.database().ref(firebaseEndpoint + '/resources'), query);
             },
 
             getResource: function(key) {
-                return $firebaseObject(new Firebase(firebaseEndpoint + '/resources/' + key));
+                return $firebaseObject(firebase.database().ref(firebaseEndpoint + '/resources/' + key));
             },
 
             getSurveys: function(query) {
-                return FirebaseService.paginatingArray(new Firebase(firebaseEndpoint + '/settings/surveys'), query);
+                return FirebaseService.paginatingArray(firebase.database().ref(firebaseEndpoint + '/settings/surveys'), query);
             },
 
             getSurvey: function(key) {
-                return $firebaseObject(new Firebase(firebaseEndpoint + '/settings/surveys/' + key));
+                return $firebaseObject(firebase.database().ref(firebaseEndpoint + '/settings/surveys/' + key));
             },
 
             getSurveyAnswers: function(key, query) {
-                return $firebaseArray(FirebaseService.query(new Firebase(firebaseEndpoint + '/settings/surveys/' + key + '/answers'), query));
+                return $firebaseArray(FirebaseService.query(firebase.database().ref(firebaseEndpoint + '/settings/surveys/' + key + '/answers'), query));
             },
 
             getMessageable: function(query) {
-                return $firebaseArray(FirebaseService.query(new Firebase(firebaseEndpoint + '/messageable'), query));
+                return $firebaseArray(FirebaseService.query(firebase.database().ref(firebaseEndpoint + '/messageable'), query));
             },
 
             incrementMessageFlag: function(key) {
-                return $firebaseObject(new Firebase(firebaseEndpoint + '/logs/messages/' + key)).$loaded().then(function(message) {
+                return $firebaseObject(firebase.database().ref(firebaseEndpoint + '/logs/messages/' + key)).$loaded().then(function(message) {
                     message.flag = (message.flag || 0) + 1
                     if (message.flag > 3) {
                         message.flag = 0;
@@ -320,7 +320,7 @@ angular.module('quiverCmsApp')
             },
 
             incrementUploadFlag: function(key) {
-                return $firebaseObject(new Firebase(firebaseEndpoint + '/logs/uploads/' + key)).$loaded().then(function(upload) {
+                return $firebaseObject(firebase.database().ref(firebaseEndpoint + '/logs/uploads/' + key)).$loaded().then(function(upload) {
                     upload.flag = (upload.flag || 0) + 1
                     if (upload.flag > 3) {
                         upload.flag = 0;
@@ -334,7 +334,7 @@ angular.module('quiverCmsApp')
             },
 
             getReports: function() {
-                return $firebaseObject(new Firebase(firebaseEndpoint + '/admin/reports'));
+                return $firebaseObject(firebase.database().ref(firebaseEndpoint + '/admin/reports'));
             },
 
             runBackup: function() {
@@ -346,15 +346,15 @@ angular.module('quiverCmsApp')
             },
 
             getBackups: function() {
-                return $firebaseArray(new Firebase(firebaseEndpoint + '/admin/backups/Contents'));
+                return $firebaseArray(firebase.database().ref(firebaseEndpoint + '/admin/backups/Contents'));
             },
 
             getLandingPage: function(key) {
-                return $firebaseObject(new Firebase(firebaseEndpoint + '/admin/landingPages/' + key));
+                return $firebaseObject(firebase.database().ref(firebaseEndpoint + '/admin/landingPages/' + key));
             },
 
             getLandingPages: function(query) {
-                return FirebaseService.paginatingArray(new Firebase(firebaseEndpoint + '/admin/landingPages'), query);
+                return FirebaseService.paginatingArray(firebase.database().ref(firebaseEndpoint + '/admin/landingPages'), query);
             },
 
             saveLandingPage: function(slug) {
