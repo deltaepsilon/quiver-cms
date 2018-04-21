@@ -253,12 +253,12 @@ angular.module('quiverCmsApp')
             },
 
             paginatingArray: function(ref) {
-                var paginatingArray = new PaginatingArray(ref.orderByKey().limitToFirst(10));
+                var paginatingArray = new PaginatingArray(ref.orderByKey().limitToLast(10));
 
                 paginatingArray.$default({
                     limit: 10,
                     orderBy: 'key',
-                    limitTo: 'first',
+                    limitTo: 'last',
                     at: {
                         type: false,
                         value: false
