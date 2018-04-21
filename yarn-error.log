@@ -1,14 +1,14 @@
 Arguments: 
-  /usr/bin/nodejs /usr/share/yarn/bin/yarn.js
+  /home/chris/.nvs/node/5.3.0/x64/bin/node /usr/share/yarn/bin/yarn.js local:run
 
 PATH: 
-  /home/chris/.yarn/bin:/home/chris/bin:/home/chris/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/mnt/c/Program\ Files/Docker/Docker/resources/bin:/home/chris/go/bin
+  /home/chris/.nvs/node/5.3.0/x64/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/home/chris/.yarn/bin
 
 Yarn version: 
   1.3.2
 
 Node version: 
-  4.2.6
+  5.3.0
 
 Platform: 
   linux x64
@@ -24,7 +24,7 @@ npm manifest:
     },
     "license": "MIT",
     "dependencies": {
-      "aftership": "^5.2.0",
+      "aftership": "^5.3.4",
       "aws-sdk": "~2.2.6",
       "braintree": "^1.20.0",
       "browser_fingerprint": "0.0.6",
@@ -100,7 +100,10 @@ npm manifest:
       "node": ">=0.10.0"
     },
     "scripts": {
-      "test": "grunt test"
+      "start": "redis-server & nodemon content-server.js & nodemon cms-server.js",
+      "test": "grunt test",
+      "deploy": "grunt deploy",
+      "local:"
     }
   }
 
@@ -6166,6 +6169,14 @@ Lockfile:
     resolved "https://npm.chrisesplin.com/yeast/-/yeast-0.1.2.tgz#008e06d8094320c372dbc2f8ed76a0ca6c8ac419"
 
 Trace: 
-  Error: https://npm.chrisesplin.com/aftership/-/aftership-5.3.4.tgz: ETIMEDOUT
-      at null._onTimeout (/usr/share/yarn/lib/cli.js:123749:19)
-      at Timer.listOnTimeout (timers.js:92:15)
+  SyntaxError: /home/chris/dev/quiver-cms/package.json: Unexpected token }
+      at Object.parse (native)
+      at /usr/share/yarn/lib/cli.js:770:59
+      at next (native)
+      at step (/usr/share/yarn/lib/cli.js:92:30)
+      at /usr/share/yarn/lib/cli.js:103:13
+      at run (/usr/share/yarn/lib/cli.js:92989:22)
+      at /usr/share/yarn/lib/cli.js:93002:28
+      at flush (/usr/share/yarn/lib/cli.js:92460:9)
+      at nextTickCallbackWith0Args (node.js:433:9)
+      at process._tickCallback (node.js:362:13)

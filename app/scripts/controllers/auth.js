@@ -113,11 +113,12 @@ angular
     };
 
     $scope.google = function() {
+      var provider = new firebase.auth.GoogleAuthProvider();
+      provider.addScope('email');
       $scope.loaded = false;
+
       qvAuth.auth
-        .$signInWithPopup('google', {
-          scope: 'email',
-        })
+        .$signInWithPopup(provider)
         .catch(function() {
           NotificationService.error('Google login failed');
           $scope.loaded = true;
@@ -125,11 +126,11 @@ angular
     };
 
     $scope.facebook = function() {
+      var provider = new firebase.auth.FacebookAuthProvider();
+      provider.addScope('email');
       $scope.loaded = false;
       qvAuth.auth
-        .$signInWithPopup('facebook', {
-          scope: 'email',
-        })
+        .$signInWithPopup(provider)
         .catch(function() {
           NotificationService.error('Facebook login failed');
           $scope.loaded = true;

@@ -22,7 +22,7 @@
     "feed": "~0.2.6",
     "firebase": "^2.4.0",
     "firebase-admin": "^4.0.6",
-    "formidable": "^1.2.1",
+    "formidable": "~1.2.0",
     "fs-extra": "~0.24.0",
     "handlebars": "~4.0.3",
     "hiredis": "~0.4.1",
@@ -73,6 +73,7 @@
     "grunt-shell": "~1.1.1",
     "grunt-svgmin": "~2.0.1",
     "grunt-usemin": "~3.1.1",
+    "grunt-wiredep": "^3.0.1",
     "jshint-stylish": "~2.0.1",
     "karma": "^0.13.10",
     "karma-chrome-launcher": "^0.2.0",
@@ -85,12 +86,12 @@
   },
   "scripts": {
     "start": "redis-server & nodemon content-server.js & nodemon cms-server.js",
-    "local": "npm run local:build && npm run local:run && npm run local:attach",
-    "local:restart": "npm run local:run && npm run local:attach",
-    "local:build": "docker build . -t quiver",
-    "local:run": "sh bin/local-run.sh",
-    "local:attach": "docker exec -it quiver sh",
     "test": "grunt test",
-    "deploy": "grunt deploy"
+    "deploy": "grunt deploy",
+    "local": "npm run local:build && npm run local:restart",
+    "local:build": "docker build . -t quiver",
+    "local:restart": "npm run local:run && npm run local:attach",
+    "local:run": "sh bin/local-run.sh",
+    "local:attach": "docker exec -it quiver sh"
   }
 }

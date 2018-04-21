@@ -3,3 +3,9 @@ node_modules
 dump.rdb
 yarn.lock
 *.log
+.tmp
+.sass-cache
+.git
+test
+uploads
+

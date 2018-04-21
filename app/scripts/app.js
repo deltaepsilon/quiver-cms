@@ -82,6 +82,16 @@ angular
             if (~AdminService.loggedOutStates.indexOf($state.toState.name)) {
               AdminService.redirect();
             }
+          })
+          .catch(function(error) {
+            NotificationService.error(
+              'Login Error',
+              'There was a problem with your login. The page will refresh in 3 seconds.'
+            );
+            qvAuth.logOut();
+            setTimeout(function() {
+              location.reload();
+            }, 3000);
           });
       }
     });
