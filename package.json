@@ -87,6 +87,9 @@
   "scripts": {
     "start": "redis-server & nodemon content-server.js & nodemon cms-server.js",
     "test": "grunt test",
+    "yolo": "npm run build && npm run docker && npm run deploy && ssh calligraphy",
+    "build": "grunt build",
+    "docker": "grunt shell:docker",
     "deploy": "grunt deploy",
     "local": "npm run local:build && npm run local:restart",
     "local:build": "docker build . -t quiver",
