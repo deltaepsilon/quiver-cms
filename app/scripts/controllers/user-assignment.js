@@ -56,9 +56,9 @@ angular.module('quiverCmsApp')
                 })
                 .then(function(ref) {
                     $scope.$broadcast('scrollToBottom');
-                    message.key = ref.key();
+                    message.key = ref.key;
 
-                    return UserService.logMessage(user.public.id, assignment.$ref().key(), 'comment', message);
+                    return UserService.logMessage(user.public.id, assignment.$ref().key, 'comment', message);
                 });
         };
 
@@ -101,7 +101,7 @@ angular.module('quiverCmsApp')
         /*
          * Files
          */
-        $scope.uploadTarget = env.api + '/user/' + user.public.id + '/assignment/' + assignment.$ref().key() + '/upload';
+        $scope.uploadTarget = env.api + '/user/' + user.public.id + '/assignment/' + assignment.$ref().key + '/upload';
 
         $scope.deleteFlowFile = function(flow, file) {
             var i = flow.files.length;

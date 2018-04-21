@@ -32,7 +32,7 @@ angular.module('quiverCmsApp')
             }
 
             items.$add(resource).then(function(ref) {
-                NotificationService.success('Resource added', ref.key());
+                NotificationService.success('Resource added', ref.key);
             }, function(error) {
                 NotificationService.error('Resource add failed', error);
             });

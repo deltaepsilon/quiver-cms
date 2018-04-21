@@ -19,10 +19,12 @@ angular.module('quiverCmsApp')
                 //     return $firebaseArray.prototype.$add.call(this, item);
                 // },
                 $get: function() {
-                    if (this.$list.$ref() instanceof Firebase) {
+                    if (this.$list.$ref().key) {
                         this.$path = this.$list.$ref().toString();
                     } else if (this.$list.$ref().repo) {
                         this.$path = this.$list.$ref().repo.toString() + this.$list.$ref().path.toString();
+                    } else if (this.$list.$ref().path) {
+                        this.$path = this.$list.$ref().path.toString();
                     } else if (this.$list.$ref().ref) {
                         this.$path = this.$list.$ref().ref().toString();
                     }

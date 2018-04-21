@@ -41,11 +41,11 @@ angular.module('quiverCmsApp')
                 };
 
             $scope.messages.$add(message).then(function(ref) {
-                message.key = ref.key();
+                message.key = ref.key;
                 message.isAdmin = true;
-                message.recipientId = client.$ref().key();
+                message.recipientId = client.$ref().key;
 
-                UserService.logMessage(user.public.id, assignment.$ref().key(), 'comment', message);
+                UserService.logMessage(user.public.id, assignment.$ref().key, 'comment', message);
             });
         };
 

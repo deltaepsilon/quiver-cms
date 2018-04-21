@@ -51,7 +51,7 @@ angular.module('quiverCmsApp')
             $scope.items.$add(survey).then(function(surveyRef) {
                 delete $scope.newSurvey;
                 delete $scope.newAnswer;
-                return AdminService.getSurveyAnswers(surveyRef.key());
+                return AdminService.getSurveyAnswers(surveyRef.key);
 
             }).then(function(answersArray) {
                 var promises = [];
