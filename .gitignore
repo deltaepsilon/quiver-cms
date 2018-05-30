@@ -30,3 +30,4 @@ themes/quiver/views/*.alt.handlebars
 !config/default.json
 
 *.log
+*.rdb
